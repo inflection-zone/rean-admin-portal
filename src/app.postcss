@@ -1,3 +1,260 @@
+/* Write your global styles here, in PostCSS syntax */
+
 @tailwind base;
 @tailwind components;
+
+:root {
+	font-family: Arial, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu,
+		Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+	--font-mono: 'Fira Mono', monospace;
+	--pure-white: #ffffff;
+	--primary-color: #b9c6d2;
+	--secondary-color: #d0dde9;
+	--tertiary-color: #edf0f8;
+	--accent-color: #ff3e00;
+	--heading-color: rgba(0, 0, 0, 0.7);
+	--text-color: #444444;
+	--background-without-opacity: rgba(255, 255, 255, 0.7);
+	--column-width: 42rem;
+	--column-margin-top: 4rem;
+}
+
+body {
+	min-height: 100vh;
+	margin: 0;
+	/* background-color: var(--primary-color);
+	background: linear-gradient(
+		180deg,
+		var(--primary-color) 0%,
+		var(--secondary-color) 10.45%,
+		var(--tertiary-color) 41.35%
+	); */
+}
+
+body::before {
+	content: '';
+	width: 80vw;
+	height: 100vh;
+	position: absolute;
+	top: 0;
+	left: 10vw;
+	z-index: -1;
+	background: radial-gradient(
+		50% 50% at 50% 50%,
+		var(--pure-white) 0%,
+		rgba(255, 255, 255, 0) 100%
+	);
+	opacity: 0.05;
+}
+
+#svelte {
+	min-height: 100vh;
+	display: flex;
+	flex-direction: column;
+}
+
+h1,
+h2,
+p {
+	font-weight: 400;
+	color: var(--heading-color);
+}
+
+p {
+	line-height: 1.5;
+}
+
+a {
+	color: var(--accent-color);
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+h1 {
+	font-size: 2rem;
+	text-align: center;
+}
+
+h2 {
+	font-size: 1rem;
+}
+
+pre {
+	font-size: 16px;
+	font-family: var(--font-mono);
+	background-color: rgba(255, 255, 255, 0.45);
+	border-radius: 3px;
+	box-shadow: 2px 2px 6px rgb(255 255 255 / 25%);
+	padding: 0.5em;
+	overflow-x: auto;
+	color: var(--text-color);
+}
+
+input,
+button {
+	font-size: inherit;
+	font-family: inherit;
+}
+
+.bx--text-input {
+	border-bottom: 0px solid #ece4fc !important;
+	background-color: #ece4fc !important;
+}
+
+.bx--copy-btn {
+	background-color: #ece4fc !important;
+}
+
+.bx--btn.bx--text-input--password__visibility__toggle.bx--tooltip__trigger:focus {
+	outline: 0px solid #0f62fe !important;
+	outline-offset: 1px !important;
+	hover: none !important;
+}
+
+button:focus:not(:focus-visible) {
+	outline: none;
+}
+
+@media (min-width: 720px) {
+	h1 {
+		font-size: 2.4rem;
+	}
+}
+
+@layer base {
+	label {
+		@apply text-[#5832A1];
+	}
+	span {
+		@apply text-[#5832A1];
+	}
+
+	.textarea {
+		@apply text-[#5832A1];
+	}
+
+	.table th {
+		@apply text-white;
+		@apply bg-[#7165E3];
+	}
+	.table td {
+		@apply text-[#5832A1];
+		@apply bg-[#ECE4FC];
+	}
+
+	.breadcrumbs ul > li > a {
+		@apply text-[#5832A1];
+	}
+	.breadcrumbs ul > li {
+		@apply text-[#5832A1];
+	}
+}
+
 @tailwind utilities;
+
+.table td {
+	@apply p-2.5 first:pl-10 text-sm;
+}
+
+.select {
+	@apply text-[#5832A1];
+}
+.select:focus {
+	@apply border-opacity-70;
+}
+
+.btn-outline {
+	@apply text-[#5832A1] active:bg-[#5832A1] hover:bg-[#5832A1];
+}
+.input {
+	@apply text-[#5832A1] text-sm;
+}
+.input:focus {
+	@apply border-opacity-70;
+}
+
+.input-bordered {
+	@apply border-[#5832A1] border-opacity-20 hover:border-opacity-40;
+}
+
+.input-info:focus {
+	@apply outline-none;
+}
+
+.textarea-info {
+	@apply text-[#5832A1] border-[#5832A1] border-opacity-20 hover:border-opacity-40;
+}
+
+.textarea-info:focus {
+	@apply outline-none border-opacity-60;
+}
+
+.input:focus {
+	@apply outline-none border-opacity-60;
+}
+
+.select-info {
+	@apply text-[#5832A1] border-[#5832A1] border-opacity-20 hover:border-opacity-40;
+}
+.select-info:focus {
+	@apply outline-none border-opacity-60;
+}
+
+input::placeholder {
+	@apply text-[#5832A1] text-opacity-50 text-sm;
+}
+
+.textarea::placeholder {
+	@apply text-[#5832A1] text-opacity-50;
+}
+.lable-text {
+	@apply text-[#5832A1] leading-none;
+}
+.table {
+	@apply bg-[#ECE4FC];
+}
+/* .table th {
+	@apply text-center;
+   
+  } */
+/* 
+  .select-disabled,
+  .select {
+	@apply disabled:text-opacity-50  ;
+} */
+
+select::placeholder {
+	@apply text-[#5832A1] disabled:text-opacity-50;
+}
+.input-group > .select {
+	@apply bg-[#5832A1];
+}
+
+input .apikey {
+	@apply hover:border-none;
+}
+
+.true {
+	@apply pt-2;
+}
+
+input[type='file']::file-selector-button {
+	border: 2px solid #5832a1;
+	padding: 0.2em 0.4em;
+	border-radius: 0.2em;
+	background-color: #5832a1;
+	color: #ffffff;
+}
+input[type='file'] {
+	color: #5832a1;
+	font-size: 12px;
+}
+
+input[type='file']::file-selector-button:hover {
+	background-color: #5832a1;
+	border: 2px solid #5832a1;
+	color: #ffffff;
+}
