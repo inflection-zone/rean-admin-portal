@@ -1,37 +1,17 @@
 <script lang="ts">
 	import Fa from 'svelte-fa';
 	import { faMultiply } from '@fortawesome/free-solid-svg-icons';
-
-	let id = '56789';
-	let title = 'Able to do more activities';
-	let description = 'xxxxxx';
-	let link = 'xxxxx';
-	let postDate = '01/01/2020';
-	let daysActive = 12;
-	let tags = 'xxxxx';
-	let action = 'xxx';
-	let image = '987654';
-
-	function handleReset() {
-		title = _title;
-		description = _description;
-		link = _link;
-		postDate = _postDate;
-		daysActive = _daysActive;
-		tags = JSON.parse(_tags);
-		action = _action;
-		image = _image;
-	}
+	import Tags from '$lib/component/tags.svelte';
 </script>
 
-<main class=" mb-32">
+<main class="h-screen mb-32">
 	<div
 		class=" breadcrumbs overflow-x-auto lg:text-xl sm:text-lg text-md text-[#7165E3] lg:ml-14 md:ml-10 sm:ml-6 lg:mt-10 sm:mt-4 mt-4 ml-4"
 	>
 		<ul>
 			<li><a href="/" class="text-[#7165E3]">Home</a></li>
 			<li><a href="/" class="text-[#7165E3]">Linkages</a></li>
-			<li><a href="./create" class="text-[#7165E3]">Edit Linkages</a></li>
+			<li><a href="./create" class="text-[#7165E3]">Create Linkages</a></li>
 		</ul>
 	</div>
 
@@ -43,7 +23,7 @@
 		>
 			<div class="w-full  h-14 rounded-t-lg p-3  bg-[#7165E3]">
 				<div class="ml-3 relative flex flex-row text-white text-xl">
-					Edit Linkages
+					Create Linkages
 					<a href="/users/assets">
 						<Fa
 							icon={faMultiply}
@@ -53,7 +33,7 @@
 					</a>
 				</div>
 			</div>
-			<div class="hidden">{id}</div>
+
 			<div class="flex items-center mb-4 mt-10 lg:mx-16 md:mx-12 mx-10">
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
 					<!-- svelte-ignore a11y-label-has-associated-control -->
@@ -63,7 +43,6 @@
 					<input
 						type="text"
 						name="title"
-						bind:value={title}
 						placeholder="Enter title here..."
 						class="input input-bordered input-info w-full "
 					/>
@@ -77,7 +56,7 @@
 				<div class="w-1/2 md:w-2/3 lg:w-2/3">
 					<textarea
 						name="description"
-						bind:value={description}
+						required
 						class="textarea textarea-info w-full"
 						placeholder="Enter  description here..."
 					/>
@@ -92,17 +71,10 @@
 					<input
 						type="link"
 						name="link"
-						bind:value={link}
-						placeholder="Enter link here..."
+						placeholder="Enter title here..."
 						class="input input-bordered input-info w-full "
 					/>
 				</div>
-			</div>
-			<div class="flex items-center my-6 lg:mx-16 md:mx-12 mx-10">
-				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
-					<label class="lable-text font-semibold" for="learningJourney">Post Date </label>
-				</div>
-				<div class="w-1/2 md:w-2/3 lg:w-2/3">{postDate}</div>
 			</div>
 
 			<div class="flex items-center my-4 lg:mx-16 md:mx-12 mx-10">
@@ -111,10 +83,9 @@
 				</div>
 				<div class="w-1/2 md:w-2/3 lg:w-2/3">
 					<input
-						type="text"
-						name="daysActive"
-						bind:value={daysActive}
-						placeholder="Enter days active here..."
+						type="link"
+						name="link"
+						placeholder="Enter title here..."
 						class="input input-bordered input-info w-full "
 					/>
 				</div>
@@ -125,13 +96,8 @@
 					<label class="lable-text font-semibold" for="contentType"> Tags </label>
 				</div>
 				<div class="w-1/2 md:w-2/3 lg:w-2/3">
-					<input
-						type="tags"
-						name="tags"
-						bind:value={tags}
-						placeholder="Entertags here..."
-						class="input input-bordered input-info w-full "
-					/>
+					<Tags name="tags" placeholder="Enter tags here..." />
+					<input type="hidden" name="tags" />
 				</div>
 			</div>
 			<div class="flex items-center my-4 lg:mx-16 md:mx-12 mx-10">
@@ -141,8 +107,7 @@
 				<div class="w-1/2 md:w-2/3 lg:w-2/3">
 					<input
 						type="text"
-						name="action"
-						bind:value={action}
+						name="resourceLink"
 						placeholder="Enter action here..."
 						class="input input-bordered input-info w-full "
 					/>
@@ -168,22 +133,11 @@
 				</div>
 			</div>
 
-			<div class="flex items-center my-6 lg:mx-16 md:mx-12 mx-4 ">
-				<div class="lg:w-1/2 md:w-1/2 sm:w-1/2  w-1/3" />
-				<div class="lg:w-1/4 md:w-1/4 sm:w-1/4  w-1/3 ">
-					<button
-						type="button"
-						on:click={handleReset}
-						class="btn btn-outline lg:w-40 lg:ml-8 md:ml-6 sm:ml-1 mb-10 "
-					>
-						Reset</button
-					>
-				</div>
-				<div class="lg:w-1/4 md:w-1/4 sm:w-1/4 w-1/3">
-					<button
-						type="submit"
-						class="btn bg-[#5832A1] hover:bg-[#5832A1] lg:w-40 lg:ml-8 md:ml-6 sm:ml-2 mb-10 "
-						>Submit
+			<div class="flex items-center mt-7 lg:mx-16 md:mx-12 mr-10">
+				<div class="w-3/4" />
+				<div class="w-1/4 ">
+					<button type="submit" class="btn bg-[#5832A1] hover:bg-[#5832A1] w-full mb-10 ">
+						Submit
 					</button>
 				</div>
 			</div>

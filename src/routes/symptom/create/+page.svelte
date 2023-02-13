@@ -1,7 +1,7 @@
 <script lang="ts">
-	// import Fa from 'svelte-fa';
-	// import { faMultiply } from '@fortawesome/free-solid-svg-icons';
-	import Tags from '../../../../lib/component/tags.svelte';
+	import Fa from 'svelte-fa';
+	import { faMultiply } from '@fortawesome/free-solid-svg-icons';
+	import Tags from '$lib/component/tags.svelte';
 </script>
 
 <main class="h-screen mb-10">
@@ -24,11 +24,11 @@
 				<div class="ml-3 relative flex flex-row text-white text-xl">
 					Create Symptom
 					<a href="/users/assets">
-						<!-- <Fa
+						<Fa
 							icon={faMultiply}
 							size="lg"
 							class="absolute right-0 lg:pr-3 md:pr-2 pr-0 text-white"
-						/> -->
+						/>
 					</a>
 				</div>
 			</div>

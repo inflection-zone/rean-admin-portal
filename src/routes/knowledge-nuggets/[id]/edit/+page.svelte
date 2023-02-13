@@ -1,6 +1,7 @@
 <script lang="ts">
 	import Fa from 'svelte-fa';
 	import { faMultiply } from '@fortawesome/free-solid-svg-icons';
+	import Tags from '$lib/component/tags.svelte';
 
 	let id = '56789';
 	let name = 'abdc';
@@ -112,13 +113,9 @@
 					<label class="lable-text font-semibold"> Tags </label>
 				</div>
 				<div class="w-1/2 md:w-2/3 lg:w-2/3">
-					<input
-						type="text"
-						name="name"
-						bind:value={tags}
-						placeholder="Enter tags here..."
-						class="input input-bordered input-info w-full "
-					/>
+					<!-- svelte-ignore missing-declaration -->
+					<Tags name="tags" placeholder="Enter tags here..." />
+					<input type="hidden" name="tags" bind:value={tags} />
 				</div>
 			</div>
 
