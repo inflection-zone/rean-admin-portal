@@ -6,7 +6,7 @@ import { errorMessage, successMessage } from '$lib/utils/message.utils';
 import {
 	getpriorityHealthManagementById,
 	updatepriorityHealthManagement
-} from '../../../../api/services/admin-panel/priority-health-management';
+} from '../../../api/services/priority-health-management';
 
 /////////////////////////////////////////////////////////////////////////
 
@@ -71,7 +71,7 @@ export const actions = {
 		}
 		throw redirect(
 			303,
-			`/admin-panel/priority-health-management/${id}/view`,
+			`/priority-health-management/${id}/view`,
 			successMessage(`priority health management updated successful!`),
 			event
 		);

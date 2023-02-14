@@ -1,12 +1,28 @@
 <script lang="ts">
 	import Fa from 'svelte-fa';
 	import { faMultiply } from '@fortawesome/free-solid-svg-icons';
+	import type { PageServerData } from './$types';
+
+	// export let data: PageServerData;
+	// let initiaData = {};
+	// let id = data.course.id;
+	// let name = data.course.name;
+	// let learningJourney = data.course.learningJourney;
+	// let description = data.course.description;
+	// let image = data.course.image;
+	// let modules = data.course.modules;
 
 	let id = '56789';
 	let name = 'abdv';
 	let learningJourney = 'Careplan';
 	let description = 'xxxxxx';
 	let image = 'assets';
+
+	//Original data
+	let _name = name;
+	let _learningJourney = learningJourney;
+	let _description = description;
+	let _image = image;
 
 	function handleReset() {
 		name = _name;
@@ -30,13 +46,13 @@
 	<div class=" flex justify-center mt-5 px-3 mb-10 flex-col items-center">
 		<form
 			method="post"
-			action="?/updateActionPlan"
+			action="?/updateCourse"
 			class="w-full lg:max-w-4xl md:max-w-xl sm:max-w-lg bg-[#ECE4FC] rounded-lg mx-auto"
 		>
 			<div class="w-full  h-14 rounded-t-lg p-3  bg-[#7165E3]">
 				<div class="ml-3 relative flex flex-row text-white text-xl">
 					Edit Course
-					<a href="/users/assets/action-plan/[id]/view">
+					<a href="/learning-journey/course/[id]/view">
 						<Fa icon={faMultiply} size="lg" class="absolute right-0 pr-3 mb-16 text-white " /></a
 					>
 				</div>

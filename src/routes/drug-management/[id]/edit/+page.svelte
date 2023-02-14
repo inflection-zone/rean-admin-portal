@@ -1,6 +1,17 @@
 <script lang="ts">
 	import Fa from 'svelte-fa';
 	import { faMultiply } from '@fortawesome/free-solid-svg-icons';
+	import type { PageServerData } from './$types';
+
+	// export let data: PageServerData;
+	// let initiaData = {};
+	// let name = data.drugManagement.name;
+	// let genericName = data.drugManagement.genericName;
+	// let ingredients = data.drugManagement.ingredients;
+	// let strength = data.drugManagement.strength;
+	// let commercialName = data.drugManagement.commercialName;
+	// let manufacture = data.drugManagement.manufacture;
+	// let otherInformation = data.drugManagement.otherInformation;
 
 	let id = '56789';
 	let name = 'abc def';
@@ -10,6 +21,15 @@
 	let commercialName = 'abcdef';
 	let manufacture = 'xxxxxxxx';
 	let otherInformation = 'xxxxxxx';
+
+	//Original data
+	let _name = name;
+	let _genericName = genericName;
+	let _ingredients = ingredients;
+	let _strength = strength;
+	let _commercialName = commercialName;
+	let _manufacture = manufacture;
+	let _otherInformation = otherInformation;
 
 	function handleReset() {
 		name = _name;
@@ -37,13 +57,13 @@
 	<div class=" flex justify-center mt-5 px-3 mb-10 flex-col items-center">
 		<form
 			method="post"
-			action="?/updateActionPlan"
+			action="?/updateDrugManagement"
 			class="w-full lg:max-w-4xl md:max-w-xl sm:max-w-lg bg-[#ECE4FC] rounded-lg mx-auto"
 		>
 			<div class="w-full  h-14 rounded-t-lg p-3  bg-[#7165E3]">
 				<div class="ml-3 relative flex flex-row text-white text-xl">
 					Edit Drug Management
-					<a href="/users/assets/action-plan/[id]/view">
+					<a href="/drug-management/[id]/view">
 						<Fa icon={faMultiply} size="lg" class="absolute right-0 pr-3 mb-16 text-white " /></a
 					>
 				</div>

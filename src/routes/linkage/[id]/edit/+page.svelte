@@ -1,7 +1,20 @@
 <script lang="ts">
 	import Fa from 'svelte-fa';
 	import { faMultiply } from '@fortawesome/free-solid-svg-icons';
-	import Tags from '$lib/component/tags.svelte';
+	import Tags from '../../../../lib/components/tags.svelte';
+	import type { PageServerData } from './$types';
+
+	// export let data: PageServerData;
+	// let initiaData = {};
+	// let id = data.linkage.id;
+	// let title = data.linkage.title;
+	// let description = data.linkage.description;
+	// let link = data.linkage.link;
+	// let postDate = data.linkage.postDate;
+	// let daysActive = data.linkage.daysActive;
+	// let tags_ = data.linkage.Tags;
+	// let action = data.linkage.action;
+	// let image = data.linkage.image;
 
 	let id = '56789';
 	let title = 'Able to do more activities';
@@ -9,19 +22,34 @@
 	let link = 'xxxxx';
 	let postDate = '01/01/2020';
 	let daysActive = 12;
-	let tags = 'xxxxx';
+	let tags = 'xx';
 	let action = 'xxx';
 	let image = '987654';
 
+	//Original data
+	let _title = title;
+	let _description = description;
+	let _link = link;
+	let _postDate = postDate;
+	let _daysActive = daysActive;
+	let retrievedTags = '';
+	let tagsPlaceholder = 'Enter a tags here...';
+	let _action = action;
+	let _image = image;
+
+	function handleTags(event) {
+		retrievedTags = event.detail.tags;
+	}
+
 	function handleReset() {
-		// title = _title;
-		// description = _description;
-		// link = _link;
-		// postDate = _postDate;
-		// daysActive = _daysActive;
-		// tags = JSON.parse(_tags);
-		// action = _action;
-		// image = _image;
+		title = _title;
+		description = _description;
+		link = _link;
+		postDate = _postDate;
+		daysActive = _daysActive;
+		tags = JSON.parse(_tags);
+		action = _action;
+		image = _image;
 	}
 </script>
 
@@ -39,7 +67,7 @@
 	<div class="px-5 mb-5 ">
 		<form
 			method="post"
-			action="?/createActionPlan"
+			action="?/updateLinkage"
 			class="w-full  bg-[#ECE4FC] lg:mt-10 md:mt-8 sm:mt-6 mb-10 mt-4 lg:max-w-4xl md:max-w-xl sm:max-w-lg  rounded-lg mx-auto"
 		>
 			<div class="w-full  h-14 rounded-t-lg p-3  bg-[#7165E3]">
@@ -127,8 +155,8 @@
 				</div>
 				<div class="w-1/2 md:w-2/3 lg:w-2/3">
 					<!-- svelte-ignore missing-declaration -->
-					<Tags name="tags" placeholder="Enter tags here..." />
-					<input type="hidden" name="tags" bind:value={tags} />
+					<Tags name="Tags" placeholder={tagsPlaceholder} on:tags={handleTags} bind:tags />
+					<input type="hidden" name="tags" value={JSON.stringify(tags)} />
 				</div>
 			</div>
 			<div class="flex items-center my-4 lg:mx-16 md:mx-12 mx-10">

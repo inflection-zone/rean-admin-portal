@@ -1,12 +1,29 @@
 <script lang="ts">
 	import Fa from 'svelte-fa';
 	import { faMultiply } from '@fortawesome/free-solid-svg-icons';
+	import type { PageServerData } from './$types';
+
+	// export let data: PageServerData;
+	// let initiaData = {};
+	// let id = data.notification.id;
+	// let title = data.notification.title;
+	// let body = data.notification.body;
+	// let type = data.notification.type;
+	// let sentOn = data.notification.sentOn;
+	// let image = data.notification.image;
 
 	let id = '56789';
 	let title = 'Able to do more activities';
 	let body = 'xxxxx';
 	let type = 'Careplan';
 	let sentOn = '01/01/2020';
+
+	//Original data
+	let _title = title;
+	let _body = body;
+	let _type = type;
+	let _sentOn = sentOn;
+	//let _image = image;
 
 	function handleReset() {
 		title = _title;
@@ -31,13 +48,13 @@
 	<div class=" flex justify-center mt-5 px-3 mb-10 flex-col items-center">
 		<form
 			method="post"
-			action="?/updateActionPlan"
+			action="?/updateNotification"
 			class="w-full lg:max-w-4xl md:max-w-xl sm:max-w-lg bg-[#ECE4FC] rounded-lg mx-auto"
 		>
 			<div class="w-full  h-14 rounded-t-lg p-3  bg-[#7165E3]">
 				<div class="ml-3 relative flex flex-row text-white text-xl">
 					Edit Notification
-					<a href="/users/assets/action-plan/[id]/view">
+					<a href="/notification/[id]/view">
 						<Fa icon={faMultiply} size="lg" class="absolute right-0 pr-3 mb-16 text-white " /></a
 					>
 				</div>

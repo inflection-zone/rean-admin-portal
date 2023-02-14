@@ -1,6 +1,20 @@
 <script lang="ts">
 	import Fa from 'svelte-fa';
 	import { faMultiply } from '@fortawesome/free-solid-svg-icons';
+	import type { PageServerData } from './$types';
+
+	// export let data: PageServerData;
+	// let initiaData = {};
+	// let id = data.goalCategoriesManagement.id;
+	// let patientUserId = data.goalCategoriesManagement.patientUserId;
+	// let enrollmentId = data.goalCategoriesManagement.enrollmentId;
+	// let provider = data.goalCategoriesManagement.provider;
+	// let careplanName = data.goalCategoriesManagement.careplanName;
+	// let careplanCode = data.goalCategoriesManagement.careplanCode;
+	// let title = data.goalCategoriesManagement.title;
+	// let sequence = data.goalCategoriesManagement.sequence;
+	// let healthPriorityId = data.goalCategoriesManagement.healthPriorityId;
+	// let goalAchieved = data.goalCategoriesManagement.goalAchieved;
 
 	let id = '56789';
 	let patientUserId = '123456';
@@ -12,6 +26,17 @@
 	let sequence = 0;
 	let healthPriorityId = '987654';
 	let goalAchieved = 'True';
+
+	//Original data
+	let _patientUserId = patientUserId;
+	let _enrollmentId = enrollmentId;
+	let _provider = provider;
+	let _careplanName = careplanName;
+	let _careplanCode = careplanCode;
+	let _title = title;
+	let _sequence = sequence;
+	let _healthPriorityId = healthPriorityId;
+	let _goalAchieved = goalAchieved;
 
 	function handleReset() {
 		patientUserId = _patientUserId;
@@ -43,13 +68,13 @@
 	<div class=" flex justify-center mt-5 px-3 mb-10 flex-col items-center">
 		<form
 			method="post"
-			action="?/updateActionPlan"
+			action="?/updateGoalCategoriesManagement"
 			class="w-full lg:max-w-4xl md:max-w-xl sm:max-w-lg bg-[#ECE4FC] rounded-lg mx-auto"
 		>
 			<div class="w-full  h-14 rounded-t-lg p-3  bg-[#7165E3]">
 				<div class="ml-3 relative flex flex-row text-white text-xl">
 					Edit Goal Categories Management
-					<a href="/users/assets/action-plan/[id]/view">
+					<a href="goal-categories-management/[id]/view">
 						<Fa icon={faMultiply} size="lg" class="absolute right-0 pr-3 mb-16 text-white " /></a
 					>
 				</div>

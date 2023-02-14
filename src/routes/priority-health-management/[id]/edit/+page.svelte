@@ -1,6 +1,19 @@
 <script lang="ts">
 	import Fa from 'svelte-fa';
 	import { faMultiply } from '@fortawesome/free-solid-svg-icons';
+	import type { PageServerData } from './$types';
+
+	// export let data: PageServerData;
+	// let initiaData = {};
+	// let id = data.priorityHealthManagement.id;
+	// let patientUserId = data.priorityHealthManagement.patientUserId;
+	// let provider = data.priorityHealthManagement.provider;
+	// let source = data.priorityHealthManagement.source;
+	// let enrollmentId = data.priorityHealthManagement.enrollmentId;
+	// let careplanCode = data.priorityHealthManagement.careplanCode;
+	// let careplanName = data.priorityHealthManagement.careplanName;
+	// let healthPriorityType = data.priorityHealthManagement.healthPriorityType;
+	// let isPrimary = data.priorityHealthManagement.isPrimary;
 
 	let id = '56789';
 	let patientUserId = '123456';
@@ -11,6 +24,16 @@
 	let careplanName = 'assets';
 	let healthPriorityType = 'Maternity';
 	let isPrimary = 'True';
+
+	//Original data
+	let _patientUserId = patientUserId;
+	let _provider = provider;
+	let _source = source;
+	let _enrollmentId = enrollmentId;
+	let _careplanCode = careplanCode;
+	let _careplanName = careplanName;
+	let _healthPriorityType = healthPriorityType;
+	let _isPrimary = isPrimary;
 
 	function handleReset() {
 		patientUserId = _patientUserId;
@@ -41,13 +64,13 @@
 	<div class=" flex justify-center mt-5 px-3 mb-10 flex-col items-center">
 		<form
 			method="post"
-			action="?/updateActionPlan"
+			action="?/updatePriorityHealthManagement"
 			class="w-full lg:max-w-4xl md:max-w-xl sm:max-w-lg bg-[#ECE4FC] rounded-lg mx-auto"
 		>
 			<div class="w-full  h-14 rounded-t-lg p-3  bg-[#7165E3]">
 				<div class="ml-3 relative flex flex-row text-white text-xl">
 					Edit Priority Health Management
-					<a href="/users/assets/action-plan/[id]/view">
+					<a href="/priority-health-management/[id]/view">
 						<!-- svelte-ignore missing-declaration -->
 						<Fa icon={faMultiply} size="lg" class="absolute right-0 pr-3 mb-16 text-white " />
 					</a>

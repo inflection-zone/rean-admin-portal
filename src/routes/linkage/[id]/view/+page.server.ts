@@ -1,7 +1,7 @@
 // import * as cookie from 'cookie';
 import type { PageServerLoad, Action } from './$types';
 import { error, redirect, type RequestEvent } from '@sveltejs/kit';
-import { getLinkageById } from '../../../../api/services/admin-panel/linkage';
+import { getLinkageById } from '../../../api/services/linkage';
 
 ////////////////////////////////////////////////////////////////////////////
 

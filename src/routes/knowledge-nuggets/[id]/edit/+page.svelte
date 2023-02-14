@@ -1,7 +1,17 @@
 <script lang="ts">
 	import Fa from 'svelte-fa';
 	import { faMultiply } from '@fortawesome/free-solid-svg-icons';
-	import Tags from '$lib/component/tags.svelte';
+	import Tags from '../../../../lib/components/tags.svelte';
+	import type { PageServerData } from './$types';
+
+	// export let data: PageServerData;
+	// let initiaData = {};
+	// let id = data.knowledgeNuggets.id;
+	// let name = data.knowledgeNuggets.name;
+	// let briefInformation = data.knowledgeNuggets.briefInformation;
+	// let detailedInformation = data.knowledgeNuggets.detailedInformation;
+	// let additionalResource = data.knowledgeNuggets.additionalResource;
+	// let tags_ = data.knowledgeNuggets.Tags;
 
 	let id = '56789';
 	let name = 'abdc';
@@ -9,6 +19,19 @@
 	let detailedInformation = 'xxxxxx xxxxx';
 	let additionalResource = 'xxxxxx';
 	let tags = 'xxx';
+
+	//Original data
+	let _name = name;
+	let _briefInformation = briefInformation;
+	let _detailedInformation = detailedInformation;
+	let _additionalResource = additionalResource;
+	let _tags = JSON.stringify(tags);
+	let retrievedTags = '';
+	let tagsPlaceholder = 'Enter a tags here...';
+
+	function handleTags(event) {
+		retrievedTags = event.detail.tags;
+	}
 
 	function handleReset() {
 		name = _name;
@@ -33,7 +56,7 @@
 	<div class="h-screen mb-10 ">
 		<form
 			method="post"
-			action="?/createActionPlan"
+			action="?/createKnowledgeNuggets"
 			class="w-full  bg-[#ECE4FC] lg:mt-10 md:mt-8 sm:mt-6 mb-10 mt-4 lg:max-w-4xl md:max-w-xl sm:max-w-lg  rounded-lg mx-auto"
 		>
 			<div class="w-full  h-14 rounded-t-lg p-3  bg-[#7165E3]">
@@ -114,8 +137,8 @@
 				</div>
 				<div class="w-1/2 md:w-2/3 lg:w-2/3">
 					<!-- svelte-ignore missing-declaration -->
-					<Tags name="tags" placeholder="Enter tags here..." />
-					<input type="hidden" name="tags" bind:value={tags} />
+					<Tags name="Tags" placeholder={tagsPlaceholder} on:tags={handleTags} bind:tags />
+					<input type="hidden" name="tags" value={JSON.stringify(tags)} />
 				</div>
 			</div>
 

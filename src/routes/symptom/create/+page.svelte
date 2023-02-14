@@ -1,7 +1,13 @@
 <script lang="ts">
 	import Fa from 'svelte-fa';
 	import { faMultiply } from '@fortawesome/free-solid-svg-icons';
-	import Tags from '$lib/component/tags.svelte';
+	import Tags from '../../../lib/components/tags.svelte';
+
+	let retrievedTags = '';
+	let tagsPlaceholder = 'Enter a tags here...';
+	function handleTags(event) {
+		retrievedTags = event.detail.tags;
+	}
 </script>
 
 <main class="h-screen mb-10">
@@ -17,7 +23,7 @@
 	<div class="px-5 mb-5 ">
 		<form
 			method="post"
-			action="?/createActionPlan"
+			action="?/createSymptom"
 			class="w-full  bg-[#ECE4FC] lg:mt-10 md:mt-8 sm:mt-6 mb-10 mt-4 lg:max-w-4xl md:max-w-xl sm:max-w-lg  rounded-lg mx-auto"
 		>
 			<div class="w-full  h-14 rounded-t-lg p-3  bg-[#7165E3]">
@@ -70,8 +76,8 @@
 				</div>
 				<div class="w-1/2 md:w-2/3 lg:w-2/3">
 					<!-- svelte-ignore missing-declaration -->
-					<Tags name="symptomTags" placeholder="Enter tags here" />
-					<input type="hidden" name="tags" />
+					<Tags name="animationTags" placeholder={tagsPlaceholder} on:tags={handleTags} />
+					<input type="hidden" name="tags" value={JSON.stringify(retrievedTags)} />
 				</div>
 			</div>
 

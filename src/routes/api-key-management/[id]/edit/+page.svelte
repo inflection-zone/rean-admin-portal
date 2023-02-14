@@ -2,11 +2,25 @@
 	import Fa from 'svelte-fa';
 	import { faMultiply } from '@fortawesome/free-solid-svg-icons';
 
+	//export let data: PageServerData;
+	// let initiaData = {};
+	// let id = data.apiKeyManagement.id;
+	// let clientName = data.apiKeyManagement.clientName;
+	// let password = data.apiKeyManagement.password;
+	// let phone = data.apiKeyManagement.phone;
+	// let email = data.apiKeyManagement.email;
+
 	let id = '56789';
 	let clientName = 'abc def';
 	let password = 'apiclient';
 	let phone = 1234567890;
 	let email = 'api@gmail.com';
+
+	//Original data
+	let _clientName = clientName;
+	let _password = password;
+	let _phone = phone;
+	let _email = email;
 
 	function handleReset() {
 		clientName = _clientName;
@@ -14,31 +28,38 @@
 		phone = _phone;
 		email = _email;
 	}
+
+	import BreadCrumbs from '$lib/components/breadcrumbs/breadcrums.svelte';
+	import type { PageServerData } from './$types';
+	const createRoute = () => `/api-key-management/create`;
+	const editRoute = (id) => `/api-key-management/${id}/edit`;
+	const viewRoute = (id) => `/api-key-management/${id}/view`;
+
+	const breadCrumbs = [
+		{
+			name: 'Api-Key-Management',
+			path: createRoute()
+		},
+		{
+			name: 'Edit',
+			path: editRoute(id)
+		}
+	];
 </script>
 
 <main class="h-screen mb-10">
-	<div
-		class=" breadcrumbs lg:text-xl sm:text-lg text-[#7165E3] lg:ml-14 md:ml-10 sm:ml-8 ml-4 mt-5 lg:mt-10"
-	>
-		<ul>
-			<li><a href="/" class="text-[#7165E3]">Home</a></li>
-			<li><a href="/users/assets" class="text-[#7165E3]">Api Key Management</a></li>
-			<li>
-				<a href="/users/assets/action-plan/create" class="text-[#7165E3]">Edit Api Key Management</a
-				>
-			</li>
-		</ul>
-	</div>
+	<BreadCrumbs crumbs={breadCrumbs} />
+
 	<div class=" flex justify-center mt-5 px-3 mb-10 flex-col items-center">
 		<form
 			method="post"
-			action="?/updateActionPlan"
+			action="?/updateApiKeyManagement"
 			class="w-full lg:max-w-4xl md:max-w-xl sm:max-w-lg bg-[#ECE4FC] rounded-lg mx-auto"
 		>
 			<div class="w-full  h-14 rounded-t-lg p-3  bg-[#7165E3]">
 				<div class="ml-3 relative flex flex-row text-white text-xl">
 					Edit Api Key Management
-					<a href="/users/assets/action-plan/[id]/view">
+					<a href="/api-key-management/[id]/view">
 						<Fa icon={faMultiply} size="lg" class="absolute right-0 pr-3 mb-16 text-white " /></a
 					>
 				</div>

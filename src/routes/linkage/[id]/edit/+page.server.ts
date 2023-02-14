@@ -3,7 +3,7 @@
 // import { error, type RequestEvent } from '@sveltejs/kit';
 // import { redirect } from 'sveltekit-flash-message/server';
 // import { errorMessage, successMessage } from '$lib/utils/message.utils';
-// import { getLinkageById, updateLinkage } from '../../../../api/services/admin-panel/linkage';
+// import { getLinkageById, updateLinkage } from '../../../api/services/linkage';
 
 // /////////////////////////////////////////////////////////////////////////
 
@@ -67,7 +67,7 @@
 // 		}
 // 		throw redirect(
 // 			303,
-// 			`/admin-panel/linkage/${id}/view`,
+// 			`/linkage/${id}/view`,
 // 			successMessage(`linkage updated successful!`),
 // 			event
 // 		);

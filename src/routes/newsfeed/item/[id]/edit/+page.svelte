@@ -1,6 +1,19 @@
 <script lang="ts">
 	import Fa from 'svelte-fa';
 	import { faMultiply } from '@fortawesome/free-solid-svg-icons';
+	import type { PageServerData } from './$types';
+
+	// export let data: PageServerData;
+	// let initiaData = {};
+	// let id = data.item.id;
+	// let title = data.item.title;
+	// let description = data.item.description;
+	// let newsfeed = data.item.newsfeed;
+	// let type = data.item.type;
+	// let link = data.item.link;
+	// let author = data.item.author;
+	// let date = data.item.date;
+	// let image = data.item.image;
 
 	let id = '56789';
 	let title = 'Able to do more activities';
@@ -10,6 +23,16 @@
 	let link = 'https';
 	let author = 'xxxxx';
 	let date = '01/01/2020';
+
+	//Original data
+	let _title = title;
+	let _description = description;
+	let _newsfeed = newsfeed;
+	let _type = type;
+	let _link = link;
+	let _author = author;
+	let _date = date;
+	//let _image = image;
 
 	function handleReset() {
 		title = _title;
@@ -37,13 +60,13 @@
 	<div class=" flex justify-center mt-5 px-3 mb-10 flex-col items-center">
 		<form
 			method="post"
-			action="?/updateActionPlan"
+			action="?/updateItem"
 			class="w-full lg:max-w-4xl md:max-w-xl sm:max-w-lg bg-[#ECE4FC] rounded-lg mx-auto"
 		>
 			<div class="w-full  h-14 rounded-t-lg p-3  bg-[#7165E3]">
 				<div class="ml-3 relative flex flex-row text-white text-xl">
 					Edit Items In Newsfeed
-					<a href="/users/assets/action-plan/[id]/view">
+					<a href="/newsfeed/item/[id]/view">
 						<Fa icon={faMultiply} size="lg" class="absolute right-0 pr-3 mb-16 text-white " /></a
 					>
 				</div>

@@ -1,7 +1,17 @@
 <script lang="ts">
 	import Fa from 'svelte-fa';
 	import { faMultiply } from '@fortawesome/free-solid-svg-icons';
-	import Tags from '$lib/component/tags.svelte';
+	import Tags from '../../../../lib/components/tags.svelte';
+	import type { PageServerData } from './$types';
+
+	// export let data: PageServerData;
+	// let initiaData = {};
+	// let id = data.symptom.id;
+	// let symptom = data.symptom.symptom;
+	// let description = data.symptom.description;
+	// let tags_ = data.symptom.tags;
+	// let language = data.symptom.language;
+	// let imageResourceId = data.symptom.imageResourceId;
 
 	let id = '56789';
 	let symptom = 'abc';
@@ -9,6 +19,18 @@
 	let tags = 'xxxx';
 	let language = 'Eng';
 	let imageResourceId = '2345567';
+
+	//Original data
+	let _symptom = symptom;
+	let _description = description;
+	let retrievedTags = '';
+	let tagsPlaceholder = 'Enter a tags here...';
+	let _language = language;
+	let _imageResourceId = imageResourceId;
+
+	function handleTags(event) {
+		retrievedTags = event.detail.tags;
+	}
 
 	function handleReset() {
 		description = _description;
@@ -37,7 +59,7 @@
 			<div class="w-full  h-14 rounded-t-lg p-3  bg-[#7165E3]">
 				<div class="ml-3 relative flex flex-row text-white text-xl">
 					Edit Symptom
-					<a href="/users/assets/action-plan/[id]/view">
+					<a href="/symptom/[id]/view">
 						<Fa icon={faMultiply} size="lg" class="absolute right-0 pr-3 mb-16 text-white " />
 					</a>
 				</div>
@@ -88,8 +110,8 @@
 				</div>
 				<div class="w-1/2 md:w-2/3 lg:w-2/3">
 					<!-- svelte-ignore missing-declaration -->
-					<Tags name="tags" placeholder="Enter tags here..." />
-					<input type="hidden" name="tags" bind:value={tags} />
+					<Tags name="Tags" placeholder={tagsPlaceholder} on:tags={handleTags} bind:tags />
+					<input type="hidden" name="tags" value={JSON.stringify(tags)} />
 				</div>
 			</div>
 
