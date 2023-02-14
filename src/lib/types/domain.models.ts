@@ -6,6 +6,7 @@ export interface LoginModel {
     Phone       ?: string;
     Password    ?: string;
     Otp         ?: string;
+    LoginRoleId ?: number;
 };
 
 export interface ResponseData {
@@ -14,8 +15,8 @@ export interface ResponseData {
     Data  ?: unknown;
 };
 
-export interface UserRole {
+export interface PersonRole {
     id          : number,
     RoleName    : string;
-    Description?: string;
+    // Description?: string;
 };
