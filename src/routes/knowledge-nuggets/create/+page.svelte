@@ -1,7 +1,7 @@
 <script lang="ts">
 	import Fa from 'svelte-fa';
 	import { faMultiply } from '@fortawesome/free-solid-svg-icons';
-	import Tags from '$lib/component/tags.svelte';
+	import Tags from '$lib/components/tags.svelte';
 </script>
 
 <main class="h-screen mb-10">
