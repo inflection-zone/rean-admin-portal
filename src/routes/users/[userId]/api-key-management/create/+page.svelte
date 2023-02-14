@@ -1,24 +1,23 @@
 <script lang="ts">
 	import Fa from 'svelte-fa';
 	import { faMultiply } from '@fortawesome/free-solid-svg-icons';
-
 	import BreadCrumbs from '$lib/components/breadcrumbs/breadcrums.svelte';
 	import { page } from '$app/stores';
+
 	const userId = $page.params.userId;
-	const assetRoute = () => `/users/${userId}/assets`;
-	const createRoute = () => `/api-key-management/create`;
-	const editRoute = (id) => `/api-key-management/${id}/edit`;
-	const viewRoute = (id) => `/api-key-management/${id}/view`;
-	const apiKeyManagementRoute = () => `/api-key-management/create`;
+	const createRoute = `/users/${userId}/api-key-management/create`;
+	const editRoute = (id) => `/users/${userId}/api-key-management/${id}/edit`;
+	const viewRoute = (id) => `/users/${userId}/api-key-management/${id}/view`;
+	const apiKeyManagementRoute = `/users/${userId}/api-key-management`;
 
 	const breadCrumbs = [
 		{
 			name: 'Api-Key-Management',
-			path: apiKeyManagementRoute()
+			path: apiKeyManagementRoute
 		},
 		{
 			name: 'Create',
-			path: createRoute()
+			path: createRoute
 		}
 	];
 </script>
