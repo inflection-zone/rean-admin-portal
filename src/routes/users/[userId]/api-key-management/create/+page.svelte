@@ -6,8 +6,6 @@
 
 	const userId = $page.params.userId;
 	const createRoute = `/users/${userId}/api-key-management/create`;
-	const editRoute = (id) => `/users/${userId}/api-key-management/${id}/edit`;
-	const viewRoute = (id) => `/users/${userId}/api-key-management/${id}/view`;
 	const apiKeyManagementRoute = `/users/${userId}/api-key-management`;
 
 	const breadCrumbs = [
@@ -34,7 +32,7 @@
 			<div class="w-full  h-14 rounded-t-lg p-3  bg-[#7165E3]">
 				<div class="ml-3 relative flex flex-row text-white text-xl">
 					Create Api Key Management
-					<a href="/users/assets">
+					<a href={apiKeyManagementRoute}>
 						<Fa
 							icon={faMultiply}
 							size="lg"

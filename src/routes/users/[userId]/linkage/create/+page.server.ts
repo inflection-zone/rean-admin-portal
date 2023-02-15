@@ -1,20 +1,21 @@
 import { redirect } from 'sveltekit-flash-message/server';
 import type { RequestEvent } from '@sveltejs/kit';
 import { errorMessage, successMessage } from '$lib/utils/message.utils';
-import { createLinkage } from '../../api/services/linkage';
+import { createLinkage } from '../../../../api/services/linkage';
 
 /////////////////////////////////////////////////////////////////////////
 
 export const actions = {
 	createLinkage: async (event: RequestEvent) => {
 		const request = event.request;
+		const userId = event.params.userId;
 		const data = await request.formData();
 		const title = data.has('title') ? data.get('title') : null;
 		const description = data.has('description') ? data.get('description') : null;
 		const link = data.has('link') ? data.get('link') : null;
 		const postDate = data.has('postDate') ? data.get('postDate') : null;
 		const daysActive = data.has('daysActive') ? data.get('daysActive') : null;
-		let temp = data.has('tags') ? data.get('tags') : null;
+		const temp = data.has('tags') ? data.get('tags') : null;
 		const tags = temp ? JSON.parse(temp?.valueOf() as string) : [];
 		const action = data.has('action') ? data.get('action') : null;
 		const image = data.has('image') ? data.get('image') : null;
@@ -36,11 +37,11 @@ export const actions = {
 		const id = response.Data.id;
 		console.log(response);
 		if (response.Status === 'failure' || response.HttpCode !== 201) {
-			throw redirect(303, '/admin-panel', errorMessage(response.Message), event);
+			throw redirect(303, '/linkage', errorMessage(response.Message), event);
 		}
 		throw redirect(
 			303,
-			`/linkage/${id}/view`,
+			`/users/${userId}/linkage/${id}/view`,
 			successMessage(`linkage created successful!`),
 			event
 		);

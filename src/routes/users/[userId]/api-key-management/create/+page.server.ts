@@ -1,13 +1,14 @@
 import { redirect } from 'sveltekit-flash-message/server';
 import type { RequestEvent } from '@sveltejs/kit';
 import { errorMessage, successMessage } from '$lib/utils/message.utils';
-import { createapiKeyManagement } from '../../api/services/api-key-management';
+import { createapiKeyManagement } from '../../../../api/services/api-key-management';
 
 /////////////////////////////////////////////////////////////////////////
 
 export const actions = {
 	createapiKeyManagement: async (event: RequestEvent) => {
 		const request = event.request;
+		const userId = event.params.userId;
 		const data = await request.formData();
 		const clientName = data.has('clientName') ? data.get('clientName') : null;
 		const password = data.has('password') ? data.get('password') : null;
@@ -27,11 +28,11 @@ export const actions = {
 		const id = response.Data.id;
 		console.log(response);
 		if (response.Status === 'failure' || response.HttpCode !== 201) {
-			throw redirect(303, '/admin-panel', errorMessage(response.Message), event);
+			throw redirect(303, '/api-key-management', errorMessage(response.Message), event);
 		}
 		throw redirect(
 			303,
-			`/api-key-management/${id}/view`,
+			`/users/${userId}/api-key-management/${id}/view`,
 			successMessage(`Api key management created successful!`),
 			event
 		);

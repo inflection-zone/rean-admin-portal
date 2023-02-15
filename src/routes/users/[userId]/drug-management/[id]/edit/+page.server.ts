@@ -3,7 +3,10 @@ import type { PageServerLoad, Action } from './$types';
 import { error, type RequestEvent } from '@sveltejs/kit';
 import { redirect } from 'sveltekit-flash-message/server';
 import { errorMessage, successMessage } from '$lib/utils/message.utils';
-import { getdrugManagementById, updatedrugManagement } from '../../../api/services/drug-management';
+import {
+	getdrugManagementById,
+	updatedrugManagement
+} from '../../../../../api/services/drug-management';
 
 /////////////////////////////////////////////////////////////////////////
 
@@ -32,6 +35,7 @@ export const load: PageServerLoad = async (event: RequestEvent) => {
 export const actions = {
 	updatedrugManagement: async (event: RequestEvent) => {
 		const request = event.request;
+		const userId = event.params.userId;
 		const data = await request.formData();
 		const name = data.has('name') ? data.get('name') : null;
 		const genericName = data.has('genericName') ? data.get('genericName') : null;
@@ -60,11 +64,11 @@ export const actions = {
 		const id = response.Data.id;
 
 		if (response.Status === 'failure' || response.HttpCode !== 200) {
-			throw redirect(303, '/admin-panel', errorMessage(response.Message), event);
+			throw redirect(303, '/drug-management', errorMessage(response.Message), event);
 		}
 		throw redirect(
 			303,
-			`/drug-management/${id}/view`,
+			`/users/${userId}/drug-management/${id}/view`,
 			successMessage(`drug management updated successful!`),
 			event
 		);

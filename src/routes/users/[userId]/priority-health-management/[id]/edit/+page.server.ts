@@ -6,7 +6,7 @@ import { errorMessage, successMessage } from '$lib/utils/message.utils';
 import {
 	getpriorityHealthManagementById,
 	updatepriorityHealthManagement
-} from '../../../api/services/priority-health-management';
+} from '../../../../../api/services/priority-health-management';
 
 /////////////////////////////////////////////////////////////////////////
 
@@ -35,6 +35,7 @@ export const load: PageServerLoad = async (event: RequestEvent) => {
 export const actions = {
 	updatepriorityHealthManagement: async (event: RequestEvent) => {
 		const request = event.request;
+		const userId = event.params.userId;
 		const data = await request.formData();
 		const patientUserId = data.has('patientUserId') ? data.get('patientUserId') : null;
 		const provider = data.has('provider') ? data.get('provider') : null;
@@ -67,11 +68,11 @@ export const actions = {
 		const id = response.Data.id;
 
 		if (response.Status === 'failure' || response.HttpCode !== 200) {
-			throw redirect(303, '/admin-panel', errorMessage(response.Message), event);
+			throw redirect(303, '/priority-health-management', errorMessage(response.Message), event);
 		}
 		throw redirect(
 			303,
-			`/priority-health-management/${id}/view`,
+			`/users/${userId}/priority-health-management/${id}/view`,
 			successMessage(`priority health management updated successful!`),
 			event
 		);

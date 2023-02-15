@@ -1,6 +1,7 @@
 <script lang="ts">
 	import Fa from 'svelte-fa';
 	import { faMultiply } from '@fortawesome/free-solid-svg-icons';
+	import type { PageServerData } from './$types';
 
 	//export let data: PageServerData;
 	// let initiaData = {};
@@ -30,15 +31,16 @@
 	}
 
 	import BreadCrumbs from '$lib/components/breadcrumbs/breadcrums.svelte';
-	import type { PageServerData } from './$types';
-	const createRoute = () => `/api-key-management/create`;
-	const editRoute = (id) => `/api-key-management/${id}/edit`;
-	const viewRoute = (id) => `/api-key-management/${id}/view`;
+	import { page } from '$app/stores';
+	const userId = $page.params.userId;
+	const editRoute = (id) => `/users/${userId}/api-key-management/${id}/edit`;
+	const viewRoute = (id) => `/users/${userId}/api-key-management/${id}/view`;
+	const apiKeyManagementRoute = `/users/${userId}/api-key-management`;
 
 	const breadCrumbs = [
 		{
 			name: 'Api-Key-Management',
-			path: createRoute()
+			path: apiKeyManagementRoute
 		},
 		{
 			name: 'Edit',
@@ -59,7 +61,7 @@
 			<div class="w-full  h-14 rounded-t-lg p-3  bg-[#7165E3]">
 				<div class="ml-3 relative flex flex-row text-white text-xl">
 					Edit Api Key Management
-					<a href="/api-key-management/[id]/view">
+					<a href={viewRoute(id)}>
 						<Fa icon={faMultiply} size="lg" class="absolute right-0 pr-3 mb-16 text-white " /></a
 					>
 				</div>

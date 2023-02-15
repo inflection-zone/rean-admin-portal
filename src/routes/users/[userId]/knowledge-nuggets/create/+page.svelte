@@ -2,6 +2,8 @@
 	import Fa from 'svelte-fa';
 	import { faMultiply } from '@fortawesome/free-solid-svg-icons';
 	import Tags from '$lib/components/tags.svelte';
+	import BreadCrumbs from '$lib/components/breadcrumbs/breadcrums.svelte';
+	import { page } from '$app/stores';
 
 	let retrievedTags = '';
 	let tagsPlaceholder = 'Enter a tags here...';
@@ -9,18 +11,25 @@
 	function handleTags(event) {
 		retrievedTags = event.detail.tags;
 	}
+
+	const userId = $page.params.userId;
+	const createRoute = `/users/${userId}/knowledge-nuggets/create`;
+	const knowledgeNuggetsRoute = `/users/${userId}/knowledge-nuggets`;
+
+	const breadCrumbs = [
+		{
+			name: 'Knowledge-Nuggets',
+			path: knowledgeNuggetsRoute
+		},
+		{
+			name: 'Create',
+			path: createRoute
+		}
+	];
 </script>
 
 <main class="h-screen mb-10">
-	<div
-		class=" breadcrumbs overflow-x-auto lg:text-xl sm:text-lg text-md text-[#7165E3] lg:ml-14 md:ml-10 sm:ml-6 lg:mt-10 sm:mt-4 mt-4 ml-4"
-	>
-		<ul>
-			<li><a href="/" class="text-[#7165E3]">Home</a></li>
-			<li><a href="/" class="text-[#7165E3]">knowledge Nuggets</a></li>
-			<li><a href="./create" class="text-[#7165E3]">Create </a></li>
-		</ul>
-	</div>
+	<BreadCrumbs crumbs={breadCrumbs} />
 
 	<div class="h-screen mb-10 ">
 		<form
@@ -31,7 +40,7 @@
 			<div class="w-full  h-14 rounded-t-lg p-3  bg-[#7165E3]">
 				<div class="ml-3 relative flex flex-row text-white text-xl">
 					Create knowledge Nuggets
-					<a href="/users/assets">
+					<a href={knowledgeNuggetsRoute}>
 						<Fa
 							icon={faMultiply}
 							size="lg"

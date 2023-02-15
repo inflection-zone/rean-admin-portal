@@ -1,13 +1,14 @@
 import { redirect } from 'sveltekit-flash-message/server';
 import type { RequestEvent } from '@sveltejs/kit';
 import { errorMessage, successMessage } from '$lib/utils/message.utils';
-import { createOrganization } from '../../api/services/organization';
+import { createOrganization } from '../../../../api/services/organization';
 
 /////////////////////////////////////////////////////////////////////////
 
 export const actions = {
 	createOrganization: async (event: RequestEvent) => {
 		const request = event.request;
+		const userId = event.params.userId;
 		const data = await request.formData();
 		const type = data.has('type') ? data.get('type') : null;
 		const name = data.has('name') ? data.get('name') : null;
@@ -37,11 +38,11 @@ export const actions = {
 		const id = response.Data.id;
 		console.log(response);
 		if (response.Status === 'failure' || response.HttpCode !== 201) {
-			throw redirect(303, '/admin-panel', errorMessage(response.Message), event);
+			throw redirect(303, '/organization', errorMessage(response.Message), event);
 		}
 		throw redirect(
 			303,
-			`/organization/${id}/view`,
+			`/users/${userId}/organization/${id}/view`,
 			successMessage(`organization created successful!`),
 			event
 		);

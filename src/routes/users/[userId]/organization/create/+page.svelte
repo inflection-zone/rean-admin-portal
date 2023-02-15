@@ -1,18 +1,28 @@
 <script lang="ts">
 	import Fa from 'svelte-fa';
 	import { faMultiply } from '@fortawesome/free-solid-svg-icons';
+	import BreadCrumbs from '$lib/components/breadcrumbs/breadcrums.svelte';
+	import { page } from '$app/stores';
+
+	const userId = $page.params.userId;
+	const createRoute = `/users/${userId}/organization/create`;
+	const organizationRoute = `/users/${userId}/organization`;
+
+	const breadCrumbs = [
+		{
+			name: 'Organization',
+			path: organizationRoute
+		},
+		{
+			name: 'Create',
+			path: createRoute
+		}
+	];
 </script>
 
 <main class="h-screen mb-60">
-	<div
-		class=" breadcrumbs overflow-x-auto lg:text-xl sm:text-lg text-md text-[#7165E3] lg:ml-14 md:ml-10 sm:ml-6 lg:mt-10 sm:mt-4 mt-4 ml-4"
-	>
-		<ul>
-			<li><a href="/" class="text-[#7165E3]">Home</a></li>
-			<li><a href="/" class="text-[#7165E3]">Organization</a></li>
-			<li><a href="./create" class="text-[#7165E3]">Create Organization</a></li>
-		</ul>
-	</div>
+	<BreadCrumbs crumbs={breadCrumbs} />
+
 	<div class="px-5 mb-5 ">
 		<form
 			method="post"
@@ -22,7 +32,7 @@
 			<div class="w-full  h-14 rounded-t-lg p-3  bg-[#7165E3]">
 				<div class="ml-3 relative flex flex-row text-white text-xl">
 					Create Organization
-					<a href="/users/assets">
+					<a href={organizationRoute}>
 						<Fa
 							icon={faMultiply}
 							size="lg"

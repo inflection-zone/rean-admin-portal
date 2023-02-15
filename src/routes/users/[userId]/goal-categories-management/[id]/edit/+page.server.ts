@@ -6,7 +6,7 @@ import { errorMessage, successMessage } from '$lib/utils/message.utils';
 import {
 	getgoalCategoriesManagementById,
 	updategoalCategoriesManagement
-} from '../../../api/services/goal-categories-management';
+} from '../../../../../api/services/goal-categories-management';
 
 /////////////////////////////////////////////////////////////////////////
 
@@ -35,6 +35,7 @@ export const load: PageServerLoad = async (event: RequestEvent) => {
 export const actions = {
 	updategoalCategoriesManagement: async (event: RequestEvent) => {
 		const request = event.request;
+		const userId = event.params.userId;
 		const data = await request.formData();
 		const patientUserId = data.has('patientUserId') ? data.get('patientUserId') : null;
 		const enrollmentId = data.has('enrollmentId') ? data.get('enrollmentId') : null;
@@ -67,11 +68,11 @@ export const actions = {
 		const id = response.Data.id;
 
 		if (response.Status === 'failure' || response.HttpCode !== 200) {
-			throw redirect(303, '/admin-panel', errorMessage(response.Message), event);
+			throw redirect(303, '/goal-categories-management', errorMessage(response.Message), event);
 		}
 		throw redirect(
 			303,
-			`/goal-categories-management/${id}/view`,
+			`/users/${userId}/goal-categories-management/${id}/view`,
 			successMessage(`goal categories management updated successful!`),
 			event
 		);

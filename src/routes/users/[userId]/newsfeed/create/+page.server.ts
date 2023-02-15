@@ -1,13 +1,14 @@
 import { redirect } from 'sveltekit-flash-message/server';
 import type { RequestEvent } from '@sveltejs/kit';
 import { errorMessage, successMessage } from '$lib/utils/message.utils';
-import { createNewsfeed } from '../../api/services/newsfeed';
+import { createNewsfeed } from '../../../../api/services/newsfeed';
 
 /////////////////////////////////////////////////////////////////////////
 
 export const actions = {
 	createNewsfeed: async (event: RequestEvent) => {
 		const request = event.request;
+		const userId = event.params.userId;
 		const data = await request.formData();
 		const type = data.has('type') ? data.get('type') : null;
 		const title = data.has('title') ? data.get('title') : null;
@@ -27,11 +28,11 @@ export const actions = {
 		const id = response.Data.id;
 		console.log(response);
 		if (response.Status === 'failure' || response.HttpCode !== 201) {
-			throw redirect(303, '/admin-panel', errorMessage(response.Message), event);
+			throw redirect(303, '/newsfeed', errorMessage(response.Message), event);
 		}
 		throw redirect(
 			303,
-			`/newsfeed/${id}/view`,
+			`/users/${userId}/newsfeed/${id}/view`,
 			successMessage(`newsfeed created successful!`),
 			event
 		);

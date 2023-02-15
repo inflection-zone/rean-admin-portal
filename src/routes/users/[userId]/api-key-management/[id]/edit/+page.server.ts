@@ -6,7 +6,7 @@ import { errorMessage, successMessage } from '$lib/utils/message.utils';
 import {
 	getapiKeyManagementById,
 	updateapiKeyManagement
-} from '../../../api/services/api-key-management';
+} from '../../../../../api/services/api-key-management';
 
 /////////////////////////////////////////////////////////////////////////
 
@@ -35,6 +35,7 @@ export const load: PageServerLoad = async (event: RequestEvent) => {
 export const actions = {
 	updateapiKeyManagement: async (event: RequestEvent) => {
 		const request = event.request;
+		const userId = event.params.userId;
 		const data = await request.formData();
 		const clientName = data.has('clientName') ? data.get('clientName') : null;
 		const password = data.has('password') ? data.get('password') : null;
@@ -57,11 +58,11 @@ export const actions = {
 		const id = response.Data.id;
 
 		if (response.Status === 'failure' || response.HttpCode !== 200) {
-			throw redirect(303, '/admin-panel', errorMessage(response.Message), event);
+			throw redirect(303, '/api-key-management', errorMessage(response.Message), event);
 		}
 		throw redirect(
 			303,
-			`/api-key-management/${id}/view`,
+			`/users/${userId}/api-key-management/${id}/view`,
 			successMessage(`api key management updated successful!`),
 			event
 		);

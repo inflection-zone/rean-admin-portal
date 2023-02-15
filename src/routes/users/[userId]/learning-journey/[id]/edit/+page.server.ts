@@ -6,7 +6,7 @@ import { errorMessage, successMessage } from '$lib/utils/message.utils';
 import {
 	getlearningJourneyById,
 	updatelearningJourney
-} from '../../../api/services/learning-journey';
+} from '../../../../../api/services/learning-journey';
 
 /////////////////////////////////////////////////////////////////////////
 
@@ -35,6 +35,7 @@ export const load: PageServerLoad = async (event: RequestEvent) => {
 export const actions = {
 	updatelearningJourney: async (event: RequestEvent) => {
 		const request = event.request;
+		const userId = event.params.userId;
 		const data = await request.formData();
 		const name = data.has('name') ? data.get('name') : null;
 		const preferenceWeight = data.has('preferenceWeight') ? data.get('preferenceWeight') : null;
@@ -57,11 +58,11 @@ export const actions = {
 		const id = response.Data.id;
 
 		if (response.Status === 'failure' || response.HttpCode !== 200) {
-			throw redirect(303, '/admin-panel', errorMessage(response.Message), event);
+			throw redirect(303, '/learning-journey', errorMessage(response.Message), event);
 		}
 		throw redirect(
 			303,
-			`/learning-journey/${id}/view`,
+			`/users/${userId}/learning-journey/${id}/view`,
 			successMessage(`learning journey updated successful!`),
 			event
 		);

@@ -3,7 +3,7 @@ import type { PageServerLoad, Action } from './$types';
 import { error, type RequestEvent } from '@sveltejs/kit';
 import { redirect } from 'sveltekit-flash-message/server';
 import { errorMessage, successMessage } from '$lib/utils/message.utils';
-import { getNotificationById, updateNotification } from '../../../api/services/notification';
+import { getNotificationById, updateNotification } from '../../../../../api/services/notification';
 
 /////////////////////////////////////////////////////////////////////////
 
@@ -32,6 +32,7 @@ export const load: PageServerLoad = async (event: RequestEvent) => {
 export const actions = {
 	updateNotification: async (event: RequestEvent) => {
 		const request = event.request;
+		const userId = event.params.userId;
 		const data = await request.formData();
 		const title = data.has('title') ? data.get('title') : null;
 		const Body = data.has('Body') ? data.get('Body') : null;
@@ -54,11 +55,11 @@ export const actions = {
 		const id = response.Data.id;
 
 		if (response.Status === 'failure' || response.HttpCode !== 200) {
-			throw redirect(303, '/admin-panel', errorMessage(response.Message), event);
+			throw redirect(303, '/notification', errorMessage(response.Message), event);
 		}
 		throw redirect(
 			303,
-			`/notification/${id}/view`,
+			`/users/${userId}/notification/${id}/view`,
 			successMessage(`notification updated successful!`),
 			event
 		);

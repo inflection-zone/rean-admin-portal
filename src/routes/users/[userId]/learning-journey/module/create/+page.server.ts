@@ -1,13 +1,14 @@
 import { redirect } from 'sveltekit-flash-message/server';
 import type { RequestEvent } from '@sveltejs/kit';
 import { errorMessage, successMessage } from '$lib/utils/message.utils';
-import { createModule } from '../../../api/services/module';
+import { createModule } from '../../../../../api/services/module';
 
 /////////////////////////////////////////////////////////////////////////
 
 export const actions = {
 	createModule: async (event: RequestEvent) => {
 		const request = event.request;
+		const userId = event.params.userId;
 		const data = await request.formData();
 		const title = data.has('title') ? data.get('title') : null;
 		const description = data.has('description') ? data.get('description') : null;
@@ -31,11 +32,11 @@ export const actions = {
 		const id = response.Data.id;
 		console.log(response);
 		if (response.Status === 'failure' || response.HttpCode !== 201) {
-			throw redirect(303, '/admin-panel', errorMessage(response.Message), event);
+			throw redirect(303, '/learning-journey/module', errorMessage(response.Message), event);
 		}
 		throw redirect(
 			303,
-			`/learning-journey/module${id}/view`,
+			`/users/${userId}/learning-journey/module${id}/view`,
 			successMessage(`module created successful!`),
 			event
 		);

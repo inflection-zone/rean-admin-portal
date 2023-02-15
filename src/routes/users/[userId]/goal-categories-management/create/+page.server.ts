@@ -1,13 +1,14 @@
 import { redirect } from 'sveltekit-flash-message/server';
 import type { RequestEvent } from '@sveltejs/kit';
 import { errorMessage, successMessage } from '$lib/utils/message.utils';
-import { creategoalCategoriesManagement } from '../../api/services/goal-categories-management';
+import { creategoalCategoriesManagement } from '../../../../api/services/goal-categories-management';
 
 /////////////////////////////////////////////////////////////////////////
 
 export const actions = {
 	creategoalCategoriesManagement: async (event: RequestEvent) => {
 		const request = event.request;
+		const userId = event.params.userId;
 		const data = await request.formData();
 		const patientUserId = data.has('patientUserId') ? data.get('patientUserId') : null;
 		const enrollmentId = data.has('enrollmentId') ? data.get('enrollmentId') : null;
@@ -37,11 +38,11 @@ export const actions = {
 		const id = response.Data.id;
 		console.log(response);
 		if (response.Status === 'failure' || response.HttpCode !== 201) {
-			throw redirect(303, '/admin-panel', errorMessage(response.Message), event);
+			throw redirect(303, '/goal-categories-management', errorMessage(response.Message), event);
 		}
 		throw redirect(
 			303,
-			`/goal-categories-management/${id}/view`,
+			`/users/${userId}/goal-categories-management/${id}/view`,
 			successMessage(`goal categories management created successful!`),
 			event
 		);

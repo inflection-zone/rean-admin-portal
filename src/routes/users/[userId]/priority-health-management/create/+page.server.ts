@@ -1,13 +1,14 @@
 import { redirect } from 'sveltekit-flash-message/server';
 import type { RequestEvent } from '@sveltejs/kit';
 import { errorMessage, successMessage } from '$lib/utils/message.utils';
-import { createpriorityHealthManagement } from '../../api/services/priority-health-management';
+import { createpriorityHealthManagement } from '../../../../api/services/priority-health-management';
 
 /////////////////////////////////////////////////////////////////////////
 
 export const actions = {
 	createpriorityHealthManagement: async (event: RequestEvent) => {
 		const request = event.request;
+		const userId = event.params.userId;
 		const data = await request.formData();
 		const patientUserId = data.has('patientUserId') ? data.get('patientUserId') : null;
 		const provider = data.has('provider') ? data.get('provider') : null;
@@ -37,11 +38,11 @@ export const actions = {
 		const id = response.Data.id;
 		console.log(response);
 		if (response.Status === 'failure' || response.HttpCode !== 201) {
-			throw redirect(303, '/admin-panel', errorMessage(response.Message), event);
+			throw redirect(303, '/priority-health-management', errorMessage(response.Message), event);
 		}
 		throw redirect(
 			303,
-			`/admin-panel/priority-health-management/${id}/view`,
+			`/users/${userId}/priority-health-management/${id}/view`,
 			successMessage(`priority health management created successful!`),
 			event
 		);

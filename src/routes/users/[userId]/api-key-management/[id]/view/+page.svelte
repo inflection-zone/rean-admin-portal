@@ -20,16 +20,13 @@
 	import BreadCrumbs from '$lib/components/breadcrumbs/breadcrums.svelte';
 	import { page } from '$app/stores';
 	const userId = $page.params.userId;
-	const assetRoute = () => `/users/${userId}/assets`;
-	const createRoute = () => `/api-key-management/create`;
-	const editRoute = (id) => `/api-key-management/${id}/edit`;
-	const viewRoute = (id) => `/api-key-management/${id}/view`;
-	const apiKeyManagementRoute = () => `/api-key-management/create`;
+	const viewRoute = (id) => `/users/${userId}/api-key-management/${id}/view`;
+	const apiKeyManagementRoute = `/users/${userId}/api-key-management`;
 
 	const breadCrumbs = [
 		{
 			name: 'Api-Key-Management',
-			path: apiKeyManagementRoute()
+			path: apiKeyManagementRoute
 		},
 		{
 			name: 'View',
@@ -50,7 +47,7 @@
 				<div class="ml-3 relative flex flex-row text-white lg:text-xl text-lg ">
 					<div class="lg:hidden md:hidden block">View Api Key Management</div>
 					<div class="lg:block md:block hidden">View Api Key Management</div>
-					<a href="/users/assets">
+					<a href={apiKeyManagementRoute}>
 						<Fa icon={faMultiply} size="lg" class="absolute right-0 lg:pr-3 pr-0 text-white" />
 					</a>
 				</div>

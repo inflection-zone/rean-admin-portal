@@ -1,7 +1,7 @@
 import * as cookie from 'cookie';
 import type { PageServerLoad, Action } from './$types';
 import { error, redirect, type RequestEvent } from '@sveltejs/kit';
-import { getapiKeyManagementById } from '../../../api/services/api-key-management';
+import { getapiKeyManagementById } from '../../../../../api/services/api-key-management';
 
 ////////////////////////////////////////////////////////////////////////////
 

@@ -2,6 +2,8 @@
 	import Fa from 'svelte-fa';
 	import { faMultiply } from '@fortawesome/free-solid-svg-icons';
 	import type { PageServerData } from './$types';
+	import BreadCrumbs from '$lib/components/breadcrumbs/breadcrums.svelte';
+	import { page } from '$app/stores';
 
 	// export let data: PageServerData;
 	// let initiaData = {};
@@ -43,20 +45,27 @@
 		author = _author;
 		date = _date;
 	}
+
+	const userId = $page.params.userId;
+	const editRoute = `/users/${userId}/newsfeed/item/${id}/edit`;
+	const viewRoute = `/users/${userId}/newsfeed/item/${id}/view`;
+	const itemRoute = `/users/${userId}/newsfeed/item`;
+
+	const breadCrumbs = [
+		{
+			name: 'Item',
+			path: itemRoute
+		},
+		{
+			name: 'Edit',
+			path: editRoute
+		}
+	];
 </script>
 
 <main class="h-screen mb-10">
-	<div
-		class=" breadcrumbs lg:text-xl sm:text-lg text-[#7165E3] lg:ml-14 md:ml-10 sm:ml-8 ml-4 mt-5 lg:mt-10"
-	>
-		<ul>
-			<li><a href="/" class="text-[#7165E3]">Home</a></li>
-			<li><a href="/users/assets" class="text-[#7165E3]"> Items In Newsfeed</a></li>
-			<li>
-				<a href="/users/assets/action-plan/create" class="text-[#7165E3]">Edit Items In Newsfeed</a>
-			</li>
-		</ul>
-	</div>
+	<BreadCrumbs crumbs={breadCrumbs} />
+
 	<div class=" flex justify-center mt-5 px-3 mb-10 flex-col items-center">
 		<form
 			method="post"
@@ -66,7 +75,7 @@
 			<div class="w-full  h-14 rounded-t-lg p-3  bg-[#7165E3]">
 				<div class="ml-3 relative flex flex-row text-white text-xl">
 					Edit Items In Newsfeed
-					<a href="/newsfeed/item/[id]/view">
+					<a href={viewRoute}>
 						<Fa icon={faMultiply} size="lg" class="absolute right-0 pr-3 mb-16 text-white " /></a
 					>
 				</div>

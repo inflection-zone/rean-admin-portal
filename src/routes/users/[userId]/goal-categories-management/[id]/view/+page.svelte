@@ -5,6 +5,8 @@
 	import { show } from '$lib/utils/message.utils';
 	import { LocalStorageUtils } from '$lib/utils/local.storage.utils';
 	import type { PageServerData } from './$types';
+	import BreadCrumbs from '$lib/components/breadcrumbs/breadcrums.svelte';
+	import { page } from '$app/stores';
 
 	export let data: PageServerData;
 	let id = data.goalCategoriesManagement.id;
@@ -21,18 +23,26 @@
 		show(data);
 		LocalStorageUtils.removeItem('prevUrl');
 	});
+
+	const userId = $page.params.userId;
+	const viewRoute = `/users/${userId}/goal-categories-management/${id}/view`;
+	const goalCategoriesManagementRoute = `/users/${userId}/goal-categories-management`;
+
+	const breadCrumbs = [
+		{
+			name: 'goal-Categories-Management',
+			path: goalCategoriesManagementRoute
+		},
+		{
+			name: 'View',
+			path: viewRoute
+		}
+	];
 </script>
 
 <main class="h-screen mb-10">
-	<div
-		class=" breadcrumbs lg:text-xl sm:text-lg text-[#7165E3] lg:ml-14 md:ml-10 sm:ml-8 ml-4 lg:mt-10 mt-5"
-	>
-		<ul>
-			<li><a href="/" class="text-[#7165E3]">Home</a></li>
-			<li><a href="/" class="text-[#7165E3]">Goal Categories Management</a></li>
-			<li><a href="/" class="text-[#7165E3]">View Goal Categories Management</a></li>
-		</ul>
-	</div>
+	<BreadCrumbs crumbs={breadCrumbs} />
+
 	<div class="px-3 mb-5">
 		<form
 			method="get"
@@ -42,7 +52,7 @@
 				<div class="ml-3 relative flex flex-row text-white lg:text-xl text-lg ">
 					<div class="lg:hidden md:hidden block">View Goal Categories Management</div>
 					<div class="lg:block md:block hidden">View Goal Categories Management</div>
-					<a href="/users/assets">
+					<a href={goalCategoriesManagementRoute}>
 						<Fa icon={faMultiply} size="lg" class="absolute right-0 lg:pr-3 pr-0 text-white" />
 					</a>
 				</div>

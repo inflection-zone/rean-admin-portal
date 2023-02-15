@@ -1,7 +1,7 @@
 import * as cookie from 'cookie';
 import type { PageServerLoad, Action } from './$types';
 import { error, redirect, type RequestEvent } from '@sveltejs/kit';
-import { getpriorityHealthManagementById } from '../../../api/services/priority-health-management';
+import { getpriorityHealthManagementById } from '../../../../../api/services/priority-health-management';
 
 ////////////////////////////////////////////////////////////////////////////
 

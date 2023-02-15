@@ -3,7 +3,7 @@ import type { PageServerLoad, Action } from './$types';
 import { error, type RequestEvent } from '@sveltejs/kit';
 import { redirect } from 'sveltekit-flash-message/server';
 import { errorMessage, successMessage } from '$lib/utils/message.utils';
-import { getNewsfeedById, updateNewsfeed } from '../../../api/services/newsfeed';
+import { getNewsfeedById, updateNewsfeed } from '../../../../../api/services/newsfeed';
 
 /////////////////////////////////////////////////////////////////////////
 
@@ -32,6 +32,7 @@ export const load: PageServerLoad = async (event: RequestEvent) => {
 export const actions = {
 	updateNewsfeed: async (event: RequestEvent) => {
 		const request = event.request;
+		const userId = event.params.userId;
 		const data = await request.formData();
 		const type = data.has('type') ? data.get('type') : null;
 		const title = data.has('title') ? data.get('title') : null;
@@ -54,11 +55,11 @@ export const actions = {
 		const id = response.Data.id;
 
 		if (response.Status === 'failure' || response.HttpCode !== 200) {
-			throw redirect(303, '/admin-panel', errorMessage(response.Message), event);
+			throw redirect(303, '/newsfeed', errorMessage(response.Message), event);
 		}
 		throw redirect(
 			303,
-			`/newsfeed/${id}/view`,
+			`/users/${userId}/newsfeed/${id}/view`,
 			successMessage(`newsfeed updated successful!`),
 			event
 		);
