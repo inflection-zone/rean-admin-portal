@@ -26,7 +26,7 @@
 	<div class="px-5 mb-5 ">
 		<form
 			method="post"
-			action="?/createDrugManagement"
+			action="?/createdrugManagement"
 			class="w-full  bg-[#ECE4FC] lg:mt-10 md:mt-8 sm:mt-6 mb-10 mt-4 lg:max-w-4xl md:max-w-xl sm:max-w-lg  rounded-lg mx-auto"
 		>
 			<div class="w-full  h-14 rounded-t-lg p-3  bg-[#7165E3]">
@@ -62,7 +62,11 @@
 					<label class="lable-text font-semibold" for="version"> Generic Name </label>
 				</div>
 				<div class="w-1/2 md:w-2/3 lg:w-2/3">
-					<select class="select select-info w-full" placeholder="Select generic name here...">
+					<select
+						class="select select-info w-full"
+						name="genericName"
+						placeholder="Select generic name here..."
+					>
 						<option selected>Paracetamol</option>
 						<option>Auto</option>
 						<option>Dark mode</option>

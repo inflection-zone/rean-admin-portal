@@ -4,6 +4,8 @@
 	import BreadCrumbs from '$lib/components/breadcrumbs/breadcrums.svelte';
 	import { page } from '$app/stores';
 
+	let imageResourceId = '435a5745-9460-4d32-9245-81bdf9f37fv1';
+
 	const userId = $page.params.userId;
 	const createRoute = `/users/${userId}/notification/create`;
 	const notificationRoute = `/users/${userId}/notification`;
