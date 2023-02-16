@@ -9,13 +9,18 @@
 	import { page } from '$app/stores';
 
 	export let data: PageServerData;
+	console.log('data===', data);
 	let id = data.knowledgeNuggets.id;
-	let name = data.knowledgeNuggets.name;
-	let briefInformation = data.knowledgeNuggets.briefInformation;
-	let detailedInformation = data.knowledgeNuggets.detailedInformation;
-	let additionalResource = data.knowledgeNuggets.additionalResource;
-	let tags_ = data.knowledgeNuggets.Tags;
-	let tags = tags_.join(', ');
+	let topicName = data.knowledgeNuggets.TopicName;
+	let briefInformation = data.knowledgeNuggets.BriefInformation;
+	let detailedInformation = data.knowledgeNuggets.DetailedInformation;
+	let additionalResource = data.knowledgeNuggets.AdditionalResource;
+	let tags = data.knowledgeNuggets.Tags;
+	//let tags = tags_.join(', ');
+
+	console.log('id=', id);
+	console.log('topicName=', topicName);
+	console.log('info====', briefInformation);
 
 	onMount(() => {
 		show(data);
@@ -55,13 +60,13 @@
 					</a>
 				</div>
 			</div>
-			<div class="hidden">{id}</div>
+			<!-- <div class="hidden">{id}</div> -->
 			<div class="flex items-center mb-4 mt-10 lg:mx-16 md:mx-12 mx-10">
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
 					<!-- svelte-ignore a11y-label-has-associated-control -->
 					<label class="lable-text font-semibold">Name</label>
 				</div>
-				<span class="w-1/2 md:2/3 lg:2/3" id="name">{name}</span>
+				<span class="w-1/2 md:2/3 lg:2/3" id="topicName">{topicName}</span>
 			</div>
 			<div class="flex items-center my-4 lg:mx-16 md:mx-12 mx-10">
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">

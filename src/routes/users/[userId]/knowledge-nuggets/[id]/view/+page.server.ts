@@ -11,15 +11,17 @@ export const load: PageServerLoad = async (event: RequestEvent) => {
 
 	try {
 		const knowledgeNuggetsId = event.params.id;
-		console.log(knowledgeNuggetsId);
+		console.log('knowid=====', knowledgeNuggetsId);
 		const response = await getknowledgeNuggetsById(sessionId, knowledgeNuggetsId);
 
 		if (response.Status === 'failure' || response.HttpCode !== 200) {
 			throw error(response.HttpCode, response.Message);
 		}
-		const knowledgeNuggets = response.Data;
-		console.log('goal categories management', knowledgeNuggets);
-		const id = response.Data.id;
+		const knowledgeNuggets = response.Data.KnowledgeNugget;
+		console.log('knowledge Nuggets====', knowledgeNuggets);
+		//const id = response.Data.id;
+		const id = response.Data.KnowledgeNugget.id;
+		console.log('id====', id);
 		return {
 			location: `${id}/edit`,
 			knowledgeNuggets,

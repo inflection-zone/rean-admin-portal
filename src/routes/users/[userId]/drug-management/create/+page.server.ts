@@ -10,6 +10,7 @@ export const actions = {
 		const request = event.request;
 		const userId = event.params.userId;
 		const data = await request.formData();
+		console.log(data);
 		const name = data.has('name') ? data.get('name') : null;
 		const genericName = data.has('genericName') ? data.get('genericName') : null;
 		const ingredients = data.has('ingredients') ? data.get('ingredients') : null;
