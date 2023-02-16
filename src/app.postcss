@@ -170,7 +170,7 @@ button:focus:not(:focus-visible) {
 	@apply text-[#5832A1] active:bg-[#5832A1] hover:bg-[#5832A1];
 }
 .input {
-	@apply text-[#5832A1] text-sm;
+	@apply text-[#5832A1] text-sm border-[#5832A1] border-opacity-20 hover:border-opacity-40;
 }
 .input:focus {
 	@apply border-opacity-70;
@@ -258,3 +258,7 @@ input[type='file']::file-selector-button:hover {
 	border: 2px solid #5832a1;
 	color: #ffffff;
 }
+/* login page background (blue) imgae */
+#background-image {
+    background-image:var(--lineragradient) 
+    }
