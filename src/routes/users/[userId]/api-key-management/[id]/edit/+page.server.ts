@@ -4,8 +4,8 @@ import { error, type RequestEvent } from '@sveltejs/kit';
 import { redirect } from 'sveltekit-flash-message/server';
 import { errorMessage, successMessage } from '$lib/utils/message.utils';
 import {
-	getapiKeyManagementById,
-	updateapiKeyManagement
+	getApiKeyManagementById,
+	updateApiKeyManagement
 } from '../../../../../api/services/api-key-management';
 
 /////////////////////////////////////////////////////////////////////////
@@ -17,7 +17,7 @@ export const load: PageServerLoad = async (event: RequestEvent) => {
 	try {
 		const apiKeyManagementId = event.params.id;
 		console.log(apiKeyManagementId);
-		const response = await getapiKeyManagementById(sessionId, apiKeyManagementId);
+		const response = await getApiKeyManagementById(sessionId, apiKeyManagementId);
 
 		if (response.Status === 'failure' || response.HttpCode !== 200) {
 			throw error(response.HttpCode, response.Message);
@@ -33,7 +33,7 @@ export const load: PageServerLoad = async (event: RequestEvent) => {
 };
 
 export const actions = {
-	updateapiKeyManagement: async (event: RequestEvent) => {
+	updateApiKeyManagement: async (event: RequestEvent) => {
 		const request = event.request;
 		const userId = event.params.userId;
 		const data = await request.formData();
@@ -47,7 +47,7 @@ export const actions = {
 		const apiKeyManagementId = event.params.id;
 		console.log('api key management id', apiKeyManagementId);
 
-		const response = await updateapiKeyManagement(
+		const response = await updateApiKeyManagement(
 			sessionId,
 			apiKeyManagementId,
 			clientName.valueOf() as string,

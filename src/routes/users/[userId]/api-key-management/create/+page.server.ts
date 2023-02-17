@@ -1,12 +1,12 @@
 import { redirect } from 'sveltekit-flash-message/server';
 import type { RequestEvent } from '@sveltejs/kit';
 import { errorMessage, successMessage } from '$lib/utils/message.utils';
-import { createapiKeyManagement } from '../../../../api/services/api-key-management';
+import { createApiKeyManagement } from '../../../../api/services/api-key-management';
 
 /////////////////////////////////////////////////////////////////////////
 
 export const actions = {
-	createapiKeyManagement: async (event: RequestEvent) => {
+	createApiKeyManagement: async (event: RequestEvent) => {
 		const request = event.request;
 		const userId = event.params.userId;
 		const data = await request.formData();
@@ -18,7 +18,7 @@ export const actions = {
 		const sessionId = event.cookies.get('sessionId');
 		console.log('sessionId', sessionId);
 
-		const response = await createapiKeyManagement(
+		const response = await createApiKeyManagement(
 			sessionId,
 			clientName.valueOf() as string,
 			password.valueOf() as string,

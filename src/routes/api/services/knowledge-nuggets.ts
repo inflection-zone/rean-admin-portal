@@ -3,7 +3,7 @@ import { delete_, get_, post_, put_ } from './common';
 
 ////////////////////////////////////////////////////////////////
 
-export const createknowledgeNuggets = async (
+export const createKnowledgeNuggets = async (
 	sessionId: string,
 	topicName: string,
 	briefInformation: string,
@@ -24,7 +24,7 @@ export const createknowledgeNuggets = async (
 	return await post_(sessionId, url, body, true);
 };
 
-export const getknowledgeNuggetsById = async (sessionId: string, knowledgeNuggetsId: string) => {
+export const getKnowledgeNuggetsById = async (sessionId: string, knowledgeNuggetsId: string) => {
 	const url = BACKEND_API_URL + `/educational/knowledge-nuggets/${knowledgeNuggetsId}`;
 	console.log('url==', url);
 	return await get_(sessionId, url, true);
@@ -43,27 +43,27 @@ export const searchAssets = async (sessionId: string, selectAsset: string, searc
 	return await get_(sessionId, url, true);
 };
 
-export const updateknowledgeNuggets = async (
+export const updateKnowledgeNuggets = async (
 	sessionId: string,
 	knowledgeNuggetsId: string,
 	topicName: string,
 	briefInformation: string,
 	detailedInformation: string,
-	additionalResource: string[],
+	//additionalResource: string[],
 	tags: string[]
 ) => {
 	const body = {
 		TopicName: topicName,
 		BriefInformation: briefInformation,
 		DetailedInformation: detailedInformation,
-		AdditionalResource: additionalResource,
+		//AdditionalResource: additionalResource,
 		Tags: tags
 	};
 	const url = BACKEND_API_URL + `/educational/knowledge-nuggets${knowledgeNuggetsId}`;
 	return await put_(sessionId, url, body, true);
 };
 
-export const deleteknowledgeNuggets = async (sessionId: string, knowledgeNuggetsId: string) => {
+export const deleteKnowledgeNuggets = async (sessionId: string, knowledgeNuggetsId: string) => {
 	const url = BACKEND_API_URL + `/educational/knowledge-nuggets${knowledgeNuggetsId}`;
 	return await delete_(sessionId, url, true);
 };

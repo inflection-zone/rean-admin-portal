@@ -16,9 +16,10 @@
 	let detailedInformation = data.knowledgeNuggets.DetailedInformation;
 	let additionalResource = data.knowledgeNuggets.AdditionalResource;
 	let tags = data.knowledgeNuggets.Tags;
-	//let tags = tags_.join(', ');
+	// let tags_ = data.knowledgeNuggets.Tags;
+	// let tags = tags_.join(', ');
 
-	console.log('id=', id);
+	console.log('tags===', tags);
 	console.log('topicName=', topicName);
 	console.log('info====', briefInformation);
 
@@ -28,6 +29,7 @@
 	});
 
 	const userId = $page.params.userId;
+	const editRoute = `/users/${userId}/knowledge-nuggets/${id}/edit`;
 	const viewRoute = `/users/${userId}/knowledge-nuggets/${id}/view`;
 	const knowledgeNuggetsRoute = `/users/${userId}/knowledge-nuggets`;
 
@@ -53,8 +55,8 @@
 		>
 			<div class="w-full  h-14 rounded-t-lg p-3  bg-[#7165E3]">
 				<div class="ml-3 relative flex flex-row text-white lg:text-xl text-lg ">
-					<div class="lg:hidden md:hidden block">View knowledge Nuggets</div>
-					<div class="lg:block md:block hidden">View knowledge Nuggets</div>
+					<div class="lg:hidden md:hidden block">View Knowledge Nuggets</div>
+					<div class="lg:block md:block hidden">View Knowledge Nuggets</div>
 					<a href={knowledgeNuggetsRoute}>
 						<Fa icon={faMultiply} size="lg" class="absolute right-0 lg:pr-3 pr-0 text-white" />
 					</a>
@@ -95,13 +97,13 @@
 					<!-- svelte-ignore a11y-label-has-associated-control -->
 					<label class="lable-text font-semibold"> Tags </label>
 				</div>
-				<span class="w-1/2 md:2/3 lg:2/3" id="tags"> {tags} </span>
+				<span class="w-1/2 md:2/3 lg:2/3"> {tags} </span>
 			</div>
 
 			<div class="flex items-center mt-7 lg:mx-16 md:mx-12 mr-10">
 				<div class="lg:w-5/6 w-2/3 " />
 				<div class="lg:w-1/6 w-1/3 ">
-					<a href="/knowledge-nuggets/[id]/edit">
+					<a href={editRoute}>
 						<button type="submit" class="btn btn-outline lg:w-full w-24 mb-10 lg:mr-4 mr-1">
 							Edit
 							<Fa icon={faPen} size="lg" class="lg:ml-4 sm:ml-2 ml-1" />

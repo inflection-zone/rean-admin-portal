@@ -1,12 +1,12 @@
 import { redirect } from 'sveltekit-flash-message/server';
 import type { RequestEvent } from '@sveltejs/kit';
 import { errorMessage, successMessage } from '$lib/utils/message.utils';
-import { createpriorityHealthManagement } from '../../../../api/services/priority-health-management';
+import { createPriorityHealthManagement } from '../../../../api/services/priority-health-management';
 
 /////////////////////////////////////////////////////////////////////////
 
 export const actions = {
-	createpriorityHealthManagement: async (event: RequestEvent) => {
+	createPriorityHealthManagement: async (event: RequestEvent) => {
 		const request = event.request;
 		const userId = event.params.userId;
 		const data = await request.formData();
@@ -24,7 +24,7 @@ export const actions = {
 		const sessionId = event.cookies.get('sessionId');
 		console.log('sessionId', sessionId);
 
-		const response = await createpriorityHealthManagement(
+		const response = await createPriorityHealthManagement(
 			sessionId,
 			patientUserId.valueOf() as string,
 			provider.valueOf() as string,

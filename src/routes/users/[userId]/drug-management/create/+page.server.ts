@@ -1,12 +1,12 @@
 import { redirect } from 'sveltekit-flash-message/server';
 import type { RequestEvent } from '@sveltejs/kit';
 import { errorMessage, successMessage } from '$lib/utils/message.utils';
-import { createdrugManagement } from '../../../../api/services/drug-management';
+import { createDrugManagement } from '../../../../api/services/drug-management';
 
 /////////////////////////////////////////////////////////////////////////
 
 export const actions = {
-	createdrugManagement: async (event: RequestEvent) => {
+	createDrugManagement: async (event: RequestEvent) => {
 		const request = event.request;
 		const userId = event.params.userId;
 		const data = await request.formData();
@@ -22,7 +22,7 @@ export const actions = {
 		const sessionId = event.cookies.get('sessionId');
 		console.log('sessionId', sessionId);
 
-		const response = await createdrugManagement(
+		const response = await createDrugManagement(
 			sessionId,
 			name.valueOf() as string,
 			genericName.valueOf() as string,

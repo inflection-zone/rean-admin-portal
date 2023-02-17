@@ -3,7 +3,7 @@ import { delete_, get_, post_, put_ } from './common';
 
 ////////////////////////////////////////////////////////////////
 
-export const createdrugManagement = async (
+export const createDrugManagement = async (
 	sessionId: string,
 	name: string,
 	genericName: string,
@@ -27,7 +27,7 @@ export const createdrugManagement = async (
 	return await post_(sessionId, url, body, true);
 };
 
-export const getdrugManagementById = async (sessionId: string, drugManagementId: string) => {
+export const getDrugManagementById = async (sessionId: string, drugManagementId: string) => {
 	const url = BACKEND_API_URL + `/drug-management/${drugManagementId}`;
 	return await get_(sessionId, url, true);
 };
@@ -45,7 +45,7 @@ export const searchAssets = async (sessionId: string, selectAsset: string, searc
 	return await get_(sessionId, url, true);
 };
 
-export const updatedrugManagement = async (
+export const updateDrugManagement = async (
 	sessionId: string,
 	drugManagementId: string,
 	name: string,
@@ -69,7 +69,7 @@ export const updatedrugManagement = async (
 	return await put_(sessionId, url, body, true);
 };
 
-export const deletedrugManagement = async (sessionId: string, drugManagementId: string) => {
+export const deleteDrugManagement = async (sessionId: string, drugManagementId: string) => {
 	const url = BACKEND_API_URL + `/drug-management/${drugManagementId}`;
 	return await delete_(sessionId, url, true);
 };

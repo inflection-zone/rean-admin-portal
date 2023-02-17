@@ -1,12 +1,12 @@
 import { redirect } from 'sveltekit-flash-message/server';
 import type { RequestEvent } from '@sveltejs/kit';
 import { errorMessage, successMessage } from '$lib/utils/message.utils';
-import { createlearningJourney } from '../../../../api/services/learning-journey';
+import { createLearningJourney } from '../../../../api/services/learning-journey';
 
 /////////////////////////////////////////////////////////////////////////
 
 export const actions = {
-	createlearningJourney: async (event: RequestEvent) => {
+	createLearningJourney: async (event: RequestEvent) => {
 		const request = event.request;
 		const userId = event.params.userId;
 		const data = await request.formData();
@@ -18,7 +18,7 @@ export const actions = {
 		const sessionId = event.cookies.get('sessionId');
 		console.log('sessionId', sessionId);
 
-		const response = await createlearningJourney(
+		const response = await createLearningJourney(
 			sessionId,
 			name.valueOf() as string,
 			preferenceWeight.valueOf() as number,

@@ -1,7 +1,7 @@
 import * as cookie from 'cookie';
 import type { PageServerLoad, Action } from './$types';
 import { error, redirect, type RequestEvent } from '@sveltejs/kit';
-import { getapiKeyManagementById } from '../../../../../api/services/api-key-management';
+import { getApiKeyManagementById } from '../../../../../api/services/api-key-management';
 
 ////////////////////////////////////////////////////////////////////////////
 
@@ -12,7 +12,7 @@ export const load: PageServerLoad = async (event: RequestEvent) => {
 	try {
 		const apiKeyManagementId = event.params.id;
 		console.log(apiKeyManagementId);
-		const response = await getapiKeyManagementById(sessionId, apiKeyManagementId);
+		const response = await getApiKeyManagementById(sessionId, apiKeyManagementId);
 
 		if (response.Status === 'failure' || response.HttpCode !== 200) {
 			throw error(response.HttpCode, response.Message);
