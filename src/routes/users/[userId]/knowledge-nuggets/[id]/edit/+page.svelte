@@ -5,6 +5,10 @@
 	import type { PageServerData } from './$types';
 	import BreadCrumbs from '$lib/components/breadcrumbs/breadcrums.svelte';
 	import { page } from '$app/stores';
+	import Input from '$lib/components/input/labeled.input.svelte';
+	import Textarea from '$lib/components/input/labeled.textarea.svelte';
+	import OutlineButton from '$lib/components/button/outline.button.svelte';
+	import Button from '$lib/components/button/button.svelte';
 
 	export let data: PageServerData;
 	let initiaData = {};
@@ -71,7 +75,7 @@
 			action="?/updateKnowledgeNuggets"
 			class="w-full  bg-[#ECE4FC] lg:mt-10 md:mt-8 sm:mt-6 mb-10 mt-4 lg:max-w-4xl md:max-w-xl sm:max-w-lg  rounded-lg mx-auto"
 		>
-			<div class="w-full  h-14 rounded-t-lg p-3  bg-[#7165E3]">
+			<div class="w-full  h-14 rounded-t-lg p-3  bg-[#7165E3] mb-10">
 				<div class="ml-3 relative flex flex-row text-white text-xl">
 					Edit Knowledge Nuggets
 					<a href={viewRoute}>
@@ -84,64 +88,35 @@
 				</div>
 			</div>
 			<div class="hidden">{id}</div>
-			<div class="flex items-center mb-4 mt-10 lg:mx-16 md:mx-12 mx-10">
-				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
-					<!-- svelte-ignore a11y-label-has-associated-control -->
-					<label class="lable-text font-semibold">Name</label>
-				</div>
-				<div class="w-1/2 md:w-2/3 lg:w-2/3">
-					<input
+					<Input
+					   title="Name"
 						type="text"
 						name="topicName"
-						bind:value={topicName}
+						bind:value = {topicName}
 						placeholder="Enter  name here..."
-						class="input input-bordered input-info w-full "
 					/>
-				</div>
-			</div>
-
-			<div class="flex items-center mb-2 lg:mx-16 md:mx-12 mx-10">
-				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
-					<!-- svelte-ignore a11y-label-has-associated-control -->
-					<label class="lable-text font-semibold"> Brief Information </label>
-				</div>
-				<div class="w-1/2 md:w-2/3 lg:w-2/3">
-					<textarea
+			
+			
+					<Textarea
+						title="Brief Information"
 						name="briefInformation"
 						bind:value={briefInformation}
-						class="textarea textarea-info w-full"
 						placeholder="Enter  brief information here..."
 					/>
-				</div>
-			</div>
-			<div class="flex items-center mb-2 lg:mx-16 md:mx-12 mx-10">
-				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
-					<!-- svelte-ignore a11y-label-has-associated-control -->
-					<label class="lable-text font-semibold"> Detailed Information </label>
-				</div>
-				<div class="w-1/2 md:w-2/3 lg:w-2/3">
-					<textarea
+			
+			
+					<Textarea
+						title="Detailed Information"
 						name="detailedInformation"
 						bind:value={detailedInformation}
-						class="textarea textarea-info w-full"
 						placeholder="Enter detailed information here..."
 					/>
-				</div>
-			</div>
-			<div class="flex items-center mb-2 lg:mx-16 md:mx-12 mx-10">
-				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
-					<!-- svelte-ignore a11y-label-has-associated-control -->
-					<label class="lable-text font-semibold"> Additional Resource </label>
-				</div>
-				<div class="w-1/2 md:w-2/3 lg:w-2/3">
-					<textarea
+					<Input
+						title="Additional Resource"
 						name="additionalResources"
 						bind:value={additionalResource}
-						class="textarea textarea-info w-full"
 						placeholder="Enter additional resource here..."
 					/>
-				</div>
-			</div>
 			<div class="flex items-center lg:mx-16 md:mx-12 mx-10">
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
 					<!-- svelte-ignore a11y-label-has-associated-control -->
@@ -160,21 +135,20 @@
 
 			<div class="flex items-center my-6 lg:mx-16 md:mx-12 mx-4 ">
 				<div class="lg:w-1/2 md:w-1/2 sm:w-1/2  w-1/3" />
-				<div class="lg:w-1/4 md:w-1/4 sm:w-1/4  w-1/3 ">
-					<button
+				<div class="lg:w-1/4 md:w-1/4 sm:w-1/4  w-1/3 mr-3 ">
+					<OutlineButton
 						type="button"
 						on:click={handleReset}
-						class="btn btn-outline lg:w-40 lg:ml-8 md:ml-6 sm:ml-1 mb-10 "
-					>
-						Reset</button
-					>
+						title="Reset"
+					/>
+					
 				</div>
 				<div class="lg:w-1/4 md:w-1/4 sm:w-1/4 w-1/3">
-					<button
+					<Button
 						type="submit"
-						class="btn bg-[#5832A1] hover:bg-[#5832A1] lg:w-40 lg:ml-8 md:ml-6 sm:ml-2 mb-10 "
-						>Submit
-					</button>
+						title="Submit"
+						/>
+					
 				</div>
 			</div>
 		</form>

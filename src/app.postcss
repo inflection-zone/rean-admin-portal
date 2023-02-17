@@ -131,9 +131,20 @@ button:focus:not(:focus-visible) {
 	span {
 		@apply text-[#5832A1];
 	}
-
-	.textarea {
-		@apply text-[#5832A1];
+	input {
+		@apply text-[#5832A1] text-sm  border-[#5832A1] border-opacity-20 hover:border-opacity-40
+	}
+	input::placeholder {
+		@apply text-[#5832A1] text-opacity-50 text-sm;
+	}
+	input:focus {
+		@apply border-opacity-70;
+	}
+	textarea {
+		@apply text-[#5832A1] text-sm  border-[#5832A1] border-opacity-20 hover:border-opacity-40;
+	}
+	textarea::placeholder {
+		@apply text-[#5832A1] text-opacity-50;
 	}
 
 	.table th {

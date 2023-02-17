@@ -4,6 +4,11 @@
 	import Tags from '$lib/components/tags.svelte';
 	import BreadCrumbs from '$lib/components/breadcrumbs/breadcrums.svelte';
 	import { page } from '$app/stores';
+	// import { Textarea} from 'flowbite-svelte';
+	import Button from '$lib/components/button/button.svelte';
+	import Input from '$lib/components/input/labeled.input.svelte';
+	import Textarea from '$lib/components/input/labeled.textarea.svelte';
+	// import { Input } from 'postcss';
 
 	let retrievedTags = '';
 	let tagsPlaceholder = 'Enter a tags here...';
@@ -18,11 +23,12 @@
 	const breadCrumbs = [
 		{
 			name: 'Knowledge-Nuggets',
-			path: knowledgeNuggetsRoute
+			path: knowledgeNuggetsRoute,
+			home: true
 		},
 		{
-			name: 'Create',
-			path: createRoute
+			name: 'Create'
+			// path: createRoute
 		}
 	];
 </script>
@@ -36,7 +42,7 @@
 			action="?/createKnowledgeNuggets"
 			class="w-full  bg-[#ECE4FC] lg:mt-10 md:mt-8 sm:mt-6 mb-10 mt-4 lg:max-w-4xl md:max-w-xl sm:max-w-lg  rounded-lg mx-auto"
 		>
-			<div class="w-full  h-14 rounded-t-lg p-3  bg-[#7165E3]">
+			<div class="w-full  h-14 rounded-t-lg p-3 mb-10 bg-[#7165E3]">
 				<div class="ml-3 relative flex flex-row text-white text-xl">
 					Create Knowledge Nuggets
 					<a href={knowledgeNuggetsRoute}>
@@ -48,68 +54,28 @@
 					</a>
 				</div>
 			</div>
-			<!-- <div class="hidden">id</div> -->
-			<div class="flex items-center mb-4 mt-10 lg:mx-16 md:mx-12 mx-10">
-				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
-					<!-- svelte-ignore a11y-label-has-associated-control -->
-					<label class="lable-text font-semibold">Name</label>
-				</div>
-				<div class="w-1/2 md:w-2/3 lg:w-2/3">
-					<input
-						type="text"
-						name="topicName"
-						placeholder="Enter name here..."
-						class="input input-bordered input-info w-full "
-					/>
-				</div>
-			</div>
+			<Input title="Name" type="text" name="topicName" required placeholder="Enter name here..." />
+			<Textarea
+				title="Brief Information"
+				name="briefInformation"
+				placeholder="Enter brief information here..."
+			/>
+			<Textarea
+				title="Detailed Information"
+				name="detailedInformation"
+				placeholder="Enter detailed information here..."
+			/>
+			<Input
+				title="Additional Resource"
+				type="text"
+				name="additionalResource"
+				placeholder="Enter additional resource here..."
+			/>
 
 			<div class="flex items-center mb-2 lg:mx-16 md:mx-12 mx-10">
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
 					<!-- svelte-ignore a11y-label-has-associated-control -->
-					<label class="lable-text font-semibold"> Brief Information </label>
-				</div>
-				<div class="w-1/2 md:w-2/3 lg:w-2/3">
-					<textarea
-						name="briefInformation"
-						required
-						class="textarea textarea-info w-full"
-						placeholder="Enter brief information here..."
-					/>
-				</div>
-			</div>
-			<div class="flex items-center mb-2 lg:mx-16 md:mx-12 mx-10">
-				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
-					<!-- svelte-ignore a11y-label-has-associated-control -->
-					<label class="lable-text font-semibold"> Detailed Information </label>
-				</div>
-				<div class="w-1/2 md:w-2/3 lg:w-2/3">
-					<textarea
-						name="detailedInformation"
-						required
-						class="textarea textarea-info w-full"
-						placeholder="Enter detailed information here..."
-					/>
-				</div>
-			</div>
-			<div class="flex items-center mb-2 lg:mx-16 md:mx-12 mx-10">
-				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
-					<!-- svelte-ignore a11y-label-has-associated-control -->
-					<label class="lable-text font-semibold"> Additional Resource </label>
-				</div>
-				<div class="w-1/2 md:w-2/3 lg:w-2/3">
-					<input
-						type="text"
-						name="additionalResource"
-						class="input input-bordered input-info w-full"
-						placeholder="Enter additional resource here..."
-					/>
-				</div>
-			</div>
-			<div class="flex items-center mb-2 lg:mx-16 md:mx-12 mx-10">
-				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
-					<!-- svelte-ignore a11y-label-has-associated-control -->
-					<label class="lable-text font-semibold"> Tags </label>
+					<label class=" font-semibold"> Tags </label>
 				</div>
 				<div class="w-1/2 md:w-2/3 lg:w-2/3">
 					<Tags name="knowledgenuggetstags" placeholder={tagsPlaceholder} on:tags={handleTags} />
@@ -120,9 +86,7 @@
 			<div class="flex items-center mt-7 lg:mx-16 md:mx-12 mr-10">
 				<div class="w-3/4" />
 				<div class="w-1/4 ">
-					<button type="submit" class="btn bg-[#5832A1] hover:bg-[#5832A1] w-full mb-10 ">
-						Submit
-					</button>
+					<Button title="Submit" />
 				</div>
 			</div>
 		</form>

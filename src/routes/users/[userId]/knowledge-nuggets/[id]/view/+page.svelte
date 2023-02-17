@@ -7,6 +7,7 @@
 	import type { PageServerData } from './$types';
 	import BreadCrumbs from '$lib/components/breadcrumbs/breadcrums.svelte';
 	import { page } from '$app/stores';
+	import Button from '$lib/components/button/outline.button.svelte';
 
 	export let data: PageServerData;
 	console.log('data===', data);
@@ -104,10 +105,10 @@
 				<div class="lg:w-5/6 w-2/3 " />
 				<div class="lg:w-1/6 w-1/3 ">
 					<a href={editRoute}>
-						<button type="submit" class="btn btn-outline lg:w-full w-24 mb-10 lg:mr-4 mr-1">
-							Edit
-							<Fa icon={faPen} size="lg" class="lg:ml-4 sm:ml-2 ml-1" />
-						</button>
+						<Button title='Edit' type="submit">
+							
+							<!-- <Fa icon={faPen} size="lg" class="lg:ml-4 sm:ml-2 ml-1" /> -->
+						</Button>
 					</a>
 				</div>
 			</div>
