@@ -1,7 +1,7 @@
 import * as cookie from 'cookie';
 import type { PageServerLoad, Action } from './$types';
 import { error, redirect, type RequestEvent } from '@sveltejs/kit';
-import { getlearningJourneyById } from '../../../../../api/services/learning-journey';
+import { getLearningJourneyById } from '../../../../../api/services/learning-journey';
 
 ////////////////////////////////////////////////////////////////////////////
 
@@ -12,7 +12,7 @@ export const load: PageServerLoad = async (event: RequestEvent) => {
 	try {
 		const learningJourneyId = event.params.id;
 		console.log(learningJourneyId);
-		const response = await getlearningJourneyById(sessionId, learningJourneyId);
+		const response = await getLearningJourneyById(sessionId, learningJourneyId);
 
 		if (response.Status === 'failure' || response.HttpCode !== 200) {
 			throw error(response.HttpCode, response.Message);

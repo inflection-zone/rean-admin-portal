@@ -1,7 +1,7 @@
 import * as cookie from 'cookie';
 import type { PageServerLoad, Action } from './$types';
 import { error, redirect, type RequestEvent } from '@sveltejs/kit';
-import { getgoalCategoriesManagementById } from '../../../../../api/services/goal-categories-management';
+import { getGoalCategoriesManagementById } from '../../../../../api/services/goal-categories-management';
 
 ////////////////////////////////////////////////////////////////////////////
 
@@ -12,7 +12,7 @@ export const load: PageServerLoad = async (event: RequestEvent) => {
 	try {
 		const goalCategoriesManagementId = event.params.id;
 		console.log(goalCategoriesManagementId);
-		const response = await getgoalCategoriesManagementById(sessionId, goalCategoriesManagementId);
+		const response = await getGoalCategoriesManagementById(sessionId, goalCategoriesManagementId);
 
 		if (response.Status === 'failure' || response.HttpCode !== 200) {
 			throw error(response.HttpCode, response.Message);

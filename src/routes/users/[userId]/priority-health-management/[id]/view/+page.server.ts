@@ -1,7 +1,7 @@
 import * as cookie from 'cookie';
 import type { PageServerLoad, Action } from './$types';
 import { error, redirect, type RequestEvent } from '@sveltejs/kit';
-import { getpriorityHealthManagementById } from '../../../../../api/services/priority-health-management';
+import { getPriorityHealthManagementById } from '../../../../../api/services/priority-health-management';
 
 ////////////////////////////////////////////////////////////////////////////
 
@@ -12,7 +12,7 @@ export const load: PageServerLoad = async (event: RequestEvent) => {
 	try {
 		const priorityHealthManagementId = event.params.id;
 		console.log(priorityHealthManagementId);
-		const response = await getpriorityHealthManagementById(sessionId, priorityHealthManagementId);
+		const response = await getPriorityHealthManagementById(sessionId, priorityHealthManagementId);
 
 		if (response.Status === 'failure' || response.HttpCode !== 200) {
 			throw error(response.HttpCode, response.Message);

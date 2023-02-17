@@ -3,7 +3,7 @@ import { delete_, get_, post_, put_ } from './common';
 
 ////////////////////////////////////////////////////////////////
 
-export const createlearningJourney = async (
+export const createLearningJourney = async (
 	sessionId: string,
 	name: string,
 	preferenceWeight: number,
@@ -21,7 +21,7 @@ export const createlearningJourney = async (
 	return await post_(sessionId, url, body, true);
 };
 
-export const getlearningJourneyById = async (sessionId: string, learningJourneyId: string) => {
+export const getLearningJourneyById = async (sessionId: string, learningJourneyId: string) => {
 	const url = BACKEND_API_URL + `/learning-journey/${learningJourneyId}`;
 	return await get_(sessionId, url, true);
 };
@@ -39,7 +39,7 @@ export const searchAssets = async (sessionId: string, selectAsset: string, searc
 	return await get_(sessionId, url, true);
 };
 
-export const updatelearningJourney = async (
+export const updateLearningJourney = async (
 	sessionId: string,
 	learningJourneyId: string,
 	name: string,
@@ -57,7 +57,7 @@ export const updatelearningJourney = async (
 	return await put_(sessionId, url, body, true);
 };
 
-export const deletelearningJourney = async (sessionId: string, learningJourneyId: string) => {
+export const deleteLearningJourney = async (sessionId: string, learningJourneyId: string) => {
 	const url = BACKEND_API_URL + `/learning-journey/${learningJourneyId}`;
 	return await delete_(sessionId, url, true);
 };

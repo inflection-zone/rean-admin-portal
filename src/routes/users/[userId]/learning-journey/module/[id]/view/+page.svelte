@@ -23,6 +23,7 @@
 	});
 
 	const userId = $page.params.userId;
+	const editRoute = `/users/${userId}/learning-journey/module/${id}/edit`;
 	const viewRoute = `/users/${userId}/learning-journey/module/${id}/view`;
 	const moduleRoute = `/users/${userId}/learning-journey/module`;
 
@@ -111,7 +112,7 @@
 			<div class="flex items-center mt-7 lg:mx-16 md:mx-12 mr-10">
 				<div class="lg:w-5/6 w-2/3 " />
 				<div class="lg:w-1/6 w-1/3 ">
-					<a href="/learning-journey/module/[id]/edit">
+					<a href={editRoute}>
 						<button type="submit" class="btn btn-outline lg:w-full w-24 mb-10 lg:mr-4 mr-1">
 							Edit
 							<Fa icon={faPen} size="lg" class="lg:ml-4 sm:ml-2 ml-1" />

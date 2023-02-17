@@ -4,8 +4,8 @@ import { error, type RequestEvent } from '@sveltejs/kit';
 import { redirect } from 'sveltekit-flash-message/server';
 import { errorMessage, successMessage } from '$lib/utils/message.utils';
 import {
-	getpriorityHealthManagementById,
-	updatepriorityHealthManagement
+	getPriorityHealthManagementById,
+	updatePriorityHealthManagement
 } from '../../../../../api/services/priority-health-management';
 
 /////////////////////////////////////////////////////////////////////////
@@ -17,7 +17,7 @@ export const load: PageServerLoad = async (event: RequestEvent) => {
 	try {
 		const priorityHealthManagementId = event.params.id;
 		console.log(priorityHealthManagementId);
-		const response = await getpriorityHealthManagementById(sessionId, priorityHealthManagementId);
+		const response = await getPriorityHealthManagementById(sessionId, priorityHealthManagementId);
 
 		if (response.Status === 'failure' || response.HttpCode !== 200) {
 			throw error(response.HttpCode, response.Message);
@@ -33,7 +33,7 @@ export const load: PageServerLoad = async (event: RequestEvent) => {
 };
 
 export const actions = {
-	updatepriorityHealthManagement: async (event: RequestEvent) => {
+	updatePriorityHealthManagement: async (event: RequestEvent) => {
 		const request = event.request;
 		const userId = event.params.userId;
 		const data = await request.formData();
@@ -53,7 +53,7 @@ export const actions = {
 		const priorityHealthManagementId = event.params.id;
 		console.log('priority health management id', priorityHealthManagementId);
 
-		const response = await updatepriorityHealthManagement(
+		const response = await updatePriorityHealthManagement(
 			sessionId,
 			priorityHealthManagementId,
 			patientUserId.valueOf() as string,

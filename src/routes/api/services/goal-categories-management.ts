@@ -3,7 +3,7 @@ import { delete_, get_, post_, put_ } from './common';
 
 ////////////////////////////////////////////////////////////////
 
-export const creategoalCategoriesManagement = async (
+export const createGoalCategoriesManagement = async (
 	sessionId: string,
 	patientUserId: string,
 	enrollmentId: string,
@@ -31,7 +31,7 @@ export const creategoalCategoriesManagement = async (
 	return await post_(sessionId, url, body, true);
 };
 
-export const getgoalCategoriesManagementById = async (
+export const getGoalCategoriesManagementById = async (
 	sessionId: string,
 	goalCategoriesManagementId: string
 ) => {
@@ -52,7 +52,7 @@ export const searchAssets = async (sessionId: string, selectAsset: string, searc
 	return await get_(sessionId, url, true);
 };
 
-export const updategoalCategoriesManagement = async (
+export const updateGoalCategoriesManagement = async (
 	sessionId: string,
 	goalCategoriesManagementId: string,
 	patientUserId: string,
@@ -80,7 +80,7 @@ export const updategoalCategoriesManagement = async (
 	return await put_(sessionId, url, body, true);
 };
 
-export const deletegoalCategoriesManagement = async (
+export const deleteGoalCategoriesManagement = async (
 	sessionId: string,
 	goalCategoriesManagementId: string
 ) => {

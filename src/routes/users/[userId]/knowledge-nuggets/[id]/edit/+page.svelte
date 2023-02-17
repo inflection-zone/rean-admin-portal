@@ -6,24 +6,24 @@
 	import BreadCrumbs from '$lib/components/breadcrumbs/breadcrums.svelte';
 	import { page } from '$app/stores';
 
-	// export let data: PageServerData;
-	// let initiaData = {};
-	// let id = data.knowledgeNuggets.id;
-	// let name = data.knowledgeNuggets.name;
-	// let briefInformation = data.knowledgeNuggets.briefInformation;
-	// let detailedInformation = data.knowledgeNuggets.detailedInformation;
-	// let additionalResource = data.knowledgeNuggets.additionalResource;
-	// let tags_ = data.knowledgeNuggets.Tags;
+	export let data: PageServerData;
+	let initiaData = {};
+	let id = data.knowledgeNuggets.id;
+	let topicName = data.knowledgeNuggets.TopicName;
+	let briefInformation = data.knowledgeNuggets.BriefInformation;
+	let detailedInformation = data.knowledgeNuggets.DetailedInformation;
+	let additionalResource = data.knowledgeNuggets.AdditionalResource;
+	let tags = data.knowledgeNuggets.Tags;
 
-	let id = '56789';
-	let name = 'abdc';
-	let briefInformation = 'xxx xx xxxxx';
-	let detailedInformation = 'xxxxxx xxxxx';
-	let additionalResource = 'xxxxxx';
-	let tags = 'xxx';
+	// let id = '56789';
+	// let name = 'abdc';
+	// let briefInformation = 'xxx xx xxxxx';
+	// let detailedInformation = 'xxxxxx xxxxx';
+	// let additionalResource = 'xxxxxx';
+	// let tags = 'xxx';
 
 	//Original data
-	let _name = name;
+	let _topicName = topicName;
 	let _briefInformation = briefInformation;
 	let _detailedInformation = detailedInformation;
 	let _additionalResource = additionalResource;
@@ -31,12 +31,14 @@
 	let retrievedTags = '';
 	let tagsPlaceholder = 'Enter a tags here...';
 
+	console.log('tags===', _tags);
+
 	function handleTags(event) {
 		retrievedTags = event.detail.tags;
 	}
 
 	function handleReset() {
-		name = _name;
+		topicName = _topicName;
 		briefInformation = _briefInformation;
 		detailedInformation = _detailedInformation;
 		additionalResource = _additionalResource;
@@ -66,12 +68,12 @@
 	<div class="h-screen mb-10 ">
 		<form
 			method="post"
-			action="?/createKnowledgeNuggets"
+			action="?/updateKnowledgeNuggets"
 			class="w-full  bg-[#ECE4FC] lg:mt-10 md:mt-8 sm:mt-6 mb-10 mt-4 lg:max-w-4xl md:max-w-xl sm:max-w-lg  rounded-lg mx-auto"
 		>
 			<div class="w-full  h-14 rounded-t-lg p-3  bg-[#7165E3]">
 				<div class="ml-3 relative flex flex-row text-white text-xl">
-					Edit knowledge Nuggets
+					Edit Knowledge Nuggets
 					<a href={viewRoute}>
 						<Fa
 							icon={faMultiply}
@@ -90,8 +92,8 @@
 				<div class="w-1/2 md:w-2/3 lg:w-2/3">
 					<input
 						type="text"
-						name="name"
-						bind:value={name}
+						name="topicName"
+						bind:value={topicName}
 						placeholder="Enter  name here..."
 						class="input input-bordered input-info w-full "
 					/>
@@ -140,15 +142,19 @@
 					/>
 				</div>
 			</div>
-			<div class="flex items-center mb-2 lg:mx-16 md:mx-12 mx-10">
+			<div class="flex items-center lg:mx-16 md:mx-12 mx-10">
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
 					<!-- svelte-ignore a11y-label-has-associated-control -->
 					<label class="lable-text font-semibold"> Tags </label>
 				</div>
 				<div class="w-1/2 md:w-2/3 lg:w-2/3">
-					<!-- svelte-ignore missing-declaration -->
-					<Tags name="Tags" placeholder={tagsPlaceholder} on:tags={handleTags} bind:tags />
-					<input type="hidden" name="tags" value={JSON.stringify(tags)} />
+					<Tags
+						name="knowledgenuggetstags"
+						placeholder={tagsPlaceholder}
+						on:tags={handleTags}
+						bind:tags
+					/>
+					<input type="hidden" name="tags" value={JSON.stringify(retrievedTags)} />
 				</div>
 			</div>
 

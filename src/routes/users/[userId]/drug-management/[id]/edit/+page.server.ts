@@ -4,8 +4,8 @@ import { error, type RequestEvent } from '@sveltejs/kit';
 import { redirect } from 'sveltekit-flash-message/server';
 import { errorMessage, successMessage } from '$lib/utils/message.utils';
 import {
-	getdrugManagementById,
-	updatedrugManagement
+	getDrugManagementById,
+	updateDrugManagement
 } from '../../../../../api/services/drug-management';
 
 /////////////////////////////////////////////////////////////////////////
@@ -17,7 +17,7 @@ export const load: PageServerLoad = async (event: RequestEvent) => {
 	try {
 		const drugManagementId = event.params.id;
 		console.log(drugManagementId);
-		const response = await getdrugManagementById(sessionId, drugManagementId);
+		const response = await getDrugManagementById(sessionId, drugManagementId);
 
 		if (response.Status === 'failure' || response.HttpCode !== 200) {
 			throw error(response.HttpCode, response.Message);
@@ -33,7 +33,7 @@ export const load: PageServerLoad = async (event: RequestEvent) => {
 };
 
 export const actions = {
-	updatedrugManagement: async (event: RequestEvent) => {
+	updateDrugManagement: async (event: RequestEvent) => {
 		const request = event.request;
 		const userId = event.params.userId;
 		const data = await request.formData();
@@ -50,7 +50,7 @@ export const actions = {
 		const drugManagementId = event.params.id;
 		console.log('drug management id', drugManagementId);
 
-		const response = await updatedrugManagement(
+		const response = await updateDrugManagement(
 			sessionId,
 			drugManagementId,
 			name.valueOf() as string,

@@ -4,8 +4,8 @@ import { error, type RequestEvent } from '@sveltejs/kit';
 import { redirect } from 'sveltekit-flash-message/server';
 import { errorMessage, successMessage } from '$lib/utils/message.utils';
 import {
-	getlearningJourneyById,
-	updatelearningJourney
+	getLearningJourneyById,
+	updateLearningJourney
 } from '../../../../../api/services/learning-journey';
 
 /////////////////////////////////////////////////////////////////////////
@@ -17,7 +17,7 @@ export const load: PageServerLoad = async (event: RequestEvent) => {
 	try {
 		const learningJourneyId = event.params.id;
 		console.log(learningJourneyId);
-		const response = await getlearningJourneyById(sessionId, learningJourneyId);
+		const response = await getLearningJourneyById(sessionId, learningJourneyId);
 
 		if (response.Status === 'failure' || response.HttpCode !== 200) {
 			throw error(response.HttpCode, response.Message);
@@ -33,7 +33,7 @@ export const load: PageServerLoad = async (event: RequestEvent) => {
 };
 
 export const actions = {
-	updatelearningJourney: async (event: RequestEvent) => {
+	updateLearningJourney: async (event: RequestEvent) => {
 		const request = event.request;
 		const userId = event.params.userId;
 		const data = await request.formData();
@@ -47,7 +47,7 @@ export const actions = {
 		const learningJourneyId = event.params.id;
 		console.log('goal categories management id', learningJourneyId);
 
-		const response = await updatelearningJourney(
+		const response = await updateLearningJourney(
 			sessionId,
 			learningJourneyId,
 			name.valueOf() as string,

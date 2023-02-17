@@ -4,8 +4,8 @@ import { error, type RequestEvent } from '@sveltejs/kit';
 import { redirect } from 'sveltekit-flash-message/server';
 import { errorMessage, successMessage } from '$lib/utils/message.utils';
 import {
-	getgoalCategoriesManagementById,
-	updategoalCategoriesManagement
+	getGoalCategoriesManagementById,
+	updateGoalCategoriesManagement
 } from '../../../../../api/services/goal-categories-management';
 
 /////////////////////////////////////////////////////////////////////////
@@ -17,7 +17,7 @@ export const load: PageServerLoad = async (event: RequestEvent) => {
 	try {
 		const goalCategoriesManagementId = event.params.id;
 		console.log(goalCategoriesManagementId);
-		const response = await getgoalCategoriesManagementById(sessionId, goalCategoriesManagementId);
+		const response = await getGoalCategoriesManagementById(sessionId, goalCategoriesManagementId);
 
 		if (response.Status === 'failure' || response.HttpCode !== 200) {
 			throw error(response.HttpCode, response.Message);
@@ -33,7 +33,7 @@ export const load: PageServerLoad = async (event: RequestEvent) => {
 };
 
 export const actions = {
-	updategoalCategoriesManagement: async (event: RequestEvent) => {
+	updateGoalCategoriesManagement: async (event: RequestEvent) => {
 		const request = event.request;
 		const userId = event.params.userId;
 		const data = await request.formData();
@@ -52,7 +52,7 @@ export const actions = {
 		const goalCategoriesManagementId = event.params.id;
 		console.log('goal categories management id', goalCategoriesManagementId);
 
-		const response = await updategoalCategoriesManagement(
+		const response = await updateGoalCategoriesManagement(
 			sessionId,
 			goalCategoriesManagementId,
 			patientUserId.valueOf() as string,

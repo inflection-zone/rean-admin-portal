@@ -3,7 +3,7 @@ import { delete_, get_, post_, put_ } from './common';
 
 ////////////////////////////////////////////////////////////////
 
-export const createapiKeyManagement = async (
+export const createApiKeyManagement = async (
 	sessionId: string,
 	clientName: string,
 	password: string,
@@ -21,7 +21,7 @@ export const createapiKeyManagement = async (
 	return await post_(sessionId, url, body, true);
 };
 
-export const getapiKeyManagementById = async (sessionId: string, apiKeyManagementId: string) => {
+export const getApiKeyManagementById = async (sessionId: string, apiKeyManagementId: string) => {
 	const url = BACKEND_API_URL + `/api-key-management/${apiKeyManagementId}`;
 	return await get_(sessionId, url, true);
 };
@@ -39,7 +39,7 @@ export const searchAssets = async (sessionId: string, selectAsset: string, searc
 	return await get_(sessionId, url, true);
 };
 
-export const updateapiKeyManagement = async (
+export const updateApiKeyManagement = async (
 	sessionId: string,
 	apiKeyManagementId: string,
 	clientName: string,
@@ -57,7 +57,7 @@ export const updateapiKeyManagement = async (
 	return await put_(sessionId, url, body, true);
 };
 
-export const deleteapiKeyManagement = async (sessionId: string, apiKeyManagementId: string) => {
+export const deleteApiKeyManagement = async (sessionId: string, apiKeyManagementId: string) => {
 	const url = BACKEND_API_URL + `/api-key-management/${apiKeyManagementId}`;
 	return await delete_(sessionId, url, true);
 };

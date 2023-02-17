@@ -3,7 +3,7 @@ import { delete_, get_, post_, put_ } from './common';
 
 ////////////////////////////////////////////////////////////////
 
-export const createpriorityHealthManagement = async (
+export const createPriorityHealthManagement = async (
 	sessionId: string,
 	patientUserId: string,
 	provider: string,
@@ -29,7 +29,7 @@ export const createpriorityHealthManagement = async (
 	return await post_(sessionId, url, body, true);
 };
 
-export const getpriorityHealthManagementById = async (
+export const getPriorityHealthManagementById = async (
 	sessionId: string,
 	priorityHealthManagementId: string
 ) => {
@@ -50,7 +50,7 @@ export const searchAssets = async (sessionId: string, selectAsset: string, searc
 	return await get_(sessionId, url, true);
 };
 
-export const updatepriorityHealthManagement = async (
+export const updatePriorityHealthManagement = async (
 	sessionId: string,
 	priorityHealthManagementId: string,
 	patientUserId: string,
@@ -76,7 +76,7 @@ export const updatepriorityHealthManagement = async (
 	return await put_(sessionId, url, body, true);
 };
 
-export const deletepriorityHealthManagement = async (
+export const deletePriorityHealthManagement = async (
 	sessionId: string,
 	priorityHealthManagementId: string
 ) => {
