@@ -86,7 +86,7 @@
 			<div class="flex items-center mt-7 lg:mx-16 md:mx-12 mr-10">
 				<div class="w-3/4" />
 				<div class="w-1/4 ">
-					<Button title="Submit" />
+					<Button type = "submit" title="Submit" />
 				</div>
 			</div>
 		</form>

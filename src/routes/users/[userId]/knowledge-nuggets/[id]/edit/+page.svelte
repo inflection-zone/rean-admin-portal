@@ -47,6 +47,7 @@
 		detailedInformation = _detailedInformation;
 		additionalResource = _additionalResource;
 		tags = JSON.parse(_tags);
+		console.log(topicName)
 	}
 
 	const userId = $page.params.userId;
@@ -88,35 +89,31 @@
 				</div>
 			</div>
 			<div class="hidden">{id}</div>
-					<Input
-					   title="Name"
-						type="text"
-						name="topicName"
-						bind:value = {topicName}
-						placeholder="Enter  name here..."
-					/>
-			
-			
-					<Textarea
-						title="Brief Information"
-						name="briefInformation"
-						bind:value={briefInformation}
-						placeholder="Enter  brief information here..."
-					/>
-			
-			
-					<Textarea
-						title="Detailed Information"
-						name="detailedInformation"
-						bind:value={detailedInformation}
-						placeholder="Enter detailed information here..."
-					/>
-					<Input
-						title="Additional Resource"
-						name="additionalResources"
-						bind:value={additionalResource}
-						placeholder="Enter additional resource here..."
-					/>
+			<Input
+				title="Name"
+				type="text"
+				name="topicName"
+				bind:value={topicName}
+				placeholder="Enter name here..."
+			/>
+			<Textarea
+				title="Brief Information"
+				name="briefInformation"
+				bind:value={briefInformation}
+				placeholder="Enter  brief information here..."
+			/>
+			<Textarea
+				title="Detailed Information"
+				name="detailedInformation"
+				bind:value={detailedInformation}
+				placeholder="Enter detailed information here..."
+			/>
+			<Input
+				title="Additional Resource"
+				name="additionalResources"
+				bind:value={additionalResource}
+				placeholder="Enter additional resource here..."
+			/>
 			<div class="flex items-center lg:mx-16 md:mx-12 mx-10">
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
 					<!-- svelte-ignore a11y-label-has-associated-control -->
@@ -124,7 +121,7 @@
 				</div>
 				<div class="w-1/2 md:w-2/3 lg:w-2/3">
 					<Tags
-						name="knowledgenuggetstags"
+						name="Tags"
 						placeholder={tagsPlaceholder}
 						on:tags={handleTags}
 						bind:tags
@@ -136,19 +133,10 @@
 			<div class="flex items-center my-6 lg:mx-16 md:mx-12 mx-4 ">
 				<div class="lg:w-1/2 md:w-1/2 sm:w-1/2  w-1/3" />
 				<div class="lg:w-1/4 md:w-1/4 sm:w-1/4  w-1/3 mr-3 ">
-					<OutlineButton
-						type="button"
-						on:click={handleReset}
-						title="Reset"
-					/>
-					
+					<OutlineButton type="button" on:click={handleReset} title="Reset" />
 				</div>
 				<div class="lg:w-1/4 md:w-1/4 sm:w-1/4 w-1/3">
-					<Button
-						type="submit"
-						title="Submit"
-						/>
-					
+					<Button type="submit" title="Submit" />
 				</div>
 			</div>
 		</form>

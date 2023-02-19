@@ -1,5 +1,6 @@
 <script lang="ts">
 	export let type = '';
+	//  let inputValue = '';
 	export let name = '';
 	export let placeholder = '';
 	export let required = false;
