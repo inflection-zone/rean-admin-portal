@@ -5,13 +5,13 @@
 	import { page } from '$app/stores';
 
 	const userId = $page.params.userId;
-	const createRoute = `/users/${userId}/priority-health-management/create`;
-	const priorityHealthManagementRoute = `/users/${userId}/priority-health-management`;
+	const createRoute = `/users/${userId}/priorities/create`;
+	const priorityRoute = `/users/${userId}/priorities`;
 
 	const breadCrumbs = [
 		{
-			name: 'Priority-Health-Management',
-			path: priorityHealthManagementRoute
+			name: 'Priority',
+			path: priorityRoute
 		},
 		{
 			name: 'Create',
@@ -26,13 +26,13 @@
 	<div class="px-5 mb-14 ">
 		<form
 			method="post"
-			action="?/createPriorityHealthManagement"
+			action="?/createPriority"
 			class="w-full  bg-[#ECE4FC] md:mt-8 sm:mt-6 lg:mt-10 lg:max-w-4xl md:max-w-xl sm:max-w-lg  rounded-lg mx-auto"
 		>
 			<div class="w-full  h-14 rounded-t-lg p-3  bg-[#7165E3]">
 				<div class="ml-3 relative flex flex-row text-white text-xl">
-					Create Priority Health Management
-					<a href={priorityHealthManagementRoute}>
+					Create Priority
+					<a href={priorityRoute}>
 						<Fa
 							icon={faMultiply}
 							size="lg"

@@ -3,10 +3,7 @@ import type { PageServerLoad, Action } from './$types';
 import { error, type RequestEvent } from '@sveltejs/kit';
 import { redirect } from 'sveltekit-flash-message/server';
 import { errorMessage, successMessage } from '$lib/utils/message.utils';
-import {
-	getPriorityHealthManagementById,
-	updatePriorityHealthManagement
-} from '../../../../../api/services/priority-healths';
+import { getPriorityById, updatePriority } from '../../../../../api/services/priorities';
 
 /////////////////////////////////////////////////////////////////////////
 
@@ -15,25 +12,25 @@ export const load: PageServerLoad = async (event: RequestEvent) => {
 	console.log('sessionId', sessionId);
 
 	try {
-		const priorityHealthManagementId = event.params.id;
-		console.log(priorityHealthManagementId);
-		const response = await getPriorityHealthManagementById(sessionId, priorityHealthManagementId);
+		const priorityId = event.params.id;
+		console.log(priorityId);
+		const response = await getPriorityById(sessionId, priorityId);
 
 		if (response.Status === 'failure' || response.HttpCode !== 200) {
 			throw error(response.HttpCode, response.Message);
 		}
-		const priorityHealthManagement = response.Data;
-		console.log('priority health management', priorityHealthManagement);
+		const priority = response.Data;
+		console.log('priority', priority);
 		return {
-			priorityHealthManagement
+			priority
 		};
 	} catch (error) {
-		console.error(`Error retriving priority health management: ${error.message}`);
+		console.error(`Error retriving priority: ${error.message}`);
 	}
 };
 
 export const actions = {
-	updatePriorityHealthManagement: async (event: RequestEvent) => {
+	updatePriority: async (event: RequestEvent) => {
 		const request = event.request;
 		const userId = event.params.userId;
 		const data = await request.formData();
@@ -50,12 +47,12 @@ export const actions = {
 
 		const sessionId = event.cookies.get('sessionId');
 		console.log('sessionId', sessionId);
-		const priorityHealthManagementId = event.params.id;
-		console.log('priority health management id', priorityHealthManagementId);
+		const priorityId = event.params.id;
+		console.log('priority id', priorityId);
 
-		const response = await updatePriorityHealthManagement(
+		const response = await updatePriority(
 			sessionId,
-			priorityHealthManagementId,
+			priorityId,
 			patientUserId.valueOf() as string,
 			provider.valueOf() as string,
 			source.valueOf() as string,
@@ -68,12 +65,12 @@ export const actions = {
 		const id = response.Data.id;
 
 		if (response.Status === 'failure' || response.HttpCode !== 200) {
-			throw redirect(303, '/priority-health-management', errorMessage(response.Message), event);
+			throw redirect(303, '/priorities', errorMessage(response.Message), event);
 		}
 		throw redirect(
 			303,
-			`/users/${userId}/priority-health-management/${id}/view`,
-			successMessage(`priority health management updated successful!`),
+			`/users/${userId}/priorities/${id}/view`,
+			successMessage(`priority updated successful!`),
 			event
 		);
 	}

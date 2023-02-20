@@ -7,15 +7,15 @@
 
 	// export let data: PageServerData;
 	// let initiaData = {};
-	// let id = data.priorityHealthManagement.id;
-	// let patientUserId = data.priorityHealthManagement.patientUserId;
-	// let provider = data.priorityHealthManagement.provider;
-	// let source = data.priorityHealthManagement.source;
-	// let enrollmentId = data.priorityHealthManagement.enrollmentId;
-	// let careplanCode = data.priorityHealthManagement.careplanCode;
-	// let careplanName = data.priorityHealthManagement.careplanName;
-	// let healthPriorityType = data.priorityHealthManagement.healthPriorityType;
-	// let isPrimary = data.priorityHealthManagement.isPrimary;
+	// let id = data.priority.id;
+	// let patientUserId = data.priority.patientUserId;
+	// let provider = data.priority.provider;
+	// let source = data.priority.source;
+	// let enrollmentId = data.priority.enrollmentId;
+	// let careplanCode = data.priority.careplanCode;
+	// let careplanName = data.priority.careplanName;
+	// let healthPriorityType = data.priority.healthPriorityType;
+	// let isPrimary = data.priority.isPrimary;
 
 	let id = '56789';
 	let patientUserId = '123456';
@@ -49,14 +49,14 @@
 	}
 
 	const userId = $page.params.userId;
-	const editRoute = `/users/${userId}/priority-health-management/${id}/edit`;
-	const viewRoute = `/users/${userId}/priority-health-management/${id}/view`;
-	const priorityHealthManagementRoute = `/users/${userId}/priority-health-management`;
+	const editRoute = `/users/${userId}/priorities/${id}/edit`;
+	const viewRoute = `/users/${userId}/priorities/${id}/view`;
+	const priorityRoute = `/users/${userId}/priorities`;
 
 	const breadCrumbs = [
 		{
-			name: 'Priority-Health-Management',
-			path: priorityHealthManagementRoute
+			name: 'Priority',
+			path: priorityRoute
 		},
 		{
 			name: 'Edit',
@@ -71,12 +71,12 @@
 	<div class=" flex justify-center mt-5 px-3 mb-10 flex-col items-center">
 		<form
 			method="post"
-			action="?/updatePriorityHealthManagement"
+			action="?/updatePriority"
 			class="w-full lg:max-w-4xl md:max-w-xl sm:max-w-lg bg-[#ECE4FC] rounded-lg mx-auto"
 		>
 			<div class="w-full  h-14 rounded-t-lg p-3  bg-[#7165E3]">
 				<div class="ml-3 relative flex flex-row text-white text-xl">
-					Edit Priority Health Management
+					Edit Priority
 					<a href={viewRoute}>
 						<!-- svelte-ignore missing-declaration -->
 						<Fa icon={faMultiply} size="lg" class="absolute right-0 pr-3 mb-16 text-white " />

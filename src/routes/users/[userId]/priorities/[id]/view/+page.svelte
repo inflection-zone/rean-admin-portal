@@ -9,15 +9,15 @@
 	import { page } from '$app/stores';
 
 	export let data: PageServerData;
-	let id = data.priorityHealthManagement.id;
-	let patientUserId = data.priorityHealthManagement.patientUserId;
-	let provider = data.priorityHealthManagement.provider;
-	let source = data.priorityHealthManagement.source;
-	let enrollmentId = data.priorityHealthManagement.enrollmentId;
-	let careplanCode = data.priorityHealthManagement.careplanCode;
-	let careplanName = data.priorityHealthManagement.careplanName;
-	let healthPriorityType = data.priorityHealthManagement.healthPriorityType;
-	let isPrimary = data.priorityHealthManagement.isPrimary;
+	let id = data.priority.id;
+	let patientUserId = data.priority.patientUserId;
+	let provider = data.priority.provider;
+	let source = data.priority.source;
+	let enrollmentId = data.priority.enrollmentId;
+	let careplanCode = data.priority.careplanCode;
+	let careplanName = data.priority.careplanName;
+	let healthPriorityType = data.priority.healthPriorityType;
+	let isPrimary = data.priority.isPrimary;
 
 	onMount(() => {
 		show(data);
@@ -25,14 +25,14 @@
 	});
 
 	const userId = $page.params.userId;
-	const editRoute = `/users/${userId}/priority-health-management/${id}/edit`;
-	const viewRoute = `/users/${userId}/priority-health-management/${id}/view`;
-	const priorityHealthManagementRoute = `/users/${userId}/priority-health-management`;
+	const editRoute = `/users/${userId}/priorities/${id}/edit`;
+	const viewRoute = `/users/${userId}/priorities/${id}/view`;
+	const priorityRoute = `/users/${userId}/priorities`;
 
 	const breadCrumbs = [
 		{
-			name: 'Priority-Health-Management',
-			path: priorityHealthManagementRoute
+			name: 'Priority',
+			path: priorityRoute
 		},
 		{
 			name: 'View',
@@ -51,9 +51,9 @@
 		>
 			<div class="w-full  h-14 rounded-t-lg p-3  bg-[#7165E3]">
 				<div class="ml-3 relative flex flex-row text-white lg:text-xl text-lg ">
-					<div class="lg:hidden md:hidden block">View Priority Health Management</div>
-					<div class="lg:block md:block hidden">View Priority Health Management</div>
-					<a href={priorityHealthManagementRoute}>
+					<div class="lg:hidden md:hidden block">View</div>
+					<div class="lg:block md:block hidden">View</div>
+					<a href={priorityRoute}>
 						<Fa icon={faMultiply} size="lg" class="absolute right-0 lg:pr-3 pr-0 text-white" />
 					</a>
 				</div>

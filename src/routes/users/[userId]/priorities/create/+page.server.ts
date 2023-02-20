@@ -1,12 +1,12 @@
 import { redirect } from 'sveltekit-flash-message/server';
 import type { RequestEvent } from '@sveltejs/kit';
 import { errorMessage, successMessage } from '$lib/utils/message.utils';
-import { createPriorityHealthManagement } from '../../../../api/services/priority-healths';
+import { createPriority } from '../../../../api/services/priorities';
 
 /////////////////////////////////////////////////////////////////////////
 
 export const actions = {
-	createPriorityHealthManagement: async (event: RequestEvent) => {
+	createPriority: async (event: RequestEvent) => {
 		const request = event.request;
 		const userId = event.params.userId;
 		const data = await request.formData();
@@ -24,7 +24,7 @@ export const actions = {
 		const sessionId = event.cookies.get('sessionId');
 		console.log('sessionId', sessionId);
 
-		const response = await createPriorityHealthManagement(
+		const response = await createPriority(
 			sessionId,
 			patientUserId.valueOf() as string,
 			provider.valueOf() as string,
@@ -38,12 +38,12 @@ export const actions = {
 		const id = response.Data.id;
 		console.log(response);
 		if (response.Status === 'failure' || response.HttpCode !== 201) {
-			throw redirect(303, '/priority-health-management', errorMessage(response.Message), event);
+			throw redirect(303, '/priorities', errorMessage(response.Message), event);
 		}
 		throw redirect(
 			303,
-			`/users/${userId}/priority-health-management/${id}/view`,
-			successMessage(`priority health management created successful!`),
+			`/users/${userId}/priorities/${id}/view`,
+			successMessage(`priority created successful!`),
 			event
 		);
 	}
