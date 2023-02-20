@@ -65,11 +65,11 @@ export const actions = {
 		const id = response.Data.id;
 
 		if (response.Status === 'failure' || response.HttpCode !== 200) {
-			throw redirect(303, '/organization', errorMessage(response.Message), event);
+			throw redirect(303, '/organizations', errorMessage(response.Message), event);
 		}
 		throw redirect(
 			303,
-			`/users/${userId}/organization/${id}/view`,
+			`/users/${userId}/organizations/${id}/view`,
 			successMessage(`organization updated successful!`),
 			event
 		);

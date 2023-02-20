@@ -41,11 +41,11 @@ export const actions = {
 		const id = response.Data.Organization.id;
 		console.log('res=>>>>', response);
 		if (response.Status === 'failure' || response.HttpCode !== 201) {
-			throw redirect(303, '/organization', errorMessage(response.Message), event);
+			throw redirect(303, '/organizations', errorMessage(response.Message), event);
 		}
 		throw redirect(
 			303,
-			`/users/${userId}/organization/${id}/view`,
+			`/users/${userId}/organizations/${id}/view`,
 			successMessage(`organization created successful!`),
 			event
 		);

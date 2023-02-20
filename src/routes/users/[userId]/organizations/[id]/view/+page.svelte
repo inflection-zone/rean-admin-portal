@@ -26,9 +26,9 @@
 	});
 
 	const userId = $page.params.userId;
-	const editRoute = `/users/${userId}/organization/${id}/edit`;
-	const viewRoute = `/users/${userId}/organization/${id}/view`;
-	const organizationRoute = `/users/${userId}/organization`;
+	const editRoute = `/users/${userId}/organizations/${id}/edit`;
+	const viewRoute = `/users/${userId}/organizations/${id}/view`;
+	const organizationRoute = `/users/${userId}/organizations`;
 
 	const breadCrumbs = [
 		{

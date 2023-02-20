@@ -5,8 +5,8 @@
 	import { page } from '$app/stores';
 
 	const userId = $page.params.userId;
-	const createRoute = `/users/${userId}/organization/create`;
-	const organizationRoute = `/users/${userId}/organization`;
+	const createRoute = `/users/${userId}/organizations/create`;
+	const organizationRoute = `/users/${userId}/organizations`;
 
 	const breadCrumbs = [
 		{
