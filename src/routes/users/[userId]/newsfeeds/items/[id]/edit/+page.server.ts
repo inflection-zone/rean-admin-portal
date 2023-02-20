@@ -61,11 +61,11 @@ export const actions = {
 		const id = response.Data.id;
 
 		if (response.Status === 'failure' || response.HttpCode !== 200) {
-			throw redirect(303, '/newsfeed/item', errorMessage(response.Message), event);
+			throw redirect(303, '/newsfeeds/items', errorMessage(response.Message), event);
 		}
 		throw redirect(
 			303,
-			`/users/${userId}/newsfeed/item${id}/view`,
+			`/users/${userId}/newsfeeds/items/${id}/view`,
 			successMessage(`item updated successful!`),
 			event
 		);

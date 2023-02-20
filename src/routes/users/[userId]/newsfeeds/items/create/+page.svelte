@@ -5,8 +5,8 @@
 	import { page } from '$app/stores';
 
 	const userId = $page.params.userId;
-	const createRoute = `/users/${userId}/newsfeed/item/create`;
-	const itemRoute = `/users/${userId}/newsfeed/item`;
+	const createRoute = `/users/${userId}/newsfeeds/items/create`;
+	const itemRoute = `/users/${userId}/newsfeeds/items`;
 
 	const breadCrumbs = [
 		{

@@ -47,9 +47,9 @@
 	}
 
 	const userId = $page.params.userId;
-	const editRoute = `/users/${userId}/newsfeed/item/${id}/edit`;
-	const viewRoute = `/users/${userId}/newsfeed/item/${id}/view`;
-	const itemRoute = `/users/${userId}/newsfeed/item`;
+	const editRoute = `/users/${userId}/newsfeeds/items/${id}/edit`;
+	const viewRoute = `/users/${userId}/newsfeeds/items/${id}/view`;
+	const itemRoute = `/users/${userId}/newsfeeds/items`;
 
 	const breadCrumbs = [
 		{

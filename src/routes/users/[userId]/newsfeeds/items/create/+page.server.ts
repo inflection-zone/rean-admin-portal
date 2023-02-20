@@ -34,11 +34,11 @@ export const actions = {
 		const id = response.Data.id;
 		console.log(response);
 		if (response.Status === 'failure' || response.HttpCode !== 201) {
-			throw redirect(303, '/newsfeed/item', errorMessage(response.Message), event);
+			throw redirect(303, '/newsfeeds/items', errorMessage(response.Message), event);
 		}
 		throw redirect(
 			303,
-			`/users/${userId}/newsfeed/item${id}/view`,
+			`/users/${userId}/newsfeeds/items/${id}/view`,
 			successMessage(`item created successful!`),
 			event
 		);
