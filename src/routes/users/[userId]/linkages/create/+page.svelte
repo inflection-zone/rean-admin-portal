@@ -12,8 +12,8 @@
 	}
 
 	const userId = $page.params.userId;
-	const createRoute = `/users/${userId}/linkage/create`;
-	const linkageRoute = `/users/${userId}/linkage`;
+	const createRoute = `/users/${userId}/linkages/create`;
+	const linkageRoute = `/users/${userId}/linkages`;
 
 	const breadCrumbs = [
 		{

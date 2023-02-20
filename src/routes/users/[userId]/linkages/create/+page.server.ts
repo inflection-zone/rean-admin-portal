@@ -37,11 +37,11 @@ export const actions = {
 		const id = response.Data.id;
 		console.log(response);
 		if (response.Status === 'failure' || response.HttpCode !== 201) {
-			throw redirect(303, '/linkage', errorMessage(response.Message), event);
+			throw redirect(303, '/linkages', errorMessage(response.Message), event);
 		}
 		throw redirect(
 			303,
-			`/users/${userId}/linkage/${id}/view`,
+			`/users/${userId}/linkages/${id}/view`,
 			successMessage(`linkage created successful!`),
 			event
 		);

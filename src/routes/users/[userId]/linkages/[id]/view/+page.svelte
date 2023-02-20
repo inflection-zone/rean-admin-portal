@@ -25,9 +25,9 @@
 	});
 
 	const userId = $page.params.userId;
-	const editRoute = `/users/${userId}/linkage/${id}/edit`;
-	const viewRoute = `/users/${userId}/linkage/${id}/view`;
-	const linkageRoute = `/users/${userId}/linkage`;
+	const editRoute = `/users/${userId}/linkages/${id}/edit`;
+	const viewRoute = `/users/${userId}/linkages/${id}/view`;
+	const linkageRoute = `/users/${userId}/linkages`;
 
 	const breadCrumbs = [
 		{

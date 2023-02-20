@@ -64,11 +64,11 @@ export const actions = {
 		const id = response.Data.id;
 
 		if (response.Status === 'failure' || response.HttpCode !== 200) {
-			throw redirect(303, '/linkage', errorMessage(response.Message), event);
+			throw redirect(303, '/linkages', errorMessage(response.Message), event);
 		}
 		throw redirect(
 			303,
-			`/users/${userId}/linkage/${id}/view`,
+			`/users/${userId}/linkages/${id}/view`,
 			successMessage(`linkage updated successful!`),
 			event
 		);
