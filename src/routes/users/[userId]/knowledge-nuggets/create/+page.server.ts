@@ -22,13 +22,7 @@ export const actions = {
 		const tags = temp ? JSON.parse(temp?.valueOf() as string) : [];
 
 		const sessionId = event.cookies.get('sessionId');
-		//console.log('sessionId', sessionId);
-
-		//console.log('addres===', additionalResource);
-
-		// console.log(tags);
-		// console.log('temp', JSON.stringify(temp));
-		// console.log('tags', JSON.stringify(tags));
+		console.log('sessionId', sessionId);
 
 		const response = await createKnowledgeNuggets(
 			sessionId,

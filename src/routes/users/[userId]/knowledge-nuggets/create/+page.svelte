@@ -112,7 +112,7 @@
 					<label class="lable-text font-semibold"> Tags </label>
 				</div>
 				<div class="w-1/2 md:w-2/3 lg:w-2/3">
-					<Tags name="knowledgenuggetstags" placeholder={tagsPlaceholder} on:tags={handleTags} />
+					<Tags name="Tags" placeholder={tagsPlaceholder} on:tags={handleTags} />
 					<input type="hidden" name="tags" value={JSON.stringify(retrievedTags)} />
 				</div>
 			</div>

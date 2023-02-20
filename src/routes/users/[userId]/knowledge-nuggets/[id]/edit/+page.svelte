@@ -135,7 +135,7 @@
 				</div>
 				<div class="w-1/2 md:w-2/3 lg:w-2/3">
 					<textarea
-						name="additionalResources"
+						name="additionalResource"
 						bind:value={additionalResource}
 						class="textarea textarea-info w-full"
 						placeholder="Enter additional resource here..."
@@ -148,13 +148,10 @@
 					<label class="lable-text font-semibold"> Tags </label>
 				</div>
 				<div class="w-1/2 md:w-2/3 lg:w-2/3">
-					<Tags
-						name="knowledgenuggetstags"
-						placeholder={tagsPlaceholder}
-						on:tags={handleTags}
-						bind:tags
-					/>
-					<input type="hidden" name="tags" value={JSON.stringify(retrievedTags)} />
+					<Tags name="Tags" placeholder={tagsPlaceholder} on:tags={handleTags} bind:tags />
+					<input type="hidden" name="tags" value={JSON.stringify(tags)} />
+					<!-- <Tags name="Tags" placeholder={tagsPlaceholder} on:tags={handleTags} bind:tags />
+					<input type="hidden" name="tags" value={JSON.stringify(retrievedTags)} /> -->
 				</div>
 			</div>
 

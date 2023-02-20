@@ -1,26 +1,23 @@
 <script lang="ts">
 	import Fa from 'svelte-fa';
 	import { faMultiply, faPen } from '@fortawesome/free-solid-svg-icons';
+	import type { PageServerData } from './$types';
 	import { onMount } from 'svelte';
 	import { show } from '$lib/utils/message.utils';
 	import { LocalStorageUtils } from '$lib/utils/local.storage.utils';
-	import type { PageServerData } from './$types';
 	import BreadCrumbs from '$lib/components/breadcrumbs/breadcrums.svelte';
 	import { page } from '$app/stores';
 
 	export let data: PageServerData;
-	let id = data.knowledgeNuggets.id;
-	let topicName = data.knowledgeNuggets.TopicName;
-	let briefInformation = data.knowledgeNuggets.BriefInformation;
-	let detailedInformation = data.knowledgeNuggets.DetailedInformation;
-	let additionalResource = data.knowledgeNuggets.AdditionalResource;
-	let tags = data.knowledgeNuggets.Tags;
-	// let tags_ = data.knowledgeNuggets.Tags;
-	// let tags = tags_.join(', ');
+	console.log('data-->', data);
+	let id = data.notification.id;
+	let title = data.notification.Title;
+	let Body = data.notification.Body;
+	let type = data.notification.Type;
+	let sentOn = data.notification.SentOn;
+	let image = data.notification.Image;
 
-	console.log('tags===', tags);
-	console.log('topicName=', topicName);
-	console.log('info====', briefInformation);
+	//console.log('id===', id);
 
 	onMount(() => {
 		show(data);
@@ -28,14 +25,14 @@
 	});
 
 	const userId = $page.params.userId;
-	const editRoute = `/users/${userId}/knowledge-nuggets/${id}/edit`;
-	const viewRoute = `/users/${userId}/knowledge-nuggets/${id}/view`;
-	const knowledgeNuggetsRoute = `/users/${userId}/knowledge-nuggets`;
+	const editRoute = `/users/${userId}/notification/${id}/edit`;
+	const viewRoute = `/users/${userId}/notification/${id}/view`;
+	const notificationRoute = `/users/${userId}/notification`;
 
 	const breadCrumbs = [
 		{
-			name: 'Knowledge-Nuggets',
-			path: knowledgeNuggetsRoute
+			name: 'Notification',
+			path: notificationRoute
 		},
 		{
 			name: 'View',
@@ -54,49 +51,50 @@
 		>
 			<div class="w-full  h-14 rounded-t-lg p-3  bg-[#7165E3]">
 				<div class="ml-3 relative flex flex-row text-white lg:text-xl text-lg ">
-					<div class="lg:hidden md:hidden block">View Knowledge Nuggets</div>
-					<div class="lg:block md:block hidden">View Knowledge Nuggets</div>
-					<a href={knowledgeNuggetsRoute}>
+					<div class="lg:hidden md:hidden block">View Notification</div>
+					<div class="lg:block md:block hidden">View Notification</div>
+					<a href={notificationRoute}>
 						<Fa icon={faMultiply} size="lg" class="absolute right-0 lg:pr-3 pr-0 text-white" />
 					</a>
 				</div>
 			</div>
-			<!-- <div class="hidden">{id}</div> -->
+			<div class="hidden">{id}</div>
 			<div class="flex items-center mb-4 mt-10 lg:mx-16 md:mx-12 mx-10">
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
 					<!-- svelte-ignore a11y-label-has-associated-control -->
-					<label class="lable-text font-semibold">Name</label>
+					<label class="lable-text font-semibold">Title</label>
 				</div>
-				<span class="w-1/2 md:2/3 lg:2/3" id="topicName">{topicName}</span>
+				<span class="w-1/2 md:2/3 lg:2/3" id="title">{title}</span>
 			</div>
 			<div class="flex items-center my-4 lg:mx-16 md:mx-12 mx-10">
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
 					<!-- svelte-ignore a11y-label-has-associated-control -->
-					<label class="lable-text font-semibold"> Brief Information </label>
+					<label class="lable-text font-semibold"> Body </label>
 				</div>
-				<span class="w-1/2 md:2/3 lg:2/3" id="briefInformation"> {briefInformation} </span>
+				<span class="w-1/2 md:2/3 lg:2/3" id="Body">{Body}</span>
 			</div>
 
 			<div class="flex items-center my-4 lg:mx-16 md:mx-12 mx-10">
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
 					<!-- svelte-ignore a11y-label-has-associated-control -->
-					<label class="lable-text font-semibold"> Detailed Information </label>
+					<label class="lable-text font-semibold"> Type </label>
 				</div>
-				<span class="w-1/2 md:2/3 lg:2/3" id="detailedInformation">{detailedInformation}</span>
+				<span class="w-1/2 md:2/3 lg:2/3" id="type"> {type} </span>
+			</div>
+
+			<div class="flex items-center mb-4 lg:mx-16 md:mx-12 mx-10">
+				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
+					<!-- svelte-ignore a11y-label-has-associated-control -->
+					<label class="lable-text font-semibold"> Sent On </label>
+				</div>
+				<span class="w-1/2 md:2/3 lg:2/3" id="sentOn"> {sentOn} </span>
 			</div>
 			<div class="flex items-center my-4 lg:mx-16 md:mx-12 mx-10">
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
 					<!-- svelte-ignore a11y-label-has-associated-control -->
-					<label class="lable-text font-semibold"> Additional Resource</label>
+					<label class="lable-text font-semibold" for=""> Image </label>
 				</div>
-				<span class="w-1/2 md:2/3 lg:2/3" id="additionalResource"> {additionalResource} </span>
-			</div>
-			<div class="flex items-center my-4 lg:mx-16 md:mx-12 mx-10">
-				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
-					<!-- svelte-ignore a11y-label-has-associated-control -->
-					<label class="lable-text font-semibold"> Tags </label>
-				</div>
-				<span class="w-1/2 md:2/3 lg:2/3"> {tags} </span>
+				<span class="w-1/2 md:w-2/3 lg:w-2/3"> {image} </span>
 			</div>
 
 			<div class="flex items-center mt-7 lg:mx-16 md:mx-12 mr-10">

@@ -26,7 +26,6 @@ export const createKnowledgeNuggets = async (
 
 export const getKnowledgeNuggetsById = async (sessionId: string, knowledgeNuggetsId: string) => {
 	const url = BACKEND_API_URL + `/educational/knowledge-nuggets/${knowledgeNuggetsId}`;
-	console.log('url==', url);
 	return await get_(sessionId, url, true);
 };
 
@@ -35,11 +34,11 @@ export const searchAssets = async (sessionId: string, selectAsset: string, searc
 	const keys = Object.keys(searchParams);
 	if (keys.length > 0) {
 		searchString = '?';
-		for (var key of keys) {
+		for (const key of keys) {
 			searchString += `${key}=${searchParams[key]}`;
 		}
 	}
-	const url = BACKEND_API_URL + `/admin-panel/${selectAsset}/search${searchString}/`;
+	const url = BACKEND_API_URL + `/educational/knowledge-nuggets/search${searchString}/`;
 	return await get_(sessionId, url, true);
 };
 
@@ -60,6 +59,7 @@ export const updateKnowledgeNuggets = async (
 		Tags: tags
 	};
 	const url = BACKEND_API_URL + `/educational/knowledge-nuggets${knowledgeNuggetsId}`;
+	console.log('url==', url);
 	return await put_(sessionId, url, body, true);
 };
 

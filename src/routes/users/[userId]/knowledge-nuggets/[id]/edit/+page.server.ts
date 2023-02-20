@@ -42,7 +42,8 @@ export const actions = {
 		const request = event.request;
 		const userId = event.params.userId;
 		const data = await request.formData();
-		const name = data.has('name') ? data.get('name') : null;
+		console.log('data===', data);
+		const topicName = data.has('topicName') ? data.get('topicName') : null;
 		const briefInformation = data.has('briefInformation') ? data.get('briefInformation') : null;
 		const detailedInformation = data.has('detailedInformation')
 			? data.get('detailedInformation')
@@ -55,19 +56,24 @@ export const actions = {
 
 		const sessionId = event.cookies.get('sessionId');
 		console.log('sessionId', sessionId);
+
+		console.log('temp', JSON.stringify(temp));
+		console.log('tags', JSON.stringify(tags));
+
 		const knowledgeNuggetsId = event.params.id;
 		console.log('knowledge nuggets id', knowledgeNuggetsId);
 
 		const response = await updateKnowledgeNuggets(
 			sessionId,
 			knowledgeNuggetsId,
-			name.valueOf() as string,
+			topicName.valueOf() as string,
 			briefInformation.valueOf() as string,
 			detailedInformation.valueOf() as string,
 			//additionalResource.valueOf() as string,
 			tags
 		);
-		const id = response.Data.id;
+		const id = response.Data.knowledgeNugget.id;
+		console.log('res====', response);
 
 		if (response.Status === 'failure' || response.HttpCode !== 200) {
 			throw redirect(303, '/knowledge-nuggets', errorMessage(response.Message), event);
