@@ -31,11 +31,11 @@ export const actions = {
 		const id = response.Data.Notification.id;
 		//console.log('res====<>', response);
 		if (response.Status === 'failure' || response.HttpCode !== 201) {
-			throw redirect(303, '/notification', errorMessage(response.Message), event);
+			throw redirect(303, '/notifications', errorMessage(response.Message), event);
 		}
 		throw redirect(
 			303,
-			`/users/${userId}/notification/${id}/view`,
+			`/users/${userId}/notifications/${id}/view`,
 			successMessage(`notification created successful!`),
 			event
 		);

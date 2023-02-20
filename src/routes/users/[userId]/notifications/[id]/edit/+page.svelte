@@ -35,9 +35,9 @@
 	}
 
 	const userId = $page.params.userId;
-	const editRoute = `/users/${userId}/notification/${id}/edit`;
-	const viewRoute = `/users/${userId}/notification/${id}/view`;
-	const notificationRoute = `/users/${userId}/notification`;
+	const editRoute = `/users/${userId}/notifications/${id}/edit`;
+	const viewRoute = `/users/${userId}/notifications/${id}/view`;
+	const notificationRoute = `/users/${userId}/notifications`;
 
 	const breadCrumbs = [
 		{

@@ -33,29 +33,3 @@ export const load: PageServerLoad = async (event: RequestEvent) => {
 		console.error(`Error retriving notification: ${error.message}`);
 	}
 };
-
-// export const load: PageServerLoad = async (event: RequestEvent) => {
-// 	const sessionId = event.cookies.get('sessionId');
-// 	console.log('sessionId', sessionId);
-
-// 	try {
-// 		const notificationId = event.params.id;
-// 		console.log(notificationId);
-// 		const response = await getNotificationById(sessionId, notificationId);
-
-// 		if (response.Status === 'failure' || response.HttpCode !== 200) {
-// 			throw error(response.HttpCode, response.Message);
-// 		}
-// 		const notification = response.Data.Notification;
-// 		console.log('notification', notification);
-// 		const id = response.Data.Notification.id;
-// 		console.log('id==', id);
-// 		return {
-// 			location: `${id}/edit`,
-// 			notification,
-// 			message: response.Message
-// 		};
-// 	} catch (error) {
-// 		console.error(`Error retriving notification: ${error.message}`);
-// 	}
-// };
