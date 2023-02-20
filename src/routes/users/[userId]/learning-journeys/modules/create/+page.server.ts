@@ -32,11 +32,11 @@ export const actions = {
 		const id = response.Data.id;
 		console.log(response);
 		if (response.Status === 'failure' || response.HttpCode !== 201) {
-			throw redirect(303, '/learning-journey/module', errorMessage(response.Message), event);
+			throw redirect(303, '/learning-journeys/modules', errorMessage(response.Message), event);
 		}
 		throw redirect(
 			303,
-			`/users/${userId}/learning-journey/module${id}/view`,
+			`/users/${userId}/learning-journeys/modules/${id}/view`,
 			successMessage(`module created successful!`),
 			event
 		);

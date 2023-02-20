@@ -20,9 +20,9 @@
 	});
 
 	const userId = $page.params.userId;
-	const editRoute = `/users/${userId}/learning-journey/${id}/edit`;
-	const viewRoute = `/users/${userId}/learning-journey/${id}/view`;
-	const learningJourneyRoute = `/users/${userId}/learning-journey`;
+	const editRoute = `/users/${userId}/learning-journeys/${id}/edit`;
+	const viewRoute = `/users/${userId}/learning-journeys/${id}/view`;
+	const learningJourneyRoute = `/users/${userId}/learning-journeys`;
 
 	const breadCrumbs = [
 		{

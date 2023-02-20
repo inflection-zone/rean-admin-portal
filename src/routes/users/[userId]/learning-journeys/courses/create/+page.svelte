@@ -5,8 +5,8 @@
 	import { page } from '$app/stores';
 
 	const userId = $page.params.userId;
-	const createRoute = `/users/${userId}/learning-journey/course/create`;
-	const courseRoute = `/users/${userId}/learning-journey/course`;
+	const createRoute = `/users/${userId}/learning-journeys/courses/create`;
+	const courseRoute = `/users/${userId}/learning-journeys/courses`;
 
 	const breadCrumbs = [
 		{

@@ -55,11 +55,11 @@ export const actions = {
 		const id = response.Data.id;
 
 		if (response.Status === 'failure' || response.HttpCode !== 200) {
-			throw redirect(303, '/learning-journey/course', errorMessage(response.Message), event);
+			throw redirect(303, '/learning-journeys/courses', errorMessage(response.Message), event);
 		}
 		throw redirect(
 			303,
-			`/users/${userId}/learning-journey/course${id}/view`,
+			`/users/${userId}/learning-journeys/courses/${id}/view`,
 			successMessage(`course updated successful!`),
 			event
 		);

@@ -23,9 +23,9 @@
 	});
 
 	const userId = $page.params.userId;
-	const editRoute = `/users/${userId}/learning-journey/module/${id}/edit`;
-	const viewRoute = `/users/${userId}/learning-journey/module/${id}/view`;
-	const moduleRoute = `/users/${userId}/learning-journey/module`;
+	const editRoute = `/users/${userId}/learning-journeys/modules/${id}/edit`;
+	const viewRoute = `/users/${userId}/learning-journeys/modules/${id}/view`;
+	const moduleRoute = `/users/${userId}/learning-journeys/modules`;
 
 	const breadCrumbs = [
 		{

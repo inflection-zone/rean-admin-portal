@@ -34,9 +34,9 @@
 	}
 
 	const userId = $page.params.userId;
-	const editRoute = `/users/${userId}/learning-journey/course/${id}/edit`;
-	const viewRoute = `/users/${userId}/learning-journey/course/${id}/view`;
-	const courseRoute = `/users/${userId}/learning-journey/course`;
+	const editRoute = `/users/${userId}/learning-journeys/courses/${id}/edit`;
+	const viewRoute = `/users/${userId}/learning-journeys/courses/${id}/view`;
+	const courseRoute = `/users/${userId}/learning-journeys/courses`;
 
 	const breadCrumbs = [
 		{
