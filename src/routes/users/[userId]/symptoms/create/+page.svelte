@@ -12,8 +12,8 @@
 	}
 
 	const userId = $page.params.userId;
-	const createRoute = `/users/${userId}/symptom/create`;
-	const symptomRoute = `/users/${userId}/symptom`;
+	const createRoute = `/users/${userId}/symptoms/create`;
+	const symptomRoute = `/users/${userId}/symptoms`;
 
 	const breadCrumbs = [
 		{

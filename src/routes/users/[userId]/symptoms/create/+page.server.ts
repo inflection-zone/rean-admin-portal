@@ -31,11 +31,11 @@ export const actions = {
 		const id = response.Data.id;
 		console.log(response);
 		if (response.Status === 'failure' || response.HttpCode !== 201) {
-			throw redirect(303, '/symptom', errorMessage(response.Message), event);
+			throw redirect(303, '/symptoms', errorMessage(response.Message), event);
 		}
 		throw redirect(
 			303,
-			`/users/${userId}/symptom/${id}/view`,
+			`/users/${userId}/symptoms/${id}/view`,
 			successMessage(`symptom created successful!`),
 			event
 		);

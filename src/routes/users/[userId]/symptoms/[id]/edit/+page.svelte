@@ -40,9 +40,9 @@
 	}
 
 	const userId = $page.params.userId;
-	const editRoute = `/users/${userId}/symptom/${id}/edit`;
-	const viewRoute = `/users/${userId}/symptom/${id}/view`;
-	const symptomRoute = `/users/${userId}/symptom`;
+	const editRoute = `/users/${userId}/symptoms/${id}/edit`;
+	const viewRoute = `/users/${userId}/symptoms/${id}/view`;
+	const symptomRoute = `/users/${userId}/symptoms`;
 
 	const breadCrumbs = [
 		{
