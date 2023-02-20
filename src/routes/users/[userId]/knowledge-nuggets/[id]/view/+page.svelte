@@ -9,13 +9,13 @@
 	import { page } from '$app/stores';
 
 	export let data: PageServerData;
-	let id = data.knowledgeNuggets.id;
-	let topicName = data.knowledgeNuggets.TopicName;
-	let briefInformation = data.knowledgeNuggets.BriefInformation;
-	let detailedInformation = data.knowledgeNuggets.DetailedInformation;
-	let additionalResource = data.knowledgeNuggets.AdditionalResource;
-	let tags = data.knowledgeNuggets.Tags;
-	// let tags_ = data.knowledgeNuggets.Tags;
+	let id = data.knowledgeNugget.id;
+	let topicName = data.knowledgeNugget.TopicName;
+	let briefInformation = data.knowledgeNugget.BriefInformation;
+	let detailedInformation = data.knowledgeNugget.DetailedInformation;
+	let additionalResource = data.knowledgeNugget.AdditionalResource;
+	let tags = data.knowledgeNugget.Tags;
+	// let tags_ = data.knowledgeNugget.Tags;
 	// let tags = tags_.join(', ');
 
 	console.log('tags===', tags);

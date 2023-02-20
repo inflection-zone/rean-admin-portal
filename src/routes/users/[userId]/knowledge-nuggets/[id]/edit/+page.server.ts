@@ -4,8 +4,8 @@ import { error, type RequestEvent } from '@sveltejs/kit';
 import { redirect } from 'sveltekit-flash-message/server';
 import { errorMessage, successMessage } from '$lib/utils/message.utils';
 import {
-	getKnowledgeNuggetsById,
-	updateKnowledgeNuggets
+	getKnowledgeNuggetById,
+	updateKnowledgeNugget
 } from '../../../../../api/services/knowledge-nuggets';
 
 /////////////////////////////////////////////////////////////////////////
@@ -17,19 +17,19 @@ export const load: PageServerLoad = async (event: RequestEvent) => {
 	try {
 		const knowledgeNuggetsId = event.params.id;
 		//console.log('knowid=====', knowledgeNuggetsId);
-		const response = await getKnowledgeNuggetsById(sessionId, knowledgeNuggetsId);
+		const response = await getKnowledgeNuggetById(sessionId, knowledgeNuggetsId);
 
 		if (response.Status === 'failure' || response.HttpCode !== 200) {
 			throw error(response.HttpCode, response.Message);
 		}
-		const knowledgeNuggets = response.Data.KnowledgeNugget;
-		console.log('knowledge Nuggets====', knowledgeNuggets);
+		const KnowledgeNugget = response.Data.KnowledgeNugget;
+		console.log('knowledge Nuggets====', KnowledgeNugget);
 		//const id = response.Data.id;
 		const id = response.Data.KnowledgeNugget.id;
 		//console.log('id====', id);
 		return {
 			location: `${id}/edit`,
-			knowledgeNuggets,
+			KnowledgeNugget,
 			message: response.Message
 		};
 	} catch (error) {
@@ -38,7 +38,7 @@ export const load: PageServerLoad = async (event: RequestEvent) => {
 };
 
 export const actions = {
-	updateKnowledgeNuggets: async (event: RequestEvent) => {
+	updateKnowledgeNugget: async (event: RequestEvent) => {
 		const request = event.request;
 		const userId = event.params.userId;
 		const data = await request.formData();
@@ -63,7 +63,7 @@ export const actions = {
 		const knowledgeNuggetsId = event.params.id;
 		console.log('knowledge nuggets id', knowledgeNuggetsId);
 
-		const response = await updateKnowledgeNuggets(
+		const response = await updateKnowledgeNugget(
 			sessionId,
 			knowledgeNuggetsId,
 			topicName.valueOf() as string,
