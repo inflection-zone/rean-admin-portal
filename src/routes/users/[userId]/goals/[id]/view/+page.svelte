@@ -9,30 +9,30 @@
 	import { page } from '$app/stores';
 
 	export let data: PageServerData;
-	let id = data.goalCategoriesManagement.id;
-	let patientUserId = data.goalCategoriesManagement.patientUserId;
-	let enrollmentId = data.goalCategoriesManagement.enrollmentId;
-	let provider = data.goalCategoriesManagement.provider;
-	let careplanName = data.goalCategoriesManagement.careplanName;
-	let careplanCode = data.goalCategoriesManagement.careplanCode;
-	let title = data.goalCategoriesManagement.title;
-	let sequence = data.goalCategoriesManagement.sequence;
-	let healthPriorityId = data.goalCategoriesManagement.healthPriorityId;
-	let goalAchieved = data.goalCategoriesManagement.goalAchieved;
+	let id = data.goal.id;
+	let patientUserId = data.goal.patientUserId;
+	let enrollmentId = data.goal.enrollmentId;
+	let provider = data.goal.provider;
+	let careplanName = data.goal.careplanName;
+	let careplanCode = data.goal.careplanCode;
+	let title = data.goal.title;
+	let sequence = data.goal.sequence;
+	let healthPriorityId = data.goal.healthPriorityId;
+	let goalAchieved = data.goal.goalAchieved;
 	onMount(() => {
 		show(data);
 		LocalStorageUtils.removeItem('prevUrl');
 	});
 
 	const userId = $page.params.userId;
-	const editRoute = `/users/${userId}/goal-categories-management/${id}/edit`;
-	const viewRoute = `/users/${userId}/goal-categories-management/${id}/view`;
-	const goalCategoriesManagementRoute = `/users/${userId}/goal-categories-management`;
+	const editRoute = `/users/${userId}/goals/${id}/edit`;
+	const viewRoute = `/users/${userId}/goals/${id}/view`;
+	const goalRoute = `/users/${userId}/goals`;
 
 	const breadCrumbs = [
 		{
-			name: 'goal-Categories-Management',
-			path: goalCategoriesManagementRoute
+			name: 'Goal',
+			path: goalRoute
 		},
 		{
 			name: 'View',
@@ -51,9 +51,9 @@
 		>
 			<div class="w-full  h-14 rounded-t-lg p-3  bg-[#7165E3]">
 				<div class="ml-3 relative flex flex-row text-white lg:text-xl text-lg ">
-					<div class="lg:hidden md:hidden block">View Goal Categories Management</div>
-					<div class="lg:block md:block hidden">View Goal Categories Management</div>
-					<a href={goalCategoriesManagementRoute}>
+					<div class="lg:hidden md:hidden block">View Goal</div>
+					<div class="lg:block md:block hidden">View Goal</div>
+					<a href={goalRoute}>
 						<Fa icon={faMultiply} size="lg" class="absolute right-0 lg:pr-3 pr-0 text-white" />
 					</a>
 				</div>

@@ -1,12 +1,12 @@
 import { redirect } from 'sveltekit-flash-message/server';
 import type { RequestEvent } from '@sveltejs/kit';
 import { errorMessage, successMessage } from '$lib/utils/message.utils';
-import { creategoalCategoriesManagement } from '../../../../api/services/goals';
+import { createGoal } from '../../../../api/services/goals';
 
 /////////////////////////////////////////////////////////////////////////
 
 export const actions = {
-	creategoalCategoriesManagement: async (event: RequestEvent) => {
+	createGoal: async (event: RequestEvent) => {
 		const request = event.request;
 		const userId = event.params.userId;
 		const data = await request.formData();
@@ -23,7 +23,7 @@ export const actions = {
 		const sessionId = event.cookies.get('sessionId');
 		console.log('sessionId', sessionId);
 
-		const response = await creategoalCategoriesManagement(
+		const response = await createGoal(
 			sessionId,
 			patientUserId.valueOf() as string,
 			enrollmentId.valueOf() as string,
@@ -38,12 +38,12 @@ export const actions = {
 		const id = response.Data.id;
 		console.log(response);
 		if (response.Status === 'failure' || response.HttpCode !== 201) {
-			throw redirect(303, '/goal-categories-management', errorMessage(response.Message), event);
+			throw redirect(303, '/goals', errorMessage(response.Message), event);
 		}
 		throw redirect(
 			303,
-			`/users/${userId}/goal-categories-management/${id}/view`,
-			successMessage(`goal categories management created successful!`),
+			`/users/${userId}/goals/${id}/view`,
+			successMessage(`goal created successful!`),
 			event
 		);
 	}

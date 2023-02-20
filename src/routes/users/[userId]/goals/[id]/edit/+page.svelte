@@ -7,16 +7,16 @@
 
 	// export let data: PageServerData;
 	// let initiaData = {};
-	// let id = data.goalCategoriesManagement.id;
-	// let patientUserId = data.goalCategoriesManagement.patientUserId;
-	// let enrollmentId = data.goalCategoriesManagement.enrollmentId;
-	// let provider = data.goalCategoriesManagement.provider;
-	// let careplanName = data.goalCategoriesManagement.careplanName;
-	// let careplanCode = data.goalCategoriesManagement.careplanCode;
-	// let title = data.goalCategoriesManagement.title;
-	// let sequence = data.goalCategoriesManagement.sequence;
-	// let healthPriorityId = data.goalCategoriesManagement.healthPriorityId;
-	// let goalAchieved = data.goalCategoriesManagement.goalAchieved;
+	// let id = data.goal.id;
+	// let patientUserId = data.goal.patientUserId;
+	// let enrollmentId = data.goal.enrollmentId;
+	// let provider = data.goal.provider;
+	// let careplanName = data.goal.careplanName;
+	// let careplanCode = data.goal.careplanCode;
+	// let title = data.goal.title;
+	// let sequence = data.goal.sequence;
+	// let healthPriorityId = data.goal.healthPriorityId;
+	// let goalAchieved = data.goal.goalAchieved;
 
 	let id = '56789';
 	let patientUserId = '123456';
@@ -53,14 +53,14 @@
 	}
 
 	const userId = $page.params.userId;
-	const editRoute = `/users/${userId}/goal-categories-management/${id}/edit`;
-	const viewRoute = `/users/${userId}/goal-categories-management/${id}/view`;
-	const goalCategoriesManagementRoute = `/users/${userId}/goal-categories-management`;
+	const editRoute = `/users/${userId}/goals/${id}/edit`;
+	const viewRoute = `/users/${userId}/goals/${id}/view`;
+	const goalRoute = `/users/${userId}/goals`;
 
 	const breadCrumbs = [
 		{
-			name: 'goal-Categories-Management',
-			path: goalCategoriesManagementRoute
+			name: 'Goal',
+			path: goalRoute
 		},
 		{
 			name: 'Edit',
@@ -75,12 +75,12 @@
 	<div class=" flex justify-center mt-5 px-3 mb-10 flex-col items-center">
 		<form
 			method="post"
-			action="?/updateGoalCategoriesManagement"
+			action="?/updateGoal"
 			class="w-full lg:max-w-4xl md:max-w-xl sm:max-w-lg bg-[#ECE4FC] rounded-lg mx-auto"
 		>
 			<div class="w-full  h-14 rounded-t-lg p-3  bg-[#7165E3]">
 				<div class="ml-3 relative flex flex-row text-white text-xl">
-					Edit Goal Categories Management
+					Edit Goal
 					<a href={viewRoute}>
 						<Fa icon={faMultiply} size="lg" class="absolute right-0 pr-3 mb-16 text-white " /></a
 					>

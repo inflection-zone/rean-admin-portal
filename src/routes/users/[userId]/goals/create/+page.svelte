@@ -5,13 +5,13 @@
 	import { page } from '$app/stores';
 
 	const userId = $page.params.userId;
-	const createRoute = `/users/${userId}/goal-categories-management/create`;
-	const goalCategoriesManagementRoute = `/users/${userId}/goal-categories-management`;
+	const createRoute = `/users/${userId}/goals/create`;
+	const goalRoute = `/users/${userId}/goals`;
 
 	const breadCrumbs = [
 		{
-			name: 'goal-Categories-Management',
-			path: goalCategoriesManagementRoute
+			name: 'Goal',
+			path: goalRoute
 		},
 		{
 			name: 'Create',
@@ -26,13 +26,13 @@
 	<div class="px-5 mb-5 ">
 		<form
 			method="post"
-			action="?/createGoalCategoriesManagement"
+			action="?/createGoal"
 			class="w-full  bg-[#ECE4FC] lg:mt-10 md:mt-8 sm:mt-6 mb-10 mt-4 lg:max-w-4xl md:max-w-xl sm:max-w-lg  rounded-lg mx-auto"
 		>
 			<div class="w-full  h-14 rounded-t-lg p-3  bg-[#7165E3]">
 				<div class="ml-3 relative flex flex-row text-white text-xl">
-					Create Goal Categories Management
-					<a href={goalCategoriesManagementRoute}>
+					Create Goal
+					<a href={goalRoute}>
 						<Fa
 							icon={faMultiply}
 							size="lg"

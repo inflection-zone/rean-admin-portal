@@ -3,10 +3,7 @@ import type { PageServerLoad, Action } from './$types';
 import { error, type RequestEvent } from '@sveltejs/kit';
 import { redirect } from 'sveltekit-flash-message/server';
 import { errorMessage, successMessage } from '$lib/utils/message.utils';
-import {
-	getGoalCategoriesManagementById,
-	updateGoalCategoriesManagement
-} from '../../../../../api/services/goals';
+import { getGoalById, updateGoal } from '../../../../../api/services/goals';
 
 /////////////////////////////////////////////////////////////////////////
 
@@ -15,25 +12,25 @@ export const load: PageServerLoad = async (event: RequestEvent) => {
 	console.log('sessionId', sessionId);
 
 	try {
-		const goalCategoriesManagementId = event.params.id;
-		console.log(goalCategoriesManagementId);
-		const response = await getGoalCategoriesManagementById(sessionId, goalCategoriesManagementId);
+		const goalId = event.params.id;
+		console.log(goalId);
+		const response = await getGoalById(sessionId, goalId);
 
 		if (response.Status === 'failure' || response.HttpCode !== 200) {
 			throw error(response.HttpCode, response.Message);
 		}
-		const goalCategoriesManagement = response.Data;
-		console.log('goal categories management', goalCategoriesManagement);
+		const goal = response.Data;
+		console.log('goal', goal);
 		return {
-			goalCategoriesManagement
+			goal
 		};
 	} catch (error) {
-		console.error(`Error retriving goal categories management: ${error.message}`);
+		console.error(`Error retriving goals: ${error.message}`);
 	}
 };
 
 export const actions = {
-	updateGoalCategoriesManagement: async (event: RequestEvent) => {
+	updateGoal: async (event: RequestEvent) => {
 		const request = event.request;
 		const userId = event.params.userId;
 		const data = await request.formData();
@@ -49,12 +46,12 @@ export const actions = {
 
 		const sessionId = event.cookies.get('sessionId');
 		console.log('sessionId', sessionId);
-		const goalCategoriesManagementId = event.params.id;
-		console.log('goal categories management id', goalCategoriesManagementId);
+		const goalId = event.params.id;
+		console.log('goal id', goalId);
 
-		const response = await updateGoalCategoriesManagement(
+		const response = await updateGoal(
 			sessionId,
-			goalCategoriesManagementId,
+			goalId,
 			patientUserId.valueOf() as string,
 			enrollmentId.valueOf() as string,
 			provider.valueOf() as string,
@@ -68,12 +65,12 @@ export const actions = {
 		const id = response.Data.id;
 
 		if (response.Status === 'failure' || response.HttpCode !== 200) {
-			throw redirect(303, '/goal-categories-management', errorMessage(response.Message), event);
+			throw redirect(303, '/goals', errorMessage(response.Message), event);
 		}
 		throw redirect(
 			303,
-			`/users/${userId}/goal-categories-management/${id}/view`,
-			successMessage(`goal categories management updated successful!`),
+			`/users/${userId}/goals/${id}/view`,
+			successMessage(`goal updated successful!`),
 			event
 		);
 	}
