@@ -3,10 +3,7 @@ import type { PageServerLoad, Action } from './$types';
 import { error, type RequestEvent } from '@sveltejs/kit';
 import { redirect } from 'sveltekit-flash-message/server';
 import { errorMessage, successMessage } from '$lib/utils/message.utils';
-import {
-	getApiKeyManagementById,
-	updateApiKeyManagement
-} from '../../../../../api/services/api-clients';
+import { getApiClientById, updateApiClient } from '../../../../../api/services/api-clients';
 
 /////////////////////////////////////////////////////////////////////////
 
@@ -15,25 +12,25 @@ export const load: PageServerLoad = async (event: RequestEvent) => {
 	console.log('sessionId', sessionId);
 
 	try {
-		const apiKeyManagementId = event.params.id;
-		console.log(apiKeyManagementId);
-		const response = await getApiKeyManagementById(sessionId, apiKeyManagementId);
+		const apiClientId = event.params.id;
+		console.log(apiClientId);
+		const response = await getApiClientById(sessionId, apiClientId);
 
 		if (response.Status === 'failure' || response.HttpCode !== 200) {
 			throw error(response.HttpCode, response.Message);
 		}
-		const apiKeyManagement = response.Data;
-		console.log('api key management', apiKeyManagement);
+		const apiClient = response.Data;
+		console.log('api client', apiClient);
 		return {
-			apiKeyManagement
+			apiClient
 		};
 	} catch (error) {
-		console.error(`Error retriving api key management: ${error.message}`);
+		console.error(`Error retriving api client: ${error.message}`);
 	}
 };
 
 export const actions = {
-	updateApiKeyManagement: async (event: RequestEvent) => {
+	updateApiClient: async (event: RequestEvent) => {
 		const request = event.request;
 		const userId = event.params.userId;
 		const data = await request.formData();
@@ -44,12 +41,12 @@ export const actions = {
 
 		const sessionId = event.cookies.get('sessionId');
 		console.log('sessionId', sessionId);
-		const apiKeyManagementId = event.params.id;
-		console.log('api key management id', apiKeyManagementId);
+		const apiClientId = event.params.id;
+		console.log('api client id', apiClientId);
 
-		const response = await updateApiKeyManagement(
+		const response = await updateApiClient(
 			sessionId,
-			apiKeyManagementId,
+			apiClientId,
 			clientName.valueOf() as string,
 			password.valueOf() as string,
 			phone.valueOf() as number,
@@ -58,12 +55,12 @@ export const actions = {
 		const id = response.Data.id;
 
 		if (response.Status === 'failure' || response.HttpCode !== 200) {
-			throw redirect(303, '/api-key-management', errorMessage(response.Message), event);
+			throw redirect(303, '/api-clients', errorMessage(response.Message), event);
 		}
 		throw redirect(
 			303,
-			`/users/${userId}/api-key-management/${id}/view`,
-			successMessage(`api key management updated successful!`),
+			`/users/${userId}/api-clients/${id}/view`,
+			successMessage(`api client updated successful!`),
 			event
 		);
 	}

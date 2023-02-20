@@ -1,7 +1,7 @@
 import * as cookie from 'cookie';
 import type { PageServerLoad, Action } from './$types';
 import { error, redirect, type RequestEvent } from '@sveltejs/kit';
-import { getDrugManagementById } from '../../../../../api/services/drugs';
+import { getDrugById } from '../../../../../api/services/drugs';
 
 ////////////////////////////////////////////////////////////////////////////
 
@@ -12,7 +12,7 @@ export const load: PageServerLoad = async (event: RequestEvent) => {
 	try {
 		const drugManagementId = event.params.id;
 		console.log(drugManagementId);
-		const response = await getDrugManagementById(sessionId, drugManagementId);
+		const response = await getDrugById(sessionId, drugManagementId);
 
 		if (response.Status === 'failure' || response.HttpCode !== 200) {
 			throw error(response.HttpCode, response.Message);

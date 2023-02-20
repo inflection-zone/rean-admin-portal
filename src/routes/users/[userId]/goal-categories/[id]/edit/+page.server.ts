@@ -6,7 +6,7 @@ import { errorMessage, successMessage } from '$lib/utils/message.utils';
 import {
 	getGoalCategoriesManagementById,
 	updateGoalCategoriesManagement
-} from '../../../../../api/services/goal-categories';
+} from '../../../../../api/services/goals';
 
 /////////////////////////////////////////////////////////////////////////
 

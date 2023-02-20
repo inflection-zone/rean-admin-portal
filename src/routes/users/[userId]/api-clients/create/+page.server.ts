@@ -1,12 +1,12 @@
 import { redirect } from 'sveltekit-flash-message/server';
 import type { RequestEvent } from '@sveltejs/kit';
 import { errorMessage, successMessage } from '$lib/utils/message.utils';
-import { createApiKeyManagement } from '../../../../api/services/api-clients';
+import { createApiClient } from '../../../../api/services/api-clients';
 
 /////////////////////////////////////////////////////////////////////////
 
 export const actions = {
-	createApiKeyManagement: async (event: RequestEvent) => {
+	createApiClient: async (event: RequestEvent) => {
 		const request = event.request;
 		const userId = event.params.userId;
 		const data = await request.formData();
@@ -18,7 +18,7 @@ export const actions = {
 		const sessionId = event.cookies.get('sessionId');
 		console.log('sessionId', sessionId);
 
-		const response = await createApiKeyManagement(
+		const response = await createApiClient(
 			sessionId,
 			clientName.valueOf() as string,
 			password.valueOf() as string,
@@ -28,12 +28,12 @@ export const actions = {
 		const id = response.Data.id;
 		console.log(response);
 		if (response.Status === 'failure' || response.HttpCode !== 201) {
-			throw redirect(303, '/api-key-management', errorMessage(response.Message), event);
+			throw redirect(303, '/api-clients', errorMessage(response.Message), event);
 		}
 		throw redirect(
 			303,
-			`/users/${userId}/api-key-management/${id}/view`,
-			successMessage(`Api key management created successful!`),
+			`/users/${userId}/api-clients/${id}/view`,
+			successMessage(`Api client created successful!`),
 			event
 		);
 	}

@@ -3,7 +3,7 @@ import { delete_, get_, post_, put_ } from './common';
 
 ////////////////////////////////////////////////////////////////
 
-export const createKnowledgeNuggets = async (
+export const createKnowledgeNugget = async (
 	sessionId: string,
 	topicName: string,
 	briefInformation: string,
@@ -24,27 +24,34 @@ export const createKnowledgeNuggets = async (
 	return await post_(sessionId, url, body, true);
 };
 
-export const getKnowledgeNuggetsById = async (sessionId: string, knowledgeNuggetsId: string) => {
-	const url = BACKEND_API_URL + `/educational/knowledge-nuggets/${knowledgeNuggetsId}`;
+export const getKnowledgeNuggetById = async (sessionId: string, knowledgeNuggetId: string) => {
+	const url = BACKEND_API_URL + `/educational/knowledge-nuggets/${knowledgeNuggetId}`;
 	return await get_(sessionId, url, true);
 };
 
-export const searchAssets = async (sessionId: string, selectAsset: string, searchParams = '') => {
+export const searchKnowledgeNuggets = async (sessionId: string, searchParams?: any) => {
 	let searchString = '';
-	const keys = Object.keys(searchParams);
-	if (keys.length > 0) {
-		searchString = '?';
-		for (const key of keys) {
-			searchString += `${key}=${searchParams[key]}`;
+	if (searchParams) {
+		const keys = Object.keys(searchParams);
+		if (keys.length > 0) {
+			searchString = '?';
+			const params = [];
+			for (const key of keys) {
+				if (searchParams[key]) {
+					const param = `${key}=${searchParams[key]}`;
+					params.push(param);
+				}
+			}
+			searchString += params.join('&');
 		}
 	}
-	const url = BACKEND_API_URL + `/educational/knowledge-nuggets/search${searchString}/`;
+	const url = BACKEND_API_URL + `/educational/knowledge-nuggets/search${searchString}`;
 	return await get_(sessionId, url, true);
 };
 
-export const updateKnowledgeNuggets = async (
+export const updateKnowledgeNugget = async (
 	sessionId: string,
-	knowledgeNuggetsId: string,
+	knowledgeNuggetId: string,
 	topicName: string,
 	briefInformation: string,
 	detailedInformation: string,
@@ -58,12 +65,12 @@ export const updateKnowledgeNuggets = async (
 		//AdditionalResource: additionalResource,
 		Tags: tags
 	};
-	const url = BACKEND_API_URL + `/educational/knowledge-nuggets${knowledgeNuggetsId}`;
+	const url = BACKEND_API_URL + `/educational/knowledge-nuggets${knowledgeNuggetId}`;
 	console.log('url==', url);
 	return await put_(sessionId, url, body, true);
 };
 
-export const deleteKnowledgeNuggets = async (sessionId: string, knowledgeNuggetsId: string) => {
-	const url = BACKEND_API_URL + `/educational/knowledge-nuggets${knowledgeNuggetsId}`;
+export const deleteKnowledgeNugget = async (sessionId: string, knowledgeNuggetId: string) => {
+	const url = BACKEND_API_URL + `/educational/knowledge-nuggets${knowledgeNuggetId}`;
 	return await delete_(sessionId, url, true);
 };

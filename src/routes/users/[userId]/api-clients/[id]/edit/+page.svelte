@@ -1,21 +1,20 @@
 <script lang="ts">
 	import Fa from 'svelte-fa';
 	import { faMultiply } from '@fortawesome/free-solid-svg-icons';
-	import type { PageServerData } from './$types';
 
-	//export let data: PageServerData;
-	// let initiaData = {};
-	// let id = data.apiKeyManagement.id;
-	// let clientName = data.apiKeyManagement.clientName;
-	// let password = data.apiKeyManagement.password;
-	// let phone = data.apiKeyManagement.phone;
-	// let email = data.apiKeyManagement.email;
+	export let data: PageServerData;
+	let initiaData = {};
+	let id = data.apiClient.id;
+	let clientName = data.apiClient.clientName;
+	let password = data.apiClient.password;
+	let phone = data.apiClient.phone;
+	let email = data.apiClient.email;
 
-	let id = '56789';
-	let clientName = 'abc def';
-	let password = 'apiclient';
-	let phone = 1234567890;
-	let email = 'api@gmail.com';
+	// let id = '56789';
+	// let clientName = 'abc def';
+	// let password = 'apiclient';
+	// let phone = 1234567890;
+	// let email = 'api@gmail.com';
 
 	//Original data
 	let _clientName = clientName;
@@ -32,15 +31,16 @@
 
 	import BreadCrumbs from '$lib/components/breadcrumbs/breadcrums.svelte';
 	import { page } from '$app/stores';
+	import type { PageServerData } from './$types';
 	const userId = $page.params.userId;
-	const editRoute = `/users/${userId}/api-key-management/${id}/edit`;
-	const viewRoute = `/users/${userId}/api-key-management/${id}/view`;
-	const apiKeyManagementRoute = `/users/${userId}/api-key-management`;
+	const editRoute = `/users/${userId}/api-clients/${id}/edit`;
+	const viewRoute = `/users/${userId}/api-clients/${id}/view`;
+	const apiClientRoute = `/users/${userId}/api-clients`;
 
 	const breadCrumbs = [
 		{
-			name: 'Api-Key-Management',
-			path: apiKeyManagementRoute
+			name: 'Api-Client',
+			path: apiClientRoute
 		},
 		{
 			name: 'Edit',
@@ -55,12 +55,12 @@
 	<div class=" flex justify-center mt-5 px-3 mb-10 flex-col items-center">
 		<form
 			method="post"
-			action="?/updateApiKeyManagement"
+			action="?/updateApiClient"
 			class="w-full lg:max-w-4xl md:max-w-xl sm:max-w-lg bg-[#ECE4FC] rounded-lg mx-auto"
 		>
 			<div class="w-full  h-14 rounded-t-lg p-3  bg-[#7165E3]">
 				<div class="ml-3 relative flex flex-row text-white text-xl">
-					Edit Api Key Management
+					Edit Api Client
 					<a href={viewRoute}>
 						<Fa icon={faMultiply} size="lg" class="absolute right-0 pr-3 mb-16 text-white " /></a
 					>

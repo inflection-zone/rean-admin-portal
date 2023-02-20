@@ -7,11 +7,11 @@
 	import { LocalStorageUtils } from '$lib/utils/local.storage.utils';
 
 	export let data: PageServerData;
-	let id = data.apiKeyManagement.id;
-	let clientName = data.apiKeyManagement.clientName;
-	let password = data.apiKeyManagement.password;
-	let phone = data.apiKeyManagement.phone;
-	let email = data.apiKeyManagement.email;
+	let id = data.apiClient.id;
+	let clientName = data.apiClient.clientName;
+	let password = data.apiClient.password;
+	let phone = data.apiClient.phone;
+	let email = data.apiClient.email;
 	onMount(() => {
 		show(data);
 		LocalStorageUtils.removeItem('prevUrl');
@@ -20,14 +20,14 @@
 	import BreadCrumbs from '$lib/components/breadcrumbs/breadcrums.svelte';
 	import { page } from '$app/stores';
 	const userId = $page.params.userId;
-	const editRoute = `/users/${userId}/api-key-management/${id}/edit`;
-	const viewRoute = `/users/${userId}/api-key-management/${id}/view`;
-	const apiKeyManagementRoute = `/users/${userId}/api-key-management`;
+	const editRoute = `/users/${userId}/api-clients/${id}/edit`;
+	const viewRoute = `/users/${userId}/api-clients/${id}/view`;
+	const apiClientRoute = `/users/${userId}/api-clients`;
 
 	const breadCrumbs = [
 		{
-			name: 'Api-Key-Management',
-			path: apiKeyManagementRoute
+			name: 'Api-Client',
+			path: apiClientRoute
 		},
 		{
 			name: 'View',
@@ -46,9 +46,9 @@
 		>
 			<div class="w-full  h-14 rounded-t-lg p-3  bg-[#7165E3]">
 				<div class="ml-3 relative flex flex-row text-white lg:text-xl text-lg ">
-					<div class="lg:hidden md:hidden block">View Api Key Management</div>
-					<div class="lg:block md:block hidden">View Api Key Management</div>
-					<a href={apiKeyManagementRoute}>
+					<div class="lg:hidden md:hidden block">View Api Client</div>
+					<div class="lg:block md:block hidden">View Api Client</div>
+					<a href={apiClientRoute}>
 						<Fa icon={faMultiply} size="lg" class="absolute right-0 lg:pr-3 pr-0 text-white" />
 					</a>
 				</div>

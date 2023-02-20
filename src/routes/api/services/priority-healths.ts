@@ -3,7 +3,7 @@ import { delete_, get_, post_, put_ } from './common';
 
 ////////////////////////////////////////////////////////////////
 
-export const createPriorityHealth = async (
+export const createPriority = async (
 	sessionId: string,
 	patientUserId: string,
 	provider: string,
@@ -29,27 +29,34 @@ export const createPriorityHealth = async (
 	return await post_(sessionId, url, body, true);
 };
 
-export const getPriorityHealthById = async (sessionId: string, priorityHealthId: string) => {
-	const url = BACKEND_API_URL + `/patient-health-priorities/${priorityHealthId}`;
+export const getPriorityById = async (sessionId: string, priorityId: string) => {
+	const url = BACKEND_API_URL + `/patient-health-priorities/${priorityId}`;
 	return await get_(sessionId, url, true);
 };
 
-export const searchAssets = async (sessionId: string, selectAsset: string, searchParams = '') => {
+export const searchPriorities = async (sessionId: string, searchParams?: any) => {
 	let searchString = '';
-	const keys = Object.keys(searchParams);
-	if (keys.length > 0) {
-		searchString = '?';
-		for (const key of keys) {
-			searchString += `${key}=${searchParams[key]}`;
+	if (searchParams) {
+		const keys = Object.keys(searchParams);
+		if (keys.length > 0) {
+			searchString = '?';
+			const params = [];
+			for (const key of keys) {
+				if (searchParams[key]) {
+					const param = `${key}=${searchParams[key]}`;
+					params.push(param);
+				}
+			}
+			searchString += params.join('&');
 		}
 	}
-	const url = BACKEND_API_URL + `/patient-health-priorities/search${searchString}/`;
+	const url = BACKEND_API_URL + `/patient-health-priorities/search${searchString}`;
 	return await get_(sessionId, url, true);
 };
 
-export const updatePriorityHealth = async (
+export const updatePriority = async (
 	sessionId: string,
-	priorityHealthId: string,
+	priorityId: string,
 	patientUserId: string,
 	provider: string,
 	source: string,
@@ -69,11 +76,11 @@ export const updatePriorityHealth = async (
 		HealthPriorityType: healthPriorityType,
 		IsPrimary: isPrimary
 	};
-	const url = BACKEND_API_URL + `/patient-health-priorities/${priorityHealthId}`;
+	const url = BACKEND_API_URL + `/patient-health-priorities/${priorityId}`;
 	return await put_(sessionId, url, body, true);
 };
 
-export const deletePriorityHealth = async (sessionId: string, priorityHealthId: string) => {
-	const url = BACKEND_API_URL + `/patient-health-priorities/${priorityHealthId}`;
+export const deletePriority = async (sessionId: string, priorityId: string) => {
+	const url = BACKEND_API_URL + `/patient-health-priorities/${priorityId}`;
 	return await delete_(sessionId, url, true);
 };

@@ -27,16 +27,23 @@ export const getNotificationById = async (sessionId: string, notificationId: str
 	return await get_(sessionId, url, true);
 };
 
-export const searchAssets = async (sessionId: string, selectAsset: string, searchParams = '') => {
+export const searchNotifications = async (sessionId: string, searchParams?: any) => {
 	let searchString = '';
-	const keys = Object.keys(searchParams);
-	if (keys.length > 0) {
-		searchString = '?';
-		for (const key of keys) {
-			searchString += `${key}=${searchParams[key]}`;
+	if (searchParams) {
+		const keys = Object.keys(searchParams);
+		if (keys.length > 0) {
+			searchString = '?';
+			const params = [];
+			for (const key of keys) {
+				if (searchParams[key]) {
+					const param = `${key}=${searchParams[key]}`;
+					params.push(param);
+				}
+			}
+			searchString += params.join('&');
 		}
 	}
-	const url = BACKEND_API_URL + `/general/notifications/search${searchString}/`;
+	const url = BACKEND_API_URL + `/general/notifications/search${searchString}`;
 	return await get_(sessionId, url, true);
 };
 

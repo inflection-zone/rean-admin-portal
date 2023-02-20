@@ -17,25 +17,32 @@ export const createNewsfeed = async (
 		Date: date
 	};
 
-	const url = BACKEND_API_URL + '/newsfeeds';
+	const url = BACKEND_API_URL + '/rss-feeds';
 	return await post_(sessionId, url, body, true);
 };
 
 export const getNewsfeedById = async (sessionId: string, newsfeedId: string) => {
-	const url = BACKEND_API_URL + `/newsfeeds/${newsfeedId}`;
+	const url = BACKEND_API_URL + `/rss-feeds/${newsfeedId}`;
 	return await get_(sessionId, url, true);
 };
 
-export const searchAssets = async (sessionId: string, selectAsset: string, searchParams = '') => {
+export const searchNewsfeeds = async (sessionId: string, searchParams?: any) => {
 	let searchString = '';
-	const keys = Object.keys(searchParams);
-	if (keys.length > 0) {
-		searchString = '?';
-		for (const key of keys) {
-			searchString += `${key}=${searchParams[key]}`;
+	if (searchParams) {
+		const keys = Object.keys(searchParams);
+		if (keys.length > 0) {
+			searchString = '?';
+			const params = [];
+			for (const key of keys) {
+				if (searchParams[key]) {
+					const param = `${key}=${searchParams[key]}`;
+					params.push(param);
+				}
+			}
+			searchString += params.join('&');
 		}
 	}
-	const url = BACKEND_API_URL + `/newsfeeds/search${searchString}/`;
+	const url = BACKEND_API_URL + `/rss-feeds/search${searchString}`;
 	return await get_(sessionId, url, true);
 };
 
@@ -53,11 +60,11 @@ export const updateNewsfeed = async (
 		Description: description,
 		Date: date
 	};
-	const url = BACKEND_API_URL + `/newsfeeds/${newsfeedId}`;
+	const url = BACKEND_API_URL + `/rss-feeds/${newsfeedId}`;
 	return await put_(sessionId, url, body, true);
 };
 
 export const deleteNewsfeed = async (sessionId: string, newsfeedId: string) => {
-	const url = BACKEND_API_URL + `/newsfeeds/${newsfeedId}`;
+	const url = BACKEND_API_URL + `/rss-feeds/${newsfeedId}`;
 	return await delete_(sessionId, url, true);
 };

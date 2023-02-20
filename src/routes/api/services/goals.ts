@@ -3,7 +3,7 @@ import { delete_, get_, post_, put_ } from './common';
 
 ////////////////////////////////////////////////////////////////
 
-export const createGoalCategories = async (
+export const createGoal = async (
 	sessionId: string,
 	patientUserId: string,
 	enrollmentId: string,
@@ -31,27 +31,34 @@ export const createGoalCategories = async (
 	return await post_(sessionId, url, body, true);
 };
 
-export const getGoalCategoriesById = async (sessionId: string, goalCategoriesId: string) => {
-	const url = BACKEND_API_URL + `/patient-goals/${goalCategoriesId}`;
+export const getGoalById = async (sessionId: string, goalId: string) => {
+	const url = BACKEND_API_URL + `/patient-goals/${goalId}`;
 	return await get_(sessionId, url, true);
 };
 
-export const searchAssets = async (sessionId: string, selectAsset: string, searchParams = '') => {
+export const searchGoals = async (sessionId: string, searchParams?: any) => {
 	let searchString = '';
-	const keys = Object.keys(searchParams);
-	if (keys.length > 0) {
-		searchString = '?';
-		for (const key of keys) {
-			searchString += `${key}=${searchParams[key]}`;
+	if (searchParams) {
+		const keys = Object.keys(searchParams);
+		if (keys.length > 0) {
+			searchString = '?';
+			const params = [];
+			for (const key of keys) {
+				if (searchParams[key]) {
+					const param = `${key}=${searchParams[key]}`;
+					params.push(param);
+				}
+			}
+			searchString += params.join('&');
 		}
 	}
-	const url = BACKEND_API_URL + `/patient-goals/search${searchString}/`;
+	const url = BACKEND_API_URL + `/patient-goals/search${searchString}`;
 	return await get_(sessionId, url, true);
 };
 
-export const updateGoalCategories = async (
+export const updateGoal = async (
 	sessionId: string,
-	goalCategoriesId: string,
+	goalId: string,
 	patientUserId: string,
 	enrollmentId: string,
 	provider: string,
@@ -73,11 +80,11 @@ export const updateGoalCategories = async (
 		HealthPriorityId: healthPriorityId,
 		GoalAchieved: goalAchieved
 	};
-	const url = BACKEND_API_URL + `/patient-goals/${goalCategoriesId}`;
+	const url = BACKEND_API_URL + `/patient-goals/${goalId}`;
 	return await put_(sessionId, url, body, true);
 };
 
-export const deleteGoalCategories = async (sessionId: string, goalCategoriesId: string) => {
-	const url = BACKEND_API_URL + `/patient-goals/${goalCategoriesId}`;
+export const deleteGoal = async (sessionId: string, goalId: string) => {
+	const url = BACKEND_API_URL + `/patient-goals/${goalId}`;
 	return await delete_(sessionId, url, true);
 };
