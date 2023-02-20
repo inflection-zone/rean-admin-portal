@@ -12,20 +12,20 @@ export const load: PageServerLoad = async (event: RequestEvent) => {
 	console.log('sessionId', sessionId);
 
 	try {
-		const drugManagementId = event.params.id;
-		console.log(drugManagementId);
-		const response = await getDrugById(sessionId, drugManagementId);
+		const drugId = event.params.id;
+		console.log(drugId);
+		const response = await getDrugById(sessionId, drugId);
 
 		if (response.Status === 'failure' || response.HttpCode !== 200) {
 			throw error(response.HttpCode, response.Message);
 		}
-		const drugManagement = response.Data;
-		console.log('drug management', drugManagement);
+		const drug = response.Data;
+		console.log('drug', drug);
 		return {
-			drugManagement
+			drug
 		};
 	} catch (error) {
-		console.error(`Error retriving drug management: ${error.message}`);
+		console.error(`Error retriving drug: ${error.message}`);
 	}
 };
 
@@ -44,12 +44,12 @@ export const actions = {
 
 		const sessionId = event.cookies.get('sessionId');
 		console.log('sessionId', sessionId);
-		const drugManagementId = event.params.id;
-		console.log('drug management id', drugManagementId);
+		const drugId = event.params.id;
+		console.log('drug id', drugId);
 
 		const response = await updateDrug(
 			sessionId,
-			drugManagementId,
+			drugId,
 			name.valueOf() as string,
 			genericName.valueOf() as string,
 			ingredients.valueOf() as string,
@@ -61,12 +61,12 @@ export const actions = {
 		const id = response.Data.id;
 
 		if (response.Status === 'failure' || response.HttpCode !== 200) {
-			throw redirect(303, '/drug-management', errorMessage(response.Message), event);
+			throw redirect(303, '/drugs', errorMessage(response.Message), event);
 		}
 		throw redirect(
 			303,
-			`/users/${userId}/drug-management/${id}/view`,
-			successMessage(`drug management updated successful!`),
+			`/users/${userId}/drugs/${id}/view`,
+			successMessage(`drug updated successful!`),
 			event
 		);
 	}

@@ -35,12 +35,12 @@ export const actions = {
 		const id = response.Data.id;
 		console.log(response);
 		if (response.Status === 'failure' || response.HttpCode !== 201) {
-			throw redirect(303, '/drug-management', errorMessage(response.Message), event);
+			throw redirect(303, '/drugs', errorMessage(response.Message), event);
 		}
 		throw redirect(
 			303,
-			`/users/${userId}/drug-management/${id}/view`,
-			successMessage(`drug management created successful!`),
+			`/users/${userId}/drugs/${id}/view`,
+			successMessage(`drug created successful!`),
 			event
 		);
 	}

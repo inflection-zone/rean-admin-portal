@@ -5,13 +5,13 @@
 	import { page } from '$app/stores';
 
 	const userId = $page.params.userId;
-	const createRoute = `/users/${userId}/drug-management/create`;
-	const drugManagementRoute = `/users/${userId}/drug-management`;
+	const createRoute = `/users/${userId}/drugs/create`;
+	const drugsRoute = `/users/${userId}/drugs`;
 
 	const breadCrumbs = [
 		{
-			name: 'Drug-Management',
-			path: drugManagementRoute
+			name: 'Drug',
+			path: drugsRoute
 		},
 		{
 			name: 'Create',
@@ -31,8 +31,8 @@
 		>
 			<div class="w-full  h-14 rounded-t-lg p-3  bg-[#7165E3]">
 				<div class="ml-3 relative flex flex-row text-white text-xl">
-					Create Drug Management
-					<a href={drugManagementRoute}>
+					Create Drug
+					<a href={drugsRoute}>
 						<Fa
 							icon={faMultiply}
 							size="lg"

@@ -10,22 +10,22 @@ export const load: PageServerLoad = async (event: RequestEvent) => {
 	console.log('sessionId', sessionId);
 
 	try {
-		const drugManagementId = event.params.id;
-		console.log(drugManagementId);
-		const response = await getDrugById(sessionId, drugManagementId);
+		const drugId = event.params.id;
+		console.log(drugId);
+		const response = await getDrugById(sessionId, drugId);
 
 		if (response.Status === 'failure' || response.HttpCode !== 200) {
 			throw error(response.HttpCode, response.Message);
 		}
-		const drugManagement = response.Data;
-		console.log('drug management', drugManagement);
+		const drug = response.Data;
+		console.log('drug', drug);
 		const id = response.Data.id;
 		return {
 			location: `${id}/edit`,
-			drugManagement,
+			drug,
 			message: response.Message
 		};
 	} catch (error) {
-		console.error(`Error retriving drug management: ${error.message}`);
+		console.error(`Error retriving drug: ${error.message}`);
 	}
 };

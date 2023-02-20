@@ -7,13 +7,13 @@
 
 	// export let data: PageServerData;
 	// let initiaData = {};
-	// let name = data.drugManagement.name;
-	// let genericName = data.drugManagement.genericName;
-	// let ingredients = data.drugManagement.ingredients;
-	// let strength = data.drugManagement.strength;
-	// let commercialName = data.drugManagement.commercialName;
-	// let manufacture = data.drugManagement.manufacture;
-	// let otherInformation = data.drugManagement.otherInformation;
+	// let name = data.drug.name;
+	// let genericName = data.drug.genericName;
+	// let ingredients = data.drug.ingredients;
+	// let strength = data.drug.strength;
+	// let commercialName = data.drug.commercialName;
+	// let manufacture = data.drug.manufacture;
+	// let otherInformation = data.drug.otherInformation;
 
 	let id = '56789';
 	let name = 'abc def';
@@ -44,14 +44,14 @@
 	}
 
 	const userId = $page.params.userId;
-	const editRoute = `/users/${userId}/drug-management/${id}/edit`;
-	const viewRoute = `/users/${userId}/drug-management/${id}/view`;
-	const drugManagementRoute = `/users/${userId}/drug-management`;
+	const editRoute = `/users/${userId}/drugs/${id}/edit`;
+	const viewRoute = `/users/${userId}/drugs/${id}/view`;
+	const drugsRoute = `/users/${userId}/drugs`;
 
 	const breadCrumbs = [
 		{
-			name: 'Drug-Management',
-			path: drugManagementRoute
+			name: 'Drug',
+			path: drugsRoute
 		},
 		{
 			name: 'Edit',
@@ -71,7 +71,7 @@
 		>
 			<div class="w-full  h-14 rounded-t-lg p-3  bg-[#7165E3]">
 				<div class="ml-3 relative flex flex-row text-white text-xl">
-					Edit Drug Management
+					Edit Drug
 					<a href={viewRoute}>
 						<Fa icon={faMultiply} size="lg" class="absolute right-0 pr-3 mb-16 text-white " /></a
 					>

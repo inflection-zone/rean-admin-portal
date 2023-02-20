@@ -9,28 +9,28 @@
 	import { page } from '$app/stores';
 
 	export let data: PageServerData;
-	let id = data.drugManagement.id;
-	let name = data.drugManagement.name;
-	let genericName = data.drugManagement.genericName;
-	let ingredients = data.drugManagement.ingredients;
-	let strength = data.drugManagement.strength;
-	let commercialName = data.drugManagement.commercialName;
-	let manufacture = data.drugManagement.manufacture;
-	let otherInformation = data.drugManagement.otherInformation;
+	let id = data.drug.id;
+	let name = data.drug.name;
+	let genericName = data.drug.genericName;
+	let ingredients = data.drug.ingredients;
+	let strength = data.drug.strength;
+	let commercialName = data.drug.commercialName;
+	let manufacture = data.drug.manufacture;
+	let otherInformation = data.drug.otherInformation;
 	onMount(() => {
 		show(data);
 		LocalStorageUtils.removeItem('prevUrl');
 	});
 
 	const userId = $page.params.userId;
-	const editRoute = `/users/${userId}/drug-management/${id}/edit`;
-	const viewRoute = `/users/${userId}/drug-management/${id}/view`;
-	const drugManagementRoute = `/users/${userId}/drug-management`;
+	const editRoute = `/users/${userId}/drugs/${id}/edit`;
+	const viewRoute = `/users/${userId}/drugs/${id}/view`;
+	const drugRoute = `/users/${userId}/drugs`;
 
 	const breadCrumbs = [
 		{
-			name: 'Drug-Management',
-			path: drugManagementRoute
+			name: 'Drug',
+			path: drugRoute
 		},
 		{
 			name: 'View',
@@ -49,9 +49,9 @@
 		>
 			<div class="w-full  h-14 rounded-t-lg p-3  bg-[#7165E3]">
 				<div class="ml-3 relative flex flex-row text-white lg:text-xl text-lg ">
-					<div class="lg:hidden md:hidden block">View Drug Management</div>
-					<div class="lg:block md:block hidden">View Drug Management</div>
-					<a href={drugManagementRoute}>
+					<div class="lg:hidden md:hidden block">View Drug</div>
+					<div class="lg:block md:block hidden">View Drug</div>
+					<a href={drugRoute}>
 						<Fa icon={faMultiply} size="lg" class="absolute right-0 lg:pr-3 pr-0 text-white" />
 					</a>
 				</div>
