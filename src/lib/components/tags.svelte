@@ -330,7 +330,7 @@
 </script>
 
 <div
-	class=" flex items-center h-auto bg-white border border-primary focus:ring-primary rounded-md input-info focus:border-primary focus:ring-opacity-20 border-opacity-20 hover:border-opacity-40 flex-wrap w-full focus:border-opacity-70"
+	class=" flex items-center textarea textarea-primary flex-wrap w-full focus:border-opacity-70"
 	class:sti-layout-disable={disable}
 	bind:this={layoutElement}
 >
@@ -339,14 +339,17 @@
 
 	{#if tags.length > 0}
 		{#each tags as tag, i}
-			<span class="flex rounded-xl bg-[#ff9980] text-base-100 pl-3 m-2">
+			<span class=" flex rounded-xl bg-[#ff9980] text-base-100 pl-3 m-2">
 				{#if typeof tag === 'string'}
 					{tag}
 				{:else}
 					{tag[autoCompleteKey]}
 				{/if}
 				{#if !disable}
-					<span class="cursor-pointer pl-4 pr-3 text-base-100" on:click={() => removeTag(i)}> &#215;</span>
+					<!-- svelte-ignore a11y-click-events-have-key-events -->
+					<span class="cursor-pointer pl-4 pr-3 text-base-100" on:click={() => removeTag(i)}>
+						&#215;</span
+					>
 				{/if}
 			</span>
 		{/each}
@@ -364,7 +367,7 @@
 		on:focus={onFocus}
 		on:blur={(e) => onBlur(e, tag)}
 		on:click={onClick}
-		class="svelte-tags-input bg-base-100 flex outline-none border-none focus:outline-none focus:border-none focus:ring-none rounded-md focus:border-opacity-60 lg:w-full md:w-full sm:w-full w-[80px] h-10 "
+		class="svelte-tags-input bg-base-100 text- flex m-o mt-1 outline-none focus:border-opacity-60 lg:w-full md:w-full sm:w-full w-[80px]"
 		{placeholder}
 		disabled={disable}
 	/>
@@ -397,6 +400,7 @@
 		font-size: 14px;
 		padding: 2px 5px;
 	}
+
 	/* .svelte-tags-input-layout label {
         margin: 4px 5px 0 0;
         padding:0;

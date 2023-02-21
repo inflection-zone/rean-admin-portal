@@ -1,12 +1,12 @@
 import { redirect } from 'sveltekit-flash-message/server';
 import type { RequestEvent } from '@sveltejs/kit';
 import { errorMessage, successMessage } from '$lib/utils/message.utils';
-import { createKnowledgeNuggets } from '../../../../api/services/knowledge-nuggets';
+import { createKnowledgeNugget } from '../../../../api/services/knowledge-nuggets';
 
 /////////////////////////////////////////////////////////////////////////
 
 export const actions = {
-	createKnowledgeNuggets: async (event: RequestEvent) => {
+	createKnowledgeNugget: async (event: RequestEvent) => {
 		const request = event.request;
 		const userId = event.params.userId;
 		const data = await request.formData();
@@ -22,15 +22,9 @@ export const actions = {
 		const tags = temp ? JSON.parse(temp?.valueOf() as string) : [];
 
 		const sessionId = event.cookies.get('sessionId');
-		//console.log('sessionId', sessionId);
+		console.log('sessionId', sessionId);
 
-		//console.log('addres===', additionalResource);
-
-		// console.log(tags);
-		// console.log('temp', JSON.stringify(temp));
-		// console.log('tags', JSON.stringify(tags));
-
-		const response = await createKnowledgeNuggets(
+		const response = await createKnowledgeNugget(
 			sessionId,
 			topicName.valueOf() as string,
 			briefInformation.valueOf() as string,

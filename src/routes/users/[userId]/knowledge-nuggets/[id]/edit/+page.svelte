@@ -12,12 +12,12 @@
 
 	export let data: PageServerData;
 	let initiaData = {};
-	let id = data.knowledgeNuggets.id;
-	let topicName = data.knowledgeNuggets.TopicName;
-	let briefInformation = data.knowledgeNuggets.BriefInformation;
-	let detailedInformation = data.knowledgeNuggets.DetailedInformation;
-	let additionalResource = data.knowledgeNuggets.AdditionalResource;
-	let tags = data.knowledgeNuggets.Tags;
+	let id = data.KnowledgeNugget.id;
+	let topicName = data.KnowledgeNugget.TopicName;
+	let briefInformation = data.KnowledgeNugget.BriefInformation;
+	let detailedInformation = data.KnowledgeNugget.DetailedInformation;
+	let additionalResource = data.KnowledgeNugget.AdditionalResource;
+	let tags = data.KnowledgeNugget.Tags;
 
 	// let id = '56789';
 	// let name = 'abdc';
@@ -73,7 +73,7 @@
 	<div class="h-screen mb-10 ">
 		<form
 			method="post"
-			action="?/updateKnowledgeNuggets"
+			action="?/updateKnowledgeNugget"
 			class="w-full  bg-[#ECE4FC] lg:mt-10 md:mt-8 sm:mt-6 mb-10 mt-4 lg:max-w-4xl md:max-w-xl sm:max-w-lg  rounded-lg mx-auto"
 		>
 			<div class="w-full  h-14 rounded-t-lg p-3  bg-[#7165E3] mb-10">
@@ -89,44 +89,74 @@
 				</div>
 			</div>
 			<div class="hidden">{id}</div>
-			<Input
-				title="Name"
-				type="text"
-				name="topicName"
-				bind:value={topicName}
-				placeholder="Enter name here..."
-			/>
-			<Textarea
-				title="Brief Information"
-				name="briefInformation"
-				bind:value={briefInformation}
-				placeholder="Enter  brief information here..."
-			/>
-			<Textarea
-				title="Detailed Information"
-				name="detailedInformation"
-				bind:value={detailedInformation}
-				placeholder="Enter detailed information here..."
-			/>
-			<Input
-				title="Additional Resource"
-				name="additionalResources"
-				bind:value={additionalResource}
-				placeholder="Enter additional resource here..."
-			/>
+			<div class="flex items-center mb-4 mt-10 lg:mx-16 md:mx-12 mx-10">
+				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
+					<!-- svelte-ignore a11y-label-has-associated-control -->
+					<label class="lable-text font-semibold">Name</label>
+				</div>
+				<div class="w-1/2 md:w-2/3 lg:w-2/3">
+					<input
+						type="text"
+						name="topicName"
+						bind:value={topicName}
+						placeholder="Enter  name here..."
+						class="input input-bordered input-info w-full "
+					/>
+				</div>
+			</div>
+
+			<div class="flex items-center mb-2 lg:mx-16 md:mx-12 mx-10">
+				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
+					<!-- svelte-ignore a11y-label-has-associated-control -->
+					<label class="lable-text font-semibold"> Brief Information </label>
+				</div>
+				<div class="w-1/2 md:w-2/3 lg:w-2/3">
+					<textarea
+						name="briefInformation"
+						bind:value={briefInformation}
+						class="textarea textarea-info w-full"
+						placeholder="Enter  brief information here..."
+					/>
+				</div>
+			</div>
+			<div class="flex items-center mb-2 lg:mx-16 md:mx-12 mx-10">
+				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
+					<!-- svelte-ignore a11y-label-has-associated-control -->
+					<label class="lable-text font-semibold"> Detailed Information </label>
+				</div>
+				<div class="w-1/2 md:w-2/3 lg:w-2/3">
+					<textarea
+						name="detailedInformation"
+						bind:value={detailedInformation}
+						class="textarea textarea-info w-full"
+						placeholder="Enter detailed information here..."
+					/>
+				</div>
+			</div>
+			<div class="flex items-center mb-2 lg:mx-16 md:mx-12 mx-10">
+				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
+					<!-- svelte-ignore a11y-label-has-associated-control -->
+					<label class="lable-text font-semibold"> Additional Resource </label>
+				</div>
+				<div class="w-1/2 md:w-2/3 lg:w-2/3">
+					<textarea
+						name="additionalResource"
+						bind:value={additionalResource}
+						class="textarea textarea-info w-full"
+						placeholder="Enter additional resource here..."
+					/>
+				</div>
+			</div>
 			<div class="flex items-center lg:mx-16 md:mx-12 mx-10">
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
 					<!-- svelte-ignore a11y-label-has-associated-control -->
 					<label class="lable-text font-semibold"> Tags </label>
 				</div>
 				<div class="w-1/2 md:w-2/3 lg:w-2/3">
-					<Tags
-						name="Tags"
-						placeholder={tagsPlaceholder}
-						on:tags={handleTags}
-						bind:tags
-					/>
-					<input type="hidden" name="tags" value={JSON.stringify(retrievedTags)} />
+					<Tags name="Tags" placeholder={tagsPlaceholder} on:tags={handleTags} bind:tags />
+					<input type="hidden" name="tags" value={JSON.stringify(tags)} />
+					<!-- <Tags name="Tags" placeholder={tagsPlaceholder} on:tags={handleTags} bind:tags />
+					<input type="hidden" name="tags" value={JSON.stringify(retrievedTags)} /> -->
 				</div>
 			</div>
 

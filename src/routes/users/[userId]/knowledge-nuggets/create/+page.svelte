@@ -39,12 +39,12 @@
 	<div class="h-screen mb-10 ">
 		<form
 			method="post"
-			action="?/createKnowledgeNuggets"
+			action="?/createKnowledgeNugget"
 			class="w-full  bg-[#ECE4FC] lg:mt-10 md:mt-8 sm:mt-6 mb-10 mt-4 lg:max-w-4xl md:max-w-xl sm:max-w-lg  rounded-lg mx-auto"
 		>
 			<div class="w-full  h-14 rounded-t-lg p-3 mb-10 bg-[#7165E3]">
 				<div class="ml-3 relative flex flex-row text-white text-xl">
-					Create Knowledge Nuggets
+					Create Knowledge Nugget
 					<a href={knowledgeNuggetsRoute}>
 						<Fa
 							icon={faMultiply}
@@ -78,7 +78,7 @@
 					<label class=" font-semibold"> Tags </label>
 				</div>
 				<div class="w-1/2 md:w-2/3 lg:w-2/3">
-					<Tags name="knowledgenuggetstags" placeholder={tagsPlaceholder} on:tags={handleTags} />
+					<Tags name="Tags" placeholder={tagsPlaceholder} on:tags={handleTags} />
 					<input type="hidden" name="tags" value={JSON.stringify(retrievedTags)} />
 				</div>
 			</div>
