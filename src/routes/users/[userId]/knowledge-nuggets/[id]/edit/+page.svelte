@@ -8,12 +8,12 @@
 
 	export let data: PageServerData;
 	let initiaData = {};
-	let id = data.knowledgeNuggets.id;
-	let topicName = data.knowledgeNuggets.TopicName;
-	let briefInformation = data.knowledgeNuggets.BriefInformation;
-	let detailedInformation = data.knowledgeNuggets.DetailedInformation;
-	let additionalResource = data.knowledgeNuggets.AdditionalResource;
-	let tags = data.knowledgeNuggets.Tags;
+	let id = data.KnowledgeNugget.id;
+	let topicName = data.KnowledgeNugget.TopicName;
+	let briefInformation = data.KnowledgeNugget.BriefInformation;
+	let detailedInformation = data.KnowledgeNugget.DetailedInformation;
+	let additionalResource = data.KnowledgeNugget.AdditionalResource;
+	let tags = data.KnowledgeNugget.Tags;
 
 	// let id = '56789';
 	// let name = 'abdc';
@@ -68,7 +68,7 @@
 	<div class="h-screen mb-10 ">
 		<form
 			method="post"
-			action="?/updateKnowledgeNuggets"
+			action="?/updateKnowledgeNugget"
 			class="w-full  bg-[#ECE4FC] lg:mt-10 md:mt-8 sm:mt-6 mb-10 mt-4 lg:max-w-4xl md:max-w-xl sm:max-w-lg  rounded-lg mx-auto"
 		>
 			<div class="w-full  h-14 rounded-t-lg p-3  bg-[#7165E3]">
@@ -135,7 +135,7 @@
 				</div>
 				<div class="w-1/2 md:w-2/3 lg:w-2/3">
 					<textarea
-						name="additionalResources"
+						name="additionalResource"
 						bind:value={additionalResource}
 						class="textarea textarea-info w-full"
 						placeholder="Enter additional resource here..."
@@ -148,13 +148,10 @@
 					<label class="lable-text font-semibold"> Tags </label>
 				</div>
 				<div class="w-1/2 md:w-2/3 lg:w-2/3">
-					<Tags
-						name="knowledgenuggetstags"
-						placeholder={tagsPlaceholder}
-						on:tags={handleTags}
-						bind:tags
-					/>
-					<input type="hidden" name="tags" value={JSON.stringify(retrievedTags)} />
+					<Tags name="Tags" placeholder={tagsPlaceholder} on:tags={handleTags} bind:tags />
+					<input type="hidden" name="tags" value={JSON.stringify(tags)} />
+					<!-- <Tags name="Tags" placeholder={tagsPlaceholder} on:tags={handleTags} bind:tags />
+					<input type="hidden" name="tags" value={JSON.stringify(retrievedTags)} /> -->
 				</div>
 			</div>
 
