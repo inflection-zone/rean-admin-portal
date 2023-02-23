@@ -13,7 +13,7 @@ export const createOrganization = async (
 	operationalSince: Date,
 	address: string,
 	//imageResource: string,
-	healthFacility: boolean
+	isHealthFacility: boolean
 ) => {
 	const body = {
 		Type: type,
@@ -24,7 +24,7 @@ export const createOrganization = async (
 		OperationalSince: operationalSince,
 		Address: address,
 		//ImageResource: imageResource,
-		HealthFacility: healthFacility
+		IsHealthFacility: isHealthFacility
 	};
 
 	const url = BACKEND_API_URL + '/organizations';
@@ -68,7 +68,7 @@ export const updateOrganization = async (
 	operationalSince: Date,
 	address: string,
 	imageResource: string,
-	healthFacility: boolean
+	isHealthFacility: boolean
 ) => {
 	const body = {
 		Type: type,
@@ -79,7 +79,7 @@ export const updateOrganization = async (
 		OperationalSince: operationalSince,
 		Address: address,
 		ImageResource: imageResource,
-		HealthFacility: healthFacility
+		IsHealthFacility: isHealthFacility
 	};
 	const url = BACKEND_API_URL + `/organizations/${organizationId}`;
 	return await put_(sessionId, url, body, true);
