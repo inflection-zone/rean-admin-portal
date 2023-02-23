@@ -1,14 +1,8 @@
 <script>
-	// import { Breadcrumb, BreadcrumbItem } from 'flowbite-svelte';
+	import { faAngleRight } from "@fortawesome/free-solid-svg-icons";
+	import Fa from "svelte-fa";
 	export let crumbs;
-	// export const home = false;
 </script>
-
-<!-- <Breadcrumb >
-		{#each crumbs as crumb}
-			<BreadcrumbItem homeClass="text-secondary" href={crumb.path} class="inline-flex text-secondary">{crumb.name}</BreadcrumbItem>
-		{/each}
-</Breadcrumb> -->
 
   <div
 	class="overflow-x-auto lg:text-xl sm:text-lg text-md text-secondary lg:ml-14 md:ml-10 sm:ml-6 lg:mt-2 sm:mt-4 mt-5 ml-4"
@@ -20,3 +14,14 @@
 		{/each}
 	</ul>
 </div>
+
+<!-- <ol class="breadcrumb text-primary-500 text-lg mt-4 ml-10">
+	{#each crumbs as crumb, i}
+		<a class="crumb breadCrumbs-link " href={crumb.link}>
+		  {crumb.label}
+		</a>
+		{#if i<crumbs.length-1}
+		   <Fa icon={faAngleRight} size = 'md' class='text-primary-500 font-bold'/>
+		{/if}
+	{/each}
+ </ol> -->

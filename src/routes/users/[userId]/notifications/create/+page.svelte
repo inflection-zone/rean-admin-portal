@@ -54,7 +54,7 @@
 						type="text"
 						name="title"
 						placeholder="Enter title here..."
-						class="input input-bordered input-info w-full "
+						class="input"
 					/>
 				</div>
 			</div>

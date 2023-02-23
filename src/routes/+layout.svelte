@@ -12,7 +12,5 @@
   });
 </script>
 <Toasts />
-<body class="">
   <slot />
-</body>
 
