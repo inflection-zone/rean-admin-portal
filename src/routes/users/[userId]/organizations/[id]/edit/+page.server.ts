@@ -42,7 +42,7 @@ export const actions = {
 		const operationalSince = data.has('operationalSince') ? data.get('operationalSince') : null;
 		const address = data.has('address') ? data.get('address') : null;
 		const imageResource = data.has('imageResource') ? data.get('imageResource') : null;
-		const healthFacility = data.has('healthFacility') ? data.get('healthFacility') : null;
+		const isHealthFacility = data.has('isHealthFacility') ? data.get('isHealthFacility') : null;
 
 		const sessionId = event.cookies.get('sessionId');
 		console.log('sessionId', sessionId);
@@ -60,7 +60,7 @@ export const actions = {
 			operationalSince.valueOf() as Date,
 			address.valueOf() as string,
 			imageResource.valueOf() as string,
-			healthFacility.valueOf() as boolean
+			isHealthFacility.valueOf() as boolean
 		);
 		const id = response.Data.id;
 

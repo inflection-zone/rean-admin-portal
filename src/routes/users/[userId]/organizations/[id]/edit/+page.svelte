@@ -16,7 +16,7 @@
 	// let operationalSince = data.organization.operationalSince;
 	// let address = data.organization.address;
 	// let imageResource = data.organization.imageResource;
-	// let healthFacility = data.organization.healthFacility;
+	// let isHealthFacility = data.organization.isHealthFacility;
 
 	let id = '56789';
 	let type = 'Careplan';
@@ -27,7 +27,7 @@
 	let operationalSince = 2000;
 	let address = 'xxx';
 	let imageResource = '987654';
-	let healthFacility = true;
+	let isHealthFacility = true;
 
 	//Original data
 	let _type = type;
@@ -38,7 +38,7 @@
 	let _operationalSince = operationalSince;
 	let _address = address;
 	let _imageResource = imageResource;
-	let _healthFacility = healthFacility;
+	let _isHealthFacility = isHealthFacility;
 
 	function handleReset() {
 		type = _type;
@@ -49,7 +49,7 @@
 		operationalSince = _operationalSince;
 		address = _address;
 		imageResource = _imageResource;
-		healthFacility = _healthFacility;
+		isHealthFacility = _isHealthFacility;
 	}
 
 	const userId = $page.params.userId;
@@ -219,13 +219,13 @@
 			<div class="flex items-center mb-4 lg:mx-16 md:mx-12 mx-10">
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
 					<!-- svelte-ignore a11y-label-has-associated-control -->
-					<label class="lable-text font-semibold"> Healthy Facility </label>
+					<label class="lable-text font-semibold">Is Healthy Facility </label>
 				</div>
 				<div class="w-1/2 md:w-2/3 lg:w-2/3">
 					<label class="label cursor-pointer">
 						<input
 							type="checkbox"
-							bind:checked={healthFacility}
+							bind:checked={isHealthFacility}
 							class="checkbox checkbox-primary checkbox-md"
 						/>
 					</label>

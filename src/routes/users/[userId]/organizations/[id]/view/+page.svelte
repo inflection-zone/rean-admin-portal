@@ -18,7 +18,7 @@
 	let operationalSince = data.organization.operationalSince;
 	let address = data.organization.address;
 	let imageResource = data.organization.imageResource;
-	let healthFacility = data.organization.healthFacility;
+	let isHealthFacility = data.organization.isHealthFacility;
 
 	onMount(() => {
 		show(data);
@@ -126,9 +126,9 @@
 			<div class="flex items-center my-4 lg:mx-16 md:mx-12 mx-10">
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
 					<!-- svelte-ignore a11y-label-has-associated-control -->
-					<label class="lable-text font-semibold"> Healthy Facility </label>
+					<label class="lable-text font-semibold">Is Healthy Facility </label>
 				</div>
-				<span class="w-1/2 md:2/3 lg:2/3" id="healthyFacility"> {healthFacility} </span>
+				<span class="w-1/2 md:2/3 lg:2/3" id="isHealthFacility"> {isHealthFacility} </span>
 			</div>
 
 			<div class="flex items-center mt-7 lg:mx-16 md:mx-12 mr-10">
