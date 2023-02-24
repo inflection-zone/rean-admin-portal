@@ -56,7 +56,6 @@ const symptoms: TabDefinition = {
     default: false,
 };
 
-
 export const navbarMenu = (userId) => {
     const menus = [
             home,

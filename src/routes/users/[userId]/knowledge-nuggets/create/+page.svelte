@@ -135,6 +135,7 @@
 						chips="variant-filled-error rounded-2xl"
 						placeholder="Enter a tags..."
 						name="chips"
+						class="input"
 					/>
 				</div>
 			</div>

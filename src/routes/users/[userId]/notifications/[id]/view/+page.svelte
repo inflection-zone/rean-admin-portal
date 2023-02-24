@@ -8,25 +8,25 @@
 	import BreadCrumbs from '$lib/components/breadcrumbs/breadcrums.svelte';
 	import { page } from '$app/stores';
 
-	// export let data: PageServerData;
-	// console.log('data-->', data);
-	// let id = data.notification.id;
-	// let title = data.notification.Title;
-	// let Body = data.notification.Body;
-	// let type = data.notification.Type;
-	// let sentOn = data.notification.SentOn;
-	// let image = data.notification.Image;
+	export let data: PageServerData;
+	console.log('data-->', data);
+	let id = data.notification.id;
+	let title = data.notification.Title;
+	let Body = data.notification.Body;
+	let type = data.notification.Type;
+	let sentOn = data.notification.SentOn;
+	let image = data.notification.Image;
 
-	//console.log('id===', id);
+	console.log('id===', id);
 
-	// onMount(() => {
-	// 	show(data);
-	// 	LocalStorageUtils.removeItem('prevUrl');
-	// });
+	onMount(() => {
+		show(data);
+		LocalStorageUtils.removeItem('prevUrl');
+	});
 
 	const userId = $page.params.userId;
-	// const editRoute = `/users/${userId}/notifications/${id}/edit`;
-	// const viewRoute = `/users/${userId}/notifications/${id}/view`;
+	const editRoute = `/users/${userId}/notifications/${id}/edit`;
+	const viewRoute = `/users/${userId}/notifications/${id}/view`;
 	const notificationRoute = `/users/${userId}/notifications`;
 
 	const breadCrumbs = [

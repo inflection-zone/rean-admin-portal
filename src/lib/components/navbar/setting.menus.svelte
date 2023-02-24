@@ -43,7 +43,6 @@
 			src="https://images.unsplash.com/photo-1531427186611-ecfd6d936c79?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=634&q=80"
 			alt="avatar"
 		/>
-
 		<div class=" flex-col ">
 			<h3 class="mx-2 text-[22px] font-medium text-primary-500 dark:text-primary-500">John Doe</h3>
 			<span class="pl-3 text-xs text-primary-500">user@gmail.com</span>

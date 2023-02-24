@@ -33,6 +33,7 @@ export const get_ = async (sessionId: string, url: string, authorizeUser = false
 	console.log(chalk.green(`get_ response message: ${response.Message}`));
 	// console.log(chalk.green(`get_ response: ${JSON.stringify(response, null, 2)}`));
 	return response;
+
 };
 
 export const post_ = async (

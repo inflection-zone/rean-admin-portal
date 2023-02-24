@@ -5,14 +5,14 @@
 	import BreadCrumbs from '$lib/components/breadcrumbs/breadcrums.svelte';
 	import { page } from '$app/stores';
 
-	// export let data: PageServerData;
-	// let initiaData = {};
-	// let id = data.notification.id;
-	// let title = data.notification.title;
-	// let body = data.notification.body;
-	// let type = data.notification.type;
-	// let sentOn = data.notification.sentOn;
-	// let image = data.notification.image;
+	export let data: PageServerData;
+	let initiaData = {};
+	let id = data.notification.id;
+	let title = data.notification.title;
+	let body = data.notification.body;
+	let type = data.notification.type;
+	let sentOn = data.notification.sentOn;
+	let image = data.notification.image;
 
 	// let id = '56789';
 	// let title = 'Able to do more activities';
@@ -20,46 +20,36 @@
 	// let type = 'Careplan';
 	// let sentOn = '01/01/2020';
 
-	// //Original data
-	// let _title = title;
-	// let _body = body;
-	// let _type = type;
-	// let _sentOn = sentOn;
-	// //let _image = image;
+	//Original data
+	let _title = title;
+	let _body = body;
+	let _type = type;
+	let _sentOn = sentOn;
+	//let _image = image;
 
-	// function handleReset() {
-	// 	title = _title;
-	// 	body = _body;
-	// 	type = _type;
-	// 	sentOn = _sentOn;
-	// }
+	function handleReset() {
+		title = _title;
+		body = _body;
+		type = _type;
+		sentOn = _sentOn;
+	}
 
 	const userId = $page.params.userId;
-	// const editRoute = `/users/${userId}/notifications/${id}/edit`;
-	// const viewRoute = `/users/${userId}/notifications/${id}/view`;
+	const editRoute = `/users/${userId}/notifications/${id}/edit`;
+	const viewRoute = `/users/${userId}/notifications/${id}/view`;
 	const notificationRoute = `/users/${userId}/notifications`;
 
-	// const breadCrumbs = [
-	// 	{
-	// 		name: 'Notification',
-	// 		path: notificationRoute
-	// 	},
-	// 	{
-	// 		name: 'Edit',
-	// 		path: editRoute
-	// 	}
-	// ];
 	const breadCrumbs = [
 		{
-			name: 'Notifications',
-			path: notificationRoute,
-			home: true
+			name: 'Notification',
+			path: notificationRoute
 		},
 		{
-			name: 'Edit'
-			// path: createRoute
+			name: 'Edit',
+			path: editRoute
 		}
 	];
+	
 </script>
 
 <main class="h-screen mb-10">

@@ -11,9 +11,15 @@ body {
 .input {
 	@apply text-primary-500 border border-primary-200 text-sm hover:border-primary-400 focus:border-primary-500;
 }
+.input::placeholder {
+	@apply text-primary-300 text-sm;
+  }
 .textarea {
 	@apply text-primary-500 border border-primary-200 text-sm hover:border-primary-400 focus:border-primary-500;
 }
+.textarea::placeholder {
+	@apply text-primary-300 text-sm;
+  }
 .select {
 	@apply text-primary-500 border border-primary-200 text-sm hover:border-primary-400 focus:border-primary-500;
 }
