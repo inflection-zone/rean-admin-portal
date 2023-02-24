@@ -26,6 +26,8 @@
 	<title>REAN careplans</title>
 	<meta name="description" content="REAN careplans" />
 </svelte:head>
+<body>
+	
 
 <div class="nav h-12 w-full bg-secondary-500" />
 <div class="w-screen h-full overflow-x-auto self-center box-border" id="background-image">
@@ -96,4 +98,4 @@
 	  </p></a
 	>
   </footer>
-  
+</body>

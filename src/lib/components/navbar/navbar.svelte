@@ -4,12 +4,13 @@
 	import { AppShell, AppBar } from '@skeletonlabs/skeleton';
 	import Fa from 'svelte-fa';
 	import { faBars, faCircleUser, faMultiply } from '@fortawesome/free-solid-svg-icons';
-	import { navbarMenu, type TabDefinition } from './navigation.tabs';
+	import { navbarMenu, sidebarMenu, type TabDefinition } from './navigation.tabs';
 	import SettingMenu from './setting.menus.svelte';
 	import { afterUpdate, onMount } from 'svelte';
 	import { page } from '$app/stores';
-
-	const navbarTabs: TabDefinition[] = navbarMenu();
+	export let userId = undefined;
+	const navbarTabs: TabDefinition[] = navbarMenu(userId);
+	const sidebarTabs: TabDefinition[] = sidebarMenu(userId);
 	let activeTab = '';
 	onMount(() => {
 		activeTab = $page.url.pathname;
@@ -48,7 +49,7 @@
 
 </script>
 
-<AppShell>
+<AppShell class="w-full">
 	<svelte:fragment slot="header">
 		<AppBar
 			gridColumns="grid-cols-3"
@@ -58,14 +59,12 @@
 			slotTrail="place-content-end"
 		>
 			<svelte:fragment slot="lead">
-				<div >
-					<button class="hover:bg-primary-500 p-2 rounded-md" on:click={drawerLeftOpen}>
-						<Fa icon={faBars} size="lg" />
-					</button>
-				</div>
 				<div>
-					<div class="flex-1 justify-start hidden lg:block ml-5">
+					<div class="flex-1 justify-start hidden lg:block">
 						<ul class="menu menu-horizontal space-x-4">
+							<button class="hover:bg-primary-500 p-2 rounded-md" on:click={drawerLeftOpen}>
+								<Fa icon={faBars} size="lg" />
+							</button>
 							{#each navbarTabs as t}
 								<a
 									href={t.path}
@@ -103,16 +102,24 @@
 	</svelte:fragment>
 </AppShell>
 
-<div class="w-[60%]">
 	<Drawer>
 		{#if $drawerStore.id === 'rightSidebar'}
-			<SettingMenu on:click={drawerRightClose} />
+			<SettingMenu on:click={drawerRightClose} on:logout />
 		{:else if $drawerStore.id === 'leftSidebar'}
 			<ul class="grid justify-center w-60 space-y-4 mt-5">
+				{#each sidebarTabs as t}
+					<a
+						href={t.path}
+						class="hover:bg-surface-700 hover:text-base-100 p-2 hover:no-underline text-start no-underline rounded-md text-md font-medium {activeTab ==
+						t.path
+							? 'active: bg-surface-800 '
+							: 'text-base-100'}">{t.name}</a
+					>
+				{/each}
 				{#each navbarTabs as t}
 					<a
 						href={t.path}
-						class="hover:bg-surface-700  hover:text-base-100 p-2  hover:no-underline text-start no-underline rounded-md text-md font-medium {activeTab ==
+						class="hover:bg-surface-700 lg:hidden sm:first:hidden hover:text-base-100 p-2 hover:no-underline text-start no-underline rounded-md text-md font-medium {activeTab ==
 						t.path
 							? 'active: bg-surface-800 '
 							: 'text-base-100'}">{t.name}</a
@@ -123,4 +130,4 @@
 			<p>(fallback contents)</p>
 		{/if}
 	</Drawer>
-</div>
+

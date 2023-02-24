@@ -22,8 +22,8 @@
 			home: true
 		},
 		{
-			name: 'Create'
-			// path: createRoute
+			name: 'Create',
+			path: createRoute
 		}
 	];
 </script>

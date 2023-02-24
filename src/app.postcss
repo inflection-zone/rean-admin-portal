@@ -63,3 +63,9 @@ input[type='file']::file-selector-button:hover {
 .table tbody td {
 	@apply h-4;
 }
+
+/*  apply text-decoration-line as none  for breadCrubms component
+*/
+.breadCrumbs-link:not(.unstyled):is(:not(.prose *)):not(.btn):not(.btn-icon):not(.app-bar a):not(.logo-item):not(a.card):not(.list-nav a) {
+    text-decoration-line: none;
+  }

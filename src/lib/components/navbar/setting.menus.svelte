@@ -10,7 +10,9 @@
 </script>
 
 <div class="flex flex-col h-screen ">
-  <button>
+  <button on:click={async () => {
+	await gotoLogout();
+  }}>
     <div class="flex  flex-row mt-3 gap-1 ml-3">
       <svg
         style="color: rgb(242, 75, 33);"
@@ -64,7 +66,7 @@
         <label class="label cursor-pointer pl-3 mb-3">
           <div class="flex gap-2">
             <div class="text-primary-500 dark:text-primary-700 font-semibold mt-1 mr-4 pl-3">Themes</div>
-              <LightSwitch height="h-20" fillLight='fill-primary-500' ring='ring-4px ring-primary-500' position="right" />
+              <LightSwitch  fillLight='fill-primary-500'  ring='ring-20px ring-primary-500' position="right" />
           </div>
         </label>
       </div>
