@@ -8,35 +8,36 @@
 	import BreadCrumbs from '$lib/components/breadcrumbs/breadcrums.svelte';
 	import { page } from '$app/stores';
 
-	export let data: PageServerData;
-	console.log('data-->', data);
-	let id = data.notification.id;
-	let title = data.notification.Title;
-	let Body = data.notification.Body;
-	let type = data.notification.Type;
-	let sentOn = data.notification.SentOn;
-	let image = data.notification.Image;
+	// export let data: PageServerData;
+	// console.log('data-->', data);
+	// let id = data.notification.id;
+	// let title = data.notification.Title;
+	// let Body = data.notification.Body;
+	// let type = data.notification.Type;
+	// let sentOn = data.notification.SentOn;
+	// let image = data.notification.Image;
 
 	//console.log('id===', id);
 
-	onMount(() => {
-		show(data);
-		LocalStorageUtils.removeItem('prevUrl');
-	});
+	// onMount(() => {
+	// 	show(data);
+	// 	LocalStorageUtils.removeItem('prevUrl');
+	// });
 
 	const userId = $page.params.userId;
-	const editRoute = `/users/${userId}/notifications/${id}/edit`;
-	const viewRoute = `/users/${userId}/notifications/${id}/view`;
+	// const editRoute = `/users/${userId}/notifications/${id}/edit`;
+	// const viewRoute = `/users/${userId}/notifications/${id}/view`;
 	const notificationRoute = `/users/${userId}/notifications`;
 
 	const breadCrumbs = [
 		{
-			name: 'Notification',
-			path: notificationRoute
+			name: 'Notifications',
+			path: notificationRoute,
+			home: true
 		},
 		{
-			name: 'View',
-			path: viewRoute
+			name: 'View'
+			// path: createRoute
 		}
 	];
 </script>
@@ -53,55 +54,68 @@
 				<div class="ml-3 relative flex flex-row text-white lg:text-xl text-lg ">
 					<div class="lg:hidden md:hidden block">View Notification</div>
 					<div class="lg:block md:block hidden">View Notification</div>
-					<a href={notificationRoute}>
+					<a href="/">
 						<Fa icon={faMultiply} size="lg" class="absolute right-0 lg:pr-3 pr-0 text-white" />
 					</a>
 				</div>
 			</div>
-			<div class="hidden">{id}</div>
+			<!-- <div class="hidden">{id}</div> -->
 			<div class="flex items-center mb-4 mt-10 lg:mx-16 md:mx-12 mx-10">
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
 					<!-- svelte-ignore a11y-label-has-associated-control -->
-					<label class="lable-text font-semibold">Title</label>
+					<label class="label">
+						<span>Title</span>
+					</label>
 				</div>
-				<span class="w-1/2 md:2/3 lg:2/3" id="title">{title}</span>
+				<span class="span w-1/2 md:2/3 lg:2/3" id="title">Nottitle</span>
 			</div>
 			<div class="flex items-center my-4 lg:mx-16 md:mx-12 mx-10">
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
 					<!-- svelte-ignore a11y-label-has-associated-control -->
-					<label class="lable-text font-semibold"> Body </label>
+					<label class="label">
+						<span>Body</span>
+					</label>
 				</div>
-				<span class="w-1/2 md:2/3 lg:2/3" id="Body">{Body}</span>
+				<span class="span w-1/2 md:2/3 lg:2/3" id="Body">Notbody</span>
 			</div>
 
 			<div class="flex items-center my-4 lg:mx-16 md:mx-12 mx-10">
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
 					<!-- svelte-ignore a11y-label-has-associated-control -->
-					<label class="lable-text font-semibold"> Type </label>
+					<label class="label">
+						<span>Type</span>
+					</label>
 				</div>
-				<span class="w-1/2 md:2/3 lg:2/3" id="type"> {type} </span>
+				<span class="span w-1/2 md:2/3 lg:2/3" id="type"> General </span>
 			</div>
 
 			<div class="flex items-center mb-4 lg:mx-16 md:mx-12 mx-10">
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
 					<!-- svelte-ignore a11y-label-has-associated-control -->
-					<label class="lable-text font-semibold"> Sent On </label>
+					<label class="label">
+						<span>Sent On</span>
+					</label>
 				</div>
-				<span class="w-1/2 md:2/3 lg:2/3" id="sentOn"> {sentOn} </span>
+				<span class="span w-1/2 md:2/3 lg:2/3" id="sentOn"> 2020-02-02 </span>
 			</div>
 			<div class="flex items-center my-4 lg:mx-16 md:mx-12 mx-10">
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
 					<!-- svelte-ignore a11y-label-has-associated-control -->
-					<label class="lable-text font-semibold" for=""> Image </label>
+					<label class="label">
+						<span>Image</span>
+					</label>
 				</div>
-				<span class="w-1/2 md:w-2/3 lg:w-2/3"> {image} </span>
+				<span class="span w-1/2 md:w-2/3 lg:w-2/3"> image </span>
 			</div>
 
 			<div class="flex items-center mt-7 lg:mx-16 md:mx-12 mr-10">
 				<div class="lg:w-5/6 w-2/3 " />
 				<div class="lg:w-1/6 w-1/3 ">
-					<a href={editRoute}>
-						<button type="submit" class="btn btn-outline lg:w-full w-24 mb-10 lg:mr-4 mr-1">
+					<a href="/">
+						<button
+							type="submit"
+							class="btn variant-ringed-primary lg:w-full w-24 mb-10 lg:mr-4 mr-1"
+						>
 							Edit
 							<Fa icon={faPen} size="lg" class="lg:ml-4 sm:ml-2 ml-1" />
 						</button>
