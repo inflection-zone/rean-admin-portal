@@ -104,8 +104,7 @@
 				<div class="lg:w-5/6 w-2/3 " />
 				<div class="lg:w-1/6 w-1/3 ">
 					<a href={editRoute}>
-						<Button title='Edit' type="submit">
-							
+						<Button title="Edit" type="submit">
 							<!-- <Fa icon={faPen} size="lg" class="lg:ml-4 sm:ml-2 ml-1" /> -->
 						</Button>
 					</a>

@@ -1,14 +1,9 @@
 <script lang="ts">
 	import Fa from 'svelte-fa';
 	import { faMultiply } from '@fortawesome/free-solid-svg-icons';
-	import Tags from '$lib/components/tags.svelte';
 	import BreadCrumbs from '$lib/components/breadcrumbs/breadcrums.svelte';
 	import { page } from '$app/stores';
-	// import { Textarea} from 'flowbite-svelte';
-	import Button from '$lib/components/button/button.svelte';
-	import Input from '$lib/components/input/labeled.input.svelte';
-	import Textarea from '$lib/components/input/labeled.textarea.svelte';
-	// import { Input } from 'postcss';
+	import { InputChip } from '@skeletonlabs/skeleton';
 
 	let retrievedTags = '';
 	let tagsPlaceholder = 'Enter a tags here...';
@@ -40,12 +35,12 @@
 		<form
 			method="post"
 			action="?/createKnowledgeNugget"
-			class="w-full  bg-[#ECE4FC] lg:mt-10 md:mt-8 sm:mt-6 mb-10 mt-4 lg:max-w-4xl md:max-w-xl sm:max-w-lg  rounded-lg mx-auto"
+			class="w-full  bg-tertiary-500 lg:mt-10 md:mt-8 sm:mt-6 mb-10 mt-4 lg:max-w-4xl md:max-w-xl sm:max-w-lg  rounded-lg mx-auto"
 		>
-			<div class="w-full  h-14 rounded-t-lg p-3 mb-10 bg-[#7165E3]">
+			<div class="w-full  h-14 rounded-t-lg p-3  bg-[#7165E3]">
 				<div class="ml-3 relative flex flex-row text-white text-xl">
 					Create Knowledge Nugget
-					<a href={knowledgeNuggetsRoute}>
+					<a href="/">
 						<Fa
 							icon={faMultiply}
 							size="lg"
@@ -54,39 +49,100 @@
 					</a>
 				</div>
 			</div>
-			<Input title="Name" type="text" name="topicName" required placeholder="Enter name here..." />
-			<Textarea
-				title="Brief Information"
-				name="briefInformation"
-				placeholder="Enter brief information here..."
-			/>
-			<Textarea
-				title="Detailed Information"
-				name="detailedInformation"
-				placeholder="Enter detailed information here..."
-			/>
-			<Input
-				title="Additional Resource"
-				type="text"
-				name="additionalResource"
-				placeholder="Enter additional resource here..."
-			/>
+			<!-- <div class="hidden">id</div> -->
+			<div class="flex items-center mb-4 mt-10 lg:mx-16 md:mx-12 mx-10">
+				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
+					<!-- svelte-ignore a11y-label-has-associated-control -->
+
+					<label class="label">
+						<span>Name</span>
+					</label>
+
+					<!-- <label class="label font-semibold">Name</label> -->
+				</div>
+				<div class="w-1/2 md:w-2/3 lg:w-2/3">
+					<input
+						type="text"
+						name="topicName"
+						placeholder="Enter name here..."
+						class="input input-bordered input-primary w-full "
+					/>
+				</div>
+			</div>
 
 			<div class="flex items-center mb-2 lg:mx-16 md:mx-12 mx-10">
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
 					<!-- svelte-ignore a11y-label-has-associated-control -->
-					<label class=" font-semibold"> Tags </label>
+					<!-- <label class="lable-text font-semibold"> Brief Information </label> -->
+
+					<label class="label">
+						<span>Brief Information</span>
+					</label>
 				</div>
 				<div class="w-1/2 md:w-2/3 lg:w-2/3">
-					<Tags name="Tags" placeholder={tagsPlaceholder} on:tags={handleTags} />
-					<input type="hidden" name="tags" value={JSON.stringify(retrievedTags)} />
+					<textarea
+						name="briefInformation"
+						required
+						class="textarea textarea-primary w-full"
+						placeholder="Enter brief information here..."
+					/>
+				</div>
+			</div>
+			<div class="flex items-center mb-2 lg:mx-16 md:mx-12 mx-10">
+				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
+					<!-- svelte-ignore a11y-label-has-associated-control -->
+					<!-- <label class="lable-text font-semibold"> Detailed Information </label> -->
+					<label class="label">
+						<span>Detailed Information</span>
+					</label>
+				</div>
+				<div class="w-1/2 md:w-2/3 lg:w-2/3">
+					<textarea
+						name="detailedInformation"
+						required
+						class="textarea textarea-primary w-full"
+						placeholder="Enter detailed information here..."
+					/>
+				</div>
+			</div>
+			<div class="flex items-center mb-2 lg:mx-16 md:mx-12 mx-10">
+				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
+					<!-- svelte-ignore a11y-label-has-associated-control -->
+					<!-- <label class="lable-text font-semibold"> Additional Resource </label> -->
+					<label class="label">
+						<span>Additional Resource</span>
+					</label>
+				</div>
+				<div class="w-1/2 md:w-2/3 lg:w-2/3">
+					<input
+						type="text"
+						name="additionalResource"
+						class="input input-bordered input-primary w-full"
+						placeholder="Enter additional resource here..."
+					/>
+				</div>
+			</div>
+			<div class="flex items-center mb-1 lg:mx-16 md:mx-12 mx-10">
+				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
+					<!-- svelte-ignore a11y-label-has-associated-control -->
+					<!-- <label class="lable-text font-semibold"> Tags </label> -->
+					<label class="label">
+						<span>Tags</span>
+					</label>
+				</div>
+				<div class="w-1/2 md:w-2/3 lg:w-2/3">
+					<InputChip
+						chips="variant-filled-error rounded-2xl"
+						placeholder="Enter a tags..."
+						name="chips"
+					/>
 				</div>
 			</div>
 
 			<div class="flex items-center mt-7 lg:mx-16 md:mx-12 mr-10">
 				<div class="w-3/4" />
 				<div class="w-1/4 ">
-					<Button type = "submit" title="Submit" />
+					<button type="submit" class="btn variant-filled-primary w-full mb-10 "> Submit </button>
 				</div>
 			</div>
 		</form>

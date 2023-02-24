@@ -14,39 +14,50 @@
 	// let sentOn = data.notification.sentOn;
 	// let image = data.notification.image;
 
-	let id = '56789';
-	let title = 'Able to do more activities';
-	let body = 'xxxxx';
-	let type = 'Careplan';
-	let sentOn = '01/01/2020';
+	// let id = '56789';
+	// let title = 'Able to do more activities';
+	// let body = 'xxxxx';
+	// let type = 'Careplan';
+	// let sentOn = '01/01/2020';
 
-	//Original data
-	let _title = title;
-	let _body = body;
-	let _type = type;
-	let _sentOn = sentOn;
-	//let _image = image;
+	// //Original data
+	// let _title = title;
+	// let _body = body;
+	// let _type = type;
+	// let _sentOn = sentOn;
+	// //let _image = image;
 
-	function handleReset() {
-		title = _title;
-		body = _body;
-		type = _type;
-		sentOn = _sentOn;
-	}
+	// function handleReset() {
+	// 	title = _title;
+	// 	body = _body;
+	// 	type = _type;
+	// 	sentOn = _sentOn;
+	// }
 
 	const userId = $page.params.userId;
-	const editRoute = `/users/${userId}/notifications/${id}/edit`;
-	const viewRoute = `/users/${userId}/notifications/${id}/view`;
+	// const editRoute = `/users/${userId}/notifications/${id}/edit`;
+	// const viewRoute = `/users/${userId}/notifications/${id}/view`;
 	const notificationRoute = `/users/${userId}/notifications`;
 
+	// const breadCrumbs = [
+	// 	{
+	// 		name: 'Notification',
+	// 		path: notificationRoute
+	// 	},
+	// 	{
+	// 		name: 'Edit',
+	// 		path: editRoute
+	// 	}
+	// ];
 	const breadCrumbs = [
 		{
-			name: 'Notification',
-			path: notificationRoute
+			name: 'Notifications',
+			path: notificationRoute,
+			home: true
 		},
 		{
-			name: 'Edit',
-			path: editRoute
+			name: 'Edit'
+			// path: createRoute
 		}
 	];
 </script>
@@ -63,24 +74,26 @@
 			<div class="w-full  h-14 rounded-t-lg p-3  bg-[#7165E3]">
 				<div class="ml-3 relative flex flex-row text-white text-xl">
 					Edit Notification
-					<a href={viewRoute}>
-						<Fa icon={faMultiply} size="lg" class="absolute right-0 pr-3 mb-16 text-white " /></a
-					>
+					<!-- <a href={viewRoute}> -->
+					<Fa icon={faMultiply} size="lg" class="absolute right-0 pr-3 mb-16 text-white " />
+					<!-- </a> -->
 				</div>
 			</div>
-			<div class="hidden">{id}</div>
+			<!-- <div class="hidden">{id}</div> -->
 			<div class="flex items-center mb-4 mt-10 lg:mx-16 md:mx-12 mx-10">
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
 					<!-- svelte-ignore a11y-label-has-associated-control -->
-					<label class="lable-text font-semibold"> Title </label>
+					<label class="label">
+						<span>Title</span>
+					</label>
 				</div>
 				<div class="w-1/2 md:w-2/3 lg:w-2/3">
 					<input
 						type="text"
 						name="title"
-						bind:value={title}
+						value="Nottitle"
 						placeholder="Enter title here..."
-						class="input input-bordered w-full "
+						class="input w-full "
 					/>
 				</div>
 			</div>
@@ -88,15 +101,17 @@
 			<div class="flex items-center mb-4 lg:mx-16 md:mx-12 mx-10">
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
 					<!-- svelte-ignore a11y-label-has-associated-control -->
-					<label class="lable-text font-semibold"> Body </label>
+					<label class="label">
+						<span>Body</span>
+					</label>
 				</div>
 				<div class="w-1/2 md:w-2/3 lg:w-2/3">
 					<input
 						type="text"
 						name="body"
-						bind:value={body}
+						value="Notbody"
 						placeholder="Enter body here..."
-						class="input input-bordered w-full "
+						class="input w-full "
 					/>
 				</div>
 			</div>
@@ -104,14 +119,12 @@
 			<div class="flex items-center mb-4 lg:mx-16 md:mx-12 mx-10">
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
 					<!-- svelte-ignore a11y-label-has-associated-control -->
-					<label class="lable-text font-semibold"> Type </label>
+					<label class="label">
+						<span>Type</span>
+					</label>
 				</div>
 				<div class="w-1/2 md:w-2/3 lg:w-2/3">
-					<select
-						class="select select-info w-full"
-						bind:value={type}
-						placeholder="select type here..."
-					>
+					<select class="select w-full" value="General" placeholder="select type here...">
 						<option>General</option>
 						<option>Auto</option>
 						<option>Dark mode</option>
@@ -123,26 +136,24 @@
 			<div class="flex items-center mb-4 lg:mx-16 md:mx-12 mx-10">
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
 					<!-- svelte-ignore a11y-label-has-associated-control -->
-					<label class="lable-text font-semibold"> Sent On </label>
+					<label class="label">
+						<span>Sent On</span>
+					</label>
 				</div>
-				<span class="w-1/2 md:2/3 lg:2/3" id="sentOn">
-					{sentOn}
-				</span>
+				<span class="span w-1/2 md:2/3 lg:2/3" id="sentOn"> 2020-02-02 </span>
 			</div>
 
 			<div class="flex items-center my-2 lg:mx-16 md:mx-12 mx-10">
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
-					<label class="lable-text font-semibold" for="version"> Image </label>
+					<!-- svelte-ignore a11y-label-has-associated-control -->
+					<label class="label">
+						<span>Image</span>
+					</label>
 				</div>
 				<div class="flex flex-row gap-8 w-1/2 md:w-2/3 lg:w-2/3 ">
-					<input
-						name="image"
-						type="file"
-						class="true input input-bordered input-info w-full"
-						placeholder="Image"
-					/>
+					<input name="image" type="file" class="true input w-full" placeholder="Image" />
 					<button
-						class="capitalize btn btn-outline lg:w-[19%] md:w-[22%] md:text-[13px] sm:w-[30%] sm:text-[12px] min-[320px]:w-[40%] min-[320px]:text-[10px]"
+						class="capitalize btn variant-filled-primary lg:w-[19%] md:w-[22%] md:text-[13px] sm:w-[30%] sm:text-[12px] min-[320px]:w-[40%] min-[320px]:text-[10px]"
 						>Upload</button
 					>
 				</div>
@@ -150,18 +161,12 @@
 			<div class="flex items-center my-10 lg:mx-16 md:mx-12 mx-4 ">
 				<div class="lg:w-1/2 md:w-1/2 sm:w-1/2  w-1/3" />
 				<div class="lg:w-1/4 md:w-1/4 sm:w-1/4  w-1/3 ">
-					<button
-						type="button"
-						on:click={handleReset}
-						class="btn btn-outline lg:w-40 lg:ml-8 md:ml-6 sm:ml-1 "
-					>
+					<button type="button" class="btn variant-ringed-primary lg:w-40 lg:ml-8 md:ml-6 sm:ml-1 ">
 						Reset</button
 					>
 				</div>
 				<div class="lg:w-1/4 md:w-1/4 sm:w-1/4 w-1/3">
-					<button
-						type="submit"
-						class="btn bg-[#5832A1] hover:bg-[#5832A1] lg:w-40 lg:ml-8 md:ml-6 sm:ml-2 "
+					<button type="submit" class="btn variant-filled-primary lg:w-40 lg:ml-8 md:ml-6 sm:ml-2 "
 						>Submit
 					</button>
 				</div>
