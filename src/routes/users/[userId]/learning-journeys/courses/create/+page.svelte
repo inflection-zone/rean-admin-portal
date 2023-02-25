@@ -45,24 +45,29 @@
 			<div class="flex items-center mb-4 mt-10 lg:mx-16 md:mx-12 mx-10">
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
 					<!-- svelte-ignore a11y-label-has-associated-control -->
-					<label class="lable-text font-semibold">Name</label>
+					<label class="label">
+						<span>Name</span>
+					</label>
 				</div>
 				<div class="w-1/2 md:w-2/3 lg:w-2/3">
 					<input
 						type="text"
 						name="name"
 						placeholder="Enter  name here..."
-						class="input input-bordered input-info w-full "
+						class="input w-full "
 					/>
 				</div>
 			</div>
 
 			<div class="flex items-center my-4 lg:mx-16 md:mx-12 mx-10">
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
-					<label class="lable-text font-semibold" for="version"> Learning Journey </label>
+					<!-- svelte-ignore a11y-label-has-associated-control -->
+					<label class="label">
+						<span>Learning Journey</span>
+					</label>
 				</div>
 				<div class="w-1/2 md:w-2/3 lg:w-2/3">
-					<select class="select select-info w-full" placeholder="Enter  name here...">
+					<select class="select w-full" placeholder="Select learning journey here...">
 						<option selected>Careplan</option>
 						<option>Auto</option>
 						<option>Dark mode</option>
@@ -74,31 +79,37 @@
 			<div class="flex items-center mb-2 lg:mx-16 md:mx-12 mx-10">
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
 					<!-- svelte-ignore a11y-label-has-associated-control -->
-					<label class="lable-text font-semibold"> Description </label>
+					<label class="label">
+						<span>Description</span>
+					</label>
 				</div>
 				<div class="w-1/2 md:w-2/3 lg:w-2/3">
 					<textarea
 						name="description"
 						required
-						class="textarea textarea-info w-full"
-						placeholder="Enter  description here..."
+						class="textarea w-full"
+						placeholder="Enter description here..."
 					/>
 				</div>
 			</div>
 
 			<div class="flex items-center my-2 lg:mx-16 md:mx-12 mx-10">
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
-					<label class="lable-text font-semibold" for="version"> Image </label>
+					<!-- svelte-ignore a11y-label-has-associated-control -->
+					<label class="label">
+						<span>Image</span>
+					</label>
 				</div>
 				<div class="flex flex-row gap-8 w-1/2 md:w-2/3 lg:w-2/3 ">
 					<input
-						name="version"
+						name="image"
 						type="file"
-						class="true input input-bordered input-info w-full"
+						id="fileUpload"
+						class="input w-full"
 						placeholder="Image"
 					/>
 					<button
-						class="capitalize btn btn-outline lg:w-[19%] md:w-[22%] md:text-[13px] sm:w-[30%] sm:text-[12px] min-[320px]:w-[40%] min-[320px]:text-[10px]"
+						class="capitalize btn variant-filled-primary lg:w-[19%] md:w-[22%] md:text-[13px] sm:w-[30%] sm:text-[12px] min-[320px]:w-[40%] min-[320px]:text-[10px]"
 						>Upload</button
 					>
 				</div>
@@ -107,9 +118,7 @@
 			<div class="flex items-center mt-7 lg:mx-16 md:mx-12 mr-10">
 				<div class="w-3/4" />
 				<div class="w-1/4 ">
-					<button type="submit" class="btn bg-[#5832A1] hover:bg-[#5832A1] w-full mb-10 ">
-						Submit
-					</button>
+					<button type="submit" class="btn variant-filled-primary w-full mb-10 "> Submit </button>
 				</div>
 			</div>
 		</form>

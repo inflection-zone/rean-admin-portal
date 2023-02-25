@@ -90,11 +90,13 @@
 			<div class="flex items-center mb-4 mt-10 lg:mx-16 md:mx-12 mx-10">
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
 					<!-- svelte-ignore a11y-label-has-associated-control -->
-					<label class="lable-text font-semibold"> Type </label>
+					<label class="label">
+						<span>Type</span>
+					</label>
 				</div>
 				<div class="w-1/2 md:w-2/3 lg:w-2/3">
 					<select
-						class="select select-info w-full"
+						class="select w-full"
 						bind:value={type}
 						placeholder="select type here..."
 					>
@@ -109,7 +111,9 @@
 			<div class="flex items-center mb-4 lg:mx-16 md:mx-12 mx-10">
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
 					<!-- svelte-ignore a11y-label-has-associated-control -->
-					<label class="lable-text font-semibold"> Name </label>
+					<label class="label">
+						<span>Name</span>
+					</label>
 				</div>
 				<div class="w-1/2 md:w-2/3 lg:w-2/3">
 					<input
@@ -117,7 +121,7 @@
 						name="name"
 						bind:value={name}
 						placeholder="Enter name here..."
-						class="input input-bordered w-full "
+						class="input w-full "
 					/>
 				</div>
 			</div>
@@ -125,7 +129,9 @@
 			<div class="flex items-center mb-4 lg:mx-16 md:mx-12 mx-10">
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
 					<!-- svelte-ignore a11y-label-has-associated-control -->
-					<label class="lable-text font-semibold"> Contact Number </label>
+					<label class="label">
+						<span>Contact Number</span>
+					</label>
 				</div>
 				<div class="w-1/2 md:w-2/3 lg:w-2/3">
 					<input
@@ -133,7 +139,7 @@
 						name="contactNumber"
 						bind:value={contactNumber}
 						placeholder="Enter contact number here..."
-						class="input input-bordered w-full "
+						class="input w-full "
 					/>
 				</div>
 			</div>
@@ -141,7 +147,9 @@
 			<div class="flex items-center mb-4 lg:mx-16 md:mx-12 mx-10">
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
 					<!-- svelte-ignore a11y-label-has-associated-control -->
-					<label class="lable-text font-semibold"> Email </label>
+					<label class="label">
+						<span>Email</span>
+					</label>
 				</div>
 				<div class="w-1/2 md:w-2/3 lg:w-2/3">
 					<input
@@ -149,7 +157,7 @@
 						name="email"
 						bind:value={email}
 						placeholder="Enter email here..."
-						class="input input-bordered w-full "
+						class="input w-full "
 					/>
 				</div>
 			</div>
@@ -157,11 +165,13 @@
 			<div class="flex items-center mb-2 lg:mx-16 md:mx-12 mx-10">
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
 					<!-- svelte-ignore a11y-label-has-associated-control -->
-					<label class="lable-text font-semibold"> About </label>
+					<label class="label">
+						<span>About</span>
+					</label>
 				</div>
 				<div class="w-1/2 md:w-2/3 lg:w-2/3">
 					<textarea
-						class="textarea textarea-info w-full"
+						class="textarea w-full"
 						name="about"
 						bind:value={about}
 						placeholder="Enter about here..."
@@ -172,15 +182,17 @@
 			<div class="flex items-center mb-4 lg:mx-16 md:mx-12 mx-10">
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
 					<!-- svelte-ignore a11y-label-has-associated-control -->
-					<label class="lable-text font-semibold"> Operational Since </label>
+					<label class="label">
+						<span>Operational Since</span>
+					</label>
 				</div>
 				<div class="w-1/2 md:w-2/3 lg:w-2/3">
 					<input
 						type="date"
 						name="operationalSince"
 						bind:value={operationalSince}
-						placeholder="select operational since here..."
-						class="input input-bordered input-info w-full "
+						placeholder="Enter operational since here..."
+						class="input w-full "
 					/>
 				</div>
 			</div>
@@ -188,11 +200,13 @@
 			<div class="flex items-center mb-2 lg:mx-16 md:mx-12 mx-10">
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
 					<!-- svelte-ignore a11y-label-has-associated-control -->
-					<label class="lable-text font-semibold"> Address </label>
+					<label class="label">
+						<span>Address</span>
+					</label>
 				</div>
 				<div class="w-1/2 md:w-2/3 lg:w-2/3">
 					<textarea
-						class="textarea textarea-info w-full"
+						class="textarea w-full"
 						name="address"
 						bind:value={address}
 						placeholder="Enter address here..."
@@ -203,7 +217,9 @@
 			<div class="flex items-center mb-4 lg:mx-16 md:mx-12 mx-10">
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
 					<!-- svelte-ignore a11y-label-has-associated-control -->
-					<label class="lable-text font-semibold"> Image Resource </label>
+					<label class="label">
+						<span>Image Resource</span>
+					</label>
 				</div>
 				<div class="w-1/2 md:w-2/3 lg:w-2/3">
 					<input
@@ -211,7 +227,7 @@
 						name="imageResource"
 						bind:value={imageResource}
 						placeholder="Enter image resource here..."
-						class="input input-bordered w-full "
+						class="input w-full "
 					/>
 				</div>
 			</div>
@@ -219,7 +235,9 @@
 			<div class="flex items-center mb-4 lg:mx-16 md:mx-12 mx-10">
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
 					<!-- svelte-ignore a11y-label-has-associated-control -->
-					<label class="lable-text font-semibold">Is Healthy Facility </label>
+					<label class="label">
+						<span>Is Healthy Facility</span>
+					</label>
 				</div>
 				<div class="w-1/2 md:w-2/3 lg:w-2/3">
 					<label class="label cursor-pointer">
@@ -232,21 +250,15 @@
 				</div>
 			</div>
 
-			<div class="flex items-center my-10 lg:mx-16 md:mx-12 mx-4 ">
+			<div class="flex items-center my-8 lg:mx-16 md:mx-12 mx-4 ">
 				<div class="lg:w-1/2 md:w-1/2 sm:w-1/2  w-1/3" />
 				<div class="lg:w-1/4 md:w-1/4 sm:w-1/4  w-1/3 ">
-					<button
-						type="button"
-						on:click={handleReset}
-						class="btn btn-outline lg:w-40 lg:ml-8 md:ml-6 sm:ml-1 "
-					>
+					<button type="button" on:click={handleReset} class="btn variant-ringed-primary lg:w-40 lg:ml-8 md:ml-6 sm:ml-1 mb-10">
 						Reset</button
 					>
 				</div>
 				<div class="lg:w-1/4 md:w-1/4 sm:w-1/4 w-1/3">
-					<button
-						type="submit"
-						class="btn bg-[#5832A1] hover:bg-[#5832A1] lg:w-40 lg:ml-8 md:ml-6 sm:ml-2 "
+					<button type="submit" class="btn variant-filled-primary lg:w-40 lg:ml-8 md:ml-6 sm:ml-2 mb-10"
 						>Submit
 					</button>
 				</div>

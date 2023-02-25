@@ -5,28 +5,19 @@
 	import type { PageServerData } from './$types';
 	import BreadCrumbs from '$lib/components/breadcrumbs/breadcrums.svelte';
 	import { page } from '$app/stores';
+	import { InputChip } from '@skeletonlabs/skeleton';
 
-	// export let data: PageServerData;
-	// let initiaData = {};
-	// let id = data.linkage.id;
-	// let title = data.linkage.title;
-	// let description = data.linkage.description;
-	// let link = data.linkage.link;
-	// let postDate = data.linkage.postDate;
-	// let daysActive = data.linkage.daysActive;
-	// let tags_ = data.linkage.Tags;
-	// let action = data.linkage.action;
-	// let image = data.linkage.image;
-
-	let id = '56789';
-	let title = 'Able to do more activities';
-	let description = 'xxxxxx';
-	let link = 'xxxxx';
-	let postDate = '01/01/2020';
-	let daysActive = 12;
-	let tags = 'xx';
-	let action = 'xxx';
-	let image = '987654';
+	export let data: PageServerData;
+	let initiaData = {};
+	let id = data.linkage.id;
+	let title = data.linkage.title;
+	let description = data.linkage.description;
+	let link = data.linkage.link;
+	let postDate = data.linkage.postDate;
+	let daysActive = data.linkage.daysActive;
+	let tags = data.linkage.Tags;
+	let action = data.linkage.action;
+	let image = data.linkage.image;
 
 	//Original data
 	let _title = title;
@@ -34,6 +25,7 @@
 	let _link = link;
 	let _postDate = postDate;
 	let _daysActive = daysActive;
+	let _tags = JSON.stringify(tags);
 	let retrievedTags = '';
 	let tagsPlaceholder = 'Enter a tags here...';
 	let _action = action;
@@ -96,7 +88,9 @@
 			<div class="flex items-center mb-4 mt-10 lg:mx-16 md:mx-12 mx-10">
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
 					<!-- svelte-ignore a11y-label-has-associated-control -->
-					<label class="lable-text font-semibold">Title</label>
+					<label class="label">
+						<span>Title</span>
+					</label>
 				</div>
 				<div class="w-1/2 md:w-2/3 lg:w-2/3">
 					<input
@@ -104,49 +98,60 @@
 						name="title"
 						bind:value={title}
 						placeholder="Enter title here..."
-						class="input input-bordered input-info w-full "
+						class="input w-full "
 					/>
 				</div>
 			</div>
 			<div class="flex items-center mb-2 lg:mx-16 md:mx-12 mx-10">
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
 					<!-- svelte-ignore a11y-label-has-associated-control -->
-					<label class="lable-text font-semibold" for="description"> Description </label>
+					<label class="label">
+						<span>Description</span>
+					</label>
 				</div>
 				<div class="w-1/2 md:w-2/3 lg:w-2/3">
 					<textarea
 						name="description"
 						bind:value={description}
-						class="textarea textarea-info w-full"
-						placeholder="Enter  description here..."
+						class="textarea w-full"
+						placeholder="Enter description here..."
 					/>
 				</div>
 			</div>
 
 			<div class="flex items-center my-2 lg:mx-16 md:mx-12 mx-10">
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
-					<label class="lable-text font-semibold" for="learningJourney">Link </label>
+					<!-- svelte-ignore a11y-label-has-associated-control -->
+					<label class="label">
+						<span>Link</span>
+					</label>
 				</div>
 				<div class="w-1/2 md:w-2/3 lg:w-2/3">
 					<input
-						type="link"
+						type="text"
 						name="link"
 						bind:value={link}
 						placeholder="Enter link here..."
-						class="input input-bordered input-info w-full "
+						class="input w-full "
 					/>
 				</div>
 			</div>
 			<div class="flex items-center my-6 lg:mx-16 md:mx-12 mx-10">
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
-					<label class="lable-text font-semibold" for="learningJourney">Post Date </label>
+					<!-- svelte-ignore a11y-label-has-associated-control -->
+					<label class="label">
+						<span>Post Date</span>
+					</label>
 				</div>
-				<div class="w-1/2 md:w-2/3 lg:w-2/3">{postDate}</div>
+				<div class="span w-1/2 md:w-2/3 lg:w-2/3">{postDate}</div>
 			</div>
 
 			<div class="flex items-center my-4 lg:mx-16 md:mx-12 mx-10">
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
-					<label class="lable-text font-semibold" for="course"> Days Active </label>
+					<!-- svelte-ignore a11y-label-has-associated-control -->
+					<label class="label">
+						<span>Days Active</span>
+					</label>
 				</div>
 				<div class="w-1/2 md:w-2/3 lg:w-2/3">
 					<input
@@ -154,24 +159,29 @@
 						name="daysActive"
 						bind:value={daysActive}
 						placeholder="Enter days active here..."
-						class="input input-bordered input-info w-full "
+						class="input w-full "
 					/>
 				</div>
 			</div>
 
-			<div class="flex items-center my-4 lg:mx-16 md:mx-12 mx-10">
+			<div class="flex items-center lg:mx-16 md:mx-12 mx-10">
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
-					<label class="lable-text font-semibold" for="contentType"> Tags </label>
+					<!-- svelte-ignore a11y-label-has-associated-control -->
+					<label class="label">
+						<span>Tags</span>
+					</label>
 				</div>
 				<div class="w-1/2 md:w-2/3 lg:w-2/3">
-					<!-- svelte-ignore missing-declaration -->
-					<Tags name="Tags" placeholder={tagsPlaceholder} on:tags={handleTags} bind:tags />
+					<InputChip name="Tags" placeholder={tagsPlaceholder} on:tags={handleTags} bind:tags />
 					<input type="hidden" name="tags" value={JSON.stringify(tags)} />
 				</div>
 			</div>
 			<div class="flex items-center my-4 lg:mx-16 md:mx-12 mx-10">
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
-					<label class="lable-text font-semibold" for="contentType"> Action </label>
+					<!-- svelte-ignore a11y-label-has-associated-control -->
+					<label class="label">
+						<span>Action</span>
+					</label>
 				</div>
 				<div class="w-1/2 md:w-2/3 lg:w-2/3">
 					<input
@@ -179,45 +189,42 @@
 						name="action"
 						bind:value={action}
 						placeholder="Enter action here..."
-						class="input input-bordered input-info w-full "
+						class="input w-full "
 					/>
 				</div>
 			</div>
 
 			<div class="flex items-center my-2 lg:mx-16 md:mx-12 mx-10">
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
-					<label class="lable-text font-semibold" for="fileUpload"> Image </label>
+					<!-- svelte-ignore a11y-label-has-associated-control -->
+					<label class="label">
+						<span>Image</span>
+					</label>
 				</div>
 				<div class="flex flex-row gap-8 w-1/2 md:w-2/3 lg:w-2/3 ">
 					<input
 						name="image"
 						type="file"
 						id="fileUpload"
-						class="true input input-bordered input-info w-full"
+						class="input w-full"
 						placeholder="Image"
 					/>
 					<button
-						class="capitalize btn btn-outline lg:w-[19%] md:w-[22%] md:text-[13px] sm:w-[30%] sm:text-[12px] min-[320px]:w-[40%] min-[320px]:text-[10px]"
+						class="capitalize btn variant-filled-primary lg:w-[19%] md:w-[22%] md:text-[13px] sm:w-[30%] sm:text-[12px] min-[320px]:w-[40%] min-[320px]:text-[10px]"
 						>Upload</button
 					>
 				</div>
 			</div>
 
-			<div class="flex items-center my-6 lg:mx-16 md:mx-12 mx-4 ">
+			<div class="flex items-center my-8 lg:mx-16 md:mx-12 mx-4 ">
 				<div class="lg:w-1/2 md:w-1/2 sm:w-1/2  w-1/3" />
 				<div class="lg:w-1/4 md:w-1/4 sm:w-1/4  w-1/3 ">
-					<button
-						type="button"
-						on:click={handleReset}
-						class="btn btn-outline lg:w-40 lg:ml-8 md:ml-6 sm:ml-1 mb-10 "
-					>
+					<button type="button" on:click={handleReset} class="btn variant-ringed-primary lg:w-40 lg:ml-8 md:ml-6 sm:ml-1 mb-10">
 						Reset</button
 					>
 				</div>
 				<div class="lg:w-1/4 md:w-1/4 sm:w-1/4 w-1/3">
-					<button
-						type="submit"
-						class="btn bg-[#5832A1] hover:bg-[#5832A1] lg:w-40 lg:ml-8 md:ml-6 sm:ml-2 mb-10 "
+					<button type="submit" class="btn variant-filled-primary lg:w-40 lg:ml-8 md:ml-6 sm:ml-2 mb-10"
 						>Submit
 					</button>
 				</div>

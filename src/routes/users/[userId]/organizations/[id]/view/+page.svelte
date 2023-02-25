@@ -63,79 +63,100 @@
 			<div class="flex items-center my-4 mt-10 lg:mx-16 md:mx-12 mx-10">
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
 					<!-- svelte-ignore a11y-label-has-associated-control -->
-					<label class="lable-text font-semibold"> Type </label>
+					<label class="label">
+						<span>Type</span>
+					</label>
 				</div>
-				<span class="w-1/2 md:2/3 lg:2/3" id="type"> {type} </span>
+				<span class="span w-1/2 md:2/3 lg:2/3" id="type"> {type} </span>
 			</div>
 
 			<div class="flex items-center mb-4 lg:mx-16 md:mx-12 mx-10">
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
 					<!-- svelte-ignore a11y-label-has-associated-control -->
-					<label class="lable-text font-semibold">Name</label>
+					<label class="label">
+						<span>Name</span>
+					</label>
 				</div>
-				<span class="w-1/2 md:2/3 lg:2/3" id="name">{name}</span>
+				<span class="span w-1/2 md:2/3 lg:2/3" id="name">{name}</span>
 			</div>
 			<div class="flex items-center my-4 lg:mx-16 md:mx-12 mx-10">
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
 					<!-- svelte-ignore a11y-label-has-associated-control -->
-					<label class="lable-text font-semibold"> Contact Number </label>
+					<label class="label">
+						<span>Contact Number</span>
+					</label>
 				</div>
-				<span class="w-1/2 md:2/3 lg:2/3" id="contactNumber">{contactNumber}</span>
-			</div>
-
-			<div class="flex items-center my-4 lg:mx-16 md:mx-12 mx-10">
-				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
-					<!-- svelte-ignore a11y-label-has-associated-control -->
-					<label class="lable-text font-semibold"> Email </label>
-				</div>
-				<span class="w-1/2 md:2/3 lg:2/3" id="email"> {email} </span>
+				<span class="span w-1/2 md:2/3 lg:2/3" id="contactNumber">{contactNumber}</span>
 			</div>
 
 			<div class="flex items-center my-4 lg:mx-16 md:mx-12 mx-10">
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
 					<!-- svelte-ignore a11y-label-has-associated-control -->
-					<label class="lable-text font-semibold"> About </label>
+					<label class="label">
+						<span>Email</span>
+					</label>
 				</div>
-				<span class="w-1/2 md:2/3 lg:2/3" id="about"> {about} </span>
+				<span class="span w-1/2 md:2/3 lg:2/3" id="email"> {email} </span>
 			</div>
 
 			<div class="flex items-center my-4 lg:mx-16 md:mx-12 mx-10">
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
 					<!-- svelte-ignore a11y-label-has-associated-control -->
-					<label class="lable-text font-semibold"> Operational Since </label>
+					<label class="label">
+						<span>About</span>
+					</label>
 				</div>
-				<span class="w-1/2 md:2/3 lg:2/3" id="operationalSince"> {operationalSince} </span>
+				<span class="span w-1/2 md:2/3 lg:2/3" id="about"> {about} </span>
 			</div>
 
 			<div class="flex items-center my-4 lg:mx-16 md:mx-12 mx-10">
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
 					<!-- svelte-ignore a11y-label-has-associated-control -->
-					<label class="lable-text font-semibold"> Address </label>
+					<label class="label">
+						<span>Operational Since</span>
+					</label>
 				</div>
-				<span class="w-1/2 md:2/3 lg:2/3" id="address"> {address} </span>
+				<span class="span w-1/2 md:2/3 lg:2/3" id="operationalSince"> {operationalSince} </span>
 			</div>
 
 			<div class="flex items-center my-4 lg:mx-16 md:mx-12 mx-10">
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
 					<!-- svelte-ignore a11y-label-has-associated-control -->
-					<label class="lable-text font-semibold"> Image Resource </label>
+					<label class="label">
+						<span>Address</span>
+					</label>
 				</div>
-				<span class="w-1/2 md:2/3 lg:2/3" id="imageResource"> {imageResource} </span>
+				<span class="span w-1/2 md:2/3 lg:2/3" id="address"> {address} </span>
 			</div>
 
 			<div class="flex items-center my-4 lg:mx-16 md:mx-12 mx-10">
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
 					<!-- svelte-ignore a11y-label-has-associated-control -->
-					<label class="lable-text font-semibold">Is Healthy Facility </label>
+					<label class="label">
+						<span>Image Resource</span>
+					</label>
 				</div>
-				<span class="w-1/2 md:2/3 lg:2/3" id="isHealthFacility"> {isHealthFacility} </span>
+				<span class="span w-1/2 md:2/3 lg:2/3" id="imageResource"> {imageResource} </span>
+			</div>
+
+			<div class="flex items-center my-4 lg:mx-16 md:mx-12 mx-10">
+				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
+					<!-- svelte-ignore a11y-label-has-associated-control -->
+					<label class="label">
+						<span>Is Healthy Facility</span>
+					</label>
+				</div>
+				<span class="span w-1/2 md:2/3 lg:2/3" id="isHealthFacility"> {isHealthFacility} </span>
 			</div>
 
 			<div class="flex items-center mt-7 lg:mx-16 md:mx-12 mr-10">
 				<div class="lg:w-5/6 w-2/3 " />
 				<div class="lg:w-1/6 w-1/3 ">
 					<a href={editRoute}>
-						<button type="submit" class="btn btn-outline lg:w-full w-24 mb-10 lg:mr-4 mr-1">
+						<button
+							type="submit"
+							class="btn variant-ringed-primary lg:w-full w-24 mb-10 lg:mr-4 mr-1"
+						>
 							Edit
 							<Fa icon={faPen} size="lg" class="lg:ml-4 sm:ml-2 ml-1" />
 						</button>

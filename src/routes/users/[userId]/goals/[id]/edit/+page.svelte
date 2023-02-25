@@ -90,7 +90,9 @@
 			<div class="flex items-center mb-4 mt-10 lg:mx-16 md:mx-12 mx-10">
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
 					<!-- svelte-ignore a11y-label-has-associated-control -->
-					<label class="lable-text font-semibold"> Patient User Id </label>
+					<label class="label">
+						<span>Patient User Id</span>
+					</label>
 				</div>
 				<div class="w-1/2 md:w-2/3 lg:w-2/3">
 					<input
@@ -98,7 +100,7 @@
 						name="patientUserId"
 						bind:value={patientUserId}
 						placeholder="Enter patient user id here..."
-						class="input input-bordered w-full "
+						class="input w-full "
 					/>
 				</div>
 			</div>
@@ -106,7 +108,9 @@
 			<div class="flex items-center mb-4 lg:mx-16 md:mx-12 mx-10">
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
 					<!-- svelte-ignore a11y-label-has-associated-control -->
-					<label class="lable-text font-semibold"> Enrollment Id </label>
+					<label class="label">
+						<span>Enrollment Id</span>
+					</label>
 				</div>
 				<div class="w-1/2 md:w-2/3 lg:w-2/3">
 					<input
@@ -114,7 +118,7 @@
 						name="enrollmentId"
 						bind:value={enrollmentId}
 						placeholder="Enter enrollment id here..."
-						class="input input-bordered w-full "
+						class="input w-full "
 					/>
 				</div>
 			</div>
@@ -122,7 +126,9 @@
 			<div class="flex items-center mb-4 lg:mx-16 md:mx-12 mx-10">
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
 					<!-- svelte-ignore a11y-label-has-associated-control -->
-					<label class="lable-text font-semibold"> Provider </label>
+					<label class="label">
+						<span>Provider</span>
+					</label>
 				</div>
 				<div class="w-1/2 md:w-2/3 lg:w-2/3">
 					<input
@@ -130,7 +136,7 @@
 						name="provider"
 						bind:value={provider}
 						placeholder="Enter provider here..."
-						class="input input-bordered w-full "
+						class="input w-full "
 					/>
 				</div>
 			</div>
@@ -138,7 +144,9 @@
 			<div class="flex items-center mb-4 lg:mx-16 md:mx-12 mx-10">
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
 					<!-- svelte-ignore a11y-label-has-associated-control -->
-					<label class="lable-text font-semibold"> Careplan Name </label>
+					<label class="label">
+						<span>Careplan Name</span>
+					</label>
 				</div>
 				<div class="w-1/2 md:w-2/3 lg:w-2/3">
 					<input
@@ -146,7 +154,7 @@
 						name="careplanName"
 						bind:value={careplanName}
 						placeholder="Enter careplan name here..."
-						class="input input-bordered w-full "
+						class="input w-full "
 					/>
 				</div>
 			</div>
@@ -154,7 +162,9 @@
 			<div class="flex items-center mb-4 lg:mx-16 md:mx-12 mx-10">
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
 					<!-- svelte-ignore a11y-label-has-associated-control -->
-					<label class="lable-text font-semibold"> Careplan Code </label>
+					<label class="label">
+						<span>Careplan Code</span>
+					</label>
 				</div>
 				<div class="w-1/2 md:w-2/3 lg:w-2/3">
 					<input
@@ -162,7 +172,7 @@
 						name="careplanCode"
 						bind:value={careplanCode}
 						placeholder="Enter careplan Code here..."
-						class="input input-bordered w-full "
+						class="input w-full "
 					/>
 				</div>
 			</div>
@@ -170,7 +180,9 @@
 			<div class="flex items-center mb-4 lg:mx-16 md:mx-12 mx-10">
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
 					<!-- svelte-ignore a11y-label-has-associated-control -->
-					<label class="lable-text font-semibold"> Title </label>
+					<label class="label">
+						<span>Title</span>
+					</label>
 				</div>
 				<div class="w-1/2 md:w-2/3 lg:w-2/3">
 					<input
@@ -178,7 +190,7 @@
 						name="title"
 						bind:value={title}
 						placeholder="Enter title here..."
-						class="input input-bordered w-full "
+						class="input w-full "
 					/>
 				</div>
 			</div>
@@ -186,7 +198,9 @@
 			<div class="flex items-center mb-4 lg:mx-16 md:mx-12 mx-10">
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
 					<!-- svelte-ignore a11y-label-has-associated-control -->
-					<label class="lable-text font-semibold"> Sequence </label>
+					<label class="label">
+						<span>Sequence</span>
+					</label>
 				</div>
 				<div class="w-1/2 md:w-2/3 lg:w-2/3">
 					<input
@@ -194,7 +208,7 @@
 						name="sequence"
 						bind:value={sequence}
 						placeholder="Enter sequence here..."
-						class="input input-bordered w-full "
+						class="input w-full "
 					/>
 				</div>
 			</div>
@@ -202,7 +216,9 @@
 			<div class="flex items-center mb-4 lg:mx-16 md:mx-12 mx-10">
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
 					<!-- svelte-ignore a11y-label-has-associated-control -->
-					<label class="lable-text font-semibold"> Health Priority Id </label>
+					<label class="label">
+						<span>Health Priority Id</span>
+					</label>
 				</div>
 				<div class="w-1/2 md:w-2/3 lg:w-2/3">
 					<input
@@ -210,7 +226,7 @@
 						name="healthPriorityId"
 						bind:value={healthPriorityId}
 						placeholder="Enter health priority id here..."
-						class="input input-bordered w-full "
+						class="input w-full "
 					/>
 				</div>
 			</div>
@@ -218,11 +234,13 @@
 			<div class="flex items-center mb-4 lg:mx-16 md:mx-12 mx-10">
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
 					<!-- svelte-ignore a11y-label-has-associated-control -->
-					<label class="lable-text font-semibold"> Goal Achieved </label>
+					<label class="label">
+						<span>Goal Achieved</span>
+					</label>
 				</div>
 				<div class="w-1/2 md:w-2/3 lg:w-2/3">
 					<select
-						class="select select-info w-full"
+						class="select w-full"
 						bind:value={goalAchieved}
 						placeholder="select is primary here..."
 					>
@@ -234,21 +252,15 @@
 				</div>
 			</div>
 
-			<div class="flex items-center my-10 lg:mx-16 md:mx-12 mx-4 ">
+			<div class="flex items-center my-8 lg:mx-16 md:mx-12 mx-4 ">
 				<div class="lg:w-1/2 md:w-1/2 sm:w-1/2  w-1/3" />
 				<div class="lg:w-1/4 md:w-1/4 sm:w-1/4  w-1/3 ">
-					<button
-						type="button"
-						on:click={handleReset}
-						class="btn btn-outline lg:w-40 lg:ml-8 md:ml-6 sm:ml-1 "
-					>
+					<button type="button" on:click={handleReset} class="btn variant-ringed-primary lg:w-40 lg:ml-8 md:ml-6 sm:ml-1 mb-10">
 						Reset</button
 					>
 				</div>
 				<div class="lg:w-1/4 md:w-1/4 sm:w-1/4 w-1/3">
-					<button
-						type="submit"
-						class="btn bg-[#5832A1] hover:bg-[#5832A1] lg:w-40 lg:ml-8 md:ml-6 sm:ml-2 "
+					<button type="submit" class="btn variant-filled-primary lg:w-40 lg:ml-8 md:ml-6 sm:ml-2 mb-10"
 						>Submit
 					</button>
 				</div>

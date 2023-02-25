@@ -9,6 +9,7 @@
 	import Textarea from '$lib/components/input/labeled.textarea.svelte';
 	import OutlineButton from '$lib/components/button/outline.button.svelte';
 	import Button from '$lib/components/button/button.svelte';
+	import { InputChip } from '@skeletonlabs/skeleton';
 
 	export let data: PageServerData;
 	let initiaData = {};
@@ -92,7 +93,9 @@
 			<div class="flex items-center mb-4 mt-10 lg:mx-16 md:mx-12 mx-10">
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
 					<!-- svelte-ignore a11y-label-has-associated-control -->
-					<label class="lable-text font-semibold">Name</label>
+					<label class="label">
+						<span>Name</span>
+					</label>
 				</div>
 				<div class="w-1/2 md:w-2/3 lg:w-2/3">
 					<input
@@ -100,7 +103,7 @@
 						name="topicName"
 						bind:value={topicName}
 						placeholder="Enter  name here..."
-						class="input input-bordered input-info w-full "
+						class="input w-full "
 					/>
 				</div>
 			</div>
@@ -108,13 +111,15 @@
 			<div class="flex items-center mb-2 lg:mx-16 md:mx-12 mx-10">
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
 					<!-- svelte-ignore a11y-label-has-associated-control -->
-					<label class="lable-text font-semibold"> Brief Information </label>
+					<label class="label">
+						<span>Brief Information</span>
+					</label>
 				</div>
 				<div class="w-1/2 md:w-2/3 lg:w-2/3">
 					<textarea
 						name="briefInformation"
 						bind:value={briefInformation}
-						class="textarea textarea-info w-full"
+						class="textarea w-full"
 						placeholder="Enter  brief information here..."
 					/>
 				</div>
@@ -122,13 +127,15 @@
 			<div class="flex items-center mb-2 lg:mx-16 md:mx-12 mx-10">
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
 					<!-- svelte-ignore a11y-label-has-associated-control -->
-					<label class="lable-text font-semibold"> Detailed Information </label>
+					<label class="label">
+						<span>Detailed Information</span>
+					</label>
 				</div>
 				<div class="w-1/2 md:w-2/3 lg:w-2/3">
 					<textarea
 						name="detailedInformation"
 						bind:value={detailedInformation}
-						class="textarea textarea-info w-full"
+						class="textarea w-full"
 						placeholder="Enter detailed information here..."
 					/>
 				</div>
@@ -136,13 +143,15 @@
 			<div class="flex items-center mb-2 lg:mx-16 md:mx-12 mx-10">
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
 					<!-- svelte-ignore a11y-label-has-associated-control -->
-					<label class="lable-text font-semibold"> Additional Resource </label>
+					<label class="label">
+						<span>Additional Resource</span>
+					</label>
 				</div>
 				<div class="w-1/2 md:w-2/3 lg:w-2/3">
 					<textarea
 						name="additionalResource"
 						bind:value={additionalResource}
-						class="textarea textarea-info w-full"
+						class="input w-full"
 						placeholder="Enter additional resource here..."
 					/>
 				</div>
@@ -150,23 +159,27 @@
 			<div class="flex items-center lg:mx-16 md:mx-12 mx-10">
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
 					<!-- svelte-ignore a11y-label-has-associated-control -->
-					<label class="lable-text font-semibold"> Tags </label>
+					<label class="label">
+						<span>Tag</span>
+					</label>
 				</div>
 				<div class="w-1/2 md:w-2/3 lg:w-2/3">
-					<Tags name="Tags" placeholder={tagsPlaceholder} on:tags={handleTags} bind:tags />
+					<InputChip name="Tags" placeholder={tagsPlaceholder} on:tags={handleTags} bind:tags />
 					<input type="hidden" name="tags" value={JSON.stringify(tags)} />
-					<!-- <Tags name="Tags" placeholder={tagsPlaceholder} on:tags={handleTags} bind:tags />
-					<input type="hidden" name="tags" value={JSON.stringify(retrievedTags)} /> -->
 				</div>
 			</div>
 
-			<div class="flex items-center my-6 lg:mx-16 md:mx-12 mx-4 ">
+			<div class="flex items-center my-8 lg:mx-16 md:mx-12 mx-4 ">
 				<div class="lg:w-1/2 md:w-1/2 sm:w-1/2  w-1/3" />
-				<div class="lg:w-1/4 md:w-1/4 sm:w-1/4  w-1/3 mr-3 ">
-					<OutlineButton type="button" on:click={handleReset} title="Reset" />
+				<div class="lg:w-1/4 md:w-1/4 sm:w-1/4  w-1/3 ">
+					<button type="button" on:click={handleReset} class="btn variant-ringed-primary btn-outline lg:w-40 lg:ml-8 md:ml-6 sm:ml-1 mb-10">
+						Reset</button
+					>
 				</div>
 				<div class="lg:w-1/4 md:w-1/4 sm:w-1/4 w-1/3">
-					<Button type="submit" title="Submit" />
+					<button type="submit" class="btn variant-filled-primary lg:w-40 lg:ml-8 md:ml-6 sm:ml-2 mb-10"
+						>Submit
+					</button>
 				</div>
 			</div>
 		</form>

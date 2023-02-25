@@ -76,7 +76,15 @@ input[type='file']::file-selector-button:hover {
     text-decoration-line: none;
   }
 
-/**/
-.leftMenu:not(.unstyled):is(:not(.prose *)):not(.btn):not(.btn-icon):not(.app-bar a):not(.logo-item):not(a.card):not(.list-nav a) {
+/*css class for removing anchor tag underline*/
+.no-underline:not(.unstyled):is(:not(.prose *)):not(.btn):not(.btn-icon):not(.app-bar a):not(.logo-item):not(a.card):not(.list-nav a) {
    text-decoration-line:none;
 }  
+
+a {
+	@apply no-underline; 
+}
+
+.btn {
+	@apply hover:bg-primary-500 hover:text-surface-500;
+}

@@ -81,7 +81,9 @@
 			<div class="flex items-center mb-4 mt-10 lg:mx-16 md:mx-12 mx-10">
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
 					<!-- svelte-ignore a11y-label-has-associated-control -->
-					<label class="lable-text font-semibold"> Name </label>
+					<label class="label">
+						<span>Name</span>
+					</label>
 				</div>
 				<div class="w-1/2 md:w-2/3 lg:w-2/3">
 					<input
@@ -89,7 +91,7 @@
 						name="name"
 						bind:value={name}
 						placeholder="Enter name here..."
-						class="input input-bordered w-full "
+						class="input w-full "
 					/>
 				</div>
 			</div>
@@ -97,11 +99,13 @@
 			<div class="flex items-center mb-4 lg:mx-16 md:mx-12 mx-10">
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
 					<!-- svelte-ignore a11y-label-has-associated-control -->
-					<label class="lable-text font-semibold"> Generic Name </label>
+					<label class="label">
+						<span>Generic Name</span>
+					</label>
 				</div>
 				<div class="w-1/2 md:w-2/3 lg:w-2/3">
 					<select
-						class="select select-info w-full"
+						class="select w-full"
 						bind:value={genericName}
 						placeholder="select generic name here..."
 					>
@@ -116,7 +120,9 @@
 			<div class="flex items-center mb-4 lg:mx-16 md:mx-12 mx-10">
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
 					<!-- svelte-ignore a11y-label-has-associated-control -->
-					<label class="lable-text font-semibold"> Ingredients </label>
+					<label class="label">
+						<span>Ingredients</span>
+					</label>
 				</div>
 				<div class="w-1/2 md:w-2/3 lg:w-2/3">
 					<input
@@ -124,7 +130,7 @@
 						name="ingredients"
 						bind:value={ingredients}
 						placeholder="Enter ingredients here..."
-						class="input input-bordered w-full "
+						class="input w-full "
 					/>
 				</div>
 			</div>
@@ -132,11 +138,13 @@
 			<div class="flex items-center mb-4 lg:mx-16 md:mx-12 mx-10">
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
 					<!-- svelte-ignore a11y-label-has-associated-control -->
-					<label class="lable-text font-semibold"> Strength </label>
+					<label class="label">
+						<span>Strength</span>
+					</label>
 				</div>
 				<div class="w-1/2 md:w-2/3 lg:w-2/3">
 					<select
-						class="select select-info w-full"
+						class="select w-full"
 						bind:value={strength}
 						placeholder="select strength here..."
 					>
@@ -151,7 +159,9 @@
 			<div class="flex items-center mb-4 lg:mx-16 md:mx-12 mx-10">
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
 					<!-- svelte-ignore a11y-label-has-associated-control -->
-					<label class="lable-text font-semibold"> Commercial Name </label>
+					<label class="label">
+						<span>Commercial Name</span>
+					</label>
 				</div>
 				<div class="w-1/2 md:w-2/3 lg:w-2/3">
 					<input
@@ -159,7 +169,7 @@
 						name="commercialName"
 						bind:value={commercialName}
 						placeholder="Enter commercial name here..."
-						class="input input-bordered w-full "
+						class="input w-full "
 					/>
 				</div>
 			</div>
@@ -167,7 +177,9 @@
 			<div class="flex items-center mb-4 lg:mx-16 md:mx-12 mx-10">
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
 					<!-- svelte-ignore a11y-label-has-associated-control -->
-					<label class="lable-text font-semibold"> Manufacture </label>
+					<label class="label">
+						<span>Manufacture</span>
+					</label>
 				</div>
 				<div class="w-1/2 md:w-2/3 lg:w-2/3">
 					<input
@@ -175,7 +187,7 @@
 						name="manufacture"
 						bind:value={manufacture}
 						placeholder="Enter manufacture here..."
-						class="input input-bordered w-full "
+						class="input w-full "
 					/>
 				</div>
 			</div>
@@ -183,7 +195,9 @@
 			<div class="flex items-center mb-4 lg:mx-16 md:mx-12 mx-10">
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
 					<!-- svelte-ignore a11y-label-has-associated-control -->
-					<label class="lable-text font-semibold"> Other Information </label>
+					<label class="label">
+						<span>Other Information</span>
+					</label>
 				</div>
 				<div class="w-1/2 md:w-2/3 lg:w-2/3">
 					<input
@@ -191,26 +205,20 @@
 						name="otherInformation"
 						bind:value={otherInformation}
 						placeholder="Enter other information here..."
-						class="input input-bordered w-full "
+						class="input w-full "
 					/>
 				</div>
 			</div>
 
-			<div class="flex items-center my-10 lg:mx-16 md:mx-12 mx-4 ">
+			<div class="flex items-center my-8 lg:mx-16 md:mx-12 mx-4 ">
 				<div class="lg:w-1/2 md:w-1/2 sm:w-1/2  w-1/3" />
 				<div class="lg:w-1/4 md:w-1/4 sm:w-1/4  w-1/3 ">
-					<button
-						type="button"
-						on:click={handleReset}
-						class="btn btn-outline lg:w-40 lg:ml-8 md:ml-6 sm:ml-1 "
-					>
+					<button type="button" on:click={handleReset} class="btn variant-ringed-primary lg:w-40 lg:ml-8 md:ml-6 sm:ml-1 mb-10">
 						Reset</button
 					>
 				</div>
 				<div class="lg:w-1/4 md:w-1/4 sm:w-1/4 w-1/3">
-					<button
-						type="submit"
-						class="btn bg-[#5832A1] hover:bg-[#5832A1] lg:w-40 lg:ml-8 md:ml-6 sm:ml-2 "
+					<button type="submit" class="btn variant-filled-primary lg:w-40 lg:ml-8 md:ml-6 sm:ml-2 mb-10"
 						>Submit
 					</button>
 				</div>
