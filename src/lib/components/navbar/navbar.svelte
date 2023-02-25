@@ -59,12 +59,12 @@
 			slotTrail="place-content-end"
 		>
 			<svelte:fragment slot="lead">
-				<div>
+				<div class="flex justify-start">
+					<button class="hover:bg-primary-500 mr-4 hover:rounded-md" on:click={drawerLeftOpen}>
+						<Fa icon={faBars} size="lg" />
+					</button>
 					<div class="flex-1 justify-start hidden lg:block">
-						<ul class="menu menu-horizontal space-x-4">
-							<button class="hover:bg-primary-500 p-2 rounded-md" on:click={drawerLeftOpen}>
-								<Fa icon={faBars} size="lg" />
-							</button>
+						<ul class="space-x-4">
 							{#each navbarTabs as t}
 								<a
 									href={t.path}
@@ -106,7 +106,7 @@
 		{#if $drawerStore.id === 'rightSidebar'}
 			<SettingMenu on:click={drawerRightClose} on:logout />
 		{:else if $drawerStore.id === 'leftSidebar'}
-			<ul class="grid justify-center w-60 space-y-4 mt-5">
+			<div class="grid justify-center w-60 space-y-4 mt-5">
 				{#each sidebarTabs as t}
 					<a
 						href={t.path}
@@ -117,6 +117,7 @@
 					>
 				{/each}
 				{#each navbarTabs as t}
+			
 					<a
 						href={t.path}
 						class="hover:bg-surface-700 lg:hidden sm:first:hidden hover:text-base-100 p-2 hover:no-underline text-start no-underline rounded-md text-md font-medium {activeTab ==
@@ -124,8 +125,9 @@
 							? 'active: bg-surface-800 '
 							: 'text-base-100'}">{t.name}</a
 					>
+				
 				{/each}
-			</ul>
+			</div>
 		{:else}
 			<p>(fallback contents)</p>
 		{/if}

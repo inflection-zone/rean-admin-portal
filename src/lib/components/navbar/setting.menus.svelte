@@ -65,7 +65,7 @@
         <label class="label cursor-pointer pl-3 mb-3">
           <div class="flex gap-2">
             <div class="text-primary-500 dark:text-primary-700 font-semibold mt-1 mr-4 pl-3">Themes</div>
-              <LightSwitch  fillLight='fill-primary-500'  ring='ring-20px ring-primary-500' position="right" />
+              <LightSwitch  fillLight='fill-primary-500' fillDark='fill-primary-500' rounded="rounded-full" height= "h-6" width="w-12" class="rounded-full" ring='ring-[1px] ring-primary-500' position="right" />
           </div>
         </label>
       </div>

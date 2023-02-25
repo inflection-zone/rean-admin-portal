@@ -30,8 +30,8 @@
 	
 
 <div class="nav h-12 w-full bg-secondary-500" />
-<div class="w-screen h-full overflow-x-auto self-center box-border" id="background-image">
-	<div class="bg-back-ground h-screen ">
+<div class="w-full h-full" id="background-image">
+	<div class="bg-back-ground h-full w-full">
 		<!-- <div class="h-10 w-screen shadow-xl mb-4 bg-[#7165E3]" /> -->
 		<div class="h-full w-full px-3">
 			<div class=" flex justify-center flex-col items-center">
