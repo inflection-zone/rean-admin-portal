@@ -45,14 +45,16 @@
 			<div class="flex items-center mb-4 mt-10 lg:mx-16 md:mx-12 mx-10">
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
 					<!-- svelte-ignore a11y-label-has-associated-control -->
-					<label class="lable-text font-semibold">Patient User Id</label>
+					<label class="label">
+						<span>Patient User Id</span>
+					</label>
 				</div>
 				<div class="w-1/2 md:w-2/3 lg:w-2/3">
 					<input
 						type="text"
 						name="patientUserId"
 						placeholder="Enter patient user id here..."
-						class="input input-bordered input-info w-full "
+						class="input w-full "
 					/>
 				</div>
 			</div>
@@ -60,14 +62,16 @@
 			<div class="flex items-center mb-4 lg:mx-16 md:mx-12 mx-10">
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
 					<!-- svelte-ignore a11y-label-has-associated-control -->
-					<label class="lable-text font-semibold">Provider</label>
+					<label class="label">
+						<span>Provider</span>
+					</label>
 				</div>
 				<div class="w-1/2 md:w-2/3 lg:w-2/3">
 					<input
 						type="text"
 						name="provider"
 						placeholder="Enter provider here..."
-						class="input input-bordered input-info w-full "
+						class="input w-full "
 					/>
 				</div>
 			</div>
@@ -75,14 +79,16 @@
 			<div class="flex items-center mb-4 lg:mx-16 md:mx-12 mx-10">
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
 					<!-- svelte-ignore a11y-label-has-associated-control -->
-					<label class="lable-text font-semibold">Source</label>
+					<label class="label">
+						<span>Source</span>
+					</label>
 				</div>
 				<div class="w-1/2 md:w-2/3 lg:w-2/3">
 					<input
 						type="text"
 						name="source"
 						placeholder="Enter source here..."
-						class="input input-bordered input-info w-full "
+						class="input w-full "
 					/>
 				</div>
 			</div>
@@ -90,14 +96,16 @@
 			<div class="flex items-center mb-4 lg:mx-16 md:mx-12 mx-10">
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
 					<!-- svelte-ignore a11y-label-has-associated-control -->
-					<label class="lable-text font-semibold">Enrollment Id</label>
+					<label class="label">
+						<span>Enrollment Id</span>
+					</label>
 				</div>
 				<div class="w-1/2 md:w-2/3 lg:w-2/3">
 					<input
 						type="text"
 						name="enrollmentId"
 						placeholder="Enter enrollment id here..."
-						class="input input-bordered input-info w-full "
+						class="input w-full "
 					/>
 				</div>
 			</div>
@@ -105,14 +113,16 @@
 			<div class="flex items-center mb-4 lg:mx-16 md:mx-12 mx-10">
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
 					<!-- svelte-ignore a11y-label-has-associated-control -->
-					<label class="lable-text font-semibold">Careplan Code</label>
+					<label class="label">
+						<span>Careplan Code</span>
+					</label>
 				</div>
 				<div class="w-1/2 md:w-2/3 lg:w-2/3">
 					<input
 						type="text"
 						name="careplanCode"
 						placeholder="Enter careplan code here..."
-						class="input input-bordered input-info w-full "
+						class="input w-full "
 					/>
 				</div>
 			</div>
@@ -120,25 +130,30 @@
 			<div class="flex items-center mb-4 lg:mx-16 md:mx-12 mx-10">
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
 					<!-- svelte-ignore a11y-label-has-associated-control -->
-					<label class="lable-text font-semibold">Careplan Name</label>
+					<label class="label">
+						<span>Careplan Name</span>
+					</label>
 				</div>
 				<div class="w-1/2 md:w-2/3 lg:w-2/3">
 					<input
 						type="text"
 						name="careplanName"
 						placeholder="Enter careplan name here..."
-						class="input input-bordered input-info w-full "
+						class="input w-full "
 					/>
 				</div>
 			</div>
 
 			<div class="flex items-center mb-4 lg:mx-16 md:mx-12 mx-10">
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
-					<label class="lable-text font-semibold" for="version"> Health Priority Type </label>
+					<!-- svelte-ignore a11y-label-has-associated-control -->
+					<label class="label">
+						<span>Health Priority Type</span>
+					</label>
 				</div>
 				<div class="w-1/2 md:w-2/3 lg:w-2/3">
 					<select
-						class="select select-info w-full"
+						class="select w-full"
 						placeholder="Select health priority type here..."
 					>
 						<option selected>Paracetamol</option>
@@ -151,10 +166,13 @@
 
 			<div class="flex items-center mb-4 lg:mx-16 md:mx-12 mx-10">
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
-					<label class="lable-text font-semibold" for="version"> Is Primary </label>
+					<!-- svelte-ignore a11y-label-has-associated-control -->
+					<label class="label">
+						<span>Is Primary</span>
+					</label>
 				</div>
 				<div class="w-1/2 md:w-2/3 lg:w-2/3">
-					<select class="select select-info w-full" placeholder="Select is primary here...">
+					<select class="select w-full" placeholder="Select is primary here...">
 						<option selected>True</option>
 						<option>False</option>
 						<option>Dark mode</option>
@@ -166,9 +184,7 @@
 			<div class="flex items-center mt-7 lg:mx-16 md:mx-12 mr-10">
 				<div class="w-3/4" />
 				<div class="w-1/4 ">
-					<button type="submit" class="btn bg-[#5832A1] hover:bg-[#5832A1] w-full mb-10 ">
-						Submit
-					</button>
+					<button type="submit" class="btn variant-filled-primary w-full mb-10 "> Submit </button>
 				</div>
 			</div>
 		</form>

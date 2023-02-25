@@ -4,6 +4,7 @@
 	import Tags from '$lib/components/tags.svelte';
 	import BreadCrumbs from '$lib/components/breadcrumbs/breadcrums.svelte';
 	import { page } from '$app/stores';
+	import { InputChip } from '@skeletonlabs/skeleton';
 
 	let retrievedTags = '';
 	let tagsPlaceholder = 'Enter a tags here...';
@@ -52,97 +53,120 @@
 			<div class="flex items-center mb-4 mt-10 lg:mx-16 md:mx-12 mx-10">
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
 					<!-- svelte-ignore a11y-label-has-associated-control -->
-					<label class="lable-text font-semibold">Title</label>
+					<label class="label">
+						<span>Title</span>
+					</label>
 				</div>
 				<div class="w-1/2 md:w-2/3 lg:w-2/3">
 					<input
 						type="text"
 						name="title"
 						placeholder="Enter title here..."
-						class="input input-bordered input-info w-full "
+						class="input w-full "
 					/>
 				</div>
 			</div>
 			<div class="flex items-center mb-2 lg:mx-16 md:mx-12 mx-10">
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
 					<!-- svelte-ignore a11y-label-has-associated-control -->
-					<label class="lable-text font-semibold" for="description"> Description </label>
+					<label class="label">
+						<span>Description</span>
+					</label>
 				</div>
 				<div class="w-1/2 md:w-2/3 lg:w-2/3">
 					<textarea
 						name="description"
 						required
-						class="textarea textarea-info w-full"
-						placeholder="Enter  description here..."
-					/>
-				</div>
-			</div>
-
-			<div class="flex items-center my-2 lg:mx-16 md:mx-12 mx-10">
-				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
-					<label class="lable-text font-semibold" for="learningJourney">Link </label>
-				</div>
-				<div class="w-1/2 md:w-2/3 lg:w-2/3">
-					<input
-						type="link"
-						name="link"
-						placeholder="Enter title here..."
-						class="input input-bordered input-info w-full "
+						class="textarea w-full"
+						placeholder="Enter description here..."
 					/>
 				</div>
 			</div>
 
 			<div class="flex items-center my-4 lg:mx-16 md:mx-12 mx-10">
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
-					<label class="lable-text font-semibold" for="course"> Days Active </label>
-				</div>
-				<div class="w-1/2 md:w-2/3 lg:w-2/3">
-					<input
-						type="link"
-						name="link"
-						placeholder="Enter title here..."
-						class="input input-bordered input-info w-full "
-					/>
-				</div>
-			</div>
-
-			<div class="flex items-center my-4 lg:mx-16 md:mx-12 mx-10">
-				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
-					<label class="lable-text font-semibold" for="contentType"> Tags </label>
-				</div>
-				<div class="w-1/2 md:w-2/3 lg:w-2/3">
-					<Tags name="animationTags" placeholder={tagsPlaceholder} on:tags={handleTags} />
-					<input type="hidden" name="tags" value={JSON.stringify(retrievedTags)} />
-				</div>
-			</div>
-			<div class="flex items-center my-4 lg:mx-16 md:mx-12 mx-10">
-				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
-					<label class="lable-text font-semibold" for="contentType"> Action </label>
+					<!-- svelte-ignore a11y-label-has-associated-control -->
+					<label class="label">
+						<span>Link</span>
+					</label>
 				</div>
 				<div class="w-1/2 md:w-2/3 lg:w-2/3">
 					<input
 						type="text"
-						name="resourceLink"
+						name="link"
+						placeholder="Enter link here..."
+						class="input w-full "
+					/>
+				</div>
+			</div>
+
+			<div class="flex items-center my-4 lg:mx-16 md:mx-12 mx-10">
+				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
+					<!-- svelte-ignore a11y-label-has-associated-control -->
+					<label class="label">
+						<span>Days Active</span>
+					</label>
+				</div>
+				<div class="w-1/2 md:w-2/3 lg:w-2/3">
+					<input
+						type="text"
+						name="link"
+						placeholder="Enter days active here..."
+						class="input w-full "
+					/>
+				</div>
+			</div>
+
+			<div class="flex items-center mb-1 lg:mx-16 md:mx-12 mx-10">
+				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
+					<!-- svelte-ignore a11y-label-has-associated-control -->
+					<label class="label">
+						<span>Tags</span>
+					</label>
+				</div>
+				<div class="w-1/2 md:w-2/3 lg:w-2/3">
+					<InputChip
+						chips="variant-filled-error rounded-2xl"
+						placeholder="Enter a tags..."
+						name="chips"
+						class="input w-full"
+					/>
+				</div>
+			</div>
+			<div class="flex items-center my-4 lg:mx-16 md:mx-12 mx-10">
+				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
+					<!-- svelte-ignore a11y-label-has-associated-control -->
+					<label class="label">
+						<span>Action</span>
+					</label>
+				</div>
+				<div class="w-1/2 md:w-2/3 lg:w-2/3">
+					<input
+						type="text"
+						name="action"
 						placeholder="Enter action here..."
-						class="input input-bordered input-info w-full "
+						class="input w-full "
 					/>
 				</div>
 			</div>
 
 			<div class="flex items-center my-2 lg:mx-16 md:mx-12 mx-10">
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
-					<label class="lable-text font-semibold" for="fileUpload"> Image </label>
+					<!-- svelte-ignore a11y-label-has-associated-control -->
+					<label class="label">
+						<span>Image</span>
+					</label>
 				</div>
 				<div class="flex flex-row gap-8 w-1/2 md:w-2/3 lg:w-2/3 ">
 					<input
 						name="image"
 						type="file"
 						id="fileUpload"
-						class="true input input-bordered input-info w-full"
+						class="input w-full"
 						placeholder="Image"
 					/>
 					<button
-						class="capitalize btn btn-outline lg:w-[19%] md:w-[22%] md:text-[13px] sm:w-[30%] sm:text-[12px] min-[320px]:w-[40%] min-[320px]:text-[10px]"
+						class="capitalize btn variant-filled-primary lg:w-[19%] md:w-[22%] md:text-[13px] sm:w-[30%] sm:text-[12px] min-[320px]:w-[40%] min-[320px]:text-[10px]"
 						>Upload</button
 					>
 				</div>
@@ -151,9 +175,7 @@
 			<div class="flex items-center mt-7 lg:mx-16 md:mx-12 mr-10">
 				<div class="w-3/4" />
 				<div class="w-1/4 ">
-					<button type="submit" class="btn bg-[#5832A1] hover:bg-[#5832A1] w-full mb-10 ">
-						Submit
-					</button>
+					<button type="submit" class="btn variant-filled-primary w-full mb-10 "> Submit </button>
 				</div>
 			</div>
 		</form>

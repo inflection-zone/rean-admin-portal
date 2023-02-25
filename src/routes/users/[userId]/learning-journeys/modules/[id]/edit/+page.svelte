@@ -83,7 +83,9 @@
 			<div class="flex items-center mb-4 mt-10 lg:mx-16 md:mx-12 mx-10">
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
 					<!-- svelte-ignore a11y-label-has-associated-control -->
-					<label class="lable-text font-semibold">Title</label>
+					<label class="label">
+						<span>Title</span>
+					</label>
 				</div>
 				<div class="w-1/2 md:w-2/3 lg:w-2/3">
 					<input
@@ -91,32 +93,37 @@
 						name="name"
 						bind:value={title}
 						placeholder="Enter title here..."
-						class="input input-bordered input-info w-full "
+						class="input w-full "
 					/>
 				</div>
 			</div>
 			<div class="flex items-center mb-2 lg:mx-16 md:mx-12 mx-10">
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
 					<!-- svelte-ignore a11y-label-has-associated-control -->
-					<label class="lable-text font-semibold"> Description </label>
+					<label class="label">
+						<span>Description</span>
+					</label>
 				</div>
 				<div class="w-1/2 md:w-2/3 lg:w-2/3">
 					<textarea
 						name="description"
 						bind:value={description}
-						class="textarea textarea-info w-full"
-						placeholder="xxxxxxxxxxxxxxxxxx"
+						class="textarea w-full"
+						placeholder="Enter description here..."
 					/>
 				</div>
 			</div>
 
 			<div class="flex items-center my-2 lg:mx-16 md:mx-12 mx-10">
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
-					<label class="lable-text font-semibold" for="version"> Learning Journey </label>
+					<!-- svelte-ignore a11y-label-has-associated-control -->
+					<label class="label">
+						<span>Learning Journey</span>
+					</label>
 				</div>
 				<div class="w-1/2 md:w-2/3 lg:w-2/3">
 					<select
-						class="select select-info w-full"
+						class="select w-full"
 						bind:value={learningJourney}
 						placeholder="Select learning journey here..."
 					>
@@ -130,11 +137,14 @@
 
 			<div class="flex items-center my-4 lg:mx-16 md:mx-12 mx-10">
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
-					<label class="lable-text font-semibold" for="version"> Course </label>
+					<!-- svelte-ignore a11y-label-has-associated-control -->
+					<label class="label">
+						<span>Course</span>
+					</label>
 				</div>
 				<div class="w-1/2 md:w-2/3 lg:w-2/3">
 					<select
-						class="select select-info w-full"
+						class="select w-full"
 						bind:value={course}
 						placeholder="Select course here..."
 					>
@@ -148,13 +158,16 @@
 
 			<div class="flex items-center my-4 lg:mx-16 md:mx-12 mx-10">
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
-					<label class="lable-text font-semibold" for="version"> Content Type </label>
+					<!-- svelte-ignore a11y-label-has-associated-control -->
+					<label class="label">
+						<span>Content Type</span>
+					</label>
 				</div>
 				<div class="w-1/2 md:w-2/3 lg:w-2/3">
 					<select
-						class="select select-info w-full"
+						class="select w-full"
 						bind:value={contentType}
-						placeholder="Enter  name here..."
+						placeholder="Select content type here..."
 					>
 						<option value="Content Type">Content Type</option>
 						<option value="Auto">Auto</option>
@@ -165,7 +178,10 @@
 			</div>
 			<div class="flex items-center my-4 lg:mx-16 md:mx-12 mx-10">
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
-					<label class="lable-text font-semibold" for="version"> Resource Link </label>
+					<!-- svelte-ignore a11y-label-has-associated-control -->
+					<label class="label">
+						<span>Resource Link</span>
+					</label>
 				</div>
 				<div class="w-1/2 md:w-2/3 lg:w-2/3">
 					<input
@@ -173,44 +189,42 @@
 						name="resourceLink"
 						bind:value={resourceLink}
 						placeholder="Enter resource link here..."
-						class="input input-bordered input-info w-full "
+						class="input w-full "
 					/>
 				</div>
 			</div>
 
 			<div class="flex items-center my-2 lg:mx-16 md:mx-12 mx-10">
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
-					<label class="lable-text font-semibold" for="version"> Image </label>
+					<!-- svelte-ignore a11y-label-has-associated-control -->
+					<label class="label">
+						<span>Image</span>
+					</label>
 				</div>
 				<div class="flex flex-row gap-8 w-1/2 md:w-2/3 lg:w-2/3 ">
 					<input
-						name="version"
+						name="image"
 						type="file"
-						class="true input input-bordered input-info w-full"
+						id="fileUpload"
+						class="input w-full"
 						placeholder="Image"
 					/>
 					<button
-						class="capitalize btn btn-outline lg:w-[19%] md:w-[22%] md:text-[13px] sm:w-[30%] sm:text-[12px] min-[320px]:w-[40%] min-[320px]:text-[10px]"
+						class="capitalize btn variant-filled-primary lg:w-[19%] md:w-[22%] md:text-[13px] sm:w-[30%] sm:text-[12px] min-[320px]:w-[40%] min-[320px]:text-[10px]"
 						>Upload</button
 					>
 				</div>
 			</div>
 
-			<div class="flex items-center my-6 lg:mx-16 md:mx-12 mx-4 ">
+			<div class="flex items-center my-8 lg:mx-16 md:mx-12 mx-4 ">
 				<div class="lg:w-1/2 md:w-1/2 sm:w-1/2  w-1/3" />
 				<div class="lg:w-1/4 md:w-1/4 sm:w-1/4  w-1/3 ">
-					<button
-						type="button"
-						on:click={handleReset}
-						class="btn btn-outline lg:w-40 lg:ml-8 md:ml-6 sm:ml-1 mb-10 "
-					>
+					<button type="button" on:click={handleReset} class="btn variant-ringed-primary lg:w-40 lg:ml-8 md:ml-6 sm:ml-1 mb-10">
 						Reset</button
 					>
 				</div>
 				<div class="lg:w-1/4 md:w-1/4 sm:w-1/4 w-1/3">
-					<button
-						type="submit"
-						class="btn bg-[#5832A1] hover:bg-[#5832A1] lg:w-40 lg:ml-8 md:ml-6 sm:ml-2 mb-10 "
+					<button type="submit" class="btn variant-filled-primary lg:w-40 lg:ml-8 md:ml-6 sm:ml-2 mb-10"
 						>Submit
 					</button>
 				</div>

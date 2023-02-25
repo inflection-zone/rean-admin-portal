@@ -60,63 +60,80 @@
 			<div class="flex items-center mb-4 mt-10 lg:mx-16 md:mx-12 mx-10">
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
 					<!-- svelte-ignore a11y-label-has-associated-control -->
-					<label class="lable-text font-semibold">Name</label>
+					<label class="label">
+						<span>Name</span>
+					</label>
 				</div>
-				<span class="w-1/2 md:2/3 lg:2/3" id="name">{name}</span>
+				<span class="span w-1/2 md:2/3 lg:2/3" id="name">{name}</span>
 			</div>
 			<div class="flex items-center my-4 lg:mx-16 md:mx-12 mx-10">
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
 					<!-- svelte-ignore a11y-label-has-associated-control -->
-					<label class="lable-text font-semibold"> Generic Name </label>
+					<label class="label">
+						<span>Generic Name</span>
+					</label>
 				</div>
-				<span class="w-1/2 md:2/3 lg:2/3" id="genericName">{genericName}</span>
+				<span class="span w-1/2 md:2/3 lg:2/3" id="genericName">{genericName}</span>
 			</div>
 
 			<div class="flex items-center my-4 lg:mx-16 md:mx-12 mx-10">
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
 					<!-- svelte-ignore a11y-label-has-associated-control -->
-					<label class="lable-text font-semibold"> Ingredients </label>
+					<label class="label">
+						<span>Ingredients</span>
+					</label>
 				</div>
-				<span class="w-1/2 md:2/3 lg:2/3" id="ingredients"> {ingredients} </span>
+				<span class="span w-1/2 md:2/3 lg:2/3" id="ingredients"> {ingredients} </span>
 			</div>
 
 			<div class="flex items-center mb-4 lg:mx-16 md:mx-12 mx-10">
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
 					<!-- svelte-ignore a11y-label-has-associated-control -->
-					<label class="lable-text font-semibold"> Strength </label>
+					<label class="label">
+						<span>Strength</span>
+					</label>
 				</div>
-				<span class="w-1/2 md:2/3 lg:2/3" id="strength"> {strength} </span>
+				<span class="span w-1/2 md:2/3 lg:2/3" id="strength"> {strength} </span>
 			</div>
 
 			<div class="flex items-center mb-4 lg:mx-16 md:mx-12 mx-10">
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
 					<!-- svelte-ignore a11y-label-has-associated-control -->
-					<label class="lable-text font-semibold"> Commercial Name </label>
+					<label class="label">
+						<span>Commercial Name</span>
+					</label>
 				</div>
-				<span class="w-1/2 md:2/3 lg:2/3" id="commercialName"> {commercialName} </span>
+				<span class="span w-1/2 md:2/3 lg:2/3" id="commercialName"> {commercialName} </span>
 			</div>
 
 			<div class="flex items-center mb-4 lg:mx-16 md:mx-12 mx-10">
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
 					<!-- svelte-ignore a11y-label-has-associated-control -->
-					<label class="lable-text font-semibold"> Manufacture </label>
+					<label class="label">
+						<span>Manufacture</span>
+					</label>
 				</div>
-				<span class="w-1/2 md:2/3 lg:2/3" id="manufacture"> {manufacture} </span>
+				<span class="span w-1/2 md:2/3 lg:2/3" id="manufacture"> {manufacture} </span>
 			</div>
 
 			<div class="flex items-center mb-4 lg:mx-16 md:mx-12 mx-10">
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
 					<!-- svelte-ignore a11y-label-has-associated-control -->
-					<label class="lable-text font-semibold"> Other Information </label>
+					<label class="label">
+						<span>Other Information</span>
+					</label>
 				</div>
-				<span class="w-1/2 md:2/3 lg:2/3" id="otherInformation"> {otherInformation} </span>
+				<span class="span w-1/2 md:2/3 lg:2/3" id="otherInformation"> {otherInformation} </span>
 			</div>
 
 			<div class="flex items-center mt-7 lg:mx-16 md:mx-12 mr-10">
 				<div class="lg:w-5/6 w-2/3 " />
 				<div class="lg:w-1/6 w-1/3 ">
 					<a href={editRoute}>
-						<button type="submit" class="btn btn-outline lg:w-full w-24 mb-10 lg:mr-4 mr-1">
+						<button
+							type="submit"
+							class="btn variant-ringed-primary lg:w-full w-24 mb-10 lg:mr-4 mr-1"
+						>
 							Edit
 							<Fa icon={faPen} size="lg" class="lg:ml-4 sm:ml-2 ml-1" />
 						</button>
