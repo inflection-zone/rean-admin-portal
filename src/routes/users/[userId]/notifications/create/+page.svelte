@@ -111,7 +111,7 @@
 						name="image"
 						type="file"
 						id="fileUpload"
-						class="input w-full"
+						class="input w-full "
 						placeholder="Image"
 					/>
 					<button
