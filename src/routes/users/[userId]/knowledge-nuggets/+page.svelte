@@ -103,7 +103,7 @@
 	<div class=" border-t w-full bg-secondary-500 h-16 mb-10 rounded-b-lg ">
 		{#if $dataTableStore.pagination}<Paginator
 				class="mt-2 mr-3"
-				buttonClasses="bg-surface-500 "
+				buttonClasses="btn bg-surface-500 rounded-full h-12"
 				text="text-white"
 				justify="lg:justify-end md:justify-center sm:justify-start justify-start"
 				select="text-primary-500 rounded-lg"
