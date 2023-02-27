@@ -58,12 +58,7 @@
 					</label>
 				</div>
 				<div class="w-1/2 md:w-2/3 lg:w-2/3">
-					<input
-						type="text"
-						name="title"
-						placeholder="Enter title here..."
-						class="input w-full "
-					/>
+					<input type="text" name="title" placeholder="Enter title here..." class="input w-full " />
 				</div>
 			</div>
 			<div class="flex items-center mb-2 lg:mx-16 md:mx-12 mx-10">
@@ -91,12 +86,7 @@
 					</label>
 				</div>
 				<div class="w-1/2 md:w-2/3 lg:w-2/3">
-					<input
-						type="text"
-						name="link"
-						placeholder="Enter link here..."
-						class="input w-full "
-					/>
+					<input type="text" name="link" placeholder="Enter link here..." class="input w-full " />
 				</div>
 			</div>
 

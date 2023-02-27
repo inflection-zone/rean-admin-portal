@@ -11,17 +11,6 @@
 	const createRoute = `/users/${userId}/notifications/create`;
 	const notificationRoute = `/users/${userId}/notifications`;
 
-	// 	const breadCrumbs = [
-	// 		{
-	// 			name: 'Notification',
-	// 			path: notificationRoute
-	// 		},
-	// 		{
-	// 			name: 'Create',
-	// 			path: createRoute
-	// 		}
-	// 	];
-
 	const breadCrumbs = [
 		{
 			name: 'Notifications',
@@ -29,8 +18,8 @@
 			home: true
 		},
 		{
-			name: 'Create'
-			// path: createRoute
+			name: 'Create',
+			path: createRoute
 		}
 	];
 </script>

@@ -5,26 +5,17 @@
 	import BreadCrumbs from '$lib/components/breadcrumbs/breadcrums.svelte';
 	import { page } from '$app/stores';
 
-	// export let data: PageServerData;
-	// let initiaData = {};
-	// let id = data.item.id;
-	// let title = data.item.title;
-	// let description = data.item.description;
-	// let newsfeed = data.item.newsfeed;
-	// let type = data.item.type;
-	// let link = data.item.link;
-	// let author = data.item.author;
-	// let date = data.item.date;
-	// let image = data.item.image;
-
-	let id = '56789';
-	let title = 'Able to do more activities';
-	let description = 'xxxxx';
-	let newsfeed = 'xxxx';
-	let type = 'Careplan';
-	let link = 'https';
-	let author = 'xxxxx';
-	let date = '01/01/2020';
+	export let data: PageServerData;
+	let initiaData = {};
+	let id = data.item.id;
+	let title = data.item.title;
+	let description = data.item.description;
+	let newsfeed = data.item.newsfeed;
+	let type = data.item.type;
+	let link = data.item.link;
+	let author = data.item.author;
+	let date = data.item.date;
+	let image = data.item.image;
 
 	//Original data
 	let _title = title;
@@ -142,11 +133,7 @@
 					</label>
 				</div>
 				<div class="w-1/2 md:w-2/3 lg:w-2/3">
-					<select
-						class="select w-full"
-						bind:value={type}
-						placeholder="select type here..."
-					>
+					<select class="select w-full" bind:value={type} placeholder="select type here...">
 						<option value="Careplan">Careplan</option>
 						<option value="Auto">Auto</option>
 						<option>Dark mode</option>
@@ -226,12 +213,18 @@
 			<div class="flex items-center my-8 lg:mx-16 md:mx-12 mx-4 ">
 				<div class="lg:w-1/2 md:w-1/2 sm:w-1/2  w-1/3" />
 				<div class="lg:w-1/4 md:w-1/4 sm:w-1/4  w-1/3 ">
-					<button type="button" on:click={handleReset} class="btn variant-ringed-primary lg:w-40 lg:ml-8 md:ml-6 sm:ml-1 mb-10">
+					<button
+						type="button"
+						on:click={handleReset}
+						class="btn variant-ringed-primary lg:w-40 lg:ml-8 md:ml-6 sm:ml-1 mb-10"
+					>
 						Reset</button
 					>
 				</div>
 				<div class="lg:w-1/4 md:w-1/4 sm:w-1/4 w-1/3">
-					<button type="submit" class="btn variant-filled-primary lg:w-40 lg:ml-8 md:ml-6 sm:ml-2 mb-10"
+					<button
+						type="submit"
+						class="btn variant-filled-primary lg:w-40 lg:ml-8 md:ml-6 sm:ml-2 mb-10"
 						>Submit
 					</button>
 				</div>

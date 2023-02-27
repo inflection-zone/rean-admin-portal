@@ -5,29 +5,18 @@
 	import BreadCrumbs from '$lib/components/breadcrumbs/breadcrums.svelte';
 	import { page } from '$app/stores';
 
-	// export let data: PageServerData;
-	// let initiaData = {};
-	// let id = data.goal.id;
-	// let patientUserId = data.goal.patientUserId;
-	// let enrollmentId = data.goal.enrollmentId;
-	// let provider = data.goal.provider;
-	// let careplanName = data.goal.careplanName;
-	// let careplanCode = data.goal.careplanCode;
-	// let title = data.goal.title;
-	// let sequence = data.goal.sequence;
-	// let healthPriorityId = data.goal.healthPriorityId;
-	// let goalAchieved = data.goal.goalAchieved;
-
-	let id = '56789';
-	let patientUserId = '123456';
-	let enrollmentId = '98765';
-	let provider = 'AHA';
-	let careplanName = 'assets';
-	let careplanCode = '1234567';
-	let title = 'Able to do more activities';
-	let sequence = 0;
-	let healthPriorityId = '987654';
-	let goalAchieved = 'True';
+	export let data: PageServerData;
+	let initiaData = {};
+	let id = data.goal.id;
+	let patientUserId = data.goal.patientUserId;
+	let enrollmentId = data.goal.enrollmentId;
+	let provider = data.goal.provider;
+	let careplanName = data.goal.careplanName;
+	let careplanCode = data.goal.careplanCode;
+	let title = data.goal.title;
+	let sequence = data.goal.sequence;
+	let healthPriorityId = data.goal.healthPriorityId;
+	let goalAchieved = data.goal.goalAchieved;
 
 	//Original data
 	let _patientUserId = patientUserId;
@@ -255,12 +244,18 @@
 			<div class="flex items-center my-8 lg:mx-16 md:mx-12 mx-4 ">
 				<div class="lg:w-1/2 md:w-1/2 sm:w-1/2  w-1/3" />
 				<div class="lg:w-1/4 md:w-1/4 sm:w-1/4  w-1/3 ">
-					<button type="button" on:click={handleReset} class="btn variant-ringed-primary lg:w-40 lg:ml-8 md:ml-6 sm:ml-1 mb-10">
+					<button
+						type="button"
+						on:click={handleReset}
+						class="btn variant-ringed-primary lg:w-40 lg:ml-8 md:ml-6 sm:ml-1 mb-10"
+					>
 						Reset</button
 					>
 				</div>
 				<div class="lg:w-1/4 md:w-1/4 sm:w-1/4 w-1/3">
-					<button type="submit" class="btn variant-filled-primary lg:w-40 lg:ml-8 md:ml-6 sm:ml-2 mb-10"
+					<button
+						type="submit"
+						class="btn variant-filled-primary lg:w-40 lg:ml-8 md:ml-6 sm:ml-2 mb-10"
 						>Submit
 					</button>
 				</div>

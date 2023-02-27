@@ -1,14 +1,9 @@
 <script lang="ts">
 	import Fa from 'svelte-fa';
 	import { faMultiply } from '@fortawesome/free-solid-svg-icons';
-	import Tags from '$lib/components/tags.svelte';
 	import type { PageServerData } from './$types';
 	import BreadCrumbs from '$lib/components/breadcrumbs/breadcrums.svelte';
 	import { page } from '$app/stores';
-	import Input from '$lib/components/input/labeled.input.svelte';
-	import Textarea from '$lib/components/input/labeled.textarea.svelte';
-	import OutlineButton from '$lib/components/button/outline.button.svelte';
-	import Button from '$lib/components/button/button.svelte';
 	import { InputChip } from '@skeletonlabs/skeleton';
 
 	export let data: PageServerData;
@@ -19,13 +14,6 @@
 	let detailedInformation = data.KnowledgeNugget.DetailedInformation;
 	let additionalResource = data.KnowledgeNugget.AdditionalResource;
 	let tags = data.KnowledgeNugget.Tags;
-
-	// let id = '56789';
-	// let name = 'abdc';
-	// let briefInformation = 'xxx xx xxxxx';
-	// let detailedInformation = 'xxxxxx xxxxx';
-	// let additionalResource = 'xxxxxx';
-	// let tags = 'xxx';
 
 	//Original data
 	let _topicName = topicName;
@@ -48,7 +36,7 @@
 		detailedInformation = _detailedInformation;
 		additionalResource = _additionalResource;
 		tags = JSON.parse(_tags);
-		console.log(topicName)
+		console.log(topicName);
 	}
 
 	const userId = $page.params.userId;
@@ -164,7 +152,13 @@
 					</label>
 				</div>
 				<div class="w-1/2 md:w-2/3 lg:w-2/3">
-					<InputChip name="Tags" placeholder={tagsPlaceholder} on:tags={handleTags} bind:tags />
+					<InputChip
+						chips="variant-filled-error rounded-2xl"
+						name="Tags"
+						placeholder={tagsPlaceholder}
+						on:tags={handleTags}
+						bind:tags
+					/>
 					<input type="hidden" name="tags" value={JSON.stringify(tags)} />
 				</div>
 			</div>
@@ -172,12 +166,18 @@
 			<div class="flex items-center my-8 lg:mx-16 md:mx-12 mx-4 ">
 				<div class="lg:w-1/2 md:w-1/2 sm:w-1/2  w-1/3" />
 				<div class="lg:w-1/4 md:w-1/4 sm:w-1/4  w-1/3 ">
-					<button type="button" on:click={handleReset} class="btn variant-ringed-primary btn-outline lg:w-40 lg:ml-8 md:ml-6 sm:ml-1 mb-10">
+					<button
+						type="button"
+						on:click={handleReset}
+						class="btn variant-ringed-primary btn-outline lg:w-40 lg:ml-8 md:ml-6 sm:ml-1 mb-10"
+					>
 						Reset</button
 					>
 				</div>
 				<div class="lg:w-1/4 md:w-1/4 sm:w-1/4 w-1/3">
-					<button type="submit" class="btn variant-filled-primary lg:w-40 lg:ml-8 md:ml-6 sm:ml-2 mb-10"
+					<button
+						type="submit"
+						class="btn variant-filled-primary lg:w-40 lg:ml-8 md:ml-6 sm:ml-2 mb-10"
 						>Submit
 					</button>
 				</div>

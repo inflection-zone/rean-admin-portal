@@ -125,10 +125,11 @@
 				<div class="w-1/2 md:w-2/3 lg:w-2/3">
 					<InputChip
 						chips="variant-filled-error rounded-2xl"
-						placeholder="Enter a tags..."
-						name="chips"
-						class="input"
+						name="knowledgeNuggetsTags"
+						placeholder={tagsPlaceholder}
+						on:tags={handleTags}
 					/>
+					<input type="hidden" name="tags" class="input" value={JSON.stringify(retrievedTags)} />
 				</div>
 			</div>
 

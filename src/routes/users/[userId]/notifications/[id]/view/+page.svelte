@@ -111,7 +111,7 @@
 			<div class="flex items-center mt-7 lg:mx-16 md:mx-12 mr-10">
 				<div class="lg:w-5/6 w-2/3 " />
 				<div class="lg:w-1/6 w-1/3 ">
-					<a href="{editRoute}" >
+					<a href={editRoute}>
 						<button
 							type="submit"
 							class="btn variant-ringed-primary lg:w-full w-24 mb-10 lg:mr-4 mr-1"

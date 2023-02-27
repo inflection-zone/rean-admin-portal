@@ -128,12 +128,12 @@
 				<div class="lg:w-1/6 w-1/3 ">
 					<a href={editRoute}>
 						<button
-						type="submit"
-						class="btn variant-ringed-primary lg:w-full w-24 mb-10 lg:mr-4 mr-1"
-					>
-						Edit
-						<Fa icon={faPen} size="lg" class="lg:ml-4 sm:ml-2 ml-1" />
-					</button>
+							type="submit"
+							class="btn variant-ringed-primary lg:w-full w-24 mb-10 lg:mr-4 mr-1"
+						>
+							Edit
+							<Fa icon={faPen} size="lg" class="lg:ml-4 sm:ml-2 ml-1" />
+						</button>
 					</a>
 				</div>
 			</div>
