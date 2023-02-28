@@ -9,21 +9,21 @@
 	let initiaData = {};
 	let id = data.notification.id;
 	let title = data.notification.title;
-	let body = data.notification.body;
+	let Body = data.notification.Body;
 	let type = data.notification.type;
 	let sentOn = data.notification.sentOn;
 	let image = data.notification.image;
 
 	//Original data
 	let _title = title;
-	let _body = body;
+	let _body = Body;
 	let _type = type;
 	let _sentOn = sentOn;
 	//let _image = image;
 
 	function handleReset() {
 		title = _title;
-		body = _body;
+		Body = _body;
 		type = _type;
 		sentOn = _sentOn;
 	}
@@ -51,15 +51,15 @@
 	<div class=" flex justify-center mt-5 px-3 mb-10 flex-col items-center">
 		<form
 			method="post"
-			action="?/updateNotification"
+			action="?/updateNotificationAction"
 			class="w-full lg:max-w-4xl md:max-w-xl sm:max-w-lg bg-[#ECE4FC] rounded-lg mx-auto"
 		>
 			<div class="w-full  h-14 rounded-t-lg p-3  bg-[#7165E3]">
 				<div class="ml-3 relative flex flex-row text-white text-xl">
 					Edit Notification
-					<!-- <a href={viewRoute}> -->
-					<Fa icon={faMultiply} size="lg" class="absolute right-0 pr-3 mb-16 text-white " />
-					<!-- </a> -->
+					<a href={viewRoute}>
+						<Fa icon={faMultiply} size="lg" class="absolute right-0 pr-3 mb-16 text-white " />
+					</a>
 				</div>
 			</div>
 			<!-- <div class="hidden">{id}</div> -->
@@ -74,7 +74,7 @@
 					<input
 						type="text"
 						name="title"
-						value="Nottitle"
+						bind:value={title}
 						placeholder="Enter title here..."
 						class="input w-full "
 					/>
@@ -92,7 +92,7 @@
 					<input
 						type="text"
 						name="body"
-						value="Notbody"
+						bind:value={Body}
 						placeholder="Enter body here..."
 						class="input w-full "
 					/>
@@ -107,7 +107,7 @@
 					</label>
 				</div>
 				<div class="w-1/2 md:w-2/3 lg:w-2/3">
-					<select class="select w-full" value="General" placeholder="select type here...">
+					<select class="select w-full" bind:value={type} placeholder="select type here...">
 						<option>General</option>
 						<option>Auto</option>
 						<option>Dark mode</option>
@@ -123,7 +123,7 @@
 						<span>Sent On</span>
 					</label>
 				</div>
-				<span class="span w-1/2 md:2/3 lg:2/3" id="sentOn"> 2020-02-02 </span>
+				<span class="span w-1/2 md:2/3 lg:2/3" id="sentOn"> {sentOn} </span>
 			</div>
 
 			<div class="flex items-center my-2 lg:mx-16 md:mx-12 mx-10">
