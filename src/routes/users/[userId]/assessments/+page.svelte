@@ -1,10 +1,6 @@
 <script>
-// @ts-nocheck
-
-  import Paginate from '$lib/components/paginate/paginate.svelte';
   import Fa from 'svelte-fa';
   import { faCirclePlus, faPencil, faTrash } from '@fortawesome/free-solid-svg-icons';
-//   import Navbar from '$lib/components/navbar/navbar.svelte';
   let columns = ['Title', 'Display Code', 'Type', 'Provider', 'Created Date'];
   let items = [
     ['Maternity (Regular)', 'MATERNITY', 'Maternity and Neonatal', 'Rean', '01-March-2020'],
@@ -42,11 +38,9 @@
   ];
 
   let show = false;
-
   let currentPage = 1;
   let pageSize = 20;
 </script>
-<!-- <Navbar /> -->
 
 <div class=" pt-2">
   <div class=" breadcrumbs text-lg text-[#7165E3] ml-14 mt-4">
@@ -168,7 +162,6 @@
     <div
       class=" border-t flex flex-col w-full bg-[#7165E3] h-12 pt-2 rounded-b-lg mb-12 xs:flex-row items-center xs:justify-between md:mr-5 sm:mr-5 mr-8"
     >
-      <Paginate items={items.length} />
     </div>
   </div>
 </div>
