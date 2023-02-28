@@ -7,9 +7,9 @@
 
 	let retrievedTags = '';
 	let tagsPlaceholder = 'Enter a tags here...';
-	function handleTags(event) {
-		retrievedTags = event.detail.tags;
-	}
+	// function handleTags(event) {
+	// 	retrievedTags = event.detail.tags;
+	// }
 
 	const userId = $page.params.userId;
 	const createRoute = `/users/${userId}/knowledge-nuggets/create`;
@@ -125,9 +125,8 @@
 				<div class="w-1/2 md:w-2/3 lg:w-2/3">
 					<InputChip
 						chips="variant-filled-error rounded-2xl"
-						name="knowledgeNuggetsTags"
+						name="tags"
 						placeholder={tagsPlaceholder}
-						on:tags={handleTags}
 					/>
 					<input type="hidden" name="tags" class="input" value={JSON.stringify(retrievedTags)} />
 				</div>

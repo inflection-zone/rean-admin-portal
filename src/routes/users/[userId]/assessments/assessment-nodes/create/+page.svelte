@@ -3,8 +3,8 @@
 	import { faMultiply } from '@fortawesome/free-solid-svg-icons';
 	import BreadCrumbs from '$lib/components/breadcrumbs/breadcrums.svelte';
 	import { page } from '$app/stores';
-	import Singleoption from '../create/singleoption.svelte';
-	import Multipleoption from './multipleoption.svelte';
+	import Singleoption from './single.choice.svelte';
+	import Multipleoption from './multiple.choice.svelte';
 
 	let show = '';
 	const onChange = (val) => {

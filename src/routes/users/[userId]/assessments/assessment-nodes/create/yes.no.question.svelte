@@ -1,8 +1,6 @@
 <script>
 
-
 </script>
-
 
 <div class="flex items-center my-4 mx-16 ">
     <div class="w-1/3">
