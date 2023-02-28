@@ -8,7 +8,7 @@
 	export let data: PageServerData;
 	const knowledgeNuggets = data.knowledgeNuggets;
 	console.log('knowledgeNuggets', knowledgeNuggets);
-
+	let columns = ['ID', 'TopicName', 'Information', 'BreifInformation'];
 	const dataTableStore = createDataTableStore(
 		// Pass your source data here:
 		knowledgeNuggets,
@@ -34,20 +34,20 @@
 		type="search"
 		placeholder="Search..."
 	/>
-
-	<div class="h-full bg-tertiary-500 w-full">
-		<div class="overflow-x-auto rounded-t-lg w-full h-full ">
-			<table />
-			<table class="table table-hover table-container overflow-x-auto  w-full table-fixed">
-				<thead class="fixed">
-					<tr class="sticky top-0">
-						<th style="width: 10%;">Id</th>
-						<th style="width: 20%;">Topic Name</th>
-						<th style="width: 20%;">Information</th>
-						<th style="width: 50%;"> Detailed Information</th>
-					</tr>
-				</thead>
-				<tbody class=" w-full ">
+	<div class="flex justify-center flex-col mt-4 overflow-y-auto ">
+		<table class="table rounded-b-none">
+			<thead class="sticky top-0">
+				<tr>
+					<th style="width: 7%;">Id</th>
+					<th style="width: 22%;">Topic Name</th>
+					<th style="width: 38%;">Information</th>
+					<th style="width: 33%;"> Detailed Information</th>
+				</tr>
+			</thead>
+		</table>
+		<div class=" overflow-y-auto h-[600px] bg-tertiary-500">
+			<table class="table w-full">
+				<tbody class="">
 					{#each $dataTableStore.filtered as row, rowIndex}
 						<tr>
 							<td>{rowIndex + 1}</td>

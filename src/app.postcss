@@ -67,7 +67,7 @@ input[type='file']::file-selector-button:hover {
 	@apply bg-tertiary-500 text-primary-500 w-full;
 }
 .table tbody td {
-	@apply h-4;
+	@apply h-4 overflow-x-auto;
 }
 
 /*  apply text-decoration-line as none  for breadCrubms component
@@ -96,3 +96,18 @@ input[type='file']::file-selector-button:hover {
   /* border: 3px solid var(--primary); */
   
 }
+
+ /* pagination left and right arrow buttons,colors,border class  */
+
+.btn-icon{
+    @apply h-6 w-11 rounded-md
+}
+
+
+/* pagination select items box height and width class */
+
+.paginator-select{
+	@apply h-10 rounded-md;
+
+}
+
