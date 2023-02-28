@@ -81,7 +81,7 @@
 						</label><br />
 						<button
 							type="submit"
-							class="btn variant-filled-primary w-40 ml-20 lg:ml-52 md:ml-52 sm:ml-52  h-10 mb-8 font-semibold tracking-wide rounded-lg bg-primary text-base-100 mt-6"
+							class="btn bg-primary-500 w-40 ml-20 lg:ml-52 md:ml-52 sm:ml-52  h-10 mb-8 font-semibold tracking-wide rounded-lg text-surface-500 mt-6"
 						>
 							Login
 						</button>
