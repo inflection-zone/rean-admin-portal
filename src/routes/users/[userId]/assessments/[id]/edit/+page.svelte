@@ -59,7 +59,7 @@
 	<div class="h-screen mb-10">
 		<form
 			method="post"
-			action="?/updateAssessment"
+			action="?/updateAssessmentAction"
 			class="w-full max-w-4xl  bg-[#ECE4FC] mt-6 mb-20  rounded-lg mx-auto"
 		>
 			<div class="w-full  h-14 rounded-t-lg p-3  bg-[#7165E3]">
@@ -79,13 +79,13 @@
 
 			<div class="flex items-center mb-4 mt-10 lg:mx-16 md:mx-12 mx-10">
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
-				  <!-- svelte-ignore a11y-label-has-associated-control -->
-				  <label class="label">
-					<span>Asset Code</span>
-				</label>
+					<!-- svelte-ignore a11y-label-has-associated-control -->
+					<label class="label">
+						<span>Asset Code</span>
+					</label>
 				</div>
 				<span class="span w-1/2 md:2/3 lg:2/3" id="assetCode">{assetCode}</span>
-			  </div>
+			</div>
 
 			<div class="flex items-center mb-4 mt-10 mx-16">
 				<div class="w-1/3">
@@ -177,7 +177,7 @@
 				<div class="w-1/3">
 					<!-- svelte-ignore a11y-label-has-associated-control -->
 					<label class="label">
-						<span>Provider assessment code</span>
+						<span>Provider Assessment Code</span>
 					</label>
 				</div>
 				<div class="w-2/3">
@@ -186,7 +186,7 @@
 						name="providerAssessmentCode"
 						bind:value={providerAssessmentCode}
 						class="input w-full"
-						placeholder="1"
+						placeholder="Enter provider assessment code here..."
 					/>
 				</div>
 			</div>
@@ -194,7 +194,7 @@
 				<div class="w-1/3">
 					<!-- svelte-ignore a11y-label-has-associated-control -->
 					<label class="label">
-						<span>Servelist node childrenAt once</span>
+						<span>Servelist Node Children At Once</span>
 					</label>
 				</div>
 				<div class="w-2/3">
@@ -203,7 +203,7 @@
 						bind:value={serveListNodeChildrenAtOnce}
 						name="servelistNodeChildrenAtOnce"
 						class="input w-full"
-						placeholder="false"
+						placeholder="Enter servelist node children at once here..."
 					/>
 				</div>
 			</div>

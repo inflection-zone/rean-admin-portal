@@ -13,17 +13,15 @@ export const load: PageServerLoad = async (event: RequestEvent) => {
 
 	try {
 		const assessmentId = event.params.id;
-		//console.log('knowid=====', knowledgeNuggetsId);
+		console.log(assessmentId);
 		const response = await getAssessmentById(sessionId, assessmentId);
 
 		if (response.Status === 'failure' || response.HttpCode !== 200) {
 			throw error(response.HttpCode, response.Message);
 		}
 		const assessment = response.Data.assessment;
-		console.log('assessment====', assessment);
-		//const id = response.Data.id;
+		console.log('assessment', assessment);
 		const id = response.Data.assessment.id;
-		//console.log('id====', id);
 		return {
 			location: `${id}/edit`,
 			assessment,
@@ -35,11 +33,11 @@ export const load: PageServerLoad = async (event: RequestEvent) => {
 };
 
 export const actions = {
-	updateAssessment: async (event: RequestEvent) => {
+	updateAssessmentAction: async (event: RequestEvent) => {
 		const request = event.request;
 		const userId = event.params.userId;
 		const data = await request.formData();
-		console.log('data===', data);
+		console.log(data);
 		const assetCode = data.has('assetCode') ? data.get('assetCode') : 'Assessment';
 		const title = data.has('title') ? data.get('title') : null;
 		const description = data.has('description') ? data.get('description') : null;
@@ -69,7 +67,7 @@ export const actions = {
 			serveListNodeChildrenAtOnce.valueOf() as string
 		);
 		const id = response.Data.assessment.id;
-		console.log('res====', response);
+		console.log(response);
 
 		if (response.Status === 'failure' || response.HttpCode !== 200) {
 			throw redirect(303, '/assessments', errorMessage(response.Message), event);

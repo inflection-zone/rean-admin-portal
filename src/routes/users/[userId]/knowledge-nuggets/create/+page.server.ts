@@ -6,11 +6,11 @@ import { createKnowledgeNugget } from '../../../../api/services/knowledge-nugget
 /////////////////////////////////////////////////////////////////////////
 
 export const actions = {
-	createKnowledgeNugget: async (event: RequestEvent) => {
+	createKnowledgeNuggetAction: async (event: RequestEvent) => {
 		const request = event.request;
 		const userId = event.params.userId;
 		const data = await request.formData();
-		//console.log(data);
+		console.log(data);
 		const topicName = data.has('topicName') ? data.get('topicName') : null;
 		const briefInformation = data.has('briefInformation') ? data.get('briefInformation') : null;
 		const detailedInformation = data.has('detailedInformation')
@@ -33,7 +33,7 @@ export const actions = {
 			tags
 		);
 		const id = response.Data.KnowledgeNugget.id;
-		//console.log('response', response);
+		console.log(response);
 		if (response.Status === 'failure' || response.HttpCode !== 201) {
 			throw redirect(303, '/knowledge-nuggets', errorMessage(response.Message), event);
 		}

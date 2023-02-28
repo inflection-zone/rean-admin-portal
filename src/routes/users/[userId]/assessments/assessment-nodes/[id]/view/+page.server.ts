@@ -11,17 +11,16 @@ export const load: PageServerLoad = async (event: RequestEvent) => {
 
 	try {
 		const assessmentNodeId = event.params.id;
-		//console.log('knowid=====', knowledgeNuggetsId);
+		console.log(assessmentNodeId);
 		const response = await getAssessmentNodeById(sessionId, assessmentNodeId);
 
 		if (response.Status === 'failure' || response.HttpCode !== 200) {
 			throw error(response.HttpCode, response.Message);
 		}
 		const assessmentNode = response.Data.assessmentNode;
-		console.log('assessmentNode====', assessmentNode);
-		//const id = response.Data.id;
+		console.log('assessment node', assessmentNode);
+
 		const id = response.Data.assessmentNode.id;
-		//console.log('id====', id);
 		return {
 			location: `${id}/edit`,
 			assessmentNode,

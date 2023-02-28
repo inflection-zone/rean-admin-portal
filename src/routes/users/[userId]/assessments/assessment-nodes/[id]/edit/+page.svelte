@@ -48,7 +48,6 @@
 	show = 'multiChoice';
 	const onChange = (val) => {
 		show = val.target.value;
-		console.log('val-------------', show);
 	};
 </script>
 
@@ -57,7 +56,7 @@
 <div>
 	<form
 		method="post"
-		action="?/updateAssessmentNode"
+		action="?/updateAssessmentNodeAction"
 		class="w-full max-w-4xl  bg-[#ECE4FC] mt-6 mb-20  rounded-lg mx-auto"
 	>
 		<div class="w-full  h-14 rounded-t-lg p-3  bg-[#7165E3]">
@@ -81,7 +80,11 @@
 				</label>
 			</div>
 			<div class="w-2/3">
-				<select name="nodeType" bind:value={nodeType} required class="select w-full "
+				<select
+					name="nodeType"
+					bind:value={nodeType}
+					placeholder="Select node type here..."
+					class="select w-full"
 					><option selected>Node Type</option>
 					<option>Question</option>
 					<option>3</option>
@@ -136,7 +139,8 @@
 					id="mySelect"
 					name="queryType"
 					bind:value={queryType}
-					class="select select-info w-full "
+					class="select select-info w-full"
+					placeholder="Select query type here..."
 					on:change={(val) => onChange(val)}
 					><option selected value="textChoice">Text</option>
 					<option value="singleChoice">Single choice question</option>

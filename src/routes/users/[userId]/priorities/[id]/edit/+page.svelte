@@ -61,7 +61,7 @@
 	<div class=" flex justify-center mt-5 px-3 mb-10 flex-col items-center">
 		<form
 			method="post"
-			action="?/updatePriority"
+			action="?/updatePriorityAction"
 			class="w-full lg:max-w-4xl md:max-w-xl sm:max-w-lg bg-[#ECE4FC] rounded-lg mx-auto"
 		>
 			<div class="w-full  h-14 rounded-t-lg p-3  bg-[#7165E3]">

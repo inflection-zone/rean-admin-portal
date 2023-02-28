@@ -6,7 +6,7 @@ import { createModule } from '../../../../../api/services/modules';
 /////////////////////////////////////////////////////////////////////////
 
 export const actions = {
-	createModule: async (event: RequestEvent) => {
+	createModuleAction: async (event: RequestEvent) => {
 		const request = event.request;
 		const userId = event.params.userId;
 		const data = await request.formData();

@@ -9,15 +9,12 @@
 	import { page } from '$app/stores';
 
 	export let data: PageServerData;
-	console.log('data-->', data);
 	let id = data.notification.id;
 	let title = data.notification.Title;
 	let Body = data.notification.Body;
 	let type = data.notification.Type;
 	let sentOn = data.notification.SentOn;
 	let image = data.notification.Image;
-
-	console.log('id===', id);
 
 	onMount(() => {
 		show(data);
@@ -36,8 +33,8 @@
 			home: true
 		},
 		{
-			name: 'View'
-			// path: createRoute
+			name: 'View',
+			path: viewRoute
 		}
 	];
 </script>
@@ -54,7 +51,7 @@
 				<div class="ml-3 relative flex flex-row text-white lg:text-xl text-lg ">
 					<div class="lg:hidden md:hidden block">View Notification</div>
 					<div class="lg:block md:block hidden">View Notification</div>
-					<a href="/">
+					<a href={notificationRoute}>
 						<Fa icon={faMultiply} size="lg" class="absolute right-0 lg:pr-3 pr-0 text-white" />
 					</a>
 				</div>
@@ -67,7 +64,7 @@
 						<span>Title</span>
 					</label>
 				</div>
-				<span class="span w-1/2 md:2/3 lg:2/3" id="title">Nottitle</span>
+				<span class="span w-1/2 md:2/3 lg:2/3" id="title">{title}</span>
 			</div>
 			<div class="flex items-center my-4 lg:mx-16 md:mx-12 mx-10">
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
@@ -76,7 +73,7 @@
 						<span>Body</span>
 					</label>
 				</div>
-				<span class="span w-1/2 md:2/3 lg:2/3" id="Body">Notbody</span>
+				<span class="span w-1/2 md:2/3 lg:2/3" id="Body">{Body}</span>
 			</div>
 
 			<div class="flex items-center my-4 lg:mx-16 md:mx-12 mx-10">
@@ -86,7 +83,7 @@
 						<span>Type</span>
 					</label>
 				</div>
-				<span class="span w-1/2 md:2/3 lg:2/3" id="type"> General </span>
+				<span class="span w-1/2 md:2/3 lg:2/3" id="type"> {type} </span>
 			</div>
 
 			<div class="flex items-center mb-4 lg:mx-16 md:mx-12 mx-10">
@@ -105,7 +102,7 @@
 						<span>Image</span>
 					</label>
 				</div>
-				<span class="span w-1/2 md:w-2/3 lg:w-2/3"> image </span>
+				<span class="span w-1/2 md:w-2/3 lg:w-2/3"> {image} </span>
 			</div>
 
 			<div class="flex items-center mt-7 lg:mx-16 md:mx-12 mr-10">

@@ -6,11 +6,11 @@ import { createOrganization } from '../../../../api/services/organizations';
 /////////////////////////////////////////////////////////////////////////
 
 export const actions = {
-	createOrganization: async (event: RequestEvent) => {
+	createOrganizationAction: async (event: RequestEvent) => {
 		const request = event.request;
 		const userId = event.params.userId;
 		const data = await request.formData();
-		console.log('data===', data);
+		console.log(data);
 		const type = data.has('type') ? data.get('type') : null;
 		const name = data.has('name') ? data.get('name') : null;
 		const contactPhone = data.has('contactPhone') ? data.get('contactPhone') : null;
@@ -20,8 +20,6 @@ export const actions = {
 		const address = data.has('address') ? data.get('address') : null;
 		//const imageResource = data.has('imageResource') ? data.get('imageResource') : null;
 		const isHealthFacility = data.has('isHealthFacility') ? data.get('isHealthFacility') : null;
-
-		//console.log('tick==', healthFacility);
 
 		const sessionId = event.cookies.get('sessionId');
 		console.log('sessionId', sessionId);
@@ -39,7 +37,7 @@ export const actions = {
 			isHealthFacility.valueOf() as boolean
 		);
 		const id = response.Data.Organization.id;
-		console.log('res=>>>>', response);
+		console.log(response);
 		if (response.Status === 'failure' || response.HttpCode !== 201) {
 			throw redirect(303, '/organizations', errorMessage(response.Message), event);
 		}

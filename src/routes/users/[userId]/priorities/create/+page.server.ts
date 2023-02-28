@@ -6,7 +6,7 @@ import { createPriority } from '../../../../api/services/priorities';
 /////////////////////////////////////////////////////////////////////////
 
 export const actions = {
-	createPriority: async (event: RequestEvent) => {
+	createPriorityAction: async (event: RequestEvent) => {
 		const request = event.request;
 		const userId = event.params.userId;
 		const data = await request.formData();

@@ -8,13 +8,13 @@ export const createAssessmentNode = async (
 	nodeType: string,
 	title: string,
 	description: string,
-	queryType: string,
+	queryType: string
 ) => {
 	const body = {
 		NodeType: nodeType,
 		Title: title,
 		Description: description,
-		QueryType: queryType,
+		QueryType: queryType
 	};
 
 	const url = BACKEND_API_URL + '/clinical/assessment-templates/nodes';
@@ -52,13 +52,13 @@ export const updateAssessmentNode = async (
 	nodeType: string,
 	title: string,
 	description: string,
-	queryType: string,
+	queryType: string
 ) => {
 	const body = {
 		NodeType: nodeType,
 		Title: title,
 		Description: description,
-		QueryType: queryType,
+		QueryType: queryType
 	};
 	const url = BACKEND_API_URL + `/clinical/assessment-templates/nodes/${nodeId}`;
 	return await put_(sessionId, url, body, true);

@@ -6,7 +6,7 @@ import { createCourse } from '../../../../../api/services/courses';
 /////////////////////////////////////////////////////////////////////////
 
 export const actions = {
-	createCourse: async (event: RequestEvent) => {
+	createCourseAction: async (event: RequestEvent) => {
 		const request = event.request;
 		const userId = event.params.userId;
 		const data = await request.formData();

@@ -6,7 +6,7 @@ import { createNewsfeed } from '../../../../api/services/newsfeeds';
 /////////////////////////////////////////////////////////////////////////
 
 export const actions = {
-	createNewsfeed: async (event: RequestEvent) => {
+	createNewsfeedAction: async (event: RequestEvent) => {
 		const request = event.request;
 		const userId = event.params.userId;
 		const data = await request.formData();

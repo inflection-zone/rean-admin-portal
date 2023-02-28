@@ -6,7 +6,7 @@ import { createLinkage } from '../../../../api/services/linkages';
 /////////////////////////////////////////////////////////////////////////
 
 export const actions = {
-	createLinkage: async (event: RequestEvent) => {
+	createLinkageAction: async (event: RequestEvent) => {
 		const request = event.request;
 		const userId = event.params.userId;
 		const data = await request.formData();
