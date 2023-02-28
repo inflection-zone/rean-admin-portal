@@ -60,47 +60,60 @@
 			<div class="flex items-center mb-4 mt-10 lg:mx-16 md:mx-12 mx-10">
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
 					<!-- svelte-ignore a11y-label-has-associated-control -->
-					<label class="lable-text font-semibold">Symptom</label>
+					<label class="label">
+						<span>Symptom</span>
+					</label>
 				</div>
-				<span class="w-1/2 md:2/3 lg:2/3" id="symptom">{symptom}</span>
+				<span class="span w-1/2 md:2/3 lg:2/3" id="symptom">{symptom}</span>
 			</div>
 			<div class="flex items-center my-4 lg:mx-16 md:mx-12 mx-10">
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
 					<!-- svelte-ignore a11y-label-has-associated-control -->
-					<label class="lable-text font-semibold">Description </label>
+					<label class="label">
+						<span>Description</span>
+					</label>
 				</div>
-				<span class="w-1/2 md:2/3 lg:2/3" id="description">{description}</span>
+				<span class="span w-1/2 md:2/3 lg:2/3" id="description">{description}</span>
 			</div>
 
 			<div class="flex items-center my-4 lg:mx-16 md:mx-12 mx-10">
 				<div class="w-1/2 md:w-1/3 lg:w-1/3">
 					<!-- svelte-ignore a11y-label-has-associated-control -->
-					<label class="lable-text font-semibold"> Tags </label>
+					<label class="label">
+						<span>Tags</span>
+					</label>
 				</div>
-				<span>{tags}</span>
+				<span class="span w-1/2 md:2/3 lg:2/3" id="tags">{tags}</span>
 			</div>
 
 			<div class="flex items-center my-4 lg:mx-16 md:mx-12 mx-10">
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
 					<!-- svelte-ignore a11y-label-has-associated-control -->
-					<label class="lable-text font-semibold"> Language </label>
+					<label class="label">
+						<span>Language</span>
+					</label>
 				</div>
-				<span class="w-1/2 md:2/3 lg:2/3" id="language"> {language} </span>
+				<span class="span w-1/2 md:2/3 lg:2/3" id="language"> {language} </span>
 			</div>
 
 			<div class="flex items-center my-4 lg:mx-16 md:mx-12 mx-10">
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
 					<!-- svelte-ignore a11y-label-has-associated-control -->
-					<label class="lable-text font-semibold" for=""> Image Resource Id </label>
+					<label class="label">
+						<span>Image Resource Id</span>
+					</label>
 				</div>
-				<span class="w-1/2 md:w-2/3 lg:w-2/3"> {imageResourceId} </span>
+				<span class="span w-1/2 md:w-2/3 lg:w-2/3"> {imageResourceId} </span>
 			</div>
 
 			<div class="flex items-center mt-7 lg:mx-16 md:mx-12 mr-10">
 				<div class="lg:w-5/6 w-2/3 " />
 				<div class="lg:w-1/6 w-1/3 ">
 					<a href={editRoute}>
-						<button type="submit" class="btn btn-outline lg:w-full w-24 mb-10 lg:mr-4 mr-1">
+						<button
+							type="submit"
+							class="btn variant-ringed-primary lg:w-full w-24 mb-10 lg:mr-4 mr-1"
+						>
 							Edit
 							<Fa icon={faPen} size="lg" class="lg:ml-4 sm:ml-2 ml-1" />
 						</button>

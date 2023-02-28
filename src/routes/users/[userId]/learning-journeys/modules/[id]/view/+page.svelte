@@ -60,60 +60,77 @@
 			<div class="flex items-center mb-4 mt-10 lg:mx-16 md:mx-12 mx-10">
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
 					<!-- svelte-ignore a11y-label-has-associated-control -->
-					<label class="lable-text font-semibold">Title</label>
+					<label class="label">
+						<span>Title</span>
+					</label>
 				</div>
-				<span class="w-1/2 md:2/3 lg:2/3" id="title">{title}</span>
+				<span class="span w-1/2 md:2/3 lg:2/3" id="title">{title}</span>
 			</div>
 			<div class="flex items-center my-4 lg:mx-16 md:mx-12 mx-10">
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
 					<!-- svelte-ignore a11y-label-has-associated-control -->
-					<label class="lable-text font-semibold"> Description </label>
+					<label class="label">
+						<span>Description</span>
+					</label>
 				</div>
-				<span class="w-1/2 md:2/3 lg:2/3" id="description"> {description} </span>
-			</div>
-
-			<div class="flex items-center my-4 lg:mx-16 md:mx-12 mx-10">
-				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
-					<!-- svelte-ignore a11y-label-has-associated-control -->
-					<label class="lable-text font-semibold"> Learning Journey </label>
-				</div>
-				<span class="w-1/2 md:2/3 lg:2/3" id="learningJourney">{learningJourney}</span>
-			</div>
-			<div class="flex items-center my-4 lg:mx-16 md:mx-12 mx-10">
-				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
-					<!-- svelte-ignore a11y-label-has-associated-control -->
-					<label class="lable-text font-semibold"> Course</label>
-				</div>
-				<span class="w-1/2 md:2/3 lg:2/3" id="course"> {course} </span>
-			</div>
-			<div class="flex items-center my-4 lg:mx-16 md:mx-12 mx-10">
-				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
-					<!-- svelte-ignore a11y-label-has-associated-control -->
-					<label class="lable-text font-semibold"> Content Type </label>
-				</div>
-				<span class="w-1/2 md:2/3 lg:2/3" id="contentType"> {contentType} </span>
-			</div>
-			<div class="flex items-center my-4 lg:mx-16 md:mx-12 mx-10">
-				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
-					<!-- svelte-ignore a11y-label-has-associated-control -->
-					<label class="lable-text font-semibold"> Resource Link </label>
-				</div>
-				<span class="w-1/2 md:2/3 lg:2/3" id="resourceLink"> {resourceLink} </span>
+				<span class="span w-1/2 md:2/3 lg:2/3" id="description"> {description} </span>
 			</div>
 
 			<div class="flex items-center my-4 lg:mx-16 md:mx-12 mx-10">
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
 					<!-- svelte-ignore a11y-label-has-associated-control -->
-					<label class="lable-text font-semibold" for=""> Image </label>
+					<label class="label">
+						<span>Learning Journey</span>
+					</label>
 				</div>
-				<span class="w-1/2 md:w-2/3 lg:w-2/3" id="image"> {image} </span>
+				<span class="span w-1/2 md:2/3 lg:2/3" id="learningJourney">{learningJourney}</span>
+			</div>
+			<div class="flex items-center my-4 lg:mx-16 md:mx-12 mx-10">
+				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
+					<!-- svelte-ignore a11y-label-has-associated-control -->
+					<label class="label">
+						<span>Course</span>
+					</label>
+				</div>
+				<span class="span w-1/2 md:2/3 lg:2/3" id="course"> {course} </span>
+			</div>
+			<div class="flex items-center my-4 lg:mx-16 md:mx-12 mx-10">
+				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
+					<!-- svelte-ignore a11y-label-has-associated-control -->
+					<label class="label">
+						<span>Content Type</span>
+					</label>
+				</div>
+				<span class="span w-1/2 md:2/3 lg:2/3" id="contentType"> {contentType} </span>
+			</div>
+			<div class="flex items-center my-4 lg:mx-16 md:mx-12 mx-10">
+				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
+					<!-- svelte-ignore a11y-label-has-associated-control -->
+					<label class="label">
+						<span>Resource Link</span>
+					</label>
+				</div>
+				<span class="span w-1/2 md:2/3 lg:2/3" id="resourceLink"> {resourceLink} </span>
+			</div>
+
+			<div class="flex items-center my-4 lg:mx-16 md:mx-12 mx-10">
+				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
+					<!-- svelte-ignore a11y-label-has-associated-control -->
+					<label class="label">
+						<span>Image</span>
+					</label>
+				</div>
+				<span class="span w-1/2 md:w-2/3 lg:w-2/3" id="image"> {image} </span>
 			</div>
 
 			<div class="flex items-center mt-7 lg:mx-16 md:mx-12 mr-10">
 				<div class="lg:w-5/6 w-2/3 " />
 				<div class="lg:w-1/6 w-1/3 ">
 					<a href={editRoute}>
-						<button type="submit" class="btn btn-outline lg:w-full w-24 mb-10 lg:mr-4 mr-1">
+						<button
+							type="submit"
+							class="btn variant-ringed-primary lg:w-full w-24 mb-10 lg:mr-4 mr-1"
+						>
 							Edit
 							<Fa icon={faPen} size="lg" class="lg:ml-4 sm:ml-2 ml-1" />
 						</button>

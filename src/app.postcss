@@ -9,19 +9,19 @@ body {
 @tailwind utilities;
 
 .input {
-	@apply text-primary-500 border border-primary-200 text-sm hover:border-primary-400 focus:border-primary-500;
+	@apply text-primary-500 border border-primary-200 hover:border-primary-400 focus:border-primary-500;
 }
 .input::placeholder {
-	@apply text-primary-300 text-sm;
+	@apply text-primary-300;
   }
 .textarea {
-	@apply text-primary-500 border border-primary-200 text-sm hover:border-primary-400 focus:border-primary-500;
+	@apply text-primary-500 border border-primary-200 hover:border-primary-400 focus:border-primary-500;
 }
 .textarea::placeholder {
-	@apply text-primary-300 text-sm;
+	@apply text-primary-300;
   }
 .select {
-	@apply text-primary-500 border border-primary-200 text-sm hover:border-primary-400 focus:border-primary-500;
+	@apply text-primary-500 border border-primary-200 hover:border-primary-400 focus:border-primary-500;
 }
 
 .file {
@@ -76,8 +76,8 @@ input[type='file']::file-selector-button:hover {
     text-decoration-line: none;
   }
 
-/**/
-.leftMenu:not(.unstyled):is(:not(.prose *)):not(.btn):not(.btn-icon):not(.app-bar a):not(.logo-item):not(a.card):not(.list-nav a) {
+/*css class for removing anchor tag underline*/
+.no-underline:not(.unstyled):is(:not(.prose *)):not(.btn):not(.btn-icon):not(.app-bar a):not(.logo-item):not(a.card):not(.list-nav a) {
    text-decoration-line:none;
 }  
 
@@ -111,3 +111,10 @@ input[type='file']::file-selector-button:hover {
 
 }
 
+a {
+	@apply no-underline; 
+}
+
+.btn {
+	@apply hover:bg-primary-500 hover:text-surface-500;
+}

@@ -7,9 +7,9 @@
 
 	let retrievedTags = '';
 	let tagsPlaceholder = 'Enter a tags here...';
-	function handleTags(event) {
-		retrievedTags = event.detail.tags;
-	}
+	// function handleTags(event) {
+	// 	retrievedTags = event.detail.tags;
+	// }
 
 	const userId = $page.params.userId;
 	const createRoute = `/users/${userId}/knowledge-nuggets/create`;
@@ -53,19 +53,16 @@
 			<div class="flex items-center mb-4 mt-10 lg:mx-16 md:mx-12 mx-10">
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
 					<!-- svelte-ignore a11y-label-has-associated-control -->
-
 					<label class="label">
 						<span>Name</span>
 					</label>
-
-					<!-- <label class="label font-semibold">Name</label> -->
 				</div>
 				<div class="w-1/2 md:w-2/3 lg:w-2/3">
 					<input
 						type="text"
 						name="topicName"
 						placeholder="Enter name here..."
-						class="input input-bordered input-primary w-full "
+						class="input w-full "
 					/>
 				</div>
 			</div>
@@ -73,8 +70,6 @@
 			<div class="flex items-center mb-2 lg:mx-16 md:mx-12 mx-10">
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
 					<!-- svelte-ignore a11y-label-has-associated-control -->
-					<!-- <label class="lable-text font-semibold"> Brief Information </label> -->
-
 					<label class="label">
 						<span>Brief Information</span>
 					</label>
@@ -91,7 +86,6 @@
 			<div class="flex items-center mb-2 lg:mx-16 md:mx-12 mx-10">
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
 					<!-- svelte-ignore a11y-label-has-associated-control -->
-					<!-- <label class="lable-text font-semibold"> Detailed Information </label> -->
 					<label class="label">
 						<span>Detailed Information</span>
 					</label>
@@ -100,7 +94,7 @@
 					<textarea
 						name="detailedInformation"
 						required
-						class="textarea textarea-primary w-full"
+						class="textarea w-full"
 						placeholder="Enter detailed information here..."
 					/>
 				</div>
@@ -108,7 +102,6 @@
 			<div class="flex items-center mb-2 lg:mx-16 md:mx-12 mx-10">
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
 					<!-- svelte-ignore a11y-label-has-associated-control -->
-					<!-- <label class="lable-text font-semibold"> Additional Resource </label> -->
 					<label class="label">
 						<span>Additional Resource</span>
 					</label>
@@ -117,7 +110,7 @@
 					<input
 						type="text"
 						name="additionalResource"
-						class="input input-bordered input-primary w-full"
+						class="input w-full"
 						placeholder="Enter additional resource here..."
 					/>
 				</div>
@@ -125,18 +118,17 @@
 			<div class="flex items-center mb-1 lg:mx-16 md:mx-12 mx-10">
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
 					<!-- svelte-ignore a11y-label-has-associated-control -->
-					<!-- <label class="lable-text font-semibold"> Tags </label> -->
 					<label class="label">
-						<span>Tags</span>
+						<span>Tag</span>
 					</label>
 				</div>
 				<div class="w-1/2 md:w-2/3 lg:w-2/3">
 					<InputChip
 						chips="variant-filled-error rounded-2xl"
-						placeholder="Enter a tags..."
-						name="chips"
-						class="input"
+						name="tags"
+						placeholder={tagsPlaceholder}
 					/>
+					<input type="hidden" name="tags" class="input" value={JSON.stringify(retrievedTags)} />
 				</div>
 			</div>
 

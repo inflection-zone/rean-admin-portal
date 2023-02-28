@@ -11,17 +11,6 @@
 	const createRoute = `/users/${userId}/notifications/create`;
 	const notificationRoute = `/users/${userId}/notifications`;
 
-	// 	const breadCrumbs = [
-	// 		{
-	// 			name: 'Notification',
-	// 			path: notificationRoute
-	// 		},
-	// 		{
-	// 			name: 'Create',
-	// 			path: createRoute
-	// 		}
-	// 	];
-
 	const breadCrumbs = [
 		{
 			name: 'Notifications',
@@ -29,8 +18,8 @@
 			home: true
 		},
 		{
-			name: 'Create'
-			// path: createRoute
+			name: 'Create',
+			path: createRoute
 		}
 	];
 </script>
@@ -118,9 +107,6 @@
 						class="capitalize btn variant-filled-primary lg:w-[19%] md:w-[22%] md:text-[13px] sm:w-[30%] sm:text-[12px] min-[320px]:w-[40%] min-[320px]:text-[10px]"
 						>Upload</button
 					>
-
-					<!-- <input name="image" type="file" class="input w-full" placeholder="Image" />
-					<FileButton name="file" button="variant-filled-primary ">Upload Image</FileButton> -->
 				</div>
 			</div>
 			<div class="flex items-center mt-7 lg:mx-16 md:mx-12 mr-10">

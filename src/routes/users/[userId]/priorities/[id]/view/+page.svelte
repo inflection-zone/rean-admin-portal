@@ -62,71 +62,90 @@
 			<div class="flex items-center mb-4 mt-10 lg:mx-16 md:mx-12 mx-10">
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
 					<!-- svelte-ignore a11y-label-has-associated-control -->
-					<label class="lable-text font-semibold">Patient User Id</label>
+					<label class="label">
+						<span>Patient User Id</span>
+					</label>
 				</div>
-				<span class="w-1/2 md:2/3 lg:2/3" id="patientUserId">{patientUserId}</span>
+				<span class="span w-1/2 md:2/3 lg:2/3" id="patientUserId">{patientUserId}</span>
 			</div>
 			<div class="flex items-center my-4 lg:mx-16 md:mx-12 mx-10">
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
 					<!-- svelte-ignore a11y-label-has-associated-control -->
-					<label class="lable-text font-semibold"> Provider </label>
+					<label class="label">
+						<span>Provider</span>
+					</label>
 				</div>
-				<span class="w-1/2 md:2/3 lg:2/3" id="provider">{provider}</span>
-			</div>
-
-			<div class="flex items-center my-4 lg:mx-16 md:mx-12 mx-10">
-				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
-					<!-- svelte-ignore a11y-label-has-associated-control -->
-					<label class="lable-text font-semibold"> Source </label>
-				</div>
-				<span class="w-1/2 md:2/3 lg:2/3" id="source"> {source} </span>
+				<span class="span w-1/2 md:2/3 lg:2/3" id="provider">{provider}</span>
 			</div>
 
 			<div class="flex items-center my-4 lg:mx-16 md:mx-12 mx-10">
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
 					<!-- svelte-ignore a11y-label-has-associated-control -->
-					<label class="lable-text font-semibold"> Enrollment Id </label>
+					<label class="label">
+						<span>Source</span>
+					</label>
 				</div>
-				<span class="w-1/2 md:2/3 lg:2/3" id="enrollmentId"> {enrollmentId} </span>
+				<span class="span w-1/2 md:2/3 lg:2/3" id="source"> {source} </span>
 			</div>
 
 			<div class="flex items-center my-4 lg:mx-16 md:mx-12 mx-10">
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
 					<!-- svelte-ignore a11y-label-has-associated-control -->
-					<label class="lable-text font-semibold"> Careplan Code </label>
+					<label class="label">
+						<span>Enrollment Id</span>
+					</label>
 				</div>
-				<span class="w-1/2 md:2/3 lg:2/3" id="careplanCode"> {careplanCode} </span>
+				<span class="span w-1/2 md:2/3 lg:2/3" id="enrollmentId"> {enrollmentId} </span>
 			</div>
 
 			<div class="flex items-center my-4 lg:mx-16 md:mx-12 mx-10">
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
 					<!-- svelte-ignore a11y-label-has-associated-control -->
-					<label class="lable-text font-semibold"> Careplan Name </label>
+					<label class="label">
+						<span>Careplan Code</span>
+					</label>
 				</div>
-				<span class="w-1/2 md:2/3 lg:2/3" id="careplanName"> {careplanName} </span>
+				<span class="span w-1/2 md:2/3 lg:2/3" id="careplanCode"> {careplanCode} </span>
 			</div>
 
 			<div class="flex items-center my-4 lg:mx-16 md:mx-12 mx-10">
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
 					<!-- svelte-ignore a11y-label-has-associated-control -->
-					<label class="lable-text font-semibold"> Health Priority Type </label>
+					<label class="label">
+						<span>Careplan Name</span>
+					</label>
 				</div>
-				<span class="w-1/2 md:2/3 lg:2/3" id="healthPriorityType"> {healthPriorityType} </span>
+				<span class="span w-1/2 md:2/3 lg:2/3" id="careplanName"> {careplanName} </span>
 			</div>
 
 			<div class="flex items-center my-4 lg:mx-16 md:mx-12 mx-10">
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
 					<!-- svelte-ignore a11y-label-has-associated-control -->
-					<label class="lable-text font-semibold"> Is Primary </label>
+					<label class="label">
+						<span>Health Priority Type</span>
+					</label>
 				</div>
-				<span class="w-1/2 md:2/3 lg:2/3" id="isPrimary"> {isPrimary} </span>
+				<span class="span w-1/2 md:2/3 lg:2/3" id="healthPriorityType"> {healthPriorityType} </span>
+			</div>
+
+			<div class="flex items-center my-4 lg:mx-16 md:mx-12 mx-10">
+				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
+					<!-- svelte-ignore a11y-label-has-associated-control -->
+					<label class="label">
+						<span>Is Primary</span>
+					</label>
+				</div>
+				<span class="span w-1/2 md:2/3 lg:2/3" id="isPrimary"> {isPrimary} </span>
 			</div>
 
 			<div class="flex items-center mt-7 lg:mx-16 md:mx-12 mr-10">
 				<div class="lg:w-5/6 w-2/3 " />
 				<div class="lg:w-1/6 w-1/3 ">
 					<a href={editRoute}>
-						<button type="submit" class="btn btn-outline lg:w-full w-24 mb-10 lg:mr-4 mr-1">
+						<button
+							type="submit"
+							class="btn variant-ringed-primary lg:w-full w-24 mb-10 lg:mr-4 mr-1"
+						>
 							Edit
 							<Fa icon={faPen} size="lg" class="lg:ml-4 sm:ml-2 ml-1" />
 						</button>

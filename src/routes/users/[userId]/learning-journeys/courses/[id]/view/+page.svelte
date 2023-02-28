@@ -58,15 +58,19 @@
 			<div class="flex items-center mb-4 mt-10 lg:mx-16 md:mx-12 mx-10">
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
 					<!-- svelte-ignore a11y-label-has-associated-control -->
-					<label class="lable-text font-semibold">Name</label>
+					<label class="label">
+						<span>Name</span>
+					</label>
 				</div>
-				<span class="w-1/2 md:2/3 lg:2/3" id="name">{name}</span>
+				<span class="span w-1/2 md:2/3 lg:2/3" id="name">{name}</span>
 			</div>
 
 			<div class="flex items-center my-4 lg:mx-16 md:mx-12 mx-10">
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
 					<!-- svelte-ignore a11y-label-has-associated-control -->
-					<label class="lable-text font-semibold"> Learning Journey </label>
+					<label class="label">
+						<span>Learning Journey</span>
+					</label>
 				</div>
 				<span class="w-1/2 md:2/3 lg:2/3" id="learningJourney">{learningJourney}</span>
 			</div>
@@ -74,25 +78,31 @@
 			<div class="flex items-center my-4 lg:mx-16 md:mx-12 mx-10">
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
 					<!-- svelte-ignore a11y-label-has-associated-control -->
-					<label class="lable-text font-semibold"> Description </label>
+					<label class="label">
+						<span>Description</span>
+					</label>
 				</div>
-				<span class="w-1/2 md:2/3 lg:2/3" id="description"> {description} </span>
+				<span class="span w-1/2 md:2/3 lg:2/3" id="description"> {description} </span>
 			</div>
 
 			<div class="flex items-center my-4 lg:mx-16 md:mx-12 mx-10">
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
 					<!-- svelte-ignore a11y-label-has-associated-control -->
-					<label class="lable-text font-semibold" for=""> Image </label>
+					<label class="label">
+						<span>Image</span>
+					</label>
 				</div>
-				<span class="w-1/2 md:w-2/3 lg:w-2/3"> {image} </span>
+				<span class="span w-1/2 md:w-2/3 lg:w-2/3"> {image} </span>
 			</div>
 
 			<div class="flex items-center my-4 lg:mx-16 md:mx-12 mx-10">
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
 					<!-- svelte-ignore a11y-label-has-associated-control -->
-					<label class="lable-text font-semibold "> Modules </label>
+					<label class="label">
+						<span>Modules</span>
+					</label>
 				</div>
-				<ol class="w-1/2 md:w-2/3 lg:w-2/3 list-decimal" id="modules">
+				<ol class="span w-1/2 md:w-2/3 lg:w-2/3 list-decimal" id="modules">
 					<li>Module 1</li>
 					<li>Module 1</li>
 					<li>Module 1</li>
@@ -102,7 +112,10 @@
 				<div class="lg:w-5/6 w-2/3 " />
 				<div class="lg:w-1/6 w-1/3 ">
 					<a href={editRoute}>
-						<button type="submit" class="btn btn-outline lg:w-full w-24 mb-10 lg:mr-4 mr-1">
+						<button
+							type="submit"
+							class="btn variant-ringed-primary lg:w-full w-24 mb-10 lg:mr-4 mr-1"
+						>
 							Edit
 							<Fa icon={faPen} size="lg" class="lg:ml-4 sm:ml-2 ml-1" />
 						</button>

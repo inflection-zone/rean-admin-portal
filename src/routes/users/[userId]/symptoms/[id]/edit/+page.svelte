@@ -5,22 +5,16 @@
 	import type { PageServerData } from './$types';
 	import BreadCrumbs from '$lib/components/breadcrumbs/breadcrums.svelte';
 	import { page } from '$app/stores';
+	import { InputChip } from '@skeletonlabs/skeleton';
 
-	// export let data: PageServerData;
-	// let initiaData = {};
-	// let id = data.symptom.id;
-	// let symptom = data.symptom.symptom;
-	// let description = data.symptom.description;
-	// let tags_ = data.symptom.tags;
-	// let language = data.symptom.language;
-	// let imageResourceId = data.symptom.imageResourceId;
-
-	let id = '56789';
-	let symptom = 'abc';
-	let description = 'xxx xxx xx xxx';
-	let tags = 'xxxx';
-	let language = 'Eng';
-	let imageResourceId = '2345567';
+	export let data: PageServerData;
+	let initiaData = {};
+	let id = data.symptom.id;
+	let symptom = data.symptom.symptom;
+	let description = data.symptom.description;
+	let tags = data.symptom.tags;
+	let language = data.symptom.language;
+	let imageResourceId = data.symptom.imageResourceId;
 
 	//Original data
 	let _symptom = symptom;
@@ -36,7 +30,7 @@
 
 	function handleReset() {
 		description = _description;
-		tags = JSON.parse(_tags);
+		tags = JSON.parse(tags);
 	}
 
 	const userId = $page.params.userId;
@@ -74,10 +68,12 @@
 				</div>
 			</div>
 			<div class="hidden">{id}</div>
-			<!-- <div class="flex items-center mb-4 mt-10 lg:mx-16 md:mx-12 mx-10">
+			<div class="flex items-center mb-4 mt-10 lg:mx-16 md:mx-12 mx-10">
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
-				
-					<label class="lable-text font-semibold"> Symptom </label>
+					<!-- svelte-ignore a11y-label-has-associated-control -->
+					<label class="label">
+						<span>Symptom</span>
+					</label>
 				</div>
 				<div class="w-1/2 md:w-2/3 lg:w-2/3">
 					<input
@@ -85,26 +81,21 @@
 						name="symptom"
 						bind:value={symptom}
 						placeholder="Enter symptom here..."
-						class="input input-bordered w-full "
+						class="input w-full "
 					/>
 				</div>
-			</div> -->
-			<div class="flex items-center mb-4 mt-10 lg:mx-16 md:mx-12 mx-10">
-				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
-					<!-- svelte-ignore a11y-label-has-associated-control -->
-					<label class="lable-text font-semibold">Symptom</label>
-				</div>
-				<span class="w-1/2 md:2/3 lg:2/3" id="symptom">{symptom}</span>
 			</div>
 
 			<div class="flex items-center mb-2 lg:mx-16 md:mx-12 mx-10">
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
 					<!-- svelte-ignore a11y-label-has-associated-control -->
-					<label class="lable-text font-semibold"> Description </label>
+					<label class="label">
+						<span>Description</span>
+					</label>
 				</div>
 				<div class="w-1/2 md:w-2/3 lg:w-2/3">
 					<textarea
-						class="textarea textarea-info w-full"
+						class="textarea w-full"
 						name="description"
 						placeholder="Enter description here..."
 						bind:value={description}
@@ -112,29 +103,25 @@
 				</div>
 			</div>
 
-			<div class="flex items-center my-4 lg:mx-16 md:mx-12 mx-10">
-				<div class="w-1/2 md:w-1/3 lg:w-1/3">
+			<div class="flex items-center lg:mx-16 md:mx-12 mx-10">
+				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
 					<!-- svelte-ignore a11y-label-has-associated-control -->
-					<label class="lable-text font-semibold"> Tags </label>
+					<label class="label">
+						<span>Tags</span>
+					</label>
 				</div>
 				<div class="w-1/2 md:w-2/3 lg:w-2/3">
-					<!-- svelte-ignore missing-declaration -->
-					<Tags name="Tags" placeholder={tagsPlaceholder} on:tags={handleTags} bind:tags />
+					<InputChip name="Tags" placeholder={tagsPlaceholder} on:tags={handleTags} bind:tags />
 					<input type="hidden" name="tags" value={JSON.stringify(tags)} />
 				</div>
 			</div>
 
-			<div class="flex items-center my-4 lg:mx-16 md:mx-12 mx-10">
+			<div class="flex items-center mb-4 lg:mx-16 md:mx-12 mx-10">
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
 					<!-- svelte-ignore a11y-label-has-associated-control -->
-					<label class="lable-text font-semibold" for=""> Language </label>
-				</div>
-				<span class="w-1/2 md:w-2/3 lg:w-2/3"> {language} </span>
-			</div>
-			<!-- <div class="flex items-center mb-4 lg:mx-16 md:mx-12 mx-10">
-				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
-					
-					<label class="lable-text font-semibold"> Language </label>
+					<label class="label">
+						<span>Language</span>
+					</label>
 				</div>
 				<div class="w-1/2 md:w-2/3 lg:w-2/3">
 					<input
@@ -142,26 +129,28 @@
 						name="language"
 						bind:value={language}
 						placeholder="Enter language here..."
-						class="input input-bordered w-full "
+						class="input w-full "
 					/>
 				</div>
-			</div> -->
+			</div>
 
 			<div class="flex items-center my-4 lg:mx-16 md:mx-12 mx-10">
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
 					<!-- svelte-ignore a11y-label-has-associated-control -->
-					<label class="lable-text font-semibold" for=""> Image Resource Id </label>
+					<label class="label">
+						<span>Image Resource Id</span>
+					</label>
 				</div>
-				<span class="w-1/2 md:w-2/3 lg:w-2/3"> {imageResourceId} </span>
+				<span class="span w-1/2 md:w-2/3 lg:w-2/3"> {imageResourceId} </span>
 			</div>
 
-			<div class="flex items-center my-10 lg:mx-16 md:mx-12 mx-4 ">
+			<div class="flex items-center my-8 lg:mx-16 md:mx-12 mx-4 ">
 				<div class="lg:w-1/2 md:w-1/2 sm:w-1/2  w-1/3" />
 				<div class="lg:w-1/4 md:w-1/4 sm:w-1/4  w-1/3 ">
 					<button
 						type="button"
 						on:click={handleReset}
-						class="btn btn-outline lg:w-40 lg:ml-8 md:ml-6 sm:ml-1 "
+						class="btn variant-ringed-primary lg:w-40 lg:ml-8 md:ml-6 sm:ml-1 mb-10"
 					>
 						Reset</button
 					>
@@ -169,7 +158,7 @@
 				<div class="lg:w-1/4 md:w-1/4 sm:w-1/4 w-1/3">
 					<button
 						type="submit"
-						class="btn bg-[#5832A1] hover:bg-[#5832A1] lg:w-40 lg:ml-8 md:ml-6 sm:ml-2 "
+						class="btn variant-filled-primary lg:w-40 lg:ml-8 md:ml-6 sm:ml-2 mb-10"
 						>Submit
 					</button>
 				</div>

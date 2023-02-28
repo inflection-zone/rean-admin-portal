@@ -7,7 +7,6 @@
 	import type { PageServerData } from './$types';
 	import BreadCrumbs from '$lib/components/breadcrumbs/breadcrums.svelte';
 	import { page } from '$app/stores';
-	import Button from '$lib/components/button/outline.button.svelte';
 
 	export let data: PageServerData;
 	let id = data.knowledgeNugget.id;
@@ -20,8 +19,6 @@
 	// let tags = tags_.join(', ');
 
 	console.log('tags===', tags);
-	console.log('topicName=', topicName);
-	console.log('info====', briefInformation);
 
 	onMount(() => {
 		show(data);
@@ -66,47 +63,60 @@
 			<div class="flex items-center mb-4 mt-10 lg:mx-16 md:mx-12 mx-10">
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
 					<!-- svelte-ignore a11y-label-has-associated-control -->
-					<label class="lable-text font-semibold">Name</label>
+					<label class="label">
+						<span>Name</span>
+					</label>
 				</div>
-				<span class="w-1/2 md:2/3 lg:2/3" id="topicName">{topicName}</span>
+				<span class="span w-1/2 md:2/3 lg:2/3" id="topicName">{topicName}</span>
 			</div>
 			<div class="flex items-center my-4 lg:mx-16 md:mx-12 mx-10">
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
 					<!-- svelte-ignore a11y-label-has-associated-control -->
-					<label class="lable-text font-semibold"> Brief Information </label>
+					<label class="label">
+						<span>Brief Information</span>
+					</label>
 				</div>
-				<span class="w-1/2 md:2/3 lg:2/3" id="briefInformation"> {briefInformation} </span>
-			</div>
-
-			<div class="flex items-center my-4 lg:mx-16 md:mx-12 mx-10">
-				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
-					<!-- svelte-ignore a11y-label-has-associated-control -->
-					<label class="lable-text font-semibold"> Detailed Information </label>
-				</div>
-				<span class="w-1/2 md:2/3 lg:2/3" id="detailedInformation">{detailedInformation}</span>
+				<span class="span w-1/2 md:2/3 lg:2/3" id="briefInformation"> {briefInformation} </span>
 			</div>
 			<div class="flex items-center my-4 lg:mx-16 md:mx-12 mx-10">
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
 					<!-- svelte-ignore a11y-label-has-associated-control -->
-					<label class="lable-text font-semibold"> Additional Resource</label>
+					<label class="label">
+						<span>Detailed Information</span>
+					</label>
 				</div>
-				<span class="w-1/2 md:2/3 lg:2/3" id="additionalResource"> {additionalResource} </span>
+				<span class="span w-1/2 md:2/3 lg:2/3" id="detailedInformation">{detailedInformation}</span>
+			</div>
+			<div class="flex items-center my-4 lg:mx-16 md:mx-12 mx-10">
+				<div class="span w-1/2 md:w-1/3 lg:w-1/3 ">
+					<!-- svelte-ignore a11y-label-has-associated-control -->
+					<label class="label">
+						<span>Additional Resource</span>
+					</label>
+				</div>
+				<span class="span w-1/2 md:2/3 lg:2/3" id="additionalResource"> {additionalResource} </span>
 			</div>
 			<div class="flex items-center my-4 lg:mx-16 md:mx-12 mx-10">
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
 					<!-- svelte-ignore a11y-label-has-associated-control -->
-					<label class="lable-text font-semibold"> Tags </label>
+					<label class="label">
+						<span>Tag</span>
+					</label>
 				</div>
-				<span class="w-1/2 md:2/3 lg:2/3"> {tags} </span>
+				<span class="span w-1/2 md:2/3 lg:2/3"> {tags} </span>
 			</div>
 
 			<div class="flex items-center mt-7 lg:mx-16 md:mx-12 mr-10">
 				<div class="lg:w-5/6 w-2/3 " />
 				<div class="lg:w-1/6 w-1/3 ">
 					<a href={editRoute}>
-						<Button title="Edit" type="submit">
-							<!-- <Fa icon={faPen} size="lg" class="lg:ml-4 sm:ml-2 ml-1" /> -->
-						</Button>
+						<button
+							type="submit"
+							class="btn variant-ringed-primary lg:w-full w-24 mb-10 lg:mr-4 mr-1"
+						>
+							Edit
+							<Fa icon={faPen} size="lg" class="lg:ml-4 sm:ml-2 ml-1" />
+						</button>
 					</a>
 				</div>
 			</div>
