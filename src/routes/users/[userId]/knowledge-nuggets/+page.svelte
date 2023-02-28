@@ -50,14 +50,14 @@
 				<tbody class="">
 					{#each $dataTableStore.filtered as row, rowIndex}
 						<tr>
-							<td>{rowIndex + 1}</td>
-							<td>{row.TopicName}</td>
-							<td
+							<td style="width: 7%;">{rowIndex + 1}</td>
+							<td style="width: 22%;">{row.TopicName}</td>
+							<td style="width: 38%;"
 								>{row.BriefInformation.length > 30
 									? row.BriefInformation.substring(0, 30) + '...'
 									: row.BriefInformation}</td
 							>
-							<td
+							<td style="width: 33%;"
 								>{row.DetailedInformation.length > 20
 									? row.DetailedInformation.substring(0, 20) + '...'
 									: row.DetailedInformation}</td
