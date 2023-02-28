@@ -4,8 +4,8 @@
 	import BreadCrumbs from '$lib/components/breadcrumbs/breadcrums.svelte';
 	import { page } from '$app/stores';
 	import type { PageServerData } from './$types';
-	import Singleoption from '../../create/singleoption.svelte';
-	import Multipleoption from '../../create/multipleoption.svelte';
+	import Singleoption from '../../create/single.choice.svelte';
+	import Multipleoption from '../../create/multiple.choice.svelte';
 
 	export let data: PageServerData;
 	let initiaData = {};

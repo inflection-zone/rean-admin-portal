@@ -1,4 +1,4 @@
-<script>
+<script lang = 'ts'>
   import Fa from 'svelte-fa';
   import { faMultiply } from '@fortawesome/free-solid-svg-icons';
   let show = false;
@@ -35,7 +35,6 @@
         <div class="flex  flex-row pb-4 pt-2">
           <span class="font-semibold">{i+1}</span>
           <input
-            id={v}
             type="text"
             class="pl-2 border-b-2 w-10/12 outline-none"
             on:focus={handleFocus}
