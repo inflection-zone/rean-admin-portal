@@ -5,24 +5,16 @@
 	import BreadCrumbs from '$lib/components/breadcrumbs/breadcrums.svelte';
 	import { page } from '$app/stores';
 
-	// export let data: PageServerData;
-	// let initiaData = {};
-	// let id = data.module.id;
-	// let title = data.module.title;
-	// let description = data.module.description;
-	// let learningJourney = data.module.learningJourney;
-	// let course = data.module.course;
-	// let contentType = data.module.contentType;
-	// let resourceLink = data.module.resourceLink;
-	// let image = data.module.image;
-
-	let id = '56789';
-	let title = 'xxxx';
-	let description = 'xxxx';
-	let learningJourney = 'Careplan';
-	let course = 'Course';
-	let contentType = 'Content Type';
-	let resourceLink = 'https';
+	export let data: PageServerData;
+	let initiaData = {};
+	let id = data.module.id;
+	let title = data.module.title;
+	let description = data.module.description;
+	let learningJourney = data.module.learningJourney;
+	let course = data.module.course;
+	let contentType = data.module.contentType;
+	let resourceLink = data.module.resourceLink;
+	let image = data.module.image;
 
 	//Original data
 	let _title = title;
@@ -143,11 +135,7 @@
 					</label>
 				</div>
 				<div class="w-1/2 md:w-2/3 lg:w-2/3">
-					<select
-						class="select w-full"
-						bind:value={course}
-						placeholder="Select course here..."
-					>
+					<select class="select w-full" bind:value={course} placeholder="Select course here...">
 						<option value="Course">Course</option>
 						<option value="Auto">Auto</option>
 						<option>Dark mode</option>
@@ -219,12 +207,18 @@
 			<div class="flex items-center my-8 lg:mx-16 md:mx-12 mx-4 ">
 				<div class="lg:w-1/2 md:w-1/2 sm:w-1/2  w-1/3" />
 				<div class="lg:w-1/4 md:w-1/4 sm:w-1/4  w-1/3 ">
-					<button type="button" on:click={handleReset} class="btn variant-ringed-primary lg:w-40 lg:ml-8 md:ml-6 sm:ml-1 mb-10">
+					<button
+						type="button"
+						on:click={handleReset}
+						class="btn variant-ringed-primary lg:w-40 lg:ml-8 md:ml-6 sm:ml-1 mb-10"
+					>
 						Reset</button
 					>
 				</div>
 				<div class="lg:w-1/4 md:w-1/4 sm:w-1/4 w-1/3">
-					<button type="submit" class="btn variant-filled-primary lg:w-40 lg:ml-8 md:ml-6 sm:ml-2 mb-10"
+					<button
+						type="submit"
+						class="btn variant-filled-primary lg:w-40 lg:ml-8 md:ml-6 sm:ml-2 mb-10"
 						>Submit
 					</button>
 				</div>

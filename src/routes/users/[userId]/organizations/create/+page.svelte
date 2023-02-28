@@ -67,12 +67,7 @@
 					</label>
 				</div>
 				<div class="w-1/2 md:w-2/3 lg:w-2/3">
-					<input
-						type="text"
-						name="name"
-						placeholder="Enter name here..."
-						class="input w-full "
-					/>
+					<input type="text" name="name" placeholder="Enter name here..." class="input w-full " />
 				</div>
 			</div>
 
@@ -101,12 +96,7 @@
 					</label>
 				</div>
 				<div class="w-1/2 md:w-2/3 lg:w-2/3">
-					<input
-						type="text"
-						name="email"
-						placeholder="Enter email here..."
-						class="input w-full "
-					/>
+					<input type="text" name="email" placeholder="Enter email here..." class="input w-full " />
 				</div>
 			</div>
 
@@ -118,11 +108,7 @@
 					</label>
 				</div>
 				<div class="w-1/2 md:w-2/3 lg:w-2/3">
-					<textarea
-						name="about"
-						class="textarea w-full"
-						placeholder="Enter about here..."
-					/>
+					<textarea name="about" class="textarea w-full" placeholder="Enter about here..." />
 				</div>
 			</div>
 
@@ -151,11 +137,7 @@
 					</label>
 				</div>
 				<div class="w-1/2 md:w-2/3 lg:w-2/3">
-					<textarea
-						name="address"
-						class="textarea w-full"
-						placeholder="Enter address here..."
-					/>
+					<textarea name="address" class="textarea w-full" placeholder="Enter address here..." />
 				</div>
 			</div>
 

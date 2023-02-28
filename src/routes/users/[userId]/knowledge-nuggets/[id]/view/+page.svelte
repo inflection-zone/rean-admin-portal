@@ -7,7 +7,6 @@
 	import type { PageServerData } from './$types';
 	import BreadCrumbs from '$lib/components/breadcrumbs/breadcrums.svelte';
 	import { page } from '$app/stores';
-	import Button from '$lib/components/button/outline.button.svelte';
 
 	export let data: PageServerData;
 	let id = data.knowledgeNugget.id;
@@ -20,8 +19,6 @@
 	// let tags = tags_.join(', ');
 
 	console.log('tags===', tags);
-	console.log('topicName=', topicName);
-	console.log('info====', briefInformation);
 
 	onMount(() => {
 		show(data);

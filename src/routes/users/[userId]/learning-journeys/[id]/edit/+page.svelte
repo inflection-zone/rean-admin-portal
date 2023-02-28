@@ -5,19 +5,13 @@
 	import BreadCrumbs from '$lib/components/breadcrumbs/breadcrums.svelte';
 	import { page } from '$app/stores';
 
-	// export let data: PageServerData;
-	// let initiaData = {};
-	// let id = data.learningJourney.id;
-	// let name = data.learningJourney.name;
-	// let preferenceWeight = data.learningJourney.preferenceWeight;
-	// let description = data.learningJourney.description;
-	// let image = data.learningJourney.image;
-
-	let id = '56789';
-	let name = 'abcde';
-	let preferenceWeight = '70';
-	let description = 'xxxxx';
-	let image = 'assets';
+	export let data: PageServerData;
+	let initiaData = {};
+	let id = data.learningJourney.id;
+	let name = data.learningJourney.name;
+	let preferenceWeight = data.learningJourney.preferenceWeight;
+	let description = data.learningJourney.description;
+	let image = data.learningJourney.image;
 
 	//Original data
 	let _name = name;
@@ -144,12 +138,18 @@
 			<div class="flex items-center my-8 lg:mx-16 md:mx-12 mx-4 ">
 				<div class="lg:w-1/2 md:w-1/2 sm:w-1/2  w-1/3" />
 				<div class="lg:w-1/4 md:w-1/4 sm:w-1/4  w-1/3 ">
-					<button type="button" on:click={handleReset} class="btn variant-ringed-primary lg:w-40 lg:ml-8 md:ml-6 sm:ml-1 mb-10">
+					<button
+						type="button"
+						on:click={handleReset}
+						class="btn variant-ringed-primary lg:w-40 lg:ml-8 md:ml-6 sm:ml-1 mb-10"
+					>
 						Reset</button
 					>
 				</div>
 				<div class="lg:w-1/4 md:w-1/4 sm:w-1/4 w-1/3">
-					<button type="submit" class="btn variant-filled-primary lg:w-40 lg:ml-8 md:ml-6 sm:ml-2 mb-10"
+					<button
+						type="submit"
+						class="btn variant-filled-primary lg:w-40 lg:ml-8 md:ml-6 sm:ml-2 mb-10"
 						>Submit
 					</button>
 				</div>

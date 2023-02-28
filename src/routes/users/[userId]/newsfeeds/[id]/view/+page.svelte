@@ -104,7 +104,7 @@
 				</div>
 				<span class="span w-1/2 md:w-2/3 lg:w-2/3"> {image} </span>
 			</div>
-		
+
 			<div class="flex items-center mt-7 lg:mx-16 md:mx-12 mr-10">
 				<div class="lg:w-5/6 w-2/3 " />
 				<div class="lg:w-1/6 w-1/3 ">
