@@ -1,47 +1,17 @@
 <script lang="ts">
-	import {
-		createDataTableStore,
-		dataTableHandler,
-	} from '@skeletonlabs/skeleton';
+	import { createDataTableStore, dataTableHandler } from '@skeletonlabs/skeleton';
 	import { Paginator } from '@skeletonlabs/skeleton';
-	import Fa from 'svelte-fa';
-  import { faPencil, faSearch, faTrash } from '@fortawesome/free-solid-svg-icons';
-//   import date from 'date-and-time';
-  import BreadCrumbs from '$lib/components/breadcrumbs/breadcrums.svelte';
-  import type { PageServerData } from './$types';
-  import { page } from '$app/stores';
-  //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	import type { PageServerData } from './$types';
+	import { page } from '$app/stores';
+	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-  export let data: PageServerData;
- 	 const knowledgeNuggets = data.knowledgeNuggets;
-	 console.log("knowledgeNuggets", knowledgeNuggets);
-	// const sourceData = [
-	// 	{ position: 1, name: 'Hydrogen', weight: 1.0079, symbol: 'H' },
-	// 	{ position: 2, name: 'Helium', weight: 4.0026, symbol: 'He' },
-	// 	{ position: 3, name: 'Lithium', weight: 6.941, symbol: 'Li' },
-	// 	{ position: 4, name: 'Beryllium', weight: 9.0122, symbol: 'Be' },
-	// 	{ position: 5, name: 'Boron', weight: 10.811, symbol: 'B' },
-	// 	{ position: 6, name: 'Carbon', weight: 12.0107, symbol: 'C' },
-	// 	{ position: 7, name: 'Nitrogen', weight: 14.0067, symbol: 'N' },
-	// 	{ position: 8, name: 'Oxygen', weight: 15.9994, symbol: 'O' },
-	// 	{ position: 9, name: 'Fluorine', weight: 18.9984, symbol: 'F' },
-	// 	{ position: 10, name: 'Fluorine', weight: 18.9984, symbol: 'F' },
-	// 	{ position: 11, name: 'Fluorine', weight: 18.9984, symbol: 'F' },
-	// 	{ position: 12, name: 'Fluorine', weight: 18.9984, symbol: 'F' },
-	// 	{ position: 13, name: 'Fluorine', weight: 18.9984, symbol: 'F' },
-	// 	{ position: 14, name: 'Fluorine', weight: 18.9984, symbol: 'F' },
-	// 	{ position: 15, name: 'Fluorine', weight: 18.9984, symbol: 'F' },
-	// 	{ position: 16, name: 'Fluorine', weight: 18.9984, symbol: 'F' },
-	// 	{ position: 17, name: 'Fluorine', weight: 18.9984, symbol: 'F' },
-	// 	{ position: 18, name: 'Fluorine', weight: 18.9984, symbol: 'F' },
-	// 	{ position: 19, name: 'Fluorine', weight: 18.9984, symbol: 'F' },
-	// 	{ position: 20, name: 'Neon', weight: 20.1797, symbol: 'Ne' }
-	// ];
+	export let data: PageServerData;
+	const knowledgeNuggets = data.knowledgeNuggets;
+	console.log('knowledgeNuggets', knowledgeNuggets);
 
 	const dataTableStore = createDataTableStore(
 		// Pass your source data here:
 		knowledgeNuggets,
-		// Provide optional settings:
 		{
 			// The current search term.
 			search: '',
@@ -54,17 +24,10 @@
 	// This automatically handles search, sort, etc when the model updates.
 	dataTableStore.subscribe((model) => dataTableHandler(model));
 
-	dataTableStore.updateSource(knowledgeNuggets)
-
-	// const breadCrumbs = [
-	// 	{ label: 'Home', link: '/' },
-	// 	{ label: 'Table', link: '/table' }
-	// ];
-	// console.log('myBreadcrumbs', myBreadcrumbs);
+	dataTableStore.updateSource(knowledgeNuggets);
 </script>
 
-	<!-- <BreadCrumbs crumbs={breadCrumbs} /> -->
-	<div class="mx-10 mb-16">
+<div class="mx-10 mb-16">
 	<input
 		class="input my-3"
 		bind:value={$dataTableStore.search}
@@ -72,43 +35,47 @@
 		placeholder="Search..."
 	/>
 
-	<div class="h-[700px] bg-tertiary-500">
-		<div class="overflow-x-auto rounded-t-lg h-[700px]">
-			<table class="table table-hover w-full">
-				<thead  class="">
+	<div class="h-full bg-tertiary-500 w-full">
+		<div class="overflow-x-auto rounded-t-lg w-full h-full ">
+			<table />
+			<table class="table table-hover table-container overflow-x-auto  w-full table-fixed">
+				<thead class="fixed">
 					<tr class="sticky top-0">
 						<th style="width: 10%;">Id</th>
-						<th style="width: 30%;">Topic Name</th>
-						<th style="width: 30%;">Information</th>
-						<th style="width: 30%;"> Additional Resources</th>
-
-						<!-- ... --->
+						<th style="width: 20%;">Topic Name</th>
+						<th style="width: 20%;">Information</th>
+						<th style="width: 50%;"> Detailed Information</th>
 					</tr>
 				</thead>
-				<tbody class="">
+				<tbody class=" w-full ">
 					{#each $dataTableStore.filtered as row, rowIndex}
 						<tr>
 							<td>{rowIndex + 1}</td>
 							<td>{row.TopicName}</td>
-							<td>{row.BriefInformation}</td>
-							<td>{row.AdditionalResources}</td>
-							<!-- <td>{row.symbol}</td> -->
-							<!-- ... --->
+							<td
+								>{row.BriefInformation.length > 30
+									? row.BriefInformation.substring(0, 30) + '...'
+									: row.BriefInformation}</td
+							>
+							<td
+								>{row.DetailedInformation.length > 20
+									? row.DetailedInformation.substring(0, 20) + '...'
+									: row.DetailedInformation}</td
+							>
 						</tr>
 					{/each}
 				</tbody>
 			</table>
 		</div>
-	</div>
-	<div class=" border-t w-full bg-secondary-500 h-16 mb-10 rounded-b-lg ">
-		{#if $dataTableStore.pagination}<Paginator
-				class="mt-2 mr-3"
-				buttonClasses="btn-icon bg-surface-500"
-				text="text-white"
-				justify="lg:justify-end md:justify-center sm:justify-start justify-start"
-				select="text-primary-500 rounded-lg"
-				bind:settings={$dataTableStore.pagination}
-			/>{/if}
+		<div class=" w-full bg-secondary-500 h-16 mb-10 pt-1 rounded-b-lg ">
+			{#if $dataTableStore.pagination}<Paginator
+					class="mt-2 mr-3"
+					buttonClasses="btn-icon bg-surface-500"
+					text="text-white"
+					justify="lg:justify-end md:justify-center sm:justify-start justify-start"
+					select="text-primary-500 rounded-lg"
+					bind:settings={$dataTableStore.pagination}
+				/>{/if}
+		</div>
 	</div>
 </div>
-
