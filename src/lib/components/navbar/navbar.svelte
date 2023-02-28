@@ -3,7 +3,7 @@
 	import type { DrawerSettings } from '@skeletonlabs/skeleton';
 	import { AppShell, AppBar } from '@skeletonlabs/skeleton';
 	import Fa from 'svelte-fa';
-	import { faBars, faCircleUser, faMultiply } from '@fortawesome/free-solid-svg-icons';
+	import { faBars, faCircleUser } from '@fortawesome/free-solid-svg-icons';
 	import { navbarMenu, sidebarMenu, type TabDefinition } from './navigation.tabs';
 	import SettingMenu from './setting.menus.svelte';
 	import { afterUpdate, onMount } from 'svelte';
@@ -29,7 +29,7 @@
 			bgBackdrop: 'bg-primary-500/50'
 		};
 		drawerStore.open(settings);
-	};
+	}
 
 	function drawerRightOpen(): void {
 		const settings: DrawerSettings = {
@@ -41,12 +41,11 @@
 			bgBackdrop: 'bg-primary-500/50'
 		};
 		drawerStore.open(settings);
-	};
+	}
 
 	function drawerRightClose(): void {
 		drawerStore.close();
-	};
-
+	}
 </script>
 
 <AppShell class="w-full">
@@ -102,34 +101,31 @@
 	</svelte:fragment>
 </AppShell>
 
-	<Drawer>
-		{#if $drawerStore.id === 'rightSidebar'}
-			<SettingMenu on:click={drawerRightClose} on:logout />
-		{:else if $drawerStore.id === 'leftSidebar'}
-			<div class="grid justify-center w-60 space-y-4 mt-5">
-				{#each sidebarTabs as t}
-					<a
-						href={t.path}
-						class="hover:bg-surface-700 hover:text-base-100 p-2 hover:no-underline text-start no-underline rounded-md text-md font-medium {activeTab ==
-						t.path
-							? 'active: bg-surface-800 '
-							: 'text-base-100'}">{t.name}</a
-					>
-				{/each}
-				{#each navbarTabs as t}
-			
-					<a
-						href={t.path}
-						class="hover:bg-surface-700 lg:hidden sm:first:hidden hover:text-base-100 p-2 hover:no-underline text-start no-underline rounded-md text-md font-medium {activeTab ==
-						t.path
-							? 'active: bg-surface-800 '
-							: 'text-base-100'}">{t.name}</a
-					>
-				
-				{/each}
-			</div>
-		{:else}
-			<p>(fallback contents)</p>
-		{/if}
-	</Drawer>
-
+<Drawer>
+	{#if $drawerStore.id === 'rightSidebar'}
+		<SettingMenu on:click={drawerRightClose} on:logout />
+	{:else if $drawerStore.id === 'leftSidebar'}
+		<div class="grid justify-center w-60 space-y-4 mt-5">
+			{#each sidebarTabs as t}
+				<a
+					href={t.path}
+					class="hover:bg-surface-700 hover:text-base-100 p-2 hover:no-underline text-start no-underline rounded-md text-md font-medium {activeTab ==
+					t.path
+						? 'active: bg-surface-800 '
+						: 'text-base-100'}">{t.name}</a
+				>
+			{/each}
+			{#each navbarTabs as t}
+				<a
+					href={t.path}
+					class="hover:bg-surface-700 lg:hidden sm:first:hidden hover:text-base-100 p-2 hover:no-underline text-start no-underline rounded-md text-md font-medium {activeTab ==
+					t.path
+						? 'active: bg-surface-800 '
+						: 'text-base-100'}">{t.name}</a
+				>
+			{/each}
+		</div>
+	{:else}
+		<p>(fallback contents)</p>
+	{/if}
+</Drawer>
