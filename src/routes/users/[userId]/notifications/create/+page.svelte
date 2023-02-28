@@ -5,8 +5,6 @@
 	import { page } from '$app/stores';
 	import { FileButton } from '@skeletonlabs/skeleton';
 
-	//let imageResourceId = '435a5745-9460-4d32-9245-81bdf9f37fv1';
-
 	const userId = $page.params.userId;
 	const createRoute = `/users/${userId}/notifications/create`;
 	const notificationRoute = `/users/${userId}/notifications`;
@@ -30,7 +28,7 @@
 	<div class="px-5 mb-5 ">
 		<form
 			method="post"
-			action="?/createNotification"
+			action="?/createNotificationAction"
 			class="w-full  bg-[#ECE4FC] lg:mt-16 md:mt-8 sm:mt-6 mb-10 mt-4 lg:max-w-4xl md:max-w-xl sm:max-w-lg  rounded-lg mx-auto"
 		>
 			<div class="w-full  h-14 rounded-t-lg p-3  bg-[#7165E3]">
@@ -42,7 +40,6 @@
 							size="lg"
 							class="absolute right-0 lg:pr-3 md:pr-2 pr-0 text-white"
 						/>
-						<!-- </a> -->
 					</a>
 				</div>
 			</div>

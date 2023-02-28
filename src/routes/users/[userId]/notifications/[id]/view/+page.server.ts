@@ -11,19 +11,18 @@ export const load: PageServerLoad = async (event: RequestEvent) => {
 
 	try {
 		const notificationId = event.params.id;
-		console.log('notid=====', notificationId);
+		console.log(notificationId);
 		const response = await getNotificationById(sessionId, notificationId);
-		console.log('res===', response);
+		console.log(response);
 
 		if (response.Status === 'failure' || response.HttpCode !== 200) {
 			throw error(response.HttpCode, response.Message);
 		}
 		const notification = response.Data.Notification;
-		console.log('notification====', notification);
-		//const id = response.Data.id;
+		console.log('notification', notification);
+
 		const id = response.Data.Notification.id;
-		//console.log('id>>', response);
-		console.log('res<====', response);
+		console.log(response);
 		return {
 			location: `${id}/edit`,
 			notification,

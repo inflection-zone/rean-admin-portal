@@ -29,7 +29,7 @@ export const load: PageServerLoad = async (event: RequestEvent) => {
 };
 
 export const actions = {
-	updateNotification: async (event: RequestEvent) => {
+	updateNotificationAction: async (event: RequestEvent) => {
 		const request = event.request;
 		const userId = event.params.userId;
 		const data = await request.formData();

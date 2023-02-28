@@ -25,7 +25,7 @@
 <div>
 	<form
 		method="post"
-		action="?/createAssessment"
+		action="?/createAssessmentAction"
 		class="w-full max-w-4xl  bg-[#ECE4FC] mt-6 mb-20  rounded-lg mx-auto"
 	>
 		<div class="w-full  h-14 rounded-t-lg p-3  bg-[#7165E3]">
@@ -122,18 +122,18 @@
 			<div class="w-1/3">
 				<!-- svelte-ignore a11y-label-has-associated-control -->
 				<label class="label">
-					<span>Provider assessment code</span>
+					<span>Provider Assessment Code</span>
 				</label>
 			</div>
 			<div class="w-2/3">
-				<input type="text" name="providerAssessmentCode" class="input w-full" placeholder="1" />
+				<input type="text" name="providerAssessmentCode" class="input w-full" placeholder="Enter provider assessment code here..." />
 			</div>
 		</div>
 		<div class="flex items-center my-4 mx-16">
 			<div class="w-1/3">
 				<!-- svelte-ignore a11y-label-has-associated-control -->
 				<label class="label">
-					<span>Servelist node childrenAt once</span>
+					<span>Servelist Node Children At Once</span>
 				</label>
 			</div>
 			<div class="w-2/3">
@@ -141,7 +141,7 @@
 					type="text"
 					name="servelistNodeChildrenAtOnce"
 					class="input w-full"
-					placeholder="false"
+					placeholder="Enter servelist node children at once here..."
 				/>
 			</div>
 		</div>

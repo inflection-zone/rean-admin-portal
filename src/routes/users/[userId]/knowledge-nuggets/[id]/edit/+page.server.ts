@@ -16,17 +16,16 @@ export const load: PageServerLoad = async (event: RequestEvent) => {
 
 	try {
 		const knowledgeNuggetsId = event.params.id;
-		//console.log('knowid=====', knowledgeNuggetsId);
+		console.log(knowledgeNuggetsId);
 		const response = await getKnowledgeNuggetById(sessionId, knowledgeNuggetsId);
 
 		if (response.Status === 'failure' || response.HttpCode !== 200) {
 			throw error(response.HttpCode, response.Message);
 		}
 		const KnowledgeNugget = response.Data.KnowledgeNugget;
-		console.log('knowledge Nuggets====', KnowledgeNugget);
-		//const id = response.Data.id;
+		console.log('knowledge Nuggets', KnowledgeNugget);
+
 		const id = response.Data.KnowledgeNugget.id;
-		//console.log('id====', id);
 		return {
 			location: `${id}/edit`,
 			KnowledgeNugget,
@@ -38,11 +37,11 @@ export const load: PageServerLoad = async (event: RequestEvent) => {
 };
 
 export const actions = {
-	updateKnowledgeNugget: async (event: RequestEvent) => {
+	updateKnowledgeNuggetAction: async (event: RequestEvent) => {
 		const request = event.request;
 		const userId = event.params.userId;
 		const data = await request.formData();
-		console.log('data===', data);
+		console.log(data);
 		const topicName = data.has('topicName') ? data.get('topicName') : null;
 		const briefInformation = data.has('briefInformation') ? data.get('briefInformation') : null;
 		const detailedInformation = data.has('detailedInformation')
@@ -57,9 +56,6 @@ export const actions = {
 		const sessionId = event.cookies.get('sessionId');
 		console.log('sessionId', sessionId);
 
-		console.log('temp', JSON.stringify(temp));
-		console.log('tags', JSON.stringify(tags));
-
 		const knowledgeNuggetsId = event.params.id;
 		console.log('knowledge nuggets id', knowledgeNuggetsId);
 
@@ -73,7 +69,7 @@ export const actions = {
 			tags
 		);
 		const id = response.Data.knowledgeNugget.id;
-		console.log('res====', response);
+		console.log(response);
 
 		if (response.Status === 'failure' || response.HttpCode !== 200) {
 			throw redirect(303, '/knowledge-nuggets', errorMessage(response.Message), event);

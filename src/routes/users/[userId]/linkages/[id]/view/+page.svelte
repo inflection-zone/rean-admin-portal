@@ -19,6 +19,7 @@
 	let tags = tags_.join(', ');
 	let action = data.linkage.action;
 	let image = data.linkage.image;
+	
 	onMount(() => {
 		show(data);
 		LocalStorageUtils.removeItem('prevUrl');

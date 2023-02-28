@@ -6,7 +6,7 @@ import { createApiClient } from '../../../../api/services/api-clients';
 /////////////////////////////////////////////////////////////////////////
 
 export const actions = {
-	createApiClient: async (event: RequestEvent) => {
+	createApiClientAction: async (event: RequestEvent) => {
 		const request = event.request;
 		const userId = event.params.userId;
 		const data = await request.formData();

@@ -26,7 +26,7 @@
 	<div class="px-5 mb-14 ">
 		<form
 			method="post"
-			action="?/createPriority"
+			action="?/createPriorityAction"
 			class="w-full  bg-[#ECE4FC] md:mt-8 sm:mt-6 lg:mt-10 lg:max-w-4xl md:max-w-xl sm:max-w-lg  rounded-lg mx-auto"
 		>
 			<div class="w-full  h-14 rounded-t-lg p-3  bg-[#7165E3]">

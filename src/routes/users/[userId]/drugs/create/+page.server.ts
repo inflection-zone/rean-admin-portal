@@ -6,7 +6,7 @@ import { createDrug } from '../../../../api/services/drugs';
 /////////////////////////////////////////////////////////////////////////
 
 export const actions = {
-	createDrug: async (event: RequestEvent) => {
+	createDrugAction: async (event: RequestEvent) => {
 		const request = event.request;
 		const userId = event.params.userId;
 		const data = await request.formData();

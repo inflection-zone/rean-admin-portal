@@ -15,6 +15,7 @@
 	let description = data.course.description;
 	let image = data.course.image;
 	let modules = data.course.modules;
+
 	onMount(() => {
 		show(data);
 		LocalStorageUtils.removeItem('prevUrl');

@@ -51,8 +51,8 @@
 		>
 			<div class="w-full  h-14 rounded-t-lg p-3  bg-[#7165E3]">
 				<div class="ml-3 relative flex flex-row text-white lg:text-xl text-lg ">
-					<div class="lg:hidden md:hidden block">View</div>
-					<div class="lg:block md:block hidden">View</div>
+					<div class="lg:hidden md:hidden block">View Priority</div>
+					<div class="lg:block md:block hidden">View Priority</div>
 					<a href={priorityRoute}>
 						<Fa icon={faMultiply} size="lg" class="absolute right-0 lg:pr-3 pr-0 text-white" />
 					</a>

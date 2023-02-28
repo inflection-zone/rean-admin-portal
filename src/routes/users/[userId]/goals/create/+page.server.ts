@@ -6,7 +6,7 @@ import { createGoal } from '../../../../api/services/goals';
 /////////////////////////////////////////////////////////////////////////
 
 export const actions = {
-	createGoal: async (event: RequestEvent) => {
+	createGoalAction: async (event: RequestEvent) => {
 		const request = event.request;
 		const userId = event.params.userId;
 		const data = await request.formData();

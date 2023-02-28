@@ -30,7 +30,7 @@ export const load: PageServerLoad = async (event: RequestEvent) => {
 };
 
 export const actions = {
-	updateNewsfeed: async (event: RequestEvent) => {
+	updateNewsfeedAction: async (event: RequestEvent) => {
 		const request = event.request;
 		const userId = event.params.userId;
 		const data = await request.formData();

@@ -33,7 +33,7 @@ export const load: PageServerLoad = async (event: RequestEvent) => {
 };
 
 export const actions = {
-	updateLearningJourney: async (event: RequestEvent) => {
+	updateLearningJourneyAction: async (event: RequestEvent) => {
 		const request = event.request;
 		const userId = event.params.userId;
 		const data = await request.formData();

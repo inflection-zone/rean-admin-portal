@@ -48,8 +48,8 @@
 			<span class="pl-3 text-xs text-primary-500">user@gmail.com</span>
 			<p class="pl-3 text-xs text-primary-500">UserId:12345</p>
 			<div class="flex gap-2 pl-3 mr-2 text-xs pt-3">
-				<span><a href="" class="text-primary-500">My Accounts</a></span>
-				<span><a href="" class="text-primary-500">My Portals</a></span>
+				<span><a href="/" class="text-primary-500">My Accounts</a></span>
+				<span><a href="/" class="text-primary-500">My Portals</a></span>
 			</div>
 		</div>
 	</div>

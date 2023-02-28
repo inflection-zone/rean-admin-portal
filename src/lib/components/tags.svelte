@@ -392,9 +392,9 @@
 <style>
 	/* CSS svelte-tags-input */
 	.svelte-tags-input,
-	.svelte-tags-input-tag,
-	.svelte-tags-input-matchs,
-	.svelte-tags-input-layout label {
+	/* .svelte-tags-input-tag, */
+	.svelte-tags-input-matchs{
+	/* .svelte-tags-input-layout label { */
 		font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell,
 			'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
 		font-size: 14px;
@@ -457,9 +457,9 @@
         cursor:pointer;
     } */
 	/* svelte-tags-input-matchs */
-	.svelte-tags-input-matchs-parent {
+	/* .svelte-tags-input-matchs-parent {
 		position: relative;
-	}
+	} */
 	.svelte-tags-input-matchs {
 		position: absolute;
 		top: 0;
@@ -487,12 +487,12 @@
 		outline: none;
 	}
 	/* svelte-tags-input disabled */
-	.svelte-tags-input-layout.sti-layout-disable,
+	/* .svelte-tags-input-layout.sti-layout-disable, */
 	.svelte-tags-input:disabled {
 		background: #eaeaea;
 		cursor: not-allowed;
 	}
-	.svelte-tags-input-layout.sti-layout-disable:hover,
+	/* .svelte-tags-input-layout.sti-layout-disable:hover,
 	.svelte-tags-input-layout.sti-layout-disable:focus {
 		border-color: #ccc;
 	}
@@ -512,5 +512,5 @@
 		clip: rect(0, 0, 0, 0);
 		white-space: nowrap;
 		border: 0;
-	}
+	} */
 </style>

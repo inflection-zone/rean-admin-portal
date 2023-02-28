@@ -9,7 +9,6 @@
 	let show = '';
 	const onChange = (val) => {
 		show = val.target.value;
-		// console.log("val-------------",show)
 	};
 
 	const userId = $page.params.userId;
@@ -33,7 +32,7 @@
 <div>
 	<form
 		method="post"
-		action="?/createAssessmentNode"
+		action="?/createAssessmentNodeAction"
 		class="w-full max-w-4xl  bg-[#ECE4FC] mt-6 mb-20  rounded-lg mx-auto"
 	>
 		<div class="w-full  h-14 rounded-t-lg p-3  bg-[#7165E3]">
@@ -53,7 +52,11 @@
 				</label>
 			</div>
 			<div class="w-2/3">
-				<select name="nodeType" required class="select w-full "
+				<select
+					name="nodeType"
+					required
+					class="select w-full"
+					placeholder="Select node type here..."
 					><option selected>Node Type</option>
 					<option>Question</option>
 					<option>3</option>
@@ -101,7 +104,7 @@
 				<select
 					id="mySelect"
 					name="queryType"
-					required
+					placeholder="Select query type here..."
 					class="select select-info w-full "
 					on:change={(val) => onChange(val)}
 					><option selected value="textChoice">Text</option>

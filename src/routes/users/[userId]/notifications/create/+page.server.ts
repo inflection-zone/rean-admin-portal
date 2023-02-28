@@ -6,11 +6,11 @@ import { createNotification } from '../../../../api/services/notifications';
 /////////////////////////////////////////////////////////////////////////
 
 export const actions = {
-	createNotification: async (event: RequestEvent) => {
+	createNotificationAction: async (event: RequestEvent) => {
 		const request = event.request;
 		const userId = event.params.userId;
 		const data = await request.formData();
-		console.log('data====', data);
+		console.log(data);
 		const title = data.has('title') ? data.get('title') : null;
 		const Body = data.has('Body') ? data.get('Body') : null;
 		const type = data.has('type') ? data.get('type') : null;
@@ -18,8 +18,6 @@ export const actions = {
 
 		const sessionId = event.cookies.get('sessionId');
 		console.log('sessionId', sessionId);
-
-		console.log('type===', type);
 
 		const response = await createNotification(
 			sessionId,
@@ -29,7 +27,7 @@ export const actions = {
 			//sentOn.valueOf() as Date
 		);
 		const id = response.Data.Notification.id;
-		//console.log('res====<>', response);
+		console.log(response);
 		if (response.Status === 'failure' || response.HttpCode !== 201) {
 			throw redirect(303, '/notifications', errorMessage(response.Message), event);
 		}

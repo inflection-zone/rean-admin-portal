@@ -6,7 +6,7 @@ import { createSymptom } from '../../../../api/services/symptoms';
 /////////////////////////////////////////////////////////////////////////
 
 export const actions = {
-	createSymptom: async (event: RequestEvent) => {
+	createSymptomAction: async (event: RequestEvent) => {
 		const request = event.request;
 		const userId = event.params.userId;
 		const data = await request.formData();

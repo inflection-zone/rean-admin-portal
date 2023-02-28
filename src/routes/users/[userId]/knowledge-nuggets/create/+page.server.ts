@@ -6,7 +6,7 @@ import { createKnowledgeNugget } from '../../../../api/services/knowledge-nugget
 /////////////////////////////////////////////////////////////////////////
 
 export const actions = {
-	createKnowledgeNugget: async (event: RequestEvent) => {
+	createKnowledgeNuggetAction: async (event: RequestEvent) => {
 		const request = event.request;
 		const userId = event.params.userId;
 		const data = await request.formData();
@@ -34,7 +34,7 @@ export const actions = {
 			tags.valueOf() as string[]
 		);
 		const id = response.Data.KnowledgeNugget.id;
-		//console.log('response', response);
+		console.log(response);
 		if (response.Status === 'failure' || response.HttpCode !== 201) {
 			throw redirect(303, '/knowledge-nuggets', errorMessage(response.Message), event);
 		}

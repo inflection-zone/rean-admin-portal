@@ -6,7 +6,7 @@ import { createLearningJourney } from '../../../../api/services/learning-journey
 /////////////////////////////////////////////////////////////////////////
 
 export const actions = {
-	createLearningJourney: async (event: RequestEvent) => {
+	createLearningJourneyAction: async (event: RequestEvent) => {
 		const request = event.request;
 		const userId = event.params.userId;
 		const data = await request.formData();

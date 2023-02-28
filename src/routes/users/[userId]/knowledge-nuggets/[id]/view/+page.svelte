@@ -18,8 +18,6 @@
 	// let tags_ = data.knowledgeNugget.Tags;
 	// let tags = tags_.join(', ');
 
-	console.log('tags===', tags);
-
 	onMount(() => {
 		show(data);
 		LocalStorageUtils.removeItem('prevUrl');
