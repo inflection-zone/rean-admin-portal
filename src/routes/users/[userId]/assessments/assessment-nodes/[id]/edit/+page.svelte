@@ -144,10 +144,10 @@
 					on:change={(val) => onChange(val)}
 					><option selected value="textChoice">Text</option>
 					<option value="singleChoice">Single choice question</option>
-					<option value="multiChoice">multiple choice question</option>
-					<option value="yesnoChoice">yes no question</option>
-					<option value="okChoice">ok</option>
-					<option>none</option>
+					<option value="multiChoice">Multiple choice question</option>
+					<option value="yesnoChoice">Yes no question</option>
+					<option value="okChoice">Ok</option>
+					<option>None</option>
 				</select>
 			</div>
 		</div>
