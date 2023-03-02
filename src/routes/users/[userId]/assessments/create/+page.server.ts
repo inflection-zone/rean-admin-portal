@@ -16,6 +16,7 @@ export const actions = {
 		const description = data.has('description') ? data.get('description') : null;
 		const displayCode = data.has('displayCode') ? data.get('displayCode') : null;
 		const type = data.has('type') ? data.get('type') : null;
+		const provider = data.has('provider') ? data.get('provider') : null;
 		const providerAssessmentCode = data.has('providerAssessmentCode')
 			? data.get('providerAssessmentCode')
 			: null;
@@ -26,6 +27,8 @@ export const actions = {
 		const sessionId = event.cookies.get('sessionId');
 		console.log('sessionId', sessionId);
 
+		console.log('displayCode==',displayCode);
+
 		const response = await createAssessment(
 			sessionId,
 			assetCode.valueOf() as string,
@@ -33,10 +36,11 @@ export const actions = {
 			description.valueOf() as string,
 			displayCode.valueOf() as string,
 			type.valueOf() as string,
+			provider.valueOf() as string,
 			providerAssessmentCode.valueOf() as string,
 			serveListNodeChildrenAtOnce.valueOf() as string
 		);
-		const id = response.Data.assessment.id;
+		const id = response.Data.Assessment.id;
 		console.log(response);
 		if (response.Status === 'failure' || response.HttpCode !== 201) {
 			throw redirect(303, '/assessments', errorMessage(response.Message), event);

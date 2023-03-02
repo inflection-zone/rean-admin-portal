@@ -23,7 +23,6 @@ export const createNotification = async (
 
 export const getNotificationById = async (sessionId: string, notificationId: string) => {
 	const url = BACKEND_API_URL + `/general/notifications/${notificationId}`;
-	console.log('url---', url);
 	return await get_(sessionId, url, true);
 };
 
@@ -53,13 +52,13 @@ export const updateNotification = async (
 	title: string,
 	Body: string,
 	type: string,
-	sentOn: Date
+	// sentOn: Date
 ) => {
 	const body = {
 		Title: title,
 		Body: Body,
 		Type: type,
-		SentOn: sentOn
+		// SentOn: sentOn
 	};
 	const url = BACKEND_API_URL + `/general/notifications/${notificationId}`;
 	return await put_(sessionId, url, body, true);

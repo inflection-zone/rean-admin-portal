@@ -19,10 +19,14 @@ export const load: PageServerLoad = async (event: RequestEvent) => {
 		if (response.Status === 'failure' || response.HttpCode !== 200) {
 			throw error(response.HttpCode, response.Message);
 		}
-		const newsfeed = response.Data;
+		const newsfeed = response.Data.Rssfeed;
 		console.log('newsfeed', newsfeed);
+
+		const id = response.Data.Rssfeed.id;
 		return {
-			newsfeed
+			location: `${id}/edit`,
+			newsfeed,
+			message: response.Message
 		};
 	} catch (error) {
 		console.error(`Error retriving newsfeed: ${error.message}`);
@@ -34,11 +38,17 @@ export const actions = {
 		const request = event.request;
 		const userId = event.params.userId;
 		const data = await request.formData();
-		const type = data.has('type') ? data.get('type') : null;
 		const title = data.has('title') ? data.get('title') : null;
 		const description = data.has('description') ? data.get('description') : null;
-		const date = data.has('date') ? data.get('date') : null;
-
+		const link = data.has('link') ? data.get('link') : null;
+		const language = data.has('language') ? data.get('language') : null;
+		const copyright = data.has('copyright') ? data.get('copyright') : null;
+		const favicon = data.has('favicon') ? data.get('favicon') : null;
+		//const image = data.has('image') ? data.get('image') : null;
+		//const tags = data.has('tags') ? data.get('tags') : null;
+		// const providerName = data.has('providerName') ? data.get('providerName') : null;
+		// const providerEmail = data.has('providerEmail') ? data.get('providerEmail') : null;
+		// const providerLink = data.has('providerLink') ? data.get('providerLink') : null;
 		const sessionId = event.cookies.get('sessionId');
 		console.log('sessionId', sessionId);
 		const newsfeedId = event.params.id;
@@ -47,10 +57,17 @@ export const actions = {
 		const response = await updateNewsfeed(
 			sessionId,
 			newsfeedId,
-			type.valueOf() as string,
 			title.valueOf() as string,
 			description.valueOf() as string,
-			date.valueOf() as Date
+			link.valueOf() as string,
+			language.valueOf() as string,
+			copyright.valueOf() as string,
+			favicon.valueOf() as string,
+			// image.valueOf() as File,
+			//tags.valueOf() as string[],
+			// providerName.valueOf() as string,
+			// providerEmail.valueOf() as string,
+			// providerLink.valueOf() as string
 		);
 		const id = response.Data.id;
 

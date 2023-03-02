@@ -8,13 +8,13 @@ export const createLearningJourney = async (
 	name: string,
 	preferenceWeight: number,
 	description: string,
-	image: File
+	// image: File
 ) => {
 	const body = {
 		Name: name,
 		PreferenceWeight: preferenceWeight,
 		Description: description,
-		Image: image
+		// Image: image
 	};
 
 	const url = BACKEND_API_URL + '/learning-journeys';
@@ -52,13 +52,13 @@ export const updateLearningJourney = async (
 	name: string,
 	preferenceWeight: number,
 	description: string,
-	image: File
+	// image: File
 ) => {
 	const body = {
 		Name: name,
 		PreferenceWeight: preferenceWeight,
 		Description: description,
-		Image: image
+		// Image: image
 	};
 	const url = BACKEND_API_URL + `/learning-journeys/${learningJourneyId}`;
 	return await put_(sessionId, url, body, true);

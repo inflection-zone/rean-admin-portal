@@ -18,9 +18,8 @@ export const actions = {
 			: null;
 		// const additional = data.has('additionalResource') ? data.get('additionalResource') : null;
 		// const additionalResource = additional ? JSON.parse(additional?.valueOf() as string) : [];
-		const tags = data.has('tags') ? data.get('tags') : null;
+		//const tags = data.has('tags') ? data.get('tags') : null;
 		// const tags = temp ? JSON.parse(temp?.valueOf() as string) : [];
-		console.log("tags",tags)
 
 		const sessionId = event.cookies.get('sessionId');
 		console.log('sessionId', sessionId);
@@ -31,7 +30,7 @@ export const actions = {
 			briefInformation.valueOf() as string,
 			detailedInformation.valueOf() as string,
 			// additionalResource,
-			tags.valueOf() as string[]
+			//tags.valueOf() as string[]
 		);
 		const id = response.Data.KnowledgeNugget.id;
 		console.log(response);

@@ -10,13 +10,16 @@
 
 	export let data: PageServerData;
 	let id = data.drug.id;
-	let name = data.drug.name;
-	let genericName = data.drug.genericName;
-	let ingredients = data.drug.ingredients;
-	let strength = data.drug.strength;
-	let commercialName = data.drug.commercialName;
-	let manufacture = data.drug.manufacture;
-	let otherInformation = data.drug.otherInformation;
+	let drugName = data.drug.DrugName;
+	let genericName = data.drug.GenericName;
+	let ingredients = data.drug.Ingredients;
+	let strength = data.drug.Strength;
+	let otherCommercialNames = data.drug.OtherCommercialNames;
+	let manufacturer = data.drug.Manufacturer;
+	let otherInformation = data.drug.OtherInformation;
+
+	console.log('data===',data)
+
 	onMount(() => {
 		show(data);
 		LocalStorageUtils.removeItem('prevUrl');
@@ -64,7 +67,7 @@
 						<span>Name</span>
 					</label>
 				</div>
-				<span class="span w-1/2 md:2/3 lg:2/3" id="name">{name}</span>
+				<span class="span w-1/2 md:2/3 lg:2/3" id="drugName">{drugName}</span>
 			</div>
 			<div class="flex items-center my-4 lg:mx-16 md:mx-12 mx-10">
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
@@ -103,7 +106,7 @@
 						<span>Commercial Name</span>
 					</label>
 				</div>
-				<span class="span w-1/2 md:2/3 lg:2/3" id="commercialName"> {commercialName} </span>
+				<span class="span w-1/2 md:2/3 lg:2/3" id="otherCommercialNames"> {otherCommercialNames} </span>
 			</div>
 
 			<div class="flex items-center mb-4 lg:mx-16 md:mx-12 mx-10">
@@ -113,7 +116,7 @@
 						<span>Manufacture</span>
 					</label>
 				</div>
-				<span class="span w-1/2 md:2/3 lg:2/3" id="manufacture"> {manufacture} </span>
+				<span class="span w-1/2 md:2/3 lg:2/3" id="manufacturer"> {manufacturer} </span>
 			</div>
 
 			<div class="flex items-center mb-4 lg:mx-16 md:mx-12 mx-10">

@@ -17,9 +17,9 @@ export const load: PageServerLoad = async (event: RequestEvent) => {
 		if (response.Status === 'failure' || response.HttpCode !== 200) {
 			throw error(response.HttpCode, response.Message);
 		}
-		const newsfeed = response.Data;
+		const newsfeed = response.Data.Rssfeed;
 		console.log('newsfeed', newsfeed);
-		const id = response.Data.id;
+		const id = response.Data.Rssfeed.id;
 		return {
 			location: `${id}/edit`,
 			newsfeed,

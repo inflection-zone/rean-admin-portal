@@ -8,30 +8,30 @@
 	export let data: PageServerData;
 	let initiaData = {};
 	let id = data.drug.id;
-	let name = data.drug.name;
-	let genericName = data.drug.genericName;
-	let ingredients = data.drug.ingredients;
-	let strength = data.drug.strength;
-	let commercialName = data.drug.commercialName;
-	let manufacture = data.drug.manufacture;
-	let otherInformation = data.drug.otherInformation;
+	let drugName = data.drug.DrugName;
+	let genericName = data.drug.GenericName;
+	let ingredients = data.drug.Ingredients;
+	let strength = data.drug.Strength;
+	let otherCommercialNames = data.drug.OtherCommercialNames;
+	let manufacturer = data.drug.Manufacturer;
+	let otherInformation = data.drug.OtherInformation;
 
 	//Original data
-	let _name = name;
+	let _drugName = drugName;
 	let _genericName = genericName;
 	let _ingredients = ingredients;
 	let _strength = strength;
-	let _commercialName = commercialName;
-	let _manufacture = manufacture;
+	let _otherCommercialNames = otherCommercialNames;
+	let _manufacturer = manufacturer;
 	let _otherInformation = otherInformation;
 
 	function handleReset() {
-		name = _name;
+		drugName = _drugName;
 		genericName = _genericName;
 		ingredients = _ingredients;
 		strength = _strength;
-		commercialName = _commercialName;
-		manufacture = _manufacture;
+		otherCommercialNames = _otherCommercialNames;
+		manufacturer = _manufacturer;
 		otherInformation = _otherInformation;
 	}
 
@@ -80,8 +80,8 @@
 				<div class="w-1/2 md:w-2/3 lg:w-2/3">
 					<input
 						type="text"
-						name="name"
-						bind:value={name}
+						name="drugName"
+						bind:value={drugName}
 						placeholder="Enter name here..."
 						class="input w-full "
 					/>
@@ -97,6 +97,7 @@
 				</div>
 				<div class="w-1/2 md:w-2/3 lg:w-2/3">
 					<select
+						name="genericName"
 						class="select w-full"
 						bind:value={genericName}
 						placeholder="select generic name here..."
@@ -135,7 +136,7 @@
 					</label>
 				</div>
 				<div class="w-1/2 md:w-2/3 lg:w-2/3">
-					<select class="select w-full" bind:value={strength} placeholder="select strength here...">
+					<select name="strength" class="select w-full" bind:value={strength} placeholder="select strength here...">
 						<option value="High">High</option>
 						<option value="Auto">Auto</option>
 						<option>medium</option>
@@ -154,8 +155,8 @@
 				<div class="w-1/2 md:w-2/3 lg:w-2/3">
 					<input
 						type="text"
-						name="commercialName"
-						bind:value={commercialName}
+						name="otherCommercialNames"
+						bind:value={otherCommercialNames}
 						placeholder="Enter commercial name here..."
 						class="input w-full "
 					/>
@@ -172,8 +173,8 @@
 				<div class="w-1/2 md:w-2/3 lg:w-2/3">
 					<input
 						type="text"
-						name="manufacture"
-						bind:value={manufacture}
+						name="manufacturer"
+						bind:value={manufacturer}
 						placeholder="Enter manufacture here..."
 						class="input w-full "
 					/>
