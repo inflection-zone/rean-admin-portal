@@ -67,13 +67,11 @@
 				</tbody>
 			</table>
 		</div>
-		<div class=" w-full bg-secondary-500 h-16 mb-10 pt-1 rounded-b-lg ">
+		<div class=" w-full bg-secondary-500 h-36 lg:h-16 md:h-16 sm:h-36 mb-10 pt-1 rounded-b-lg ">
 			{#if $dataTableStore.pagination}<Paginator
-					class="mt-2 mr-3"
-					buttonClasses="btn-icon bg-surface-500"
-					text="text-white"
-					justify="lg:justify-end md:justify-center sm:justify-start justify-start"
-					select="text-primary-500 rounded-lg"
+					class="mt-2 mr-3 ml-3 "
+					buttonClasses="btn-icon bg-surface-500 w-5 h-8"
+					text="text-white"	
 					bind:settings={$dataTableStore.pagination}
 				/>{/if}
 		</div>
