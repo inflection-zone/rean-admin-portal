@@ -19,9 +19,6 @@ export const actions = {
 		const favicon = data.has('favicon') ? data.get('favicon') : null;
 		//const image = data.has('image') ? data.get('image') : null;
 		//const tags = data.has('tags') ? data.get('tags') : null;
-		// const providerName = data.has('providerName') ? data.get('providerName') : null;
-		// const providerEmail = data.has('providerEmail') ? data.get('providerEmail') : null;
-		// const providerLink = data.has('providerLink') ? data.get('providerLink') : null;
 
 		const sessionId = event.cookies.get('sessionId');
 		console.log('sessionId', sessionId);
@@ -36,9 +33,6 @@ export const actions = {
 			favicon.valueOf() as string,
 			// image.valueOf() as File,
 			//tags.valueOf() as string[],
-			// providerName.valueOf() as string,
-			// providerEmail.valueOf() as string,
-			// providerLink.valueOf() as string
 		);
 		const id = response.Data.Rssfeed.id;
 		console.log(response);

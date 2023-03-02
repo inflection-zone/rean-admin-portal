@@ -23,9 +23,6 @@
 	let favicon = data.newsfeed.Favicon;
 	let image = data.newsfeed.Image;
 	let tags = data.newsfeed.Tags;
-	// let providerName = data.newsfeed.ProviderName;
-	// let providerEmail = data.newsfeed.ProviderEmail;
-	// let providerLink = data.newsfeed.ProviderLink;
 
 	//Original data
 	let _title = title;

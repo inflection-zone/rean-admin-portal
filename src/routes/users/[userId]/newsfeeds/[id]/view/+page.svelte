@@ -18,10 +18,7 @@
 	let favicon = data.newsfeed.Favicon;
 	let image = data.newsfeed.Image;
 	let tags = data.newsfeed.Tags;
-	// let providerName = data.newsfeed.ProviderName;
-	// let providerEmail = data.newsfeed.ProviderEmail;
-	// let providerLink = data.newsfeed.ProviderLink;
-
+	
 	onMount(() => {
 		show(data);
 		LocalStorageUtils.removeItem('prevUrl');
@@ -143,36 +140,6 @@
 				</div>
 				<span class="span w-1/2 md:2/3 lg:2/3" id="tags"> {tags} </span>
 			</div>
-
-			<!-- <div class="flex items-center mb-4 lg:mx-16 md:mx-12 mx-10">
-				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
-					
-					<label class="label">
-						<span>Provider Name</span>
-					</label>
-				</div>
-				<span class="span w-1/2 md:2/3 lg:2/3" id="providerName"> {providerName} </span>
-			</div>
-
-			<div class="flex items-center mb-4 lg:mx-16 md:mx-12 mx-10">
-				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
-					
-					<label class="label">
-						<span>Provider Email</span>
-					</label>
-				</div>
-				<span class="span w-1/2 md:2/3 lg:2/3" id="providerEmail"> {providerEmail} </span>
-			</div>
-
-			<div class="flex items-center mb-4 lg:mx-16 md:mx-12 mx-10">
-				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
-					
-					<label class="label">
-						<span>Provider Link</span>
-					</label>
-				</div>
-				<span class="span w-1/2 md:2/3 lg:2/3" id="providerLink"> {providerLink} </span>
-			</div> -->
 
 			<div class="flex items-center mt-7 lg:mx-16 md:mx-12 mr-10">
 				<div class="lg:w-5/6 w-2/3 " />
