@@ -10,14 +10,15 @@
 	export let data: PageServerData;
 	let initiaData = {};
 	let id = data.linkage.id;
-	let title = data.linkage.title;
-	let description = data.linkage.description;
-	let link = data.linkage.link;
-	let postDate = data.linkage.postDate;
-	let daysActive = data.linkage.daysActive;
+	let title = data.linkage.Title;
+	let description = data.linkage.Description;
+	let link = data.linkage.Link;
+	let postDate = data.linkage.PostDate;
+	let daysActive = data.linkage.DaysActive;
 	let tags = data.linkage.Tags;
-	let action = data.linkage.action;
-	let image = data.linkage.image;
+	// let tags = tags_.join(', ');
+	let action = data.linkage.Action;
+	let image = data.linkage.Image;
 
 	//Original data
 	let _title = title;

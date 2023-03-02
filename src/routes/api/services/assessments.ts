@@ -10,6 +10,7 @@ export const createAssessment = async (
 	description: string,
 	displayCode: string,
 	type: string,
+	provider: string,
 	providerAssessmentCode: string,
 	serveListNodeChildrenAtOnce: string
 ) => {
@@ -19,6 +20,7 @@ export const createAssessment = async (
 		Description: description,
 		DisplayCode: displayCode,
 		Type: type,
+		Provider: provider,
 		ProviderAssessmentCode: providerAssessmentCode,
 		ServeListNodeChildrenAtOnce: serveListNodeChildrenAtOnce
 	};
@@ -60,6 +62,7 @@ export const updateAssessment = async (
 	description: string,
 	displayCode: string,
 	type: string,
+	provider: string,
 	providerAssessmentCode: string,
 	serveListNodeChildrenAtOnce: string
 ) => {
@@ -69,6 +72,7 @@ export const updateAssessment = async (
 		Description: description,
 		DisplayCode: displayCode,
 		Type: type,
+		Provider: provider,
 		ProviderAssessmentCode: providerAssessmentCode,
 		ServeListNodeChildrenAtOnce: serveListNodeChildrenAtOnce
 	};

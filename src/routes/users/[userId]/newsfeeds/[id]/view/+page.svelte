@@ -10,13 +10,15 @@
 
 	export let data: PageServerData;
 	let id = data.newsfeed.id;
-	let type = data.newsfeed.type;
-	let title = data.newsfeed.title;
-	let description = data.newsfeed.description;
-	let date = data.newsfeed.date;
-	let image = data.newsfeed.image;
-	let items = data.newsfeed.items;
-
+	let title = data.newsfeed.Title;
+	let description = data.newsfeed.Description;
+	let link = data.newsfeed.Link;
+	let language = data.newsfeed.Language;
+	let copyright = data.newsfeed.Copyright;
+	let favicon = data.newsfeed.Favicon;
+	let image = data.newsfeed.Image;
+	let tags = data.newsfeed.Tags;
+	
 	onMount(() => {
 		show(data);
 		LocalStorageUtils.removeItem('prevUrl');
@@ -56,17 +58,10 @@
 					</a>
 				</div>
 			</div>
+			
 			<div class="hidden">{id}</div>
+
 			<div class="flex items-center mb-4 mt-10 lg:mx-16 md:mx-12 mx-10">
-				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
-					<!-- svelte-ignore a11y-label-has-associated-control -->
-					<label class="label">
-						<span>Type</span>
-					</label>
-				</div>
-				<span class="span w-1/2 md:2/3 lg:2/3" id="type">{type}</span>
-			</div>
-			<div class="flex items-center my-4 lg:mx-16 md:mx-12 mx-10">
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
 					<!-- svelte-ignore a11y-label-has-associated-control -->
 					<label class="label">
@@ -90,11 +85,42 @@
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
 					<!-- svelte-ignore a11y-label-has-associated-control -->
 					<label class="label">
-						<span>Date</span>
+						<span>Link</span>
 					</label>
 				</div>
-				<span class="span w-1/2 md:2/3 lg:2/3" id="date"> {date} </span>
+				<span class="span w-1/2 md:2/3 lg:2/3" id="link"> {link} </span>
 			</div>
+
+			<div class="flex items-center mb-4 lg:mx-16 md:mx-12 mx-10">
+				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
+					<!-- svelte-ignore a11y-label-has-associated-control -->
+					<label class="label">
+						<span>Language</span>
+					</label>
+				</div>
+				<span class="span w-1/2 md:2/3 lg:2/3" id="language"> {language} </span>
+			</div>
+
+			<div class="flex items-center mb-4 lg:mx-16 md:mx-12 mx-10">
+				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
+					<!-- svelte-ignore a11y-label-has-associated-control -->
+					<label class="label">
+						<span>Copyright</span>
+					</label>
+				</div>
+				<span class="span w-1/2 md:2/3 lg:2/3" id="copyright"> {copyright} </span>
+			</div>
+
+			<div class="flex items-center mb-4 lg:mx-16 md:mx-12 mx-10">
+				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
+					<!-- svelte-ignore a11y-label-has-associated-control -->
+					<label class="label">
+						<span>Favicon</span>
+					</label>
+				</div>
+				<span class="span w-1/2 md:2/3 lg:2/3" id="favicon"> {favicon} </span>
+			</div>
+
 			<div class="flex items-center my-4 lg:mx-16 md:mx-12 mx-10">
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
 					<!-- svelte-ignore a11y-label-has-associated-control -->
@@ -103,6 +129,16 @@
 					</label>
 				</div>
 				<span class="span w-1/2 md:w-2/3 lg:w-2/3"> {image} </span>
+			</div>
+
+			<div class="flex items-center mb-4 lg:mx-16 md:mx-12 mx-10">
+				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
+					<!-- svelte-ignore a11y-label-has-associated-control -->
+					<label class="label">
+						<span>Tags</span>
+					</label>
+				</div>
+				<span class="span w-1/2 md:2/3 lg:2/3" id="tags"> {tags} </span>
 			</div>
 
 			<div class="flex items-center mt-7 lg:mx-16 md:mx-12 mr-10">

@@ -17,9 +17,10 @@ export const load: PageServerLoad = async (event: RequestEvent) => {
 		if (response.Status === 'failure' || response.HttpCode !== 200) {
 			throw error(response.HttpCode, response.Message);
 		}
-		const drug = response.Data;
-		console.log('drug', drug);
-		const id = response.Data.id;
+		const drug = response.Data.Drug;
+		console.log('drug---', drug);
+
+		const id = response.Data.Drug.id;
 		return {
 			location: `${id}/edit`,
 			drug,

@@ -50,8 +50,8 @@ export const actions = {
 		// const additionalResource = data.has('additionalResource')
 		// 	? data.get('additionalResource')
 		// 	: null;
-		const temp = data.has('tags') ? data.get('tags') : null;
-		const tags = temp ? JSON.parse(temp?.valueOf() as string) : [];
+		// const temp = data.has('tags') ? data.get('tags') : null;
+		// const tags = temp ? JSON.parse(temp?.valueOf() as string) : [];
 
 		const sessionId = event.cookies.get('sessionId');
 		console.log('sessionId', sessionId);
@@ -66,9 +66,9 @@ export const actions = {
 			briefInformation.valueOf() as string,
 			detailedInformation.valueOf() as string,
 			//additionalResource.valueOf() as string,
-			tags
+			//tags
 		);
-		const id = response.Data.knowledgeNugget.id;
+		const id = response.Data.KnowledgeNugget.id;
 		console.log(response);
 
 		if (response.Status === 'failure' || response.HttpCode !== 200) {

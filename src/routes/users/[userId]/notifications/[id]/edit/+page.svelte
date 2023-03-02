@@ -8,11 +8,11 @@
 	export let data: PageServerData;
 	let initiaData = {};
 	let id = data.notification.id;
-	let title = data.notification.title;
+	let title = data.notification.Title;
 	let Body = data.notification.Body;
-	let type = data.notification.type;
-	let sentOn = data.notification.sentOn;
-	let image = data.notification.image;
+	let type = data.notification.Type;
+	let sentOn = data.notification.SentOn;
+	//let image = data.notification.Image;
 
 	//Original data
 	let _title = title;
@@ -91,7 +91,7 @@
 				<div class="w-1/2 md:w-2/3 lg:w-2/3">
 					<input
 						type="text"
-						name="body"
+						name="Body"
 						bind:value={Body}
 						placeholder="Enter body here..."
 						class="input w-full "
@@ -107,7 +107,7 @@
 					</label>
 				</div>
 				<div class="w-1/2 md:w-2/3 lg:w-2/3">
-					<select class="select w-full" bind:value={type} placeholder="select type here...">
+					<select class="select w-full" name="type" bind:value={type} placeholder="select type here...">
 						<option>General</option>
 						<option>Auto</option>
 						<option>Dark mode</option>

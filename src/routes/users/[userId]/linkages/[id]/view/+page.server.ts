@@ -17,9 +17,9 @@ export const load: PageServerLoad = async (event: RequestEvent) => {
 		if (response.Status === 'failure' || response.HttpCode !== 200) {
 			throw error(response.HttpCode, response.Message);
 		}
-		const linkage = response.Data;
+		const linkage = response.Data.Notice;
 		console.log('linkage', linkage);
-		const id = response.Data.id;
+		const id = response.Data.Notice.id;
 		return {
 			location: `${id}/edit`,
 			linkage,

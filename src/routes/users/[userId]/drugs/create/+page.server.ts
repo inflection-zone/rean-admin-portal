@@ -11,12 +11,12 @@ export const actions = {
 		const userId = event.params.userId;
 		const data = await request.formData();
 		console.log(data);
-		const name = data.has('name') ? data.get('name') : null;
+		const drugName = data.has('drugName') ? data.get('drugName') : null;
 		const genericName = data.has('genericName') ? data.get('genericName') : null;
 		const ingredients = data.has('ingredients') ? data.get('ingredients') : null;
 		const strength = data.has('strength') ? data.get('strength') : null;
-		const commercialName = data.has('commercialName') ? data.get('commercialName') : null;
-		const manufacture = data.has('manufacture') ? data.get('manufacture') : null;
+		const otherCommercialNames = data.has('otherCommercialNames') ? data.get('otherCommercialNames') : null;
+		const manufacturer = data.has('manufacturer') ? data.get('manufacturer') : null;
 		const otherInformation = data.has('otherInformation') ? data.get('otherInformation') : null;
 
 		const sessionId = event.cookies.get('sessionId');
@@ -24,15 +24,15 @@ export const actions = {
 
 		const response = await createDrug(
 			sessionId,
-			name.valueOf() as string,
+			drugName.valueOf() as string,
 			genericName.valueOf() as string,
 			ingredients.valueOf() as string,
 			strength.valueOf() as string,
-			commercialName.valueOf() as string,
-			manufacture.valueOf() as string,
+			otherCommercialNames.valueOf() as string,
+			manufacturer.valueOf() as string,
 			otherInformation.valueOf() as string
 		);
-		const id = response.Data.id;
+		const id = response.Data.Drug.id;
 		console.log(response);
 		if (response.Status === 'failure' || response.HttpCode !== 201) {
 			throw redirect(303, '/drugs', errorMessage(response.Message), event);
