@@ -2,10 +2,10 @@
 	import Fa from 'svelte-fa';
 	import { faMultiply } from '@fortawesome/free-solid-svg-icons';
 	import Tags from '$lib/components/tags.svelte';
-	import type { PageServerData } from './$types';
 	import BreadCrumbs from '$lib/components/breadcrumbs/breadcrums.svelte';
 	import { page } from '$app/stores';
 	import { InputChip } from '@skeletonlabs/skeleton';
+	import type { PageServerData } from './$types';
 
 	export let data: PageServerData;
 	let initiaData = {};

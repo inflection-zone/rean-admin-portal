@@ -26,7 +26,6 @@ export const createOrganization = async (
 		//ImageResource: imageResource,
 		IsHealthFacility: isHealthFacility
 	};
-
 	const url = BACKEND_API_URL + '/organizations';
 	console.log('url===', url);
 	return await post_(sessionId, url, body, true);

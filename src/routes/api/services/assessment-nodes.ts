@@ -16,7 +16,6 @@ export const createAssessmentNode = async (
 		Description: description,
 		QueryType: queryType
 	};
-
 	const url = BACKEND_API_URL + '/clinical/assessment-templates/nodes';
 	return await post_(sessionId, url, body, true);
 };

@@ -10,6 +10,7 @@ export const actions = {
 		const request = event.request;
 		const userId = event.params.userId;
 		const data = await request.formData();
+
 		const title = data.has('title') ? data.get('title') : null;
 		const description = data.has('description') ? data.get('description') : null;
 		const newsfeed = data.has('newsfeed') ? data.get('newsfeed') : null;
@@ -17,9 +18,7 @@ export const actions = {
 		const link = data.has('link') ? data.get('link') : null;
 		const author = data.has('author') ? data.get('author') : null;
 		const date = data.has('date') ? data.get('date') : null;
-
 		const sessionId = event.cookies.get('sessionId');
-		console.log('sessionId', sessionId);
 
 		const response = await createNewsfeedItem(
 			sessionId,
@@ -32,7 +31,7 @@ export const actions = {
 			date.valueOf() as Date
 		);
 		const id = response.Data.id;
-		console.log(response);
+
 		if (response.Status === 'failure' || response.HttpCode !== 201) {
 			throw redirect(303, '/newsfeeds/newsfeed-items', errorMessage(response.Message), event);
 		}

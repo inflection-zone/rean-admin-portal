@@ -1,6 +1,9 @@
 <script lang="ts">
 	import Fa from 'svelte-fa';
 	import { faMultiply } from '@fortawesome/free-solid-svg-icons';
+	import BreadCrumbs from '$lib/components/breadcrumbs/breadcrums.svelte';
+	import { page } from '$app/stores';
+	import type { PageServerData } from './$types';
 
 	export let data: PageServerData;
 	let initiaData = {};
@@ -23,9 +26,6 @@
 		email = _email;
 	}
 
-	import BreadCrumbs from '$lib/components/breadcrumbs/breadcrums.svelte';
-	import { page } from '$app/stores';
-	import type { PageServerData } from './$types';
 	const userId = $page.params.userId;
 	const editRoute = `/users/${userId}/api-clients/${id}/edit`;
 	const viewRoute = `/users/${userId}/api-clients/${id}/view`;

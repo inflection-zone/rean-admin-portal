@@ -126,7 +126,12 @@
 				</label>
 			</div>
 			<div class="w-2/3">
-				<input type="text" name="providerAssessmentCode" class="input w-full" placeholder="Enter provider assessment code here..." />
+				<input
+					type="text"
+					name="providerAssessmentCode"
+					class="input w-full"
+					placeholder="Enter provider assessment code here..."
+				/>
 			</div>
 		</div>
 		<div class="flex items-center my-4 mx-16">

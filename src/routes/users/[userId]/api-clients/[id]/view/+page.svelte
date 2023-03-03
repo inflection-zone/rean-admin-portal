@@ -1,10 +1,10 @@
 <script lang="ts">
 	import Fa from 'svelte-fa';
 	import { faMultiply, faPen } from '@fortawesome/free-solid-svg-icons';
-	import type { PageServerData } from './$types';
 	import { onMount } from 'svelte';
 	import { show } from '$lib/utils/message.utils';
 	import { LocalStorageUtils } from '$lib/utils/local.storage.utils';
+	import type { PageServerData } from './$types';
 
 	export let data: PageServerData;
 	let id = data.apiClient.id;
@@ -12,6 +12,7 @@
 	let password = data.apiClient.password;
 	let phone = data.apiClient.phone;
 	let email = data.apiClient.email;
+
 	onMount(() => {
 		show(data);
 		LocalStorageUtils.removeItem('prevUrl');

@@ -1,16 +1,17 @@
 <script lang="ts">
-  import '../theme.css';
 	import '@skeletonlabs/skeleton/styles/all.css';
-  import '../app.postcss';
-  import Toasts from '$lib/components/toast/toasts.svelte';
-  import { beforeNavigate } from '$app/navigation';
-  import { LocalStorageUtils } from '$lib/utils/local.storage.utils';
-  import { page } from '$app/stores';
-  beforeNavigate(() => {
-    console.log(`previous URL: ` + $page.url.href);
-    LocalStorageUtils.setItem('prevUrl', $page.url.href);
-  });
-</script>
-<Toasts />
-  <slot />
+	import Toasts from '$lib/components/toast/toasts.svelte';
+	import { beforeNavigate } from '$app/navigation';
+	import { LocalStorageUtils } from '$lib/utils/local.storage.utils';
+	import { page } from '$app/stores';
+	import '../theme.css';
+	import '../app.postcss';
 
+	beforeNavigate(() => {
+		console.log(`previous URL: ` + $page.url.href);
+		LocalStorageUtils.setItem('prevUrl', $page.url.href);
+	});
+</script>
+
+<Toasts />
+<slot />
