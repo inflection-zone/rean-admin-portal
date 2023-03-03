@@ -26,7 +26,6 @@ export const createGoal = async (
 		HealthPriorityId: healthPriorityId,
 		GoalAchieved: goalAchieved
 	};
-
 	const url = BACKEND_API_URL + '/patient-goals';
 	return await post_(sessionId, url, body, true);
 };

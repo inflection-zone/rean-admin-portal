@@ -10,14 +10,12 @@ export const actions = {
 		const request = event.request;
 		const userId = event.params.userId;
 		const data = await request.formData();
-		console.log(data);
+
 		const nodeType = data.has('nodeType') ? data.get('nodeType') : null;
 		const title = data.has('title') ? data.get('title') : null;
 		const description = data.has('description') ? data.get('description') : null;
 		const queryType = data.has('queryType') ? data.get('queryType') : null;
-
 		const sessionId = event.cookies.get('sessionId');
-		console.log('sessionId', sessionId);
 
 		const response = await createAssessmentNode(
 			sessionId,
@@ -27,7 +25,7 @@ export const actions = {
 			queryType.valueOf() as string
 		);
 		const id = response.Data.assessmentNode.id;
-		console.log(response);
+		
 		if (response.Status === 'failure' || response.HttpCode !== 200) {
 			throw redirect(303, '/assessments/assessment-nodes', errorMessage(response.Message), event);
 		}

@@ -1,26 +1,23 @@
 import * as cookie from 'cookie';
-import type { PageServerLoad, Action } from './$types';
 import { error, type RequestEvent } from '@sveltejs/kit';
 import { redirect } from 'sveltekit-flash-message/server';
 import { errorMessage, successMessage } from '$lib/utils/message.utils';
+import type { PageServerLoad, Action } from './$types';
 import { getOrganizationById, updateOrganization } from '../../../../../api/services/organizations';
 
 /////////////////////////////////////////////////////////////////////////
 
 export const load: PageServerLoad = async (event: RequestEvent) => {
 	const sessionId = event.cookies.get('sessionId');
-	console.log('sessionId', sessionId);
 
 	try {
 		const organizationId = event.params.id;
-		console.log(organizationId);
 		const response = await getOrganizationById(sessionId, organizationId);
 
 		if (response.Status === 'failure' || response.HttpCode !== 200) {
 			throw error(response.HttpCode, response.Message);
 		}
 		const organization = response.Data;
-		console.log('organization', organization);
 		return {
 			organization
 		};
@@ -34,6 +31,7 @@ export const actions = {
 		const request = event.request;
 		const userId = event.params.userId;
 		const data = await request.formData();
+
 		const type = data.has('type') ? data.get('type') : null;
 		const name = data.has('name') ? data.get('name') : null;
 		const contactNumber = data.has('contactNumber') ? data.get('contactNumber') : null;
@@ -43,11 +41,8 @@ export const actions = {
 		const address = data.has('address') ? data.get('address') : null;
 		const imageResource = data.has('imageResource') ? data.get('imageResource') : null;
 		const isHealthFacility = data.has('isHealthFacility') ? data.get('isHealthFacility') : null;
-
 		const sessionId = event.cookies.get('sessionId');
-		console.log('sessionId', sessionId);
 		const organizationId = event.params.id;
-		console.log('notification id', organizationId);
 
 		const response = await updateOrganization(
 			sessionId,

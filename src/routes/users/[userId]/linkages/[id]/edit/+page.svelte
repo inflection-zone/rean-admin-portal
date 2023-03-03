@@ -2,22 +2,23 @@
 	import Fa from 'svelte-fa';
 	import { faMultiply } from '@fortawesome/free-solid-svg-icons';
 	import Tags from '$lib/components/tags.svelte';
-	import type { PageServerData } from './$types';
 	import BreadCrumbs from '$lib/components/breadcrumbs/breadcrums.svelte';
 	import { page } from '$app/stores';
 	import { InputChip } from '@skeletonlabs/skeleton';
+	import type { PageServerData } from './$types';
 
 	export let data: PageServerData;
 	let initiaData = {};
 	let id = data.linkage.id;
-	let title = data.linkage.title;
-	let description = data.linkage.description;
-	let link = data.linkage.link;
-	let postDate = data.linkage.postDate;
-	let daysActive = data.linkage.daysActive;
+	let title = data.linkage.Title;
+	let description = data.linkage.Description;
+	let link = data.linkage.Link;
+	let postDate = data.linkage.PostDate;
+	let daysActive = data.linkage.DaysActive;
 	let tags = data.linkage.Tags;
-	let action = data.linkage.action;
-	let image = data.linkage.image;
+	// let tags = tags_.join(', ');
+	let action = data.linkage.Action;
+	let image = data.linkage.Image;
 
 	//Original data
 	let _title = title;

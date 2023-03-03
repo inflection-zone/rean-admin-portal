@@ -63,7 +63,7 @@
 				<div class="w-1/2 md:w-2/3 lg:w-2/3">
 					<input
 						type="text"
-						name="resourceLink"
+						name="preferenceWeight"
 						placeholder="Enter prefrence weight here..."
 						class="input w-full "
 					/>

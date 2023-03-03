@@ -22,7 +22,6 @@ export const createNewsfeedItem = async (
 		Author: author,
 		Date: date
 	};
-
 	const url = BACKEND_API_URL + '/rss-feeds/feed-items';
 	return await post_(sessionId, url, body, true);
 };

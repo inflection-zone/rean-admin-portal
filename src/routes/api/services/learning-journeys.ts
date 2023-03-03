@@ -16,7 +16,6 @@ export const createLearningJourney = async (
 		Description: description,
 		Image: image
 	};
-
 	const url = BACKEND_API_URL + '/learning-journeys';
 	return await post_(sessionId, url, body, true);
 };

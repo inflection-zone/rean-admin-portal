@@ -100,7 +100,7 @@
 				<div class="w-1/2 md:w-2/3 lg:w-2/3">
 					<input
 						type="text"
-						name="link"
+						name="daysActive"
 						placeholder="Enter days active here..."
 						class="input w-full "
 					/>

@@ -5,24 +5,23 @@ import { delete_, get_, post_, put_ } from './common';
 
 export const createDrug = async (
 	sessionId: string,
-	name: string,
+	drugName: string,
 	genericName: string,
 	ingredients: string,
 	strength: string,
-	commercialName: string,
-	manufacture: string,
+	otherCommercialNames: string,
+	manufacturer: string,
 	otherInformation: string
 ) => {
 	const body = {
-		Name: name,
+		DrugName: drugName,
 		GenericName: genericName,
 		Ingredients: ingredients,
 		Strength: strength,
-		CommercialName: commercialName,
-		Manufacture: manufacture,
+		OtherCommercialNames: otherCommercialNames,
+		Manufacturer: manufacturer,
 		OtherInformation: otherInformation
 	};
-
 	const url = BACKEND_API_URL + '/clinical/drugs';
 	return await post_(sessionId, url, body, true);
 };
@@ -55,21 +54,21 @@ export const searchDrugs = async (sessionId: string, searchParams?: any) => {
 export const updateDrug = async (
 	sessionId: string,
 	drugId: string,
-	name: string,
+	drugName: string,
 	genericName: string,
 	ingredients: string,
 	strength: string,
-	commercialName: string,
-	manufacture: string,
+	otherCommercialNames: string,
+	manufacturer: string,
 	otherInformation: string
 ) => {
 	const body = {
-		Name: name,
+		DrugName: drugName,
 		GenericName: genericName,
 		Ingredients: ingredients,
 		Strength: strength,
-		CommercialName: commercialName,
-		Manufacture: manufacture,
+		OtherCommercialNames: otherCommercialNames,
+		Manufacturer: manufacturer,
 		OtherInformation: otherInformation
 	};
 	const url = BACKEND_API_URL + `/clinical/drugs/${drugId}`;

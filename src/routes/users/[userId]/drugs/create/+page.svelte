@@ -50,7 +50,12 @@
 					</label>
 				</div>
 				<div class="w-1/2 md:w-2/3 lg:w-2/3">
-					<input type="text" name="name" placeholder="Enter name here..." class="input w-full " />
+					<input
+						type="text"
+						name="drugName"
+						placeholder="Enter name here..."
+						class="input w-full "
+					/>
 				</div>
 			</div>
 
@@ -100,7 +105,7 @@
 					</label>
 				</div>
 				<div class="w-1/2 md:w-2/3 lg:w-2/3">
-					<select class="select w-full" placeholder="Select strength here...">
+					<select class="select w-full" name="strength" placeholder="Select strength here...">
 						<option selected>High</option>
 						<option>Auto</option>
 						<option>low</option>
@@ -119,7 +124,7 @@
 				<div class="w-1/2 md:w-2/3 lg:w-2/3">
 					<input
 						type="text"
-						name="commercialName"
+						name="otherCommercialNames"
 						placeholder="Enter commercial name here..."
 						class="input w-full "
 					/>
@@ -136,7 +141,7 @@
 				<div class="w-1/2 md:w-2/3 lg:w-2/3">
 					<input
 						type="text"
-						name="manufacture"
+						name="manufacturer"
 						placeholder="Enter manufacture here..."
 						class="input w-full "
 					/>

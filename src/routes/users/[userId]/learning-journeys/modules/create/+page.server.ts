@@ -10,15 +10,14 @@ export const actions = {
 		const request = event.request;
 		const userId = event.params.userId;
 		const data = await request.formData();
+
 		const title = data.has('title') ? data.get('title') : null;
 		const description = data.has('description') ? data.get('description') : null;
 		const learningJourney = data.has('learningJourney') ? data.get('learningJourney') : null;
 		const course = data.has('course') ? data.get('course') : null;
 		const contentType = data.has('contentType') ? data.get('contentType') : null;
 		const resourceLink = data.has('resourceLink') ? data.get('resourceLink') : null;
-
 		const sessionId = event.cookies.get('sessionId');
-		console.log('sessionId', sessionId);
 
 		const response = await createModule(
 			sessionId,
@@ -30,7 +29,7 @@ export const actions = {
 			resourceLink.valueOf() as string
 		);
 		const id = response.Data.id;
-		console.log(response);
+
 		if (response.Status === 'failure' || response.HttpCode !== 201) {
 			throw redirect(303, '/learning-journeys/modules', errorMessage(response.Message), event);
 		}

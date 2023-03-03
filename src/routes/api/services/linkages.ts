@@ -8,29 +8,26 @@ export const createLinkage = async (
 	title: string,
 	description: string,
 	link: string,
-	postDate: Date,
 	daysActive: number,
-	tags: string[],
-	action: string,
-	image: File
+	//tags: string[],
+	action: string
+	//image: File
 ) => {
 	const body = {
 		Title: title,
 		Description: description,
 		Link: link,
-		PostDate: postDate,
 		DaysActive: daysActive,
-		Tags: tags,
-		Action: action,
-		Image: image
+		//Tags: tags,
+		Action: action
+		//Image: image
 	};
-
-	const url = BACKEND_API_URL + '/linkages';
+	const url = BACKEND_API_URL + '/general/notices';
 	return await post_(sessionId, url, body, true);
 };
 
 export const getLinkageById = async (sessionId: string, linkageId: string) => {
-	const url = BACKEND_API_URL + `/linkages/${linkageId}`;
+	const url = BACKEND_API_URL + `/general/notices/${linkageId}`;
 	return await get_(sessionId, url, true);
 };
 
@@ -50,7 +47,7 @@ export const searchLinkages = async (sessionId: string, searchParams?: any) => {
 			searchString += params.join('&');
 		}
 	}
-	const url = BACKEND_API_URL + `/linkages/search${searchString}`;
+	const url = BACKEND_API_URL + `/general/notices/search${searchString}`;
 	return await get_(sessionId, url, true);
 };
 
@@ -60,27 +57,25 @@ export const updateLinkage = async (
 	title: string,
 	description: string,
 	link: string,
-	postDate: Date,
 	daysActive: number,
-	tags: string[],
-	action: string,
-	image: File
+	//tags: string[],
+	action: string
+	//image: File
 ) => {
 	const body = {
 		Title: title,
 		Description: description,
 		Link: link,
-		PostDate: postDate,
 		DaysActive: daysActive,
-		Tags: tags,
-		Action: action,
-		Image: image
+		//Tags: tags,
+		Action: action
+		//Image: image
 	};
-	const url = BACKEND_API_URL + `/linkages/${linkageId}`;
+	const url = BACKEND_API_URL + `/general/notices/${linkageId}`;
 	return await put_(sessionId, url, body, true);
 };
 
 export const deleteLinkage = async (sessionId: string, linkageId: string) => {
-	const url = BACKEND_API_URL + `/linkages/${linkageId}`;
+	const url = BACKEND_API_URL + `/general/notices/${linkageId}`;
 	return await delete_(sessionId, url, true);
 };

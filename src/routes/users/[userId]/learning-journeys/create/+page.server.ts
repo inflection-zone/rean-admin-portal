@@ -10,13 +10,12 @@ export const actions = {
 		const request = event.request;
 		const userId = event.params.userId;
 		const data = await request.formData();
+
 		const name = data.has('name') ? data.get('name') : null;
 		const preferenceWeight = data.has('preferenceWeight') ? data.get('preferenceWeight') : null;
 		const description = data.has('description') ? data.get('description') : null;
 		const image = data.has('image') ? data.get('image') : null;
-
 		const sessionId = event.cookies.get('sessionId');
-		console.log('sessionId', sessionId);
 
 		const response = await createLearningJourney(
 			sessionId,
@@ -25,8 +24,8 @@ export const actions = {
 			description.valueOf() as string,
 			image.valueOf() as File
 		);
-		const id = response.Data.id;
-		console.log(response);
+		const id = response.Data.LearningJourney.id;
+
 		if (response.Status === 'failure' || response.HttpCode !== 201) {
 			throw redirect(303, '/learning-journeys', errorMessage(response.Message), event);
 		}

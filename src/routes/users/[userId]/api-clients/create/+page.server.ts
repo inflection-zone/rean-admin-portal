@@ -10,11 +10,11 @@ export const actions = {
 		const request = event.request;
 		const userId = event.params.userId;
 		const data = await request.formData();
+
 		const clientName = data.has('clientName') ? data.get('clientName') : null;
 		const password = data.has('password') ? data.get('password') : null;
 		const phone = data.has('phone') ? data.get('phone') : null;
 		const email = data.has('email') ? data.get('email') : null;
-
 		const sessionId = event.cookies.get('sessionId');
 		console.log('sessionId', sessionId);
 
@@ -25,8 +25,8 @@ export const actions = {
 			phone.valueOf() as number,
 			email.valueOf() as string
 		);
-		const id = response.Data.id;
-		console.log(response);
+		const id = response.Data.ApiClient.id;
+
 		if (response.Status === 'failure' || response.HttpCode !== 201) {
 			throw redirect(303, '/api-clients', errorMessage(response.Message), event);
 		}

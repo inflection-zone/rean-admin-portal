@@ -1,25 +1,25 @@
 <script lang="ts">
 	import Fa from 'svelte-fa';
 	import { faMultiply, faPen } from '@fortawesome/free-solid-svg-icons';
-	import type { PageServerData } from './$types';
 	import { onMount } from 'svelte';
 	import { show } from '$lib/utils/message.utils';
 	import { LocalStorageUtils } from '$lib/utils/local.storage.utils';
 	import BreadCrumbs from '$lib/components/breadcrumbs/breadcrums.svelte';
 	import { page } from '$app/stores';
+	import type { PageServerData } from './$types';
 
 	export let data: PageServerData;
 	let id = data.linkage.id;
-	let title = data.linkage.title;
-	let description = data.linkage.description;
-	let link = data.linkage.link;
-	let postDate = data.linkage.postDate;
-	let daysActive = data.linkage.daysActive;
-	let tags_ = data.linkage.Tags;
-	let tags = tags_.join(', ');
-	let action = data.linkage.action;
-	let image = data.linkage.image;
-	
+	let title = data.linkage.Title;
+	let description = data.linkage.Description;
+	let link = data.linkage.Link;
+	let postDate = data.linkage.PostDate;
+	let daysActive = data.linkage.DaysActive;
+	let tags = data.linkage.Tags;
+	// let tags = tags_.join(', ');
+	let action = data.linkage.Action;
+	let image = data.linkage.Image;
+
 	onMount(() => {
 		show(data);
 		LocalStorageUtils.removeItem('prevUrl');

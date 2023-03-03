@@ -16,7 +16,6 @@ export const createApiClient = async (
 		Phone: phone,
 		Email: email
 	};
-
 	const url = BACKEND_API_URL + '/api-clients';
 	return await post_(sessionId, url, body, true);
 };

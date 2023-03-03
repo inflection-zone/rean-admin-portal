@@ -49,7 +49,7 @@
 			<div class="w-2/3">
 				<input
 					type="text"
-					name="name"
+					name="title"
 					required
 					placeholder="Enter title here..."
 					class="input w-full "
@@ -98,7 +98,7 @@
 				</label>
 			</div>
 			<div class="w-2/3">
-				<select class="select w-full" placeholder="Select type here...">
+				<select class="select w-full" name="type" placeholder="Select type here...">
 					<option selected>Careplan</option>
 					<option>Auto</option>
 					<option>Dark mode</option>
@@ -126,7 +126,12 @@
 				</label>
 			</div>
 			<div class="w-2/3">
-				<input type="text" name="providerAssessmentCode" class="input w-full" placeholder="Enter provider assessment code here..." />
+				<input
+					type="text"
+					name="providerAssessmentCode"
+					class="input w-full"
+					placeholder="Enter provider assessment code here..."
+				/>
 			</div>
 		</div>
 		<div class="flex items-center my-4 mx-16">
@@ -139,7 +144,7 @@
 			<div class="w-2/3">
 				<input
 					type="text"
-					name="servelistNodeChildrenAtOnce"
+					name="serveListNodeChildrenAtOnce"
 					class="input w-full"
 					placeholder="Enter servelist node children at once here..."
 				/>

@@ -10,6 +10,7 @@ export const actions = {
 		const request = event.request;
 		const userId = event.params.userId;
 		const data = await request.formData();
+
 		const patientUserId = data.has('patientUserId') ? data.get('patientUserId') : null;
 		const enrollmentId = data.has('enrollmentId') ? data.get('enrollmentId') : null;
 		const provider = data.has('provider') ? data.get('provider') : null;
@@ -19,9 +20,7 @@ export const actions = {
 		const sequence = data.has('sequence') ? data.get('sequence') : null;
 		const healthPriorityId = data.has('healthPriorityId') ? data.get('healthPriorityId') : null;
 		const goalAchieved = data.has('goalAchieved') ? data.get('goalAchieved') : null;
-
 		const sessionId = event.cookies.get('sessionId');
-		console.log('sessionId', sessionId);
 
 		const response = await createGoal(
 			sessionId,
@@ -36,7 +35,7 @@ export const actions = {
 			goalAchieved.valueOf() as boolean
 		);
 		const id = response.Data.id;
-		console.log(response);
+
 		if (response.Status === 'failure' || response.HttpCode !== 201) {
 			throw redirect(303, '/goals', errorMessage(response.Message), event);
 		}
