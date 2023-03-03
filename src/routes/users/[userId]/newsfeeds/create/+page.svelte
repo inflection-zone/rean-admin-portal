@@ -97,7 +97,12 @@
 					</label>
 				</div>
 				<div class="w-1/2 md:w-2/3 lg:w-2/3">
-					<input type="text" name="language" placeholder="Enter language here..." class="input w-full " />
+					<input
+						type="text"
+						name="language"
+						placeholder="Enter language here..."
+						class="input w-full "
+					/>
 				</div>
 			</div>
 
@@ -109,7 +114,12 @@
 					</label>
 				</div>
 				<div class="w-1/2 md:w-2/3 lg:w-2/3">
-					<input type="text" name="copyright" placeholder="Enter copyright here..." class="input w-full " />
+					<input
+						type="text"
+						name="copyright"
+						placeholder="Enter copyright here..."
+						class="input w-full "
+					/>
 				</div>
 			</div>
 
@@ -121,7 +131,12 @@
 					</label>
 				</div>
 				<div class="w-1/2 md:w-2/3 lg:w-2/3">
-					<input type="text" name="favicon" placeholder="Enter favicon here..." class="input w-full " />
+					<input
+						type="text"
+						name="favicon"
+						placeholder="Enter favicon here..."
+						class="input w-full "
+					/>
 				</div>
 			</div>
 

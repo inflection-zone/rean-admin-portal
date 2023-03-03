@@ -4,9 +4,9 @@
 	import { onMount } from 'svelte';
 	import { show } from '$lib/utils/message.utils';
 	import { LocalStorageUtils } from '$lib/utils/local.storage.utils';
-	import type { PageServerData } from './$types';
 	import BreadCrumbs from '$lib/components/breadcrumbs/breadcrums.svelte';
 	import { page } from '$app/stores';
+	import type { PageServerData } from './$types';
 
 	export let data: PageServerData;
 	let id = data.drug.id;
@@ -17,8 +17,6 @@
 	let otherCommercialNames = data.drug.OtherCommercialNames;
 	let manufacturer = data.drug.Manufacturer;
 	let otherInformation = data.drug.OtherInformation;
-
-	console.log('data===',data)
 
 	onMount(() => {
 		show(data);
@@ -106,7 +104,9 @@
 						<span>Commercial Name</span>
 					</label>
 				</div>
-				<span class="span w-1/2 md:2/3 lg:2/3" id="otherCommercialNames"> {otherCommercialNames} </span>
+				<span class="span w-1/2 md:2/3 lg:2/3" id="otherCommercialNames">
+					{otherCommercialNames}
+				</span>
 			</div>
 
 			<div class="flex items-center mb-4 lg:mx-16 md:mx-12 mx-10">

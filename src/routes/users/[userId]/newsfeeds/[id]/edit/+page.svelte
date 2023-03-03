@@ -33,9 +33,6 @@
 	let _favicon = favicon;
 	let _image = image;
 	let _tags = tags;
-	// let _providerName = providerName;
-	// let _providerEmail = providerEmail;
-	// let _providerLink = providerLink;
 
 	function handleReset() {
 		title = _title;
@@ -46,9 +43,6 @@
 		favicon = _favicon;
 		image = _image;
 		tags = _tags;
-		// providerName = _providerName;
-		// providerEmail = _providerEmail;
-		// providerLink = _providerLink;
 	}
 
 	const userId = $page.params.userId;
@@ -94,7 +88,13 @@
 					</label>
 				</div>
 				<div class="w-1/2 md:w-2/3 lg:w-2/3">
-					<input type="text" name="title" bind:value={title} placeholder="Enter title here..." class="input w-full " />
+					<input
+						type="text"
+						name="title"
+						bind:value={title}
+						placeholder="Enter title here..."
+						class="input w-full "
+					/>
 				</div>
 			</div>
 
@@ -123,7 +123,13 @@
 					</label>
 				</div>
 				<div class="w-1/2 md:w-2/3 lg:w-2/3">
-					<input type="text" name="link" bind:value={link} placeholder="Enter link here..." class="input w-full " />
+					<input
+						type="text"
+						name="link"
+						bind:value={link}
+						placeholder="Enter link here..."
+						class="input w-full "
+					/>
 				</div>
 			</div>
 
@@ -135,7 +141,13 @@
 					</label>
 				</div>
 				<div class="w-1/2 md:w-2/3 lg:w-2/3">
-					<input type="text" name="language" bind:value={language} placeholder="Enter language here..." class="input w-full " />
+					<input
+						type="text"
+						name="language"
+						bind:value={language}
+						placeholder="Enter language here..."
+						class="input w-full "
+					/>
 				</div>
 			</div>
 
@@ -147,7 +159,13 @@
 					</label>
 				</div>
 				<div class="w-1/2 md:w-2/3 lg:w-2/3">
-					<input type="text" name="copyright" bind:value={copyright} placeholder="Enter copyright here..." class="input w-full " />
+					<input
+						type="text"
+						name="copyright"
+						bind:value={copyright}
+						placeholder="Enter copyright here..."
+						class="input w-full "
+					/>
 				</div>
 			</div>
 
@@ -159,7 +177,13 @@
 					</label>
 				</div>
 				<div class="w-1/2 md:w-2/3 lg:w-2/3">
-					<input type="text" name="favicon" bind:value={favicon} placeholder="Enter favicon here..." class="input w-full " />
+					<input
+						type="text"
+						name="favicon"
+						bind:value={favicon}
+						placeholder="Enter favicon here..."
+						class="input w-full "
+					/>
 				</div>
 			</div>
 
@@ -202,42 +226,6 @@
 					<input type="hidden" name="tags" class="input" value={JSON.stringify(retrievedTags)} />
 				</div>
 			</div>
-
-			<!-- <div class="flex items-center mb-2 lg:mx-16 md:mx-12 mx-10">
-				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
-					
-					<label class="label">
-						<span>Provider Name</span>
-					</label>
-				</div>
-				<div class="w-1/2 md:w-2/3 lg:w-2/3">
-					<input type="text" bind:value={providerName} name="providerName" placeholder="Enter provider name here..." class="input w-full " />
-				</div>
-			</div>
-
-			<div class="flex items-center mb-2 lg:mx-16 md:mx-12 mx-10">
-				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
-					
-					<label class="label">
-						<span>Provider Email</span>
-					</label>
-				</div>
-				<div class="w-1/2 md:w-2/3 lg:w-2/3">
-					<input type="text" name="providerEmail" bind:value={providerEmail} placeholder="Enter provider email here..." class="input w-full " />
-				</div>
-			</div>
-
-			<div class="flex items-center mb-2 lg:mx-16 md:mx-12 mx-10">
-				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
-					
-					<label class="label">
-						<span>Provider Link</span>
-					</label>
-				</div>
-				<div class="w-1/2 md:w-2/3 lg:w-2/3">
-					<input type="text" name="providerLink" bind:value={providerLink} placeholder="Enter provider link here..." class="input w-full " />
-				</div>
-			</div> -->
 
 			<div class="flex items-center my-8 lg:mx-16 md:mx-12 mx-4 ">
 				<div class="lg:w-1/2 md:w-1/2 sm:w-1/2  w-1/3" />

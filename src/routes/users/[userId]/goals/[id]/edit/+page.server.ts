@@ -9,18 +9,15 @@ import { getGoalById, updateGoal } from '../../../../../api/services/goals';
 
 export const load: PageServerLoad = async (event: RequestEvent) => {
 	const sessionId = event.cookies.get('sessionId');
-	console.log('sessionId', sessionId);
 
 	try {
 		const goalId = event.params.id;
-		console.log(goalId);
 		const response = await getGoalById(sessionId, goalId);
 
 		if (response.Status === 'failure' || response.HttpCode !== 200) {
 			throw error(response.HttpCode, response.Message);
 		}
 		const goal = response.Data;
-		console.log('goal', goal);
 		return {
 			goal
 		};
@@ -34,6 +31,7 @@ export const actions = {
 		const request = event.request;
 		const userId = event.params.userId;
 		const data = await request.formData();
+
 		const patientUserId = data.has('patientUserId') ? data.get('patientUserId') : null;
 		const enrollmentId = data.has('enrollmentId') ? data.get('enrollmentId') : null;
 		const provider = data.has('provider') ? data.get('provider') : null;
@@ -43,11 +41,8 @@ export const actions = {
 		const sequence = data.has('sequence') ? data.get('sequence') : null;
 		const healthPriorityId = data.has('healthPriorityId') ? data.get('healthPriorityId') : null;
 		const goalAchieved = data.has('goalAchieved') ? data.get('goalAchieved') : null;
-
 		const sessionId = event.cookies.get('sessionId');
-		console.log('sessionId', sessionId);
 		const goalId = event.params.id;
-		console.log('goal id', goalId);
 
 		const response = await updateGoal(
 			sessionId,

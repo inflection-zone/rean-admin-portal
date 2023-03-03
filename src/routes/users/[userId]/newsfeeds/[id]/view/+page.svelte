@@ -4,9 +4,9 @@
 	import { onMount } from 'svelte';
 	import { show } from '$lib/utils/message.utils';
 	import { LocalStorageUtils } from '$lib/utils/local.storage.utils';
-	import type { PageServerData } from './$types';
 	import BreadCrumbs from '$lib/components/breadcrumbs/breadcrums.svelte';
 	import { page } from '$app/stores';
+	import type { PageServerData } from './$types';
 
 	export let data: PageServerData;
 	let id = data.newsfeed.id;
@@ -18,7 +18,7 @@
 	let favicon = data.newsfeed.Favicon;
 	let image = data.newsfeed.Image;
 	let tags = data.newsfeed.Tags;
-	
+
 	onMount(() => {
 		show(data);
 		LocalStorageUtils.removeItem('prevUrl');
@@ -58,7 +58,7 @@
 					</a>
 				</div>
 			</div>
-			
+
 			<div class="hidden">{id}</div>
 
 			<div class="flex items-center mb-4 mt-10 lg:mx-16 md:mx-12 mx-10">

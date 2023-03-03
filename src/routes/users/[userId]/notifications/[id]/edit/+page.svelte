@@ -1,9 +1,9 @@
 <script lang="ts">
 	import Fa from 'svelte-fa';
 	import { faMultiply } from '@fortawesome/free-solid-svg-icons';
-	import type { PageServerData } from './$types';
 	import BreadCrumbs from '$lib/components/breadcrumbs/breadcrums.svelte';
 	import { page } from '$app/stores';
+	import type { PageServerData } from './$types';
 
 	export let data: PageServerData;
 	let initiaData = {};
@@ -107,7 +107,12 @@
 					</label>
 				</div>
 				<div class="w-1/2 md:w-2/3 lg:w-2/3">
-					<select class="select w-full" name="type" bind:value={type} placeholder="select type here...">
+					<select
+						class="select w-full"
+						name="type"
+						bind:value={type}
+						placeholder="select type here..."
+					>
 						<option>General</option>
 						<option>Auto</option>
 						<option>Dark mode</option>

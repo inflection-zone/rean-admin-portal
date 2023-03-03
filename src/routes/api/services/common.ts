@@ -33,7 +33,6 @@ export const get_ = async (sessionId: string, url: string, authorizeUser = false
 	console.log(chalk.green(`get_ response message: ${response.Message}`));
 	// console.log(chalk.green(`get_ response: ${JSON.stringify(response, null, 2)}`));
 	return response;
-
 };
 
 export const post_ = async (
@@ -51,6 +50,7 @@ export const post_ = async (
 	if (authorizeUser) {
 		headers['Authorization'] = `Bearer ${accessToken}`;
 	}
+
 	const body = JSON.stringify(bodyObj);
 	console.log(body);
 	const res = await fetch(url, {
@@ -58,6 +58,7 @@ export const post_ = async (
 		body,
 		headers
 	});
+
 	const response = await res.json();
 	if (response.Status === 'failure' || (response.HttpCode !== 201 && response.HttpCode !== 200)) {
 		console.log(chalk.red(`post_ response message: ${response.Message}`));
@@ -88,6 +89,7 @@ export const put_ = async (
 		body,
 		headers
 	});
+
 	const response = await res.json();
 	if (response.Status === 'failure' || (response.HttpCode !== 200 && response.HttpCode !== 201)) {
 		console.log(chalk.red(`put_ response message: ${response.Message}`));
@@ -111,6 +113,7 @@ export const delete_ = async (sessionId: string, url: string, authorizeUser = fa
 		method: 'DELETE',
 		headers
 	});
+
 	const response = await res.json();
 	console.log(response.Message);
 	if (response.Status === 'failure' || response.HttpCode !== 200) {

@@ -8,15 +8,12 @@ export const createNotification = async (
 	title: string,
 	Body: string,
 	type: string
-	//sentOn: Date
 ) => {
 	const body = {
 		Title: title,
 		Body: Body,
 		Type: type
-		//SentOn: sentOn
 	};
-
 	const url = BACKEND_API_URL + '/general/notifications';
 	return await post_(sessionId, url, body, true);
 };
@@ -51,14 +48,12 @@ export const updateNotification = async (
 	notificationId: string,
 	title: string,
 	Body: string,
-	type: string,
-	// sentOn: Date
+	type: string
 ) => {
 	const body = {
 		Title: title,
 		Body: Body,
-		Type: type,
-		// SentOn: sentOn
+		Type: type
 	};
 	const url = BACKEND_API_URL + `/general/notifications/${notificationId}`;
 	return await put_(sessionId, url, body, true);
