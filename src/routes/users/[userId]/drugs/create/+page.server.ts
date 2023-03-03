@@ -10,17 +10,17 @@ export const actions = {
 		const request = event.request;
 		const userId = event.params.userId;
 		const data = await request.formData();
-		console.log(data);
+
 		const drugName = data.has('drugName') ? data.get('drugName') : null;
 		const genericName = data.has('genericName') ? data.get('genericName') : null;
 		const ingredients = data.has('ingredients') ? data.get('ingredients') : null;
 		const strength = data.has('strength') ? data.get('strength') : null;
-		const otherCommercialNames = data.has('otherCommercialNames') ? data.get('otherCommercialNames') : null;
+		const otherCommercialNames = data.has('otherCommercialNames')
+			? data.get('otherCommercialNames')
+			: null;
 		const manufacturer = data.has('manufacturer') ? data.get('manufacturer') : null;
 		const otherInformation = data.has('otherInformation') ? data.get('otherInformation') : null;
-
 		const sessionId = event.cookies.get('sessionId');
-		console.log('sessionId', sessionId);
 
 		const response = await createDrug(
 			sessionId,
@@ -33,7 +33,7 @@ export const actions = {
 			otherInformation.valueOf() as string
 		);
 		const id = response.Data.Drug.id;
-		console.log(response);
+
 		if (response.Status === 'failure' || response.HttpCode !== 201) {
 			throw redirect(303, '/drugs', errorMessage(response.Message), event);
 		}

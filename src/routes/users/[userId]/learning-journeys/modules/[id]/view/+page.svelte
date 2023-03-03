@@ -1,12 +1,12 @@
 <script lang="ts">
 	import Fa from 'svelte-fa';
 	import { faMultiply, faPen } from '@fortawesome/free-solid-svg-icons';
-	import type { PageServerData } from './$types';
 	import { onMount } from 'svelte';
 	import { show } from '$lib/utils/message.utils';
 	import { LocalStorageUtils } from '$lib/utils/local.storage.utils';
 	import BreadCrumbs from '$lib/components/breadcrumbs/breadcrums.svelte';
 	import { page } from '$app/stores';
+	import type { PageServerData } from './$types';
 
 	export let data: PageServerData;
 	let id = data.module.id;
@@ -17,6 +17,7 @@
 	let contentType = data.module.contentType;
 	let resourceLink = data.module.resourceLink;
 	let image = data.module.image;
+
 	onMount(() => {
 		show(data);
 		LocalStorageUtils.removeItem('prevUrl');

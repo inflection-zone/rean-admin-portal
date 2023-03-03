@@ -20,7 +20,6 @@ export const createModule = async (
 		ContentType: contentType,
 		ResourceLink: resourceLink
 	};
-
 	const url = BACKEND_API_URL + '/educational/course-modules';
 	return await post_(sessionId, url, body, true);
 };

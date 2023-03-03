@@ -1,8 +1,8 @@
 import * as cookie from 'cookie';
-import type { PageServerLoad, Action } from './$types';
 import { error, type RequestEvent } from '@sveltejs/kit';
 import { redirect } from 'sveltekit-flash-message/server';
 import { errorMessage, successMessage } from '$lib/utils/message.utils';
+import type { PageServerLoad, Action } from './$types';
 import {
 	getNewsfeedItemById,
 	updateNewsfeedItem
@@ -12,18 +12,15 @@ import {
 
 export const load: PageServerLoad = async (event: RequestEvent) => {
 	const sessionId = event.cookies.get('sessionId');
-	console.log('sessionId', sessionId);
 
 	try {
 		const newsfeedItemId = event.params.id;
-		console.log(newsfeedItemId);
 		const response = await getNewsfeedItemById(sessionId, newsfeedItemId);
 
 		if (response.Status === 'failure' || response.HttpCode !== 200) {
 			throw error(response.HttpCode, response.Message);
 		}
 		const newsfeedItem = response.Data;
-		console.log('item', newsfeedItem);
 		return {
 			newsfeedItem
 		};
@@ -37,6 +34,7 @@ export const actions = {
 		const request = event.request;
 		const userId = event.params.userId;
 		const data = await request.formData();
+
 		const title = data.has('title') ? data.get('title') : null;
 		const description = data.has('description') ? data.get('description') : null;
 		const newsfeed = data.has('newsfeed') ? data.get('newsfeed') : null;
@@ -44,11 +42,8 @@ export const actions = {
 		const link = data.has('link') ? data.get('link') : null;
 		const author = data.has('author') ? data.get('author') : null;
 		const date = data.has('date') ? data.get('date') : null;
-
 		const sessionId = event.cookies.get('sessionId');
-		console.log('sessionId', sessionId);
 		const itemId = event.params.id;
-		console.log('item id', itemId);
 
 		const response = await updateNewsfeedItem(
 			sessionId,

@@ -10,6 +10,7 @@ export const actions = {
 		const request = event.request;
 		const userId = event.params.userId;
 		const data = await request.formData();
+
 		const patientUserId = data.has('patientUserId') ? data.get('patientUserId') : null;
 		const provider = data.has('provider') ? data.get('provider') : null;
 		const source = data.has('source') ? data.get('source') : null;
@@ -20,9 +21,7 @@ export const actions = {
 			? data.get('healthPriorityType')
 			: null;
 		const isPrimary = data.has('isPrimary') ? data.get('isPrimary') : null;
-
 		const sessionId = event.cookies.get('sessionId');
-		console.log('sessionId', sessionId);
 
 		const response = await createPriority(
 			sessionId,
@@ -36,7 +35,7 @@ export const actions = {
 			isPrimary.valueOf() as boolean
 		);
 		const id = response.Data.id;
-		console.log(response);
+
 		if (response.Status === 'failure' || response.HttpCode !== 201) {
 			throw redirect(303, '/priorities', errorMessage(response.Message), event);
 		}

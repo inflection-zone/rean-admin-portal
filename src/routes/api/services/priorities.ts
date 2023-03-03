@@ -24,7 +24,6 @@ export const createPriority = async (
 		HealthPriorityType: healthPriorityType,
 		IsPrimary: isPrimary
 	};
-
 	const url = BACKEND_API_URL + '/patient-health-priorities';
 	return await post_(sessionId, url, body, true);
 };

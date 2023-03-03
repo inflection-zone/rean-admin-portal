@@ -22,7 +22,6 @@ export const createDrug = async (
 		Manufacturer: manufacturer,
 		OtherInformation: otherInformation
 	};
-
 	const url = BACKEND_API_URL + '/clinical/drugs';
 	return await post_(sessionId, url, body, true);
 };

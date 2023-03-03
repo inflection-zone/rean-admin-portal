@@ -24,7 +24,6 @@ export const createAssessment = async (
 		ProviderAssessmentCode: providerAssessmentCode,
 		ServeListNodeChildrenAtOnce: serveListNodeChildrenAtOnce
 	};
-
 	const url = BACKEND_API_URL + '/clinical/assessments';
 	return await post_(sessionId, url, body, true);
 };

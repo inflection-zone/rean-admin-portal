@@ -10,7 +10,7 @@ export const actions = {
 		const request = event.request;
 		const userId = event.params.userId;
 		const data = await request.formData();
-		console.log(data);
+
 		const assetCode = data.has('assetCode') ? data.get('assetCode') : 'Assessment';
 		const title = data.has('title') ? data.get('title') : null;
 		const description = data.has('description') ? data.get('description') : null;
@@ -23,11 +23,7 @@ export const actions = {
 		const serveListNodeChildrenAtOnce = data.has('serveListNodeChildrenAtOnce')
 			? data.get('serveListNodeChildrenAtOnce')
 			: null;
-
 		const sessionId = event.cookies.get('sessionId');
-		console.log('sessionId', sessionId);
-
-		console.log('displayCode==',displayCode);
 
 		const response = await createAssessment(
 			sessionId,
@@ -41,7 +37,7 @@ export const actions = {
 			serveListNodeChildrenAtOnce.valueOf() as string
 		);
 		const id = response.Data.Assessment.id;
-		console.log(response);
+
 		if (response.Status === 'failure' || response.HttpCode !== 201) {
 			throw redirect(303, '/assessments', errorMessage(response.Message), event);
 		}

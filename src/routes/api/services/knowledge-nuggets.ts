@@ -7,20 +7,18 @@ export const createKnowledgeNugget = async (
 	sessionId: string,
 	topicName: string,
 	briefInformation: string,
-	detailedInformation: string,
+	detailedInformation: string
 	//additionalResource: string[],
 	//tags: string[]
 ) => {
 	const body = {
 		TopicName: topicName,
 		BriefInformation: briefInformation,
-		DetailedInformation: detailedInformation,
+		DetailedInformation: detailedInformation
 		//AdditionalResource: additionalResource,
 		//Tags: tags
 	};
-	// console.log('body==', body);
 	const url = BACKEND_API_URL + '/educational/knowledge-nuggets';
-	// console.log('url', url);
 	return await post_(sessionId, url, body, true);
 };
 
@@ -54,14 +52,14 @@ export const updateKnowledgeNugget = async (
 	knowledgeNuggetId: string,
 	topicName: string,
 	briefInformation: string,
-	detailedInformation: string,
+	detailedInformation: string
 	//additionalResource: string[],
 	//tags: string[]
 ) => {
 	const body = {
 		TopicName: topicName,
 		BriefInformation: briefInformation,
-		DetailedInformation: detailedInformation,
+		DetailedInformation: detailedInformation
 		//AdditionalResource: additionalResource,
 		//Tags: tags
 	};

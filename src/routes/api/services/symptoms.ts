@@ -7,18 +7,17 @@ export const createSymptom = async (
 	sessionId: string,
 	symptom: string,
 	description: string,
-	//tags: string[],
+	tags: string[],
 	language: string,
 	imageResourceId: string
 ) => {
 	const body = {
 		Symptom: symptom,
 		Description: description,
-		//Tags: tags,
+		Tags: tags,
 		Language: language,
 		ImageResourceId: imageResourceId
 	};
-
 	const url = BACKEND_API_URL + '/clinical/symptoms';
 	return await post_(sessionId, url, body, true);
 };
@@ -53,14 +52,14 @@ export const updateSymptom = async (
 	symptonId: string,
 	symptom: string,
 	description: string,
-	//tags: string[],
+	tags: string[],
 	language: string,
 	imageResourceId: string
 ) => {
 	const body = {
 		Symptom: symptom,
 		Description: description,
-		//Tags: tags,
+		Tags: tags,
 		Language: language,
 		ImageResourceId: imageResourceId
 	};

@@ -1,15 +1,14 @@
 import * as cookie from 'cookie';
-import type { PageServerLoad, Action } from './$types';
 import { error, type RequestEvent } from '@sveltejs/kit';
 import { redirect } from 'sveltekit-flash-message/server';
 import { errorMessage, successMessage } from '$lib/utils/message.utils';
+import type { PageServerLoad, Action } from './$types';
 import { getNewsfeedById, updateNewsfeed } from '../../../../../api/services/newsfeeds';
 
 /////////////////////////////////////////////////////////////////////////
 
 export const load: PageServerLoad = async (event: RequestEvent) => {
 	const sessionId = event.cookies.get('sessionId');
-	console.log('sessionId', sessionId);
 
 	try {
 		const newsfeedId = event.params.id;
@@ -19,7 +18,6 @@ export const load: PageServerLoad = async (event: RequestEvent) => {
 			throw error(response.HttpCode, response.Message);
 		}
 		const newsfeed = response.Data.Rssfeed;
-
 		const id = response.Data.Rssfeed.id;
 		return {
 			location: `${id}/edit`,
@@ -47,7 +45,7 @@ export const actions = {
 		//const tags = data.has('tags') ? data.get('tags') : null;
 		const sessionId = event.cookies.get('sessionId');
 		const newsfeedId = event.params.id;
-	
+
 		const response = await updateNewsfeed(
 			sessionId,
 			newsfeedId,
@@ -56,7 +54,7 @@ export const actions = {
 			link.valueOf() as string,
 			language.valueOf() as string,
 			copyright.valueOf() as string,
-			favicon.valueOf() as string,
+			favicon.valueOf() as string
 			// image.valueOf() as File,
 			//tags.valueOf() as string[],
 		);

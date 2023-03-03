@@ -16,7 +16,6 @@ export const createCourse = async (
 		Description: description,
 		Image: image
 	};
-
 	const url = BACKEND_API_URL + '/educational/courses';
 	return await post_(sessionId, url, body, true);
 };

@@ -1,9 +1,9 @@
 import type { PersonRole } from '$lib/types/domain.models';
 import { CookieUtils } from '$lib/utils/cookie.utils';
-import type { PageServerLoad } from './$types';
 import { error, type RequestEvent } from '@sveltejs/kit';
 import { errorMessage, successMessage } from '$lib/utils/message.utils';
 import { redirect } from 'sveltekit-flash-message/server';
+import type { PageServerLoad } from './$types';
 import { SessionManager } from './api/session.manager';
 import { login } from './api/services/user';
 import { getUserRoles } from './api/services/types';
@@ -13,7 +13,6 @@ import { getUserRoles } from './api/services/types';
 export const load: PageServerLoad = async (event: RequestEvent) => {
 	try {
 		const roles: PersonRole[] = await getUserRoles();
-		console.log('user', roles);
 		return {
 			message: 'Common data successfully retrieved!',
 			roles
@@ -31,6 +30,7 @@ export const actions = {
 		const request = event.request;
 		const data = await request.formData(); // or .json(), or .text(), etc
 		console.log(Object.fromEntries(data));
+
 		const username = data.has('username') ? (data.get('username') as string) : null;
 		const password = data.has('password') ? (data.get('password') as string) : null;
 		const loginRoleId_ = data.has('loginRoleId') ? data.get('loginRoleId') : null;
