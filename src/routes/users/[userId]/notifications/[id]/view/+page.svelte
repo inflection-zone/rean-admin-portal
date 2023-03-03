@@ -1,21 +1,24 @@
 <script lang="ts">
-	import Fa from 'svelte-fa';
-	import { faMultiply, faPen } from '@fortawesome/free-solid-svg-icons';
+	import { page } from '$app/stores';
 	import { onMount } from 'svelte';
+	import Fa from 'svelte-fa';
+	import date from 'date-and-time';
+	import { faMultiply, faPen } from '@fortawesome/free-solid-svg-icons';
+	import type { PageServerData } from './$types';
 	import { show } from '$lib/utils/message.utils';
 	import { LocalStorageUtils } from '$lib/utils/local.storage.utils';
 	import BreadCrumbs from '$lib/components/breadcrumbs/breadcrums.svelte';
-	import { page } from '$app/stores';
-	import type { PageServerData } from './$types';
+	import Image from '$lib/components/image.svelte';
 
 	export let data: PageServerData;
 	let id = data.notification.id;
 	let title = data.notification.Title;
 	let Body = data.notification.Body;
 	let type = data.notification.Type;
-	let sentOn = data.notification.SentOn;
-	let image = data.notification.Image;
-
+	let sentOn = new Date(data.notification.SentOn);
+	let imageUrl = data.notification.ImageUrl;
+	console.log('imageUrl', imageUrl);
+	
 	onMount(() => {
 		show(data);
 		LocalStorageUtils.removeItem('prevUrl');
@@ -93,7 +96,7 @@
 						<span>Sent On</span>
 					</label>
 				</div>
-				<span class="span w-1/2 md:2/3 lg:2/3" id="sentOn"> {sentOn} </span>
+				<span class="span w-1/2 md:2/3 lg:2/3" id="sentOn">{date.format(sentOn, 'DD MMM YYYY')}</span>
 			</div>
 			<div class="flex items-center my-4 lg:mx-16 md:mx-12 mx-10">
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
@@ -102,7 +105,12 @@
 						<span>Image</span>
 					</label>
 				</div>
-				<span class="span w-1/2 md:w-2/3 lg:w-2/3"> {image} </span>
+				{#if imageUrl === 'undefined'}
+					<span class="span">Image</span>
+					<!-- <img class="flex h-24 w-24 rounded-full" src={avatarSource} alt="d" /> -->
+				{:else}
+					<Image cls="flex h-24 w-24 rounded-full" source={imageUrl} w="24" h="24" />
+				{/if}
 			</div>
 
 			<div class="flex items-center mt-7 lg:mx-16 md:mx-12 mr-10">
