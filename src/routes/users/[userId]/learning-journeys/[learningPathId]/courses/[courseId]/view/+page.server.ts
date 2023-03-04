@@ -1,7 +1,6 @@
-import * as cookie from 'cookie';
-import { error, redirect, type RequestEvent } from '@sveltejs/kit';
-import type { PageServerLoad, Action } from './$types';
-import { getModuleById } from '../../../../../../api/services/modules';
+import type { PageServerLoad } from './$types';
+import { error,type RequestEvent } from '@sveltejs/kit';
+import { getCourseById } from '../../../../../../../api/services/courses';
 
 ////////////////////////////////////////////////////////////////////////////
 
@@ -9,20 +8,20 @@ export const load: PageServerLoad = async (event: RequestEvent) => {
 	const sessionId = event.cookies.get('sessionId');
 
 	try {
-		const moduleId = event.params.id;
-		const response = await getModuleById(sessionId, moduleId);
+		const courseId = event.params.id;
+		const response = await getCourseById(sessionId, courseId);
 
 		if (response.Status === 'failure' || response.HttpCode !== 200) {
 			throw error(response.HttpCode, response.Message);
 		}
-		const module = response.Data;
+		const course = response.Data;
 		const id = response.Data.id;
 		return {
 			location: `${id}/edit`,
-			module,
+			course,
 			message: response.Message
 		};
 	} catch (error) {
-		console.error(`Error retriving module: ${error.message}`);
+		console.error(`Error retriving course: ${error.message}`);
 	}
 };

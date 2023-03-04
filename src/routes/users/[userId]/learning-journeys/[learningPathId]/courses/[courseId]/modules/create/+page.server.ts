@@ -1,33 +1,12 @@
-import * as cookie from 'cookie';
-import { error, type RequestEvent } from '@sveltejs/kit';
 import { redirect } from 'sveltekit-flash-message/server';
+import type { RequestEvent } from '@sveltejs/kit';
 import { errorMessage, successMessage } from '$lib/utils/message.utils';
-import type { PageServerLoad, Action } from './$types';
-import { getModuleById, updateModule } from '../../../../../../api/services/modules';
+import { createModule } from '../../../../../../../../api/services/modules';
 
 /////////////////////////////////////////////////////////////////////////
 
-export const load: PageServerLoad = async (event: RequestEvent) => {
-	const sessionId = event.cookies.get('sessionId');
-
-	try {
-		const moduleId = event.params.id;
-		const response = await getModuleById(sessionId, moduleId);
-
-		if (response.Status === 'failure' || response.HttpCode !== 200) {
-			throw error(response.HttpCode, response.Message);
-		}
-		const module = response.Data;
-		return {
-			module
-		};
-	} catch (error) {
-		console.error(`Error retriving module: ${error.message}`);
-	}
-};
-
 export const actions = {
-	updateModuleAction: async (event: RequestEvent) => {
+	createModuleAction: async (event: RequestEvent) => {
 		const request = event.request;
 		const userId = event.params.userId;
 		const data = await request.formData();
@@ -39,11 +18,9 @@ export const actions = {
 		const contentType = data.has('contentType') ? data.get('contentType') : null;
 		const resourceLink = data.has('resourceLink') ? data.get('resourceLink') : null;
 		const sessionId = event.cookies.get('sessionId');
-		const moduleId = event.params.id;
 
-		const response = await updateModule(
+		const response = await createModule(
 			sessionId,
-			moduleId,
 			title.valueOf() as string,
 			description.valueOf() as string,
 			learningJourney.valueOf() as string,
@@ -53,13 +30,13 @@ export const actions = {
 		);
 		const id = response.Data.id;
 
-		if (response.Status === 'failure' || response.HttpCode !== 200) {
+		if (response.Status === 'failure' || response.HttpCode !== 201) {
 			throw redirect(303, '/learning-journeys/modules', errorMessage(response.Message), event);
 		}
 		throw redirect(
 			303,
 			`/users/${userId}/learning-journeys/modules/${id}/view`,
-			successMessage(`module updated successful!`),
+			successMessage(`module created successful!`),
 			event
 		);
 	}

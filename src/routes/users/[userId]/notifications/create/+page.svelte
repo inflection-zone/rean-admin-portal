@@ -9,9 +9,6 @@
 	const userId = $page.params.userId;
 	let imageUrl = undefined;
 	let fileinput;
-	let avatarSource;
-	let files;
-	$: avatarSource;
 
 	const createRoute = `/users/${userId}/notifications/create`;
 	const notificationRoute = `/users/${userId}/notifications`;
@@ -158,6 +155,7 @@
 						>Upload</button
 					> -->
 					<input type="hidden" name="imageUrl" value={imageUrl} />
+				
 				</div>
 			</div>
 			<div class="flex items-center mt-7 lg:mx-16 md:mx-12 mr-10">

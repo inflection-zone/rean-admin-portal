@@ -1,19 +1,23 @@
 <script lang="ts">
+	import { page } from '$app/stores';
+	import type { PageServerData } from './$types';
 	import Fa from 'svelte-fa';
 	import { faMultiply, faPen } from '@fortawesome/free-solid-svg-icons';
 	import { onMount } from 'svelte';
 	import { show } from '$lib/utils/message.utils';
 	import { LocalStorageUtils } from '$lib/utils/local.storage.utils';
-	import BreadCrumbs from '$lib/components/breadcrumbs/breadcrums.svelte';
-	import { page } from '$app/stores';
-	import type { PageServerData } from './$types';
-
+	import BreadCrumbs from '$lib/components/breadcrumbs/breadcrums.svelte'
+	import Image from '$lib/components/image.svelte';
+	
+  ///////////////////////////////////////////////////////////////////////////////////////////////////////////
+	
 	export let data: PageServerData;
+	const learningPathId = $page.params.learningPathId
 	let id = data.learningJourney.id;
-	let name = data.learningJourney.name;
-	let preferenceWeight = data.learningJourney.preferenceWeight;
-	let description = data.learningJourney.description;
-	let image = data.learningJourney.image;
+	let name = data.learningJourney.Name;
+	let preferenceWeight = data.learningJourney.PreferenceWeight;
+	let description = data.learningJourney.Description;
+	let imageUrl = data.learningJourney.ImageUrl;
 
 	onMount(() => {
 		show(data);
@@ -21,8 +25,8 @@
 	});
 
 	const userId = $page.params.userId;
-	const editRoute = `/users/${userId}/learning-journeys/${id}/edit`;
-	const viewRoute = `/users/${userId}/learning-journeys/${id}/view`;
+	const editRoute = `/users/${userId}/learning-journeys/${learningPathId}/edit`;
+	const viewRoute = `/users/${userId}/learning-journeys/${learningPathId}/view`;
 	const learningJourneyRoute = `/users/${userId}/learning-journeys`;
 
 	const breadCrumbs = [
@@ -82,7 +86,7 @@
 						<span>Description</span>
 					</label>
 				</div>
-				<span class="span w-1/2 md:2/3 lg:2/3" id="description"> {description} </span>
+				<span class="span w-1/2 md:2/3 lg:2/3" id="description">{description}</span>
 			</div>
 
 			<div class="flex items-center my-4 lg:mx-16 md:mx-12 mx-10">
@@ -92,7 +96,13 @@
 						<span>Image</span>
 					</label>
 				</div>
-				<span class="span w-1/2 md:w-2/3 lg:w-2/3"> {image} </span>
+				<!-- <span class="span w-1/2 md:w-2/3 lg:w-2/3">{image}</span> -->
+				{#if imageUrl === 'undefined'}
+					<span class="span">Image</span>
+					<!-- <img class="flex h-24 w-24 rounded-full" src={avatarSource} alt="d" /> -->
+				{:else}
+					<Image cls="flex h-24 w-24 rounded-md" source={imageUrl} w="24" h="24" />
+				{/if}
 			</div>
 
 			<div class="flex items-center my-4 lg:mx-16 md:mx-12 mx-10">
@@ -102,11 +112,11 @@
 						<span>Course</span>
 					</label>
 				</div>
-				<ol class="span w-1/2 md:w-2/3 lg:w-2/3 list-decimal ml-6" id="course">
+				<!-- <ol class="span w-1/2 md:w-2/3 lg:w-2/3 list-decimal ml-6" id="course">
 					<li>course 1</li>
 					<li>course 2</li>
 					<li>course 3</li>
-				</ol>
+				</ol> -->
 			</div>
 			<div class="flex items-center mt-7 lg:mx-16 md:mx-12 mr-10">
 				<div class="lg:w-5/6 w-2/3 " />

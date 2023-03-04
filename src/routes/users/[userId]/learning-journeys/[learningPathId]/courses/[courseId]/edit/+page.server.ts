@@ -1,9 +1,8 @@
-import * as cookie from 'cookie';
 import { error, type RequestEvent } from '@sveltejs/kit';
 import { redirect } from 'sveltekit-flash-message/server';
 import { errorMessage, successMessage } from '$lib/utils/message.utils';
-import type { PageServerLoad, Action } from './$types';
-import { getCourseById, updateCourse } from '../../../../../../api/services/courses';
+import type { PageServerLoad } from './$types';
+import { getCourseById, updateCourse } from '../../../../../../../api/services/courses';
 
 /////////////////////////////////////////////////////////////////////////
 

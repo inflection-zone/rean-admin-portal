@@ -15,8 +15,8 @@
 	let type = data.notification.Type;
 	let sentOn = new Date(data.notification.SentOn);
 	let imageUrl = data.notification.ImageUrl;
-	let fileinput;
 	$: avatarSource = imageUrl;
+
 	//Original data
 	let _title = title;
 	let _body = Body;
@@ -29,7 +29,7 @@
 		Body = _body;
 		type = _type;
 		sentOn = _sentOn;
-		imageUrl =_imageUrl
+		imageUrl = _imageUrl;
 	}
 
 	const userId = $page.params.userId;
@@ -49,48 +49,45 @@
 	];
 
 	const upload = async (imgBase64, filename) => {
-		const data = {}
+		const data = {};
 		//console.log(imgBase64);
-        const imgData = imgBase64.split(',');
-        data["image"] = imgData[1];
-        //console.log(JSON.stringify(data));
-        const res = await fetch(`/api/server/file-resources/upload`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                Accept: 'application/json',
-				filename: filename,
-            },
-            body: JSON.stringify(data)
-        });
+		const imgData = imgBase64.split(',');
+		data['image'] = imgData[1];
+		//console.log(JSON.stringify(data));
+		const res = await fetch(`/api/server/file-resources/upload`, {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json',
+				Accept: 'application/json',
+				filename: filename
+			},
+			body: JSON.stringify(data)
+		});
 		console.log(Date.now().toString());
 		const response = await res.json();
 		if (response.Status === 'success' && response.HttpCode === 201) {
 			// const imageResourceId = response.Data.FileResources[0].id;
 			const imageUrl_ = response.Data.FileResources[0].Url;
-					console.log ('imageUrl_', imageUrl_);
+			console.log('imageUrl_', imageUrl_);
 			if (imageUrl_) {
-			imageUrl = imageUrl_;
+				imageUrl = imageUrl_;
 			}
 			console.log(imageUrl);
-
-		}
-		else {
+		} else {
 			showMessage(response.Message, 'error');
 		}
 	};
 
-    const onFileSelected = async (e) => {
-        let f = e.target.files[0];
-        const filename = f.name;
-        let reader = new FileReader();
-        reader.readAsDataURL(f);
-        reader.onload = async (e) => {
-            avatarSource = e.target.result;
+	const onFileSelected = async (e) => {
+		let f = e.target.files[0];
+		const filename = f.name;
+		let reader = new FileReader();
+		reader.readAsDataURL(f);
+		reader.onload = async (e) => {
+			avatarSource = e.target.result;
 			await upload(e.target.result, filename);
-        };
-    }
-
+		};
+	};
 </script>
 
 <main class="h-screen mb-10">
@@ -176,7 +173,9 @@
 						<span>Sent On</span>
 					</label>
 				</div>
-				<span class="span w-1/2 md:2/3 lg:2/3" id="sentOn">{date.format(sentOn, 'DD MMM YYYY')}</span>
+				<span class="span w-1/2 md:2/3 lg:2/3" id="sentOn"
+					>{date.format(sentOn, 'DD MMM YYYY')}</span
+				>
 			</div>
 
 			<div class="flex items-center my-2 lg:mx-16 md:mx-12 mx-10">
@@ -187,11 +186,23 @@
 					</label>
 				</div>
 				<div class="flex flex-row gap-8 w-1/2 md:w-2/3 lg:w-2/3 ">
-					{#if imageUrl === "undefined"}
-					<input name="fileinput" type="file" class="true input w-full" placeholder="Image" on:change={async (e) => await onFileSelected(e)} />
+					{#if imageUrl === 'undefined'}
+						<input
+							name="fileinput"
+							type="file"
+							class="true input w-full"
+							placeholder="Image"
+							on:change={async (e) => await onFileSelected(e)}
+						/>
 					{:else}
-					<Image cls="flex h-24 w-24 rounded-full" source={imageUrl} w="24" h="24" />
-					<input name="fileinput" type="file" class="true input w-full" placeholder="Image" on:change={async (e) => await onFileSelected(e)}/>
+						<Image cls="flex h-24 w-24 rounded-full" source={imageUrl} w="24" h="24" />
+						<input
+							name="fileinput"
+							type="file"
+							class="true input w-full"
+							placeholder="Image"
+							on:change={async (e) => await onFileSelected(e)}
+						/>
 					{/if}
 					<input type="hidden" name="imageUrl" value={imageUrl} />
 					<!-- <button

@@ -1,4 +1,3 @@
-import * as cookie from 'cookie';
 import { error, type RequestEvent } from '@sveltejs/kit';
 import { redirect } from 'sveltekit-flash-message/server';
 import { errorMessage, successMessage } from '$lib/utils/message.utils';
@@ -14,13 +13,13 @@ export const load: PageServerLoad = async (event: RequestEvent) => {
 	const sessionId = event.cookies.get('sessionId');
 
 	try {
-		const learningJourneyId = event.params.id;
+		const learningJourneyId = event.params.learningPathId;
 		const response = await getLearningJourneyById(sessionId, learningJourneyId);
 
 		if (response.Status === 'failure' || response.HttpCode !== 200) {
 			throw error(response.HttpCode, response.Message);
 		}
-		const learningJourney = response.Data;
+		const learningJourney = response.Data.LearningPath;
 		return {
 			learningJourney
 		};
@@ -38,9 +37,9 @@ export const actions = {
 		const name = data.has('name') ? data.get('name') : null;
 		const preferenceWeight = data.has('preferenceWeight') ? data.get('preferenceWeight') : null;
 		const description = data.has('description') ? data.get('description') : null;
-		const image = data.has('image') ? data.get('image') : null;
+		const imageUrl = data.has('imageUrl') ? data.get('imageUrl') : null;
 		const sessionId = event.cookies.get('sessionId');
-		const learningJourneyId = event.params.id;
+		const learningJourneyId = event.params.learningPathId;
 
 		const response = await updateLearningJourney(
 			sessionId,
@@ -48,16 +47,16 @@ export const actions = {
 			name.valueOf() as string,
 			preferenceWeight.valueOf() as number,
 			description.valueOf() as string,
-			image.valueOf() as File
+			imageUrl.valueOf() as File
 		);
-		const id = response.Data.id;
+		const learningPathId = response.Data.LearningPath.id;
 
 		if (response.Status === 'failure' || response.HttpCode !== 200) {
 			throw redirect(303, '/learning-journeys', errorMessage(response.Message), event);
 		}
 		throw redirect(
 			303,
-			`/users/${userId}/learning-journeys/${id}/view`,
+			`/users/${userId}/learning-journeys/${learningPathId}/view`,
 			successMessage(`learning journey updated successful!`),
 			event
 		);

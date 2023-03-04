@@ -1,34 +1,38 @@
 <script lang="ts">
+	import { page } from '$app/stores';
+	import type { PageServerData } from './$types';
 	import Fa from 'svelte-fa';
 	import { faMultiply } from '@fortawesome/free-solid-svg-icons';
 	import BreadCrumbs from '$lib/components/breadcrumbs/breadcrums.svelte';
-	import { page } from '$app/stores';
-	import type { PageServerData } from './$types';
+	import Image from '$lib/components/image.svelte';
+	import { showMessage } from '$lib/utils/message.utils';
+
+	///////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 	export let data: PageServerData;
-	let initiaData = {};
 	let id = data.learningJourney.id;
-	let name = data.learningJourney.name;
-	let preferenceWeight = data.learningJourney.preferenceWeight;
-	let description = data.learningJourney.description;
-	let image = data.learningJourney.image;
-
+	let name = data.learningJourney.Name;
+	let preferenceWeight = data.learningJourney.PreferenceWeight;
+	let description = data.learningJourney.Description;
+	let imageUrl = data.learningJourney.ImageUrl;
+	$: avatarSource = imageUrl;
 	//Original data
 	let _name = name;
 	let _preferenceWeight = preferenceWeight;
 	let _description = description;
-	let _image = image;
+	let _imageUrl = imageUrl;
 
 	function handleReset() {
 		name = _name;
 		preferenceWeight = _preferenceWeight;
 		description = _description;
-		image = _image;
+		imageUrl = _imageUrl;
 	}
 
 	const userId = $page.params.userId;
-	const editRoute = `/users/${userId}/learning-journeys/${id}/edit`;
-	const viewRoute = `/users/${userId}/learning-journeys/${id}/view`;
+	const learningPathId = $page.params.learningPathId;
+	const editRoute = `/users/${userId}/learning-journeys/${learningPathId}/edit`;
+	const viewRoute = `/users/${userId}/learning-journeys/${learningPathId}/view`;
 	const learningJourneyRoute = `/users/${userId}/learning-journeys`;
 
 	const breadCrumbs = [
@@ -41,6 +45,47 @@
 			path: editRoute
 		}
 	];
+
+	const upload = async (imgBase64, filename) => {
+		const data = {};
+		//console.log(imgBase64);
+		const imgData = imgBase64.split(',');
+		data['image'] = imgData[1];
+		//console.log(JSON.stringify(data));
+		const res = await fetch(`/api/server/file-resources/upload`, {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json',
+				Accept: 'application/json',
+				filename: filename
+			},
+			body: JSON.stringify(data)
+		});
+		console.log(Date.now().toString());
+		const response = await res.json();
+		if (response.Status === 'success' && response.HttpCode === 201) {
+			// const imageResourceId = response.Data.FileResources[0].id;
+			const imageUrl_ = response.Data.FileResources[0].Url;
+			console.log('imageUrl_', imageUrl_);
+			if (imageUrl_) {
+				imageUrl = imageUrl_;
+			}
+			console.log(imageUrl);
+		} else {
+			showMessage(response.Message, 'error');
+		}
+	};
+
+	const onFileSelected = async (e) => {
+		let f = e.target.files[0];
+		const filename = f.name;
+		let reader = new FileReader();
+		reader.readAsDataURL(f);
+		reader.onload = async (e) => {
+			avatarSource = e.target.result;
+			await upload(e.target.result, filename);
+		};
+	};
 </script>
 
 <main class="h-screen mb-10">
@@ -121,17 +166,27 @@
 					</label>
 				</div>
 				<div class="flex flex-row gap-8 w-1/2 md:w-2/3 lg:w-2/3 ">
-					<input
-						name="image"
-						type="file"
-						id="fileUpload"
-						class="input w-full"
-						placeholder="Image"
-					/>
-					<button
-						class="capitalize btn variant-filled-primary lg:w-[19%] md:w-[22%] md:text-[13px] sm:w-[30%] sm:text-[12px] min-[320px]:w-[40%] min-[320px]:text-[10px]"
-						>Upload</button
-					>
+					<div class="flex flex-row gap-8 w-1/2 md:w-2/3 lg:w-2/3 ">
+						{#if imageUrl === 'undefined'}
+							<input
+								name="fileinput"
+								type="file"
+								class="true input w-full"
+								placeholder="Image"
+								on:change={async (e) => await onFileSelected(e)}
+							/>
+						{:else}
+							<Image cls="flex h-24 w-24 rounded-full" source={imageUrl} w="24" h="24" />
+							<input
+								name="fileinput"
+								type="file"
+								class="true input w-full"
+								placeholder="Image"
+								on:change={async (e) => await onFileSelected(e)}
+							/>
+						{/if}
+						<input type="hidden" name="imageUrl" value={imageUrl} />
+					</div>
 				</div>
 			</div>
 

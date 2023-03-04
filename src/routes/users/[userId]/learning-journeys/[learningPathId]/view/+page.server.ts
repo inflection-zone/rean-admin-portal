@@ -1,6 +1,5 @@
-import * as cookie from 'cookie';
-import { error, redirect, type RequestEvent } from '@sveltejs/kit';
-import type { PageServerLoad, Action } from './$types';
+import { error, type RequestEvent } from '@sveltejs/kit';
+import type { PageServerLoad } from './$types';
 import { getLearningJourneyById } from '../../../../../api/services/learning-journeys';
 
 ////////////////////////////////////////////////////////////////////////////
@@ -9,14 +8,15 @@ export const load: PageServerLoad = async (event: RequestEvent) => {
 	const sessionId = event.cookies.get('sessionId');
 
 	try {
-		const learningJourneyId = event.params.id;
-		const response = await getLearningJourneyById(sessionId, learningJourneyId);
+		const learningPathId = event.params.learningPathId;
+		const response = await getLearningJourneyById(sessionId, learningPathId);
 
 		if (response.Status === 'failure' || response.HttpCode !== 200) {
 			throw error(response.HttpCode, response.Message);
 		}
-		const learningJourney = response.Data;
-		const id = response.Data.id;
+		const learningJourney = response.Data.LearningPath;
+		console
+		const id = response.Data.LearningPath.id;
 		return {
 			location: `${id}/edit`,
 			learningJourney,

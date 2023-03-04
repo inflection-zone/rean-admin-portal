@@ -5,16 +5,18 @@ import { delete_, get_, post_, put_ } from './common';
 
 export const createCourse = async (
 	sessionId: string,
+	learningPathId: string,
 	name: string,
 	learningJourney: string,
 	description: string,
-	image: File
+	imageUrl: string
 ) => {
 	const body = {
+		LearningPathId: learningPathId,
 		Name: name,
 		LearningJourney: learningJourney,
 		Description: description,
-		Image: image
+		ImageUrl: imageUrl
 	};
 	const url = BACKEND_API_URL + '/educational/courses';
 	return await post_(sessionId, url, body, true);
