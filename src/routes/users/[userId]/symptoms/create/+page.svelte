@@ -87,6 +87,23 @@
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
 					<!-- svelte-ignore a11y-label-has-associated-control -->
 					<label class="label">
+						<span>Tag</span>
+					</label>
+				</div>
+				<div class="w-1/2 md:w-2/3 lg:w-2/3">
+					<InputChip
+						chips="variant-filled-error rounded-2xl"
+						name="tags"
+						placeholder={tagsPlaceholder}
+					/>
+					<input type="hidden" name="tags" class="input" value={JSON.stringify(retrievedTags)} />
+				</div>
+			</div>
+
+			<!-- <div class="flex items-center mb-1 lg:mx-16 md:mx-12 mx-10">
+				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
+					
+					<label class="label">
 						<span>Tags</span>
 					</label>
 				</div>
@@ -98,7 +115,7 @@
 						class="input"
 					/>
 				</div>
-			</div>
+			</div> -->
 
 			<div class="flex items-center mb-4 lg:mx-16 md:mx-12 mx-10">
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
@@ -131,6 +148,25 @@
 						placeholder="Enter image resource id here..."
 						class="input w-full "
 					/>
+				</div>
+			</div>
+
+			<div class="flex items-center mb-4 lg:mx-16 md:mx-12 mx-10">
+				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
+					<!-- svelte-ignore a11y-label-has-associated-control -->
+					<label class="label">
+						<span>Is Present</span>
+					</label>
+				</div>
+				<div class="w-1/2 md:w-2/3 lg:w-2/3">
+					<label class="label cursor-pointer">
+						<input
+							type="checkbox"
+							name="isPresent"
+							value="true"
+							class="checkbox checkbox-primary checkbox-md"
+						/>
+					</label>
 				</div>
 			</div>
 

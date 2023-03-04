@@ -17,8 +17,8 @@ export const actions = {
 		const language = data.has('language') ? data.get('language') : null;
 		const copyright = data.has('copyright') ? data.get('copyright') : null;
 		const favicon = data.has('favicon') ? data.get('favicon') : null;
-		//const image = data.has('image') ? data.get('image') : null;
-		//const tags = data.has('tags') ? data.get('tags') : null;
+		// const image = data.has('image') ? data.get('image') : null;
+		const tags = data.has('tags') ? data.get('tags') : null;
 		const sessionId = event.cookies.get('sessionId');
 
 		const response = await createNewsfeed(
@@ -28,9 +28,9 @@ export const actions = {
 			link.valueOf() as string,
 			language.valueOf() as string,
 			copyright.valueOf() as string,
-			favicon.valueOf() as string
+			favicon.valueOf() as string,
 			// image.valueOf() as File,
-			//tags.valueOf() as string[],
+			tags.valueOf() as string[]
 		);
 		const id = response.Data.Rssfeed.id;
 

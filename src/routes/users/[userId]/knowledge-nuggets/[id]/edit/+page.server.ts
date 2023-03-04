@@ -46,7 +46,7 @@ export const actions = {
 		// const additionalResource = data.has('additionalResource')
 		// 	? data.get('additionalResource')
 		// 	: null;
-		// const temp = data.has('tags') ? data.get('tags') : null;
+		const tags = data.has('tags') ? data.get('tags') : null;
 		// const tags = temp ? JSON.parse(temp?.valueOf() as string) : [];
 		const sessionId = event.cookies.get('sessionId');
 		const knowledgeNuggetsId = event.params.id;
@@ -56,9 +56,9 @@ export const actions = {
 			knowledgeNuggetsId,
 			topicName.valueOf() as string,
 			briefInformation.valueOf() as string,
-			detailedInformation.valueOf() as string
+			detailedInformation.valueOf() as string,
 			//additionalResource.valueOf() as string,
-			//tags
+			tags.valueOf() as string[],
 		);
 		const id = response.Data.KnowledgeNugget.id;
 

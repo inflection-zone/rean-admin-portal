@@ -19,6 +19,8 @@
 	let image = data.newsfeed.Image;
 	let tags = data.newsfeed.Tags;
 
+	console.log('link',link)
+
 	onMount(() => {
 		show(data);
 		LocalStorageUtils.removeItem('prevUrl');

@@ -34,10 +34,10 @@ export const actions = {
 
 		const symptom = data.has('symptom') ? data.get('symptom') : null;
 		const description = data.has('description') ? data.get('description') : null;
-		const temp = data.has('tags') ? data.get('tags') : null;
-		const tags = temp ? JSON.parse(temp?.valueOf() as string) : [];
+		const tags = data.has('tags') ? data.get('tags') : null;
 		const language = data.has('language') ? data.get('language') : null;
-		const imageResourceId = data.has('imageResourceId') ? data.get('imageResourceId') : null;
+		// const imageResourceId = data.has('imageResourceId') ? data.get('imageResourceId') : null;
+		const isPresent = data.has('isPresent') ? data.get('isPresent') : null;	
 		const sessionId = event.cookies.get('sessionId');
 		const symptomId = event.params.id;
 
@@ -46,9 +46,10 @@ export const actions = {
 			symptomId,
 			symptom.valueOf() as string,
 			description.valueOf() as string,
-			tags,
+			tags.valueOf() as string[],
 			language.valueOf() as string,
-			imageResourceId.valueOf() as string
+			// imageResourceId.valueOf() as string,
+			isPresent.valueOf() as boolean
 		);
 		const id = response.Data.id;
 

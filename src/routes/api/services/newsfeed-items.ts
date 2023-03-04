@@ -7,20 +7,20 @@ export const createNewsfeedItem = async (
 	sessionId: string,
 	title: string,
 	description: string,
-	newsfeed: string,
+	newsfeedId: string,
 	type: string,
 	link: string,
 	author: string,
-	date: Date
+	// date: Date
 ) => {
 	const body = {
 		Title: title,
 		Description: description,
-		Newsfeed: newsfeed,
+		NewsfeedId: newsfeedId,
 		Type: type,
 		Link: link,
 		Author: author,
-		Date: date
+		// Date: date
 	};
 	const url = BACKEND_API_URL + '/rss-feeds/feed-items';
 	return await post_(sessionId, url, body, true);
@@ -56,20 +56,20 @@ export const updateNewsfeedItem = async (
 	newsfeedItemId: string,
 	title: string,
 	description: string,
-	newsfeed: string,
+	newsfeedId: string,
 	type: string,
 	link: string,
 	author: string,
-	date: Date
+	// date: Date
 ) => {
 	const body = {
 		Title: title,
 		Description: description,
-		Newsfeed: newsfeed,
+		NewsfeedId: newsfeedId,
 		Type: type,
 		Link: link,
 		Author: author,
-		Date: date
+		// Date: date
 	};
 	const url = BACKEND_API_URL + `/rss-feeds/feed-items${newsfeedItemId}`;
 	return await put_(sessionId, url, body, true);

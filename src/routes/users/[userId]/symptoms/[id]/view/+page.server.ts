@@ -15,7 +15,7 @@ export const load: PageServerLoad = async (event: RequestEvent) => {
 		if (response.Status === 'failure' || response.HttpCode !== 200) {
 			throw error(response.HttpCode, response.Message);
 		}
-		const symptom = response.Data;
+		const symptom = response.Data.Symptom;
 		const id = response.Data.id;
 		return {
 			location: `${id}/edit`,

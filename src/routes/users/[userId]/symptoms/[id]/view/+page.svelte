@@ -16,6 +16,7 @@
 	let tags = tags_.join(', ');
 	let language = data.symptom.language;
 	let imageResourceId = data.symptom.imageResourceId;
+	let isPresent = data.symptom.isPresent;
 
 	onMount(() => {
 		show(data);
@@ -104,6 +105,16 @@
 					</label>
 				</div>
 				<span class="span w-1/2 md:w-2/3 lg:w-2/3"> {imageResourceId} </span>
+			</div>
+
+			<div class="flex items-center my-4 lg:mx-16 md:mx-12 mx-10">
+				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
+					<!-- svelte-ignore a11y-label-has-associated-control -->
+					<label class="label">
+						<span>Is Present</span>
+					</label>
+				</div>
+				<span class="span w-1/2 md:2/3 lg:2/3" id="isPresent"> {isPresent} </span>
 			</div>
 
 			<div class="flex items-center mt-7 lg:mx-16 md:mx-12 mr-10">

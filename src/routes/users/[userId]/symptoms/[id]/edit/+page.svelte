@@ -15,6 +15,8 @@
 	let tags = data.symptom.tags;
 	let language = data.symptom.language;
 	let imageResourceId = data.symptom.imageResourceId;
+	let isPresent = data.symptom.isPresent;
+
 
 	//Original data
 	let _symptom = symptom;
@@ -23,6 +25,7 @@
 	let tagsPlaceholder = 'Enter a tags here...';
 	let _language = language;
 	let _imageResourceId = imageResourceId;
+	let _isPresent = isPresent;
 
 	function handleTags(event) {
 		retrievedTags = event.detail.tags;
@@ -142,6 +145,24 @@
 					</label>
 				</div>
 				<span class="span w-1/2 md:w-2/3 lg:w-2/3"> {imageResourceId} </span>
+			</div>
+
+			<div class="flex items-center mb-4 lg:mx-16 md:mx-12 mx-10">
+				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
+					<!-- svelte-ignore a11y-label-has-associated-control -->
+					<label class="label">
+						<span>Is Present</span>
+					</label>
+				</div>
+				<div class="w-1/2 md:w-2/3 lg:w-2/3">
+					<label class="label cursor-pointer">
+						<input
+							type="checkbox"
+							bind:checked={isPresent}
+							class="checkbox checkbox-primary checkbox-md"
+						/>
+					</label>
+				</div>
 			</div>
 
 			<div class="flex items-center my-8 lg:mx-16 md:mx-12 mx-4 ">

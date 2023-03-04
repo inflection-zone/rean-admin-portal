@@ -9,7 +9,7 @@ export const createLinkage = async (
 	description: string,
 	link: string,
 	daysActive: number,
-	//tags: string[],
+	tags: string[],
 	action: string
 	//image: File
 ) => {
@@ -18,7 +18,7 @@ export const createLinkage = async (
 		Description: description,
 		Link: link,
 		DaysActive: daysActive,
-		//Tags: tags,
+		Tags: tags,
 		Action: action
 		//Image: image
 	};
@@ -58,7 +58,7 @@ export const updateLinkage = async (
 	description: string,
 	link: string,
 	daysActive: number,
-	//tags: string[],
+	tags: string[],
 	action: string
 	//image: File
 ) => {
@@ -67,7 +67,7 @@ export const updateLinkage = async (
 		Description: description,
 		Link: link,
 		DaysActive: daysActive,
-		//Tags: tags,
+		Tags: tags,
 		Action: action
 		//Image: image
 	};

@@ -9,14 +9,16 @@ export const createSymptom = async (
 	description: string,
 	tags: string[],
 	language: string,
-	imageResourceId: string
+	// imageResourceId: string,
+	isPresent: boolean
 ) => {
 	const body = {
 		Symptom: symptom,
 		Description: description,
 		Tags: tags,
 		Language: language,
-		ImageResourceId: imageResourceId
+		// ImageResourceId: imageResourceId,
+		IsPresent: isPresent
 	};
 	const url = BACKEND_API_URL + '/clinical/symptoms';
 	return await post_(sessionId, url, body, true);
@@ -54,14 +56,16 @@ export const updateSymptom = async (
 	description: string,
 	tags: string[],
 	language: string,
-	imageResourceId: string
+	// imageResourceId: string,
+	isPresent: boolean
 ) => {
 	const body = {
 		Symptom: symptom,
 		Description: description,
 		Tags: tags,
 		Language: language,
-		ImageResourceId: imageResourceId
+		// ImageResourceId: imageResourceId,
+		IsPresent: isPresent
 	};
 	const url = BACKEND_API_URL + `/clinical/symptoms/${symptonId}`;
 	return await put_(sessionId, url, body, true);

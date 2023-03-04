@@ -26,7 +26,7 @@
 	<div class="px-5 mb-5 ">
 		<form
 			method="post"
-			action="?/createNewsfeedItemAtion"
+			action="?/createNewsfeedItemAction"
 			class="w-full  bg-[#ECE4FC] lg:mt-10 md:mt-8 sm:mt-6 mb-10 mt-4 lg:max-w-4xl md:max-w-xl sm:max-w-lg  rounded-lg mx-auto"
 		>
 			<div class="w-full  h-14 rounded-t-lg p-3  bg-[#7165E3]">
@@ -80,7 +80,7 @@
 				<div class="w-1/2 md:w-2/3 lg:w-2/3">
 					<input
 						type="text"
-						name="newsfeed"
+						name="newsfeedId"
 						placeholder="Enter newsfeed here..."
 						class="input w-full "
 					/>
@@ -95,7 +95,7 @@
 					</label>
 				</div>
 				<div class="w-1/2 md:w-2/3 lg:w-2/3">
-					<select class="select w-full" placeholder="Select type here...">
+					<select class="select w-full" name="type" placeholder="Select type here...">
 						<option selected>Careplan</option>
 						<option>Auto</option>
 						<option>Dark mode</option>
