@@ -1,27 +1,22 @@
 import * as cookie from 'cookie';
-import type { PageServerLoad, Action } from './$types';
 import { error, redirect, type RequestEvent } from '@sveltejs/kit';
+import type { PageServerLoad, Action } from './$types';
 import { getKnowledgeNuggetById } from '../../../../../api/services/knowledge-nuggets';
 
 ////////////////////////////////////////////////////////////////////////////
 
 export const load: PageServerLoad = async (event: RequestEvent) => {
 	const sessionId = event.cookies.get('sessionId');
-	console.log('sessionId', sessionId);
 
 	try {
 		const knowledgeNuggetsId = event.params.id;
-		//console.log('knowid=====', knowledgeNuggetsId);
 		const response = await getKnowledgeNuggetById(sessionId, knowledgeNuggetsId);
 
 		if (response.Status === 'failure' || response.HttpCode !== 200) {
 			throw error(response.HttpCode, response.Message);
 		}
 		const knowledgeNugget = response.Data.KnowledgeNugget;
-		console.log('knowledge Nuggets====', knowledgeNugget);
-		//const id = response.Data.id;
 		const id = response.Data.KnowledgeNugget.id;
-		//console.log('id====', id);
 		return {
 			location: `${id}/edit`,
 			knowledgeNugget,

@@ -1,20 +1,15 @@
 <script lang="ts">
 	import Fa from 'svelte-fa';
 	import { faMultiply } from '@fortawesome/free-solid-svg-icons';
-	import Tags from '$lib/components/tags.svelte';
 	import BreadCrumbs from '$lib/components/breadcrumbs/breadcrums.svelte';
 	import { page } from '$app/stores';
-	// import { Textarea} from 'flowbite-svelte';
-	import Button from '$lib/components/button/button.svelte';
-	import Input from '$lib/components/input/labeled.input.svelte';
-	import Textarea from '$lib/components/input/labeled.textarea.svelte';
-	// import { Input } from 'postcss';
+	import { InputChip } from '@skeletonlabs/skeleton';
 
 	let retrievedTags = '';
 	let tagsPlaceholder = 'Enter a tags here...';
-	function handleTags(event) {
-		retrievedTags = event.detail.tags;
-	}
+	// function handleTags(event) {
+	// 	retrievedTags = event.detail.tags;
+	// }
 
 	const userId = $page.params.userId;
 	const createRoute = `/users/${userId}/knowledge-nuggets/create`;
@@ -27,8 +22,8 @@
 			home: true
 		},
 		{
-			name: 'Create'
-			// path: createRoute
+			name: 'Create',
+			path: createRoute
 		}
 	];
 </script>
@@ -39,13 +34,13 @@
 	<div class="h-screen mb-10 ">
 		<form
 			method="post"
-			action="?/createKnowledgeNugget"
-			class="w-full  bg-[#ECE4FC] lg:mt-10 md:mt-8 sm:mt-6 mb-10 mt-4 lg:max-w-4xl md:max-w-xl sm:max-w-lg  rounded-lg mx-auto"
+			action="?/createKnowledgeNuggetAction"
+			class="w-full  bg-tertiary-500 lg:mt-10 md:mt-8 sm:mt-6 mb-10 mt-4 lg:max-w-4xl md:max-w-xl sm:max-w-lg  rounded-lg mx-auto"
 		>
-			<div class="w-full  h-14 rounded-t-lg p-3 mb-10 bg-[#7165E3]">
+			<div class="w-full  h-14 rounded-t-lg p-3  bg-[#7165E3]">
 				<div class="ml-3 relative flex flex-row text-white text-xl">
 					Create Knowledge Nugget
-					<a href={knowledgeNuggetsRoute}>
+					<a href="/">
 						<Fa
 							icon={faMultiply}
 							size="lg"
@@ -54,39 +49,93 @@
 					</a>
 				</div>
 			</div>
-			<Input title="Name" type="text" name="topicName" required placeholder="Enter name here..." />
-			<Textarea
-				title="Brief Information"
-				name="briefInformation"
-				placeholder="Enter brief information here..."
-			/>
-			<Textarea
-				title="Detailed Information"
-				name="detailedInformation"
-				placeholder="Enter detailed information here..."
-			/>
-			<Input
-				title="Additional Resource"
-				type="text"
-				name="additionalResource"
-				placeholder="Enter additional resource here..."
-			/>
+			<!-- <div class="hidden">id</div> -->
+			<div class="flex items-center mb-4 mt-10 lg:mx-16 md:mx-12 mx-10">
+				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
+					<!-- svelte-ignore a11y-label-has-associated-control -->
+					<label class="label">
+						<span>Name</span>
+					</label>
+				</div>
+				<div class="w-1/2 md:w-2/3 lg:w-2/3">
+					<input
+						type="text"
+						name="topicName"
+						placeholder="Enter name here..."
+						class="input w-full "
+					/>
+				</div>
+			</div>
 
 			<div class="flex items-center mb-2 lg:mx-16 md:mx-12 mx-10">
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
 					<!-- svelte-ignore a11y-label-has-associated-control -->
-					<label class=" font-semibold"> Tags </label>
+					<label class="label">
+						<span>Brief Information</span>
+					</label>
 				</div>
 				<div class="w-1/2 md:w-2/3 lg:w-2/3">
-					<Tags name="Tags" placeholder={tagsPlaceholder} on:tags={handleTags} />
-					<input type="hidden" name="tags" value={JSON.stringify(retrievedTags)} />
+					<textarea
+						name="briefInformation"
+						required
+						class="textarea textarea-primary w-full"
+						placeholder="Enter brief information here..."
+					/>
+				</div>
+			</div>
+			<div class="flex items-center mb-2 lg:mx-16 md:mx-12 mx-10">
+				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
+					<!-- svelte-ignore a11y-label-has-associated-control -->
+					<label class="label">
+						<span>Detailed Information</span>
+					</label>
+				</div>
+				<div class="w-1/2 md:w-2/3 lg:w-2/3">
+					<textarea
+						name="detailedInformation"
+						required
+						class="textarea w-full"
+						placeholder="Enter detailed information here..."
+					/>
+				</div>
+			</div>
+			<div class="flex items-center mb-2 lg:mx-16 md:mx-12 mx-10">
+				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
+					<!-- svelte-ignore a11y-label-has-associated-control -->
+					<label class="label">
+						<span>Additional Resource</span>
+					</label>
+				</div>
+				<div class="w-1/2 md:w-2/3 lg:w-2/3">
+					<input
+						type="text"
+						name="additionalResource"
+						class="input w-full"
+						placeholder="Enter additional resource here..."
+					/>
+				</div>
+			</div>
+			<div class="flex items-center mb-1 lg:mx-16 md:mx-12 mx-10">
+				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
+					<!-- svelte-ignore a11y-label-has-associated-control -->
+					<label class="label">
+						<span>Tag</span>
+					</label>
+				</div>
+				<div class="w-1/2 md:w-2/3 lg:w-2/3">
+					<InputChip
+						chips="variant-filled-error rounded-2xl"
+						name="tags"
+						placeholder={tagsPlaceholder}
+					/>
+					<input type="hidden" name="tags" class="input" value={JSON.stringify(retrievedTags)} />
 				</div>
 			</div>
 
 			<div class="flex items-center mt-7 lg:mx-16 md:mx-12 mr-10">
 				<div class="w-3/4" />
 				<div class="w-1/4 ">
-					<Button type = "submit" title="Submit" />
+					<button type="submit" class="btn variant-filled-primary w-full mb-10 "> Submit </button>
 				</div>
 			</div>
 		</form>

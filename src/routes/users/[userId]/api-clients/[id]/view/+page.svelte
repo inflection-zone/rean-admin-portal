@@ -1,10 +1,10 @@
 <script lang="ts">
 	import Fa from 'svelte-fa';
 	import { faMultiply, faPen } from '@fortawesome/free-solid-svg-icons';
-	import type { PageServerData } from './$types';
 	import { onMount } from 'svelte';
 	import { show } from '$lib/utils/message.utils';
 	import { LocalStorageUtils } from '$lib/utils/local.storage.utils';
+	import type { PageServerData } from './$types';
 
 	export let data: PageServerData;
 	let id = data.apiClient.id;
@@ -12,6 +12,7 @@
 	let password = data.apiClient.password;
 	let phone = data.apiClient.phone;
 	let email = data.apiClient.email;
+
 	onMount(() => {
 		show(data);
 		LocalStorageUtils.removeItem('prevUrl');
@@ -57,39 +58,50 @@
 			<div class="flex items-center mb-4 mt-10 lg:mx-16 md:mx-12 mx-10">
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
 					<!-- svelte-ignore a11y-label-has-associated-control -->
-					<label class="lable-text font-semibold">Client Name</label>
+					<label class="label">
+						<span>Client Name</span>
+					</label>
 				</div>
-				<span class="w-1/2 md:2/3 lg:2/3" id="clientName">{clientName}</span>
+				<span class="span w-1/2 md:2/3 lg:2/3" id="clientName">{clientName}</span>
 			</div>
 			<div class="flex items-center my-4 lg:mx-16 md:mx-12 mx-10">
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
 					<!-- svelte-ignore a11y-label-has-associated-control -->
-					<label class="lable-text font-semibold"> Password </label>
+					<label class="label">
+						<span>Password</span>
+					</label>
 				</div>
-				<span class="w-1/2 md:2/3 lg:2/3" id="password">{password}</span>
+				<span class="span w-1/2 md:2/3 lg:2/3" id="password">{password}</span>
 			</div>
 
 			<div class="flex items-center my-4 lg:mx-16 md:mx-12 mx-10">
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
 					<!-- svelte-ignore a11y-label-has-associated-control -->
-					<label class="lable-text font-semibold"> Phone </label>
+					<label class="label">
+						<span>Phone</span>
+					</label>
 				</div>
-				<span class="w-1/2 md:2/3 lg:2/3" id="phone"> {phone} </span>
+				<span class="span w-1/2 md:2/3 lg:2/3" id="phone"> {phone} </span>
 			</div>
 
 			<div class="flex items-center mb-4 lg:mx-16 md:mx-12 mx-10">
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
 					<!-- svelte-ignore a11y-label-has-associated-control -->
-					<label class="lable-text font-semibold"> Email </label>
+					<label class="label">
+						<span>Email</span>
+					</label>
 				</div>
-				<span class="w-1/2 md:2/3 lg:2/3" id="email"> {email} </span>
+				<span class="span w-1/2 md:2/3 lg:2/3" id="email"> {email} </span>
 			</div>
 
 			<div class="flex items-center mt-7 lg:mx-16 md:mx-12 mr-10">
 				<div class="lg:w-5/6 w-2/3 " />
 				<div class="lg:w-1/6 w-1/3 ">
 					<a href={editRoute}>
-						<button type="submit" class="btn btn-outline lg:w-full w-24 mb-10 lg:mr-4 mr-1">
+						<button
+							type="submit"
+							class="btn variant-ringed-primary lg:w-full w-24 mb-10 lg:mr-4 mr-1"
+						>
 							Edit
 							<Fa icon={faPen} size="lg" class="lg:ml-4 sm:ml-2 ml-1" />
 						</button>

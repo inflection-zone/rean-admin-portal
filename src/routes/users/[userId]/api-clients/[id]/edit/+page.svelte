@@ -1,6 +1,9 @@
 <script lang="ts">
 	import Fa from 'svelte-fa';
 	import { faMultiply } from '@fortawesome/free-solid-svg-icons';
+	import BreadCrumbs from '$lib/components/breadcrumbs/breadcrums.svelte';
+	import { page } from '$app/stores';
+	import type { PageServerData } from './$types';
 
 	export let data: PageServerData;
 	let initiaData = {};
@@ -9,12 +12,6 @@
 	let password = data.apiClient.password;
 	let phone = data.apiClient.phone;
 	let email = data.apiClient.email;
-
-	// let id = '56789';
-	// let clientName = 'abc def';
-	// let password = 'apiclient';
-	// let phone = 1234567890;
-	// let email = 'api@gmail.com';
 
 	//Original data
 	let _clientName = clientName;
@@ -29,9 +26,6 @@
 		email = _email;
 	}
 
-	import BreadCrumbs from '$lib/components/breadcrumbs/breadcrums.svelte';
-	import { page } from '$app/stores';
-	import type { PageServerData } from './$types';
 	const userId = $page.params.userId;
 	const editRoute = `/users/${userId}/api-clients/${id}/edit`;
 	const viewRoute = `/users/${userId}/api-clients/${id}/view`;
@@ -55,7 +49,7 @@
 	<div class=" flex justify-center mt-5 px-3 mb-10 flex-col items-center">
 		<form
 			method="post"
-			action="?/updateApiClient"
+			action="?/updateApiClientAction"
 			class="w-full lg:max-w-4xl md:max-w-xl sm:max-w-lg bg-[#ECE4FC] rounded-lg mx-auto"
 		>
 			<div class="w-full  h-14 rounded-t-lg p-3  bg-[#7165E3]">
@@ -70,7 +64,9 @@
 			<div class="flex items-center mb-4 mt-10 lg:mx-16 md:mx-12 mx-10">
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
 					<!-- svelte-ignore a11y-label-has-associated-control -->
-					<label class="lable-text font-semibold"> Client Name </label>
+					<label class="label">
+						<span>Client Name</span>
+					</label>
 				</div>
 				<div class="w-1/2 md:w-2/3 lg:w-2/3">
 					<input
@@ -78,7 +74,7 @@
 						name="clientName"
 						bind:value={clientName}
 						placeholder="Enter client name here..."
-						class="input input-bordered w-full "
+						class="input w-full "
 					/>
 				</div>
 			</div>
@@ -86,7 +82,9 @@
 			<div class="flex items-center mb-4 lg:mx-16 md:mx-12 mx-10">
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
 					<!-- svelte-ignore a11y-label-has-associated-control -->
-					<label class="lable-text font-semibold"> Password </label>
+					<label class="label">
+						<span>Password</span>
+					</label>
 				</div>
 				<div class="w-1/2 md:w-2/3 lg:w-2/3">
 					<input
@@ -94,7 +92,7 @@
 						name="password"
 						bind:value={password}
 						placeholder="Enter password here..."
-						class="input input-bordered w-full "
+						class="input w-full "
 					/>
 				</div>
 			</div>
@@ -102,7 +100,9 @@
 			<div class="flex items-center mb-4 lg:mx-16 md:mx-12 mx-10">
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
 					<!-- svelte-ignore a11y-label-has-associated-control -->
-					<label class="lable-text font-semibold"> Phone </label>
+					<label class="label">
+						<span>Phone</span>
+					</label>
 				</div>
 				<div class="w-1/2 md:w-2/3 lg:w-2/3">
 					<input
@@ -110,7 +110,7 @@
 						name="phone"
 						bind:value={phone}
 						placeholder="Enter phone here..."
-						class="input input-bordered w-full "
+						class="input w-full "
 					/>
 				</div>
 			</div>
@@ -118,7 +118,9 @@
 			<div class="flex items-center mb-4 lg:mx-16 md:mx-12 mx-10">
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
 					<!-- svelte-ignore a11y-label-has-associated-control -->
-					<label class="lable-text font-semibold"> Email </label>
+					<label class="label">
+						<span>Email</span>
+					</label>
 				</div>
 				<div class="w-1/2 md:w-2/3 lg:w-2/3">
 					<input
@@ -126,18 +128,18 @@
 						name="email"
 						bind:value={email}
 						placeholder="Enter email here..."
-						class="input input-bordered w-full "
+						class="input w-full "
 					/>
 				</div>
 			</div>
 
-			<div class="flex items-center my-10 lg:mx-16 md:mx-12 mx-4 ">
+			<div class="flex items-center my-8 lg:mx-16 md:mx-12 mx-4 ">
 				<div class="lg:w-1/2 md:w-1/2 sm:w-1/2  w-1/3" />
 				<div class="lg:w-1/4 md:w-1/4 sm:w-1/4  w-1/3 ">
 					<button
 						type="button"
 						on:click={handleReset}
-						class="btn btn-outline lg:w-40 lg:ml-8 md:ml-6 sm:ml-1 "
+						class="btn variant-ringed-primary lg:w-40 lg:ml-8 md:ml-6 sm:ml-1 mb-10"
 					>
 						Reset</button
 					>
@@ -145,7 +147,7 @@
 				<div class="lg:w-1/4 md:w-1/4 sm:w-1/4 w-1/3">
 					<button
 						type="submit"
-						class="btn bg-[#5832A1] hover:bg-[#5832A1] lg:w-40 lg:ml-8 md:ml-6 sm:ml-2 "
+						class="btn variant-filled-primary lg:w-40 lg:ml-8 md:ml-6 sm:ml-2 mb-10"
 						>Submit
 					</button>
 				</div>

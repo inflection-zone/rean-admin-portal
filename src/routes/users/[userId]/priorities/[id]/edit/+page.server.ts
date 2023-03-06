@@ -1,26 +1,23 @@
 import * as cookie from 'cookie';
-import type { PageServerLoad, Action } from './$types';
 import { error, type RequestEvent } from '@sveltejs/kit';
 import { redirect } from 'sveltekit-flash-message/server';
 import { errorMessage, successMessage } from '$lib/utils/message.utils';
+import type { PageServerLoad, Action } from './$types';
 import { getPriorityById, updatePriority } from '../../../../../api/services/priorities';
 
 /////////////////////////////////////////////////////////////////////////
 
 export const load: PageServerLoad = async (event: RequestEvent) => {
 	const sessionId = event.cookies.get('sessionId');
-	console.log('sessionId', sessionId);
 
 	try {
 		const priorityId = event.params.id;
-		console.log(priorityId);
 		const response = await getPriorityById(sessionId, priorityId);
 
 		if (response.Status === 'failure' || response.HttpCode !== 200) {
 			throw error(response.HttpCode, response.Message);
 		}
 		const priority = response.Data;
-		console.log('priority', priority);
 		return {
 			priority
 		};
@@ -30,10 +27,11 @@ export const load: PageServerLoad = async (event: RequestEvent) => {
 };
 
 export const actions = {
-	updatePriority: async (event: RequestEvent) => {
+	updatePriorityAction: async (event: RequestEvent) => {
 		const request = event.request;
 		const userId = event.params.userId;
 		const data = await request.formData();
+
 		const patientUserId = data.has('patientUserId') ? data.get('patientUserId') : null;
 		const provider = data.has('provider') ? data.get('provider') : null;
 		const source = data.has('source') ? data.get('source') : null;
@@ -44,11 +42,8 @@ export const actions = {
 			? data.get('healthPriorityType')
 			: null;
 		const isPrimary = data.has('isPrimary') ? data.get('isPrimary') : null;
-
 		const sessionId = event.cookies.get('sessionId');
-		console.log('sessionId', sessionId);
 		const priorityId = event.params.id;
-		console.log('priority id', priorityId);
 
 		const response = await updatePriority(
 			sessionId,

@@ -1,6 +1,5 @@
 <script lang="ts">
 	export let type = '';
-	//  let inputValue = '';
 	export let name = '';
 	export let placeholder = '';
 	export let required = false;
@@ -12,5 +11,5 @@
 	{name}
 	{placeholder}
 	{required}
-	class=" border border-primary focus:outline-none focus:ring-primary rounded-md w-full h-10 pl-3 focus:border-primary focus:ring-opacity-20 border-opacity-20 hover:border-opacity-40"
+	class="input border border-primary focus:outline-none focus:ring-primary rounded-md w-full h-10 pl-3 focus:border-primary focus:ring-opacity-20 border-opacity-20 hover:border-opacity-40"
 />

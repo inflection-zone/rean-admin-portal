@@ -6,19 +6,18 @@ import { createSymptom } from '../../../../api/services/symptoms';
 /////////////////////////////////////////////////////////////////////////
 
 export const actions = {
-	createSymptom: async (event: RequestEvent) => {
+	createSymptomAction: async (event: RequestEvent) => {
 		const request = event.request;
 		const userId = event.params.userId;
 		const data = await request.formData();
+
 		const symptom = data.has('symptom') ? data.get('symptom') : null;
 		const description = data.has('description') ? data.get('description') : null;
 		const temp = data.has('tags') ? data.get('tags') : null;
 		const tags = temp ? JSON.parse(temp?.valueOf() as string) : [];
 		const language = data.has('language') ? data.get('language') : null;
 		const imageResourceId = data.has('imageResourceId') ? data.get('imageResourceId') : null;
-
 		const sessionId = event.cookies.get('sessionId');
-		console.log('sessionId', sessionId);
 
 		const response = await createSymptom(
 			sessionId,
@@ -28,8 +27,8 @@ export const actions = {
 			language.valueOf() as string,
 			imageResourceId.valueOf() as string
 		);
-		const id = response.Data.id;
-		console.log(response);
+		const id = response.Data.Symptom.id;
+
 		if (response.Status === 'failure' || response.HttpCode !== 201) {
 			throw redirect(303, '/symptoms', errorMessage(response.Message), event);
 		}

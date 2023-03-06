@@ -1,8 +1,8 @@
 import * as cookie from 'cookie';
-import type { PageServerLoad, Action } from './$types';
 import { error, type RequestEvent } from '@sveltejs/kit';
 import { redirect } from 'sveltekit-flash-message/server';
 import { errorMessage, successMessage } from '$lib/utils/message.utils';
+import type { PageServerLoad, Action } from './$types';
 import {
 	getKnowledgeNuggetById,
 	updateKnowledgeNugget
@@ -12,21 +12,16 @@ import {
 
 export const load: PageServerLoad = async (event: RequestEvent) => {
 	const sessionId = event.cookies.get('sessionId');
-	console.log('sessionId', sessionId);
 
 	try {
 		const knowledgeNuggetsId = event.params.id;
-		//console.log('knowid=====', knowledgeNuggetsId);
 		const response = await getKnowledgeNuggetById(sessionId, knowledgeNuggetsId);
 
 		if (response.Status === 'failure' || response.HttpCode !== 200) {
 			throw error(response.HttpCode, response.Message);
 		}
 		const KnowledgeNugget = response.Data.KnowledgeNugget;
-		console.log('knowledge Nuggets====', KnowledgeNugget);
-		//const id = response.Data.id;
 		const id = response.Data.KnowledgeNugget.id;
-		//console.log('id====', id);
 		return {
 			location: `${id}/edit`,
 			KnowledgeNugget,
@@ -38,11 +33,11 @@ export const load: PageServerLoad = async (event: RequestEvent) => {
 };
 
 export const actions = {
-	updateKnowledgeNugget: async (event: RequestEvent) => {
+	updateKnowledgeNuggetAction: async (event: RequestEvent) => {
 		const request = event.request;
 		const userId = event.params.userId;
 		const data = await request.formData();
-		console.log('data===', data);
+
 		const topicName = data.has('topicName') ? data.get('topicName') : null;
 		const briefInformation = data.has('briefInformation') ? data.get('briefInformation') : null;
 		const detailedInformation = data.has('detailedInformation')
@@ -51,29 +46,21 @@ export const actions = {
 		// const additionalResource = data.has('additionalResource')
 		// 	? data.get('additionalResource')
 		// 	: null;
-		const temp = data.has('tags') ? data.get('tags') : null;
-		const tags = temp ? JSON.parse(temp?.valueOf() as string) : [];
-
+		// const temp = data.has('tags') ? data.get('tags') : null;
+		// const tags = temp ? JSON.parse(temp?.valueOf() as string) : [];
 		const sessionId = event.cookies.get('sessionId');
-		console.log('sessionId', sessionId);
-
-		console.log('temp', JSON.stringify(temp));
-		console.log('tags', JSON.stringify(tags));
-
 		const knowledgeNuggetsId = event.params.id;
-		console.log('knowledge nuggets id', knowledgeNuggetsId);
 
 		const response = await updateKnowledgeNugget(
 			sessionId,
 			knowledgeNuggetsId,
 			topicName.valueOf() as string,
 			briefInformation.valueOf() as string,
-			detailedInformation.valueOf() as string,
+			detailedInformation.valueOf() as string
 			//additionalResource.valueOf() as string,
-			tags
+			//tags
 		);
-		const id = response.Data.knowledgeNugget.id;
-		console.log('res====', response);
+		const id = response.Data.KnowledgeNugget.id;
 
 		if (response.Status === 'failure' || response.HttpCode !== 200) {
 			throw redirect(303, '/knowledge-nuggets', errorMessage(response.Message), event);

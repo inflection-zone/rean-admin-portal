@@ -1,24 +1,24 @@
 <script lang="ts">
+	import { page } from '$app/stores';
+	import { onMount } from 'svelte';
 	import Fa from 'svelte-fa';
+	import date from 'date-and-time';
 	import { faMultiply, faPen } from '@fortawesome/free-solid-svg-icons';
 	import type { PageServerData } from './$types';
-	import { onMount } from 'svelte';
 	import { show } from '$lib/utils/message.utils';
 	import { LocalStorageUtils } from '$lib/utils/local.storage.utils';
 	import BreadCrumbs from '$lib/components/breadcrumbs/breadcrums.svelte';
-	import { page } from '$app/stores';
+	import Image from '$lib/components/image.svelte';
 
 	export let data: PageServerData;
-	console.log('data-->', data);
 	let id = data.notification.id;
 	let title = data.notification.Title;
 	let Body = data.notification.Body;
 	let type = data.notification.Type;
-	let sentOn = data.notification.SentOn;
-	let image = data.notification.Image;
-
-	//console.log('id===', id);
-
+	let sentOn = new Date(data.notification.SentOn);
+	let imageUrl = data.notification.ImageUrl;
+	console.log('imageUrl', imageUrl);
+	
 	onMount(() => {
 		show(data);
 		LocalStorageUtils.removeItem('prevUrl');
@@ -31,8 +31,9 @@
 
 	const breadCrumbs = [
 		{
-			name: 'Notification',
-			path: notificationRoute
+			name: 'Notifications',
+			path: notificationRoute,
+			home: true
 		},
 		{
 			name: 'View',
@@ -58,50 +59,68 @@
 					</a>
 				</div>
 			</div>
-			<div class="hidden">{id}</div>
+			<!-- <div class="hidden">{id}</div> -->
 			<div class="flex items-center mb-4 mt-10 lg:mx-16 md:mx-12 mx-10">
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
 					<!-- svelte-ignore a11y-label-has-associated-control -->
-					<label class="lable-text font-semibold">Title</label>
+					<label class="label">
+						<span>Title</span>
+					</label>
 				</div>
-				<span class="w-1/2 md:2/3 lg:2/3" id="title">{title}</span>
+				<span class="span w-1/2 md:2/3 lg:2/3" id="title">{title}</span>
 			</div>
 			<div class="flex items-center my-4 lg:mx-16 md:mx-12 mx-10">
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
 					<!-- svelte-ignore a11y-label-has-associated-control -->
-					<label class="lable-text font-semibold"> Body </label>
+					<label class="label">
+						<span>Body</span>
+					</label>
 				</div>
-				<span class="w-1/2 md:2/3 lg:2/3" id="Body">{Body}</span>
+				<span class="span w-1/2 md:2/3 lg:2/3" id="Body">{Body}</span>
 			</div>
 
 			<div class="flex items-center my-4 lg:mx-16 md:mx-12 mx-10">
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
 					<!-- svelte-ignore a11y-label-has-associated-control -->
-					<label class="lable-text font-semibold"> Type </label>
+					<label class="label">
+						<span>Type</span>
+					</label>
 				</div>
-				<span class="w-1/2 md:2/3 lg:2/3" id="type"> {type} </span>
+				<span class="span w-1/2 md:2/3 lg:2/3" id="type"> {type} </span>
 			</div>
 
 			<div class="flex items-center mb-4 lg:mx-16 md:mx-12 mx-10">
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
 					<!-- svelte-ignore a11y-label-has-associated-control -->
-					<label class="lable-text font-semibold"> Sent On </label>
+					<label class="label">
+						<span>Sent On</span>
+					</label>
 				</div>
-				<span class="w-1/2 md:2/3 lg:2/3" id="sentOn"> {sentOn} </span>
+				<span class="span w-1/2 md:2/3 lg:2/3" id="sentOn">{date.format(sentOn, 'DD MMM YYYY')}</span>
 			</div>
 			<div class="flex items-center my-4 lg:mx-16 md:mx-12 mx-10">
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
 					<!-- svelte-ignore a11y-label-has-associated-control -->
-					<label class="lable-text font-semibold" for=""> Image </label>
+					<label class="label">
+						<span>Image</span>
+					</label>
 				</div>
-				<span class="w-1/2 md:w-2/3 lg:w-2/3"> {image} </span>
+				{#if imageUrl === 'undefined'}
+					<span class="span">Image</span>
+					<!-- <img class="flex h-24 w-24 rounded-full" src={avatarSource} alt="d" /> -->
+				{:else}
+					<Image cls="flex h-24 w-24 rounded-full" source={imageUrl} w="24" h="24" />
+				{/if}
 			</div>
 
 			<div class="flex items-center mt-7 lg:mx-16 md:mx-12 mr-10">
 				<div class="lg:w-5/6 w-2/3 " />
 				<div class="lg:w-1/6 w-1/3 ">
 					<a href={editRoute}>
-						<button type="submit" class="btn btn-outline lg:w-full w-24 mb-10 lg:mr-4 mr-1">
+						<button
+							type="submit"
+							class="btn variant-ringed-primary lg:w-full w-24 mb-10 lg:mr-4 mr-1"
+						>
 							Edit
 							<Fa icon={faPen} size="lg" class="lg:ml-4 sm:ml-2 ml-1" />
 						</button>

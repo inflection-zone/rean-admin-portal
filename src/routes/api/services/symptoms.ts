@@ -18,7 +18,6 @@ export const createSymptom = async (
 		Language: language,
 		ImageResourceId: imageResourceId
 	};
-
 	const url = BACKEND_API_URL + '/clinical/symptoms';
 	return await post_(sessionId, url, body, true);
 };
