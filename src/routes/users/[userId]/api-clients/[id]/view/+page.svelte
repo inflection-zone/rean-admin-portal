@@ -8,11 +8,12 @@
 
 	export let data: PageServerData;
 	let id = data.apiClient.id;
-	let clientName = data.apiClient.clientName;
-	let password = data.apiClient.password;
-	let phone = data.apiClient.phone;
-	let email = data.apiClient.email;
+	let clientName = data.apiClient.ClientName;
+	let password = data.apiClient.Password;
+	let phone = data.apiClient.Phone;
+	let email = data.apiClient.Email;
 
+	  
 	onMount(() => {
 		show(data);
 		LocalStorageUtils.removeItem('prevUrl');
