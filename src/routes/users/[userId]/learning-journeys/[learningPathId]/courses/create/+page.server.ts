@@ -1,38 +1,38 @@
 import { redirect } from 'sveltekit-flash-message/server';
 import type { RequestEvent } from '@sveltejs/kit';
 import { errorMessage, successMessage } from '$lib/utils/message.utils';
-import { createLearningJourney } from '../../../../api/services/learning-journeys';
+import { createCourse } from '../../../../../../api/services/courses';
 
 /////////////////////////////////////////////////////////////////////////
 
 export const actions = {
-	createLearningJourneyAction: async (event: RequestEvent) => {
+	createCourseAction: async (event: RequestEvent) => {
 		const request = event.request;
 		const userId = event.params.userId;
+		const learningPathId = event.params.learningPathId
 		const data = await request.formData();
-		console.log("data",data);
+
 		const name = data.has('name') ? data.get('name') : null;
-		const preferenceWeight = data.has('preferenceWeight') ? data.get('preferenceWeight') : null;
 		const description = data.has('description') ? data.get('description') : null;
 		const imageUrl = data.has('imageUrl') ? data.get('imageUrl') : null;
 		const sessionId = event.cookies.get('sessionId');
 
-		const response = await createLearningJourney(
+		const response = await createCourse(
 			sessionId,
+			learningPathId,
 			name.valueOf() as string,
-			preferenceWeight.valueOf() as number,
 			description.valueOf() as string,
 			imageUrl.valueOf() as string
 		);
-		console.log("response",response.Data);
-		const learningPathId = response.Data.LearningPath.id;
+		const courseId = response.Data.Course.id;
+
 		if (response.Status === 'failure' || response.HttpCode !== 201) {
-			throw redirect(303, '/learning-journeys', errorMessage(response.Message), event);
+			throw redirect(303, '/learning-journeys/courses', errorMessage(response.Message), event);
 		}
 		throw redirect(
 			303,
-			`/users/${userId}/learning-journeys/${learningPathId}/view`,
-			successMessage(`learning journey created successful!`),
+			`/users/${userId}/learning-journeys/${learningPathId}/courses/${courseId}/view`,
+			successMessage(`course created successful!`),
 			event
 		);
 	}
