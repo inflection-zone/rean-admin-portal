@@ -12,10 +12,9 @@
 	
 	export let data: PageServerData;
 	let id = data.course.id;
-	let name = data.course.name;
-	let learningJourney = data.course.learningJourney;
-	let description = data.course.description;
-	let image = data.course.image;
+	let name = data.course.Name;
+	let description = data.course.Description;
+	let imageUrl = data.course.imageUrl;
 	let modules = data.course.modules;
 
 	onMount(() => {
@@ -24,9 +23,11 @@
 	});
 
 	const userId = $page.params.userId;
-	const editRoute = `/users/${userId}/learning-journeys/courses/${id}/edit`;
-	const viewRoute = `/users/${userId}/learning-journeys/courses/${id}/view`;
-	const courseRoute = `/users/${userId}/learning-journeys/courses`;
+	const learningPathId = $page.params.learningPathId;
+	const courseId = $page.params.courseId ;
+	const editRoute = `/users/${userId}/learning-journeys/${learningPathId}/courses/${courseId}/edit`;
+	const viewRoute = `/users/${userId}/learning-journeys/${learningPathId}/courses/${courseId}/view`;
+	const courseRoute = `/users/${userId}/learning-journeys/${learningPathId}/courses`;
 
 	const breadCrumbs = [
 		{
@@ -68,15 +69,14 @@
 				<span class="span w-1/2 md:2/3 lg:2/3" id="name">{name}</span>
 			</div>
 
-			<div class="flex items-center my-4 lg:mx-16 md:mx-12 mx-10">
+			<!-- <div class="flex items-center my-4 lg:mx-16 md:mx-12 mx-10">
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
-					<!-- svelte-ignore a11y-label-has-associated-control -->
 					<label class="label">
 						<span>Learning Journey</span>
 					</label>
 				</div>
 				<span class="w-1/2 md:2/3 lg:2/3" id="learningJourney">{learningJourney}</span>
-			</div>
+			</div> -->
 
 			<div class="flex items-center my-4 lg:mx-16 md:mx-12 mx-10">
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
@@ -85,7 +85,7 @@
 						<span>Description</span>
 					</label>
 				</div>
-				<span class="span w-1/2 md:2/3 lg:2/3" id="description"> {description} </span>
+				<span class="span w-1/2 md:2/3 lg:2/3" id="description">{description}</span>
 			</div>
 
 			<div class="flex items-center my-4 lg:mx-16 md:mx-12 mx-10">
@@ -95,7 +95,7 @@
 						<span>Image</span>
 					</label>
 				</div>
-				<span class="span w-1/2 md:w-2/3 lg:w-2/3"> {image} </span>
+				<span class="span w-1/2 md:w-2/3 lg:w-2/3"> {imageUrl} </span>
 			</div>
 
 			<div class="flex items-center my-4 lg:mx-16 md:mx-12 mx-10">

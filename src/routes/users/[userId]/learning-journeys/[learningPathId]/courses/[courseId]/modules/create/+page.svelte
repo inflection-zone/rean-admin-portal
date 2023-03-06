@@ -5,8 +5,11 @@
 	import { page } from '$app/stores';
 
 	const userId = $page.params.userId;
-	const createRoute = `/users/${userId}/learning-journeys/modules/create`;
-	const moduleRoute = `/users/${userId}/learning-journeys/modules`;
+	const learningPathId = $page.params.learningPathId;
+	const courseId = $page.params.courseId;
+
+	const createRoute = `/users/${userId}/learning-journeys/${learningPathId}/courses/${courseId}/modules/create`;
+	const moduleRoute = `/users/${userId}/learning-journeys/${learningPathId}/courses/${courseId}/modules`;
 
 	const breadCrumbs = [
 		{

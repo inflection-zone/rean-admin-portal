@@ -68,6 +68,7 @@
 			await upload(e.target.result, filename);
 		};
 	};
+	
 </script>
 
 <main class="h-screen mb-10">

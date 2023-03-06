@@ -8,14 +8,16 @@ export const load: PageServerLoad = async (event: RequestEvent) => {
 	const sessionId = event.cookies.get('sessionId');
 
 	try {
-		const courseId = event.params.id;
+		const courseId = event.params.courseId;
+		console.log("courseId",courseId)
 		const response = await getCourseById(sessionId, courseId);
 
 		if (response.Status === 'failure' || response.HttpCode !== 200) {
 			throw error(response.HttpCode, response.Message);
 		}
-		const course = response.Data;
-		const id = response.Data.id;
+		console.log("course",response);
+		const course = response.Data.Course;
+		const id = response.Data.Course.id;
 		return {
 			location: `${id}/edit`,
 			course,

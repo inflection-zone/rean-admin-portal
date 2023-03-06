@@ -10,13 +10,13 @@ export const load: PageServerLoad = async (event: RequestEvent) => {
 	const sessionId = event.cookies.get('sessionId');
 
 	try {
-		const courseId = event.params.id;
+		const courseId = event.params.courseId;
 		const response = await getCourseById(sessionId, courseId);
 
 		if (response.Status === 'failure' || response.HttpCode !== 200) {
 			throw error(response.HttpCode, response.Message);
 		}
-		const course = response.Data;
+		const course = response.Data.Course;
 		return {
 			course
 		};
@@ -29,31 +29,33 @@ export const actions = {
 	updateCourseAction: async (event: RequestEvent) => {
 		const request = event.request;
 		const userId = event.params.userId;
+		const learningPathId = event.params.learningPathId;
+		const courseId = event.params.courseId;
+		const sessionId = event.cookies.get('sessionId');
 		const data = await request.formData();
 
 		const name = data.has('name') ? data.get('name') : null;
-		const learningJourney = data.has('learningJourney') ? data.get('learningJourney') : null;
+		// const learningJourney = data.has('learningJourney') ? data.get('learningJourney') : null;
 		const description = data.has('description') ? data.get('description') : null;
-		const image = data.has('image') ? data.get('image') : null;
-		const sessionId = event.cookies.get('sessionId');
-		const courseId = event.params.id;
-
+		const imageUrl = data.has('imageUrl') ? data.get('imageUrl') : null;
+	
 		const response = await updateCourse(
 			sessionId,
+			learningPathId,
 			courseId,
 			name.valueOf() as string,
-			learningJourney.valueOf() as string,
+			// learningJourney.valueOf() as string,
 			description.valueOf() as string,
-			image.valueOf() as File
+			imageUrl.valueOf() as string
 		);
-		const id = response.Data.id;
+		const id = response.Data.Course.id;
 
 		if (response.Status === 'failure' || response.HttpCode !== 200) {
 			throw redirect(303, '/learning-journeys/courses', errorMessage(response.Message), event);
 		}
 		throw redirect(
 			303,
-			`/users/${userId}/learning-journeys/courses/${id}/view`,
+			`/users/${userId}/learning-journeys/${learningPathId}/courses/${id}/view`,
 			successMessage(`course updated successful!`),
 			event
 		);

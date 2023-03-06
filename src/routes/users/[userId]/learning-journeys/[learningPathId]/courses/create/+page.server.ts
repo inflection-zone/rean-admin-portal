@@ -13,7 +13,6 @@ export const actions = {
 		const data = await request.formData();
 
 		const name = data.has('name') ? data.get('name') : null;
-		const learningJourney = data.has('learningJourney') ? data.get('learningJourney') : null;
 		const description = data.has('description') ? data.get('description') : null;
 		const imageUrl = data.has('imageUrl') ? data.get('imageUrl') : null;
 		const sessionId = event.cookies.get('sessionId');
@@ -22,7 +21,6 @@ export const actions = {
 			sessionId,
 			learningPathId,
 			name.valueOf() as string,
-			learningJourney.valueOf() as string,
 			description.valueOf() as string,
 			imageUrl.valueOf() as string
 		);
@@ -33,7 +31,7 @@ export const actions = {
 		}
 		throw redirect(
 			303,
-			`/users/${userId}/learning-journeys/courses/${courseId}/view`,
+			`/users/${userId}/learning-journeys/${learningPathId}/courses/${courseId}/view`,
 			successMessage(`course created successful!`),
 			event
 		);
