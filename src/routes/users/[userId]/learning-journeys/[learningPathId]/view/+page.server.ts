@@ -1,6 +1,6 @@
 import { error, type RequestEvent } from '@sveltejs/kit';
 import type { PageServerLoad } from './$types';
-import { getNotificationById } from '../../../../../api/services/notifications';
+import { getLearningJourneyById } from '../../../../../api/services/learning-journeys';
 
 ////////////////////////////////////////////////////////////////////////////
 
@@ -8,20 +8,21 @@ export const load: PageServerLoad = async (event: RequestEvent) => {
 	const sessionId = event.cookies.get('sessionId');
 
 	try {
-		const notificationId = event.params.id;
-		const response = await getNotificationById(sessionId, notificationId);
+		const learningPathId = event.params.learningPathId;
+		const response = await getLearningJourneyById(sessionId, learningPathId);
 
 		if (response.Status === 'failure' || response.HttpCode !== 200) {
 			throw error(response.HttpCode, response.Message);
 		}
-		const notification = response.Data.Notification;
-		const id = response.Data.Notification.id;
+		const learningJourney = response.Data.LearningPath;
+		console
+		const id = response.Data.LearningPath.id;
 		return {
 			location: `${id}/edit`,
-			notification,
+			learningJourney,
 			message: response.Message
 		};
 	} catch (error) {
-		console.error(`Error retriving notification: ${error.message}`);
+		console.error(`Error retriving learning journey: ${error.message}`);
 	}
 };

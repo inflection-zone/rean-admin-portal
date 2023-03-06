@@ -1,6 +1,6 @@
 import { error, type RequestEvent } from '@sveltejs/kit';
 import type { PageServerLoad } from './$types';
-import { getNotificationById } from '../../../../../api/services/notifications';
+import { getModuleById } from '../../../../../../../../../api/services/modules';
 
 ////////////////////////////////////////////////////////////////////////////
 
@@ -8,20 +8,20 @@ export const load: PageServerLoad = async (event: RequestEvent) => {
 	const sessionId = event.cookies.get('sessionId');
 
 	try {
-		const notificationId = event.params.id;
-		const response = await getNotificationById(sessionId, notificationId);
+		const moduleId = event.params.id;
+		const response = await getModuleById(sessionId, moduleId);
 
 		if (response.Status === 'failure' || response.HttpCode !== 200) {
 			throw error(response.HttpCode, response.Message);
 		}
-		const notification = response.Data.Notification;
-		const id = response.Data.Notification.id;
+		const module = response.Data;
+		const id = response.Data.id;
 		return {
 			location: `${id}/edit`,
-			notification,
+			module,
 			message: response.Message
 		};
 	} catch (error) {
-		console.error(`Error retriving notification: ${error.message}`);
+		console.error(`Error retriving module: ${error.message}`);
 	}
 };

@@ -14,13 +14,16 @@ export const actions = {
 		const title = data.has('title') ? data.get('title') : null;
 		const Body = data.has('Body') ? data.get('Body') : null;
 		const type = data.has('type') ? data.get('type') : null;
+		const imageUrl = data.has('imageUrl') ? data.get('imageUrl') : null
+
 		const sessionId = event.cookies.get('sessionId');
 
 		const response = await createNotification(
 			sessionId,
 			title.valueOf() as string,
 			Body.valueOf() as string,
-			type.valueOf() as string
+			type.valueOf() as string,
+			imageUrl.valueOf() as string
 		);
 		const id = response.Data.Notification.id;
 

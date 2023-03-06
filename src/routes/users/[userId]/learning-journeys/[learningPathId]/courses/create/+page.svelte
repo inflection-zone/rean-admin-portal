@@ -4,20 +4,17 @@
 	import BreadCrumbs from '$lib/components/breadcrumbs/breadcrums.svelte';
 	import { page } from '$app/stores';
 	import { showMessage } from '$lib/utils/message.utils';
-	import Image from '$lib/components/image.svelte';
-  /////////////////////////////////////////////////////////////////////////////////////////////////////////
-	
-	const userId = $page.params.userId;
-	const createRoute = `/users/${userId}/learning-journeys/create`;
-	const learningJourneyRoute = `/users/${userId}/learning-journeys`;
 
+	const userId = $page.params.userId;
+	const learningPathId = $page.params.learningPathId;
+	const createRoute = `/users/${userId}/learning-journeys/${learningPathId}/courses/create`;
+	const courseRoute = `/users/${userId}/learning-journeys/${learningPathId}/courses`;
 	let imageUrl = undefined;
 	let fileinput;
-
 	const breadCrumbs = [
 		{
-			name: 'Learning-Journey',
-			path: learningJourneyRoute
+			name: 'Course',
+			path: courseRoute
 		},
 		{
 			name: 'Create',
@@ -74,16 +71,16 @@
 <main class="h-screen mb-10">
 	<BreadCrumbs crumbs={breadCrumbs} />
 
-	<div class="h-screen mb-10 ">
+	<div class="px-5 mb-5 ">
 		<form
 			method="post"
-			action="?/createLearningJourneyAction"
+			action="?/createCourseAction"
 			class="w-full  bg-[#ECE4FC] lg:mt-10 md:mt-8 sm:mt-6 mb-10 mt-4 lg:max-w-4xl md:max-w-xl sm:max-w-lg  rounded-lg mx-auto"
 		>
 			<div class="w-full  h-14 rounded-t-lg p-3  bg-[#7165E3]">
 				<div class="ml-3 relative flex flex-row text-white text-xl">
-					Create Learning Journey
-					<a href={learningJourneyRoute}>
+					Create Course
+					<a href={courseRoute}>
 						<Fa
 							icon={faMultiply}
 							size="lg"
@@ -104,22 +101,22 @@
 					<input type="text" name="name" placeholder="Enter  name here..." class="input w-full " />
 				</div>
 			</div>
-			<div class="flex items-center my-4 lg:mx-16 md:mx-12 mx-10">
+
+			<!-- <div class="flex items-center my-4 lg:mx-16 md:mx-12 mx-10">
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
-					<!-- svelte-ignore a11y-label-has-associated-control -->
 					<label class="label">
-						<span>Prefrence Weight</span>
+						<span>Name</span>
 					</label>
 				</div>
 				<div class="w-1/2 md:w-2/3 lg:w-2/3">
-					<input
-						type="text"
-						name="preferenceWeight"
-						placeholder="Enter prefrence weight here..."
-						class="input w-full "
-					/>
+					<select class="select w-full" placeholder="Select learning journey here...">
+						<option selected>Careplan</option>
+						<option>Auto</option>
+						<option>Dark mode</option>
+						<option>Light mode</option>
+					</select>
 				</div>
-			</div>
+			</div> -->
 
 			<div class="flex items-center mb-2 lg:mx-16 md:mx-12 mx-10">
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
@@ -137,6 +134,7 @@
 					/>
 				</div>
 			</div>
+
 			<div class="flex items-center my-2 lg:mx-16 md:mx-12 mx-10">
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
 					<!-- svelte-ignore a11y-label-has-associated-control -->
@@ -154,12 +152,6 @@
 						on:change={async (e) => await onFileSelected(e)}
 					/>
 					<input type="hidden" name="imageUrl" value={imageUrl} />
-					<!-- {#if imageUrl === 'undefined'}
-					<span class="span">Image</span>
-				
-				{:else}
-					<Image cls="flex h-24 w-24 rounded-full" source={imageUrl} w="24" h="24" />
-				{/if} -->
 					<!-- <button
 						class="capitalize btn variant-filled-primary lg:w-[19%] md:w-[22%] md:text-[13px] sm:w-[30%] sm:text-[12px] min-[320px]:w-[40%] min-[320px]:text-[10px]"
 						>Upload</button
