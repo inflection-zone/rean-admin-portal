@@ -3,7 +3,7 @@
 	import type { DrawerSettings } from '@skeletonlabs/skeleton';
 	import { AppShell, AppBar } from '@skeletonlabs/skeleton';
 	import Fa from 'svelte-fa';
-	import { faBars, faCircleUser } from '@fortawesome/free-solid-svg-icons';
+	import { faBars, faCircleUser, faMugHot } from '@fortawesome/free-solid-svg-icons';
 	import { navbarMenu, sidebarMenu, type TabDefinition } from './navigation.tabs';
 	import SettingMenu from './setting.menus.svelte';
 	import { afterUpdate, onMount } from 'svelte';
@@ -59,8 +59,8 @@
 		>
 			<svelte:fragment slot="lead">
 				<div class="flex justify-start">
-					<button class="hover:bg-primary-500 mr-4 hover:rounded-md" on:click={drawerLeftOpen}>
-						<Fa icon={faBars} size="lg" />
+					<button class="hover:bg-secondary-500 mr-4 hover:rounded-md" on:click={drawerLeftOpen}>
+						<Fa icon={faBars} size="lg" class=hover:border-none hover:bg-none />
 					</button>
 					<div class="flex-1 justify-start hidden lg:block">
 						<ul class="space-x-4">
@@ -81,7 +81,7 @@
 				<img class="block h-8 w-8 " src="/rean-logo-white.png" alt="REAN" />
 			</div>
 			<svelte:fragment slot="trail">
-				<button class="hover:bg-primary-500 p-2 rounded-md" on:click={drawerRightOpen}>
+				<button class="hover:bg-secondary-500 p-2 rounded-md" on:click={drawerRightOpen}>
 					<Fa icon={faCircleUser} size="lg" />
 				</button>
 			</svelte:fragment>
