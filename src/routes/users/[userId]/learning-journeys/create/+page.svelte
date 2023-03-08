@@ -5,15 +5,19 @@
 	import { page } from '$app/stores';
 	import { showMessage } from '$lib/utils/message.utils';
 	import Image from '$lib/components/image.svelte';
+	import type { PageServerData } from './$types';
+ 
   /////////////////////////////////////////////////////////////////////////////////////////////////////////
 	
+	export let data: PageServerData;
+	const courses = data.courses;
 	const userId = $page.params.userId;
 	const createRoute = `/users/${userId}/learning-journeys/create`;
 	const learningJourneyRoute = `/users/${userId}/learning-journeys`;
 
 	let imageUrl = undefined;
 	let fileinput;
-
+	let value = [];
 	const breadCrumbs = [
 		{
 			name: 'Learning-Journey',
@@ -135,6 +139,27 @@
 						class="textarea w-full"
 						placeholder="Enter description here..."
 					/>
+				</div>
+			</div>
+				<div class="flex items-center my-4  lg:mx-16 md:mx-12 mx-10">
+				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
+					<!-- svelte-ignore a11y-label-has-associated-control -->
+					<label class="label">
+						<span>Courses</span>
+					</label>
+				</div>
+				<div class="w-1/2 md:w-2/3 lg:w-2/3">
+					<select
+					 	name="courses"
+						class="select"
+						multiple
+						placeholder="Select course here..."
+						bind:value
+					>
+					{#each courses as course}
+						<option value={course.id}>{course.Name}</option>
+					{/each}
+					</select>
 				</div>
 			</div>
 			<div class="flex items-center my-2 lg:mx-16 md:mx-12 mx-10">
