@@ -14,9 +14,8 @@
 	let briefInformation = data.knowledgeNugget.BriefInformation;
 	let detailedInformation = data.knowledgeNugget.DetailedInformation;
 	let additionalResource = data.knowledgeNugget.AdditionalResource;
-	let tags = data.knowledgeNugget.Tags;
-	// let tags_ = data.knowledgeNugget.Tags;
-	// let tags = tags_.join(', ');
+	let tags_ = data.knowledgeNugget.Tags;
+	let tags = tags_.join(', ');
 
 	onMount(() => {
 		show(data);
@@ -74,7 +73,7 @@
 						<span>Brief Information</span>
 					</label>
 				</div>
-				<span class="span w-1/2 md:2/3 lg:2/3" id="briefInformation"> {briefInformation} </span>
+				<span class="span w-1/2 md:2/3 lg:2/3" id="briefInformation">{briefInformation}</span>
 			</div>
 			<div class="flex items-center my-4 lg:mx-16 md:mx-12 mx-10">
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
@@ -92,16 +91,16 @@
 						<span>Additional Resource</span>
 					</label>
 				</div>
-				<span class="span w-1/2 md:2/3 lg:2/3" id="additionalResource"> {additionalResource} </span>
+				<span class="span w-1/2 md:2/3 lg:2/3" id="additionalResource">{additionalResource}</span>
 			</div>
 			<div class="flex items-center my-4 lg:mx-16 md:mx-12 mx-10">
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
 					<!-- svelte-ignore a11y-label-has-associated-control -->
 					<label class="label">
-						<span>Tag</span>
+						<span>Tags</span>
 					</label>
 				</div>
-				<span class="span w-1/2 md:2/3 lg:2/3"> {tags} </span>
+				<span class="span w-1/2 md:2/3 lg:2/3">{tags}</span>
 			</div>
 
 			<div class="flex items-center mt-7 lg:mx-16 md:mx-12 mr-10">
