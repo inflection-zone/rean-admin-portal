@@ -5,12 +5,8 @@
 	import { page } from '$app/stores';
 	import { InputChip } from '@skeletonlabs/skeleton';
 
-	let retrievedTags = '';
 	let tagsPlaceholder = 'Enter a tags here...';
-	// function handleTags(event) {
-	// 	retrievedTags = event.detail.tags;
-	// }
-
+	
 	const userId = $page.params.userId;
 	const createRoute = `/users/${userId}/knowledge-nuggets/create`;
 	const knowledgeNuggetsRoute = `/users/${userId}/knowledge-nuggets`;
@@ -119,7 +115,7 @@
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
 					<!-- svelte-ignore a11y-label-has-associated-control -->
 					<label class="label">
-						<span>Tag</span>
+						<span>Tags</span>
 					</label>
 				</div>
 				<div class="w-1/2 md:w-2/3 lg:w-2/3">
@@ -128,7 +124,6 @@
 						name="tags"
 						placeholder={tagsPlaceholder}
 					/>
-					<input type="hidden" name="tags" class="input" value={JSON.stringify(retrievedTags)} />
 				</div>
 			</div>
 

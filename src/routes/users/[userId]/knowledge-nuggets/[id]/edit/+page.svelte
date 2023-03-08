@@ -20,21 +20,19 @@
 	let _briefInformation = briefInformation;
 	let _detailedInformation = detailedInformation;
 	let _additionalResource = additionalResource;
-	let _tags = JSON.stringify(tags);
+	let _tags = tags;
 	let retrievedTags = '';
 	let tagsPlaceholder = 'Enter a tags here...';
 
 	function handleTags(event) {
 		retrievedTags = event.detail.tags;
 	}
-
-	let tagsList = [`${tags}`];
 	function handleReset() {
 		topicName = _topicName;
 		briefInformation = _briefInformation;
 		detailedInformation = _detailedInformation;
 		additionalResource = _additionalResource;
-		tagsList = [`${tags}`];
+		tags = _tags;
 
 	}
 	
@@ -154,12 +152,8 @@
 					<InputChip
 						chips="variant-filled-error rounded-2xl"
 						name="tags"
-						placeholder={tagsPlaceholder}
-						on:tags={handleTags}
-					  bind:value={tagsList} 
+						bind:value= {tags}
 					/>
-					<input type="hidden" name="tags" value={JSON.stringify(tags)} />
-				</div>
 			</div>
 
 			<div class="flex items-center my-8 lg:mx-16 md:mx-12 mx-4 ">

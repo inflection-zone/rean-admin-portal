@@ -1,8 +1,7 @@
-import * as cookie from 'cookie';
 import { error, type RequestEvent } from '@sveltejs/kit';
 import { redirect } from 'sveltekit-flash-message/server';
 import { errorMessage, successMessage } from '$lib/utils/message.utils';
-import type { PageServerLoad, Action } from './$types';
+import type { PageServerLoad } from './$types';
 import {
 	getKnowledgeNuggetById,
 	updateKnowledgeNugget
@@ -21,6 +20,7 @@ export const load: PageServerLoad = async (event: RequestEvent) => {
 			throw error(response.HttpCode, response.Message);
 		}
 		const KnowledgeNugget = response.Data.KnowledgeNugget;
+		console.log(KnowledgeNugget)
 		const id = response.Data.KnowledgeNugget.id;
 		return {
 			location: `${id}/edit`,
@@ -43,11 +43,11 @@ export const actions = {
 		const detailedInformation = data.has('detailedInformation')
 			? data.get('detailedInformation')
 			: null;
-		// const additionalResource = data.has('additionalResource')
-		// 	? data.get('additionalResource')
-		// 	: null;
-		const tags = data.has('tags') ? data.get('tags') : null;
-		// const tags = temp ? JSON.parse(temp?.valueOf() as string) : [];
+		const additionalResource = data.has('additionalResource')
+			? data.get('additionalResource')
+			: null;
+		const tags = data.has('tags') ? data.getAll('tags') : null;
+		console.log("tags",tags);
 		const sessionId = event.cookies.get('sessionId');
 		const knowledgeNuggetsId = event.params.id;
 
@@ -58,7 +58,7 @@ export const actions = {
 			briefInformation.valueOf() as string,
 			detailedInformation.valueOf() as string,
 			//additionalResource.valueOf() as string,
-			tags.valueOf() as string[],
+			tags.valueOf() as string[]
 		);
 		const id = response.Data.KnowledgeNugget.id;
 

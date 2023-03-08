@@ -106,7 +106,7 @@
 					</label>
 				</div>
 				{#if imageUrl === 'undefined'}
-					<span class="span">Image</span>
+					<span class="span">Not specified</span>
 					<!-- <img class="flex h-24 w-24 rounded-full" src={avatarSource} alt="d" /> -->
 				{:else}
 					<Image cls="flex h-24 w-24 rounded-full" source={imageUrl} w="24" h="24" />
