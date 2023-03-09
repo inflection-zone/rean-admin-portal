@@ -42,6 +42,7 @@ export const searchApiClients = async (sessionId: string, searchParams?: any) =>
 		}
 	}
 	const url = BACKEND_API_URL + `/api-clients/search${searchString}`;
+	console.log("searchUrl----->>>>",url);
 	return await get_(sessionId, url, true);
 };
 

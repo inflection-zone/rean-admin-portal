@@ -1,47 +1,106 @@
 <script lang="ts">
 	import { createDataTableStore, dataTableHandler } from '@skeletonlabs/skeleton';
 	import { Paginator } from '@skeletonlabs/skeleton';
+	import Fa from 'svelte-fa';
+
+  import { faPencil, faTrash, faSearch } from '@fortawesome/free-solid-svg-icons';
 	import type { PageServerData } from './$types';
-	import { page } from '$app/stores';
+	
 	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 	export let data: PageServerData;
-	const apiClient = data.apiClients;
-	
+	let apiClient = data.apiClients;
+	apiClient = apiClient.map((item) => ({ ...item}));
 	const dataTableStore = createDataTableStore(
-		// Pass your source data here:
 		apiClient,
 		{
-			// The current search term.
-			search: '',
-			// The current sort key.
-			sort: '',
-			// Paginator component settings.
 			pagination: { offset: 0, limit: 10, size: 0, amounts: [10, 20, 30, 50] }
 		}
 	);
+
+	let clientName = undefined;
+	let clientEmail = undefined;
+	let sortBy = 'CreatedAt';
+  let sortOrder = 'ascending';
+  let itemsPerPage = 10;
+  let pageIndex = 0;
+
+
+	const searchParams = async (clientName: string, clientEmail: string) => {
+    await searchApiClient({
+      clientName: clientName,
+      clientEmail: clientEmail
+    });
+  };
+
+  async function searchApiClient(model) {
+    let url = `/api/server/api-client/search?`;
+    if (sortOrder) {
+      url += `sortOrder=${sortOrder}`;
+    } else {
+      url += `sortOrder=ascending`;
+    }
+    if (sortBy) {
+      url += `&sortBy=${sortBy}`;
+    }
+    if (itemsPerPage) {
+      url += `&itemsPerPage=${itemsPerPage}`;
+    }
+    if (pageIndex) {
+      url += `&pageIndex=${pageIndex}`;
+    }
+    if (clientName) {
+      url += `&clientName=${clientName}`;
+    }
+    if (clientEmail) {
+      url += `&clientEmail=${clientEmail}`;
+    }
+
+    const res = await fetch(url, {
+      method: 'GET',
+      headers: {
+        'content-type': 'application/json'
+      }
+    });
+    const response = await res.json();
+      apiClient = response.map((item) => ({ ...item}));
+		console.log("response=======++++++++",apiClient);
+  }
+
 	dataTableStore.subscribe((model) => dataTableHandler(model));
 	dataTableStore.updateSource(apiClient);
 
-	
+
 </script>
 
 <div class="mx-10 mb-16">
 	<div class="flex flex-row">
+		
 		<input
 			class="input my-3 mr-3"
-			bind:value={$dataTableStore.search}
+			bind:value={clientName}
 			type="search"
+			name=""
 			placeholder="Search..."
 		/>
 
 		<input
-			class="input my-3 ml-3"
-			bind:value={$dataTableStore.search}
+			class="input my-3 ml-3 mr-4"
+			bind:value={clientEmail}
 			type="search"
 			placeholder="Search..."
 		/>
+	
+		<div class="sm:flex flex ml-1">
+			<button
+				on:click={() => searchParams(clientName, clientEmail)}
+				class="btn variant-filled-primary rounded-lg bg-primary h-10 mt-3.5 hover:bg-primary"
+			>
+				<Fa icon={faSearch} color="" class="button-text-color" size="lg" />
+			</button>
+		</div>
 	</div>
+	
 	<div class="flex justify-center flex-col mt-4 overflow-y-auto ">
 		<table class="table rounded-b-none">
 			<thead class="sticky top-0">

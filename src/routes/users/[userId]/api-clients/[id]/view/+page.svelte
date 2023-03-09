@@ -9,9 +9,10 @@
 	export let data: PageServerData;
 	let id = data.apiClient.id;
 	let clientName = data.apiClient.ClientName;
-	let password = data.apiClient.Password;
+	let clientCode = data.apiClient.ClientCode;
 	let phone = data.apiClient.Phone;
 	let email = data.apiClient.Email;
+	
 
 	  
 	onMount(() => {
@@ -69,10 +70,10 @@
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
 					<!-- svelte-ignore a11y-label-has-associated-control -->
 					<label class="label">
-						<span>Password</span>
+						<span>clientCode</span>
 					</label>
 				</div>
-				<span class="span w-1/2 md:2/3 lg:2/3" id="password">{password}</span>
+				<span class="span w-1/2 md:2/3 lg:2/3" id="password">{clientCode}</span>
 			</div>
 
 			<div class="flex items-center my-4 lg:mx-16 md:mx-12 mx-10">
