@@ -10,16 +10,17 @@
 
 	export let data: PageServerData;
 	let id = data.organization.id;
-	let type = data.organization.type;
-	let name = data.organization.name;
-	let contactNumber = data.organization.phone;
-	let email = data.organization.email;
-	let about = data.organization.about;
-	let operationalSince = data.organization.operationalSince;
-	let address = data.organization.address;
-	let imageResource = data.organization.imageResource;
-	let isHealthFacility = data.organization.isHealthFacility;
+	let type = data.organization.Type;
+	let name = data.organization.Name;
+	let contactNumber = data.organization.ContactPhone;
+	let email = data.organization.ContactEmail;
+	let about = data.organization.About;
+	let operationalSince = data.organization.OperationalSince;
+	let address = data.organization.Addresses;
+	let imageResource = data.organization.ImageResourceId;
+	let isHealthFacility = data.organization.IsHealthFacility;
 
+	  console.log("data",data);
 	onMount(() => {
 		show(data);
 		LocalStorageUtils.removeItem('prevUrl');

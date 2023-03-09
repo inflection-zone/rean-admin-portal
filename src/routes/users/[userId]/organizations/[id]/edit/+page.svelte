@@ -5,18 +5,21 @@
 	import { page } from '$app/stores';
 	import type { PageServerData } from './$types';
 
+	  
 	export let data: PageServerData;
-	let initiaData = {};
+	
 	let id = data.organization.id;
-	let type = data.organization.type;
-	let name = data.organization.name;
-	let contactNumber = data.organization.phone;
-	let email = data.organization.email;
-	let about = data.organization.about;
-	let operationalSince = data.organization.operationalSince;
-	let address = data.organization.address;
-	let imageResource = data.organization.imageResource;
-	let isHealthFacility = data.organization.isHealthFacility;
+	 let type = data.organization.Type;
+	 let name = data.organization.Name;
+	 let contactNumber = data.organization.ContactPhone;
+	 let email = data.organization.ContactEmail;
+	 let about = data.organization.About;
+	 let operationalSince = data.organization.OperationalSince;
+	 let address = data.organization.Addresses;
+	// let imageResource = data.organization.Organization.imageResource;
+	 let isHealthFacility = data.organization.IsHealthFacility;
+
+	  console.log("data",data.organization);
 
 	//Original data
 	let _type = type;
@@ -26,7 +29,7 @@
 	let _about = about;
 	let _operationalSince = operationalSince;
 	let _address = address;
-	let _imageResource = imageResource;
+	//let _imageResource = imageResource;
 	let _isHealthFacility = isHealthFacility;
 
 	function handleReset() {
@@ -37,7 +40,7 @@
 		about = _about;
 		operationalSince = _operationalSince;
 		address = _address;
-		imageResource = _imageResource;
+		//imageResource = _imageResource;
 		isHealthFacility = _isHealthFacility;
 	}
 
@@ -84,9 +87,9 @@
 					</label>
 				</div>
 				<div class="w-1/2 md:w-2/3 lg:w-2/3">
-					<select class="select w-full" bind:value={type} placeholder="select type here...">
-						<option value="Careplan">Careplan</option>
-						<option value="Auto">Auto</option>
+					<select class="select w-full" bind:value={type} name="type" placeholder="select type here...">
+						<option selected>Careplan</option>
+						<option >Clinic</option>
 						<option>Dark mode</option>
 						<option>Light mode</option>
 					</select>
@@ -122,7 +125,7 @@
 					<input
 						type="text"
 						name="contactNumber"
-						bind:value={contactNumber}
+					   bind:value={contactNumber}
 						placeholder="Enter contact number here..."
 						class="input w-full "
 					/>
@@ -140,7 +143,7 @@
 					<input
 						type="text"
 						name="email"
-						bind:value={email}
+					  bind:value={email}
 						placeholder="Enter email here..."
 						class="input w-full "
 					/>
@@ -158,7 +161,7 @@
 					<textarea
 						class="textarea w-full"
 						name="about"
-						bind:value={about}
+						 bind:value={about}
 						placeholder="Enter about here..."
 					/>
 				</div>
@@ -175,7 +178,7 @@
 					<input
 						type="date"
 						name="operationalSince"
-						bind:value={operationalSince}
+					  bind:value={operationalSince}
 						placeholder="Enter operational since here..."
 						class="input w-full "
 					/>
@@ -193,7 +196,7 @@
 					<textarea
 						class="textarea w-full"
 						name="address"
-						bind:value={address}
+					  bind:value={address}
 						placeholder="Enter address here..."
 					/>
 				</div>
@@ -210,7 +213,7 @@
 					<input
 						type="text"
 						name="imageResource"
-						bind:value={imageResource}
+					
 						placeholder="Enter image resource here..."
 						class="input w-full "
 					/>
@@ -228,7 +231,7 @@
 					<label class="label cursor-pointer">
 						<input
 							type="checkbox"
-							bind:checked={isHealthFacility}
+							bind:value={isHealthFacility}
 							class="checkbox checkbox-primary checkbox-md"
 						/>
 					</label>

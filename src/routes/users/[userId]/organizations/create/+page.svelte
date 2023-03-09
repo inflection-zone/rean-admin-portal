@@ -1,6 +1,6 @@
 <script lang="ts">
 	import Fa from 'svelte-fa';
-	import { faMultiply } from '@fortawesome/free-solid-svg-icons';
+	import { faListSquares, faMultiply } from '@fortawesome/free-solid-svg-icons';
 	import BreadCrumbs from '$lib/components/breadcrumbs/breadcrums.svelte';
 	import { page } from '$app/stores';
 
@@ -18,6 +18,9 @@
 			path: createRoute
 		}
 	];
+
+
+	
 </script>
 
 <main class="h-screen mb-60">
@@ -52,7 +55,7 @@
 				<div class="w-1/2 md:w-2/3 lg:w-2/3">
 					<select class="select w-full" name="type" placeholder="Select type here...">
 						<option selected>Careplan</option>
-						<option>Auto</option>
+						<option>Clinic</option>
 						<option>Dark mode</option>
 						<option>Light mode</option>
 					</select>
@@ -96,7 +99,7 @@
 					</label>
 				</div>
 				<div class="w-1/2 md:w-2/3 lg:w-2/3">
-					<input type="text" name="email" placeholder="Enter email here..." class="input w-full " />
+					<input type="email" name="contactEmail" placeholder="Enter email here..." class="input w-full " />
 				</div>
 			</div>
 
@@ -171,6 +174,8 @@
 							type="checkbox"
 							name="isHealthFacility"
 							class="checkbox checkbox-primary checkbox-md"
+							value="true"
+              
 						/>
 					</label>
 				</div>
