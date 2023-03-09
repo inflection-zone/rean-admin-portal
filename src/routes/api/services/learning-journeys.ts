@@ -8,20 +8,20 @@ export const createLearningJourney = async (
 	name: string,
 	preferenceWeight: number,
 	description: string,
-	image: File
+	ImageUrl: string
 ) => {
 	const body = {
 		Name: name,
 		PreferenceWeight: preferenceWeight,
 		Description: description,
-		Image: image
+		ImageUrl: ImageUrl
 	};
-	const url = BACKEND_API_URL + '/learning-journeys';
+	const url = BACKEND_API_URL + '/educational/learning-paths';
 	return await post_(sessionId, url, body, true);
 };
 
 export const getLearningJourneyById = async (sessionId: string, learningJourneyId: string) => {
-	const url = BACKEND_API_URL + `/learning-journeys/${learningJourneyId}`;
+	const url = BACKEND_API_URL + `/educational/learning-paths/${learningJourneyId}`;
 	return await get_(sessionId, url, true);
 };
 
@@ -41,7 +41,7 @@ export const searchLearningJourneys = async (sessionId: string, searchParams?: a
 			searchString += params.join('&');
 		}
 	}
-	const url = BACKEND_API_URL + `/learning-journeys/search${searchString}`;
+	const url = BACKEND_API_URL + `/educational/learning-paths/search${searchString}`;
 	return await get_(sessionId, url, true);
 };
 
@@ -51,19 +51,19 @@ export const updateLearningJourney = async (
 	name: string,
 	preferenceWeight: number,
 	description: string,
-	image: File
+	ImageUrl: File
 ) => {
 	const body = {
 		Name: name,
 		PreferenceWeight: preferenceWeight,
 		Description: description,
-		Image: image
+		ImageUrl: ImageUrl
 	};
-	const url = BACKEND_API_URL + `/learning-journeys/${learningJourneyId}`;
+	const url = BACKEND_API_URL + `/educational/learning-paths/${learningJourneyId}`;
 	return await put_(sessionId, url, body, true);
 };
 
 export const deleteLearningJourney = async (sessionId: string, learningJourneyId: string) => {
-	const url = BACKEND_API_URL + `/learning-journeys/${learningJourneyId}`;
+	const url = BACKEND_API_URL + `/educational/learning-paths/${learningJourneyId}`;
 	return await delete_(sessionId, url, true);
 };
