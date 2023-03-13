@@ -10,10 +10,12 @@
 	///////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 	export let data: PageServerData;
+	let allCources = data.courses;
 	let id = data.learningJourney.id;
 	let name = data.learningJourney.Name;
 	let preferenceWeight = data.learningJourney.PreferenceWeight;
 	let description = data.learningJourney.Description;
+	let courses = data.learningJourney.Courses;
 	let imageUrl = data.learningJourney.ImageUrl;
 	$: avatarSource = imageUrl;
 	//Original data
@@ -107,7 +109,7 @@
 			</div>
 
 			<div class="hidden">{id}</div>
-			<div class="flex items-center mb-4 mt-10 lg:mx-16 md:mx-12 mx-10">
+			<div class="flex items-start mb-4 mt-10 lg:mx-16 md:mx-12 mx-10">
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
 					<!-- svelte-ignore a11y-label-has-associated-control -->
 					<label class="label">
@@ -124,7 +126,7 @@
 					/>
 				</div>
 			</div>
-			<div class="flex items-center my-4 lg:mx-16 md:mx-12 mx-10">
+			<div class="flex items-start my-4 lg:mx-16 md:mx-12 mx-10">
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
 					<!-- svelte-ignore a11y-label-has-associated-control -->
 					<label class="label">
@@ -134,7 +136,7 @@
 				<div class="w-1/2 md:w-2/3 lg:w-2/3">
 					<input
 						type="text"
-						name="resourceLink"
+						name="preferenceWeight"
 						bind:value={preferenceWeight}
 						placeholder="Enter prefrence weight here..."
 						class="input w-full "
@@ -142,7 +144,7 @@
 				</div>
 			</div>
 
-			<div class="flex items-center mb-2 lg:mx-16 md:mx-12 mx-10">
+			<div class="flex items-start mb-2 lg:mx-16 md:mx-12 mx-10">
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
 					<!-- svelte-ignore a11y-label-has-associated-control -->
 					<label class="label">
@@ -158,7 +160,31 @@
 					/>
 				</div>
 			</div>
-			<div class="flex items-center my-2 lg:mx-16 md:mx-12 mx-10">
+
+			
+			<div class="flex items-start my-4  lg:mx-16 md:mx-12 mx-10">
+				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
+					<!-- svelte-ignore a11y-label-has-associated-control -->
+					<label class="label">
+						<span>Courses</span>
+					</label>
+				</div>
+				<div class="w-1/2 md:w-2/3 lg:w-2/3">
+					<select
+					 	name="courseIds"
+						class="select"
+						multiple
+						placeholder="Select course here..."
+						value={courses}
+					>
+					{#each allCources  as course}
+						<option value={course.id}>{course.Name}</option>
+					{/each}
+					</select>
+				</div>
+			</div>
+
+			<div class="flex items-start my-2 lg:mx-16 md:mx-12 mx-10">
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
 					<!-- svelte-ignore a11y-label-has-associated-control -->
 					<label class="label">
@@ -176,7 +202,7 @@
 								on:change={async (e) => await onFileSelected(e)}
 							/>
 						{:else}
-							<Image cls="flex h-24 w-24 rounded-full" source={imageUrl} w="24" h="24" />
+							<Image cls="flex h-24 w-24 rounded-lg" source={imageUrl} w="24" h="24" />
 							<input
 								name="fileinput"
 								type="file"

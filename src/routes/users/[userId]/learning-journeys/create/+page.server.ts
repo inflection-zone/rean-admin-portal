@@ -40,7 +40,6 @@ export const actions = {
 		const imageUrl = data.has('imageUrl') ? data.get('imageUrl') : null;
 		const courseIds = data.has('courseIds') ? data.getAll('courseIds') : null;
 		console.log("courses",courseIds);
-		// const courses = values.getAll("ice-cream-flavors") as string[];
 		const sessionId = event.cookies.get('sessionId');
 
 		const response = await createLearningJourney(
