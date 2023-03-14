@@ -1,6 +1,6 @@
 import { error, type RequestEvent } from '@sveltejs/kit';
 import type { PageServerLoad } from './$types';
-import { getLearningJourneyById } from '../../../../../api/services/learning-journeys';
+import { getModuleById } from '../../../../../../../api/services/modules';
 
 ////////////////////////////////////////////////////////////////////////////
 
@@ -8,21 +8,21 @@ export const load: PageServerLoad = async (event: RequestEvent) => {
 	const sessionId = event.cookies.get('sessionId');
 
 	try {
-		const learningPathId = event.params.learningPathId;
-		const response = await getLearningJourneyById(sessionId, learningPathId);
+		const moduleId = event.params.moduleId;
+		const response = await getModuleById(sessionId, moduleId);
 
 		if (response.Status === 'failure' || response.HttpCode !== 200) {
 			throw error(response.HttpCode, response.Message);
 		}
-		const learningJourney = response.Data.LearningPath;
-		console.log("learningJourney",learningJourney);
-		const id = response.Data.LearningPath.id;
+		const module = response.Data.CourseModule;
+		console.log(module)
+		const id = response.Data.CourseModule.id;
 		return {
 			location: `${id}/edit`,
-			learningJourney,
+			module,
 			message: response.Message
 		};
 	} catch (error) {
-		console.error(`Error retriving learning journey: ${error.message}`);
+		console.error(`Error retriving module: ${error.message}`);
 	}
 };

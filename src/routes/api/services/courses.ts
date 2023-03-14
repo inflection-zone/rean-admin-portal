@@ -5,13 +5,11 @@ import { delete_, get_, post_, put_ } from './common';
 
 export const createCourse = async (
 	sessionId: string,
-	learningPathId: string,
 	name: string,
 	description: string,
 	imageUrl: string
 ) => {
 	const body = {
-		LearningPathId: learningPathId,
 		Name: name,
 		Description: description,
 		ImageUrl: imageUrl
@@ -47,26 +45,22 @@ export const searchCourses = async (sessionId: string, searchParams?: any) => {
 
 export const updateCourse = async (
 	sessionId: string,
-	learningPathId: string,
 	courseId: string,
 	name: string,
-	// learningJourney: string,
 	description: string,
-	image: string
+	imageUrl: string
 ) => {
 	const body = {
-		learningPathId,
 		courseId,
 		Name: name,
-		// LearningJourney: learningJourney,
 		Description: description,
-		Image: image
+		ImageUrl: imageUrl
 	};
-	const url = BACKEND_API_URL + `/educational/courses${courseId}`;
+	const url = BACKEND_API_URL + `/educational/courses/${courseId}`;
 	return await put_(sessionId, url, body, true);
 };
 
 export const deleteCourse = async (sessionId: string, courseId: string) => {
-	const url = BACKEND_API_URL + `/educational/courses${courseId}`;
+	const url = BACKEND_API_URL + `/educational/courses/${courseId}`;
 	return await delete_(sessionId, url, true);
 };

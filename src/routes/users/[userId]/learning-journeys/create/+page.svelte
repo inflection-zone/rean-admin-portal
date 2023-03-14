@@ -4,7 +4,6 @@
 	import BreadCrumbs from '$lib/components/breadcrumbs/breadcrums.svelte';
 	import { page } from '$app/stores';
 	import { showMessage } from '$lib/utils/message.utils';
-	import Image from '$lib/components/image.svelte';
 	import type { PageServerData } from './$types';
  
   /////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -55,7 +54,6 @@
 			imageUrl = imageUrl_;
 			}
 			console.log(imageUrl);
-			// window.location.href = `/users/${userId}/learning-journeys/create`;
 		}
 		else {
 			showMessage(response.Message, 'error');
@@ -97,7 +95,7 @@
 				</div>
 			</div>
 
-			<div class="flex items-center mb-4 mt-10 lg:mx-16 md:mx-12 mx-10">
+			<div class="flex items-start mb-4 mt-10 lg:mx-16 md:mx-12 mx-10">
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
 					<!-- svelte-ignore a11y-label-has-associated-control -->
 					<label class="label">
@@ -108,7 +106,7 @@
 					<input type="text" name="name" placeholder="Enter  name here..." class="input w-full " />
 				</div>
 			</div>
-			<div class="flex items-center my-4 lg:mx-16 md:mx-12 mx-10">
+			<div class="flex items-start my-4 lg:mx-16 md:mx-12 mx-10">
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
 					<!-- svelte-ignore a11y-label-has-associated-control -->
 					<label class="label">
@@ -125,7 +123,7 @@
 				</div>
 			</div>
 
-			<div class="flex items-center mb-2 lg:mx-16 md:mx-12 mx-10">
+			<div class="flex items-start mb-2 lg:mx-16 md:mx-12 mx-10">
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
 					<!-- svelte-ignore a11y-label-has-associated-control -->
 					<label class="label">
@@ -141,7 +139,7 @@
 					/>
 				</div>
 			</div>
-				<div class="flex items-center my-4  lg:mx-16 md:mx-12 mx-10">
+				<div class="flex items-start mb-4 mt-2 lg:mx-16 md:mx-12 mx-10">
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
 					<!-- svelte-ignore a11y-label-has-associated-control -->
 					<label class="label">
@@ -150,7 +148,7 @@
 				</div>
 				<div class="w-1/2 md:w-2/3 lg:w-2/3">
 					<select
-					 	name="courses"
+					 	name="courseIds"
 						class="select"
 						multiple
 						placeholder="Select course here..."
@@ -162,7 +160,7 @@
 					</select>
 				</div>
 			</div>
-			<div class="flex items-center my-2 lg:mx-16 md:mx-12 mx-10">
+			<div class="flex items-start my-2 lg:mx-16 md:mx-12 mx-10">
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
 					<!-- svelte-ignore a11y-label-has-associated-control -->
 					<label class="label">
@@ -179,16 +177,7 @@
 						on:change={async (e) => await onFileSelected(e)}
 					/>
 					<input type="hidden" name="imageUrl" value={imageUrl} />
-					<!-- {#if imageUrl === 'undefined'}
-					<span class="span">Image</span>
-				
-				{:else}
-					<Image cls="flex h-24 w-24 rounded-full" source={imageUrl} w="24" h="24" />
-				{/if} -->
-					<!-- <button
-						class="capitalize btn variant-filled-primary lg:w-[19%] md:w-[22%] md:text-[13px] sm:w-[30%] sm:text-[12px] min-[320px]:w-[40%] min-[320px]:text-[10px]"
-						>Upload</button
-					> -->
+					
 				</div>
 			</div>
 

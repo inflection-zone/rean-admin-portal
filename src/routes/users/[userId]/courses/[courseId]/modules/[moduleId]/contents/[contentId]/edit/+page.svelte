@@ -7,35 +7,35 @@
 
 	export let data: PageServerData;
 	let initiaData = {};
-	let id = data.course.id;
-	let name = data.course.name;
-	let learningJourney = data.course.learningJourney;
-	let description = data.course.description;
-	let image = data.course.image;
-	let modules = data.course.modules;
+	let id = data.content.id;
+	let title = data.content.title;
+	let description = data.content.description;
+	let contentType = data.content.contentType;
+	let resourceLink = data.content.resourceLink;
+	let imageUrl = data.content.ImageUrl;
 
 	//Original data
-	let _name = name;
-	let _learningJourney = learningJourney;
+	let _title = title;
 	let _description = description;
-	let _image = image;
+	let _contentType = contentType;
+	let _resourceLink = resourceLink;
 
 	function handleReset() {
-		name = _name;
-		learningJourney = _learningJourney;
+		title = _title;
 		description = _description;
-		image = _image;
+		contentType = _contentType;
+		resourceLink = _resourceLink;
 	}
 
 	const userId = $page.params.userId;
-	const editRoute = `/users/${userId}/learning-journeys/courses/${id}/edit`;
-	const viewRoute = `/users/${userId}/learning-journeys/courses/${id}/view`;
-	const courseRoute = `/users/${userId}/learning-journeys/courses`;
+	const editRoute = `/users/${userId}/learning-journeys/contents/${id}/edit`;
+	const viewRoute = `/users/${userId}/learning-journeys/contents/${id}/view`;
+	const contentRoute = `/users/${userId}/learning-journeys/contents`;
 
 	const breadCrumbs = [
 		{
-			name: 'Course',
-			path: courseRoute
+			name: 'content',
+			path: contentRoute
 		},
 		{
 			name: 'Edit',
@@ -47,18 +47,22 @@
 <main class="h-screen mb-10">
 	<BreadCrumbs crumbs={breadCrumbs} />
 
-	<div class=" flex justify-center mt-5 px-3 mb-10 flex-col items-center">
+	<div class="px-5 mb-5 ">
 		<form
 			method="post"
-			action="?/updateCourseAction"
-			class="w-full lg:max-w-4xl md:max-w-xl sm:max-w-lg bg-[#ECE4FC] rounded-lg mx-auto"
+			action="?/updateCourseContent"
+			class="w-full  bg-[#ECE4FC] lg:mt-10 md:mt-8 sm:mt-6 mb-10 mt-4 lg:max-w-4xl md:max-w-xl sm:max-w-lg  rounded-lg mx-auto"
 		>
 			<div class="w-full  h-14 rounded-t-lg p-3  bg-[#7165E3]">
 				<div class="ml-3 relative flex flex-row text-white text-xl">
-					Edit Course
+					Edit content
 					<a href={viewRoute}>
-						<Fa icon={faMultiply} size="lg" class="absolute right-0 pr-3 mb-16 text-white " /></a
-					>
+						<Fa
+							icon={faMultiply}
+							size="lg"
+							class="absolute right-0 lg:pr-3 md:pr-2 pr-0 text-white"
+						/>
+					</a>
 				</div>
 			</div>
 			<div class="hidden">{id}</div>
@@ -66,40 +70,19 @@
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
 					<!-- svelte-ignore a11y-label-has-associated-control -->
 					<label class="label">
-						<span>Name*</span>
+						<span>Title</span>
 					</label>
 				</div>
 				<div class="w-1/2 md:w-2/3 lg:w-2/3">
 					<input
 						type="text"
 						name="name"
-						bind:value={name}
-						placeholder="Enter name here..."
+						bind:value={title}
+						placeholder="Enter title here..."
 						class="input w-full "
 					/>
 				</div>
 			</div>
-			<div class="flex items-center my-4  lg:mx-16 md:mx-12 mx-10">
-				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
-					<!-- svelte-ignore a11y-label-has-associated-control -->
-					<label class="label">
-						<span>Learning Journey</span>
-					</label>
-				</div>
-				<div class="w-1/2 md:w-2/3 lg:w-2/3">
-					<select
-						class="select w-full"
-						bind:value={learningJourney}
-						placeholder="Select learning journey here..."
-					>
-						<option value="Careplan">Careplan</option>
-						<option value="Auto">Auto</option>
-						<option>Dark mode</option>
-						<option>Light mode</option>
-					</select>
-				</div>
-			</div>
-
 			<div class="flex items-center mb-2 lg:mx-16 md:mx-12 mx-10">
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
 					<!-- svelte-ignore a11y-label-has-associated-control -->
@@ -109,13 +92,53 @@
 				</div>
 				<div class="w-1/2 md:w-2/3 lg:w-2/3">
 					<textarea
-						class="textarea w-full"
 						name="description"
 						bind:value={description}
+						class="textarea w-full"
 						placeholder="Enter description here..."
 					/>
 				</div>
 			</div>
+
+			<div class="flex items-center my-4 lg:mx-16 md:mx-12 mx-10">
+				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
+					<!-- svelte-ignore a11y-label-has-associated-control -->
+					<label class="label">
+						<span>Content Type</span>
+					</label>
+				</div>
+				<div class="w-1/2 md:w-2/3 lg:w-2/3">
+					<select
+						class="select w-full"
+						bind:value={contentType}
+						placeholder="Select content type here..."
+					>
+						<option value="Content Type">{contentType}</option>
+            <option>Text</option>
+						<option>Pdf</option>
+						<option>Video</option>
+						<option>Assessment</option>
+					</select>
+				</div>
+			</div>
+			<div class="flex items-center my-4 lg:mx-16 md:mx-12 mx-10">
+				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
+					<!-- svelte-ignore a11y-label-has-associated-control -->
+					<label class="label">
+						<span>Resource Link</span>
+					</label>
+				</div>
+				<div class="w-1/2 md:w-2/3 lg:w-2/3">
+					<input
+						type="text"
+						name="resourceLink"
+						bind:value={resourceLink}
+						placeholder="Enter resource link here..."
+						class="input w-full "
+					/>
+				</div>
+			</div>
+
 			<div class="flex items-center my-2 lg:mx-16 md:mx-12 mx-10">
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
 					<!-- svelte-ignore a11y-label-has-associated-control -->
@@ -137,6 +160,7 @@
 					>
 				</div>
 			</div>
+
 			<div class="flex items-center my-8 lg:mx-16 md:mx-12 mx-4 ">
 				<div class="lg:w-1/2 md:w-1/2 sm:w-1/2  w-1/3" />
 				<div class="lg:w-1/4 md:w-1/4 sm:w-1/4  w-1/3 ">

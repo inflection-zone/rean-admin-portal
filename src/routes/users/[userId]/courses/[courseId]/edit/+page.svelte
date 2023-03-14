@@ -4,45 +4,40 @@
 	import Fa from 'svelte-fa';
 	import { faMultiply } from '@fortawesome/free-solid-svg-icons';
 	import BreadCrumbs from '$lib/components/breadcrumbs/breadcrums.svelte';
-	import Image from '$lib/components/image.svelte';
 	import { showMessage } from '$lib/utils/message.utils';
+	import Image from '$lib/components/image.svelte';
 
-	///////////////////////////////////////////////////////////////////////////////////////////////////////////
+	//////////////////////////////////////////////////////////////////////////////////////////
 
 	export let data: PageServerData;
-	let allCources = data.courses;
-	let id = data.learningJourney.id;
-	let name = data.learningJourney.Name;
-	let preferenceWeight = data.learningJourney.PreferenceWeight;
-	let description = data.learningJourney.Description;
-	let courses = data.learningJourney.Courses;
-	let imageUrl = data.learningJourney.ImageUrl;
+	let id = data.course.id;
+	let name = data.course.Name;
+	let description = data.course.Description;
+	let imageUrl = data.course.ImageUrl;
+	let modules = data.course.Modules;
 	$: avatarSource = imageUrl;
-	const courseNames = courses.map(item => item.Name);
-	console.log(courseNames);
+
 	//Original data
 	let _name = name;
-	let _preferenceWeight = preferenceWeight;
 	let _description = description;
 	let _imageUrl = imageUrl;
 
 	function handleReset() {
 		name = _name;
-		preferenceWeight = _preferenceWeight;
 		description = _description;
 		imageUrl = _imageUrl;
 	}
 
 	const userId = $page.params.userId;
-	const learningPathId = $page.params.learningPathId;
-	const editRoute = `/users/${userId}/learning-journeys/${learningPathId}/edit`;
-	const viewRoute = `/users/${userId}/learning-journeys/${learningPathId}/view`;
-	const learningJourneyRoute = `/users/${userId}/learning-journeys`;
+	const courseId = $page.params.courseId;
+	const editRoute = `/users/${userId}/courses/${courseId}/edit`;
+	const viewRoute = `/users/${userId}/courses/${courseId}/view`;
+	const courseRoute = `/users/${userId}/courses`;
 
 	const breadCrumbs = [
 		{
-			name: 'Learning-Journey',
-			path: learningJourneyRoute
+			name: 'Course',
+			path: courseRoute
 		},
 		{
 			name: 'Edit',
@@ -98,56 +93,37 @@
 	<div class=" flex justify-center mt-5 px-3 mb-10 flex-col items-center">
 		<form
 			method="post"
-			action="?/updateLearningJourneyAction"
+			action="?/updateCourseAction"
 			class="w-full lg:max-w-4xl md:max-w-xl sm:max-w-lg bg-[#ECE4FC] rounded-lg mx-auto"
 		>
 			<div class="w-full  h-14 rounded-t-lg p-3  bg-[#7165E3]">
 				<div class="ml-3 relative flex flex-row text-white text-xl">
-					Edit Learning Journey
+					Edit Course
 					<a href={viewRoute}>
 						<Fa icon={faMultiply} size="lg" class="absolute right-0 pr-3 mb-16 text-white " /></a
 					>
 				</div>
 			</div>
-
 			<div class="hidden">{id}</div>
-			<div class="flex items-start mb-4 mt-10 lg:mx-16 md:mx-12 mx-10">
+			<div class="flex items-center mb-4 mt-10 lg:mx-16 md:mx-12 mx-10">
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
 					<!-- svelte-ignore a11y-label-has-associated-control -->
 					<label class="label">
-						<span>Name</span>
+						<span>Name*</span>
 					</label>
 				</div>
 				<div class="w-1/2 md:w-2/3 lg:w-2/3">
 					<input
 						type="text"
 						name="name"
-						required
 						bind:value={name}
-						placeholder="xxxxxxxxxxxxxx"
+						placeholder="Enter name here..."
 						class="input w-full "
 					/>
 				</div>
 			</div>
-			<div class="flex items-start my-4 lg:mx-16 md:mx-12 mx-10">
-				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
-					<!-- svelte-ignore a11y-label-has-associated-control -->
-					<label class="label">
-						<span>Preference Weight</span>
-					</label>
-				</div>
-				<div class="w-1/2 md:w-2/3 lg:w-2/3">
-					<input
-						type="text"
-						name="preferenceWeight"
-						bind:value={preferenceWeight}
-						placeholder="Enter prefrence weight here..."
-						class="input w-full "
-					/>
-				</div>
-			</div>
-
-			<div class="flex items-start mb-2 lg:mx-16 md:mx-12 mx-10">
+			
+			<div class="flex items-center mb-2 lg:mx-16 md:mx-12 mx-10">
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
 					<!-- svelte-ignore a11y-label-has-associated-control -->
 					<label class="label">
@@ -157,18 +133,18 @@
 				<div class="w-1/2 md:w-2/3 lg:w-2/3">
 					<textarea
 						class="textarea w-full"
-						bind:value={description}
 						name="description"
+						bind:value={description}
 						placeholder="Enter description here..."
 					/>
 				</div>
 			</div>
 
-			<div class="flex items-start mt-2 mb-4  lg:mx-16 md:mx-12 mx-10">
+			<div class="flex items-start mt-2 mb-4 hidden lg:mx-16 md:mx-12 mx-10">
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
 					<!-- svelte-ignore a11y-label-has-associated-control -->
 					<label class="label">
-						<span>Courses</span>
+						<span>Modules</span>
 					</label>
 				</div>
 				<div class="w-1/2 md:w-2/3 lg:w-2/3">
@@ -176,11 +152,11 @@
 					 	name="courseIds"
 						class="select"
 						multiple
-						placeholder="Select course here..."
-						value={courseNames}
+						placeholder="Select modules here..."
+						value={modules}
 					>
-					{#each allCources  as course}
-						<option value={course.id}>{course.Name}</option>
+					{#each modules  as module}
+						<option value={module.id}>{module.Name}</option>
 					{/each}
 					</select>
 				</div>

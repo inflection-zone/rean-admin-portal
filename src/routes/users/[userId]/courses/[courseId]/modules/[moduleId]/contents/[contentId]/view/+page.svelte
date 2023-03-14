@@ -1,21 +1,24 @@
 <script lang="ts">
-	import { page } from '$app/stores';
-	import type { PageServerData } from './$types';
 	import Fa from 'svelte-fa';
 	import { faMultiply, faPen } from '@fortawesome/free-solid-svg-icons';
 	import { onMount } from 'svelte';
 	import { show } from '$lib/utils/message.utils';
 	import { LocalStorageUtils } from '$lib/utils/local.storage.utils';
 	import BreadCrumbs from '$lib/components/breadcrumbs/breadcrums.svelte';
+	import { page } from '$app/stores';
+	import type { PageServerData } from './$types';
 
-	////////////////////////////////////////////////////////////////////////////////////////////////////////
-	
 	export let data: PageServerData;
-	let id = data.course.id;
-	let name = data.course.Name;
-	let description = data.course.Description;
-	let imageUrl = data.course.imageUrl;
-	let modules = data.course.modules;
+	let id = data.content.id;
+	let title = data.content.title;
+	let description = data.content.description;
+	let learningJourney = data.content.learningJourney;
+	let course = data.content.course;
+	let contentType = data.content.contentType;
+
+	
+	let resourceLink = data.content.resourceLink;
+	let image = data.content.image;
 
 	onMount(() => {
 		show(data);
@@ -23,16 +26,14 @@
 	});
 
 	const userId = $page.params.userId;
-	const learningPathId = $page.params.learningPathId;
-	const courseId = $page.params.courseId ;
-	const editRoute = `/users/${userId}/learning-journeys/${learningPathId}/courses/${courseId}/edit`;
-	const viewRoute = `/users/${userId}/learning-journeys/${learningPathId}/courses/${courseId}/view`;
-	const courseRoute = `/users/${userId}/learning-journeys/${learningPathId}/courses`;
+	const editRoute = `/users/${userId}/learning-journeys/contents/${id}/edit`;
+	const viewRoute = `/users/${userId}/learning-journeys/contents/${id}/view`;
+	const contentRoute = `/users/${userId}/learning-journeys/contents`;
 
 	const breadCrumbs = [
 		{
-			name: 'Course',
-			path: courseRoute
+			name: 'content',
+			path: contentRoute
 		},
 		{
 			name: 'View',
@@ -51,9 +52,9 @@
 		>
 			<div class="w-full  h-14 rounded-t-lg p-3  bg-[#7165E3]">
 				<div class="ml-3 relative flex flex-row text-white lg:text-xl text-lg ">
-					<div class="lg:hidden md:hidden block">View Course</div>
-					<div class="lg:block md:block hidden">View Course</div>
-					<a href={courseRoute}>
+					<div class="lg:hidden md:hidden block">View content</div>
+					<div class="lg:block md:block hidden">View content</div>
+					<a href={contentRoute}>
 						<Fa icon={faMultiply} size="lg" class="absolute right-0 lg:pr-3 pr-0 text-white" />
 					</a>
 				</div>
@@ -63,21 +64,11 @@
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
 					<!-- svelte-ignore a11y-label-has-associated-control -->
 					<label class="label">
-						<span>Name</span>
+						<span>Title</span>
 					</label>
 				</div>
-				<span class="span w-1/2 md:2/3 lg:2/3" id="name">{name}</span>
+				<span class="span w-1/2 md:2/3 lg:2/3" id="title">{title}</span>
 			</div>
-
-			<!-- <div class="flex items-center my-4 lg:mx-16 md:mx-12 mx-10">
-				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
-					<label class="label">
-						<span>Learning Journey</span>
-					</label>
-				</div>
-				<span class="w-1/2 md:2/3 lg:2/3" id="learningJourney">{learningJourney}</span>
-			</div> -->
-
 			<div class="flex items-center my-4 lg:mx-16 md:mx-12 mx-10">
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
 					<!-- svelte-ignore a11y-label-has-associated-control -->
@@ -85,7 +76,44 @@
 						<span>Description</span>
 					</label>
 				</div>
-				<span class="span w-1/2 md:2/3 lg:2/3" id="description">{description}</span>
+				<span class="span w-1/2 md:2/3 lg:2/3" id="description"> {description} </span>
+			</div>
+
+			<div class="flex items-center my-4 lg:mx-16 md:mx-12 mx-10">
+				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
+					<!-- svelte-ignore a11y-label-has-associated-control -->
+					<label class="label">
+						<span>Learning Journey</span>
+					</label>
+				</div>
+				<span class="span w-1/2 md:2/3 lg:2/3" id="learningJourney">{learningJourney}</span>
+			</div>
+			<div class="flex items-center my-4 lg:mx-16 md:mx-12 mx-10">
+				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
+					<!-- svelte-ignore a11y-label-has-associated-control -->
+					<label class="label">
+						<span>Course</span>
+					</label>
+				</div>
+				<span class="span w-1/2 md:2/3 lg:2/3" id="course"> {course} </span>
+			</div>
+			<div class="flex items-center my-4 lg:mx-16 md:mx-12 mx-10">
+				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
+					<!-- svelte-ignore a11y-label-has-associated-control -->
+					<label class="label">
+						<span>Content Type</span>
+					</label>
+				</div>
+				<span class="span w-1/2 md:2/3 lg:2/3" id="contentType"> {contentType} </span>
+			</div>
+			<div class="flex items-center my-4 lg:mx-16 md:mx-12 mx-10">
+				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
+					<!-- svelte-ignore a11y-label-has-associated-control -->
+					<label class="label">
+						<span>Resource Link</span>
+					</label>
+				</div>
+				<span class="span w-1/2 md:2/3 lg:2/3" id="resourceLink"> {resourceLink} </span>
 			</div>
 
 			<div class="flex items-center my-4 lg:mx-16 md:mx-12 mx-10">
@@ -95,22 +123,9 @@
 						<span>Image</span>
 					</label>
 				</div>
-				<span class="span w-1/2 md:w-2/3 lg:w-2/3"> {imageUrl} </span>
+				<span class="span w-1/2 md:w-2/3 lg:w-2/3" id="image"> {image} </span>
 			</div>
 
-			<div class="flex items-center my-4 lg:mx-16 md:mx-12 mx-10">
-				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
-					<!-- svelte-ignore a11y-label-has-associated-control -->
-					<label class="label">
-						<span>Modules</span>
-					</label>
-				</div>
-				<ol class="span w-1/2 md:w-2/3 lg:w-2/3 list-decimal" id="modules">
-					<li>Module 1</li>
-					<li>Module 1</li>
-					<li>Module 1</li>
-				</ol>
-			</div>
 			<div class="flex items-center mt-7 lg:mx-16 md:mx-12 mr-10">
 				<div class="lg:w-5/6 w-2/3 " />
 				<div class="lg:w-1/6 w-1/3 ">

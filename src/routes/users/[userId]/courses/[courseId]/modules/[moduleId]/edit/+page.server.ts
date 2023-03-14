@@ -2,7 +2,7 @@ import { error, type RequestEvent } from '@sveltejs/kit';
 import { redirect } from 'sveltekit-flash-message/server';
 import { errorMessage, successMessage } from '$lib/utils/message.utils';
 import type { PageServerLoad } from './$types';
-import { getCourseById, updateCourse } from '../../../../../../../api/services/courses';
+import { getModuleById, updateModule } from '../../../../../../../api/services/modules';
 
 /////////////////////////////////////////////////////////////////////////
 
@@ -10,53 +10,53 @@ export const load: PageServerLoad = async (event: RequestEvent) => {
 	const sessionId = event.cookies.get('sessionId');
 
 	try {
-		const courseId = event.params.courseId;
-		const response = await getCourseById(sessionId, courseId);
+		const moduleId = event.params.moduleId;
+		const response = await getModuleById(sessionId, moduleId);
 
 		if (response.Status === 'failure' || response.HttpCode !== 200) {
 			throw error(response.HttpCode, response.Message);
 		}
-		const course = response.Data.Course;
+		const module = response.Data.CourseModule;
 		return {
-			course
+			module
 		};
 	} catch (error) {
-		console.error(`Error retriving course: ${error.message}`);
+		console.error(`Error retriving module: ${error.message}`);
 	}
 };
 
 export const actions = {
-	updateCourseAction: async (event: RequestEvent) => {
+	updateModuleAction: async (event: RequestEvent) => {
 		const request = event.request;
 		const userId = event.params.userId;
-		const learningPathId = event.params.learningPathId;
-		const courseId = event.params.courseId;
-		const sessionId = event.cookies.get('sessionId');
 		const data = await request.formData();
 
 		const name = data.has('name') ? data.get('name') : null;
-		// const learningJourney = data.has('learningJourney') ? data.get('learningJourney') : null;
 		const description = data.has('description') ? data.get('description') : null;
-		const imageUrl = data.has('imageUrl') ? data.get('imageUrl') : null;
-	
-		const response = await updateCourse(
+		// const sequence = data.has('sequence') ? data.get('sequence') : null;
+		const durationInMins = data.has('durationInMins') ? data.get('durationInMins') : null;
+		const sessionId = event.cookies.get('sessionId');
+		const courseId = event.params.courseId;
+		const moduleId = event.params.moduleId;
+
+		const response = await updateModule(
 			sessionId,
-			learningPathId,
+			moduleId,
 			courseId,
 			name.valueOf() as string,
-			// learningJourney.valueOf() as string,
 			description.valueOf() as string,
-			imageUrl.valueOf() as string
+			// sequence.valueOf() as number,
+			durationInMins.valueOf() as number,
 		);
-		const id = response.Data.Course.id;
+		const id = response.Data.CourseModule.id;
 
 		if (response.Status === 'failure' || response.HttpCode !== 200) {
-			throw redirect(303, '/learning-journeys/courses', errorMessage(response.Message), event);
+			throw redirect(303, `/users/${userId}/courses/${courseId}/modules`, errorMessage(response.Message), event);
 		}
 		throw redirect(
 			303,
-			`/users/${userId}/learning-journeys/${learningPathId}/courses/${id}/view`,
-			successMessage(`course updated successful!`),
+			`/users/${userId}/courses/${courseId}/modules/${id}/view`,
+			successMessage(`module updated successful!`),
 			event
 		);
 	}
