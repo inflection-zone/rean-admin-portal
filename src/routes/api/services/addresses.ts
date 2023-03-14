@@ -62,11 +62,11 @@ export const updateAddress = async (
 	phone: number,
 	email: string
 ) => {
-	const body = {
-		ClientName: clientName,
-		Password: password,
-		Phone: phone,
-		Email: email
+const body = {
+	ClientName: clientName,
+	Password: password,
+	Phone: phone,
+	Email: email
 	};
 	const url = BACKEND_API_URL + `/addresses/${addressId}`;
 	return await put_(sessionId, url, body, true);
