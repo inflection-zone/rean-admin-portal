@@ -5,27 +5,25 @@ import { delete_, get_, post_, put_ } from './common';
 
 export const createModule = async (
 	sessionId: string,
-	title: string,
+	courseId: string,
+	name: string,
 	description: string,
-	learningJourney: string,
-	course: string,
-	contentType: string,
-	resourceLink: string
+	// sequence: number,
+	durationInMins: number,
 ) => {
 	const body = {
-		Title: title,
+		CourseId: courseId,
+		Name: name,
 		Description: description,
-		LearningJourney: learningJourney,
-		Course: course,
-		ContentType: contentType,
-		ResourceLink: resourceLink
+		// Sequence: sequence,
+		DurationInMins: durationInMins,
 	};
 	const url = BACKEND_API_URL + '/educational/course-modules';
 	return await post_(sessionId, url, body, true);
 };
 
 export const getModuleById = async (sessionId: string, moduleId: string) => {
-	const url = BACKEND_API_URL + `/educational/course-modules${moduleId}`;
+	const url = BACKEND_API_URL + `/educational/course-modules/${moduleId}`;
 	return await get_(sessionId, url, true);
 };
 
@@ -52,26 +50,24 @@ export const searchModules = async (sessionId: string, searchParams?: any) => {
 export const updateModule = async (
 	sessionId: string,
 	moduleId: string,
-	title: string,
+	courseId: string,
+	name: string,
 	description: string,
-	learningJourney: string,
-	course: string,
-	contentType: string,
-	resourceLink: string
+	// sequence: number,
+	durationInMins: number,
 ) => {
 	const body = {
-		Title: title,
+		CourseId: courseId,
+		name: name,
 		Description: description,
-		LearningJourney: learningJourney,
-		Course: course,
-		ContentType: contentType,
-		ResourceLink: resourceLink
+		// Sequence: sequence,
+		DurationInMins: durationInMins,
 	};
-	const url = BACKEND_API_URL + `/educational/course-modules${moduleId}`;
+	const url = BACKEND_API_URL + `/educational/course-modules/${moduleId}`;
 	return await put_(sessionId, url, body, true);
 };
 
 export const deleteModule = async (sessionId: string, moduleId: string) => {
-	const url = BACKEND_API_URL + `/educational/course-modules${moduleId}`;
+	const url = BACKEND_API_URL + `/educational/course-modules/${moduleId}`;
 	return await delete_(sessionId, url, true);
 };

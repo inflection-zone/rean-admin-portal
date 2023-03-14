@@ -8,13 +8,15 @@ export const createLearningJourney = async (
 	name: string,
 	preferenceWeight: number,
 	description: string,
-	ImageUrl: string
+	imageUrl: string,
+	courseIds: string[],
 ) => {
 	const body = {
 		Name: name,
 		PreferenceWeight: preferenceWeight,
 		Description: description,
-		ImageUrl: ImageUrl
+		ImageUrl: imageUrl,
+		CourseIds: courseIds,
 	};
 	const url = BACKEND_API_URL + '/educational/learning-paths';
 	return await post_(sessionId, url, body, true);
@@ -51,14 +53,18 @@ export const updateLearningJourney = async (
 	name: string,
 	preferenceWeight: number,
 	description: string,
-	ImageUrl: File
+	imageUrl: string,
+	courseIds: string[],
+
 ) => {
 	const body = {
 		Name: name,
 		PreferenceWeight: preferenceWeight,
 		Description: description,
-		ImageUrl: ImageUrl
+		ImageUrl: imageUrl,
+		CourseIds: courseIds,
 	};
+	console.log(body)
 	const url = BACKEND_API_URL + `/educational/learning-paths/${learningJourneyId}`;
 	return await put_(sessionId, url, body, true);
 };

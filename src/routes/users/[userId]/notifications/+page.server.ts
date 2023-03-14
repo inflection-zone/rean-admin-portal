@@ -13,14 +13,14 @@ export const load: PageServerLoad = async (event: RequestEvent) => {
     if (response.Status === 'failure' || response.HttpCode !== 200) {
       throw error(response.HttpCode, response.Message);
     }
-    const notifications = response.Data.NotificationRecords.Items;
-    console.log("notifications",notifications)
+    const notification = response.Data.NotificationRecords.Items;
+    console.log(response)
     return {
-      notifications,
+      notification,
       sessionId,
       message: response.Message
     };
   } catch (error) {
-    console.error(`Error retriving notifications: ${error.message}`);
+    console.error(`Error retriving notification: ${error.message}`);
   }
 };

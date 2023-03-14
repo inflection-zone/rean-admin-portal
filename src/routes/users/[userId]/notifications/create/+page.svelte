@@ -133,6 +133,25 @@
 				</div>
 			</div>
 
+			<div class="flex items-center mb-4 lg:mx-16 md:mx-12 mx-10">
+				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
+					<!-- svelte-ignore a11y-label-has-associated-control -->
+					<label class="label">
+						<span>Broadcast To All</span>
+					</label>
+				</div>
+				<div class="w-1/2 md:w-2/3 lg:w-2/3">
+					<label class="label cursor-pointer">
+						<input
+							type="checkbox"
+							name="broadcastToAll"
+							value="true"
+							class="checkbox checkbox-primary checkbox-md"
+						/>
+					</label>
+				</div>
+			</div>
+
 			<div class="flex items-center my-2 lg:mx-16 md:mx-12 mx-10">
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
 					<!-- svelte-ignore a11y-label-has-associated-control -->
@@ -158,6 +177,7 @@
 				
 				</div>
 			</div>
+			
 			<div class="flex items-center mt-7 lg:mx-16 md:mx-12 mr-10">
 				<div class="w-3/4" />
 				<div class="w-1/4 ">

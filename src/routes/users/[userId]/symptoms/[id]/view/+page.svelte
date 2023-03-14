@@ -6,16 +6,17 @@
 	import { LocalStorageUtils } from '$lib/utils/local.storage.utils';
 	import BreadCrumbs from '$lib/components/breadcrumbs/breadcrums.svelte';
 	import { page } from '$app/stores';
+	import Image from '$lib/components/image.svelte';
 	import type { PageServerData } from './$types';
 
 	export let data: PageServerData;
 	let id = data.symptom.id;
-	let symptom = data.symptom.symptom;
-	let description = data.symptom.description;
+	let symptom = data.symptom.Symptom;
+	let description = data.symptom.Description;
 	let tags_ = data.symptom.Tags;
 	let tags = tags_.join(', ');
-	let language = data.symptom.language;
-	let imageResourceId = data.symptom.imageResourceId;
+	let language = data.symptom.Language;
+	let imageResourceId = data.symptom.ImageResourceId;
 
 	onMount(() => {
 		show(data);
@@ -77,13 +78,13 @@
 			</div>
 
 			<div class="flex items-center my-4 lg:mx-16 md:mx-12 mx-10">
-				<div class="w-1/2 md:w-1/3 lg:w-1/3">
+				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
 					<!-- svelte-ignore a11y-label-has-associated-control -->
 					<label class="label">
 						<span>Tags</span>
 					</label>
 				</div>
-				<span class="span w-1/2 md:2/3 lg:2/3" id="tags">{tags}</span>
+				<span class="span w-1/2 md:2/3 lg:2/3">{tags} </span>
 			</div>
 
 			<div class="flex items-center my-4 lg:mx-16 md:mx-12 mx-10">
@@ -100,10 +101,14 @@
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
 					<!-- svelte-ignore a11y-label-has-associated-control -->
 					<label class="label">
-						<span>Image Resource Id</span>
+						<span>Image</span>
 					</label>
 				</div>
-				<span class="span w-1/2 md:w-2/3 lg:w-2/3"> {imageResourceId} </span>
+				{#if imageResourceId === 'undefined'}
+					<span class="span">Image not specified</span>
+				{:else}
+					<Image cls="flex h-24 w-24 rounded-lg" source={imageResourceId} w="24" h="24" />
+				{/if}
 			</div>
 
 			<div class="flex items-center mt-7 lg:mx-16 md:mx-12 mr-10">

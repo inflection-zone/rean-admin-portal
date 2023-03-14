@@ -18,7 +18,6 @@ export const createKnowledgeNugget = async (
 		AdditionalResource: additionalResource,
 		Tags: tags
 	};
-	console.log("body",body)
 	const url = BACKEND_API_URL + '/educational/knowledge-nuggets';
 	return await post_(sessionId, url, body, true);
 };
@@ -65,7 +64,6 @@ export const updateKnowledgeNugget = async (
 		Tags: tags
 	};
 	const url = BACKEND_API_URL + `/educational/knowledge-nuggets/${knowledgeNuggetId}`;
-	console.log(url);
 	return await put_(sessionId, url, body, true);
 };
 

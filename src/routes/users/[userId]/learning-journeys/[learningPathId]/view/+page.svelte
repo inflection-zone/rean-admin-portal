@@ -18,6 +18,7 @@
 	let preferenceWeight = data.learningJourney.PreferenceWeight;
 	let description = data.learningJourney.Description;
 	let imageUrl = data.learningJourney.ImageUrl;
+	let courses = data.learningJourney.Courses;
 
 	onMount(() => {
 		show(data);
@@ -44,10 +45,10 @@
 <main class="h-screen mb-10">
 	<BreadCrumbs crumbs={breadCrumbs} />
 
-	<div class="px-3 mb-5">
+	<div class="px-3 my-5">
 		<form
 			method="get"
-			class="w-full lg:max-w-4xl md:max-w-xl sm:max-w-lg mb-10 bg-[#ECE4FC] mt-6 rounded-lg mx-auto"
+			class="w-full lg:max-w-2xl md:max-w-xl sm:max-w-lg mb-10 bg-[#ECE4FC] mt-6 rounded-lg mx-auto"
 		>
 			<div class="w-full  h-14 rounded-t-lg p-3  bg-[#7165E3]">
 				<div class="ml-3 relative flex flex-row text-white lg:text-xl text-lg ">
@@ -89,7 +90,21 @@
 				<span class="span w-1/2 md:2/3 lg:2/3" id="description">{description}</span>
 			</div>
 
-			<div class="flex items-center my-4 lg:mx-16 md:mx-12 mx-10">
+			<div class="flex items-start my-4 lg:mx-16 md:mx-12 mx-10">
+				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
+					<!-- svelte-ignore a11y-label-has-associated-control -->
+					<label class="label">
+						<span>Courses</span>
+					</label>
+				</div>
+				<ol class="span w-1/2 md:w-2/3 lg:w-2/3 list-decimal ml-6" id="course">
+					{#each courses as course}
+						<li>{course.Name}</li>
+			  	{/each}	
+				</ol>
+			</div>
+
+			<div class="flex items-start my-4 lg:mx-16 md:mx-12 mx-10">
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
 					<!-- svelte-ignore a11y-label-has-associated-control -->
 					<label class="label">
@@ -98,26 +113,13 @@
 				</div>
 				<!-- <span class="span w-1/2 md:w-2/3 lg:w-2/3">{image}</span> -->
 				{#if imageUrl === 'undefined'}
-					<span class="span">Image</span>
+					<span class="span">Not Specified</span>
 					<!-- <img class="flex h-24 w-24 rounded-full" src={avatarSource} alt="d" /> -->
 				{:else}
 					<Image cls="flex h-24 w-24 rounded-md" source={imageUrl} w="24" h="24" />
 				{/if}
 			</div>
 
-			<div class="flex items-center my-4 lg:mx-16 md:mx-12 mx-10">
-				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
-					<!-- svelte-ignore a11y-label-has-associated-control -->
-					<label class="label">
-						<span>Course</span>
-					</label>
-				</div>
-				<!-- <ol class="span w-1/2 md:w-2/3 lg:w-2/3 list-decimal ml-6" id="course">
-					<li>course 1</li>
-					<li>course 2</li>
-					<li>course 3</li>
-				</ol> -->
-			</div>
 			<div class="flex items-center mt-7 lg:mx-16 md:mx-12 mr-10">
 				<div class="lg:w-5/6 w-2/3 " />
 				<div class="lg:w-1/6 w-1/3 ">

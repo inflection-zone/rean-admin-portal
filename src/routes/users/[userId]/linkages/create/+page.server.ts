@@ -15,10 +15,9 @@ export const actions = {
 		const description = data.has('description') ? data.get('description') : null;
 		const link = data.has('link') ? data.get('link') : null;
 		const daysActive = data.has('daysActive') ? data.get('daysActive') : null;
-		// const temp = data.has('tags') ? data.get('tags') : null;
-		// const tags = temp ? JSON.parse(temp?.valueOf() as string) : [];
+		const tags = data.has('tags') ? data.getAll('tags') : null;
 		const action = data.has('action') ? data.get('action') : null;
-		//const image = data.has('image') ? data.get('image') : null;
+		const imageUrl = data.has('imageUrl') ? data.get('imageUrl') : null;
 		const sessionId = event.cookies.get('sessionId');
 
 		const response = await createLinkage(
@@ -27,9 +26,9 @@ export const actions = {
 			description.valueOf() as string,
 			link.valueOf() as string,
 			daysActive.valueOf() as number,
-			//tags,
-			action.valueOf() as string
-			//image.valueOf() as File
+			tags.valueOf() as string[],
+			action.valueOf() as string,
+			imageUrl.valueOf() as string
 		);
 		const id = response.Data.Notice.id;
 

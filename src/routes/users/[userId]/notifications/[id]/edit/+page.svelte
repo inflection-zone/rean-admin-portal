@@ -14,6 +14,7 @@
 	let Body = data.notification.Body;
 	let type = data.notification.Type;
 	let sentOn = new Date(data.notification.SentOn);
+	let broadcastToAll = data.notification.BroadcastToAll;
 	let imageUrl = data.notification.ImageUrl;
 	$: avatarSource = imageUrl;
 
@@ -22,6 +23,7 @@
 	let _body = Body;
 	let _type = type;
 	let _sentOn = sentOn;
+	let _broadcastToAll = broadcastToAll;
 	let _imageUrl = imageUrl;
 
 	function handleReset() {
@@ -29,6 +31,7 @@
 		Body = _body;
 		type = _type;
 		sentOn = _sentOn;
+		broadcastToAll = _broadcastToAll;
 		imageUrl = _imageUrl;
 	}
 
@@ -50,10 +53,10 @@
 
 	const upload = async (imgBase64, filename) => {
 		const data = {};
-		//console.log(imgBase64);
+		console.log(imgBase64);
 		const imgData = imgBase64.split(',');
 		data['image'] = imgData[1];
-		//console.log(JSON.stringify(data));
+		console.log(JSON.stringify(data));
 		const res = await fetch(`/api/server/file-resources/upload`, {
 			method: 'POST',
 			headers: {
@@ -178,6 +181,25 @@
 				>
 			</div>
 
+			<div class="flex items-center mb-4 lg:mx-16 md:mx-12 mx-10">
+				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
+					<!-- svelte-ignore a11y-label-has-associated-control -->
+					<label class="label">
+						<span>Broadcast To All</span>
+					</label>
+				</div>
+				<div class="w-1/2 md:w-2/3 lg:w-2/3">
+					<label class="label cursor-pointer">
+						<input
+							type="checkbox"
+							name="broadcastToAll"
+							bind:checked={broadcastToAll}
+							class="checkbox checkbox-primary checkbox-md"
+						/>
+					</label>
+				</div>
+			</div>
+
 			<div class="flex items-center my-2 lg:mx-16 md:mx-12 mx-10">
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
 					<!-- svelte-ignore a11y-label-has-associated-control -->
@@ -195,7 +217,7 @@
 							on:change={async (e) => await onFileSelected(e)}
 						/>
 					{:else}
-						<Image cls="flex h-24 w-24 rounded-full" source={imageUrl} w="24" h="24" />
+						<Image cls="flex h-24 w-24 rounded-lg" source={imageUrl} w="24" h="24" />
 						<input
 							name="fileinput"
 							type="file"
@@ -211,6 +233,7 @@
 					> -->
 				</div>
 			</div>
+			
 			<div class="flex items-center my-8 lg:mx-16 md:mx-12 mx-4 ">
 				<div class="lg:w-1/2 md:w-1/2 sm:w-1/2  w-1/3" />
 				<div class="lg:w-1/4 md:w-1/4 sm:w-1/4  w-1/3 ">

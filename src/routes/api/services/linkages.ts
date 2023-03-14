@@ -9,18 +9,18 @@ export const createLinkage = async (
 	description: string,
 	link: string,
 	daysActive: number,
-	//tags: string[],
-	action: string
-	//image: File
+	tags: string[],
+	action: string,
+	imageUrl: string
 ) => {
 	const body = {
 		Title: title,
 		Description: description,
 		Link: link,
 		DaysActive: daysActive,
-		//Tags: tags,
-		Action: action
-		//Image: image
+		Tags: tags,
+		Action: action,
+		ImageUrl: imageUrl
 	};
 	const url = BACKEND_API_URL + '/general/notices';
 	return await post_(sessionId, url, body, true);
@@ -58,18 +58,18 @@ export const updateLinkage = async (
 	description: string,
 	link: string,
 	daysActive: number,
-	//tags: string[],
-	action: string
-	//image: File
+	tags: string[],
+	action: string,
+	imageUrl: string
 ) => {
 	const body = {
 		Title: title,
 		Description: description,
 		Link: link,
 		DaysActive: daysActive,
-		//Tags: tags,
-		Action: action
-		//Image: image
+		Tags: tags,
+		Action: action,
+		ImageUrl: imageUrl
 	};
 	const url = BACKEND_API_URL + `/general/notices/${linkageId}`;
 	return await put_(sessionId, url, body, true);
