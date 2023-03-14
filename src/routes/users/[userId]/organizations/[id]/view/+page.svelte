@@ -1,6 +1,7 @@
 <script lang="ts">
 	import Fa from 'svelte-fa';
 	import { faMultiply, faPen } from '@fortawesome/free-solid-svg-icons';
+	import date from 'date-and-time';
 	import { onMount } from 'svelte';
 	import { show } from '$lib/utils/message.utils';
 	import { LocalStorageUtils } from '$lib/utils/local.storage.utils';
@@ -117,7 +118,7 @@
 						<span>Operational Since</span>
 					</label>
 				</div>
-				<span class="span w-1/2 md:2/3 lg:2/3" id="operationalSince"> {operationalSince} </span>
+				<span class="span w-1/2 md:2/3 lg:2/3" id="operationalSince"> {date.format(new Date(operationalSince), 'DD-MMM-YYYY')} </span>
 			</div>
 
 			<div class="flex items-center my-4 lg:mx-16 md:mx-12 mx-10">

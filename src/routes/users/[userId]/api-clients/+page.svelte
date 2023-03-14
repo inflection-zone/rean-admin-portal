@@ -11,12 +11,12 @@
 	export let data: PageServerData;
 	let apiClient = data.apiClients;
 	apiClient = apiClient.map((item) => ({ ...item}));
-	const dataTableStore = createDataTableStore(
-		apiClient,
-		{
-			pagination: { offset: 0, limit: 10, size: 0, amounts: [10, 20, 30, 50] }
-		}
-	);
+	// const dataTableStore = createDataTableStore(
+	// 	apiClient,
+	// 	{
+	// 		pagination: { offset: 0, limit: 10, size: 0, amounts: [10, 20, 30, 50] }
+	// 	}
+	// );
 
 	let clientName = undefined;
 	let clientEmail = undefined;
@@ -67,8 +67,8 @@
 		console.log("response=======++++++++",apiClient);
   }
 
-	dataTableStore.subscribe((model) => dataTableHandler(model));
-	dataTableStore.updateSource(apiClient);
+	// dataTableStore.subscribe((model) => dataTableHandler(model));
+	// dataTableStore.updateSource(apiClient);
 
 
 </script>
@@ -115,7 +115,7 @@
 		<div class=" overflow-y-auto h-[600px] bg-tertiary-500">
 			<table class="table w-full">
 				<tbody class="">
-					{#each $dataTableStore.filtered as row, rowIndex}
+					{#each apiClient as row, rowIndex}
 						<tr>
 							<td style="width: 7%;">{rowIndex + 1}</td>
 							<td style="width: 22%;">{row.ClientName}</td>
@@ -127,12 +127,12 @@
 			</table>
 		</div>
 		<div class=" w-full bg-secondary-500 h-36 lg:h-16 md:h-16 sm:h-36 mb-10 pt-1 rounded-b-lg ">
-			{#if $dataTableStore.pagination}<Paginator
+			<!-- {#if $dataTableStore.pagination}<Paginator
 					class="mt-2 mr-3 ml-3 "
 					buttonClasses="btn-icon bg-surface-500 w-5 h-8"
 					text="text-white"
 					bind:settings={$dataTableStore.pagination}
-				/>{/if}
+				/>{/if} -->
 		</div>
 	</div>
 </div>

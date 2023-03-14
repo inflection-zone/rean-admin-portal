@@ -20,3 +20,9 @@ export interface PersonRole {
     RoleName    : string;
     // Description?: string;
 };
+
+
+export interface OrganizationTypes {
+      organizationTypes: string;
+    // Description?: string;
+};

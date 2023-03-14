@@ -3,11 +3,22 @@
 	import { faListSquares, faMultiply } from '@fortawesome/free-solid-svg-icons';
 	import BreadCrumbs from '$lib/components/breadcrumbs/breadcrums.svelte';
 	import { page } from '$app/stores';
-
+	 let checkboxValue = false;
 	const userId = $page.params.userId;
 	const createRoute = `/users/${userId}/organizations/create`;
 	const organizationRoute = `/users/${userId}/organizations`;
-
+	import type { PageServerData } from './$types';
+	import { oragnizationTypesStore} from '$lib/store/general.store';
+	import { LocalStorageUtils } from '$lib/utils/local.storage.utils';
+	import { browser } from '$app/environment';
+	
+	export let data: PageServerData;
+	oragnizationTypesStore.set(data.types);
+	LocalStorageUtils.setItem('personRoles', JSON.stringify(data.types));
+  const oraganizationTypes = data.types;
+	const handleClick = () => {
+		checkboxValue = !checkboxValue;
+  }
 	const breadCrumbs = [
 		{
 			name: 'Organization',
@@ -18,9 +29,6 @@
 			path: createRoute
 		}
 	];
-
-
-	
 </script>
 
 <main class="h-screen mb-60">
@@ -53,12 +61,13 @@
 					</label>
 				</div>
 				<div class="w-1/2 md:w-2/3 lg:w-2/3">
+					
 					<select class="select w-full" name="type" placeholder="Select type here...">
-						<option selected>Careplan</option>
-						<option>Clinic</option>
-						<option>Dark mode</option>
-						<option>Light mode</option>
+						{#each oraganizationTypes as  types}
+								<option>{types}</option>
+								{/each}
 					</select>
+					
 				</div>
 			</div>
 
@@ -81,13 +90,25 @@
 						<span>Contact Number</span>
 					</label>
 				</div>
-				<div class="w-1/2 md:w-2/3 lg:w-2/3">
-					<input
-						type="text"
-						name="contactPhone"
-						placeholder="Enter contact number here..."
-						class="input w-full "
-					/>
+				<div class="flex gap-2 w-1/2 md:w-2/3 lg:w-2/3">
+					<div>
+						<select
+							name="countrycode"
+							class="select select-primary w-20 lg:w-20 md:w-20 sm:w-18 min-[320px]:w-12"
+						>
+							<option>+91</option>
+							<option>+94</option>
+							<option>+93</option>
+						</select>
+					</div>
+					<div class="w-10/12">
+						<input
+							type="text"
+							name="contactPhone"
+							placeholder="Enter contact number here..."
+							class="input w-full max-w-md"
+						/>
+					</div>
 				</div>
 			</div>
 
@@ -99,7 +120,12 @@
 					</label>
 				</div>
 				<div class="w-1/2 md:w-2/3 lg:w-2/3">
-					<input type="email" name="contactEmail" placeholder="Enter email here..." class="input w-full " />
+					<input
+						type="email"
+						name="contactEmail"
+						placeholder="Enter email here..."
+						class="input w-full "
+					/>
 				</div>
 			</div>
 
@@ -132,6 +158,26 @@
 				</div>
 			</div>
 
+
+			<div class="flex items-center mb-2 lg:mx-16 md:mx-12 mx-10">
+				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
+					<!-- svelte-ignore a11y-label-has-associated-control -->
+					<label class="label">
+						<span>addressType</span>
+					</label>
+				</div>
+				<div class="w-1/2 md:w-2/3 lg:w-2/3">
+					<select
+					 	name="addressType"
+						class="select w-full"
+						placeholder="Select course here..."
+					>
+					<option>Home</option>
+					<option>office</option>
+					</select>
+				</div>	
+			</div>
+
 			<div class="flex items-center mb-2 lg:mx-16 md:mx-12 mx-10">
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
 					<!-- svelte-ignore a11y-label-has-associated-control -->
@@ -140,10 +186,99 @@
 					</label>
 				</div>
 				<div class="w-1/2 md:w-2/3 lg:w-2/3">
-					<textarea name="address" class="textarea w-full" placeholder="Enter address here..." />
-				</div>
+					<input
+						type="text"
+						name="AddressLine"
+						placeholder="Enter image resource here..."
+						class="input w-full "
+					/>
+				</div>	
 			</div>
 
+			<div class="flex items-center mb-2 lg:mx-16 md:mx-12 mx-10">
+				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
+					<!-- svelte-ignore a11y-label-has-associated-control -->
+					<label class="label">
+						<span>City</span>
+					</label>
+				</div>
+				<div class="w-1/2 md:w-2/3 lg:w-2/3">
+					<input
+						type="text"
+						name="city"
+						placeholder="Enter image resource here..."
+						class="input w-1/3 "
+					/>
+				</div>	
+			</div>
+			<div class="flex items-center mb-2 lg:mx-16 md:mx-12 mx-10">
+				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
+					<!-- svelte-ignore a11y-label-has-associated-control -->
+					<label class="label">
+						<span>District</span>
+					</label>
+				</div>
+				<div class="w-1/2 md:w-2/3 lg:w-2/3">
+					<input
+						type="text"
+						name="district"
+						placeholder="Enter district here..."
+						class="input w-1/3 "
+					/>
+				</div>	
+			</div>
+			<div class="flex items-center mb-2 lg:mx-16 md:mx-12 mx-10">
+				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
+					<!-- svelte-ignore a11y-label-has-associated-control -->
+					<label class="label">
+						<span>State/Province</span>
+					</label>
+				</div>
+				<div class="w-1/2 md:w-2/3 lg:w-2/3">
+					<select
+					 	name="state"
+						class="select w-1/2"
+						placeholder="Select course here..."
+					>
+					<option>Maharashtra</option>
+					</select>
+				</div>	
+			</div>
+			<div class="flex items-center mb-2 lg:mx-16 md:mx-12 mx-10">
+				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
+					<!-- svelte-ignore a11y-label-has-associated-control -->
+					<label class="label">
+						<span>Country</span>
+					</label>
+				</div>
+				<div class="w-1/2 md:w-2/3 lg:w-2/3">
+					<input
+						type="text"
+						name="country"
+						placeholder="Enter country here..."
+						class="input w-1/3 "
+					/>
+				</div>	
+			</div>
+			<div class="flex items-center mb-2 lg:mx-16 md:mx-12 mx-10">
+				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
+					<!-- svelte-ignore a11y-label-has-associated-control -->
+					<label class="label">
+						<span>Zip/postal code</span>
+					</label>
+				</div>
+				<div class="w-1/2 md:w-2/3 lg:w-2/3">
+					<input
+						type="text"
+						name="postalCode"
+						placeholder="Enter postal code or zip code here..."
+						class="input w-1/3 "
+					/>
+					
+				</div>	
+			</div>
+			
+			
 			<div class="flex items-center mb-4 lg:mx-16 md:mx-12 mx-10">
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
 					<!-- svelte-ignore a11y-label-has-associated-control -->
@@ -154,7 +289,7 @@
 				<div class="w-1/2 md:w-2/3 lg:w-2/3">
 					<input
 						type="text"
-						name="imageResource"
+						name="address"
 						placeholder="Enter image resource here..."
 						class="input w-full "
 					/>
@@ -165,7 +300,7 @@
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
 					<!-- svelte-ignore a11y-label-has-associated-control -->
 					<label class="label">
-						<span>Is Healthy Facility</span>
+						<span>Is Health Facility</span>
 					</label>
 				</div>
 				<div class="w-1/2 md:w-2/3 lg:w-2/3">
@@ -174,8 +309,8 @@
 							type="checkbox"
 							name="isHealthFacility"
 							class="checkbox checkbox-primary checkbox-md"
-							value="true"
-              
+							value={false}
+							on:click={handleClick}
 						/>
 					</label>
 				</div>

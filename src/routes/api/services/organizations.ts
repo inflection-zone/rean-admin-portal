@@ -11,7 +11,7 @@ export const createOrganization = async (
 	contactEmail: string,
 	about: string,
 	operationalSince: Date,
-	address: string[],
+	address:string[],
 	//imageResource: string,
 	isHealthFacility: boolean
 ) => {
@@ -22,7 +22,7 @@ export const createOrganization = async (
 		ContactEmail: contactEmail,
 		About: about,
 		OperationalSince: operationalSince,
-		Address: address,
+		AddressId: address,
 		//ImageResource: imageResource,
 		IsHealthFacility: isHealthFacility
 	};
