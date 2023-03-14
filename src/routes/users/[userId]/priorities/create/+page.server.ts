@@ -11,14 +11,16 @@ export const actions = {
 		const userId = event.params.userId;
 		const data = await request.formData();
 
-		const patientUserId = data.has('patientUserId') ? data.get('patientUserId') : null;
-		const provider = data.has('provider') ? data.get('provider') : null;
+		console.log('data==',data)
+
+		// const patientUserId = data.has('patientUserId') ? data.get('patientUserId') : null;
+		// const provider = data.has('provider') ? data.get('provider') : null;
 		const source = data.has('source') ? data.get('source') : null;
 		const enrollmentId = data.has('enrollmentId') ? data.get('enrollmentId') : null;
 		const careplanCode = data.has('careplanCode') ? data.get('careplanCode') : null;
 		const careplanName = data.has('careplanName') ? data.get('careplanName') : null;
-		const healthPriorityType = data.has('healthPriorityType')
-			? data.get('healthPriorityType')
+		const type = data.has('type')
+			? data.get('type')
 			: null;
 		const isPrimary = data.has('isPrimary') ? data.get('isPrimary') : null;
 		const sessionId = event.cookies.get('sessionId');
@@ -31,7 +33,7 @@ export const actions = {
 			enrollmentId.valueOf() as string,
 			careplanCode.valueOf() as string,
 			careplanName.valueOf() as string,
-			healthPriorityType.valueOf() as string,
+			type.valueOf() as string,
 			isPrimary.valueOf() as boolean
 		);
 		const id = response.Data.id;

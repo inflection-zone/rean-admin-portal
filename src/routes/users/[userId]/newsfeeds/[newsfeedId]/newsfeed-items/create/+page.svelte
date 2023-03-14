@@ -11,7 +11,7 @@
 	let fileinput;
 
 	const createRoute = `/users/${userId}/newsfeeds/${newsfeedId}/newsfeed-items/create`;
-	const newsfeedItemRoute = `/users/${userId}/newsfeeds//${newsfeedId}/newsfeed-items`;
+	const newsfeedItemRoute = `/users/${userId}/newsfeeds/${newsfeedId}/newsfeed-items`;
 
 	const breadCrumbs = [
 		{

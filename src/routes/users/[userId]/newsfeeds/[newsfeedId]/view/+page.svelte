@@ -145,8 +145,7 @@
 					</label>
 				</div>
 				{#if image === 'undefined'}
-					<span class="span">Image</span>
-					<!-- <img class="flex h-24 w-24 rounded-full" src={avatarSource} alt="d" /> -->
+					<span class="span">Image not specified</span>
 				{:else}
 					<Image cls="flex h-24 w-24 rounded-lg" source={image} w="24" h="24" />
 				{/if}
