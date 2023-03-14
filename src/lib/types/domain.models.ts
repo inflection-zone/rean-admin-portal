@@ -21,8 +21,6 @@ export interface PersonRole {
     // Description?: string;
 };
 
-
 export interface OrganizationTypes {
       organizationTypes: string;
-    // Description?: string;
 };
