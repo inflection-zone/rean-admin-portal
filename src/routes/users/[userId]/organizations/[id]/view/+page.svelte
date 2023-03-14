@@ -1,6 +1,7 @@
 <script lang="ts">
 	import Fa from 'svelte-fa';
 	import { faMultiply, faPen } from '@fortawesome/free-solid-svg-icons';
+	import date from 'date-and-time';
 	import { onMount } from 'svelte';
 	import { show } from '$lib/utils/message.utils';
 	import { LocalStorageUtils } from '$lib/utils/local.storage.utils';
@@ -10,16 +11,17 @@
 
 	export let data: PageServerData;
 	let id = data.organization.id;
-	let type = data.organization.type;
-	let name = data.organization.name;
-	let contactNumber = data.organization.phone;
-	let email = data.organization.email;
-	let about = data.organization.about;
-	let operationalSince = data.organization.operationalSince;
-	let address = data.organization.address;
-	let imageResource = data.organization.imageResource;
-	let isHealthFacility = data.organization.isHealthFacility;
+	let type = data.organization.Type;
+	let name = data.organization.Name;
+	let contactNumber = data.organization.ContactPhone;
+	let email = data.organization.ContactEmail;
+	let about = data.organization.About;
+	let operationalSince = data.organization.OperationalSince;
+	let address = data.organization.Addresses;
+	let imageResource = data.organization.ImageResourceId;
+	let isHealthFacility = data.organization.IsHealthFacility;
 
+	  console.log("data",data);
 	onMount(() => {
 		show(data);
 		LocalStorageUtils.removeItem('prevUrl');
@@ -116,7 +118,7 @@
 						<span>Operational Since</span>
 					</label>
 				</div>
-				<span class="span w-1/2 md:2/3 lg:2/3" id="operationalSince"> {operationalSince} </span>
+				<span class="span w-1/2 md:2/3 lg:2/3" id="operationalSince"> {date.format(new Date(operationalSince), 'DD-MMM-YYYY')} </span>
 			</div>
 
 			<div class="flex items-center my-4 lg:mx-16 md:mx-12 mx-10">

@@ -17,7 +17,7 @@ export const load: PageServerLoad = async (event: RequestEvent) => {
 		if (response.Status === 'failure' || response.HttpCode !== 200) {
 			throw error(response.HttpCode, response.Message);
 		}
-		const organization = response.Data;
+		const organization = response.Data.Organization;
 		return {
 			organization
 		};
@@ -31,8 +31,9 @@ export const actions = {
 		const request = event.request;
 		const userId = event.params.userId;
 		const data = await request.formData();
+		console.log("data",data);
 
-		const type = data.has('type') ? data.get('type') : null;
+		// const type = data.has('type') ? data.get('type') : null;
 		const name = data.has('name') ? data.get('name') : null;
 		const contactNumber = data.has('contactNumber') ? data.get('contactNumber') : null;
 		const email = data.has('email') ? data.get('email') : null;
@@ -47,7 +48,7 @@ export const actions = {
 		const response = await updateOrganization(
 			sessionId,
 			organizationId,
-			type.valueOf() as string,
+			// type.valueOf() as string,
 			name.valueOf() as string,
 			contactNumber.valueOf() as number,
 			email.valueOf() as string,
@@ -57,7 +58,8 @@ export const actions = {
 			imageResource.valueOf() as string,
 			isHealthFacility.valueOf() as boolean
 		);
-		const id = response.Data.id;
+		 console.log("response",response);
+		const id = response.Data.Organization.id;
 
 		if (response.Status === 'failure' || response.HttpCode !== 200) {
 			throw redirect(303, '/organizations', errorMessage(response.Message), event);

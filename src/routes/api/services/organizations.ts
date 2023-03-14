@@ -8,10 +8,10 @@ export const createOrganization = async (
 	type: string,
 	name: string,
 	contactPhone: number,
-	email: string,
+	contactEmail: string,
 	about: string,
 	operationalSince: Date,
-	address: string,
+	address:string[],
 	//imageResource: string,
 	isHealthFacility: boolean
 ) => {
@@ -19,10 +19,10 @@ export const createOrganization = async (
 		Type: type,
 		Name: name,
 		ContactPhone: contactPhone,
-		Email: email,
+		ContactEmail: contactEmail,
 		About: about,
 		OperationalSince: operationalSince,
-		Address: address,
+		AddressId: address,
 		//ImageResource: imageResource,
 		IsHealthFacility: isHealthFacility
 	};
@@ -59,7 +59,7 @@ export const searchOrganizations = async (sessionId: string, searchParams?: any)
 export const updateOrganization = async (
 	sessionId: string,
 	organizationId: string,
-	type: string,
+	// type: string,
 	name: string,
 	contactNumber: number,
 	email: string,
@@ -70,7 +70,7 @@ export const updateOrganization = async (
 	isHealthFacility: boolean
 ) => {
 	const body = {
-		Type: type,
+		// Type: type,
 		Name: name,
 		ContactNumber: contactNumber,
 		Email: email,

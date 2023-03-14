@@ -28,4 +28,4 @@ function createMapStore(initial) {
 export const personRolesStore = writable([]);
 export const currentUserRoleStore = writable('');
 export const genderTypesStore = writable([]);
-
+export const oragnizationTypesStore = writable([]);
