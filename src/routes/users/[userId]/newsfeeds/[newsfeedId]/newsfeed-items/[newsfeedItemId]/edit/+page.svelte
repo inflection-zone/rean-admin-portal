@@ -3,38 +3,46 @@
 	import { faMultiply } from '@fortawesome/free-solid-svg-icons';
 	import BreadCrumbs from '$lib/components/breadcrumbs/breadcrums.svelte';
 	import { page } from '$app/stores';
+	import Image from '$lib/components/image.svelte';
+	import date from 'date-and-time';
+	import { showMessage } from '$lib/utils/message.utils';
 	import type { PageServerData } from './$types';
 
 	export let data: PageServerData;
 	let initiaData = {};
 	let id = data.newsfeedItem.id;
-	let title = data.newsfeedItem.title;
-	let description = data.newsfeedItem.description;
-	let newsfeed = data.newsfeedItem.newsfeed;
-	let type = data.newsfeedItem.type;
-	let link = data.newsfeedItem.link;
-	let author = data.newsfeedItem.author;
-	let date = data.newsfeedItem.date;
-	let image = data.newsfeedItem.image;
+	let title = data.newsfeedItem.Title;
+	let description = data.newsfeedItem.Description;
+	let newsfeed = data.newsfeedItem.FeedId;
+	let link = data.newsfeedItem.Link;
+	let authorName = data.newsfeedItem.AuthorName;
+	let authorEmail = data.newsfeedItem.AuthorEmail;
+	let authorLink = data.newsfeedItem.AuthorLink;
+	let publishingDate =  new Date(data.newsfeedItem.PublishingDate);
+	let image = data.newsfeedItem.Image;
+	$: avatarSource = image;
 
 	//Original data
 	let _title = title;
 	let _description = description;
 	let _newsfeed = newsfeed;
-	let _type = type;
 	let _link = link;
-	let _author = author;
-	let _date = date;
-	//let _image = image;
+	let _authorName = authorName;
+	let _authorEmail = authorEmail;
+	let _authorLink = authorLink;
+	let _publishingDate = publishingDate;
+	let _image = image;
 
 	function handleReset() {
 		title = _title;
 		description = _description;
 		newsfeed = _newsfeed;
-		type = _type;
 		link = _link;
-		author = _author;
-		date = _date;
+		link = _link;
+		authorName = _authorName;
+		authorEmail = _authorEmail;
+		authorLink = _authorLink;
+		image = _image;
 	}
 
 	const userId = $page.params.userId;
@@ -52,6 +60,47 @@
 			path: editRoute
 		}
 	];
+
+	const upload = async (imgBase64, filename) => {
+		const data = {};
+		//console.log(imgBase64);
+		const imgData = imgBase64.split(',');
+		data['image'] = imgData[1];
+		//console.log(JSON.stringify(data));
+		const res = await fetch(`/api/server/file-resources/upload`, {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json',
+				Accept: 'application/json',
+				filename: filename
+			},
+			body: JSON.stringify(data)
+		});
+		console.log(Date.now().toString());
+		const response = await res.json();
+		if (response.Status === 'success' && response.HttpCode === 201) {
+			// const imageResourceId = response.Data.FileResources[0].id;
+			const image_ = response.Data.FileResources[0].Url;
+			console.log('image_', image_);
+			if (image_) {
+				image = image_;
+			}
+			console.log(image);
+		} else {
+			showMessage(response.Message, 'error');
+		}
+	};
+
+	const onFileSelected = async (e) => {
+		let f = e.target.files[0];
+		const filename = f.name;
+		let reader = new FileReader();
+		reader.readAsDataURL(f);
+		reader.onload = async (e) => {
+			avatarSource = e.target.result;
+			await upload(e.target.result, filename);
+		};
+	};
 </script>
 
 <main class="h-screen mb-10">
@@ -80,13 +129,7 @@
 					</label>
 				</div>
 				<div class="w-1/2 md:w-2/3 lg:w-2/3">
-					<input
-						type="text"
-						name="title"
-						bind:value={title}
-						placeholder="Enter title here..."
-						class="input w-full "
-					/>
+					<input type="text" name="title" bind:value={title} placeholder="Enter title here..." class="input w-full " />
 				</div>
 			</div>
 
@@ -99,48 +142,15 @@
 				</div>
 				<div class="w-1/2 md:w-2/3 lg:w-2/3">
 					<textarea
-						class="textarea w-full"
 						name="description"
 						bind:value={description}
+						class="textarea w-full"
 						placeholder="Enter description here..."
 					/>
 				</div>
 			</div>
 
-			<div class="flex items-center mb-2 lg:mx-16 md:mx-12 mx-10">
-				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
-					<!-- svelte-ignore a11y-label-has-associated-control -->
-					<label class="label">
-						<span>Newsfeed</span>
-					</label>
-				</div>
-				<div class="w-1/2 md:w-2/3 lg:w-2/3">
-					<input
-						type="text"
-						name="newsfeed"
-						bind:value={newsfeed}
-						placeholder="Enter newsfeed here..."
-						class="input w-full "
-					/>
-				</div>
-			</div>
-
-			<div class="flex items-center my-4 lg:mx-16 md:mx-12 mx-10">
-				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
-					<!-- svelte-ignore a11y-label-has-associated-control -->
-					<label class="label">
-						<span>Type</span>
-					</label>
-				</div>
-				<div class="w-1/2 md:w-2/3 lg:w-2/3">
-					<select class="select w-full" bind:value={type} placeholder="select type here...">
-						<option value="Careplan">Careplan</option>
-						<option value="Auto">Auto</option>
-						<option>Dark mode</option>
-						<option>Light mode</option>
-					</select>
-				</div>
-			</div>
+			
 
 			<div class="flex items-center mb-4 lg:mx-16 md:mx-12 mx-10">
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
@@ -150,13 +160,7 @@
 					</label>
 				</div>
 				<div class="w-1/2 md:w-2/3 lg:w-2/3">
-					<input
-						type="text"
-						name="link"
-						bind:value={link}
-						placeholder="Enter link here..."
-						class="input w-full "
-					/>
+					<input type="text" bind:value={link} name="link" placeholder="Enter link here..." class="input w-full " />
 				</div>
 			</div>
 
@@ -164,15 +168,15 @@
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
 					<!-- svelte-ignore a11y-label-has-associated-control -->
 					<label class="label">
-						<span>Author</span>
+						<span>Author Name</span>
 					</label>
 				</div>
 				<div class="w-1/2 md:w-2/3 lg:w-2/3">
 					<input
 						type="text"
-						name="author"
-						bind:value={author}
-						placeholder="Enter author here..."
+						name="authorName"
+						bind:value={authorName}
+						placeholder="Enter author name here..."
 						class="input w-full "
 					/>
 				</div>
@@ -182,10 +186,46 @@
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
 					<!-- svelte-ignore a11y-label-has-associated-control -->
 					<label class="label">
-						<span>Date</span>
+						<span>Author Email</span>
 					</label>
 				</div>
-				<span class="span w-1/2 md:2/3 lg:2/3" id="date"> {date} </span>
+				<div class="w-1/2 md:w-2/3 lg:w-2/3">
+					<input
+						type="text"
+						name="authorEmail"
+						bind:value={authorEmail}
+						placeholder="Enter author email here..."
+						class="input w-full "
+					/>
+				</div>
+			</div>
+
+			<div class="flex items-center mb-4 lg:mx-16 md:mx-12 mx-10">
+				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
+					<!-- svelte-ignore a11y-label-has-associated-control -->
+					<label class="label">
+						<span>Author Link</span>
+					</label>
+				</div>
+				<div class="w-1/2 md:w-2/3 lg:w-2/3">
+					<input
+						type="text"
+						name="authorLink"
+						bind:value={authorLink}
+						placeholder="Enter author link here..."
+						class="input w-full "
+					/>
+				</div>
+			</div>
+
+			<div class="flex items-center mb-4 lg:mx-16 md:mx-12 mx-10">
+				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
+					<!-- svelte-ignore a11y-label-has-associated-control -->
+					<label class="label">
+						<span>Published Date</span>
+					</label>
+				</div>
+				<span class="span w-1/2 md:2/3 lg:2/3" id="publishingDate">{date.format(publishingDate, 'DD MMM YYYY')}</span>
 			</div>
 
 			<div class="flex items-center my-2 lg:mx-16 md:mx-12 mx-10">
@@ -196,17 +236,29 @@
 					</label>
 				</div>
 				<div class="flex flex-row gap-8 w-1/2 md:w-2/3 lg:w-2/3 ">
-					<input
-						name="image"
-						type="file"
-						id="fileUpload"
-						class="input w-full"
-						placeholder="Image"
-					/>
-					<button
+					{#if image === 'undefined'}
+						<input
+							name="fileinput"
+							type="file"
+							class="true input w-full"
+							placeholder="Image"
+							on:change={async (e) => await onFileSelected(e)}
+						/>
+					{:else}
+						<Image cls="flex h-24 w-24 rounded-lg" source={image} w="24" h="24" />
+						<input
+							name="fileinput"
+							type="file"
+							class="true input w-full"
+							placeholder="Image"
+							on:change={async (e) => await onFileSelected(e)}
+						/>
+					{/if}
+					<input type="hidden" name="image" value={image} />
+					<!-- <button
 						class="capitalize btn variant-filled-primary lg:w-[19%] md:w-[22%] md:text-[13px] sm:w-[30%] sm:text-[12px] min-[320px]:w-[40%] min-[320px]:text-[10px]"
 						>Upload</button
-					>
+					> -->
 				</div>
 			</div>
 

@@ -6,12 +6,12 @@
 	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 	export let data: PageServerData;
-	const symptom = data.symptom;
-	console.log('symptom', symptom);
-	let columns = ['ID', 'Symptom', 'Description', 'Language'];
+	const drug = data.drug;
+	console.log('drug', drug);
+	let columns = ['ID', 'DrugName', 'GenericName', 'Ingredients'];
 	const dataTableStore = createDataTableStore(
 		// Pass your source data here:
-		symptom,
+		drug,
 		{
 			// The current search term.
 			search: '',
@@ -24,7 +24,7 @@
 	// This automatically handles search, sort, etc when the model updates.
 	dataTableStore.subscribe((model) => dataTableHandler(model));
 
-	dataTableStore.updateSource(symptom);
+	dataTableStore.updateSource(drug);
 </script>
 
 <div class="mx-10 mb-16">
@@ -39,9 +39,9 @@
 			<thead class="sticky top-0">
 				<tr>
 					<th style="width: 7%;">Id</th>
-					<th style="width: 22%;">Symptom</th>
-					<th style="width: 38%;">Description</th>
-					<th style="width: 33%;">Language</th>
+					<th style="width: 22%;">Drug Name</th>
+					<th style="width: 38%;">Generic Name</th>
+					<th style="width: 33%;">Ingredients</th>
 				</tr>
 			</thead>
 		</table>
@@ -51,17 +51,17 @@
 					{#each $dataTableStore.filtered as row, rowIndex}
 						<tr>
 							<td style="width: 7%;">{rowIndex + 1}</td>
-							<td style="width: 22%;">{row.Symptom}</td>
-							<td style="width: 38%;"
-								>{row.Description.length > 30
-									? row.Description.substring(0, 30) + '...'
-									: row.Description}</td
+							<td style="width: 95%;">{row.DrugName}</td>
+							<!-- <td style="width: 38%;"
+								>{row.GenericName.length > 30
+									? row.GenericName.substring(0, 30) + '...'
+									: row.GenericName}</td
 							>
 							<td style="width: 33%;"
-								>{row.Language.length > 20
-									? row.Language.substring(0, 20) + '...'
-									: row.Language}</td
-							>
+								>{row.Ingredients.length > 20
+									? row.Ingredients.substring(0, 20) + '...'
+									: row.Ingredients}</td
+							> -->
 						</tr>
 					{/each}
 				</tbody>

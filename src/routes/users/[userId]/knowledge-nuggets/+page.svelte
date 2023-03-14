@@ -12,7 +12,7 @@
 	const dataTableStore = createDataTableStore(
 		// Pass your source data here:
 		knowledgeNuggets,
-		{
+		{ 
 			// The current search term.
 			search: '',
 			// The current sort key.

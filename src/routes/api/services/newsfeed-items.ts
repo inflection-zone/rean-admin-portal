@@ -5,29 +5,32 @@ import { delete_, get_, post_, put_ } from './common';
 
 export const createNewsfeedItem = async (
 	sessionId: string,
+	newsfeedId: string,
 	title: string,
 	description: string,
-	newsfeed: string,
-	type: string,
 	link: string,
-	author: string,
-	date: Date
+	image:string,
+	authorName: string,
+	authorEmail: string,
+	authorLink: string
+        
 ) => {
 	const body = {
+		FeedId: newsfeedId,
 		Title: title,
 		Description: description,
-		Newsfeed: newsfeed,
-		Type: type,
 		Link: link,
-		Author: author,
-		Date: date
+		Image: image,
+		AuthorName: authorName,
+		AuthorEmail: authorEmail,
+		AuthorLink: authorLink
 	};
 	const url = BACKEND_API_URL + '/rss-feeds/feed-items';
 	return await post_(sessionId, url, body, true);
 };
 
 export const getNewsfeedItemById = async (sessionId: string, newsfeedItemId: string) => {
-	const url = BACKEND_API_URL + `/rss-feeds/feed-items${newsfeedItemId}`;
+	const url = BACKEND_API_URL + `/rss-feeds/feed-items/${newsfeedItemId}`;
 	return await get_(sessionId, url, true);
 };
 
@@ -54,28 +57,30 @@ export const searchNewsfeedItems = async (sessionId: string, searchParams?: any)
 export const updateNewsfeedItem = async (
 	sessionId: string,
 	newsfeedItemId: string,
+	newsfeedId: string,
 	title: string,
 	description: string,
-	newsfeed: string,
-	type: string,
 	link: string,
-	author: string,
-	date: Date
+	image:string,
+	authorName: string,
+	authorEmail: string,
+	authorLink: string
 ) => {
 	const body = {
+		FeedId: newsfeedId,
 		Title: title,
 		Description: description,
-		Newsfeed: newsfeed,
-		Type: type,
 		Link: link,
-		Author: author,
-		Date: date
+		Image: image,
+		AuthorName: authorName,
+		AuthorEmail: authorEmail,
+		AuthorLink: authorLink
 	};
-	const url = BACKEND_API_URL + `/rss-feeds/feed-items${newsfeedItemId}`;
+	const url = BACKEND_API_URL + `/rss-feeds/feed-items/${newsfeedItemId}`;
 	return await put_(sessionId, url, body, true);
 };
 
 export const deleteNewsfeedItem = async (sessionId: string, newsfeedItemId: string) => {
-	const url = BACKEND_API_URL + `/rss-feeds/feed-items${newsfeedItemId}`;
+	const url = BACKEND_API_URL + `/rss-feeds/feed-items/${newsfeedItemId}`;
 	return await delete_(sessionId, url, true);
 };

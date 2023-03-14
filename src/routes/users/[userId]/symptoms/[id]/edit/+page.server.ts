@@ -17,9 +17,12 @@ export const load: PageServerLoad = async (event: RequestEvent) => {
 		if (response.Status === 'failure' || response.HttpCode !== 200) {
 			throw error(response.HttpCode, response.Message);
 		}
-		const symptom = response.Data;
+		const symptom = response.Data.SymptomType;
+		const id = response.Data.SymptomType.id;
 		return {
-			symptom
+			location: `${id}/edit`,
+			symptom,
+			message: response.Message
 		};
 	} catch (error) {
 		console.error(`Error retriving symptom: ${error.message}`);
@@ -34,10 +37,9 @@ export const actions = {
 
 		const symptom = data.has('symptom') ? data.get('symptom') : null;
 		const description = data.has('description') ? data.get('description') : null;
-		const temp = data.has('tags') ? data.get('tags') : null;
-		const tags = temp ? JSON.parse(temp?.valueOf() as string) : [];
+		const tags = data.has('tags') ? data.getAll('tags') : null;
 		const language = data.has('language') ? data.get('language') : null;
-		const imageResourceId = data.has('imageResourceId') ? data.get('imageResourceId') : null;
+		const imageResourceId = data.has('imageResourceId') ? data.get('imageResourceId') : null;	
 		const sessionId = event.cookies.get('sessionId');
 		const symptomId = event.params.id;
 
@@ -46,11 +48,12 @@ export const actions = {
 			symptomId,
 			symptom.valueOf() as string,
 			description.valueOf() as string,
-			tags,
+			tags.valueOf() as string[],
 			language.valueOf() as string,
-			imageResourceId.valueOf() as string
+			imageResourceId.valueOf() as string,
 		);
-		const id = response.Data.id;
+		console.log('res==',response)
+		const id = response.Data.SymptomType.id;
 
 		if (response.Status === 'failure' || response.HttpCode !== 200) {
 			throw redirect(303, '/symptoms', errorMessage(response.Message), event);
