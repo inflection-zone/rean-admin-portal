@@ -6,18 +6,24 @@
 	import { LocalStorageUtils } from '$lib/utils/local.storage.utils';
 	import BreadCrumbs from '$lib/components/breadcrumbs/breadcrums.svelte';
 	import { page } from '$app/stores';
+	import date from 'date-and-time';
 	import type { PageServerData } from './$types';
+	import Image from '$lib/components/image.svelte';
 
 	export let data: PageServerData;
-	let id = data.newsfeedItem.id;
-	let title = data.newsfeedItem.title;
-	let description = data.newsfeedItem.description;
-	let newsfeed = data.newsfeedItem.newsfeed;
-	let type = data.newsfeedItem.type;
-	let link = data.newsfeedItem.link;
-	let author = data.newsfeedItem.author;
-	let date = data.newsfeedItem.date;
-	let image = data.newsfeedItem.image;
+	let id = data.newsfeed.id;
+	let title = data.newsfeed.Title;
+	let description = data.newsfeed.Description;
+	let link = data.newsfeed.Link;
+	let language = data.newsfeed.Language;
+	let copyright = data.newsfeed.Copyright;
+	let favicon = data.newsfeed.Favicon;
+	let updated = new Date(data.newsfeed.Updated);
+	let image = data.newsfeed.Image;
+	let tags_ = data.newsfeed.Tags;
+	let tags = tags_.join(', ');
+
+	console.log('image', image);
 
 	onMount(() => {
 		show(data);
@@ -25,14 +31,14 @@
 	});
 
 	const userId = $page.params.userId;
-	const editRoute = `/users/${userId}/newsfeeds/newsfeed-items/${id}/edit`;
-	const viewRoute = `/users/${userId}/newsfeeds/newsfeed-items/${id}/view`;
-	const newsfeedItemRoute = `/users/${userId}/newsfeeds/newsfeed-items`;
+	const editRoute = `/users/${userId}/newsfeeds/${id}/edit`;
+	const viewRoute = `/users/${userId}/newsfeeds/${id}/view`;
+	const newsfeedRoute = `/users/${userId}/newsfeeds`;
 
 	const breadCrumbs = [
 		{
-			name: 'Newsfeed-Item',
-			path: newsfeedItemRoute
+			name: 'Newsfeed',
+			path: newsfeedRoute
 		},
 		{
 			name: 'View',
@@ -51,14 +57,16 @@
 		>
 			<div class="w-full  h-14 rounded-t-lg p-3  bg-[#7165E3]">
 				<div class="ml-3 relative flex flex-row text-white lg:text-xl text-lg ">
-					<div class="lg:hidden md:hidden block">View Items In Newsfeed</div>
-					<div class="lg:block md:block hidden">View Items In Newsfeed</div>
-					<a href={newsfeedItemRoute}>
+					<div class="lg:hidden md:hidden block">View Newsfeed</div>
+					<div class="lg:block md:block hidden">View Newsfeed</div>
+					<a href={newsfeedRoute}>
 						<Fa icon={faMultiply} size="lg" class="absolute right-0 lg:pr-3 pr-0 text-white" />
 					</a>
 				</div>
 			</div>
+
 			<div class="hidden">{id}</div>
+
 			<div class="flex items-center mb-4 mt-10 lg:mx-16 md:mx-12 mx-10">
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
 					<!-- svelte-ignore a11y-label-has-associated-control -->
@@ -79,27 +87,7 @@
 				<span class="span w-1/2 md:2/3 lg:2/3" id="description"> {description} </span>
 			</div>
 
-			<div class="flex items-center my-4 lg:mx-16 md:mx-12 mx-10">
-				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
-					<!-- svelte-ignore a11y-label-has-associated-control -->
-					<label class="label">
-						<span>Newsfeed</span>
-					</label>
-				</div>
-				<span class="span w-1/2 md:2/3 lg:2/3" id="newsfeed"> {newsfeed} </span>
-			</div>
-
-			<div class="flex items-center my-4 lg:mx-16 md:mx-12 mx-10">
-				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
-					<!-- svelte-ignore a11y-label-has-associated-control -->
-					<label class="label">
-						<span>Type</span>
-					</label>
-				</div>
-				<span class="span w-1/2 md:2/3 lg:2/3" id="type"> {type} </span>
-			</div>
-
-			<div class="flex items-center my-4 lg:mx-16 md:mx-12 mx-10">
+			<div class="flex items-center mb-4 lg:mx-16 md:mx-12 mx-10">
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
 					<!-- svelte-ignore a11y-label-has-associated-control -->
 					<label class="label">
@@ -109,25 +97,46 @@
 				<span class="span w-1/2 md:2/3 lg:2/3" id="link"> {link} </span>
 			</div>
 
-			<div class="flex items-center my-4 lg:mx-16 md:mx-12 mx-10">
+			<div class="flex items-center mb-4 lg:mx-16 md:mx-12 mx-10">
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
 					<!-- svelte-ignore a11y-label-has-associated-control -->
 					<label class="label">
-						<span>Author</span>
+						<span>Language</span>
 					</label>
 				</div>
-				<span class="span w-1/2 md:2/3 lg:2/3" id="author"> {author} </span>
+				<span class="span w-1/2 md:2/3 lg:2/3" id="language"> {language} </span>
 			</div>
 
 			<div class="flex items-center mb-4 lg:mx-16 md:mx-12 mx-10">
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
 					<!-- svelte-ignore a11y-label-has-associated-control -->
 					<label class="label">
-						<span>Date</span>
+						<span>Copyright</span>
 					</label>
 				</div>
-				<span class="span w-1/2 md:2/3 lg:2/3" id="date"> {date} </span>
+				<span class="span w-1/2 md:2/3 lg:2/3" id="copyright"> {copyright} </span>
 			</div>
+
+			<div class="flex items-center mb-4 lg:mx-16 md:mx-12 mx-10">
+				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
+					<!-- svelte-ignore a11y-label-has-associated-control -->
+					<label class="label">
+						<span>Favicon</span>
+					</label>
+				</div>
+				<span class="span w-1/2 md:2/3 lg:2/3" id="favicon"> {favicon} </span>
+			</div>
+
+			<div class="flex items-center mb-4 lg:mx-16 md:mx-12 mx-10">
+				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
+					<!-- svelte-ignore a11y-label-has-associated-control -->
+					<label class="label">
+						<span>Updated</span>
+					</label>
+				</div>
+				<span class="span w-1/2 md:2/3 lg:2/3" id="updated">{date.format(updated, 'DD MMM YYYY')}</span>
+			</div>
+
 			<div class="flex items-center my-4 lg:mx-16 md:mx-12 mx-10">
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
 					<!-- svelte-ignore a11y-label-has-associated-control -->
@@ -135,7 +144,22 @@
 						<span>Image</span>
 					</label>
 				</div>
-				<span class="span w-1/2 md:w-2/3 lg:w-2/3"> {image} </span>
+				{#if image === 'undefined'}
+					<span class="span">Image</span>
+					<!-- <img class="flex h-24 w-24 rounded-full" src={avatarSource} alt="d" /> -->
+				{:else}
+					<Image cls="flex h-24 w-24 rounded-lg" source={image} w="24" h="24" />
+				{/if}
+			</div>
+
+			<div class="flex items-center mb-4 lg:mx-16 md:mx-12 mx-10">
+				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
+					<!-- svelte-ignore a11y-label-has-associated-control -->
+					<label class="label">
+						<span>Tags</span>
+					</label>
+				</div>
+				<span class="span w-1/2 md:2/3 lg:2/3">{tags} </span>
 			</div>
 
 			<div class="flex items-center mt-7 lg:mx-16 md:mx-12 mr-10">

@@ -1,48 +1,45 @@
 import { redirect } from 'sveltekit-flash-message/server';
 import { errorMessage, successMessage } from '$lib/utils/message.utils';
-import { createNewsfeedItem } from '../../../../../api/services/newsfeed-items';
+import { createNewsfeedItem } from '../../../../../../api/services/newsfeed-items';
 import type { RequestEvent } from './$types';
 
 /////////////////////////////////////////////////////////////////////////
-
 
 export const actions = {
 	createNewsfeedItemAction: async (event: RequestEvent) => {
 		const request = event.request;
 		const userId = event.params.userId;
+		const newsfeedId = event.params.newsfeedId;
 		const data = await request.formData();
-
-		console.log('data---',data)
 
 		const title = data.has('title') ? data.get('title') : null;
 		const description = data.has('description') ? data.get('description') : null;
-		const newsfeedId = data.has('newsfeedId') ? data.get('newsfeedId') : null;
-		const type = data.has('type') ? data.get('type') : null;
 		const link = data.has('link') ? data.get('link') : null;
-		const author = data.has('author') ? data.get('author') : null;
-		// const date = data.has('date') ? data.get('date') : null;
+		const image = data.has('image') ? data.get('image') : null;
+		const authorName = data.has('authorName') ? data.get('authorName') : null;
+		const authorEmail = data.has('authorEmail') ? data.get('authorEmail') : null;
+		const authorLink = data.has('authorLink') ? data.get('authorLink') : null;
 		const sessionId = event.cookies.get('sessionId');
-
-		// 3edc6f06-ce99-4906-ba5b-e0c26dbc42ba
 
 		const response = await createNewsfeedItem(
 			sessionId,
+			newsfeedId,
 			title.valueOf() as string,
 			description.valueOf() as string,
-			newsfeedId.valueOf() as string,
-			type.valueOf() as string,
 			link.valueOf() as string,
-			author.valueOf() as string,
-			// date.valueOf() as Date
+			image.valueOf() as string,
+			authorName.valueOf() as string,
+			authorEmail.valueOf() as string,
+			authorLink.valueOf() as string
 		);
-		const id = response.Data.Feeditem.id;
+		const newsfeedItemId = response.Data.RssfeedItem.id;
 
 		if (response.Status === 'failure' || response.HttpCode !== 201) {
 			throw redirect(303, '/newsfeeds/newsfeed-items', errorMessage(response.Message), event);
 		}
 		throw redirect(
 			303,
-			`/users/${userId}/newsfeeds/newsfeed-items/${id}/view`,
+			`/users/${userId}/newsfeeds/${newsfeedId}/newsfeed-items/${newsfeedItemId}/view`,
 			successMessage(`Newsfeed item created successful!`),
 			event
 		);

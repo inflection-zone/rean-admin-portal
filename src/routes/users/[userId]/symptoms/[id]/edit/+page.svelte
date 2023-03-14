@@ -1,39 +1,35 @@
 <script lang="ts">
 	import Fa from 'svelte-fa';
 	import { faMultiply } from '@fortawesome/free-solid-svg-icons';
-	import Tags from '$lib/components/tags.svelte';
 	import BreadCrumbs from '$lib/components/breadcrumbs/breadcrums.svelte';
 	import { page } from '$app/stores';
 	import { InputChip } from '@skeletonlabs/skeleton';
+	import { showMessage } from '$lib/utils/message.utils';
+	import Image from '$lib/components/image.svelte';
 	import type { PageServerData } from './$types';
 
 	export let data: PageServerData;
 	let initiaData = {};
 	let id = data.symptom.id;
-	let symptom = data.symptom.symptom;
-	let description = data.symptom.description;
-	let tags = data.symptom.tags;
-	let language = data.symptom.language;
-	let imageResourceId = data.symptom.imageResourceId;
-	let isPresent = data.symptom.isPresent;
-
+	let symptom = data.symptom.Symptom;
+	let description = data.symptom.Description;
+	let tags = data.symptom.Tags;
+	let language = data.symptom.Language;
+	let imageResourceId = data.symptom.ImageResourceId;
+	$: avatarSource = imageResourceId;
 
 	//Original data
 	let _symptom = symptom;
 	let _description = description;
+	let _tags = tags;
 	let retrievedTags = '';
 	let tagsPlaceholder = 'Enter a tags here...';
 	let _language = language;
 	let _imageResourceId = imageResourceId;
-	let _isPresent = isPresent;
-
-	function handleTags(event) {
-		retrievedTags = event.detail.tags;
-	}
 
 	function handleReset() {
 		description = _description;
-		tags = JSON.parse(tags);
+		tags = _tags;
 	}
 
 	const userId = $page.params.userId;
@@ -51,25 +47,71 @@
 			path: editRoute
 		}
 	];
+
+	const upload = async (imgBase64, filename) => {
+		const data = {};
+		//console.log(imgBase64);
+		const imgData = imgBase64.split(',');
+		data['image'] = imgData[1];
+		//console.log(JSON.stringify(data));
+		const res = await fetch(`/api/server/file-resources/upload`, {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json',
+				Accept: 'application/json',
+				filename: filename
+			},
+			body: JSON.stringify(data)
+		});
+		console.log(Date.now().toString());
+		const response = await res.json();
+		if (response.Status === 'success' && response.HttpCode === 201) {
+			// const imageResourceId = response.Data.FileResources[0].id;
+			const imageResourceId_ = response.Data.FileResources[0].Url;
+			console.log('image', imageResourceId_);
+			if (imageResourceId_) {
+				imageResourceId = imageResourceId_;
+			}
+			console.log(imageResourceId);
+		} else {
+			showMessage(response.Message, 'error');
+		}
+	};
+
+	const onFileSelected = async (e) => {
+		let f = e.target.files[0];
+		const filename = f.name;
+		let reader = new FileReader();
+		reader.readAsDataURL(f);
+		reader.onload = async (e) => {
+			avatarSource = e.target.result;
+			await upload(e.target.result, filename);
+		};
+	};
 </script>
 
 <main class="h-screen mb-10">
 	<BreadCrumbs crumbs={breadCrumbs} />
 
-	<div class=" flex justify-center mt-5 px-3 mb-10 flex-col items-center">
+	<div class="px-5 mb-5 ">
 		<form
 			method="post"
 			action="?/updateSymptomAction"
-			class="w-full lg:max-w-4xl md:max-w-xl sm:max-w-lg bg-[#ECE4FC] rounded-lg mx-auto"
+			class="w-full  bg-[#ECE4FC] lg:mt-10 md:mt-8 sm:mt-6 mb-10 mt-4 lg:max-w-4xl md:max-w-xl sm:max-w-lg  rounded-lg mx-auto"
 		>
 			<div class="w-full  h-14 rounded-t-lg p-3  bg-[#7165E3]">
 				<div class="ml-3 relative flex flex-row text-white text-xl">
 					Edit Symptom
 					<a href={viewRoute}>
-						<Fa icon={faMultiply} size="lg" class="absolute right-0 pr-3 mb-16 text-white " />
+						<Fa
+							icon={faMultiply}
+							size="lg"
+							class="absolute right-0 lg:pr-3 md:pr-2 pr-0 text-white"
+						/>
 					</a>
 				</div>
 			</div>
+
 			<div class="hidden">{id}</div>
 			<div class="flex items-center mb-4 mt-10 lg:mx-16 md:mx-12 mx-10">
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
@@ -98,15 +140,15 @@
 				</div>
 				<div class="w-1/2 md:w-2/3 lg:w-2/3">
 					<textarea
-						class="textarea w-full"
 						name="description"
-						placeholder="Enter description here..."
 						bind:value={description}
+						class="textarea w-full"
+						placeholder="Enter description here..."
 					/>
 				</div>
 			</div>
 
-			<div class="flex items-center lg:mx-16 md:mx-12 mx-10">
+			<div class="flex items-center mb-2 lg:mx-16 md:mx-12 mx-10">
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
 					<!-- svelte-ignore a11y-label-has-associated-control -->
 					<label class="label">
@@ -114,8 +156,11 @@
 					</label>
 				</div>
 				<div class="w-1/2 md:w-2/3 lg:w-2/3">
-					<InputChip name="Tags" placeholder={tagsPlaceholder} on:tags={handleTags} bind:tags />
-					<input type="hidden" name="tags" value={JSON.stringify(tags)} />
+					<InputChip
+					chips="variant-filled-error rounded-2xl"
+					name="tags"
+					bind:value= {tags}
+					/>
 				</div>
 			</div>
 
@@ -137,31 +182,37 @@
 				</div>
 			</div>
 
-			<div class="flex items-center my-4 lg:mx-16 md:mx-12 mx-10">
+			<div class="flex items-center my-2 lg:mx-16 md:mx-12 mx-10">
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
 					<!-- svelte-ignore a11y-label-has-associated-control -->
 					<label class="label">
-						<span>Image Resource Id</span>
+						<span>Image</span>
 					</label>
 				</div>
-				<span class="span w-1/2 md:w-2/3 lg:w-2/3"> {imageResourceId} </span>
-			</div>
-
-			<div class="flex items-center mb-4 lg:mx-16 md:mx-12 mx-10">
-				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
-					<!-- svelte-ignore a11y-label-has-associated-control -->
-					<label class="label">
-						<span>Is Present</span>
-					</label>
-				</div>
-				<div class="w-1/2 md:w-2/3 lg:w-2/3">
-					<label class="label cursor-pointer">
+				<div class="flex flex-row gap-8 w-1/2 md:w-2/3 lg:w-2/3 ">
+					{#if imageResourceId === 'undefined'}
 						<input
-							type="checkbox"
-							bind:checked={isPresent}
-							class="checkbox checkbox-primary checkbox-md"
+							name="fileinput"
+							type="file"
+							class="true input w-full"
+							placeholder="Image"
+							on:change={async (e) => await onFileSelected(e)}
 						/>
-					</label>
+					{:else}
+						<Image cls="flex h-24 w-24 rounded-lg" source={imageResourceId} w="24" h="24" />
+						<input
+							name="fileinput"
+							type="file"
+							class="true input w-full"
+							placeholder="Image"
+							on:change={async (e) => await onFileSelected(e)}
+						/>
+					{/if}
+					<input type="hidden" name="imageResourceId" value={imageResourceId} />
+					<!-- <button
+						class="capitalize btn variant-filled-primary lg:w-[19%] md:w-[22%] md:text-[13px] sm:w-[30%] sm:text-[12px] min-[320px]:w-[40%] min-[320px]:text-[10px]"
+						>Upload</button
+					> -->
 				</div>
 			</div>
 

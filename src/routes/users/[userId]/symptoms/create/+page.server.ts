@@ -13,10 +13,9 @@ export const actions = {
 
 		const symptom = data.has('symptom') ? data.get('symptom') : null;
 		const description = data.has('description') ? data.get('description') : null;
-		const tags = data.has('tags') ? data.get('tags') : null;
+		const tags = data.has('tags') ? data.getAll('tags') : null;
 		const language = data.has('language') ? data.get('language') : null;
-		// const imageResourceId = data.has('imageResourceId') ? data.get('imageResourceId') : null;
-		const isPresent = data.has('isPresent') ? data.get('isPresent') : null;
+		const imageResourceId = data.has('imageResourceId') ? data.get('imageResourceId') : null;
 		const sessionId = event.cookies.get('sessionId');
 
 		const response = await createSymptom(
@@ -25,11 +24,10 @@ export const actions = {
 			description.valueOf() as string,
 			tags.valueOf() as string[],
 			language.valueOf() as string,
-			// imageResourceId.valueOf() as string,
-			isPresent.valueOf() as boolean
+			imageResourceId.valueOf() as string,
 		);
-		const id = response.Data.Symptom.id;
-
+		const id = response.Data.SymptomType.id;
+		
 		if (response.Status === 'failure' || response.HttpCode !== 201) {
 			throw redirect(303, '/symptoms', errorMessage(response.Message), event);
 		}

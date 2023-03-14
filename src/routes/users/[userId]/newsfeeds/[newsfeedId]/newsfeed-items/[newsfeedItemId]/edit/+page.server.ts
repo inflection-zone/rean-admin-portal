@@ -6,7 +6,7 @@ import type { PageServerLoad, Action } from './$types';
 import {
 	getNewsfeedItemById,
 	updateNewsfeedItem
-} from '../../../../../../api/services/newsfeed-items';
+} from '../../../../../../../api/services/newsfeed-items';
 
 /////////////////////////////////////////////////////////////////////////
 
@@ -14,13 +14,13 @@ export const load: PageServerLoad = async (event: RequestEvent) => {
 	const sessionId = event.cookies.get('sessionId');
 
 	try {
-		const newsfeedItemId = event.params.id;
+		const newsfeedItemId = event.params.newsfeedItemId;
 		const response = await getNewsfeedItemById(sessionId, newsfeedItemId);
 
 		if (response.Status === 'failure' || response.HttpCode !== 200) {
 			throw error(response.HttpCode, response.Message);
 		}
-		const newsfeedItem = response.Data;
+		const newsfeedItem = response.Data.RssfeedItem;
 		return {
 			newsfeedItem
 		};
@@ -33,38 +33,40 @@ export const actions = {
 	updateNewsfeedItemAction: async (event: RequestEvent) => {
 		const request = event.request;
 		const userId = event.params.userId;
+		const newsfeedId = event.params.newsfeedId;
+		const newsfeedItemId = event.params.newsfeedItemId;
 		const data = await request.formData();
-
+		console.log('data==',data)
 		const title = data.has('title') ? data.get('title') : null;
 		const description = data.has('description') ? data.get('description') : null;
-		const newsfeed = data.has('newsfeed') ? data.get('newsfeed') : null;
-		const type = data.has('type') ? data.get('type') : null;
 		const link = data.has('link') ? data.get('link') : null;
-		const author = data.has('author') ? data.get('author') : null;
-		const date = data.has('date') ? data.get('date') : null;
+		const image = data.has('image') ? data.get('image') : null;
+		const authorName = data.has('authorName') ? data.get('authorName') : null;
+		const authorEmail = data.has('authorEmail') ? data.get('authorEmail') : null;
+		const authorLink = data.has('authorLink') ? data.get('authorLink') : null;
 		const sessionId = event.cookies.get('sessionId');
-		const itemId = event.params.id;
 
 		const response = await updateNewsfeedItem(
 			sessionId,
-			itemId,
+			newsfeedItemId,
+			newsfeedId,
 			title.valueOf() as string,
 			description.valueOf() as string,
-			newsfeed.valueOf() as string,
-			type.valueOf() as string,
 			link.valueOf() as string,
-			author.valueOf() as string,
-			date.valueOf() as Date
+			image.valueOf() as string,
+			authorName.valueOf() as string,
+			authorEmail.valueOf() as string,
+			authorLink.valueOf() as string
 		);
-		const id = response.Data.id;
+		const id = response.Data.RssfeedItem.id;
 
 		if (response.Status === 'failure' || response.HttpCode !== 200) {
 			throw redirect(303, '/newsfeeds/newsfeed-items', errorMessage(response.Message), event);
 		}
 		throw redirect(
 			303,
-			`/users/${userId}/newsfeeds/newsfeed-items/${id}/view`,
-			successMessage(`item updated successful!`),
+			`/users/${userId}/newsfeeds/${newsfeedId}/newsfeed-items/${id}/view`,
+			successMessage(`Item updated successful!`),
 			event
 		);
 	}

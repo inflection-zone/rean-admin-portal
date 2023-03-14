@@ -5,7 +5,9 @@
 	import { show } from '$lib/utils/message.utils';
 	import { LocalStorageUtils } from '$lib/utils/local.storage.utils';
 	import BreadCrumbs from '$lib/components/breadcrumbs/breadcrums.svelte';
+	import date from 'date-and-time';
 	import { page } from '$app/stores';
+	import Image from '$lib/components/image.svelte';
 	import type { PageServerData } from './$types';
 
 	export let data: PageServerData;
@@ -13,12 +15,12 @@
 	let title = data.linkage.Title;
 	let description = data.linkage.Description;
 	let link = data.linkage.Link;
-	let postDate = data.linkage.PostDate;
+	let postDate = new Date(data.linkage.PostDate);
 	let daysActive = data.linkage.DaysActive;
-	let tags = data.linkage.Tags;
-	// let tags = tags_.join(', ');
+	let tags_ = data.linkage.Tags;
+	let tags = tags_.join(', ');
 	let action = data.linkage.Action;
-	let image = data.linkage.Image;
+	let imageUrl = data.linkage.ImageUrl;
 
 	onMount(() => {
 		show(data);
@@ -52,8 +54,8 @@
 		>
 			<div class="w-full  h-14 rounded-t-lg p-3  bg-[#7165E3]">
 				<div class="ml-3 relative flex flex-row text-white lg:text-xl text-lg ">
-					<div class="lg:hidden md:hidden block">View Linkages</div>
-					<div class="lg:block md:block hidden">View Linkages</div>
+					<div class="lg:hidden md:hidden block">View Notice</div>
+					<div class="lg:block md:block hidden">View Notice</div>
 					<a href={linkageRoute}>
 						<Fa icon={faMultiply} size="lg" class="absolute right-0 lg:pr-3 pr-0 text-white" />
 					</a>
@@ -88,15 +90,17 @@
 				</div>
 				<span class="span w-1/2 md:2/3 lg:2/3" id="link">{link}</span>
 			</div>
-			<div class="flex items-center my-4 lg:mx-16 md:mx-12 mx-10">
+
+			<div class="flex items-center mb-4 lg:mx-16 md:mx-12 mx-10">
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
 					<!-- svelte-ignore a11y-label-has-associated-control -->
 					<label class="label">
-						<span>Post Date </span>
+						<span>Post Date</span>
 					</label>
 				</div>
-				<span class="span w-1/2 md:2/3 lg:2/3" id="postDate"> {postDate} </span>
+				<span class="span w-1/2 md:2/3 lg:2/3" id="postDate">{date.format(postDate, 'DD MMM YYYY')}</span>
 			</div>
+
 			<div class="flex items-center my-4 lg:mx-16 md:mx-12 mx-10">
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
 					<!-- svelte-ignore a11y-label-has-associated-control -->
@@ -106,6 +110,7 @@
 				</div>
 				<span class="span w-1/2 md:2/3 lg:2/3" id="daysActive"> {daysActive} </span>
 			</div>
+
 			<div class="flex items-center my-4 lg:mx-16 md:mx-12 mx-10">
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
 					<!-- svelte-ignore a11y-label-has-associated-control -->
@@ -113,7 +118,7 @@
 						<span>Tags</span>
 					</label>
 				</div>
-				<span class="span w-1/2 md:2/3 lg:2/3" id="tags"> {tags} </span>
+				<span class="span w-1/2 md:2/3 lg:2/3">{tags} </span>
 			</div>
 
 			<div class="flex items-center my-4 lg:mx-16 md:mx-12 mx-10">
@@ -125,6 +130,7 @@
 				</div>
 				<span class="span w-1/2 md:w-2/3 lg:w-2/3" id="action">{action} </span>
 			</div>
+
 			<div class="flex items-center my-4 lg:mx-16 md:mx-12 mx-10">
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
 					<!-- svelte-ignore a11y-label-has-associated-control -->
@@ -132,8 +138,14 @@
 						<span>Image</span>
 					</label>
 				</div>
-				<span class="span w-1/2 md:w-2/3 lg:w-2/3" id="image"> {image} </span>
+				{#if imageUrl === 'undefined'}
+					<span class="span">Image</span>
+					<!-- <img class="flex h-24 w-24 rounded-full" src={avatarSource} alt="d" /> -->
+				{:else}
+					<Image cls="flex h-24 w-24 rounded-lg" source={imageUrl} w="24" h="24" />
+				{/if}
 			</div>
+
 			<div class="flex items-center mt-7 lg:mx-16 md:mx-12 mr-10">
 				<div class="lg:w-5/6 w-2/3 " />
 				<div class="lg:w-1/6 w-1/3 ">

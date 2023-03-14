@@ -6,28 +6,28 @@
 	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 	export let data: PageServerData;
-	const symptom = data.symptom;
-	console.log('symptom', symptom);
-	let columns = ['ID', 'Symptom', 'Description', 'Language'];
-	const dataTableStore = createDataTableStore(
-		// Pass your source data here:
-		symptom,
-		{
-			// The current search term.
-			search: '',
-			// The current sort key.
-			sort: '',
-			// Paginator component settings.
-			pagination: { offset: 0, limit: 10, size: 0, amounts: [10, 20, 30, 50] }
-		}
-	);
-	// This automatically handles search, sort, etc when the model updates.
-	dataTableStore.subscribe((model) => dataTableHandler(model));
+	const newsfeedItems = data.newsfeedItems;
+	console.log('newsfeedItems', newsfeedItems);
+	let columns = ['ID', 'Title', 'Description', 'Link', 'Language', 'Copyright', 'Favicon', 'Image'];
+	// const dataTableStore = createDataTableStore(
+	// 	// Pass your source data here:
+	// 	newsfeedItems,
+	// 	{
+	// 		// The current search term.
+	// 		search: '',
+	// 		// The current sort key.
+	// 		sort: '',
+	// 		// Paginator component settings.
+	// 		pagination: { offset: 0, limit: 10, size: 0, amounts: [10, 20, 30, 50] }
+	// 	}
+	// );
+	// // This automatically handles search, sort, etc when the model updates.
+	// dataTableStore.subscribe((model) => dataTableHandler(model));
 
-	dataTableStore.updateSource(symptom);
+	// dataTableStore.updateSource(newsfeedItems);
 </script>
 
-<div class="mx-10 mb-16">
+<!-- <div class="mx-10 mb-16"> 
 	<input
 		class="input my-3"
 		bind:value={$dataTableStore.search}
@@ -39,9 +39,10 @@
 			<thead class="sticky top-0">
 				<tr>
 					<th style="width: 7%;">Id</th>
-					<th style="width: 22%;">Symptom</th>
+					<th style="width: 22%;">Title</th>
 					<th style="width: 38%;">Description</th>
-					<th style="width: 33%;">Language</th>
+					<th style="width: 33%;">Link</th>
+    
 				</tr>
 			</thead>
 		</table>
@@ -51,16 +52,16 @@
 					{#each $dataTableStore.filtered as row, rowIndex}
 						<tr>
 							<td style="width: 7%;">{rowIndex + 1}</td>
-							<td style="width: 22%;">{row.Symptom}</td>
+							<td style="width: 22%;">{row.Title}</td>
 							<td style="width: 38%;"
-								>{row.Description.length > 30
-									? row.Description.substring(0, 30) + '...'
-									: row.Description}</td
+								>{row.Title.length > 30
+									? row.Title.substring(0, 30) + '...'
+									: row.Title}</td
 							>
 							<td style="width: 33%;"
-								>{row.Language.length > 20
-									? row.Language.substring(0, 20) + '...'
-									: row.Language}</td
+								>{row.Description.length > 20
+									? row.Description.substring(0, 20) + '...'
+									: row.Description}</td
 							>
 						</tr>
 					{/each}
@@ -76,4 +77,4 @@
 				/>{/if}
 		</div>
 	</div>
-</div>
+</div> -->
