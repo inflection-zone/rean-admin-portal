@@ -1,14 +1,29 @@
 <script lang="ts">
+	import Fa from 'svelte-fa';
 	import { createDataTableStore, dataTableHandler } from '@skeletonlabs/skeleton';
 	import { Paginator } from '@skeletonlabs/skeleton';
 	import type { PageServerData } from './$types';
+	import { faPencil, faSearch, faTrash } from '@fortawesome/free-solid-svg-icons';
+	import BreadCrumbs from '$lib/components/breadcrumbs/breadcrums.svelte';
 	import { page } from '$app/stores';
+
 	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 	export let data: PageServerData;
 	const knowledgeNuggets = data.knowledgeNuggets;
 	console.log('knowledgeNuggets', knowledgeNuggets);
-	let columns = ['ID', 'TopicName', 'Information', 'BreifInformation'];
+	
+	const userId = $page.params.userId;
+	const knowledgeNuggetRoute = `/users/${userId}/knowledge-nuggets`;
+	const createRoute = `/users/${userId}/knowledge-nuggets/create`;
+
+	const breadCrumbs = [
+		{
+			name: 'Knowledge-Nuggets',
+			path: knowledgeNuggetRoute,
+		},	
+	];
+
 	const dataTableStore = createDataTableStore(
 		// Pass your source data here:
 		knowledgeNuggets,
@@ -25,23 +40,97 @@
 	dataTableStore.subscribe((model) => dataTableHandler(model));
 
 	dataTableStore.updateSource(knowledgeNuggets);
+
+	const handleKnowledgeNuggetDelete = async (e, id) => {
+		const knowledgeNuggetId = id;
+		await Delete({
+			sessionId: data.sessionId,
+			knowledgeNuggetId
+		});
+	};
+
+	async function Delete(model) {
+		const response = await fetch(`/api/server/knowledge-nuggets`, {
+			method: 'DELETE',
+			body: JSON.stringify(model),
+			headers: {
+				'content-type': 'application/json'
+			}
+		});
+		console.log('response', response);
+	}
 </script>
 
-<div class="mx-10 mb-16">
-	<input
-		class="input my-3"
-		bind:value={$dataTableStore.search}
-		type="search"
-		placeholder="Search..."
-	/>
-	<div class="flex justify-center flex-col mt-4 overflow-y-auto ">
+
+<BreadCrumbs crumbs={breadCrumbs} />
+
+<div
+	class=" mr-14 mt-8 lg:flex-row md:flex-row sm:flex-col flex-col lg:block md:block sm:hidden hidden"
+>
+	<div class="basis-1/2 justify-center items-center ">
+		<div class="relative flex items-center  " />
+	</div>
+	<div class="basis-1/2 justify-center items-center">
+		<div class="relative flex items-center">
+			<a href={createRoute} class="absolute right-4 lg:mr-[-18px] ">
+				<!-- <Fa icon={faCirclePlus} style="color: #5832A1" size="4x" /> -->
+				<button
+					class="btn variant-filled-primary w-28 rounded-lg hover:bg-primary bg-primary transition 
+				ease-in-out 
+				delay-150   
+				hover:scale-110  
+				duration-300 ... "
+				>
+					Add new
+				</button>
+			</a>
+		</div>
+	</div>
+</div>
+
+<div
+	class="flex flex-row mx-14 lg:mt-10 md:mt-10 sm:mt-4 mt-4 lg:gap-7 md:gap-8 sm:gap-4 gap-4 lg:flex-row md:flex-row sm:flex-col min-[280px]:flex-col"
+>
+	<div class="basis-1/2 justify-center items-center ">
+		<div class="relative flex items-center">
+			<input type="text" placeholder="Search by topic name" class="input w-full" />
+		</div>
+	</div>
+	<div class="basis-1/2 justify-center items-center">
+		<div class="relative flex items-center  ">
+			<input type="text" placeholder="Search by brief information" class="input w-full" />
+		</div>
+	</div>
+	<div class="sm:flex flex">
+		<button
+			class="btn variant-filled-primary lg:w-20 md:w-20 sm:w-20 w-20 rounded-lg bg-primary hover:bg-primary  "
+		>
+			<!-- svelte-ignore missing-declaration -->
+			<Fa icon={faSearch} class="text-neutral-content" size="lg" />
+		</button>
+		<a href={createRoute} class=" right-14 ">
+			<button
+				class="btn variant-filled-primary hover:bg-primary lg:hidden md:hidden block sm:w-40 w-24 ml-4 rounded-lg bg-primary transition 
+				ease-in-out 
+				delay-150   
+				hover:scale-110  
+				duration-300 ...  "
+			>
+				ADD NEW
+			</button>
+		</a>
+	</div>
+</div>
+
+
+	<div class="flex justify-center flex-col mt-4 mx-10 overflow-y-auto ">
 		<table class="table rounded-b-none">
 			<thead class="sticky top-0">
 				<tr>
-					<th style="width: 7%;">Id</th>
-					<th style="width: 22%;">Topic Name</th>
-					<th style="width: 38%;">Information</th>
-					<th style="width: 33%;"> Detailed Information</th>
+					<th style="width: 5%;">Id</th>
+					<th style="width: 15%;">Topic Name</th>
+					<th style="width: 30%;">Brief Information</th>
+					<th style="width: 30%;"> Detailed Information</th>
 				</tr>
 			</thead>
 		</table>
@@ -52,16 +141,18 @@
 						<tr>
 							<td style="width: 7%;">{rowIndex + 1}</td>
 							<td style="width: 22%;">{row.TopicName}</td>
-							<td style="width: 38%;"
-								>{row.BriefInformation.length > 30
-									? row.BriefInformation.substring(0, 30) + '...'
-									: row.BriefInformation}</td
-							>
-							<td style="width: 33%;"
-								>{row.DetailedInformation.length > 20
-									? row.DetailedInformation.substring(0, 20) + '...'
-									: row.DetailedInformation}</td
-							>
+							<td style="width: 38%;">{row.BriefInformation}</td>
+							<td style="width: 33%;">{row.DetailedInformation}</td>
+							<td>
+								<a href="/users/${userId}/knowledge-nuggets/{row.id}/edit"
+									><Fa icon={faPencil} style="color-text-primary" size="md" /></a
+								>
+							</td>
+							<td>
+								<button on:click|once={(e) => handleKnowledgeNuggetDelete(e, row.id)}>
+									<Fa icon={faTrash} style="color-text-primary" size="md" />
+								</button>
+							</td>
 						</tr>
 					{/each}
 				</tbody>
@@ -76,4 +167,4 @@
 				/>{/if}
 		</div>
 	</div>
-</div>
+
