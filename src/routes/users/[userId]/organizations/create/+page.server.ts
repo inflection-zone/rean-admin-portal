@@ -21,24 +21,12 @@ export const load: PageServerLoad = async (event: RequestEvent) => {
 	}
 };
 
-
-
-
-
-
-
-
-
-
-
-
-
 export const actions = {
 	createOrganizationAction: async (event: RequestEvent) => {
 		const request = event.request;
 		const userId = event.params.userId;
 		const data = await request.formData();
-     console.log("value>>>>>>>>>>>",data);
+     
 		const addressType = data.has('addressType') ? data.get('addressType') : null;
 		const addressLine = data.has('AddressLine') ? data.get('AddressLine') : null;
 		const city = data.has('city') ? data.get('city') : null;
@@ -53,7 +41,7 @@ export const actions = {
 		const about = data.has('about') ? data.get('about') : null;
 		const operationalSince = data.has('operationalSince') ? data.get('operationalSince') : null;
 		//const imageResource = data.has('imageResource') ? data.get('imageResource') : null;
-		const isHealthFacility = data.has('isHealthFacility') ? data.get('isHealthFacility') : null;
+		const isHealthFacility = data.has('isHealthFacility') ? data.get('isHealthFacility') : false;
 
 		const sessionId = event.cookies.get('sessionId');
 		const addressResponse = await createAddress(
@@ -66,10 +54,10 @@ export const actions = {
 			country.valueOf() as string,
 			postalCode.valueOf() as number
 		);
-		console.log('addressesResponse========::::::::>>>>>', addressResponse);
+		
 		const addressesId_ = addressResponse.Data.Address.id;
-    const addressesId = addressesId_.split(',');
-		console.log('addressesId========', addressesId_);
+    		const addressesId = addressesId_.split(',');
+		
 		if (addressResponse.Status === 'failure' || addressResponse.HttpCode !== 201) {
 			throw redirect(303, '/organizations', errorMessage(addressResponse.Message), event);
 		}
@@ -86,7 +74,7 @@ export const actions = {
 			//imageResource.valueOf() as string,
 			isHealthFacility.valueOf() as boolean
 		);
-		console.log('response====????', response);
+		
 		const id = response.Data.Organization.id;
 
 		if (response.Status === 'failure' || response.HttpCode !== 201) {
