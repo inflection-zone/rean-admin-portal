@@ -9,7 +9,8 @@
 
 	export let data: PageServerData;
 	const learningPaths = data.learningPaths;
-	console.log('learningPaths', learningPaths);
+	console.log('learningPaths', learningPaths.courses);
+   
   const userId = $page.params.userId;
   const learningJourneyRoute = `/users/${userId}/learning-journeys`;
   const createRoute = `/users/${userId}/learning-journeys/create`;

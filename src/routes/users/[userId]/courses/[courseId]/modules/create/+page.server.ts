@@ -9,34 +9,32 @@ export const actions = {
 	createModuleAction: async (event: RequestEvent) => {
 		const request = event.request;
 		const userId = event.params.userId;
+		const courseId = event.params.courseId;
 		const data = await request.formData();
 
-		const title = data.has('title') ? data.get('title') : null;
+		const name = data.has('name') ? data.get('name') : null;
 		const description = data.has('description') ? data.get('description') : null;
-		const learningJourney = data.has('learningJourney') ? data.get('learningJourney') : null;
-		const course = data.has('course') ? data.get('course') : null;
-		const contentType = data.has('contentType') ? data.get('contentType') : null;
-		const resourceLink = data.has('resourceLink') ? data.get('resourceLink') : null;
+		// const sequence = data.has('sequence') ? data.get('sequence') : null;
+		const durationInMins = data.has('durationInMins') ? data.get('durationInMins') : null;
 		const sessionId = event.cookies.get('sessionId');
 
 		const response = await createModule(
 			sessionId,
-			title.valueOf() as string,
+			courseId,
+			name.valueOf() as string,
 			description.valueOf() as string,
-			learningJourney.valueOf() as string,
-			course.valueOf() as string,
-			contentType.valueOf() as string,
-			resourceLink.valueOf() as string
+			// sequence.valueOf() as number,
+			durationInMins.valueOf() as number,
 		);
-		const id = response.Data.id;
-
+		const id = response.Data.CourseModule.id;
+		console.log("response",response)
 		if (response.Status === 'failure' || response.HttpCode !== 201) {
-			throw redirect(303, '/learning-journeys/modules', errorMessage(response.Message), event);
+			throw redirect(303, '/users/${userId}/courses/${courseId}/modules', errorMessage(response.Message), event);
 		}
 		throw redirect(
 			303,
-			`/users/${userId}/learning-journeys/modules/${id}/view`,
-			successMessage(`module created successful!`),
+			`/users/${userId}/courses/${courseId}/modules/${id}/view`,
+			successMessage(`Module created successful!`),
 			event
 		);
 	}

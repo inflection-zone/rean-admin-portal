@@ -36,7 +36,7 @@ export const actions = {
 		const request = event.request;
 		const userId = event.params.userId;
 		const data = await request.formData();
-		console.log("data", data)
+		
 		const name = data.has('name') ? data.get('name') : null;
 		const preferenceWeight = data.has('preferenceWeight') ? data.get('preferenceWeight') : null;
 		const description = data.has('description') ? data.get('description') : null;

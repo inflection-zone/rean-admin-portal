@@ -47,22 +47,20 @@ export const updateCourse = async (
 	sessionId: string,
 	courseId: string,
 	name: string,
-	// learningJourney: string,
 	description: string,
-	image: string
+	imageUrl: string
 ) => {
 	const body = {
 		courseId,
 		Name: name,
-		// LearningJourney: learningJourney,
 		Description: description,
-		Image: image
+		ImageUrl: imageUrl
 	};
-	const url = BACKEND_API_URL + `/educational/courses${courseId}`;
+	const url = BACKEND_API_URL + `/educational/courses/${courseId}`;
 	return await put_(sessionId, url, body, true);
 };
 
 export const deleteCourse = async (sessionId: string, courseId: string) => {
-	const url = BACKEND_API_URL + `/educational/courses${courseId}`;
+	const url = BACKEND_API_URL + `/educational/courses/${courseId}`;
 	return await delete_(sessionId, url, true);
 };

@@ -1,24 +1,24 @@
 <script lang="ts">
-	import { page } from '$app/stores';
-	import type { PageServerData } from './$types';
 	import Fa from 'svelte-fa';
 	import { faMultiply, faPen } from '@fortawesome/free-solid-svg-icons';
 	import { onMount } from 'svelte';
 	import { show } from '$lib/utils/message.utils';
 	import { LocalStorageUtils } from '$lib/utils/local.storage.utils';
-	import BreadCrumbs from '$lib/components/breadcrumbs/breadcrums.svelte'
-	import Image from '$lib/components/image.svelte';
-	
-  ///////////////////////////////////////////////////////////////////////////////////////////////////////////
-	
+	import BreadCrumbs from '$lib/components/breadcrumbs/breadcrums.svelte';
+	import { page } from '$app/stores';
+	import type { PageServerData } from './$types';
+
 	export let data: PageServerData;
-	const learningPathId = $page.params.learningPathId
-	let id = data.learningJourney.id;
-	let name = data.learningJourney.Name;
-	let preferenceWeight = data.learningJourney.PreferenceWeight;
-	let description = data.learningJourney.Description;
-	let imageUrl = data.learningJourney.ImageUrl;
-	let courses = data.learningJourney.Courses;
+	let id = data.content.id;
+	let title = data.content.title;
+	let description = data.content.description;
+	let learningJourney = data.content.learningJourney;
+	let course = data.content.course;
+	let contentType = data.content.contentType;
+
+	
+	let resourceLink = data.content.resourceLink;
+	let image = data.content.image;
 
 	onMount(() => {
 		show(data);
@@ -26,14 +26,14 @@
 	});
 
 	const userId = $page.params.userId;
-	const editRoute = `/users/${userId}/learning-journeys/${learningPathId}/edit`;
-	const viewRoute = `/users/${userId}/learning-journeys/${learningPathId}/view`;
-	const learningJourneyRoute = `/users/${userId}/learning-journeys`;
+	const editRoute = `/users/${userId}/learning-journeys/contents/${id}/edit`;
+	const viewRoute = `/users/${userId}/learning-journeys/contents/${id}/view`;
+	const contentRoute = `/users/${userId}/learning-journeys/contents`;
 
 	const breadCrumbs = [
 		{
-			name: 'Learning-Journey',
-			path: learningJourneyRoute
+			name: 'content',
+			path: contentRoute
 		},
 		{
 			name: 'View',
@@ -45,16 +45,16 @@
 <main class="h-screen mb-10">
 	<BreadCrumbs crumbs={breadCrumbs} />
 
-	<div class="px-3 my-5">
+	<div class="px-3 mb-5">
 		<form
 			method="get"
-			class="w-full lg:max-w-2xl md:max-w-xl sm:max-w-lg mb-10 bg-[#ECE4FC] mt-6 rounded-lg mx-auto"
+			class="w-full lg:max-w-4xl md:max-w-xl sm:max-w-lg mb-10 bg-[#ECE4FC] mt-6 rounded-lg mx-auto"
 		>
 			<div class="w-full  h-14 rounded-t-lg p-3  bg-[#7165E3]">
 				<div class="ml-3 relative flex flex-row text-white lg:text-xl text-lg ">
-					<div class="lg:hidden md:hidden block">View Learning Journey</div>
-					<div class="lg:block md:block hidden">View Learning Journey</div>
-					<a href={learningJourneyRoute}>
+					<div class="lg:hidden md:hidden block">View content</div>
+					<div class="lg:block md:block hidden">View content</div>
+					<a href={contentRoute}>
 						<Fa icon={faMultiply} size="lg" class="absolute right-0 lg:pr-3 pr-0 text-white" />
 					</a>
 				</div>
@@ -64,22 +64,11 @@
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
 					<!-- svelte-ignore a11y-label-has-associated-control -->
 					<label class="label">
-						<span>Name</span>
+						<span>Title</span>
 					</label>
 				</div>
-				<span class="span w-1/2 md:2/3 lg:2/3" id="name">{name}</span>
+				<span class="span w-1/2 md:2/3 lg:2/3" id="title">{title}</span>
 			</div>
-
-			<div class="flex items-center my-4 lg:mx-16 md:mx-12 mx-10">
-				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
-					<!-- svelte-ignore a11y-label-has-associated-control -->
-					<label class="label">
-						<span>Prefrence Weight</span>
-					</label>
-				</div>
-				<span class="span w-1/2 md:2/3 lg:2/3" id="preferenceWeight">{preferenceWeight}</span>
-			</div>
-
 			<div class="flex items-center my-4 lg:mx-16 md:mx-12 mx-10">
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
 					<!-- svelte-ignore a11y-label-has-associated-control -->
@@ -87,37 +76,54 @@
 						<span>Description</span>
 					</label>
 				</div>
-				<span class="span w-1/2 md:2/3 lg:2/3" id="description">{description}</span>
+				<span class="span w-1/2 md:2/3 lg:2/3" id="description"> {description} </span>
 			</div>
 
-			<div class="flex items-start my-4 lg:mx-16 md:mx-12 mx-10">
+			<div class="flex items-center my-4 lg:mx-16 md:mx-12 mx-10">
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
 					<!-- svelte-ignore a11y-label-has-associated-control -->
 					<label class="label">
-						<span>Courses</span>
+						<span>Learning Journey</span>
 					</label>
 				</div>
-				<ol class="span w-1/2 md:w-2/3 lg:w-2/3 list-decimal ml-6" id="course">
-					{#each courses as course}
-						<li>{course.Name}</li>
-			  	{/each}	
-				</ol>
+				<span class="span w-1/2 md:2/3 lg:2/3" id="learningJourney">{learningJourney}</span>
+			</div>
+			<div class="flex items-center my-4 lg:mx-16 md:mx-12 mx-10">
+				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
+					<!-- svelte-ignore a11y-label-has-associated-control -->
+					<label class="label">
+						<span>Course</span>
+					</label>
+				</div>
+				<span class="span w-1/2 md:2/3 lg:2/3" id="course"> {course} </span>
+			</div>
+			<div class="flex items-center my-4 lg:mx-16 md:mx-12 mx-10">
+				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
+					<!-- svelte-ignore a11y-label-has-associated-control -->
+					<label class="label">
+						<span>Content Type</span>
+					</label>
+				</div>
+				<span class="span w-1/2 md:2/3 lg:2/3" id="contentType"> {contentType} </span>
+			</div>
+			<div class="flex items-center my-4 lg:mx-16 md:mx-12 mx-10">
+				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
+					<!-- svelte-ignore a11y-label-has-associated-control -->
+					<label class="label">
+						<span>Resource Link</span>
+					</label>
+				</div>
+				<span class="span w-1/2 md:2/3 lg:2/3" id="resourceLink"> {resourceLink} </span>
 			</div>
 
-			<div class="flex items-start my-4 lg:mx-16 md:mx-12 mx-10">
+			<div class="flex items-center my-4 lg:mx-16 md:mx-12 mx-10">
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
 					<!-- svelte-ignore a11y-label-has-associated-control -->
 					<label class="label">
 						<span>Image</span>
 					</label>
 				</div>
-				<!-- <span class="span w-1/2 md:w-2/3 lg:w-2/3">{image}</span> -->
-				{#if imageUrl === 'undefined'}
-					<span class="span">Not Specified</span>
-					<!-- <img class="flex h-24 w-24 rounded-full" src={avatarSource} alt="d" /> -->
-				{:else}
-					<Image cls="flex h-24 w-24 rounded-md" source={imageUrl} w="24" h="24" />
-				{/if}
+				<span class="span w-1/2 md:w-2/3 lg:w-2/3" id="image"> {image} </span>
 			</div>
 
 			<div class="flex items-center mt-7 lg:mx-16 md:mx-12 mr-10">

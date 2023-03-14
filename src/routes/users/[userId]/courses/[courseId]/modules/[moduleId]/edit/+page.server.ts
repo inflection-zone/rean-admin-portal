@@ -2,7 +2,7 @@ import { error, type RequestEvent } from '@sveltejs/kit';
 import { redirect } from 'sveltekit-flash-message/server';
 import { errorMessage, successMessage } from '$lib/utils/message.utils';
 import type { PageServerLoad } from './$types';
-import { getModuleById, updateModule } from '../../../../../../../../../api/services/modules';
+import { getModuleById, updateModule } from '../../../../../../../api/services/modules';
 
 /////////////////////////////////////////////////////////////////////////
 
@@ -10,13 +10,13 @@ export const load: PageServerLoad = async (event: RequestEvent) => {
 	const sessionId = event.cookies.get('sessionId');
 
 	try {
-		const moduleId = event.params.id;
+		const moduleId = event.params.moduleId;
 		const response = await getModuleById(sessionId, moduleId);
 
 		if (response.Status === 'failure' || response.HttpCode !== 200) {
 			throw error(response.HttpCode, response.Message);
 		}
-		const module = response.Data;
+		const module = response.Data.CourseModule;
 		return {
 			module
 		};
@@ -31,33 +31,31 @@ export const actions = {
 		const userId = event.params.userId;
 		const data = await request.formData();
 
-		const title = data.has('title') ? data.get('title') : null;
+		const name = data.has('name') ? data.get('name') : null;
 		const description = data.has('description') ? data.get('description') : null;
-		const learningJourney = data.has('learningJourney') ? data.get('learningJourney') : null;
-		const course = data.has('course') ? data.get('course') : null;
-		const contentType = data.has('contentType') ? data.get('contentType') : null;
-		const resourceLink = data.has('resourceLink') ? data.get('resourceLink') : null;
+		// const sequence = data.has('sequence') ? data.get('sequence') : null;
+		const durationInMins = data.has('durationInMins') ? data.get('durationInMins') : null;
 		const sessionId = event.cookies.get('sessionId');
-		const moduleId = event.params.id;
+		const courseId = event.params.courseId;
+		const moduleId = event.params.moduleId;
 
 		const response = await updateModule(
 			sessionId,
 			moduleId,
-			title.valueOf() as string,
+			courseId,
+			name.valueOf() as string,
 			description.valueOf() as string,
-			learningJourney.valueOf() as string,
-			course.valueOf() as string,
-			contentType.valueOf() as string,
-			resourceLink.valueOf() as string
+			// sequence.valueOf() as number,
+			durationInMins.valueOf() as number,
 		);
-		const id = response.Data.id;
+		const id = response.Data.CourseModule.id;
 
 		if (response.Status === 'failure' || response.HttpCode !== 200) {
-			throw redirect(303, '/learning-journeys/modules', errorMessage(response.Message), event);
+			throw redirect(303, `/users/${userId}/courses/${courseId}/modules`, errorMessage(response.Message), event);
 		}
 		throw redirect(
 			303,
-			`/users/${userId}/learning-journeys/modules/${id}/view`,
+			`/users/${userId}/courses/${courseId}/modules/${id}/view`,
 			successMessage(`module updated successful!`),
 			event
 		);
