@@ -68,6 +68,6 @@ export const updateKnowledgeNugget = async (
 };
 
 export const deleteKnowledgeNugget = async (sessionId: string, knowledgeNuggetId: string) => {
-	const url = BACKEND_API_URL + `/educational/knowledge-nuggets${knowledgeNuggetId}`;
+	const url = BACKEND_API_URL + `/educational/knowledge-nuggets/${knowledgeNuggetId}`;
 	return await delete_(sessionId, url, true);
 };

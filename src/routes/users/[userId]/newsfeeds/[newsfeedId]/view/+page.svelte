@@ -31,9 +31,11 @@
 	});
 
 	const userId = $page.params.userId;
+	const newsfeedId = $page.params.newsfeedId ;
 	const editRoute = `/users/${userId}/newsfeeds/${id}/edit`;
 	const viewRoute = `/users/${userId}/newsfeeds/${id}/view`;
 	const newsfeedRoute = `/users/${userId}/newsfeeds`;
+	const newsfeedItemRoute = `/users/${userId}/newsfeeds/${newsfeedId}/newsfeed-items/create`
 
 	const breadCrumbs = [
 		{
@@ -161,20 +163,28 @@
 				<span class="span w-1/2 md:2/3 lg:2/3">{tags} </span>
 			</div>
 
-			<div class="flex items-center mt-7 lg:mx-16 md:mx-12 mr-10">
-				<div class="lg:w-5/6 w-2/3 " />
-				<div class="lg:w-1/6 w-1/3 ">
-					<a href={editRoute}>
-						<button
-							type="submit"
-							class="btn variant-ringed-primary lg:w-full w-24 mb-10 lg:mr-4 mr-1"
-						>
-							Edit
-							<Fa icon={faPen} size="lg" class="lg:ml-4 sm:ml-2 ml-1" />
-						</button>
-					</a>
-				</div>
-			</div>
+			<div class="flex  items-center mt-10 lg:mx-10 md:mx-16">
+        <div class="lg:w-8/12 min-[280px]:w-1/3 sm:w-1/2 md:w-1/2" />
+        <div class="flex lg:w-1/3 gap-3 min-[280px]:w-2/4 ">
+          <a href={newsfeedItemRoute}>
+          <button
+              type="submit"
+              class="btn variant-filled-primary lg:w-full md:w-28 sm:w-28 min-[280px]:w-28 w-20 mb-8 lg:mr-4 mr-1   "
+            >
+             Add Items
+            </button>
+          </a>
+          <a href={editRoute}>
+            <button
+              type="submit"
+              class="btn variant-filled-primary lg:w-full md:w-28 sm:w-24 min-[280px]:w-24 w-20 mb-8 lg:mr-4 mr-1 "
+            >
+              Edit
+              <Fa icon={faPen} size="lg" class="lg:ml-4 sm:ml-2 ml-1" />
+            </button>
+          </a>
+        </div>
+      </div>
 		</form>
 	</div>
 </main>
