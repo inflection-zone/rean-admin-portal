@@ -1,5 +1,5 @@
 import { redirect } from 'sveltekit-flash-message/server';
-import type {  error, type RequestEvent  } from '@sveltejs/kit';
+import type { error, type RequestEvent } from '@sveltejs/kit';
 import { errorMessage, successMessage } from '$lib/utils/message.utils';
 import { createOrganization } from '../../../../api/services/organizations';
 import { createAddress } from '../../../../api/services/addresses';
@@ -13,7 +13,7 @@ export const load: PageServerLoad = async (event: RequestEvent) => {
 		const types: OrganizationTypes[] = await getOrganizationTypes();
 		return {
 			message: 'Common data successfully retrieved!',
-		   types
+			types
 		};
 	} catch (error) {
 		console.error(`Error retieving data : ${error.message}`);
