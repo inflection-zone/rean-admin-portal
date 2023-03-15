@@ -4,6 +4,8 @@
 	import BreadCrumbs from '$lib/components/breadcrumbs/breadcrums.svelte';
 	import { page } from '$app/stores';
 
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 	const userId = $page.params.userId;
 	const createRoute = `/users/${userId}/api-clients/create`;
 	const apiClientRoute = `/users/${userId}/api-clients`;
@@ -18,6 +20,7 @@
 			path: createRoute
 		}
 	];
+	
 </script>
 
 <main class="h-screen mb-10">
@@ -68,7 +71,7 @@
 				</div>
 				<div class="w-1/2 md:w-2/3 lg:w-2/3">
 					<input
-						type="password"
+						type="text"
 						name="password"
 						placeholder="Enter password here..."
 						class="input w-full "

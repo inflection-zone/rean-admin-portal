@@ -4,19 +4,37 @@
 	import BreadCrumbs from '$lib/components/breadcrumbs/breadcrums.svelte';
 	import { page } from '$app/stores';
 	import type { PageServerData } from './$types';
+	import { oragnizationTypesStore } from '$lib/store/general.store';
+	import { LocalStorageUtils } from '$lib/utils/local.storage.utils';
 
 	export let data: PageServerData;
-	let initiaData = {};
+	oragnizationTypesStore.set(data.types);
+	LocalStorageUtils.setItem('personRoles', JSON.stringify(data.types));
+	let oraganizationTypes = data.types;
+
 	let id = data.organization.id;
-	let type = data.organization.type;
-	let name = data.organization.name;
-	let contactNumber = data.organization.phone;
-	let email = data.organization.email;
-	let about = data.organization.about;
-	let operationalSince = data.organization.operationalSince;
-	let address = data.organization.address;
-	let imageResource = data.organization.imageResource;
-	let isHealthFacility = data.organization.isHealthFacility;
+	let type = data.organization.Type;
+	let name = data.organization.Name;
+	let contactNumber = data.organization.ContactPhone;
+	let email = data.organization.ContactEmail;
+	let about = data.organization.About;
+	let operationalSince = data.organization.OperationalSince;
+	let addressType = data.organization.Addresses[0].Type;
+	let addressLine = data.organization.Addresses[0].AddressLine;
+	let city = data.organization.Addresses[0].City;
+	let district = data.organization.Addresses[0].District;
+	let state = data.organization.Addresses[0].State;
+	let country = data.organization.Addresses[0].Country;
+	let postalCode = data.organization.Addresses[0].PostalCode;
+	//let imageResource = data.organization.Organization.imageResource;
+	let isHealthFacility = data.organization.IsHealthFacility;
+
+	console.log('data', data.organization);
+
+	let checkboxValue = false;
+	const handleClick = () => {
+		checkboxValue = !checkboxValue;
+	};
 
 	//Original data
 	let _type = type;
@@ -25,8 +43,15 @@
 	let _email = email;
 	let _about = about;
 	let _operationalSince = operationalSince;
-	let _address = address;
-	let _imageResource = imageResource;
+	let _addressLine = addressLine;
+	let _addressType = addressType;
+	let _city = city;
+	let _district = district;
+	let _state = state;
+	let _country = country;
+	let _postalCode = postalCode;
+
+	//let _imageResource = imageResource;
 	let _isHealthFacility = isHealthFacility;
 
 	function handleReset() {
@@ -36,8 +61,15 @@
 		email = _email;
 		about = _about;
 		operationalSince = _operationalSince;
-		address = _address;
-		imageResource = _imageResource;
+		addressLine = _addressLine;
+		addressType = _addressType;
+		city = _city;
+		district = _district;
+		state = _state;
+		country = _country;
+		postalCode = _postalCode;
+
+		//imageResource = _imageResource;
 		isHealthFacility = _isHealthFacility;
 	}
 
@@ -84,11 +116,15 @@
 					</label>
 				</div>
 				<div class="w-1/2 md:w-2/3 lg:w-2/3">
-					<select class="select w-full" bind:value={type} placeholder="select type here...">
-						<option value="Careplan">Careplan</option>
-						<option value="Auto">Auto</option>
-						<option>Dark mode</option>
-						<option>Light mode</option>
+					<select
+						class="select w-full"
+						bind:value={type}
+						name="type"
+						placeholder="select type here..."
+					>
+						{#each oraganizationTypes as types}
+							<option>{types}</option>
+						{/each}
 					</select>
 				</div>
 			</div>
@@ -186,15 +222,123 @@
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
 					<!-- svelte-ignore a11y-label-has-associated-control -->
 					<label class="label">
+						<span>addressType</span>
+					</label>
+				</div>
+				<div class="w-1/2 md:w-2/3 lg:w-2/3">
+					<select
+						name="addressType"
+						class="select w-full"
+						placeholder="Select course here..."
+						bind:value={addressType}
+					>
+						<option>Home</option>
+						<option>office</option>
+					</select>
+				</div>
+			</div>
+
+			<div class="flex items-center mb-2 lg:mx-16 md:mx-12 mx-10">
+				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
+					<!-- svelte-ignore a11y-label-has-associated-control -->
+					<label class="label">
 						<span>Address</span>
 					</label>
 				</div>
 				<div class="w-1/2 md:w-2/3 lg:w-2/3">
-					<textarea
-						class="textarea w-full"
-						name="address"
-						bind:value={address}
-						placeholder="Enter address here..."
+					<input
+						type="text"
+						name="AddressLine"
+						placeholder="Enter image resource here..."
+						class="input w-full "
+						bind:value={addressLine}
+					/>
+				</div>
+			</div>
+
+			<div class="flex items-center mb-2 lg:mx-16 md:mx-12 mx-10">
+				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
+					<!-- svelte-ignore a11y-label-has-associated-control -->
+					<label class="label">
+						<span>City</span>
+					</label>
+				</div>
+				<div class="w-1/2 md:w-2/3 lg:w-2/3">
+					<input
+						type="text"
+						name="city"
+						placeholder="Enter image resource here..."
+						class="input w-1/3 "
+						bind:value={city}
+					/>
+				</div>
+			</div>
+			<div class="flex items-center mb-2 lg:mx-16 md:mx-12 mx-10">
+				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
+					<!-- svelte-ignore a11y-label-has-associated-control -->
+					<label class="label">
+						<span>District</span>
+					</label>
+				</div>
+				<div class="w-1/2 md:w-2/3 lg:w-2/3">
+					<input
+						type="text"
+						name="district"
+						placeholder="Enter district here..."
+						class="input w-1/3 "
+						bind:value={district}
+					/>
+				</div>
+			</div>
+			<div class="flex items-center mb-2 lg:mx-16 md:mx-12 mx-10">
+				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
+					<!-- svelte-ignore a11y-label-has-associated-control -->
+					<label class="label">
+						<span>State/Province</span>
+					</label>
+				</div>
+				<div class="w-1/2 md:w-2/3 lg:w-2/3">
+					<select
+						name="state"
+						class="select w-1/2"
+						placeholder="Select course here..."
+						bind:value={state}
+					>
+						<option>Maharashtra</option>
+					</select>
+				</div>
+			</div>
+			<div class="flex items-center mb-2 lg:mx-16 md:mx-12 mx-10">
+				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
+					<!-- svelte-ignore a11y-label-has-associated-control -->
+					<label class="label">
+						<span>Country</span>
+					</label>
+				</div>
+				<div class="w-1/2 md:w-2/3 lg:w-2/3">
+					<input
+						type="text"
+						name="country"
+						placeholder="Enter country here..."
+						class="input w-1/3 "
+						bind:value={country}
+					/>
+				</div>
+			</div>
+			<div class="flex items-center mb-2 lg:mx-16 md:mx-12 mx-10">
+				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
+					<!-- svelte-ignore a11y-label-has-associated-control -->
+					<label class="label">
+						<span>Zip/postal code</span>
+					</label>
+				</div>
+				<div class="w-1/2 md:w-2/3 lg:w-2/3">
+					<input
+						type="text"
+						name="postalCode"
+						placeholder="Enter postal code or zip code here..."
+						class="input w-1/3 "
+						bind:value={postalCode}
 					/>
 				</div>
 			</div>
@@ -210,7 +354,6 @@
 					<input
 						type="text"
 						name="imageResource"
-						bind:value={imageResource}
 						placeholder="Enter image resource here..."
 						class="input w-full "
 					/>
@@ -228,7 +371,10 @@
 					<label class="label cursor-pointer">
 						<input
 							type="checkbox"
+							name="isHealthFacility"
 							bind:checked={isHealthFacility}
+							value="true"
+							on:click={handleClick}
 							class="checkbox checkbox-primary checkbox-md"
 						/>
 					</label>
