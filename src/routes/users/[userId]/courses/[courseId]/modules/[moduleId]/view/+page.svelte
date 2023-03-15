@@ -16,6 +16,7 @@
 	// let sequence = data.module.Sequence;
 	let durationInMins = data.module.DurationInMins;
 	let imageUrl = data.module.ImageUrl;
+	let contents = data.module.Contents;
 
 	onMount(() => {
 		show(data);
@@ -25,11 +26,11 @@
 	const userId = $page.params.userId;
 	const courseId = $page.params.courseId;
 	const moduleId =  $page.params.moduleId;
-	const editRoute = `/users/${userId}/courses/${courseId}/modules/${moduleId}/edit`;
-	const viewRoute = `/users/${userId}/courses/${courseId}/modules/${moduleId}/view`;
-	const	contentRoute = `/users/${userId}/courses/${courseId}/modules/${moduleId}/contents/create`;
+	const editRoute = `/users/${userId}/courses/${courseId}/contents/${moduleId}/edit`;
+	const viewRoute = `/users/${userId}/courses/${courseId}/contents/${moduleId}/view`;
+	const	contentRoute = `/users/${userId}/courses/${courseId}/contents/${moduleId}/contents/create`;
 	const courseRoute = `/users/${userId}/courses/${courseId}/view`;
-	const moduleRoute = `/users/${userId}/courses/${courseId}/modules`;
+	const moduleRoute = `/users/${userId}/courses/${courseId}/contents`;
 
 	const breadCrumbs = [
 		{
@@ -115,6 +116,24 @@
 					<Image cls="flex h-24 w-24 rounded-lg" source={imageUrl} w="24" h="24" />
 				{/if}
 			</div> -->
+
+			<div class="flex items-start my-4 lg:mx-16 md:mx-12 mx-10">
+				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
+					<!-- svelte-ignore a11y-label-has-associated-control -->
+					<label class="label">
+						<span>Contents</span>
+					</label>
+				</div>
+				{#if contents.length <= 0}
+					<span class="span">Contents are not available!</span>
+				{:else}
+				<ol class="span w-1/2 md:w-2/3 lg:w-2/3 list-decimal" id="contents">
+					{#each contents as content}
+						<li>{content.Title}</li>
+			  	{/each}	
+				</ol>
+				{/if}
+			</div>
 
 			<div class="flex  items-center mt-10 lg:mx-10 md:mx-16">
         <div class="lg:w-8/12 min-[280px]:w-1/3 sm:w-1/2 md:w-1/2" />

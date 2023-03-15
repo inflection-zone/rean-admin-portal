@@ -77,24 +77,8 @@
 					/>
 				</div>
 			</div>
-			
-			<div class="flex items-center my-4 lg:mx-16 md:mx-12 mx-10">
-				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
-					<!-- svelte-ignore a11y-label-has-associated-control -->
-					<label class="label">
-						<span>Course</span>
-					</label>
-				</div>
-				<div class="w-1/2 md:w-2/3 lg:w-2/3">
-					<select class="select w-full" placeholder="Select course here...">
-						<option>Pdf</option>
-						<option>Video</option>
-						<option>Assessment</option>
-					</select>
-				</div>
-			</div>
 
-			<div class="flex items-center my-4 lg:mx-16 md:mx-12 mx-10">
+			<div class="flex items-center mb-4 mt-2 lg:mx-16 md:mx-12 mx-10">
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
 					<!-- svelte-ignore a11y-label-has-associated-control -->
 					<label class="label">
