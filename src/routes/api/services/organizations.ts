@@ -22,7 +22,7 @@ export const createOrganization = async (
 		ContactEmail: contactEmail,
 		About: about,
 		OperationalSince: operationalSince,
-		AddressId: address,
+		AddressIds: address,
 		//ImageResource: imageResource,
 		IsHealthFacility: isHealthFacility
 	};
@@ -59,25 +59,25 @@ export const searchOrganizations = async (sessionId: string, searchParams?: any)
 export const updateOrganization = async (
 	sessionId: string,
 	organizationId: string,
-	// type: string,
+	type: string,
 	name: string,
 	contactNumber: number,
 	email: string,
 	about: string,
 	operationalSince: Date,
 	address: string,
-	imageResource: string,
+	// imageResource: string,
 	isHealthFacility: boolean
 ) => {
 	const body = {
-		// Type: type,
+		Type: type,
 		Name: name,
 		ContactNumber: contactNumber,
 		Email: email,
 		About: about,
 		OperationalSince: operationalSince,
-		Address: address,
-		ImageResource: imageResource,
+		AddressIds: address,
+		// ImageResource: imageResource,
 		IsHealthFacility: isHealthFacility
 	};
 	const url = BACKEND_API_URL + `/organizations/${organizationId}`;

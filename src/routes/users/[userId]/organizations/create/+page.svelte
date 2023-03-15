@@ -3,22 +3,22 @@
 	import { faListSquares, faMultiply } from '@fortawesome/free-solid-svg-icons';
 	import BreadCrumbs from '$lib/components/breadcrumbs/breadcrums.svelte';
 	import { page } from '$app/stores';
-	 let checkboxValue = false;
+	let checkboxValue = false;
 	const userId = $page.params.userId;
 	const createRoute = `/users/${userId}/organizations/create`;
 	const organizationRoute = `/users/${userId}/organizations`;
 	import type { PageServerData } from './$types';
-	import { oragnizationTypesStore} from '$lib/store/general.store';
+	import { oragnizationTypesStore } from '$lib/store/general.store';
 	import { LocalStorageUtils } from '$lib/utils/local.storage.utils';
 	import { browser } from '$app/environment';
-	
+
 	export let data: PageServerData;
 	oragnizationTypesStore.set(data.types);
 	LocalStorageUtils.setItem('personRoles', JSON.stringify(data.types));
-  const oraganizationTypes = data.types;
+	const oraganizationTypes = data.types;
 	const handleClick = () => {
 		checkboxValue = !checkboxValue;
-  }
+	};
 	const breadCrumbs = [
 		{
 			name: 'Organization',
@@ -61,13 +61,11 @@
 					</label>
 				</div>
 				<div class="w-1/2 md:w-2/3 lg:w-2/3">
-					
 					<select class="select w-full" name="type" placeholder="Select type here...">
-						{#each oraganizationTypes as  types}
-								<option>{types}</option>
-								{/each}
+						{#each oraganizationTypes as types}
+							<option>{types}</option>
+						{/each}
 					</select>
-					
 				</div>
 			</div>
 
@@ -158,7 +156,6 @@
 				</div>
 			</div>
 
-
 			<div class="flex items-center mb-2 lg:mx-16 md:mx-12 mx-10">
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
 					<!-- svelte-ignore a11y-label-has-associated-control -->
@@ -167,15 +164,11 @@
 					</label>
 				</div>
 				<div class="w-1/2 md:w-2/3 lg:w-2/3">
-					<select
-					 	name="addressType"
-						class="select w-full"
-						placeholder="Select course here..."
-					>
-					<option>Home</option>
-					<option>office</option>
+					<select name="addressType" class="select w-full" placeholder="Select course here...">
+						<option>Home</option>
+						<option>office</option>
 					</select>
-				</div>	
+				</div>
 			</div>
 
 			<div class="flex items-center mb-2 lg:mx-16 md:mx-12 mx-10">
@@ -192,7 +185,7 @@
 						placeholder="Enter image resource here..."
 						class="input w-full "
 					/>
-				</div>	
+				</div>
 			</div>
 
 			<div class="flex items-center mb-2 lg:mx-16 md:mx-12 mx-10">
@@ -209,7 +202,7 @@
 						placeholder="Enter image resource here..."
 						class="input w-1/3 "
 					/>
-				</div>	
+				</div>
 			</div>
 			<div class="flex items-center mb-2 lg:mx-16 md:mx-12 mx-10">
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
@@ -225,7 +218,7 @@
 						placeholder="Enter district here..."
 						class="input w-1/3 "
 					/>
-				</div>	
+				</div>
 			</div>
 			<div class="flex items-center mb-2 lg:mx-16 md:mx-12 mx-10">
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
@@ -235,14 +228,10 @@
 					</label>
 				</div>
 				<div class="w-1/2 md:w-2/3 lg:w-2/3">
-					<select
-					 	name="state"
-						class="select w-1/2"
-						placeholder="Select course here..."
-					>
-					<option>Maharashtra</option>
+					<select name="state" class="select w-1/2" placeholder="Select course here...">
+						<option>Maharashtra</option>
 					</select>
-				</div>	
+				</div>
 			</div>
 			<div class="flex items-center mb-2 lg:mx-16 md:mx-12 mx-10">
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
@@ -258,7 +247,7 @@
 						placeholder="Enter country here..."
 						class="input w-1/3 "
 					/>
-				</div>	
+				</div>
 			</div>
 			<div class="flex items-center mb-2 lg:mx-16 md:mx-12 mx-10">
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
@@ -274,11 +263,9 @@
 						placeholder="Enter postal code or zip code here..."
 						class="input w-1/3 "
 					/>
-					
-				</div>	
+				</div>
 			</div>
-			
-			
+
 			<div class="flex items-center mb-4 lg:mx-16 md:mx-12 mx-10">
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
 					<!-- svelte-ignore a11y-label-has-associated-control -->
@@ -309,7 +296,7 @@
 							type="checkbox"
 							name="isHealthFacility"
 							class="checkbox checkbox-primary checkbox-md"
-							value={false}
+							value={checkboxValue}
 							on:click={handleClick}
 						/>
 					</label>
