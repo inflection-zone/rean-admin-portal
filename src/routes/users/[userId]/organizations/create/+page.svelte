@@ -5,14 +5,14 @@
 	import { page } from '$app/stores';
 	let checkboxValue = false;
 	const userId = $page.params.userId;
-	const createRoute = `/users/${userId}/organizations/create`;
-	const organizationRoute = `/users/${userId}/organizations`;
+
 	import type { PageServerData } from './$types';
 	import { oragnizationTypesStore } from '$lib/store/general.store';
 	import { LocalStorageUtils } from '$lib/utils/local.storage.utils';
 	import { browser } from '$app/environment';
-
 	export let data: PageServerData;
+	const createRoute = `/users/${userId}/organizations/create`;
+	const organizationRoute = `/users/${userId}/organizations`;
 	oragnizationTypesStore.set(data.types);
 	LocalStorageUtils.setItem('personRoles', JSON.stringify(data.types));
 	const oraganizationTypes = data.types;

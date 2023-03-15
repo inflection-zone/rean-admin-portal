@@ -26,7 +26,7 @@ export const actions = {
 		const request = event.request;
 		const userId = event.params.userId;
 		const data = await request.formData();
-
+     
 		const addressType = data.has('addressType') ? data.get('addressType') : null;
 		const addressLine = data.has('AddressLine') ? data.get('AddressLine') : null;
 		const city = data.has('city') ? data.get('city') : null;
@@ -54,10 +54,10 @@ export const actions = {
 			country.valueOf() as string,
 			postalCode.valueOf() as number
 		);
-
+		
 		const addressesId_ = addressResponse.Data.Address.id;
-		const addressesId = addressesId_.split(',');
-
+    		const addressesId = addressesId_.split(',');
+		
 		if (addressResponse.Status === 'failure' || addressResponse.HttpCode !== 201) {
 			throw redirect(303, '/organizations', errorMessage(addressResponse.Message), event);
 		}
@@ -74,7 +74,7 @@ export const actions = {
 			//imageResource.valueOf() as string,
 			isHealthFacility.valueOf() as boolean
 		);
-
+		
 		const id = response.Data.Organization.id;
 
 		if (response.Status === 'failure' || response.HttpCode !== 201) {
