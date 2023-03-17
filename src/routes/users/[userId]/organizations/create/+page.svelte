@@ -4,21 +4,31 @@
 	import BreadCrumbs from '$lib/components/breadcrumbs/breadcrums.svelte';
 	import { page } from '$app/stores';
 	import type { PageServerData } from './$types';
-	import { oragnizationTypesStore} from '$lib/store/general.store';
+	import { oragnizationTypesStore } from '$lib/store/general.store';
 	import { LocalStorageUtils } from '$lib/utils/local.storage.utils';
 	import { browser } from '$app/environment';
+	import { showMessage } from '$lib/utils/message.utils';
+	let checkboxValue = false;
 	const userId = $page.params.userId;
+	let imageResourceId = undefined;
+	let imageUrl = undefined;
+	let fileinput;
 	export let data: PageServerData;
+
+	import { Country, State, City }  from 'country-state-city';
+	console.log(Country.getAllCountries())
+	  let country = Country.getAllCountries();
+		// let country_ = country.map((e)=>({...e}));
+		
+		console.log(country,"country_vvv");
 	const createRoute = `/users/${userId}/organizations/create`;
 	const organizationRoute = `/users/${userId}/organizations`;
 	oragnizationTypesStore.set(data.types);
 	LocalStorageUtils.setItem('personRoles', JSON.stringify(data.types));
-        const oraganizationTypes = data.types;
-   	let checkboxValue = false;
-	
+	const oraganizationTypes = data.types;
 	const handleClick = () => {
 		checkboxValue = !checkboxValue;
-  }
+	};
 	const breadCrumbs = [
 		{
 			name: 'Organization',
@@ -29,6 +39,53 @@
 			path: createRoute
 		}
 	];
+
+	const upload = async (imgBase64, filename) => {
+		const data = {};
+		console.log(imgBase64);
+		const imgData = imgBase64.split(',');
+		data['image'] = imgData[1];
+		console.log(JSON.stringify(data));
+		const res = await fetch(`/api/server/file-resources/upload`, {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json',
+				Accept: 'application/json',
+				filename: filename
+			},
+			body: JSON.stringify(data)
+		});
+		console.log(Date.now().toString());
+		const response = await res.json();
+		if (response.Status === 'success' && response.HttpCode === 201) {
+				  const imageUrl_ = response.Data.FileResources[0].Url;
+					console.log ('imageUrl',imageUrl);
+					const imageResourceId_ = response.Data.FileResources[0].id;
+					console.log ('imageResourceId_', imageUrl);
+			if (imageResourceId_) {
+				imageResourceId = imageResourceId_;
+			}
+			console.log("======",imageResourceId_);
+		  
+		}
+		else {
+			showMessage(response.Message, 'error');
+		}
+	};
+
+
+
+	const onFileSelected = async (e) => {
+		let f = e.target.files[0];
+		const filename = f.name;
+		let reader = new FileReader();
+		reader.readAsDataURL(f);
+		reader.onload = async (e) => {
+			fileinput = e.target.result;
+			await upload(e.target.result, filename);
+		};
+	};
+
 </script>
 
 <main class="h-screen mb-60">
@@ -61,13 +118,11 @@
 					</label>
 				</div>
 				<div class="w-1/2 md:w-2/3 lg:w-2/3">
-					
 					<select class="select w-full" name="type" placeholder="Select type here...">
-						{#each oraganizationTypes as  types}
-								<option>{types}</option>
-								{/each}
+						{#each oraganizationTypes as types}
+							<option>{types}</option>
+						{/each}
 					</select>
-					
 				</div>
 			</div>
 
@@ -158,7 +213,6 @@
 				</div>
 			</div>
 
-
 			<div class="flex items-center mb-2 lg:mx-16 md:mx-12 mx-10">
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
 					<!-- svelte-ignore a11y-label-has-associated-control -->
@@ -167,15 +221,11 @@
 					</label>
 				</div>
 				<div class="w-1/2 md:w-2/3 lg:w-2/3">
-					<select
-					 	name="addressType"
-						class="select w-full"
-						placeholder="Select course here..."
-					>
-					<option>Home</option>
-					<option>office</option>
+					<select name="addressType" class="select w-full" placeholder="Select course here...">
+						<option>Home</option>
+						<option>office</option>
 					</select>
-				</div>	
+				</div>
 			</div>
 
 			<div class="flex items-center mb-2 lg:mx-16 md:mx-12 mx-10">
@@ -192,7 +242,7 @@
 						placeholder="Enter image resource here..."
 						class="input w-full "
 					/>
-				</div>	
+				</div>
 			</div>
 
 			<div class="flex items-center mb-2 lg:mx-16 md:mx-12 mx-10">
@@ -203,13 +253,8 @@
 					</label>
 				</div>
 				<div class="w-1/2 md:w-2/3 lg:w-2/3">
-					<input
-						type="text"
-						name="city"
-						placeholder="Enter image resource here..."
-						class="input w-1/3 "
-					/>
-				</div>	
+					
+				</div>
 			</div>
 			<div class="flex items-center mb-2 lg:mx-16 md:mx-12 mx-10">
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
@@ -225,7 +270,7 @@
 						placeholder="Enter district here..."
 						class="input w-1/3 "
 					/>
-				</div>	
+				</div>
 			</div>
 			<div class="flex items-center mb-2 lg:mx-16 md:mx-12 mx-10">
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
@@ -235,14 +280,10 @@
 					</label>
 				</div>
 				<div class="w-1/2 md:w-2/3 lg:w-2/3">
-					<select
-					 	name="state"
-						class="select w-1/2"
-						placeholder="Select course here..."
-					>
-					<option>Maharashtra</option>
+					<select name="state" class="select w-1/2" placeholder="Select course here...">
+						<option>Maharashtra</option>
 					</select>
-				</div>	
+				</div>
 			</div>
 			<div class="flex items-center mb-2 lg:mx-16 md:mx-12 mx-10">
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
@@ -252,13 +293,12 @@
 					</label>
 				</div>
 				<div class="w-1/2 md:w-2/3 lg:w-2/3">
-					<input
-						type="text"
-						name="country"
-						placeholder="Enter country here..."
-						class="input w-1/3 "
-					/>
-				</div>	
+					<select name="addressType" class="select w-full" placeholder="Select course here...">
+						{#each country as allCountry}
+						    <option>{allCountry}</option>
+						{/each}
+					</select>
+				</div>
 			</div>
 			<div class="flex items-center mb-2 lg:mx-16 md:mx-12 mx-10">
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
@@ -274,11 +314,9 @@
 						placeholder="Enter postal code or zip code here..."
 						class="input w-1/3 "
 					/>
-					
-				</div>	
+				</div>
 			</div>
-			
-			
+
 			<div class="flex items-center mb-4 lg:mx-16 md:mx-12 mx-10">
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
 					<!-- svelte-ignore a11y-label-has-associated-control -->
@@ -288,11 +326,16 @@
 				</div>
 				<div class="w-1/2 md:w-2/3 lg:w-2/3">
 					<input
-						type="text"
-						name="address"
-						placeholder="Enter image resource here..."
-						class="input w-full "
-					/>
+					accept="image/png, image/jpeg"
+					type="file"
+					id="fileUpload"
+					class="input"
+					name="fileinput"
+					placeholder="Image"
+					on:change={async (e) => await onFileSelected(e)}
+				/>
+			
+			<input type="hidden" name="imageResourceId" value={imageResourceId} />
 				</div>
 			</div>
 
@@ -309,7 +352,7 @@
 							type="checkbox"
 							name="isHealthFacility"
 							class="checkbox checkbox-primary checkbox-md"
-							value={false}
+							value={checkboxValue}
 							on:click={handleClick}
 						/>
 					</label>

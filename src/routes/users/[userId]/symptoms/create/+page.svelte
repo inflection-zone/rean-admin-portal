@@ -45,15 +45,14 @@
 		console.log(Date.now().toString());
 		const response = await res.json();
 		if (response.Status === 'success' && response.HttpCode === 201) {
-				  const imageUrl = response.Data.FileResources[0].id;
+				  const imageUrl = response.Data.FileResources[0].url;
 					console.log ('imageResourceId', imageUrl);
-					const imageResourceId_ = response.Data.FileResources[0].Url;
+					const imageResourceId_ = response.Data.FileResources[0].id;
 					console.log ('ImageResource', imageResourceId_);
 			if (imageResourceId_) {
 				imageResourceId = imageResourceId_;
 			}
 			console.log(imageResourceId);
-
 		}
 		else {
 			showMessage(response.Message, 'error');
@@ -94,7 +93,7 @@
 				</div>
 			</div>
 
-			<div class="flex items-center mb-4 mt-10 lg:mx-16 md:mx-12 mx-10">
+			<div class="flex items-center mb-2 mt-10 lg:mx-16 md:mx-12 mx-10">
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
 					<!-- svelte-ignore a11y-label-has-associated-control -->
 					<label class="label">
@@ -111,7 +110,7 @@
 				</div>
 			</div>
 
-			<div class="flex items-center mb-2 lg:mx-16 md:mx-12 mx-10">
+			<div class="flex items-center mb-1 lg:mx-16 md:mx-12 mx-10">
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
 					<!-- svelte-ignore a11y-label-has-associated-control -->
 					<label class="label">

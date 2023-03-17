@@ -13,7 +13,6 @@
 	let id = data.newsfeedItem.id;
 	let title = data.newsfeedItem.Title;
 	let description = data.newsfeedItem.Description;
-	let newsfeed = data.newsfeedItem.FeedId;
 	let link = data.newsfeedItem.Link;
 	let authorName = data.newsfeedItem.AuthorName;
 	let authorEmail = data.newsfeedItem.AuthorEmail;
@@ -25,7 +24,6 @@
 	//Original data
 	let _title = title;
 	let _description = description;
-	let _newsfeed = newsfeed;
 	let _link = link;
 	let _authorName = authorName;
 	let _authorEmail = authorEmail;
@@ -36,7 +34,6 @@
 	function handleReset() {
 		title = _title;
 		description = _description;
-		newsfeed = _newsfeed;
 		link = _link;
 		link = _link;
 		authorName = _authorName;

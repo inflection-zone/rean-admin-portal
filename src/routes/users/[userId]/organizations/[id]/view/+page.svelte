@@ -8,7 +8,8 @@
 	import BreadCrumbs from '$lib/components/breadcrumbs/breadcrums.svelte';
 	import { page } from '$app/stores';
 	import type { PageServerData } from './$types';
-
+	import Image from '$lib/components/image.svelte';
+	
 	export let data: PageServerData;
 	let id = data.organization.id;
 	let type = data.organization.Type;
@@ -17,11 +18,18 @@
 	let email = data.organization.ContactEmail;
 	let about = data.organization.About;
 	let operationalSince = data.organization.OperationalSince;
-	let address = data.organization.Addresses;
-	let imageResource = data.organization.ImageResourceId;
+	let addressType = data.organization.Addresses[0].Type;
+	let addressLine = data.organization.Addresses[0].AddressLine;
+	let city = data.organization.Addresses[0].City;
+	let district = data.organization.Addresses[0].District;
+	let state = data.organization.Addresses[0].State;
+	let country = data.organization.Addresses[0].Country;
+	let postalCode = data.organization.Addresses[0].PostalCode;
+
+	let imageResourceId = data.organization.ImageResourceId;
 	let isHealthFacility = data.organization.IsHealthFacility;
 
-	  console.log("data",data);
+	console.log('data', data);
 	onMount(() => {
 		show(data);
 		LocalStorageUtils.removeItem('prevUrl');
@@ -118,17 +126,78 @@
 						<span>Operational Since</span>
 					</label>
 				</div>
-				<span class="span w-1/2 md:2/3 lg:2/3" id="operationalSince"> {date.format(new Date(operationalSince), 'DD-MMM-YYYY')} </span>
+				<span class="span w-1/2 md:2/3 lg:2/3" id="operationalSince">
+					{date.format(new Date(operationalSince), 'DD-MMM-YYYY')}
+				</span>
 			</div>
 
 			<div class="flex items-center my-4 lg:mx-16 md:mx-12 mx-10">
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
 					<!-- svelte-ignore a11y-label-has-associated-control -->
 					<label class="label">
-						<span>Address</span>
+						<span>address</span>
 					</label>
 				</div>
-				<span class="span w-1/2 md:2/3 lg:2/3" id="address"> {address} </span>
+				<span class="span w-1/2 md:2/3 lg:2/3" id="address"> {addressType} </span>
+			</div>
+
+			<div class="flex items-center my-4 lg:mx-16 md:mx-12 mx-10">
+				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
+					<!-- svelte-ignore a11y-label-has-associated-control -->
+					<label class="label">
+						<span>addressType</span>
+					</label>
+				</div>
+				<span class="span w-1/2 md:2/3 lg:2/3" id="address"> {addressLine} </span>
+			</div>
+
+			<div class="flex items-center my-4 lg:mx-16 md:mx-12 mx-10">
+				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
+					<!-- svelte-ignore a11y-label-has-associated-control -->
+					<label class="label">
+						<span>City</span>
+					</label>
+				</div>
+				<span class="span w-1/2 md:2/3 lg:2/3" id="address"> {city} </span>
+			</div>
+
+			<div class="flex items-center my-4 lg:mx-16 md:mx-12 mx-10">
+				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
+					<!-- svelte-ignore a11y-label-has-associated-control -->
+					<label class="label">
+						<span>District</span>
+					</label>
+				</div>
+				<span class="span w-1/2 md:2/3 lg:2/3" id="address"> {district} </span>
+			</div>
+
+			<div class="flex items-center my-4 lg:mx-16 md:mx-12 mx-10">
+				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
+					<!-- svelte-ignore a11y-label-has-associated-control -->
+					<label class="label">
+						<span>State/Province</span>
+					</label>
+				</div>
+				<span class="span w-1/2 md:2/3 lg:2/3" id="address"> {state} </span>
+			</div>
+
+			<div class="flex items-center my-4 lg:mx-16 md:mx-12 mx-10">
+				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
+					<!-- svelte-ignore a11y-label-has-associated-control -->
+					<label class="label">
+						<span>Country</span>
+					</label>
+				</div>
+				<span class="span w-1/2 md:2/3 lg:2/3" id="address"> {country} </span>
+			</div>
+			<div class="flex items-center my-4 lg:mx-16 md:mx-12 mx-10">
+				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
+					<!-- svelte-ignore a11y-label-has-associated-control -->
+					<label class="label">
+						<span>Zip/postal code</span>
+					</label>
+				</div>
+				<span class="span w-1/2 md:2/3 lg:2/3" id="address"> {postalCode} </span>
 			</div>
 
 			<div class="flex items-center my-4 lg:mx-16 md:mx-12 mx-10">
@@ -138,7 +207,11 @@
 						<span>Image Resource</span>
 					</label>
 				</div>
-				<span class="span w-1/2 md:2/3 lg:2/3" id="imageResource"> {imageResource} </span>
+				{#if imageResourceId === 'undefined'}
+					<span class="span">Image not specified</span>
+				{:else}
+					<Image cls="flex h-24 w-24 rounded-lg" source={imageResourceId} w="24" h="24" />
+				{/if}
 			</div>
 
 			<div class="flex items-center my-4 lg:mx-16 md:mx-12 mx-10">
