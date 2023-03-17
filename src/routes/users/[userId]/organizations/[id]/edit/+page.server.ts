@@ -60,7 +60,6 @@ export const actions = {
 		const isHealthFacility = data.has('isHealthFacility') ? data.get('isHealthFacility') : null;
 		const sessionId = event.cookies.get('sessionId');
 		const organizationId = event.params.id;
-
 		const addressResponse = await createAddress(
 			sessionId,
 			addressType.valueOf() as string,

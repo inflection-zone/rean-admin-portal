@@ -28,10 +28,10 @@
 	let country = data.organization.Addresses[0].Country;
 	let postalCode = data.organization.Addresses[0].PostalCode;
 	let imageUrl = data.organization.ImageUrl ?? undefined;
-	let imageResourceId = data.organization.imageResourceId ?? undefined;
-	
-	let isHealthFacility = data.organization.IsHealthFacility;
+	let imageResourceId = data.organization.ImageResourceId ;
 
+	let isHealthFacility = data.organization.IsHealthFacility;
+	let fileinput;
 	console.log('data', imageResourceId);
 
 	let checkboxValue = false;
@@ -53,6 +53,7 @@
 	let _state = state;
 	let _country = country;
 	let _postalCode = postalCode;
+	let _imageResourceId= imageResourceId;
 
 	//let _imageResource = imageResource;
 	let _isHealthFacility = isHealthFacility;
@@ -72,7 +73,7 @@
 		country = _country;
 		postalCode = _postalCode;
 
-		//imageResource = _imageResource;
+		imageResourceId = _imageResourceId;
 		isHealthFacility = _isHealthFacility;
 	}
 
@@ -416,7 +417,7 @@
 							on:change={async (e) => await onFileSelected(e)}
 						/>
 					{/if}
-					<input type="hidden" name="imageResourceId" value={imageResourceId} />
+					<input type="hidden" name="imageResourceId" bind:value={imageResourceId} />
 				
 				</div>
 			</div>
