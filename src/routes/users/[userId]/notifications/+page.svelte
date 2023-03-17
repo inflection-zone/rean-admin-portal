@@ -2,16 +2,17 @@
 	import Fa from 'svelte-fa';
 	import { createDataTableStore, dataTableHandler } from '@skeletonlabs/skeleton';
 	import { Paginator } from '@skeletonlabs/skeleton';
-	import type { PageServerData } from './$types';
 	import { page } from '$app/stores';
 	import BreadCrumbs from '$lib/components/breadcrumbs/breadcrums.svelte';
+	import Confirm from '$lib/components/modal/confirmModal.svelte';
 	import { faPencil, faSearch, faTrash } from '@fortawesome/free-solid-svg-icons';
+	import type { PageServerData } from './$types';
 
 	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 	export let data: PageServerData;
-	const notification = data.notification;
-	console.log('notification', notification);
+	let notification = data.notification;
+	notification = notification.map((item) => ({ ...item }));
 
 	const userId = $page.params.userId;
 	const notificationRoute = `/users/${userId}/notifications`;
@@ -23,6 +24,13 @@
 			path: notificationRoute
 		}
 	];
+
+	let title = undefined;
+	let Body = undefined;
+	let sortBy = 'CreatedAt';
+	let sortOrder = 'ascending';
+	let itemsPerPage = 10;
+	let pageIndex = 0;
 
 	const dataTableStore = createDataTableStore(
 		// Pass your source data here:
@@ -37,9 +45,50 @@
 		}
 	);
 	// This automatically handles search, sort, etc when the model updates.
-	dataTableStore.subscribe((model) => dataTableHandler(model));
 
-	dataTableStore.updateSource(notification);
+	const searchParams = async (title: string, Body: string) => {
+		await searchNotification({
+			title: title,
+			body: Body
+		});
+	};
+
+	async function searchNotification(model) {
+		let url = `/api/server/notifications/search?`;
+		if (sortOrder) {
+			url += `sortOrder=${sortOrder}`;
+		} else {
+			url += `sortOrder=ascending`;
+		}
+		if (sortBy) {
+			url += `&sortBy=${sortBy}`;
+		}
+		if (itemsPerPage) {
+			url += `&itemsPerPage=${itemsPerPage}`;
+		}
+		if (pageIndex) {
+			url += `&pageIndex=${pageIndex}`;
+		}
+		if (title) {
+			url += `&title=${title}`;
+		}
+		if (Body) {
+			url += `&Body=${Body}`;
+		}
+
+		const res = await fetch(url, {
+			method: 'GET',
+			headers: {
+				'content-type': 'application/json'
+			}
+		});
+		const response = await res.json();
+		notification = response.map((item) => ({ ...item }));
+
+		dataTableStore.updateSource(notification);
+	}
+
+	dataTableStore.subscribe((model) => dataTableHandler(model));
 
 	const handleNotificationDelete = async (e, id) => {
 		const notificationId = id;
@@ -47,6 +96,7 @@
 			sessionId: data.sessionId,
 			notificationId
 		});
+		window.location.href = notificationRoute;
 	};
 
 	async function Delete(model) {
@@ -57,7 +107,6 @@
 				'content-type': 'application/json'
 			}
 		});
-		console.log('response', response);
 	}
 </script>
 
@@ -72,7 +121,6 @@
 	<div class="basis-1/2 justify-center items-center">
 		<div class="relative flex items-center">
 			<a href={createRoute} class="absolute right-4 lg:mr-[-18px] ">
-				<!-- <Fa icon={faCirclePlus} style="color: #5832A1" size="4x" /> -->
 				<button
 					class="btn variant-filled-primary w-28 rounded-lg hover:bg-primary bg-primary transition 
 				ease-in-out 
@@ -92,16 +140,17 @@
 >
 	<div class="basis-1/2 justify-center items-center ">
 		<div class="relative flex items-center">
-			<input type="text" placeholder="Search by title" class="input w-full" />
+			<input type="text" placeholder="Search by title" bind:value={title} class="input w-full" />
 		</div>
 	</div>
 	<div class="basis-1/2 justify-center items-center">
 		<div class="relative flex items-center  ">
-			<input type="text" placeholder="Search by body" class="input w-full" />
+			<input type="text" placeholder="Search by body" bind:value={Body} class="input w-full" />
 		</div>
 	</div>
 	<div class="sm:flex flex">
 		<button
+			on:click={() => searchParams(title, Body)}
 			class="btn variant-filled-primary lg:w-20 md:w-20 sm:w-20 w-20 rounded-lg bg-primary hover:bg-primary  "
 		>
 			<!-- svelte-ignore missing-declaration -->
@@ -126,9 +175,9 @@
 		<thead class="sticky top-0">
 			<tr>
 				<th style="width: 7%;">Id</th>
-				<th style="width: 15%;">Title</th>
+				<th style="width: 23%;">Title</th>
 				<th style="width: 30%;">Body</th>
-				<th style="width: 30%;">Type</th>
+				<th style="width: 50%;">Type</th>
 			</tr>
 		</thead>
 	</table>
@@ -138,18 +187,31 @@
 				{#each $dataTableStore.filtered as row, rowIndex}
 					<tr>
 						<td style="width: 7%;">{rowIndex + 1}</td>
-						<td style="width: 22%;">{row.Title}</td>
-						<td style="width: 38%;">{row.Body}</td>
-						<td style="width: 33%;">{row.Type}</td>
+						<td style="width: 23%;">{row.Title}</td>
+						<td style="width: 30%;">{row.Body}</td>
+						<td style="width: 30%;">{row.Type}</td>
 						<td>
 							<a href="/users/${userId}/notifications/{row.id}/edit"
 								><Fa icon={faPencil} style="color-text-primary" size="md" /></a
 							>
 						</td>
 						<td>
-							<button on:click|once={(e) => handleNotificationDelete(e, row.id)}>
-								<Fa icon={faTrash} style="color-text-primary" size="md" />
-							</button>
+							<!-- svelte-ignore missing-declaration -->
+							<Confirm
+								confirmTitle="Delete"
+								cancelTitle="Cancel"
+								let:confirm={confirmThis}
+								on:delete={(e) => {
+									handleNotificationDelete(e, row.id);
+								}}
+							>
+								<button
+									on:click|preventDefault={() => confirmThis(handleNotificationDelete, row.id)}
+									class=""><Fa icon={faTrash} /></button
+								>
+								<span slot="title"> Delete </span>
+								<span slot="description"> Are you sure you want to delete a notification? </span>
+							</Confirm>
 						</td>
 					</tr>
 				{/each}

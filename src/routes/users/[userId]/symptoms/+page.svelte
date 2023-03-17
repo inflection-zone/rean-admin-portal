@@ -2,16 +2,18 @@
 	import Fa from 'svelte-fa';
 	import { createDataTableStore, dataTableHandler } from '@skeletonlabs/skeleton';
 	import { Paginator } from '@skeletonlabs/skeleton';
-	import type { PageServerData } from './$types';
 	import { page } from '$app/stores';
+	import Image from '$lib/components/image.svelte';
 	import BreadCrumbs from '$lib/components/breadcrumbs/breadcrums.svelte';
+	import Confirm from '$lib/components/modal/confirmModal.svelte';
 	import { faPencil, faSearch, faTrash } from '@fortawesome/free-solid-svg-icons';
+	import type { PageServerData } from './$types';
 
 	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 	export let data: PageServerData;
-	const symptom = data.symptom;
-	console.log('symptom', symptom);
+	let symptoms = data.symptom;
+	symptoms = symptoms.map((item) => ({ ...item }));
 
 	const userId = $page.params.userId;
 	const symptomRoute = `/users/${userId}/symptoms`;
@@ -19,14 +21,21 @@
 
 	const breadCrumbs = [
 		{
-			name: 'Symptoms',
+			name: 'Symptom',
 			path: symptomRoute
 		}
 	];
 
+	let symptom = undefined;
+	let description = undefined;
+	let sortBy = 'CreatedAt';
+	let sortOrder = 'ascending';
+	let itemsPerPage = 10;
+	let pageIndex = 0;
+
 	const dataTableStore = createDataTableStore(
 		// Pass your source data here:
-		symptom,
+		symptoms,
 		{
 			// The current search term.
 			search: '',
@@ -37,9 +46,50 @@
 		}
 	);
 	// This automatically handles search, sort, etc when the model updates.
-	dataTableStore.subscribe((model) => dataTableHandler(model));
 
-	dataTableStore.updateSource(symptom);
+	const searchParams = async (symptom: string, description: string) => {
+		await searchSymptom({
+			symptom: symptom,
+			description: description
+		});
+	};
+
+	async function searchSymptom(model) {
+		let url = `/api/server/symptoms/search?`;
+		if (sortOrder) {
+			url += `sortOrder=${sortOrder}`;
+		} else {
+			url += `sortOrder=ascending`;
+		}
+		if (sortBy) {
+			url += `&sortBy=${sortBy}`;
+		}
+		if (itemsPerPage) {
+			url += `&itemsPerPage=${itemsPerPage}`;
+		}
+		if (pageIndex) {
+			url += `&pageIndex=${pageIndex}`;
+		}
+		if (symptom) {
+			url += `&symptom=${symptom}`;
+		}
+		if (description) {
+			url += `&description=${description}`;
+		}
+
+		const res = await fetch(url, {
+			method: 'GET',
+			headers: {
+				'content-type': 'application/json'
+			}
+		});
+		const response = await res.json();
+		symptoms = response.map((item) => ({ ...item }));
+
+		dataTableStore.updateSource(symptoms);
+	}
+
+	dataTableStore.subscribe((model) => dataTableHandler(model));
 
 	const handleSymptomDelete = async (e, id) => {
 		const symptomId = id;
@@ -47,6 +97,7 @@
 			sessionId: data.sessionId,
 			symptomId
 		});
+		window.location.href = symptomRoute;
 	};
 
 	async function Delete(model) {
@@ -57,7 +108,6 @@
 				'content-type': 'application/json'
 			}
 		});
-		console.log('response', response);
 	}
 </script>
 
@@ -72,7 +122,6 @@
 	<div class="basis-1/2 justify-center items-center">
 		<div class="relative flex items-center">
 			<a href={createRoute} class="absolute right-4 lg:mr-[-18px] ">
-				<!-- <Fa icon={faCirclePlus} style="color: #5832A1" size="4x" /> -->
 				<button
 					class="btn variant-filled-primary w-28 rounded-lg hover:bg-primary bg-primary transition 
 				ease-in-out 
@@ -92,16 +141,27 @@
 >
 	<div class="basis-1/2 justify-center items-center ">
 		<div class="relative flex items-center">
-			<input type="text" placeholder="Search by symptom" class="input w-full" />
+			<input
+				type="text"
+				placeholder="Search by symptom"
+				bind:value={symptom}
+				class="input w-full"
+			/>
 		</div>
 	</div>
 	<div class="basis-1/2 justify-center items-center">
 		<div class="relative flex items-center  ">
-			<input type="text" placeholder="Search by description" class="input w-full" />
+			<input
+				type="text"
+				placeholder="Search by description"
+				bind:value={description}
+				class="input w-full"
+			/>
 		</div>
 	</div>
 	<div class="sm:flex flex">
 		<button
+			on:click={() => searchParams(symptom, description)}
 			class="btn variant-filled-primary lg:w-20 md:w-20 sm:w-20 w-20 rounded-lg bg-primary hover:bg-primary  "
 		>
 			<!-- svelte-ignore missing-declaration -->
@@ -126,9 +186,9 @@
 		<thead class="sticky top-0">
 			<tr>
 				<th style="width: 7%;">Id</th>
-				<th style="width: 15%;">Symptom</th>
+				<th style="width: 23%;">Symptom</th>
 				<th style="width: 30%;">Description</th>
-				<th style="width: 30%;">Language</th>
+				<th style="width: 50%;">Image</th>
 			</tr>
 		</thead>
 	</table>
@@ -138,18 +198,30 @@
 				{#each $dataTableStore.filtered as row, rowIndex}
 					<tr>
 						<td style="width: 7%;">{rowIndex + 1}</td>
-						<td style="width: 22%;">{row.Symptom}</td>
-						<td style="width: 38%;">{row.Description}</td>
-						<td style="width: 33%;">{row.Language}</td>
-						<td>
+						<td style="width: 23%;">{row.Symptom}</td>
+						<td style="width: 30%;">{row.Description}</td>
+						<!-- <td style="width: 30%;"><Image cls="flex h-8 w-15 rounded-lg" source={row.ImageResourceId}  /></td> -->
+						<td style="">
 							<a href="/users/${userId}/symptoms/{row.id}/edit"
 								><Fa icon={faPencil} style="color-text-primary" size="md" /></a
 							>
 						</td>
 						<td>
-							<button on:click|once={(e) => handleSymptomDelete(e, row.id)}>
-								<Fa icon={faTrash} style="color-text-primary" size="md" />
-							</button>
+							<Confirm
+								confirmTitle="Delete"
+								cancelTitle="Cancel"
+								let:confirm={confirmThis}
+								on:delete={(e) => {
+									handleSymptomDelete(e, row.id);
+								}}
+							>
+								<button
+									on:click|preventDefault={() => confirmThis(handleSymptomDelete, row.id)}
+									class=""><Fa icon={faTrash} /></button
+								>
+								<span slot="title"> Delete </span>
+								<span slot="description"> Are you sure you want to delete a symptom? </span>
+							</Confirm>
 						</td>
 					</tr>
 				{/each}

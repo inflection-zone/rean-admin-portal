@@ -45,15 +45,14 @@
 		console.log(Date.now().toString());
 		const response = await res.json();
 		if (response.Status === 'success' && response.HttpCode === 201) {
-				  const imageUrl = response.Data.FileResources[0].id;
+				  const imageUrl = response.Data.FileResources[0].url;
 					console.log ('imageResourceId', imageUrl);
-					const imageResourceId_ = response.Data.FileResources[0].Url;
+					const imageResourceId_ = response.Data.FileResources[0].id;
 					console.log ('ImageResource', imageResourceId_);
 			if (imageResourceId_) {
 				imageResourceId = imageResourceId_;
 			}
 			console.log(imageResourceId);
-
 		}
 		else {
 			showMessage(response.Message, 'error');
