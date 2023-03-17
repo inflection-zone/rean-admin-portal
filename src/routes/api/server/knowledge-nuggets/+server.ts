@@ -6,7 +6,7 @@ import { deleteKnowledgeNugget } from '../../services/knowledge-nuggets';
 export const DELETE = async (event: RequestEvent) => {
 	const request = event.request;
 	const data = await request.json();
-	
+
 	try {
 		console.log('Inside knowledge nugget server endpoints');
 		const response = await deleteKnowledgeNugget(data.sessionId, data.knowledgeNuggetId);

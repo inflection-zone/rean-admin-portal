@@ -14,7 +14,6 @@
 	let id = data.newsfeedItem.id;
 	let title = data.newsfeedItem.Title;
 	let description = data.newsfeedItem.Description;
-	let newsfeed = data.newsfeedItem.FeedId;
 	let link = data.newsfeedItem.Link;
 	let authorName = data.newsfeedItem.AuthorName;
 	let authorEmail = data.newsfeedItem.AuthorEmail;
@@ -81,16 +80,6 @@
 					</label>
 				</div>
 				<span class="span w-1/2 md:2/3 lg:2/3" id="description"> {description} </span>
-			</div>
-
-			<div class="flex items-center my-4 lg:mx-16 md:mx-12 mx-10">
-				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
-					<!-- svelte-ignore a11y-label-has-associated-control -->
-					<label class="label">
-						<span>Newsfeed</span>
-					</label>
-				</div>
-				<span class="span w-1/2 md:2/3 lg:2/3" id="newsfeed"> {newsfeed} </span>
 			</div>
 
 			<div class="flex items-center my-4 lg:mx-16 md:mx-12 mx-10">

@@ -6,7 +6,7 @@ import { deleteDrug } from '../../services/drugs';
 export const DELETE = async (event: RequestEvent) => {
 	const request = event.request;
 	const data = await request.json();
-	console.log('data', data);
+	
 	try {
 		console.log('Inside drug server endpoints');
 		const response = await deleteDrug(data.sessionId, data.drugId);
