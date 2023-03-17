@@ -93,22 +93,23 @@
 
 
 	const handleOrganizationsDelete = async (e, id) => {
-    const organizationId = id;
-    console.log("organizationId", organizationId);
-    await Delete({
-      sessionId: data.sessionId,
-      organizationId:organizationId
-    });
+   	 const organizationId = id;
+    	console.log("organizationId", organizationId);
+	
+   	 await Delete({
+     			 sessionId: data.sessionId,
+    			  organizationId:organizationId
+    		});
 
-		window.location.href = organizationRoute;
+	window.location.href = organizationRoute;
   };
 
   async function Delete(model) {
-    const response = await fetch(`/api/server/organizations/delete`, {
-      method: 'DELETE',
-      body: JSON.stringify(model),
-      headers: {
-        'content-type': 'application/json'
+     	const response = await fetch(`/api/server/organizations/delete`, {
+      		method: 'DELETE',
+     		body: JSON.stringify(model),
+      		headers: {
+      		  'content-type': 'application/json'
       }
     });
   }
@@ -130,10 +131,10 @@
 				<!-- <Fa icon={faCirclePlus} style="color: #5832A1" size="4x" /> -->
 				<button
 					class="btn variant-filled-primary w-28 rounded-lg hover:bg-primary bg-primary transition 
-          ease-in-out 
-          delay-150   
-          hover:scale-110  
-          duration-300 ... "
+          				ease-in-out 
+         				delay-150   
+          				hover:scale-110  
+          				duration-300 ... "
 				>
 					Add new
 				</button>
@@ -175,10 +176,10 @@
 		<a href="#" class=" right-14 ">
 			<button
 				class="btn variant-filled-primary hover:bg-primary lg:hidden md:hidden block sm:w-40 w-24 ml-4 rounded-lg bg-primary transition 
-          ease-in-out 
-          delay-150   
-          hover:scale-110  
-          duration-300 ...  "
+          			ease-in-out 
+          			delay-150   
+          			hover:scale-110  
+          			duration-300 ...  "
 			>
 				ADD NEW
 			</button>
