@@ -12,7 +12,7 @@ export const createOrganization = async (
 	about: string,
 	operationalSince: Date,
 	address:string[],
-	//imageResource: string,
+	imageResourceId: string,
 	isHealthFacility: boolean
 ) => {
 	const body = {
@@ -23,7 +23,7 @@ export const createOrganization = async (
 		About: about,
 		OperationalSince: operationalSince,
 		AddressIds: address,
-		//ImageResource: imageResource,
+		ImageResourceId: imageResourceId,
 		IsHealthFacility: isHealthFacility
 	};
 	const url = BACKEND_API_URL + '/organizations';

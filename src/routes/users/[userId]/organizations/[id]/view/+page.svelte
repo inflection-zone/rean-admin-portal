@@ -8,7 +8,8 @@
 	import BreadCrumbs from '$lib/components/breadcrumbs/breadcrums.svelte';
 	import { page } from '$app/stores';
 	import type { PageServerData } from './$types';
-
+	import Image from '$lib/components/image.svelte';
+	
 	export let data: PageServerData;
 	let id = data.organization.id;
 	let type = data.organization.Type;
@@ -25,7 +26,7 @@
 	let country = data.organization.Addresses[0].Country;
 	let postalCode = data.organization.Addresses[0].PostalCode;
 
-	let imageResource = data.organization.ImageResourceId;
+	let imageResourceId = data.organization.ImageResourceId;
 	let isHealthFacility = data.organization.IsHealthFacility;
 
 	console.log('data', data);
@@ -206,7 +207,11 @@
 						<span>Image Resource</span>
 					</label>
 				</div>
-				<span class="span w-1/2 md:2/3 lg:2/3" id="imageResource"> {imageResource} </span>
+				{#if imageResourceId === 'undefined'}
+					<span class="span">Image not specified</span>
+				{:else}
+					<Image cls="flex h-24 w-24 rounded-lg" source={imageResourceId} w="24" h="24" />
+				{/if}
 			</div>
 
 			<div class="flex items-center my-4 lg:mx-16 md:mx-12 mx-10">
