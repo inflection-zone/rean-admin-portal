@@ -11,6 +11,12 @@ const home: TabDefinition = {
     default: true,
 };
 
+const drugs: TabDefinition = {
+    name: 'Drugs',
+    path: `/users/userId/drugs`,
+    default: false,
+};
+
 const notifications: TabDefinition = {
     name: 'Notifications',
     path: `/users/userId/notifications`,
@@ -29,7 +35,7 @@ const organizations: TabDefinition = {
     default: false,
 };
 const linkages: TabDefinition = {
-    name: 'Linkages',
+    name: 'Notices',
     path: `/users/userId/linkages`,
     default: false,
 };
@@ -82,6 +88,7 @@ export const navbarMenu = (userId) => {
 export const sidebarMenu = (userId) => {
     const menus = [
         home,
+        drugs,
         notifications,
         linkages,
         newsFeeds,

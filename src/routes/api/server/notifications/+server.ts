@@ -6,7 +6,7 @@ import { deleteNotification } from '../../services/notifications';
 export const DELETE = async (event: RequestEvent) => {
 	const request = event.request;
 	const data = await request.json();
-	
+
 	try {
 		console.log('Inside notification server endpoints');
 		const response = await deleteNotification(data.sessionId, data.notificationId);

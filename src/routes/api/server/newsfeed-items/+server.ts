@@ -6,7 +6,7 @@ import { deleteNewsfeedItem } from '../../services/newsfeed-items';
 export const DELETE = async (event: RequestEvent) => {
 	const request = event.request;
 	const data = await request.json();
-	
+
 	try {
 		console.log('Inside newsfeed item server endpoints');
 		const response = await deleteNewsfeedItem(data.sessionId, data.newsfeedItemId);

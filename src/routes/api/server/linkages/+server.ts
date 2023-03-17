@@ -6,7 +6,7 @@ import { deleteLinkage } from '../../services/linkages';
 export const DELETE = async (event: RequestEvent) => {
 	const request = event.request;
 	const data = await request.json();
-	console.log('data', data);
+	
 	try {
 		console.log('Inside linkage server endpoints');
 		const response = await deleteLinkage(data.sessionId, data.linkageId);

@@ -10,7 +10,7 @@ export const GET = async (event: RequestEvent) => {
     
     const searchParams: URLSearchParams = event.url.searchParams;
     const type = searchParams.get('type') ?? undefined;
-    const clientEmail = searchParams.get('clientEmail') ?? undefined;
+    const contactEmail = searchParams.get('contactEmail') ?? undefined;
     const sortBy = searchParams.get('sortBy') ?? 'CreatedAt';
     const sortOrder = searchParams.get('sortOrder') ?? 'ascending';
     const itemsPerPage_ = searchParams.get('pageIndex');
@@ -21,17 +21,14 @@ export const GET = async (event: RequestEvent) => {
 	try {	
         const searchParams = {
             type:type,
-            email : clientEmail,
+            contactEmail : contactEmail,
             orderBy: sortBy,
             order: sortOrder,
             itemsPerPage:itemsPerPage,
             pageIndex:pageIndex, 
         };
-        console.log("Search parms::::: ", searchParams);
-		const response = await searchOrganizations(sessionId, searchParams);
+	const response = await searchOrganizations(sessionId, searchParams);
         const items = response.Data.Organizations.Items;
-        console.log("Items: ", items,response);
-
         return new Response(JSON.stringify(items));
 	} catch (err) {
 		console.error(`Error retriving asset: ${err.message}`);

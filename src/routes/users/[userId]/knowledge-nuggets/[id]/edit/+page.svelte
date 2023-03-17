@@ -1,11 +1,11 @@
 <script lang="ts">
-  import type { PageServerData } from './$types';
+	import type { PageServerData } from './$types';
 	import Fa from 'svelte-fa';
 	import { faMultiply } from '@fortawesome/free-solid-svg-icons';
 	import BreadCrumbs from '$lib/components/breadcrumbs/breadcrums.svelte';
 	import { page } from '$app/stores';
 	import { InputChip } from '@skeletonlabs/skeleton';
-	
+
 	export let data: PageServerData;
 	let initiaData = {};
 	let id = data.KnowledgeNugget.id;
@@ -33,9 +33,8 @@
 		detailedInformation = _detailedInformation;
 		additionalResource = _additionalResource;
 		tags = _tags;
-
 	}
-	
+
 	const userId = $page.params.userId;
 	const editRoute = `/users/${userId}/knowledge-nuggets/${id}/edit`;
 	const viewRoute = `/users/${userId}/knowledge-nuggets/${id}/view`;

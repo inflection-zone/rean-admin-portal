@@ -3,14 +3,16 @@
 	import { createDataTableStore, dataTableHandler } from '@skeletonlabs/skeleton';
 	import { Paginator } from '@skeletonlabs/skeleton';
 	import { faPencil, faSearch, faTrash } from '@fortawesome/free-solid-svg-icons';
-	import type { PageServerData } from './$types';
 	import BreadCrumbs from '$lib/components/breadcrumbs/breadcrums.svelte';
+	import Confirm from '$lib/components/modal/confirmModal.svelte';
 	import { page } from '$app/stores';
+	import type { PageServerData } from './$types';
+
 	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 	export let data: PageServerData;
-	const drug = data.drug;
-	console.log('drug', drug);
+	let drug = data.drug;
+	drug = drug.map((item) => ({ ...item }));
 
 	const userId = $page.params.userId;
 	const drugRoute = `/users/${userId}/drugs`;
@@ -22,6 +24,13 @@
 			path: drugRoute
 		}
 	];
+
+	let drugName = undefined;
+	let genericName = undefined;
+	let sortBy = 'CreatedAt';
+	let sortOrder = 'ascending';
+	let itemsPerPage = 10;
+	let pageIndex = 0;
 
 	const dataTableStore = createDataTableStore(
 		// Pass your source data here:
@@ -36,9 +45,50 @@
 		}
 	);
 	// This automatically handles search, sort, etc when the model updates.
-	dataTableStore.subscribe((model) => dataTableHandler(model));
 
-	dataTableStore.updateSource(drug);
+	const searchParams = async (drugName: string, genericName: string) => {
+		await searchdrug({
+			drugName: drugName,
+			genericName: genericName
+		});
+	};
+
+	async function searchdrug(model) {
+		let url = `/api/server/drugs/search?`;
+		if (sortOrder) {
+			url += `sortOrder=${sortOrder}`;
+		} else {
+			url += `sortOrder=ascending`;
+		}
+		if (sortBy) {
+			url += `&sortBy=${sortBy}`;
+		}
+		if (itemsPerPage) {
+			url += `&itemsPerPage=${itemsPerPage}`;
+		}
+		if (pageIndex) {
+			url += `&pageIndex=${pageIndex}`;
+		}
+		if (drugName) {
+			url += `&drugName=${drugName}`;
+		}
+		if (genericName) {
+			url += `&genericName=${genericName}`;
+		}
+
+		const res = await fetch(url, {
+			method: 'GET',
+			headers: {
+				'content-type': 'application/json'
+			}
+		});
+		const response = await res.json();
+		drug = response.map((item) => ({ ...item }));
+
+		dataTableStore.updateSource(drug);
+	}
+
+	dataTableStore.subscribe((model) => dataTableHandler(model));
 
 	const handleDrugDelete = async (e, id) => {
 		const drugId = id;
@@ -46,6 +96,7 @@
 			sessionId: data.sessionId,
 			drugId
 		});
+		window.location.href = drugRoute;
 	};
 
 	async function Delete(model) {
@@ -56,7 +107,6 @@
 				'content-type': 'application/json'
 			}
 		});
-		console.log('response', response);
 	}
 </script>
 
@@ -71,7 +121,6 @@
 	<div class="basis-1/2 justify-center items-center">
 		<div class="relative flex items-center">
 			<a href={createRoute} class="absolute right-4 lg:mr-[-18px] ">
-				<!-- <Fa icon={faCirclePlus} style="color: #5832A1" size="4x" /> -->
 				<button
 					class="btn variant-filled-primary w-28 rounded-lg hover:bg-primary bg-primary transition 
 				ease-in-out 
@@ -91,16 +140,27 @@
 >
 	<div class="basis-1/2 justify-center items-center ">
 		<div class="relative flex items-center">
-			<input type="text" placeholder="Search by drug name" class="input w-full" />
+			<input
+				type="text"
+				placeholder="Search by drug name"
+				bind:value={drugName}
+				class="input w-full"
+			/>
 		</div>
 	</div>
 	<div class="basis-1/2 justify-center items-center">
 		<div class="relative flex items-center  ">
-			<input type="text" placeholder="Search by generic name" class="input w-full" />
+			<input
+				type="text"
+				placeholder="Search by generic name"
+				bind:value={genericName}
+				class="input w-full"
+			/>
 		</div>
 	</div>
 	<div class="sm:flex flex">
 		<button
+			on:click={() => searchParams(drugName, genericName)}
 			class="btn variant-filled-primary lg:w-20 md:w-20 sm:w-20 w-20 rounded-lg bg-primary hover:bg-primary  "
 		>
 			<!-- svelte-ignore missing-declaration -->
@@ -146,9 +206,22 @@
 							>
 						</td>
 						<td>
-							<button on:click|once={(e) => handleDrugDelete(e, row.id)}>
-								<Fa icon={faTrash} style="color-text-primary" size="md" />
-							</button>
+							<!-- svelte-ignore missing-declaration -->
+							<Confirm
+								confirmTitle="Delete"
+								cancelTitle="Cancel"
+								let:confirm={confirmThis}
+								on:delete={(e) => {
+									handleDrugDelete(e, row.id);
+								}}
+							>
+								<button
+									on:click|preventDefault={() => confirmThis(handleDrugDelete, row.id)}
+									class=""><Fa icon={faTrash} /></button
+								>
+								<span slot="title"> Delete </span>
+								<span slot="description"> Are you sure you want to delete a drug? </span>
+							</Confirm>
 						</td>
 					</tr>
 				{/each}
