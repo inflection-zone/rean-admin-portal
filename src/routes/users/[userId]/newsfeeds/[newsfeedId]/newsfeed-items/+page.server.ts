@@ -6,21 +6,20 @@ import { searchNewsfeedItems } from '../../../../../api/services/newsfeed-items'
 ////////////////////////////////////////////////////////////////////////////
 
 export const load: PageServerLoad = async (event: RequestEvent) => {
-  const sessionId = event.cookies.get('sessionId');
-  console.log('sessionId', sessionId);
-  try {
-    const response = await searchNewsfeedItems(sessionId);
-    if (response.Status === 'failure' || response.HttpCode !== 200) {
-      throw error(response.HttpCode, response.Message);
-    }
-    const newsfeedItems = response.Data;
-    console.log("newsfeedItems",newsfeedItems)
-    return {
-      newsfeedItems,
-      sessionId,
-      message: response.Message
-    };
-  } catch (error) {
-    console.error(`Error retriving newsfeedItems: ${error.message}`);
-  }
+	const sessionId = event.cookies.get('sessionId');
+
+	try {
+		const response = await searchNewsfeedItems(sessionId);
+		if (response.Status === 'failure' || response.HttpCode !== 200) {
+			throw error(response.HttpCode, response.Message);
+		}
+		const newsfeedItems = response.Data;
+		return {
+			newsfeedItems,
+			sessionId,
+			message: response.Message
+		};
+	} catch (error) {
+		console.error(`Error retriving newsfeedItems: ${error.message}`);
+	}
 };

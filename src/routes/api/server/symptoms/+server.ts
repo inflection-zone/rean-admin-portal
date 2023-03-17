@@ -6,7 +6,7 @@ import { deleteSymptom } from '../../services/symptoms';
 export const DELETE = async (event: RequestEvent) => {
 	const request = event.request;
 	const data = await request.json();
-	
+
 	try {
 		console.log('Inside symptom server endpoints');
 		const response = await deleteSymptom(data.sessionId, data.symptomId);

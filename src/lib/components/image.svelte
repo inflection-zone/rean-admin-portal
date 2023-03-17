@@ -1,30 +1,23 @@
 <script lang="ts">
-	import { browser } from "$app/environment";
+    import { browser } from "$app/environment";
     import { db } from '$lib/utils/local.db';
-	import { Helper } from "$lib/utils/helper";
-
+    import { Helper } from "$lib/utils/helper";
     export let source;
     export let cls;
     export let w;
     export let h;
     let objectUrl;
-
-	async function loadImage() {
-
+    async function loadImage() {
         if (!source) {
             return;
         }
         const url = source?.toLowerCase();
-
         if (browser) {
-
             const x = await db.imageCache
                     .where({
                         srcUrl: url
                     }).first();
-
             console.log(`x = ${JSON.stringify(x)}`);
-
             if (x && !Helper.isEmpty(x)) {
                 objectUrl = URL.createObjectURL(x.blb as Blob);
                 console.log(`extracting existing image from cache!  ${JSON.stringify(objectUrl)}`);
@@ -48,7 +41,7 @@
     (async () => {
         await loadImage();
     })();
-
 </script>
-
 <img src={objectUrl} alt="" class={cls} width="{w}" height="{h}"/>
+
+
