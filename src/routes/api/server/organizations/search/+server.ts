@@ -27,11 +27,8 @@ export const GET = async (event: RequestEvent) => {
             itemsPerPage:itemsPerPage,
             pageIndex:pageIndex, 
         };
-        console.log("Search parms::::: ", searchParams);
-		const response = await searchOrganizations(sessionId, searchParams);
+	const response = await searchOrganizations(sessionId, searchParams);
         const items = response.Data.Organizations.Items;
-        console.log("Items: ", items,response);
-
         return new Response(JSON.stringify(items));
 	} catch (err) {
 		console.error(`Error retriving asset: ${err.message}`);

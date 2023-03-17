@@ -80,16 +80,15 @@
 		apiClient = response.map((item, index) => ({ ...item, index: index + 1  }));
 		dataTableStore.updateSource(apiClient);
 	}
-
 	dataTableStore.subscribe((model) => dataTableHandler(model));
-
+	
 	const handleApiClientDelete = async (e, id) => {
-		const clientId = id;
-		console.log('clientId', clientId);
-		await Delete({
-			sessionId: data.sessionId,
-			apiClientId: clientId
-		});
+    	const clientId = id;
+    
+    	await Delete({
+      		sessionId: data.sessionId,
+      		apiClientId:clientId
+    	});
 		window.location.href = apiClientRoute;
 	};
 
@@ -117,10 +116,10 @@
 				<!-- <Fa icon={faCirclePlus} style="color: #5832A1" size="4x" /> -->
 				<button
 					class="btn variant-filled-primary w-28 rounded-lg hover:bg-primary bg-primary transition 
-          ease-in-out 
-          delay-150   
-          hover:scale-110  
-          duration-300 ... "
+         				 ease-in-out 
+         				 delay-150   
+         				 hover:scale-110  
+         				 duration-300 ... "
 				>
 					Add new
 				</button>
@@ -162,10 +161,10 @@
 		<a href="#" class=" right-14 ">
 			<button
 				class="btn variant-filled-primary hover:bg-primary lg:hidden md:hidden block sm:w-40 w-24 ml-4 rounded-lg bg-primary transition 
-          ease-in-out 
-          delay-150   
-          hover:scale-110  
-          duration-300 ...  "
+         			 ease-in-out 
+          			delay-150   
+          			hover:scale-110  
+          			duration-300 ...  "
 			>
 				ADD NEW
 			</button>
