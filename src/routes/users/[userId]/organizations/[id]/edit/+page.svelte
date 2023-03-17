@@ -6,7 +6,8 @@
 	import type { PageServerData } from './$types';
 	import { oragnizationTypesStore } from '$lib/store/general.store';
 	import { LocalStorageUtils } from '$lib/utils/local.storage.utils';
-
+	import Image from '$lib/components/image.svelte';
+	import { showMessage } from '$lib/utils/message.utils';
 	export let data: PageServerData;
 	oragnizationTypesStore.set(data.types);
 	LocalStorageUtils.setItem('personRoles', JSON.stringify(data.types));
@@ -26,10 +27,12 @@
 	let state = data.organization.Addresses[0].State;
 	let country = data.organization.Addresses[0].Country;
 	let postalCode = data.organization.Addresses[0].PostalCode;
-	//let imageResource = data.organization.Organization.imageResource;
+	let imageUrl = data.organization.ImageUrl ?? undefined;
+	let imageResourceId = data.organization.imageResourceId ?? undefined;
+	
 	let isHealthFacility = data.organization.IsHealthFacility;
 
-	console.log('data', data.organization);
+	console.log('data', imageResourceId);
 
 	let checkboxValue = false;
 	const handleClick = () => {
@@ -74,6 +77,8 @@
 	}
 
 	const userId = $page.params.userId;
+		
+	
 	const editRoute = `/users/${userId}/organizations/${id}/edit`;
 	const viewRoute = `/users/${userId}/organizations/${id}/view`;
 	const organizationRoute = `/users/${userId}/organizations`;
@@ -88,6 +93,48 @@
 			path: editRoute
 		}
 	];
+
+	const upload = async (imgBase64, filename) => {
+		const data = {};
+		console.log(imgBase64);
+		const imgData = imgBase64.split(',');
+		data['image'] = imgData[1];
+		console.log(JSON.stringify(data));
+		const res = await fetch(`/api/server/file-resources/upload`, {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json',
+				Accept: 'application/json',
+				filename: filename
+			},
+			body: JSON.stringify(data)
+		});
+		console.log(Date.now().toString());
+		const response = await res.json();
+		if (response.Status === 'success' && response.HttpCode === 201) {
+			const imageUrl_ = response.Data.FileResources[0].Url;
+			console.log('imageUrl', imageUrl);
+			const imageResourceId_ = response.Data.FileResources[0].id;
+			console.log('imageResourceId_', imageUrl);
+			if (imageResourceId_) {
+				imageResourceId = imageResourceId_;
+			}
+			console.log('======', imageResourceId_);
+		} else {
+			showMessage(response.Message, 'error');
+		}
+	};
+
+	const onFileSelected = async (e) => {
+		let f = e.target.files[0];
+		const filename = f.name;
+		let reader = new FileReader();
+		reader.readAsDataURL(f);
+		reader.onload = async (e) => {
+			fileinput = e.target.result;
+			await upload(e.target.result, filename);
+		};
+	};
 </script>
 
 <main class="h-screen mb-60">
@@ -350,13 +397,27 @@
 						<span>Image Resource</span>
 					</label>
 				</div>
-				<div class="w-1/2 md:w-2/3 lg:w-2/3">
-					<input
-						type="text"
-						name="imageResource"
-						placeholder="Enter image resource here..."
-						class="input w-full "
-					/>
+				<div class="flex flex-row gap-8 w-1/2 md:w-2/3 lg:w-2/3 ">
+					{#if imageUrl === 'undefined'}
+						<input
+							name="fileinput"
+							type="file"
+							class="true input w-full"
+							placeholder="Image"
+							on:change={async (e) => await onFileSelected(e)}
+						/>
+					{:else}
+						<Image cls="flex h-24 w-24 rounded-lg" source={imageUrl} w="24" h="24" />
+						<input
+							name="fileinput"
+							type="file"
+							class="true input w-full"
+							placeholder="Image"
+							on:change={async (e) => await onFileSelected(e)}
+						/>
+					{/if}
+					<input type="hidden" name="imageResourceId" value={imageResourceId} />
+				
 				</div>
 			</div>
 

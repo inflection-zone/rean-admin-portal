@@ -12,9 +12,10 @@
 
 	export let data: PageServerData;
 	let organizations = data.organization;
-	organizations = organizations.map((item) => ({ ...item }));
+	let index = Number;
+	organizations = organizations.map((item, index) => ({ ...item, index: index + 1}));
 	console.log('knowledgeNuggets', organizations);
-
+ 
 	const dataTableStore = createDataTableStore(
 		// Pass your source data here:
 		organizations,
@@ -82,7 +83,7 @@
 			}
 		});
 		const response = await res.json();
-		organizations = response.map((item) => ({ ...item }));
+		organizations = response.map((item, index) => ({ ...item, index: index + 1 }));
 
 		dataTableStore.updateSource(organizations);
 
@@ -90,8 +91,6 @@
 	dataTableStore.subscribe((model) => dataTableHandler(model));
 
 	
-
-
 	const handleOrganizationsDelete = async (e, id) => {
     const organizationId = id;
     console.log("organizationId", organizationId);
@@ -203,7 +202,7 @@
 			<tbody class="">
 				{#each $dataTableStore.filtered as row, rowIndex}
 					<tr>
-						<td style="width: 5%;">{rowIndex + 1}</td>
+						<td style="width: 5%;">{row.index}</td>
 						<td style="width: 25%;">{row.Type}</td>
 						<td style="width: 20%;">{row.Name}</td>
 						<td style="width: 30%;">{row.ContactPhone}</td>

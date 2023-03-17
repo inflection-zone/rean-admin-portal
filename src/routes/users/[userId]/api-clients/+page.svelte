@@ -2,16 +2,19 @@
 	import { createDataTableStore, dataTableHandler } from '@skeletonlabs/skeleton';
 	import { Paginator } from '@skeletonlabs/skeleton';
 	import Fa from 'svelte-fa';
-	import { page } from '$app/stores';
 	import { faPencil, faTrash, faSearch } from '@fortawesome/free-solid-svg-icons';
+	import { page } from '$app/stores';
 	import type { PageServerData } from './$types';
 	import Confirm from '$lib/components/modal/confirmModal.svelte';
 	import BreadCrumbs from '$lib/components/breadcrumbs/breadcrums.svelte';
+
+
 	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 	export let data: PageServerData;
 	let apiClient = data.apiClients;
-	apiClient = apiClient.map((item) => ({ ...item }));
+	let index=Number;
+	apiClient = apiClient.map((item,index) => ({ ...item,index: index + 1  }));
 
 	const dataTableStore = createDataTableStore(apiClient, {
 		search: '',
@@ -22,13 +25,12 @@
 	const createRoute = `/users/${userId}/api-clients/create`;
 	const editRoute = (id) => `/users/${userId}/api-clients/${id}/edit`;
 	const apiClientRoute = `/users/${userId}/api-clients`;
-	
+
 	const breadCrumbs = [
 		{
 			name: 'Api-client',
 			path: apiClientRoute
-		},
-		
+		}
 	];
 
 	let clientName = undefined;
@@ -75,34 +77,31 @@
 			}
 		});
 		const response = await res.json();
-		apiClient = response.map((item) => ({ ...item }));
+		apiClient = response.map((item, index) => ({ ...item, index: index + 1  }));
 		dataTableStore.updateSource(apiClient);
 	}
 
 	dataTableStore.subscribe((model) => dataTableHandler(model));
-	
-
-
 
 	const handleApiClientDelete = async (e, id) => {
-    const clientId = id;
-    console.log("clientId", clientId);
-    await Delete({
-      sessionId: data.sessionId,
-      apiClientId:clientId
-    });
+		const clientId = id;
+		console.log('clientId', clientId);
+		await Delete({
+			sessionId: data.sessionId,
+			apiClientId: clientId
+		});
 		window.location.href = apiClientRoute;
-  };
+	};
 
-  async function Delete(model) {
-    const response = await fetch(`/api/server/api-client`, {
-      method: 'DELETE',
-      body: JSON.stringify(model),
-      headers: {
-        'content-type': 'application/json'
-      }
-    });
-  }
+	async function Delete(model) {
+		const response = await fetch(`/api/server/api-client`, {
+			method: 'DELETE',
+			body: JSON.stringify(model),
+			headers: {
+				'content-type': 'application/json'
+			}
+		});
+	}
 </script>
 
 <BreadCrumbs crumbs={breadCrumbs} />
@@ -156,7 +155,7 @@
 	<div class="sm:flex flex">
 		<button
 			class="btn variant-filled-primary lg:w-20 md:w-20 sm:w-20 w-20 rounded-lg bg-primary hover:bg-primary  "
-      on:click={()=>searchParams(clientName, contactEmail)}
+			on:click={() => searchParams(clientName, contactEmail)}
 		>
 			<Fa icon={faSearch} class="text-neutral-content" size="lg" />
 		</button>
@@ -192,24 +191,31 @@
 			<tbody class="">
 				{#each $dataTableStore.filtered as row, rowIndex}
 					<tr>
-						<td style="width: 5%;">{rowIndex + 1}</td>
+						<td style="width: 5%;">{row.index}</td>
 						<td style="width: 20%;">{row.ClientName}</td>
 						<td style="width: 30%;">{row.Email}</td>
 						<td style="width: 24%;">{row.Phone}</td>
-						<td style="width: 8%;"> <a class="text-primary" href={editRoute(row.id)}><Fa icon={faPencil} /></a></td>
-						<td style="width: 8%;"><Confirm
-							confirmTitle="Delete"
-							cancelTitle="Cancel"
-							let:confirm={confirmThis}
-							on:delete={(e) => {
-								handleApiClientDelete(e, row.id);
-							}}
+						<td style="width: 8%;">
+							<a class="text-primary" href={editRoute(row.id)}><Fa icon={faPencil} /></a></td
 						>
-							<button on:click|preventDefault ={() => confirmThis(handleApiClientDelete, row.id)} class=""><Fa icon={faTrash} /></button>
+						<td style="width: 8%;"
+							><Confirm
+								confirmTitle="Delete"
+								cancelTitle="Cancel"
+								let:confirm={confirmThis}
+								on:delete={(e) => {
+									handleApiClientDelete(e, row.id);
+								}}
+							>
+								<button
+									on:click|preventDefault={() => confirmThis(handleApiClientDelete, row.id)}
+									class=""><Fa icon={faTrash} /></button
+								>
 
-							<span slot="title"> Delete </span>
-							<span slot="description"> Are you sure you want to delete a client? </span>
-						</Confirm></td>
+								<span slot="title"> Delete </span>
+								<span slot="description"> Are you sure you want to delete a client? </span>
+							</Confirm></td
+						>
 					</tr>
 				{/each}
 			</tbody>
