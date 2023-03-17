@@ -6,7 +6,7 @@
 	import Image from '$lib/components/image.svelte';
 	import BreadCrumbs from '$lib/components/breadcrumbs/breadcrums.svelte';
 	import { faPencil, faSearch, faTrash } from '@fortawesome/free-solid-svg-icons';
-  import Confirm from '$lib/components/modal/confirmModal.svelte';
+	import Confirm from '$lib/components/modal/confirmModal.svelte';
 	import type { PageServerData } from './$types';
 
 	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -27,11 +27,11 @@
 	];
 
 	let name = undefined;
-  let description = undefined;
-  let sortBy = 'CreatedAt';
-  let sortOrder = 'ascending';
-  let itemsPerPage = 10;
-  let pageIndex = 0;
+	let description = undefined;
+	let sortBy = 'CreatedAt';
+	let sortOrder = 'ascending';
+	let itemsPerPage = 10;
+	let pageIndex = 0;
 
 	const dataTableStore = createDataTableStore(
 		// Pass your source data here:
@@ -48,50 +48,48 @@
 	// This automatically handles search, sort, etc when the model updates.
 
 	const searchParams = async (name: string, description: string) => {
-    await searchCourse({
-      name: name,
-      description: description
-    });
-  };
+		await searchCourse({
+			name: name,
+			description: description
+		});
+	};
 
 	async function searchCourse(model) {
-    let url = `/api/server/courses/search?`;
-    if (sortOrder) {
-      url += `sortOrder=${sortOrder}`;
-    } else {
-      url += `sortOrder=ascending`;
-    }
-    if (sortBy) {
-      url += `&sortBy=${sortBy}`;
-    }
-    if (itemsPerPage) {
-      url += `&itemsPerPage=${itemsPerPage}`;
-    }
-    if (pageIndex) {
-      url += `&pageIndex=${pageIndex}`;
-    }
-    if (name) {
-      url += `&name=${name}`;
-    }
-    if (description) {
-      url += `&description=${description}`;
-    }
+		let url = `/api/server/courses/search?`;
+		if (sortOrder) {
+			url += `sortOrder=${sortOrder}`;
+		} else {
+			url += `sortOrder=ascending`;
+		}
+		if (sortBy) {
+			url += `&sortBy=${sortBy}`;
+		}
+		if (itemsPerPage) {
+			url += `&itemsPerPage=${itemsPerPage}`;
+		}
+		if (pageIndex) {
+			url += `&pageIndex=${pageIndex}`;
+		}
+		if (name) {
+			url += `&name=${name}`;
+		}
+		if (description) {
+			url += `&description=${description}`;
+		}
 
-    const res = await fetch(url, {
-      method: 'GET',
-      headers: {
-        'content-type': 'application/json'
-      }
-    });
-    const response = await res.json();
-    courses = response.map((item) => ({ ...item }));
+		const res = await fetch(url, {
+			method: 'GET',
+			headers: {
+				'content-type': 'application/json'
+			}
+		});
+		const response = await res.json();
+		courses = response.map((item) => ({ ...item }));
 
 		dataTableStore.updateSource(courses);
-
-  }
+	}
 
 	dataTableStore.subscribe((model) => dataTableHandler(model));
-
 
 	const handleCourseDelete = async (e, id) => {
 		const courseId = id;
@@ -148,12 +146,17 @@
 	</div>
 	<div class="basis-1/2 justify-center items-center">
 		<div class="relative flex items-center  ">
-			<input type="text" placeholder="Search by description" bind:value={description} class="input w-full" />
+			<input
+				type="text"
+				placeholder="Search by description"
+				bind:value={description}
+				class="input w-full"
+			/>
 		</div>
 	</div>
 	<div class="sm:flex flex">
 		<button
-		on:click={() => searchParams(name, description)}
+			on:click={() => searchParams(name, description)}
 			class="btn variant-filled-primary lg:w-20 md:w-20 sm:w-20 w-20 rounded-lg bg-primary hover:bg-primary  "
 		>
 			<!-- svelte-ignore missing-declaration -->
@@ -198,18 +201,20 @@
 						</td>
 						<td>
 							<Confirm
-                    confirmTitle="Delete"
-                    cancelTitle="Cancel"
-                    let:confirm={confirmThis}
-                    on:delete={(e) => {
-                      handleCourseDelete(e, row.id);
-                    }}
-                  >
-                    <button on:click|preventDefault ={() => confirmThis(handleCourseDelete, row.id)} class=""><Fa icon={faTrash} /></button>
-
-                    <span slot="title"> Delete </span>
-                    <span slot="description"> Are you sure you want to delete a course? </span>
-                  </Confirm>
+								confirmTitle="Delete"
+								cancelTitle="Cancel"
+								let:confirm={confirmThis}
+								on:delete={(e) => {
+									handleCourseDelete(e, row.id);
+								}}
+							>
+								<button
+									on:click|preventDefault={() => confirmThis(handleCourseDelete, row.id)}
+									class=""><Fa icon={faTrash} /></button
+								>
+								<span slot="title"> Delete </span>
+								<span slot="description"> Are you sure you want to delete a course? </span>
+							</Confirm>
 						</td>
 					</tr>
 				{/each}

@@ -27,24 +27,28 @@
 	const userId = $page.params.userId;
 	const newsfeedRoute = `/users/${userId}/newsfeeds`;
 	const createRoute = `/users/${userId}/newsfeeds/create`;
+
 	const breadCrumbs = [
 		{
 			name: 'Newsfeeds',
 			path: newsfeedRoute
 		}
 	];
+
 	let title = undefined;
 	let description = undefined;
 	let sortBy = 'CreatedAt';
 	let sortOrder = 'ascending';
 	let itemsPerPage = 10;
 	let pageIndex = 0;
+
 	const searchParams = async (title: string, description: string) => {
 		await searchNewsfeed({
 			title: title,
 			description: description
 		});
 	};
+
 	async function searchNewsfeed(model) {
 		let url = `/api/server/newsfeeds/search?`;
 		if (sortOrder) {
@@ -67,17 +71,22 @@
 		if (description) {
 			url += `&description=${description}`;
 		}
+
 		const res = await fetch(url, {
 			method: 'GET',
 			headers: {
 				'content-type': 'application/json'
 			}
 		});
+
 		const response = await res.json();
 		newsfeeds = response.map((item) => ({ ...item }));
+
 		dataTableStore.updateSource(newsfeeds);
 	}
+
 	dataTableStore.subscribe((model) => dataTableHandler(model));
+
 	const handleNewsfeedDelete = async (e, id) => {
 		const newsfeedId = id;
 		console.log('organizationId', newsfeedId);
@@ -87,6 +96,7 @@
 		});
 		window.location.href = newsfeedRoute;
 	};
+
 	async function Delete(model) {
 		const response = await fetch(`/api/server/newsfeeds/delete`, {
 			method: 'DELETE',
