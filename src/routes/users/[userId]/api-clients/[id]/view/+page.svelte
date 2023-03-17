@@ -70,7 +70,7 @@
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
 					<!-- svelte-ignore a11y-label-has-associated-control -->
 					<label class="label">
-						<span>clientCode</span>
+						<span>Client Code</span>
 					</label>
 				</div>
 				<span class="span w-1/2 md:2/3 lg:2/3" id="password">{clientCode}</span>
