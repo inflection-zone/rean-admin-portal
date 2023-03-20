@@ -33,10 +33,7 @@
 		show(data);
 		LocalStorageUtils.removeItem('prevUrl');
 	});
-
-
-	 
-
+	
 	const userId = $page.params.userId;
 	const editRoute = `/users/${userId}/organizations/${id}/edit`;
 	const viewRoute = `/users/${userId}/organizations/${id}/view`;
