@@ -7,8 +7,6 @@
 	import type { PageServerData } from './$types';
 	import Confirm from '$lib/components/modal/confirmModal.svelte';
 	import BreadCrumbs from '$lib/components/breadcrumbs/breadcrums.svelte';
-
-
 	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 	export let data: PageServerData;
