@@ -14,17 +14,12 @@
 	let organizations = data.organization;
 	let index = Number;
 	organizations = organizations.map((item, index) => ({ ...item, index: index + 1}));
-	console.log('knowledgeNuggets', organizations);
  
 	const dataTableStore = createDataTableStore(
 		// Pass your source data here:
 		organizations,
-		{
-			// The current search term.
-			search: '',
-			// The current sort key.
+		{       search: ''
 			sort: '',
-			// Paginator component settings.
 			pagination: { offset: 0, limit: 10, size: 0, amounts: [10, 20, 30, 50] }
 		}
 	);
@@ -112,9 +107,6 @@
       }
     });
   }
-
-
-
 </script>
 
 <BreadCrumbs crumbs={breadCrumbs} />
