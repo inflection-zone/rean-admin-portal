@@ -2,9 +2,7 @@ import * as cookie from 'cookie';
 import { error, redirect, type RequestEvent } from '@sveltejs/kit';
 import type { PageServerLoad, Action } from './$types';
 import { getOrganizationById } from '../../../../../api/services/organizations';
-
 import { getFileResourceById } from '../../../../../api/services/file.resource';
-
 import { BACKEND_API_URL } from '$env/static/private';
 ////////////////////////////////////////////////////////////////////////////
 
@@ -13,9 +11,6 @@ export const load: PageServerLoad = async (event: RequestEvent) => {
 	try {
 		const organizationId = event.params.id;
     const response = await getOrganizationById(sessionId, organizationId);
-    // const fileResourceId = event.params.fileResourceId;
-    // const _imgResourceId = await getFileResourceById(sessionId, fileResourceId);
-
 		if (response.Status === 'failure' || response.HttpCode !== 200) {
 			throw error(response.HttpCode, response.Message);
 		}
