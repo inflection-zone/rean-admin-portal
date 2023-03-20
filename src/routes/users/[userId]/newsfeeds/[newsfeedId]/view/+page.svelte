@@ -22,8 +22,9 @@
 	let image = data.newsfeed.Image;
 	let tags_ = data.newsfeed.Tags;
 	let tags = tags_.join(', ');
-	let newsfeedItems = data.newsfeed;
-	let newsfeedItemTitle = newsfeedItems.FeedItems[0].Title;
+	let newsfeedItems = data.newsfeed.NewsfeedItems;
+	// let newsfeedItems = data.newsfeed;
+	// let newsfeedItemTitle = newsfeedItems.FeedItems[0].Title;
 
 	onMount(() => {
 		show(data);
@@ -172,13 +173,13 @@
 						<span>Newsfeed Items</span>
 					</label>
 				</div>
-				{#if newsfeedItemTitle.length <= 0}
+				{#if newsfeedItems.length <= 0}
 					<span class="span">Newsfeed Items are not available!</span>
 				{:else}
 					<ol class="span w-1/2 md:w-2/3 lg:w-2/3 list-decimal" id="newsfeedItems">
 						<!-- {newsfeedItemTitle} -->
-						{#each newsfeedItems as newsfeed}
-						<li>{newsfeed.Title}</li>
+						{#each newsfeedItems as newsfeedItem}
+						<li>{newsfeedItem.Title}</li>
 			  	{/each}	
 					</ol>
 				{/if}

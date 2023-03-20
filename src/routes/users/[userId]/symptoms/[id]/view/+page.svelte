@@ -16,7 +16,7 @@
 	let tags_ = data.symptom.Tags;
 	let tags = tags_.join(', ');
 	let language = data.symptom.Language;
-	let imageResourceId = data.symptom.ImageResourceId;
+	let imageResourceId = data.symptom.ImageUrl ?? undefined;
 
 	onMount(() => {
 		show(data);

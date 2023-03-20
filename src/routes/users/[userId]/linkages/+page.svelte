@@ -12,7 +12,7 @@
 
 	export let data: PageServerData;
 	let linkage = data.linkage;
-	linkage = linkage.map((item) => ({ ...item }));
+	linkage = linkage.map((item, index) => ({ ...item, index: index + 1  }));
 
 	const userId = $page.params.userId;
 	const linkageRoute = `/users/${userId}/linkages`;
@@ -83,7 +83,7 @@
 			}
 		});
 		const response = await res.json();
-		linkage = response.map((item) => ({ ...item }));
+		linkage = response.map((item, index) => ({ ...item, index: index + 1  }));
 
 		dataTableStore.updateSource(linkage);
 	}
@@ -191,7 +191,7 @@
 			<tbody class="">
 				{#each $dataTableStore.filtered as row, rowIndex}
 					<tr>
-						<td style="width: 7%;">{rowIndex + 1}</td>
+						<td style="width: 7%;">{row.index}</td>
 						<td style="width: 22%;">{row.Title}</td>
 						<td style="width: 30%;">{row.Link}</td>
 						<td style="width: 30%;">{row.DaysActive}</td>

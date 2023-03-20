@@ -12,8 +12,14 @@
 	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 	export let data: PageServerData;
-	let symptoms = data.symptom;
-	symptoms = symptoms.map((item) => ({ ...item }));
+	let symptomData = data.symptom;
+	symptomData = symptomData.map((item, index) => ({ ...item, index: index + 1 }));
+	console.log('data--', symptomData);
+
+	const dataTableStore = createDataTableStore(symptomData, {
+		search: '',
+		pagination: { offset: 0, limit: 10, size: 0, amounts: [10, 20, 30, 50] }
+	});
 
 	const userId = $page.params.userId;
 	const symptomRoute = `/users/${userId}/symptoms`;
@@ -33,21 +39,9 @@
 	let itemsPerPage = 10;
 	let pageIndex = 0;
 
-	const dataTableStore = createDataTableStore(
-		// Pass your source data here:
-		symptoms,
-		{
-			// The current search term.
-			search: '',
-			// The current sort key.
-			sort: '',
-			// Paginator component settings.
-			pagination: { offset: 0, limit: 10, size: 0, amounts: [10, 20, 30, 50] }
-		}
-	);
-	// This automatically handles search, sort, etc when the model updates.
-
 	const searchParams = async (symptom: string, description: string) => {
+		console.log('symp--', symptom);
+		console.log('symp--', description);
 		await searchSymptom({
 			symptom: symptom,
 			description: description
@@ -76,7 +70,6 @@
 		if (description) {
 			url += `&description=${description}`;
 		}
-
 		const res = await fetch(url, {
 			method: 'GET',
 			headers: {
@@ -84,18 +77,18 @@
 			}
 		});
 		const response = await res.json();
-		symptoms = response.map((item) => ({ ...item }));
 
-		dataTableStore.updateSource(symptoms);
+		symptomData = response.map((item, index) => ({ ...item, index: index + 1 }));
+		console.log('res--', symptomData);
+		dataTableStore.updateSource(symptomData);
 	}
-
 	dataTableStore.subscribe((model) => dataTableHandler(model));
 
 	const handleSymptomDelete = async (e, id) => {
 		const symptomId = id;
 		await Delete({
 			sessionId: data.sessionId,
-			symptomId
+			symptomId: symptomId
 		});
 		window.location.href = symptomRoute;
 	};
@@ -121,13 +114,14 @@
 	</div>
 	<div class="basis-1/2 justify-center items-center">
 		<div class="relative flex items-center">
-			<a href={createRoute} class="absolute right-4 lg:mr-[-18px] ">
+			<a href={createRoute} class="absolute right-4 lg:mr-[-32px] ">
+				<!-- <Fa icon={faCirclePlus} style="color: #5832A1" size="4x" /> -->
 				<button
-					class="btn variant-filled-primary w-28 rounded-lg hover:bg-primary bg-primary transition 
-				ease-in-out 
-				delay-150   
-				hover:scale-110  
-				duration-300 ... "
+					class="btn variant-filled-primary w-28 rounded-lg hover:bg-primary bg-primary transition
+          ease-in-out
+          delay-150  
+          hover:scale-110  
+          duration-300 ... "
 				>
 					Add new
 				</button>
@@ -135,9 +129,8 @@
 		</div>
 	</div>
 </div>
-
 <div
-	class="flex flex-row mx-14 lg:mt-10 md:mt-10 sm:mt-4 mt-4 lg:gap-7 md:gap-8 sm:gap-4 gap-4 lg:flex-row md:flex-row sm:flex-col min-[280px]:flex-col"
+	class="flex flex-row mx-10 lg:mt-10 md:mt-10 sm:mt-4 mt-4 lg:gap-7 md:gap-8 sm:gap-4 gap-4 lg:flex-row md:flex-row sm:flex-col min-[280px]:flex-col"
 >
 	<div class="basis-1/2 justify-center items-center ">
 		<div class="relative flex items-center">
@@ -145,7 +138,7 @@
 				type="text"
 				placeholder="Search by symptom"
 				bind:value={symptom}
-				class="input w-full"
+				class="input input-bordered input-primary w-full"
 			/>
 		</div>
 	</div>
@@ -155,25 +148,24 @@
 				type="text"
 				placeholder="Search by description"
 				bind:value={description}
-				class="input w-full"
+				class="input input-bordered input-primary w-full"
 			/>
 		</div>
 	</div>
 	<div class="sm:flex flex">
 		<button
-			on:click={() => searchParams(symptom, description)}
 			class="btn variant-filled-primary lg:w-20 md:w-20 sm:w-20 w-20 rounded-lg bg-primary hover:bg-primary  "
+			on:click={() => searchParams(symptom, description)}
 		>
-			<!-- svelte-ignore missing-declaration -->
 			<Fa icon={faSearch} class="text-neutral-content" size="lg" />
 		</button>
 		<a href={createRoute} class=" right-14 ">
 			<button
-				class="btn variant-filled-primary hover:bg-primary lg:hidden md:hidden block sm:w-40 w-24 ml-4 rounded-lg bg-primary transition 
-				ease-in-out 
-				delay-150   
-				hover:scale-110  
-				duration-300 ...  "
+				class="btn variant-filled-primary hover:bg-primary lg:hidden md:hidden block sm:w-40 w-24 ml-4 rounded-lg bg-primary transition
+          ease-in-out
+          delay-150  
+          hover:scale-110  
+          duration-300 ...  "
 			>
 				ADD NEW
 			</button>
@@ -197,10 +189,17 @@
 			<tbody class="">
 				{#each $dataTableStore.filtered as row, rowIndex}
 					<tr>
-						<td style="width: 7%;">{rowIndex + 1}</td>
+						<td style="width: 7%;">{row.index}</td>
 						<td style="width: 23%;">{row.Symptom}</td>
 						<td style="width: 30%;">{row.Description}</td>
-						<!-- <td style="width: 30%;"><Image cls="flex h-8 w-15 rounded-lg" source={row.ImageResourceId}  /></td> -->
+						 <td style="width: 30%;">
+							<!-- if (imageResourceId) {
+			symptom['ImageUrl'] =
+				BACKEND_API_URL + `/file-resources/${imageResourceId}/download?disposition=inline`;
+		} else {
+			symptom['ImageUrl'] = null;
+		} -->
+		<!-- <Image cls="flex h-8 w-15 rounded-lg" source={row.ImageResourceId}  /></td> -->
 						<td style="">
 							<a href="/users/${userId}/symptoms/{row.id}/edit"
 								><Fa icon={faPencil} style="color-text-primary" size="md" /></a

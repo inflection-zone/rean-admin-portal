@@ -11,32 +11,16 @@ export const actions = {
 		const userId = event.params.userId;
 		const data = await request.formData();
 
-		console.log('data==',data)
-
-		// const patientUserId = data.has('patientUserId') ? data.get('patientUserId') : null;
-		// const provider = data.has('provider') ? data.get('provider') : null;
-		const source = data.has('source') ? data.get('source') : null;
-		const enrollmentId = data.has('enrollmentId') ? data.get('enrollmentId') : null;
-		const careplanCode = data.has('careplanCode') ? data.get('careplanCode') : null;
-		const careplanName = data.has('careplanName') ? data.get('careplanName') : null;
-		const type = data.has('type')
-			? data.get('type')
-			: null;
-		const isPrimary = data.has('isPrimary') ? data.get('isPrimary') : null;
+		const type = data.has('type') ? data.get('type') : null;
+		const tags = data.has('tags') ? data.getAll('tags') : null;
 		const sessionId = event.cookies.get('sessionId');
 
 		const response = await createPriority(
 			sessionId,
-			patientUserId.valueOf() as string,
-			provider.valueOf() as string,
-			source.valueOf() as string,
-			enrollmentId.valueOf() as string,
-			careplanCode.valueOf() as string,
-			careplanName.valueOf() as string,
 			type.valueOf() as string,
-			isPrimary.valueOf() as boolean
+			tags.valueOf() as string[]
 		);
-		const id = response.Data.id;
+		const id = response.Data.PriorityType.id;
 
 		if (response.Status === 'failure' || response.HttpCode !== 201) {
 			throw redirect(303, '/priorities', errorMessage(response.Message), event);

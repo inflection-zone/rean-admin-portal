@@ -12,7 +12,7 @@
 
 	export let data: PageServerData;
 	let drug = data.drug;
-	drug = drug.map((item) => ({ ...item }));
+	drug = drug.map((item, index) => ({ ...item, index: index + 1 }));
 
 	const userId = $page.params.userId;
 	const drugRoute = `/users/${userId}/drugs`;
@@ -83,7 +83,7 @@
 			}
 		});
 		const response = await res.json();
-		drug = response.map((item) => ({ ...item }));
+		drug = response.map((item, index) => ({ ...item, index: index + 1 }));
 
 		dataTableStore.updateSource(drug);
 	}
@@ -196,7 +196,7 @@
 			<tbody class="">
 				{#each $dataTableStore.filtered as row, rowIndex}
 					<tr>
-						<td style="width: 7%;">{rowIndex + 1}</td>
+						<td style="width: 7%;">{row.index}</td>
 						<td style="width: 95%;">{row.DrugName}</td>
 						<!-- <td style="width: 38%;">{row.GenericName}</td>
 							<td style="width: 33%;">{row.Ingredients}</td> -->

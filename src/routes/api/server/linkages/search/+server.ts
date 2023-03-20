@@ -28,8 +28,7 @@ export const GET = async (event: RequestEvent) => {
 		};
 		console.log('Search parms: ', searchParams);
 		const response = await searchLinkages(sessionId, searchParams);
-		const items = response.Data.Items;
-		console.log('data==/////', response);
+		const items = response.Data.NoticeRecords.Items;
 
 		return new Response(JSON.stringify(items));
 	} catch (err) {

@@ -8,8 +8,10 @@
 	const userId = $page.params.userId;
 	const createRoute = `/users/${userId}/courses/create`;
 	const courseRoute = `/users/${userId}/courses`;
+
 	let imageUrl = undefined;
 	let fileinput;
+	
 	const breadCrumbs = [
 		{
 			name: 'Course',

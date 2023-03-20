@@ -24,10 +24,10 @@ export const actions = {
 			description.valueOf() as string,
 			tags.valueOf() as string[],
 			language.valueOf() as string,
-			imageResourceId.valueOf() as string,
+			imageResourceId.valueOf() as string
 		);
 		const id = response.Data.SymptomType.id;
-		
+
 		if (response.Status === 'failure' || response.HttpCode !== 201) {
 			throw redirect(303, '/symptoms', errorMessage(response.Message), event);
 		}

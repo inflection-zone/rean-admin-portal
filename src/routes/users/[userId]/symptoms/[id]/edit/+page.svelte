@@ -8,6 +8,8 @@
 	import Image from '$lib/components/image.svelte';
 	import type { PageServerData } from './$types';
 
+	let fileinput;
+
 	export let data: PageServerData;
 	let initiaData = {};
 	let id = data.symptom.id;
@@ -15,8 +17,8 @@
 	let description = data.symptom.Description;
 	let tags = data.symptom.Tags;
 	let language = data.symptom.Language;
-	let imageResourceId = data.symptom.ImageResourceId;
-	$: avatarSource = imageResourceId;
+	let imageUrl = data.symptom.ImageUrl ?? undefined;
+	let imageResourceId = data.symptom.ImageResourceId ?? undefined;
 
 	//Original data
 	let _symptom = symptom;
@@ -50,10 +52,10 @@
 
 	const upload = async (imgBase64, filename) => {
 		const data = {};
-		//console.log(imgBase64);
+		console.log(imgBase64);
 		const imgData = imgBase64.split(',');
 		data['image'] = imgData[1];
-		//console.log(JSON.stringify(data));
+		console.log(JSON.stringify(data));
 		const res = await fetch(`/api/server/file-resources/upload`, {
 			method: 'POST',
 			headers: {
@@ -66,25 +68,25 @@
 		console.log(Date.now().toString());
 		const response = await res.json();
 		if (response.Status === 'success' && response.HttpCode === 201) {
-			// const imageResourceId = response.Data.FileResources[0].id;
-			const imageResourceId_ = response.Data.FileResources[0].Url;
-			console.log('image', imageResourceId_);
+			const imageUrl_ = response.Data.FileResources[0].Url;
+			console.log('imageUrl', imageUrl);
+			const imageResourceId_ = response.Data.FileResources[0].id;
+			console.log('imageResourceId_', imageUrl);
 			if (imageResourceId_) {
 				imageResourceId = imageResourceId_;
 			}
-			console.log(imageResourceId);
+			console.log('======', imageResourceId_);
 		} else {
 			showMessage(response.Message, 'error');
 		}
 	};
-
 	const onFileSelected = async (e) => {
 		let f = e.target.files[0];
 		const filename = f.name;
 		let reader = new FileReader();
 		reader.readAsDataURL(f);
 		reader.onload = async (e) => {
-			avatarSource = e.target.result;
+			fileinput = e.target.result;
 			await upload(e.target.result, filename);
 		};
 	};
@@ -156,11 +158,7 @@
 					</label>
 				</div>
 				<div class="w-1/2 md:w-2/3 lg:w-2/3">
-					<InputChip
-					chips="variant-filled-error rounded-2xl"
-					name="tags"
-					bind:value= {tags}
-					/>
+					<InputChip chips="variant-filled-error rounded-2xl" name="tags" bind:value={tags} />
 				</div>
 			</div>
 
@@ -190,7 +188,7 @@
 					</label>
 				</div>
 				<div class="flex flex-row gap-8 w-1/2 md:w-2/3 lg:w-2/3 ">
-					{#if imageResourceId === 'undefined'}
+					{#if imageUrl === 'undefined'}
 						<input
 							name="fileinput"
 							type="file"
@@ -199,7 +197,7 @@
 							on:change={async (e) => await onFileSelected(e)}
 						/>
 					{:else}
-						<Image cls="flex h-24 w-24 rounded-lg" source={imageResourceId} w="24" h="24" />
+						<Image cls="flex h-24 w-24 rounded-lg" source={imageUrl} w="24" h="24" />
 						<input
 							name="fileinput"
 							type="file"
@@ -209,10 +207,6 @@
 						/>
 					{/if}
 					<input type="hidden" name="imageResourceId" value={imageResourceId} />
-					<!-- <button
-						class="capitalize btn variant-filled-primary lg:w-[19%] md:w-[22%] md:text-[13px] sm:w-[30%] sm:text-[12px] min-[320px]:w-[40%] min-[320px]:text-[10px]"
-						>Upload</button
-					> -->
 				</div>
 			</div>
 

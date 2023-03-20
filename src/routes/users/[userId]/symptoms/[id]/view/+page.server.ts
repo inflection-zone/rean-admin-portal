@@ -1,6 +1,7 @@
 import * as cookie from 'cookie';
 import { error, redirect, type RequestEvent } from '@sveltejs/kit';
 import type { PageServerLoad, Action } from './$types';
+import { BACKEND_API_URL } from '$env/static/private';
 import { getSymptomById } from '../../../../../api/services/symptoms';
 
 ////////////////////////////////////////////////////////////////////////////
@@ -16,11 +17,19 @@ export const load: PageServerLoad = async (event: RequestEvent) => {
 			throw error(response.HttpCode, response.Message);
 		}
 		const symptom = response.Data.SymptomType;
+		const imageResourceId = symptom.ImageResourceId;
 		const id = response.Data.SymptomType.id;
-		console.log(response)
+
+		if (imageResourceId) {
+			symptom['ImageUrl'] =
+				BACKEND_API_URL + `/file-resources/${imageResourceId}/download?disposition=inline`;
+		} else {
+			symptom['ImageUrl'] = null;
+		}
 		return {
 			location: `${id}/edit`,
 			symptom,
+
 			message: response.Message
 		};
 	} catch (error) {
