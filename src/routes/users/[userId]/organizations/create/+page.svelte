@@ -10,10 +10,6 @@
 	import { Country, State, City } from 'country-state-city';
 	console.log(Country.getAllCountries());
 	let country = Country.getAllCountries();
-	// let country_ = country.map((e)=>({...e}));
-
-	console.log(country, 'country_vvv');
-
 	let checkboxValue = false;
 	const userId = $page.params.userId;
 	let imageResourceId = undefined;
