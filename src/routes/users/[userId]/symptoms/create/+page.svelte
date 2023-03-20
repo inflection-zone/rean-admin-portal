@@ -45,16 +45,15 @@
 		console.log(Date.now().toString());
 		const response = await res.json();
 		if (response.Status === 'success' && response.HttpCode === 201) {
-				  const imageUrl = response.Data.FileResources[0].url;
-					console.log ('imageResourceId', imageUrl);
-					const imageResourceId_ = response.Data.FileResources[0].id;
-					console.log ('ImageResource', imageResourceId_);
+			const imageUrl = response.Data.FileResources[0].url;
+			console.log('imageResourceId', imageUrl);
+			const imageResourceId_ = response.Data.FileResources[0].id;
+			console.log('ImageResource', imageResourceId_);
 			if (imageResourceId_) {
 				imageResourceId = imageResourceId_;
 			}
 			console.log(imageResourceId);
-		}
-		else {
+		} else {
 			showMessage(response.Message, 'error');
 		}
 	};
@@ -168,21 +167,17 @@
 					</label>
 				</div>
 				<div class="flex flex-row gap-8 w-1/2 md:w-2/3 lg:w-2/3 ">
-						<input
-							accept="image/png, image/jpeg"
-							type="file"
-							id="fileUpload"
-							class="input"
-							name="fileinput"
-							placeholder="Image"
-							on:change={async (e) => await onFileSelected(e)}
-						/>
-					<!-- <button 
-						class="capitalize btn variant-filled-primary lg:w-[19%] md:w-[22%] md:text-[13px] sm:w-[30%] sm:text-[12px] min-[320px]:w-[40%] min-[320px]:text-[10px]"
-						>Upload</button
-					> -->
+					<input
+						accept="image/png, image/jpeg"
+						type="file"
+						id="fileUpload"
+						class="input"
+						name="fileinput"
+						placeholder="Image"
+						on:change={async (e) => await onFileSelected(e)}
+					/>
+
 					<input type="hidden" name="imageResourceId" value={imageResourceId} />
-				
 				</div>
 			</div>
 

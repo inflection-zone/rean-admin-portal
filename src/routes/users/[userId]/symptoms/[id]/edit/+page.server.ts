@@ -3,6 +3,7 @@ import { error, type RequestEvent } from '@sveltejs/kit';
 import { redirect } from 'sveltekit-flash-message/server';
 import { errorMessage, successMessage } from '$lib/utils/message.utils';
 import type { PageServerLoad, Action } from './$types';
+import { BACKEND_API_URL } from '$env/static/private';
 import { getSymptomById, updateSymptom } from '../../../../../api/services/symptoms';
 
 /////////////////////////////////////////////////////////////////////////
@@ -18,11 +19,15 @@ export const load: PageServerLoad = async (event: RequestEvent) => {
 			throw error(response.HttpCode, response.Message);
 		}
 		const symptom = response.Data.SymptomType;
-		const id = response.Data.SymptomType.id;
+		const imageResourceId = symptom.ImageResourceId;
+		if (imageResourceId) {
+			symptom['ImageUrl'] =
+				BACKEND_API_URL + `/file-resources/${imageResourceId}/download?disposition=inline`;
+		} else {
+			symptom['ImageUrl'] = null;
+		}
 		return {
-			location: `${id}/edit`,
-			symptom,
-			message: response.Message
+			symptom
 		};
 	} catch (error) {
 		console.error(`Error retriving symptom: ${error.message}`);
@@ -39,7 +44,7 @@ export const actions = {
 		const description = data.has('description') ? data.get('description') : null;
 		const tags = data.has('tags') ? data.getAll('tags') : null;
 		const language = data.has('language') ? data.get('language') : null;
-		const imageResourceId = data.has('imageResourceId') ? data.get('imageResourceId') : null;	
+		const imageResourceId = data.has('imageResourceId') ? data.get('imageResourceId') : null;
 		const sessionId = event.cookies.get('sessionId');
 		const symptomId = event.params.id;
 
@@ -50,9 +55,9 @@ export const actions = {
 			description.valueOf() as string,
 			tags.valueOf() as string[],
 			language.valueOf() as string,
-			imageResourceId.valueOf() as string,
+			imageResourceId.valueOf() as string
 		);
-		console.log('res==',response)
+
 		const id = response.Data.SymptomType.id;
 
 		if (response.Status === 'failure' || response.HttpCode !== 200) {

@@ -182,7 +182,7 @@
 			<tr>
 				<th style="width: 7%;">Id</th>
 				<th style="width: 23%;">Name</th>
-				<th style="width: 30%;">Description</th>
+				<th style="width: 70%;">Description</th>
 			</tr>
 		</thead>
 	</table>

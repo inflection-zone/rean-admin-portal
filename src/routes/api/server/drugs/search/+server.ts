@@ -20,7 +20,7 @@ export const GET = async (event: RequestEvent) => {
 	try {
 		const searchParams = {
 			drugName,
-			GenericName: genericName,
+			genericName,
 			orderBy: sortBy,
 			order: sortOrder,
 			itemsPerPage,
@@ -28,8 +28,8 @@ export const GET = async (event: RequestEvent) => {
 		};
 		console.log('Search parms: ', searchParams);
 		const response = await searchDrugs(sessionId, searchParams);
-		const items = response.Data.Items;
-		console.log('data==/////', response);
+		const items = response.Data.Drugs.Items;
+		console.log('res==',response)
 
 		return new Response(JSON.stringify(items));
 	} catch (err) {

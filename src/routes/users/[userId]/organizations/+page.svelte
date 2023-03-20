@@ -85,7 +85,6 @@
 	}
 	dataTableStore.subscribe((model) => dataTableHandler(model));
 
-	
 	const handleOrganizationsDelete = async (e, id) => {
    	 const organizationId = id;
     	console.log("organizationId", organizationId);

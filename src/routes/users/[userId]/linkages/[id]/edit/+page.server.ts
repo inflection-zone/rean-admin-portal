@@ -41,7 +41,7 @@ export const actions = {
 		const daysActive = data.has('daysActive') ? data.get('daysActive') : null;
 		const tags = data.has('tags') ? data.getAll('tags') : null;
 		const action = data.has('action') ? data.get('action') : null;
-		const imageUrl = data.has('imageUrl') ? data.get('imageUrl') : null
+		const imageUrl = data.has('imageUrl') ? data.get('imageUrl') : null;
 		const sessionId = event.cookies.get('sessionId');
 		const linkageId = event.params.id;
 

@@ -10,7 +10,7 @@
 	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	export let data: PageServerData;
 	let newsfeeds = data.newsfeeds;
-	newsfeeds = newsfeeds.map((item) => ({ ...item }));
+	newsfeeds = newsfeeds.map((item, index) => ({ ...item, index: index + 1 }));
 
 	const dataTableStore = createDataTableStore(
 		// Pass your source data here:
@@ -80,7 +80,7 @@
 		});
 
 		const response = await res.json();
-		newsfeeds = response.map((item) => ({ ...item }));
+		newsfeeds = response.map((item, index) => ({ ...item, index: index + 1 }));
 
 		dataTableStore.updateSource(newsfeeds);
 	}
@@ -191,7 +191,7 @@
 			<tbody class="">
 				{#each $dataTableStore.filtered as row, rowIndex}
 					<tr>
-						<td style="width: 7%;">{rowIndex + 1}</td>
+						<td style="width: 7%;">{row.index}</td>
 						<td style="width: 23%;">{row.Title}</td>
 						<td style="width: 30%;">{row.Description}</td>
 						<td style="width: 30%;">{row.NewsfeedItemTitle}</td>

@@ -9,7 +9,7 @@ export const GET = async (event: RequestEvent) => {
 
 	const searchParams: URLSearchParams = event.url.searchParams;
 	const title = searchParams.get('title') ?? undefined;
-	const Body = searchParams.get('Body') ?? undefined;
+	const type = searchParams.get('type') ?? undefined;
 	const sortBy = searchParams.get('sortBy') ?? 'CreatedAt';
 	const sortOrder = searchParams.get('sortOrder') ?? 'ascending';
 	const itemsPerPage_ = searchParams.get('pageIndex');
@@ -20,7 +20,7 @@ export const GET = async (event: RequestEvent) => {
 	try {
 		const searchParams = {
 			title,
-			Body,
+			type,
 			orderBy: sortBy,
 			order: sortOrder,
 			itemsPerPage,
@@ -28,8 +28,7 @@ export const GET = async (event: RequestEvent) => {
 		};
 		console.log('Search parms: ', searchParams);
 		const response = await searchNotifications(sessionId, searchParams);
-		const items = response.Data.Items;
-		console.log('data==/////', response);
+		const items = response.Data.NotificationRecords.Items;
 
 		return new Response(JSON.stringify(items));
 	} catch (err) {

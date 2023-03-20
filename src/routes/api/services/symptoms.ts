@@ -54,14 +54,14 @@ export const updateSymptom = async (
 	description: string,
 	tags: string[],
 	language: string,
-	imageResourceId: string,
+	imageResourceId: string
 ) => {
 	const body = {
 		Symptom: symptom,
 		Description: description,
 		Tags: tags,
 		Language: language,
-		ImageResourceId: imageResourceId,
+		ImageResourceId: imageResourceId
 	};
 	const url = BACKEND_API_URL + `/clinical/symptom-types/${symptonId}`;
 	return await put_(sessionId, url, body, true);
