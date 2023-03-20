@@ -15,7 +15,6 @@ export const load: PageServerLoad = async (event: RequestEvent) => {
 		return {
 			message: 'Common data successfully retrieved!',
 			types,
-			
 		};
 	} catch (error) {
 		console.error(`Error retieving data : ${error.message}`);
