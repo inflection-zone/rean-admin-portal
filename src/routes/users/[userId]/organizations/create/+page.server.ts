@@ -77,7 +77,7 @@ export const actions = {
 		);
 		
 		const id = response.Data.Organization.id;
-      console.log("Response-------",response);
+     
 		if (response.Status === 'failure' || response.HttpCode !== 201) {
 			throw redirect(303, '/organizations', errorMessage(response.Message), event);
 		}
