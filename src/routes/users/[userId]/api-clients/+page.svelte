@@ -175,11 +175,11 @@
 		<thead class="sticky top-0">
 			<tr>
 				<th style="width: 5%;">Id</th>
-				<th style="width: 20%;">Topic Name</th>
-				<th style="width: 30%;">Information</th>
-				<th style="width: 24%;"> Detailed Information</th>
-				<th style="width: 8%;">Edit</th>
-				<th style="width: 8%;">Delete</th>
+				<th style="width: 20%;">Name</th>
+				<th style="width: 30%;">Email</th>
+				<th style="width: 24%;">Phone</th>
+				<th style="width: 8%;"></th>
+				<th style="width: 8%;"></th>
 			</tr>
 		</thead>
 	</table>

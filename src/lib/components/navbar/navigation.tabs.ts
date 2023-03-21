@@ -34,9 +34,9 @@ const organizations: TabDefinition = {
     path: `/users/userId/organizations`,
     default: false,
 };
-const linkages: TabDefinition = {
+const notices: TabDefinition = {
     name: 'Notices',
-    path: `/users/userId/linkages`,
+    path: `/users/userId/notices`,
     default: false,
 };
 
@@ -90,7 +90,7 @@ export const sidebarMenu = (userId) => {
         home,
         drugs,
         notifications,
-        linkages,
+        notices,
         newsFeeds,
         courses,
         learningJourneys,

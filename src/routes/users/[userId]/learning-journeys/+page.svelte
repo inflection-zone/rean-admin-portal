@@ -16,6 +16,7 @@
 
 	const userId = $page.params.userId;
 	const learningJourneyRoute = `/users/${userId}/learning-journeys`;
+	const editRoute = (id) => `/users/${userId}/learning-journeys/${id}/edit`;
 	const createRoute = `/users/${userId}/learning-journeys/create`;
 
 	const breadCrumbs = [
@@ -199,7 +200,7 @@
 						<td style="width: 30%;">{row.Description}</td>
 						<td style="width: 30%;">{row.PreferenceWeight}</td>
 						<td style="">
-							<a href="/users/${userId}/learning-journeys/{row.id}/edit"
+							<a href={editRoute(row.id)}
 								><Fa icon={faPencil} style="color-text-primary" size="md" /></a
 							>
 						</td>

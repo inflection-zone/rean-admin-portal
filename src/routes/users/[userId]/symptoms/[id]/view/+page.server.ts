@@ -29,7 +29,6 @@ export const load: PageServerLoad = async (event: RequestEvent) => {
 		return {
 			location: `${id}/edit`,
 			symptom,
-
 			message: response.Message
 		};
 	} catch (error) {

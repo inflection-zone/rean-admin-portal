@@ -1,5 +1,5 @@
 import type { RequestEvent } from '@sveltejs/kit';
-import { deleteLinkage } from '../../services/linkages';
+import { deleteNotice } from '../../services/notices';
 
 //////////////////////////////////////////////////////////////
 
@@ -8,11 +8,11 @@ export const DELETE = async (event: RequestEvent) => {
 	const data = await request.json();
 	
 	try {
-		console.log('Inside linkage server endpoints');
-		const response = await deleteLinkage(data.sessionId, data.linkageId);
+		console.log('Inside notice server endpoints');
+		const response = await deleteNotice(data.sessionId, data.noticeId);
 		return new Response(response.message);
 	} catch (err) {
-		console.error(`Error deleting linkage: ${err.message}`);
+		console.error(`Error deleting notice: ${err.message}`);
 		return new Response(err.message);
 	}
 };

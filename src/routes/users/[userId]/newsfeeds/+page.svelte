@@ -26,6 +26,7 @@
 	);
 	const userId = $page.params.userId;
 	const newsfeedRoute = `/users/${userId}/newsfeeds`;
+	const editRoute = (id) => `/users/${userId}/newsfeeds/${id}/edit`;
 	const createRoute = `/users/${userId}/newsfeeds/create`;
 
 	const breadCrumbs = [
@@ -139,7 +140,7 @@
 		<div class="relative flex items-center">
 			<input
 				type="text"
-				placeholder="Search by type"
+				placeholder="Search by title"
 				bind:value={title}
 				class="input input-bordered input-primary w-full"
 			/>
@@ -149,7 +150,7 @@
 		<div class="relative flex items-center  ">
 			<input
 				type="text"
-				placeholder="Search by email"
+				placeholder="Search by description"
 				bind:value={description}
 				class="input input-bordered input-primary w-full"
 			/>
@@ -196,7 +197,7 @@
 						<td style="width: 30%;">{row.Description}</td>
 						<td style="width: 30%;">{row.NewsfeedItemTitle}</td>
 						<td style="">
-							<a href="/users/${userId}/newsfeeds/{row.id}/edit"
+							<a href={editRoute(row.id)}
 								><Fa icon={faPencil} style="color-text-primary" size="md" /></a
 							>
 						</td>

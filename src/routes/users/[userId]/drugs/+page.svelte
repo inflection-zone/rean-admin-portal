@@ -11,11 +11,12 @@
 	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 	export let data: PageServerData;
-	let drug = data.drug;
-	drug = drug.map((item, index) => ({ ...item, index: index + 1 }));
+	let drugs = data.drug;
+	drugs = drugs.map((item, index) => ({ ...item, index: index + 1 }));
 
 	const userId = $page.params.userId;
 	const drugRoute = `/users/${userId}/drugs`;
+	const editRoute = (id) => `/users/${userId}/drugs/${id}/edit`;
 	const createRoute = `/users/${userId}/drugs/create`;
 
 	const breadCrumbs = [
@@ -34,7 +35,7 @@
 
 	const dataTableStore = createDataTableStore(
 		// Pass your source data here:
-		drug,
+		drugs,
 		{
 			// The current search term.
 			search: '',
@@ -83,9 +84,9 @@
 			}
 		});
 		const response = await res.json();
-		drug = response.map((item, index) => ({ ...item, index: index + 1 }));
+		drugs = response.map((item, index) => ({ ...item, index: index + 1 }));
 
-		dataTableStore.updateSource(drug);
+		dataTableStore.updateSource(drugs);
 	}
 
 	dataTableStore.subscribe((model) => dataTableHandler(model));
@@ -201,7 +202,7 @@
 						<!-- <td style="width: 38%;">{row.GenericName}</td>
 							<td style="width: 33%;">{row.Ingredients}</td> -->
 						<td>
-							<a href="/users/${userId}/drugs/{row.id}/edit"
+							<a href={editRoute(row.id)}
 								><Fa icon={faPencil} style="color-text-primary" size="md" /></a
 							>
 						</td>

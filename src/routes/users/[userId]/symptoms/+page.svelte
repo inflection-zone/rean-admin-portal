@@ -12,7 +12,7 @@
 	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 	export let data: PageServerData;
-	let symptomData = data.symptom;
+	let symptomData = data.symptoms;
 	symptomData = symptomData.map((item, index) => ({ ...item, index: index + 1 }));
 	console.log('data--', symptomData);
 
@@ -23,6 +23,7 @@
 
 	const userId = $page.params.userId;
 	const symptomRoute = `/users/${userId}/symptoms`;
+	const editRoute = (id) => `/users/${userId}/symptoms/${id}/edit`;
 	const createRoute = `/users/${userId}/symptoms/create`;
 
 	const breadCrumbs = [
@@ -192,16 +193,12 @@
 						<td style="width: 7%;">{row.index}</td>
 						<td style="width: 23%;">{row.Symptom}</td>
 						<td style="width: 30%;">{row.Description}</td>
-						 <td style="width: 30%;">
-							<!-- if (imageResourceId) {
-			symptom['ImageUrl'] =
-				BACKEND_API_URL + `/file-resources/${imageResourceId}/download?disposition=inline`;
-		} else {
-			symptom['ImageUrl'] = null;
-		} -->
-		<!-- <Image cls="flex h-8 w-15 rounded-lg" source={row.ImageResourceId}  /></td> -->
+						<td style="width: 30%;">
+							<!-- svelte-ignore missing-declaration -->
+							<Image cls="flex h-10 w-10 rounded-lg" source={row.ImageUrl} w="24" h="24" />
+						</td>
 						<td style="">
-							<a href="/users/${userId}/symptoms/{row.id}/edit"
+							<a href={editRoute(row.id)}
 								><Fa icon={faPencil} style="color-text-primary" size="md" /></a
 							>
 						</td>

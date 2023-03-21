@@ -1,7 +1,7 @@
 import type { RequestEvent } from '@sveltejs/kit';
 import type { PageServerLoad } from './$types';
 import { error } from '@sveltejs/kit';
-import { searchLinkages } from '../../../api/services/linkages';
+import { searchNotices } from '../../../api/services/notices';
 
 ////////////////////////////////////////////////////////////////////////////
 
@@ -9,17 +9,17 @@ export const load: PageServerLoad = async (event: RequestEvent) => {
 	const sessionId = event.cookies.get('sessionId');
 
 	try {
-		const response = await searchLinkages(sessionId);
+		const response = await searchNotices(sessionId);
 		if (response.Status === 'failure' || response.HttpCode !== 200) {
 			throw error(response.HttpCode, response.Message);
 		}
-		const linkage = response.Data.NoticeRecords.Items;
+		const notice = response.Data.NoticeRecords.Items;
 		return {
-			linkage,
+			notice,
 			sessionId,
 			message: response.Message
 		};
 	} catch (error) {
-		console.error(`Error retriving linkage: ${error.message}`);
+		console.error(`Error retriving notice: ${error.message}`);
 	}
 };
