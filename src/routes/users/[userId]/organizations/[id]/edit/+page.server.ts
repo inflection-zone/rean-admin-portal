@@ -6,6 +6,7 @@ import type { OrganizationTypes } from '$lib/types/domain.models';
 import { getOrganizationById, updateOrganization } from '../../../../../api/services/organizations';
 import { getOrganizationTypes } from '../../../../../api/services/types';
 import { createAddress } from '../../../../../api/services/addresses';
+import { BACKEND_API_URL } from '$env/static/private';
 /////////////////////////////////////////////////////////////////////////
 
 export const load: PageServerLoad = async (event: RequestEvent) => {
@@ -20,6 +21,13 @@ export const load: PageServerLoad = async (event: RequestEvent) => {
 			throw error(response.HttpCode, response.Message);
 		}
 		const organization = response.Data.Organization;
+		const imageResourceId = organization.ImageResourceId;
+		if (imageResourceId) {
+			organization['ImageUrl'] = BACKEND_API_URL + `/file-resources/${imageResourceId}/download?disposition=inline`;
+			}
+		  else {
+				organization['ImageUrl'] = null;
+			}
 		return {
 			organization,
 			types
@@ -48,11 +56,10 @@ export const actions = {
 		const email = data.has('email') ? data.get('email') : null;
 		const about = data.has('about') ? data.get('about') : null;
 		const operationalSince = data.has('operationalSince') ? data.get('operationalSince') : null;
-		// const imageResource = data.has('imageResource') ? data.get('imageResource') : null;
+		const imageResourceId = data.has('imageResourceId') ? data.get('imageResourceId') : null;
 		const isHealthFacility = data.has('isHealthFacility') ? data.get('isHealthFacility') : null;
 		const sessionId = event.cookies.get('sessionId');
 		const organizationId = event.params.id;
-
 		const addressResponse = await createAddress(
 			sessionId,
 			addressType.valueOf() as string,
@@ -80,7 +87,7 @@ export const actions = {
 			about.valueOf() as string,
 			operationalSince.valueOf() as Date,
 			addressesId,
-			// imageResource.valueOf() as string,
+		  imageResourceId.valueOf() as string,
 			isHealthFacility.valueOf() as boolean
 		);
 		console.log('response', response);

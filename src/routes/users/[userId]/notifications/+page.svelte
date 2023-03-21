@@ -11,11 +11,12 @@
 	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 	export let data: PageServerData;
-	let notification = data.notification;
-	notification = notification.map((item) => ({ ...item }));
+	let notifications = data.notification;
+	notifications = notifications.map((item, index) => ({ ...item, index: index + 1 }));
 
 	const userId = $page.params.userId;
 	const notificationRoute = `/users/${userId}/notifications`;
+	const editRoute = (id) => `/users/${userId}/notifications/${id}/edit`;
 	const createRoute = `/users/${userId}/notifications/create`;
 
 	const breadCrumbs = [
@@ -26,30 +27,21 @@
 	];
 
 	let title = undefined;
-	let Body = undefined;
+	let type = undefined;
 	let sortBy = 'CreatedAt';
 	let sortOrder = 'ascending';
 	let itemsPerPage = 10;
 	let pageIndex = 0;
 
-	const dataTableStore = createDataTableStore(
-		// Pass your source data here:
-		notification,
-		{
-			// The current search term.
-			search: '',
-			// The current sort key.
-			sort: '',
-			// Paginator component settings.
-			pagination: { offset: 0, limit: 10, size: 0, amounts: [10, 20, 30, 50] }
-		}
-	);
-	// This automatically handles search, sort, etc when the model updates.
+	const dataTableStore = createDataTableStore(notifications, {
+		search: '',
+		pagination: { offset: 0, limit: 10, size: 0, amounts: [10, 20, 30, 50] }
+	});
 
-	const searchParams = async (title: string, Body: string) => {
+	const searchParams = async (title: string, type: string) => {
 		await searchNotification({
 			title: title,
-			body: Body
+			type: type
 		});
 	};
 
@@ -72,8 +64,8 @@
 		if (title) {
 			url += `&title=${title}`;
 		}
-		if (Body) {
-			url += `&Body=${Body}`;
+		if (type) {
+			url += `&type=${type}`;
 		}
 
 		const res = await fetch(url, {
@@ -83,9 +75,8 @@
 			}
 		});
 		const response = await res.json();
-		notification = response.map((item) => ({ ...item }));
-
-		dataTableStore.updateSource(notification);
+		notifications = response.map((item, index) => ({ ...item, index: index + 1 }));
+		dataTableStore.updateSource(notifications);
 	}
 
 	dataTableStore.subscribe((model) => dataTableHandler(model));
@@ -145,12 +136,12 @@
 	</div>
 	<div class="basis-1/2 justify-center items-center">
 		<div class="relative flex items-center  ">
-			<input type="text" placeholder="Search by body" bind:value={Body} class="input w-full" />
+			<input type="text" placeholder="Search by type" bind:value={type} class="input w-full" />
 		</div>
 	</div>
 	<div class="sm:flex flex">
 		<button
-			on:click={() => searchParams(title, Body)}
+			on:click={() => searchParams(title, type)}
 			class="btn variant-filled-primary lg:w-20 md:w-20 sm:w-20 w-20 rounded-lg bg-primary hover:bg-primary  "
 		>
 			<!-- svelte-ignore missing-declaration -->
@@ -186,12 +177,12 @@
 			<tbody class="">
 				{#each $dataTableStore.filtered as row, rowIndex}
 					<tr>
-						<td style="width: 7%;">{rowIndex + 1}</td>
+						<td style="width: 7%;">{row.index}</td>
 						<td style="width: 23%;">{row.Title}</td>
 						<td style="width: 30%;">{row.Body}</td>
 						<td style="width: 30%;">{row.Type}</td>
 						<td>
-							<a href="/users/${userId}/notifications/{row.id}/edit"
+							<a href={editRoute(row.id)}
 								><Fa icon={faPencil} style="color-text-primary" size="md" /></a
 							>
 						</td>

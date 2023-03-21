@@ -1,21 +1,20 @@
 import { redirect } from 'sveltekit-flash-message/server';
-import type { error, type RequestEvent } from '@sveltejs/kit';
+import type {  RequestEvent } from '@sveltejs/kit';
 import { errorMessage, successMessage } from '$lib/utils/message.utils';
 import { createOrganization } from '../../../../api/services/organizations';
 import { createAddress } from '../../../../api/services/addresses';
 import type { OrganizationTypes } from '$lib/types/domain.models';
 import type { PageServerLoad } from './$types';
-
 import { getOrganizationTypes } from '../../../../api/services/types';
 
 /////////////////////////////////////////////////////////////////////////////////////////////
 
 export const load: PageServerLoad = async (event: RequestEvent) => {
 	try {
-		const types: OrganizationTypes[] = await getOrganizationTypes();
+		   const types: OrganizationTypes[] = await getOrganizationTypes();
 		return {
 			message: 'Common data successfully retrieved!',
-			types
+			types,
 		};
 	} catch (error) {
 		console.error(`Error retieving data : ${error.message}`);
@@ -78,7 +77,7 @@ export const actions = {
 		);
 		
 		const id = response.Data.Organization.id;
-
+     
 		if (response.Status === 'failure' || response.HttpCode !== 201) {
 			throw redirect(303, '/organizations', errorMessage(response.Message), event);
 		}

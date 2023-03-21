@@ -1,6 +1,6 @@
 import type { RequestEvent } from '@sveltejs/kit';
 import { page } from '$app/stores';
-import { searchCourses } from '../../../services/courses';
+import { searchNotices } from '../../../services/notices';
 
 //////////////////////////////////////////////////////////////
 
@@ -8,8 +8,8 @@ export const GET = async (event: RequestEvent) => {
 	const sessionId = event.locals.sessionUser.sessionId;
 
 	const searchParams: URLSearchParams = event.url.searchParams;
-	const name = searchParams.get('name') ?? undefined;
-	const description = searchParams.get('description') ?? undefined;
+	const title = searchParams.get('title') ?? undefined;
+	const daysActive = searchParams.get('daysActive') ?? undefined;
 	const sortBy = searchParams.get('sortBy') ?? 'CreatedAt';
 	const sortOrder = searchParams.get('sortOrder') ?? 'ascending';
 	const itemsPerPage_ = searchParams.get('pageIndex');
@@ -19,20 +19,20 @@ export const GET = async (event: RequestEvent) => {
 
 	try {
 		const searchParams = {
-			name,
-			Description: description,
+			title,
+			daysActive,
 			orderBy: sortBy,
 			order: sortOrder,
 			itemsPerPage,
 			pageIndex
 		};
 		console.log('Search parms: ', searchParams);
-		const response = await searchCourses(sessionId, searchParams);
-		const items = response.Data.Courses.Items;
+		const response = await searchNotices(sessionId, searchParams);
+		const items = response.Data.NoticeRecords.Items;
 
 		return new Response(JSON.stringify(items));
 	} catch (err) {
-		console.error(`Error retriving courses: ${err.message}`);
+		console.error(`Error retriving notices: ${err.message}`);
 		return new Response(err.message);
 	}
 };

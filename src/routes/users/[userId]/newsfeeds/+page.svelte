@@ -10,7 +10,7 @@
 	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	export let data: PageServerData;
 	let newsfeeds = data.newsfeeds;
-	newsfeeds = newsfeeds.map((item) => ({ ...item }));
+	newsfeeds = newsfeeds.map((item, index) => ({ ...item, index: index + 1 }));
 
 	const dataTableStore = createDataTableStore(
 		// Pass your source data here:
@@ -26,6 +26,7 @@
 	);
 	const userId = $page.params.userId;
 	const newsfeedRoute = `/users/${userId}/newsfeeds`;
+	const editRoute = (id) => `/users/${userId}/newsfeeds/${id}/edit`;
 	const createRoute = `/users/${userId}/newsfeeds/create`;
 
 	const breadCrumbs = [
@@ -80,7 +81,7 @@
 		});
 
 		const response = await res.json();
-		newsfeeds = response.map((item) => ({ ...item }));
+		newsfeeds = response.map((item, index) => ({ ...item, index: index + 1 }));
 
 		dataTableStore.updateSource(newsfeeds);
 	}
@@ -139,7 +140,7 @@
 		<div class="relative flex items-center">
 			<input
 				type="text"
-				placeholder="Search by type"
+				placeholder="Search by title"
 				bind:value={title}
 				class="input input-bordered input-primary w-full"
 			/>
@@ -149,7 +150,7 @@
 		<div class="relative flex items-center  ">
 			<input
 				type="text"
-				placeholder="Search by email"
+				placeholder="Search by description"
 				bind:value={description}
 				class="input input-bordered input-primary w-full"
 			/>
@@ -191,12 +192,12 @@
 			<tbody class="">
 				{#each $dataTableStore.filtered as row, rowIndex}
 					<tr>
-						<td style="width: 7%;">{rowIndex + 1}</td>
+						<td style="width: 7%;">{row.index}</td>
 						<td style="width: 23%;">{row.Title}</td>
 						<td style="width: 30%;">{row.Description}</td>
 						<td style="width: 30%;">{row.NewsfeedItemTitle}</td>
 						<td style="">
-							<a href="/users/${userId}/newsfeeds/{row.id}/edit"
+							<a href={editRoute(row.id)}
 								><Fa icon={faPencil} style="color-text-primary" size="md" /></a
 							>
 						</td>

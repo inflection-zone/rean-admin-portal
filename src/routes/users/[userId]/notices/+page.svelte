@@ -11,17 +11,18 @@
 	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 	export let data: PageServerData;
-	let linkage = data.linkage;
-	linkage = linkage.map((item) => ({ ...item }));
+	let notices = data.notice;
+	notices = notices.map((item, index) => ({ ...item, index: index + 1  }));
 
 	const userId = $page.params.userId;
-	const linkageRoute = `/users/${userId}/linkages`;
-	const createRoute = `/users/${userId}/linkages/create`;
+	const NoticeRoute = `/users/${userId}/notices`;
+	const editRoute = (id) => `/users/${userId}/notices/${id}/edit`;
+	const createRoute = `/users/${userId}/notices/create`;
 
-	const breadCrumbs = [
+	const breadCrumbs = [ 
 		{
-			name: 'Linkages',
-			path: linkageRoute
+			name: 'Notice',
+			path: NoticeRoute
 		}
 	];
 
@@ -34,7 +35,7 @@
 
 	const dataTableStore = createDataTableStore(
 		// Pass your source data here:
-		linkage,
+		notices,
 		{
 			// The current search term.
 			search: '',
@@ -54,7 +55,7 @@
 	};
 
 	async function searchLinkage(model) {
-		let url = `/api/server/linkages/search?`;
+		let url = `/api/server/notices/search?`;
 		if (sortOrder) {
 			url += `sortOrder=${sortOrder}`;
 		} else {
@@ -83,24 +84,24 @@
 			}
 		});
 		const response = await res.json();
-		linkage = response.map((item) => ({ ...item }));
+		notices = response.map((item, index) => ({ ...item, index: index + 1  }));
 
-		dataTableStore.updateSource(linkage);
+		dataTableStore.updateSource(notices);
 	}
 
 	dataTableStore.subscribe((model) => dataTableHandler(model));
 
-	const handleLinkageDelete = async (e, id) => {
-		const linkageId = id;
+	const handleNoticeDelete = async (e, id) => {
+		const noticeId = id;
 		await Delete({
 			sessionId: data.sessionId,
-			linkageId
+			noticeId
 		});
-		window.location.href = linkageRoute;
+		window.location.href = NoticeRoute;
 	};
 
 	async function Delete(model) {
-		const response = await fetch(`/api/server/linkages`, {
+		const response = await fetch(`/api/server/notices`, {
 			method: 'DELETE',
 			body: JSON.stringify(model),
 			headers: {
@@ -191,27 +192,26 @@
 			<tbody class="">
 				{#each $dataTableStore.filtered as row, rowIndex}
 					<tr>
-						<td style="width: 7%;">{rowIndex + 1}</td>
+						<td style="width: 7%;">{row.index}</td>
 						<td style="width: 22%;">{row.Title}</td>
 						<td style="width: 30%;">{row.Link}</td>
 						<td style="width: 30%;">{row.DaysActive}</td>
 						<td>
-							<a href="/users/${userId}/linkages/{row.id}/edit"
+							<a href={editRoute(row.id)}
 								><Fa icon={faPencil} style="color-text-primary" size="md" /></a
 							>
 						</td>
 						<td>
-							<!-- svelte-ignore missing-declaration -->
 							<Confirm
 								confirmTitle="Delete"
 								cancelTitle="Cancel"
 								let:confirm={confirmThis}
 								on:delete={(e) => {
-									handleLinkageDelete(e, row.id);
+									handleNoticeDelete(e, row.id);
 								}}
 							>
 								<button
-									on:click|preventDefault={() => confirmThis(handleLinkageDelete, row.id)}
+									on:click|preventDefault={() => confirmThis(handleNoticeDelete, row.id)}
 									class=""><Fa icon={faTrash} /></button
 								>
 								<span slot="title"> Delete </span>

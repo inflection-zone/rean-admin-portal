@@ -12,10 +12,11 @@
 
 	export let data: PageServerData;
 	let knowledgeNuggets = data.knowledgeNuggets;
-	knowledgeNuggets = knowledgeNuggets.map((item) => ({ ...item }));
+	knowledgeNuggets = knowledgeNuggets.map((item, index) => ({ ...item, index: index + 1 }));
 
 	const userId = $page.params.userId;
 	const knowledgeNuggetRoute = `/users/${userId}/knowledge-nuggets`;
+	const editRoute = (id) => `/users/${userId}/knowledge-nuggets/${id}/edit`;
 	const createRoute = `/users/${userId}/knowledge-nuggets/create`;
 
 	const breadCrumbs = [
@@ -83,7 +84,7 @@
 			}
 		});
 		const response = await res.json();
-		knowledgeNuggets = response.map((item) => ({ ...item }));
+		knowledgeNuggets = response.map((item, index) => ({ ...item, index: index + 1 }));
 
 		dataTableStore.updateSource(knowledgeNuggets);
 	}
@@ -196,12 +197,12 @@
 			<tbody class="">
 				{#each $dataTableStore.filtered as row, rowIndex}
 					<tr>
-						<td style="width: 7%;">{rowIndex + 1}</td>
+						<td style="width: 7%;">{row.index}</td>
 						<td style="width: 22%;">{row.TopicName}</td>
 						<td style="width: 38%;">{row.BriefInformation}</td>
 						<td style="width: 33%;">{row.DetailedInformation}</td>
 						<td>
-							<a href="/users/${userId}/knowledge-nuggets/{row.id}/edit"
+							<a href={editRoute(row.id)}
 								><Fa icon={faPencil} style="color-text-primary" size="md" /></a
 							>
 						</td>

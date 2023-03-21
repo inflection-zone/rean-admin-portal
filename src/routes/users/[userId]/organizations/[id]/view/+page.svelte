@@ -25,8 +25,7 @@
 	let state = data.organization.Addresses[0].State;
 	let country = data.organization.Addresses[0].Country;
 	let postalCode = data.organization.Addresses[0].PostalCode;
-
-	let imageResourceId = data.organization.ImageResourceId;
+  let imageResourceId = data.organization.ImageUrl ?? undefined;
 	let isHealthFacility = data.organization.IsHealthFacility;
 
 	console.log('data', data);
@@ -34,7 +33,7 @@
 		show(data);
 		LocalStorageUtils.removeItem('prevUrl');
 	});
-
+	
 	const userId = $page.params.userId;
 	const editRoute = `/users/${userId}/organizations/${id}/edit`;
 	const viewRoute = `/users/${userId}/organizations/${id}/view`;

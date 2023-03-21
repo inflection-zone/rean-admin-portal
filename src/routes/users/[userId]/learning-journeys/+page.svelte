@@ -12,10 +12,11 @@
 
 	export let data: PageServerData;
 	let learningPaths = data.learningPaths;
-	learningPaths = learningPaths.map((item) => ({ ...item }));
+	learningPaths = learningPaths.map((item, index) => ({ ...item, index: index + 1 }));
 
 	const userId = $page.params.userId;
 	const learningJourneyRoute = `/users/${userId}/learning-journeys`;
+	const editRoute = (id) => `/users/${userId}/learning-journeys/${id}/edit`;
 	const createRoute = `/users/${userId}/learning-journeys/create`;
 
 	const breadCrumbs = [
@@ -83,7 +84,7 @@
 			}
 		});
 		const response = await res.json();
-		learningPaths = response.map((item) => ({ ...item }));
+		learningPaths = response.map((item, index) => ({ ...item, index: index + 1 }));
 
 		dataTableStore.updateSource(learningPaths);
 	}
@@ -183,9 +184,9 @@
 		<thead class="sticky top-0">
 			<tr>
 				<th style="width: 7%;">Id</th>
-				<th style="width: 22%;">Name</th>
-				<th style="width: 38%;">Duration</th>
-				<th style="width: 33%;">Preference Weight</th>
+				<th style="width: 23%;">Name</th>
+				<th style="width: 30%;">Description</th>
+				<th style="width: 50%;">Preference Weight</th>
 			</tr>
 		</thead>
 	</table>
@@ -194,12 +195,12 @@
 			<tbody class="">
 				{#each $dataTableStore.filtered as row, rowIndex}
 					<tr>
-						<td style="width: 7%;">{rowIndex + 1}</td>
-						<td style="width: 22%;">{row.Name}</td>
-						<td style="width: 38%;">{row.DurationInDays}</td>
-						<td style="width: 33%;">{row.PreferenceWeight}</td>
-						<td style="width: 33%;">
-							<a href="/users/${userId}/learning-journeys/{row.id}/edit"
+						<td style="width: 7%;">{row.index}</td>
+						<td style="width: 23%;">{row.Name}</td>
+						<td style="width: 30%;">{row.Description}</td>
+						<td style="width: 30%;">{row.PreferenceWeight}</td>
+						<td style="">
+							<a href={editRoute(row.id)}
 								><Fa icon={faPencil} style="color-text-primary" size="md" /></a
 							>
 						</td>
@@ -236,4 +237,3 @@
 			/>{/if}
 	</div>
 </div>
-<!-- </div> -->
