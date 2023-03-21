@@ -1,6 +1,7 @@
 import type { RequestEvent } from '@sveltejs/kit';
 import type { PageServerLoad } from './$types';
 import { error } from '@sveltejs/kit';
+import { BACKEND_API_URL } from '$env/static/private';
 import { searchSymptoms } from '../../../api/services/symptoms';
 
 ////////////////////////////////////////////////////////////////////////////
@@ -13,9 +14,19 @@ export const load: PageServerLoad = async (event: RequestEvent) => {
 		if (response.Status === 'failure' || response.HttpCode !== 200) {
 			throw error(response.HttpCode, response.Message);
 		}
-		const symptom = response.Data.SymptomTypes.Items;
+		const symptoms = response.Data.SymptomTypes.Items;
+
+		for (const symptom of symptoms) {
+			if (symptom.ImageResourceId) {
+				symptom['ImageUrl'] =
+					BACKEND_API_URL +
+					`/file-resources/${symptom.ImageResourceId}/download?disposition=inline`;
+			} else {
+				symptom['ImageUrl'] = null;
+			}
+		}
 		return {
-			symptom,
+			symptoms,
 			sessionId,
 			message: response.Message
 		};
