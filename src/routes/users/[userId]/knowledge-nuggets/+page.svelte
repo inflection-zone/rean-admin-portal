@@ -16,6 +16,7 @@
 
 	const userId = $page.params.userId;
 	const knowledgeNuggetRoute = `/users/${userId}/knowledge-nuggets`;
+	const editRoute = (id) => `/users/${userId}/knowledge-nuggets/${id}/edit`;
 	const createRoute = `/users/${userId}/knowledge-nuggets/create`;
 
 	const breadCrumbs = [
@@ -201,7 +202,7 @@
 						<td style="width: 38%;">{row.BriefInformation}</td>
 						<td style="width: 33%;">{row.DetailedInformation}</td>
 						<td>
-							<a href="/users/${userId}/knowledge-nuggets/{row.id}/edit"
+							<a href={editRoute(row.id)}
 								><Fa icon={faPencil} style="color-text-primary" size="md" /></a
 							>
 						</td>

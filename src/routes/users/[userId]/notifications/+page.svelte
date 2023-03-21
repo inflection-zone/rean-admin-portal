@@ -11,11 +11,12 @@
 	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 	export let data: PageServerData;
-	let notification = data.notification;
-	notification = notification.map((item, index) => ({ ...item, index: index + 1 }));
+	let notifications = data.notification;
+	notifications = notifications.map((item, index) => ({ ...item, index: index + 1 }));
 
 	const userId = $page.params.userId;
 	const notificationRoute = `/users/${userId}/notifications`;
+	const editRoute = (id) => `/users/${userId}/notifications/${id}/edit`;
 	const createRoute = `/users/${userId}/notifications/create`;
 
 	const breadCrumbs = [
@@ -32,19 +33,10 @@
 	let itemsPerPage = 10;
 	let pageIndex = 0;
 
-	const dataTableStore = createDataTableStore(
-		// Pass your source data here:
-		notification,
-		{
-			// The current search term.
-			search: '',
-			// The current sort key.
-			sort: '',
-			// Paginator component settings.
-			pagination: { offset: 0, limit: 10, size: 0, amounts: [10, 20, 30, 50] }
-		}
-	);
-	// This automatically handles search, sort, etc when the model updates.
+	const dataTableStore = createDataTableStore(notifications, {
+		search: '',
+		pagination: { offset: 0, limit: 10, size: 0, amounts: [10, 20, 30, 50] }
+	});
 
 	const searchParams = async (title: string, type: string) => {
 		await searchNotification({
@@ -83,9 +75,8 @@
 			}
 		});
 		const response = await res.json();
-		notification = response.map((item, index) => ({ ...item, index: index + 1 }));
-
-		dataTableStore.updateSource(notification);
+		notifications = response.map((item, index) => ({ ...item, index: index + 1 }));
+		dataTableStore.updateSource(notifications);
 	}
 
 	dataTableStore.subscribe((model) => dataTableHandler(model));
@@ -191,7 +182,7 @@
 						<td style="width: 30%;">{row.Body}</td>
 						<td style="width: 30%;">{row.Type}</td>
 						<td>
-							<a href="/users/${userId}/notifications/{row.id}/edit"
+							<a href={editRoute(row.id)}
 								><Fa icon={faPencil} style="color-text-primary" size="md" /></a
 							>
 						</td>
