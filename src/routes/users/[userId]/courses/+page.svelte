@@ -3,7 +3,6 @@
 	import { createDataTableStore, dataTableHandler } from '@skeletonlabs/skeleton';
 	import { Paginator } from '@skeletonlabs/skeleton';
 	import { page } from '$app/stores';
-	import Image from '$lib/components/image.svelte';
 	import BreadCrumbs from '$lib/components/breadcrumbs/breadcrums.svelte';
 	import { faPencil, faSearch, faTrash } from '@fortawesome/free-solid-svg-icons';
 	import Confirm from '$lib/components/modal/confirmModal.svelte';

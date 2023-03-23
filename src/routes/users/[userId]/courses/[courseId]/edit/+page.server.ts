@@ -36,13 +36,15 @@ export const actions = {
 		const name = data.has('name') ? data.get('name') : null;
 		const description = data.has('description') ? data.get('description') : null;
 		const imageUrl = data.has('imageUrl') ? data.get('imageUrl') : null;
+		const durationInDays = data.has('durationInDays') ? data.get('durationInDays') : null;
 	
 		const response = await updateCourse(
 			sessionId,
 			courseId,
 			name.valueOf() as string,
 			description.valueOf() as string,
-			imageUrl.valueOf() as string
+			imageUrl.valueOf() as string,
+			durationInDays.valueOf() as number,
 		);
 		const id = response.Data.Course.id;
 
