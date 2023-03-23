@@ -15,17 +15,20 @@
 	let description = data.course.Description;
 	let imageUrl = data.course.ImageUrl;
 	let modules = data.course.Modules;
+	let durationInDays = data.course.DurationInDays;
 	$: avatarSource = imageUrl;
 
 	//Original data
 	let _name = name;
 	let _description = description;
 	let _imageUrl = imageUrl;
+	let _durationInDays = durationInDays;
 
 	function handleReset() {
 		name = _name;
 		description = _description;
 		imageUrl = _imageUrl;
+		durationInDays = _durationInDays;
 	}
 
 	const userId = $page.params.userId;
@@ -136,6 +139,24 @@
 						name="description"
 						bind:value={description}
 						placeholder="Enter description here..."
+					/>
+				</div>
+			</div>
+
+			<div class="flex items-center mb-4 mt-2 lg:mx-16 md:mx-12 mx-10">
+				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
+					<!-- svelte-ignore a11y-label-has-associated-control -->
+					<label class="label">
+						<span>Duration In Days</span>
+					</label>
+				</div>
+				<div class="w-1/2 md:w-2/3 lg:w-2/3">
+					<input
+						type="number"
+						name="durationInDays"
+						placeholder="Enter duration here..."
+						class="input w-full "
+						bind:value={durationInDays}
 					/>
 				</div>
 			</div>
