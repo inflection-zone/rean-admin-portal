@@ -2,6 +2,7 @@
 	import Fa from 'svelte-fa';
 	import { createDataTableStore, dataTableHandler } from '@skeletonlabs/skeleton';
 	import { Paginator } from '@skeletonlabs/skeleton';
+	import date from 'date-and-time';
 	import type { PageServerData } from './$types';
 	import { faPencil, faSearch, faTrash } from '@fortawesome/free-solid-svg-icons';
 	import BreadCrumbs from '$lib/components/breadcrumbs/breadcrums.svelte';
@@ -186,9 +187,10 @@
 		<thead class="sticky top-0">
 			<tr>
 				<th style="width: 5%;">Id</th>
-				<th style="width: 15%;">Topic Name</th>
-				<th style="width: 30%;">Brief Information</th>
-				<th style="width: 30%;"> Detailed Information</th>
+				<th style="width: 18%;">Topic Name</th>
+				<th style="width: 32%;">Brief Information</th>
+				<th style="width: 25%;"> Detailed Information</th>
+				<th style="width: 34%;">Created Date</th>
 			</tr>
 		</thead>
 	</table>
@@ -197,10 +199,11 @@
 			<tbody class="">
 				{#each $dataTableStore.filtered as row, rowIndex}
 					<tr>
-						<td style="width: 7%;">{row.index}</td>
-						<td style="width: 22%;">{row.TopicName}</td>
-						<td style="width: 38%;">{row.BriefInformation}</td>
-						<td style="width: 33%;">{row.DetailedInformation}</td>
+						<td style="width: 5%;">{row.index}</td>
+						<td style="width: 20%;">{row.TopicName}</td>
+						<td style="width: 35%;">{row.BriefInformation}</td>
+						<td style="width: 25%;">{row.DetailedInformation}</td>
+						<td style="width: 20%;">{date.format(new Date(row.CreatedAt), 'DD-MMM-YYYY')}</td>
 						<td>
 							<a href={editRoute(row.id)}
 								><Fa icon={faPencil} style="color-text-primary" size="md" /></a

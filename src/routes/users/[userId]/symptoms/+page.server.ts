@@ -15,6 +15,7 @@ export const load: PageServerLoad = async (event: RequestEvent) => {
 			throw error(response.HttpCode, response.Message);
 		}
 		const symptoms = response.Data.SymptomTypes.Items;
+		console.log('data===',symptoms)
 
 		for (const symptom of symptoms) {
 			if (symptom.ImageResourceId) {

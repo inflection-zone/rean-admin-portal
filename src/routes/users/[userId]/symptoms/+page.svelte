@@ -3,6 +3,7 @@
 	import { createDataTableStore, dataTableHandler } from '@skeletonlabs/skeleton';
 	import { Paginator } from '@skeletonlabs/skeleton';
 	import { page } from '$app/stores';
+	import date from 'date-and-time';
 	import Image from '$lib/components/image.svelte';
 	import BreadCrumbs from '$lib/components/breadcrumbs/breadcrums.svelte';
 	import Confirm from '$lib/components/modal/confirmModal.svelte';
@@ -14,7 +15,6 @@
 	export let data: PageServerData;
 	let symptomData = data.symptoms;
 	symptomData = symptomData.map((item, index) => ({ ...item, index: index + 1 }));
-	console.log('data--', symptomData);
 
 	const dataTableStore = createDataTableStore(symptomData, {
 		search: '',
@@ -178,10 +178,11 @@
 	<table class="table rounded-b-none">
 		<thead class="sticky top-0">
 			<tr>
-				<th style="width: 7%;">Id</th>
-				<th style="width: 23%;">Symptom</th>
-				<th style="width: 30%;">Description</th>
-				<th style="width: 50%;">Image</th>
+				<th style="width: 5%;">Id</th>
+				<th style="width: 19%;">Symptom</th>
+				<th style="width: 33%;">Description</th>
+				<th style="width: 18%;">Image</th>
+				<th style="width: 35%;">Created Date</th>
 			</tr>
 		</thead>
 	</table>
@@ -190,13 +191,14 @@
 			<tbody class="">
 				{#each $dataTableStore.filtered as row, rowIndex}
 					<tr>
-						<td style="width: 7%;">{row.index}</td>
-						<td style="width: 23%;">{row.Symptom}</td>
-						<td style="width: 30%;">{row.Description}</td>
-						<td style="width: 30%;">
+						<td style="width: 5%;">{row.index}</td>
+						<td style="width: 20%;">{row.Symptom}</td>
+						<td style="width: 35%;">{row.Description}</td>
+						<td style="width: 20%;">
 							<!-- svelte-ignore missing-declaration -->
 							<Image cls="flex h-10 w-10 rounded-lg" source={row.ImageUrl} w="24" h="24" />
 						</td>
+						<td style="width: 20%;">{date.format(new Date(row.CreatedAt), 'DD-MMM-YYYY')}</td>
 						<td style="">
 							<a href={editRoute(row.id)}
 								><Fa icon={faPencil} style="color-text-primary" size="md" /></a
