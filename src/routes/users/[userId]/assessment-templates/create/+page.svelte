@@ -5,12 +5,12 @@
 	import { page } from '$app/stores';
 
 	const userId = $page.params.userId;
-	const createRoute = `/users/${userId}/assessments/create`;
-	const assessmentsRoutes = `/users/${userId}/assessments`;
+	const createRoute = `/users/${userId}/assessment-templates/create`;
+	const assessmentsRoutes = `/users/${userId}/assessment-templates`;
 
 	const breadCrumbs = [
 		{
-			name: 'Assessments',
+			name: 'Assessment-Template',
 			path: assessmentsRoutes
 		},
 		{
@@ -57,7 +57,7 @@
 			</div>
 		</div>
 
-		<div class="flex items-center my-4 mx-16">
+		<div class="flex items-center mt-4 mb-2 mx-16">
 			<div class="w-1/3">
 				<!-- svelte-ignore a11y-label-has-associated-control -->
 				<label class="label">
@@ -74,9 +74,8 @@
 			</div>
 		</div>
 
-		<div class="flex items-center my-4 mx-16">
+		<!-- <div class="flex items-center my-4 mx-16">
 			<div class="w-1/3">
-				<!-- svelte-ignore a11y-label-has-associated-control -->
 				<label class="label">
 					<span>Display code</span>
 				</label>
@@ -85,12 +84,15 @@
 				<input
 					type="text"
 					name="displayCode"
+
+
+
 					class="input w-full"
 					placeholder="Enter display code here"
 				/>
 			</div>
-		</div>
-		<div class="flex items-center my-4 mx-16">
+		</div> -->
+		<div class="flex items-center my-2 mx-16">
 			<div class="w-1/3">
 				<!-- svelte-ignore a11y-label-has-associated-control -->
 				<label class="label">
@@ -100,12 +102,15 @@
 			<div class="w-2/3">
 				<select class="select w-full" name="type" placeholder="Select type here...">
 					<option selected>Careplan</option>
-					<option>Auto</option>
-					<option>Dark mode</option>
-					<option>Light mode</option>
+					<option>Daily Update</option>
+					<option>Symptom</option>
+					<option>Survey</option>
+					<option>Protocol</option>
+					<option>Custom</option>
 				</select>
 			</div>
 		</div>
+		
 		<div class="flex items-center my-4 mx-16">
 			<div class="w-1/3">
 				<!-- svelte-ignore a11y-label-has-associated-control -->
@@ -134,9 +139,8 @@
 				/>
 			</div>
 		</div>
-		<div class="flex items-center my-4 mx-16">
+		<!-- <div class="flex items-center my-4 mx-16">
 			<div class="w-1/3">
-				<!-- svelte-ignore a11y-label-has-associated-control -->
 				<label class="label">
 					<span>Servelist Node Children At Once</span>
 				</label>
@@ -149,7 +153,7 @@
 					placeholder="Enter servelist node children at once here..."
 				/>
 			</div>
-		</div>
+		</div> -->
 
 		<div class="flex items-center mt-7 lg:mx-16 md:mx-12 mr-10">
 			<div class="w-3/4" />

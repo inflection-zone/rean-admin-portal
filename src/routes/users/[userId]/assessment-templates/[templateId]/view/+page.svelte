@@ -10,13 +10,12 @@
 
 	export let data: PageServerData;
 	let id = data.assessment.id;
-	let assetCode = data.assessment.assetCode;
-	let title = data.assessment.title;
-	let description = data.assessment.description;
-	let displayCode = data.assessment.displayCode;
-	let type = data.assessment.type;
-	let providerAssessmentCode = data.assessment.providerAssessmentCode;
-	let serveListNodeChildrenAtOnce = data.assessment.serveListNodeChildrenAtOnce;
+	let title = data.assessment.Title;
+	let description = data.assessment.Description;
+	let displayCode = data.assessment.DisplayCode;
+	let type = data.assessment.Type;
+	let providerAssessmentCode = data.assessment.ProviderAssessmentCode;
+	let serveListNodeChildrenAtOnce = data.assessment.ServeListNodeChildrenAtOnce;
 
 	onMount(() => {
 		show(data);
@@ -24,13 +23,14 @@
 	});
 
 	const userId = $page.params.userId;
-	const editRoute = `/users/${userId}/assessments/${id}/edit`;
-	const viewRoute = `/users/${userId}/assessments/${id}/view`;
-	const assessmentsRoutes = `/users/${userId}/assessments`;
+	const templateId = $page.params.templateId;
+	const editRoute = `/users/${userId}/assessment-templates/${templateId}/edit`;
+	const viewRoute = `/users/${userId}/assessment-templates/${templateId}/view`;
+	const assessmentsRoutes = `/users/${userId}/assessment-templates`;
 
 	const breadCrumbs = [
 		{
-			name: 'Assessments',
+			name: 'Assessment-Template',
 			path: assessmentsRoutes
 		},
 		{
@@ -58,16 +58,6 @@
 				</div>
 			</div>
 			<div class="hidden">{id}</div>
-
-			<div class="flex items-center mb-4 mt-10 lg:mx-16 md:mx-12 mx-10">
-				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
-					<!-- svelte-ignore a11y-label-has-associated-control -->
-					<label class="label">
-						<span>Asset Code</span>
-					</label>
-				</div>
-				<span class="span w-1/2 md:2/3 lg:2/3" id="assetCode">{assetCode}</span>
-			</div>
 
 			<div class="flex items-center mb-4 mt-10 lg:mx-16 md:mx-12 mx-10">
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">

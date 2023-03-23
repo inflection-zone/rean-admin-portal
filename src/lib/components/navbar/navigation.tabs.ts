@@ -59,8 +59,8 @@ const learningJourneys: TabDefinition = {
 };
 
 const assessments: TabDefinition = {
-    name: 'Assessments',
-    path: `/users/userId/assessments`,
+    name: 'Assessment-Templates',
+    path: `/users/userId/assessment-templates`,
     default: false,
 };
 
