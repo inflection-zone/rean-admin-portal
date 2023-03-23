@@ -26,11 +26,11 @@
 	const userId = $page.params.userId;
 	const courseId = $page.params.courseId;
 	const moduleId =  $page.params.moduleId;
-	const editRoute = `/users/${userId}/courses/${courseId}/contents/${moduleId}/edit`;
-	const viewRoute = `/users/${userId}/courses/${courseId}/contents/${moduleId}/view`;
-	const	contentRoute = `/users/${userId}/courses/${courseId}/contents/${moduleId}/contents/create`;
+	const editRoute = `/users/${userId}/courses/${courseId}/modules/${moduleId}/edit`;
+	const viewRoute = `/users/${userId}/courses/${courseId}/modules/${moduleId}/view`;
+	const	contentRoute = `/users/${userId}/courses/${courseId}/modules/${moduleId}/contents/create`;
 	const courseRoute = `/users/${userId}/courses/${courseId}/view`;
-	const moduleRoute = `/users/${userId}/courses/${courseId}/contents`;
+	const moduleRoute = `/users/${userId}/courses/${courseId}/modules`;
 
 	const breadCrumbs = [
 		{

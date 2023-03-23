@@ -165,10 +165,6 @@
 						on:change={async (e) => await onFileSelected(e)}
 					/>
 					<input type="hidden" name="imageUrl" value={imageUrl} />
-					<!-- <button
-						class="capitalize btn variant-filled-primary lg:w-[19%] md:w-[22%] md:text-[13px] sm:w-[30%] sm:text-[12px] min-[320px]:w-[40%] min-[320px]:text-[10px]"
-						>Upload</button
-					> -->
 				</div>
 			</div>
 

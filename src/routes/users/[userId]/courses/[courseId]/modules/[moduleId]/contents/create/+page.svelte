@@ -3,17 +3,22 @@
 	import { faMultiply } from '@fortawesome/free-solid-svg-icons';
 	import BreadCrumbs from '$lib/components/breadcrumbs/breadcrums.svelte';
 	import { page } from '$app/stores';
+	import { showMessage } from '$lib/utils/message.utils';
+
+	////////////////////////////////////////////////////////////////////////////////////////////
 
 	const userId = $page.params.userId;
 	const courseId = $page.params.courseId;
-  const moduleId = $page.params.moduleId;
+	const moduleId = $page.params.moduleId;
 	const createRoute = `/users/${userId}/courses/${courseId}/modules/${moduleId}/contents/create`;
-  const courseRoute = `/users/${userId}/courses`
-	const moduleRoute = `/users/${userId}/courses/${courseId}/modules`;
+	const courseRoute = `/users/${userId}/courses`;
+	const moduleRoute = `/users/${userId}/courses/${courseId}/modules/create`;
 
+	let imageUrl = undefined;
+	let fileinput;
 
 	const breadCrumbs = [
-    {
+		{
 			name: 'Course',
 			path: courseRoute
 		},
@@ -26,6 +31,49 @@
 			path: createRoute
 		}
 	];
+
+	const upload = async (imgBase64, filename) => {
+		const data = {};
+		console.log(imgBase64);
+		const imgData = imgBase64.split(',');
+		data['image'] = imgData[1];
+		console.log(JSON.stringify(data));
+		const res = await fetch(`/api/server/file-resources/upload`, {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json',
+				Accept: 'application/json',
+				filename: filename
+			},
+			body: JSON.stringify(data)
+		});
+		console.log(Date.now().toString());
+		const response = await res.json();
+		if (response.Status === 'success' && response.HttpCode === 201) {
+				  const imageResourceId = response.Data.FileResources[0].id;
+					console.log ('imageResourceId', imageResourceId);
+					const imageUrl_ = response.Data.FileResources[0].Url;
+					console.log ('imageUrl_', imageUrl_);
+			if (imageUrl_) {
+			imageUrl = imageUrl_;
+			}
+			console.log(imageUrl);
+		}
+		else {
+			showMessage(response.Message, 'error');
+		}
+	};
+
+	const onFileSelected = async (e) => {
+		let f = e.target.files[0];
+		const filename = f.name;
+		let reader = new FileReader();
+		reader.readAsDataURL(f);
+		reader.onload = async (e) => {
+			fileinput = e.target.result;
+			await upload(e.target.result, filename);
+		};
+	};
 </script>
 
 <main class="h-screen mb-10">
@@ -39,7 +87,7 @@
 		>
 			<div class="w-full  h-14 rounded-t-lg p-3  bg-[#7165E3]">
 				<div class="ml-3 relative flex flex-row text-white text-xl">
-					Create Module
+					Create content
 					<a href={moduleRoute}>
 						<Fa
 							icon={faMultiply}
@@ -86,7 +134,7 @@
 					</label>
 				</div>
 				<div class="w-1/2 md:w-2/3 lg:w-2/3">
-					<select class="select w-full" placeholder="Select content type here...">
+					<select name="contentType" class="select w-full" placeholder="Select content type here...">
 						<option selected>Text</option>
 						<option>Pdf</option>
 						<option>Video</option>
@@ -115,21 +163,36 @@
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
 					<!-- svelte-ignore a11y-label-has-associated-control -->
 					<label class="label">
+						<span>Sequence</span>
+					</label>
+				</div>
+				<div class="w-1/2 md:w-2/3 lg:w-2/3">
+					<input
+						type="number"
+						name="sequence"
+						placeholder="Enter sequence here..."
+						class="input w-full "
+					/>
+				</div>
+			</div>
+
+			<div class="flex items-center my-2 lg:mx-16 md:mx-12 mx-10">
+				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
+					<!-- svelte-ignore a11y-label-has-associated-control -->
+					<label class="label">
 						<span>Image</span>
 					</label>
 				</div>
 				<div class="flex flex-row gap-8 w-1/2 md:w-2/3 lg:w-2/3 ">
 					<input
-						name="image"
+						name="fileInput"
 						type="file"
 						id="fileUpload"
 						class="input w-full"
 						placeholder="Image"
+						on:change={async (e) => await onFileSelected(e)}
 					/>
-					<button
-						class="capitalize btn variant-filled-primary lg:w-[19%] md:w-[22%] md:text-[13px] sm:w-[30%] sm:text-[12px] min-[320px]:w-[40%] min-[320px]:text-[10px]"
-						>Upload</button
-					>
+					<input type="hidden" name="imageUrl" value={imageUrl} />
 				</div>
 			</div>
 

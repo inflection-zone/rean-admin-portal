@@ -16,8 +16,7 @@
   const userId = $page.params.userId;
   const courseId = $page.params.courseId;
   const moduleId = $page.params.moduleId;
-  const courseContentId = $page.params.courseContentId;
-  const courseContentRoute = `/users/${userId}/courses/${courseId}/modules/${moduleId}/contents/${courseContentId}`;
+  const courseContentRoute = `/users/${userId}/courses/${courseId}/modules/${moduleId}/contents`;
   const createRoute = `/users/${userId}/courses/${courseId}/modules/${moduleId}/contents/create`;
 
   const breadCrumbs = [
