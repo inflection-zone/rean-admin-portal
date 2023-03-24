@@ -3,14 +3,14 @@
 	import { faMultiply } from '@fortawesome/free-solid-svg-icons';
 
 	let show = false;
-	let optionValueStore = [
+	export let optionValueStore = [
 		{
-			name: ''
+			Text: ''
 		}
 	];
 
 	const addOptionField = () => {
-		optionValueStore = [...optionValueStore, { name: '' }];
+		optionValueStore = [...optionValueStore, { Text: '' }];
 	};
 
 	const removeOptionField = () => {
@@ -33,7 +33,7 @@
 						type="text"
 						class="input w-11/12"
 						on:focus={handleFocus}
-						bind:value={optionValueStore[i].name}
+						bind:value={optionValueStore[i].Text}
 						placeholder="Add option here..."
 					/>
 

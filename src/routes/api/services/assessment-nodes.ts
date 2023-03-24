@@ -80,15 +80,28 @@ export const updateAssessmentNode = async (
 	title: string,
 	description: string,
 	queryType: string,
-	options: string[]
+	options: string[],
 ) => {
 	const body = {
 		NodeType: nodeType,
 		Title: title,
 		Description: description,
-		QueryType: queryType,
+		QueryResponseType: queryType,
 		Options: options
 	};
+	if (options && options.length > 0) {
+		let count = 1;
+		const options = [];
+		for (const o of body.Options) {
+			const option = {
+				Text: o,
+				Sequence: count
+			};
+			options.push(option);
+			count = count + 1;
+		}
+		body.Options = options;
+	}
 	const url = BACKEND_API_URL + `/clinical/assessment-templates/${templateId}/nodes/${nodeId}`;
 	return await put_(sessionId, url, body, true);
 };
@@ -100,4 +113,11 @@ export const deleteAssessmentNode = async (
 ) => {
 	const url = BACKEND_API_URL + `/clinical/assessment-templates/${templateId}/nodes/${nodeId}`;
 	return await delete_(sessionId, url, true);
+};
+
+export const getQueryResponseTypes = async (
+	sessionId: string,
+) => {
+	const url = BACKEND_API_URL + `/types/query-response-types`;
+	return await get_(sessionId, url);
 };

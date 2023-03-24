@@ -1,10 +1,32 @@
 import { redirect } from 'sveltekit-flash-message/server';
-import type { RequestEvent } from '@sveltejs/kit';
+import { error, type RequestEvent } from '@sveltejs/kit';
 import { errorMessage, successMessage } from '$lib/utils/message.utils';
-import { createAssessmentNode } from '../../../../../../api/services/assessment-nodes';
+import { createAssessmentNode, getQueryResponseTypes } from '../../../../../../api/services/assessment-nodes';
 import { getAssessmentTemplateById } from '../../../../../../api/services/assessment-templates';
+import type { PageServerLoad } from './$types';
 
 /////////////////////////////////////////////////////////////////////////
+
+export const load: PageServerLoad = async (event: RequestEvent) => {
+	const sessionId = event.cookies.get('sessionId');
+
+	try {
+		const response = await getQueryResponseTypes(sessionId);
+
+		if (response.Status === 'failure' || response.HttpCode !== 200) {
+			throw error(response.HttpCode, response.Message);
+		}
+		const queryResponseTypes = response.Data.QueryResponseTypes;
+		console.log("response",response);
+
+		return {
+			queryResponseTypes,
+			message: response.Message
+		};
+	} catch (error) {
+		console.error(`Error retriving query response types: ${error.message}`);
+	}
+};
 
 export const actions = {
 	createAssessmentNodeAction: async (event: RequestEvent) => {
