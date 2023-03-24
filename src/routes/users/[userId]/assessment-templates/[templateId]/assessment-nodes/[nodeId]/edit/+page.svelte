@@ -10,10 +10,10 @@
 	export let data: PageServerData;
 	let initiaData = {};
 	let id = data.assessmentNode.id;
-	let nodeType = data.assessmentNode.nodeType;
-	let title = data.assessmentNode.title;
-	let description = data.assessmentNode.description;
-	let queryType = data.assessmentNode.queryType;
+	let nodeType = data.assessmentNode.NodeType;
+	let title = data.assessmentNode.Title;
+	let description = data.assessmentNode.Description;
+	let queryType = data.assessmentNode.QueryType;
 
 	//Original data
 	let _nodeType = nodeType;
@@ -29,9 +29,10 @@
 	}
 
 	const userId = $page.params.userId;
-	const editRoute = `/users/${userId}/assessments/assessment-nodes/${id}/edit`;
-	const viewRoute = `/users/${userId}/assessments/assessment-nodes/${id}/view`;
-	const assessmentNodeRoutes = `/users/${userId}/assessments/assessment-nodes`;
+	const templateId = $page.params.templateId;
+	const editRoute = `/users/${userId}/assessment-templates/${templateId}/assessment-nodes/${id}/edit`;
+	const viewRoute = `/users/${userId}/assessment-templates/${templateId}/assessment-nodes/${id}/view`;
+	const assessmentNodeRoutes = `/users/${userId}/assessment-templates/${templateId}/assessment-nodes`;
 
 	const breadCrumbs = [
 		{

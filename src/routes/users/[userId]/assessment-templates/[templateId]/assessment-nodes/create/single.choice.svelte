@@ -2,15 +2,17 @@
 	import Fa from 'svelte-fa';
 	import { faMultiply } from '@fortawesome/free-solid-svg-icons';
 
-	let show = false;
-	let optionValueStore = [
+	export let show = false;
+	export let sequence = 1;
+	export let optionValueStore = [
 		{
-			name: ''
+			Text: '',
+			Sequence:sequence
 		}
 	];
 
 	const addOptionField = () => {
-		optionValueStore = [...optionValueStore, { name: '' }];
+		optionValueStore = [...optionValueStore, { Text: '',Sequence:sequence}];
 	};
 
 	const removeOptionField = () => {
@@ -32,8 +34,9 @@
 					<input
 						type="text"
 						class="input w-11/12"
+						name = 'options'
 						on:focus={handleFocus}
-						bind:value={optionValueStore[i].name}
+						bind:value={optionValueStore[i].Text}
 						placeholder="Add option here..."
 					/>
 

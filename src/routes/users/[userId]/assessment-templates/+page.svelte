@@ -17,6 +17,7 @@
 	const userId = $page.params.userId;
 	const assessmentRoute = `/users/${userId}/assessment-templates`;
 	const editRoute = (id) => `/users/${userId}/assessment-templates/${id}/edit`;
+	const viewRoute = (id) => `/users/${userId}/assessment-templates/${id}/view`;
 	const createRoute = `/users/${userId}/assessment-templates/create`;
 
 	const breadCrumbs = [ 
@@ -193,7 +194,9 @@
 				{#each $dataTableStore.filtered as row, rowIndex}
 					<tr>
 						<td style="width: 7%;">{row.index}</td>
-						<td style="width: 22%;">{row.Title}</td>
+						<td style="width: 22%;"><a href={viewRoute(row.id)}
+							>
+							{row.Title}</a></td>
 						<td style="width: 30%;">{row.Type}</td>
 						<td style="width: 30%;">{row.Provider}</td>
 						<td>

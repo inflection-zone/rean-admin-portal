@@ -10,10 +10,12 @@
 
 	export let data: PageServerData;
 	let id = data.assessmentNode.id;
-	let nodeType = data.assessmentNode.nodeType;
-	let title = data.assessmentNode.title;
-	let Description = data.assessmentNode.Description;
-	let queryType = data.assessmentNode.queryType;
+	let nodeType = data.assessmentNode.NodeType;
+	let title = data.assessmentNode.Title;
+	let description = data.assessmentNode.Description;
+	let queryType = data.assessmentNode.QueryResponseType;
+	let options = data.assessmentNode.Options;
+	console.log("OPtions",options);
 
 	onMount(() => {
 		show(data);
@@ -21,9 +23,10 @@
 	});
 
 	const userId = $page.params.userId;
-	const editRoute = `/users/${userId}/assessments/assessment-nodes/${id}/edit`;
-	const viewRoute = `/users/${userId}/assessments/assessment-nodes/${id}/view`;
-	const assessmentNodeRoutes = `/users/${userId}/assessments/assessment-nodes`;
+	const templateId = $page.params.templateId;
+	const editRoute = `/users/${userId}/assessment-templates/${templateId}/assessment-nodes/${id}/edit`;
+	const viewRoute = `/users/${userId}/assessment-templates/${templateId}/assessment-nodes/${id}/view`;
+	const assessmentNodeRoutes = `/users/${userId}/assessment-templates/${templateId}/assessment-nodes`;
 
 	const breadCrumbs = [
 		{
@@ -81,18 +84,34 @@
 						<span>Description</span>
 					</label>
 				</div>
-				<span class="span w-1/2 md:2/3 lg:2/3" id="description"> {Description} </span>
+				<span class="span w-1/2 md:2/3 lg:2/3" id="description">{description}</span>
 			</div>
 
 			<div class="flex items-center mb-4 lg:mx-16 md:mx-12 mx-10">
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
 					<!-- svelte-ignore a11y-label-has-associated-control -->
 					<label class="label">
-						<span>Query Type</span>
+						<span>Query Response Type</span>
 					</label>
 				</div>
 				<span class="span w-1/2 md:2/3 lg:2/3" id="queryType"> {queryType} </span>
 			</div>
+
+			{#if options.length > 0}
+			<div class="flex items-start my-4 lg:mx-16 md:mx-12 mx-10">
+				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
+					<!-- svelte-ignore a11y-label-has-associated-control -->
+					<label class="label">
+						<span>Options</span>
+					</label>
+				</div>
+				<ol class="span w-1/2 md:w-2/3 lg:w-2/3 list-decimal" id="modules">
+					{#each options as option}
+						<li>{option.Text}</li>
+			  	{/each}	
+				</ol>
+			</div>
+			{/if}
 
 			<div class="flex items-center mt-7 lg:mx-16 md:mx-12 mr-10">
 				<div class="lg:w-5/6 w-2/3 " />
