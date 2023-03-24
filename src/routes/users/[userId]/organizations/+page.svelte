@@ -36,16 +36,16 @@
 	];
 
 	let type = undefined;
-	let clientEmail = undefined;
+	let name = undefined;
 	let sortBy = 'CreatedAt';
 	let sortOrder = 'ascending';
 	let itemsPerPage = 10;
 	let pageIndex = 0;
 
-	const searchParams = async (type: string, clientEmail: string) => {
+	const searchParams = async (type: string, name: string) => {
 		await searchOrganization({
 			type: type,
-			clientEmail: clientEmail
+			name: name
 		});
 	};
 
@@ -68,8 +68,8 @@
 		if (type) {
 			url += `&type=${type}`;
 		}
-		if (clientEmail) {
-			url += `&clientEmail=${clientEmail}`;
+		if (name) {
+			url += `&name=${name}`;
 		}
 
 		const res = await fetch(url, {
@@ -150,8 +150,8 @@
 		<div class="relative flex items-center  ">
 			<input
 				type="text"
-				placeholder="Search by email"
-				bind:value={clientEmail}
+				placeholder="Search by name"
+				bind:value={name}
 				class="input input-bordered input-primary w-full"
 			/>
 		</div>
@@ -159,7 +159,7 @@
 	<div class="sm:flex flex">
 		<button
 			class="btn variant-filled-primary lg:w-20 md:w-20 sm:w-20 w-20 rounded-lg bg-primary hover:bg-primary  "
-			on:click={() => searchParams(type, clientEmail)}
+			on:click={() => searchParams(type, name)}
 		>
 			<Fa icon={faSearch} class="text-neutral-content" size="lg" />
 		</button>
@@ -182,10 +182,10 @@
 		<thead class="sticky top-0">
 			<tr>
 				<th style="width: 5%;">Id</th>
-				<th style="width: 25%;">Type</th>
-				<th style="width: 20%;">Name</th>
-				<th style="width: 30%;">ContactPhone</th>
-				<th style="width: 20%">Email</th>
+				<th style="width: 18%;">Type</th>
+				<th style="width: 18%;">Name</th>
+				<th style="width: 18%;">Phone</th>
+				<th style="width: 35%">Email</th>
 			</tr>
 		</thead>
 	</table>
@@ -195,14 +195,14 @@
 				{#each $dataTableStore.filtered as row, rowIndex}
 					<tr>
 						<td style="width: 5%;">{row.index}</td>
-						<td style="width: 25%;">{row.Type}</td>
+						<td style="width: 19%;">{row.Type}</td>
 						<td style="width: 20%;">{row.Name}</td>
-						<td style="width: 30%;">{row.ContactPhone}</td>
+						<td style="width: 19%;">{row.ContactPhone}</td>
 						<td style="width: 20%;">{row.ContactEmail}</td>
-						<td style="width: 8%;">
+						<td style="">
 							<a class="text-primary" href={editRoute(row.id)}><Fa icon={faPencil} /></a></td
 						>
-						<td style="width: 8%;"
+						<td style=""
 							><Confirm
 								confirmTitle="Delete"
 								cancelTitle="Cancel"
@@ -217,7 +217,7 @@
 								>
 
 								<span slot="title"> Delete </span>
-								<span slot="description"> Are you sure you want to delete a client? </span>
+								<span slot="description"> Are you sure you want to delete a organization? </span>
 							</Confirm></td
 						>
 					</tr>

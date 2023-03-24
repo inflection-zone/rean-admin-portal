@@ -3,16 +3,22 @@
 	import { createDataTableStore, dataTableHandler } from '@skeletonlabs/skeleton';
 	import { Paginator } from '@skeletonlabs/skeleton';
 	import { page } from '$app/stores';
+	import date from 'date-and-time';
 	import BreadCrumbs from '$lib/components/breadcrumbs/breadcrums.svelte';
-	import { faPencil, faSearch, faTrash } from '@fortawesome/free-solid-svg-icons';
 	import Confirm from '$lib/components/modal/confirmModal.svelte';
+	import { faPencil, faSearch, faTrash } from '@fortawesome/free-solid-svg-icons';
 	import type { PageServerData } from './$types';
 
 	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 	export let data: PageServerData;
-	let courses = data.courses;
-	courses = courses.map((item) => ({ ...item }));
+	let course = data.courses;
+	course = course.map((item, index) => ({ ...item, index: index + 1 }));
+
+	const dataTableStore = createDataTableStore(course, {
+		search: '',
+		pagination: { offset: 0, limit: 10, size: 0, amounts: [10, 20, 30, 50] }
+	});
 
 	const userId = $page.params.userId;
 	const courseRoute = `/users/${userId}/courses`;
@@ -21,36 +27,22 @@
 
 	const breadCrumbs = [
 		{
-			name: 'course',
+			name: 'Course',
 			path: courseRoute
 		}
 	];
 
 	let name = undefined;
-	let description = undefined;
+	let durationInDays = undefined;
 	let sortBy = 'CreatedAt';
 	let sortOrder = 'ascending';
 	let itemsPerPage = 10;
 	let pageIndex = 0;
 
-	const dataTableStore = createDataTableStore(
-		// Pass your source data here:
-		courses,
-		{
-			// The current search term.
-			search: '',
-			// The current sort key.
-			sort: '',
-			// Paginator component settings.
-			pagination: { offset: 0, limit: 10, size: 0, amounts: [10, 20, 30, 50] }
-		}
-	);
-	// This automatically handles search, sort, etc when the model updates.
-
-	const searchParams = async (name: string, description: string) => {
+	const searchParams = async (name: string, durationInDays: string) => {
 		await searchCourse({
 			name: name,
-			description: description
+			durationInDays: durationInDays
 		});
 	};
 
@@ -73,10 +65,9 @@
 		if (name) {
 			url += `&name=${name}`;
 		}
-		if (description) {
-			url += `&description=${description}`;
+		if (durationInDays) {
+			url += `&durationInDays=${durationInDays}`;
 		}
-
 		const res = await fetch(url, {
 			method: 'GET',
 			headers: {
@@ -84,18 +75,17 @@
 			}
 		});
 		const response = await res.json();
-		courses = response.map((item) => ({ ...item }));
 
-		dataTableStore.updateSource(courses);
+		course = response.map((item, index) => ({ ...item, index: index + 1 }));
+		dataTableStore.updateSource(course);
 	}
-
 	dataTableStore.subscribe((model) => dataTableHandler(model));
 
 	const handleCourseDelete = async (e, id) => {
-		const courseId = id;
+		const symptomId = id;
 		await Delete({
 			sessionId: data.sessionId,
-			courseId
+			symptomId: symptomId
 		});
 		window.location.href = courseRoute;
 	};
@@ -121,13 +111,13 @@
 	</div>
 	<div class="basis-1/2 justify-center items-center">
 		<div class="relative flex items-center">
-			<a href={createRoute} class="absolute right-4 lg:mr-[-18px] ">
+			<a href={createRoute} class="absolute right-4 lg:mr-[-32px] ">
 				<button
-					class="btn variant-filled-primary w-28 rounded-lg hover:bg-primary bg-primary transition 
-				ease-in-out 
-				delay-150   
-				hover:scale-110  
-				duration-300 ... "
+					class="btn variant-filled-primary w-28 rounded-lg hover:bg-primary bg-primary transition
+          ease-in-out
+          delay-150  
+          hover:scale-110  
+          duration-300 ... "
 				>
 					Add new
 				</button>
@@ -135,40 +125,43 @@
 		</div>
 	</div>
 </div>
-
 <div
-	class="flex flex-row mx-14 lg:mt-10 md:mt-10 sm:mt-4 mt-4 lg:gap-7 md:gap-8 sm:gap-4 gap-4 lg:flex-row md:flex-row sm:flex-col min-[280px]:flex-col"
+	class="flex flex-row mx-10 lg:mt-10 md:mt-10 sm:mt-4 mt-4 lg:gap-7 md:gap-8 sm:gap-4 gap-4 lg:flex-row md:flex-row sm:flex-col min-[280px]:flex-col"
 >
 	<div class="basis-1/2 justify-center items-center ">
 		<div class="relative flex items-center">
-			<input type="text" placeholder="Search by name" bind:value={name} class="input w-full" />
+			<input
+				type="text"
+				placeholder="Search by name"
+				bind:value={name}
+				class="input input-bordered input-primary w-full"
+			/>
 		</div>
 	</div>
 	<div class="basis-1/2 justify-center items-center">
 		<div class="relative flex items-center  ">
 			<input
 				type="text"
-				placeholder="Search by description"
-				bind:value={description}
-				class="input w-full"
+				placeholder="Search by duration"
+				bind:value={durationInDays}
+				class="input input-bordered input-primary w-full"
 			/>
 		</div>
 	</div>
 	<div class="sm:flex flex">
 		<button
-			on:click={() => searchParams(name, description)}
 			class="btn variant-filled-primary lg:w-20 md:w-20 sm:w-20 w-20 rounded-lg bg-primary hover:bg-primary  "
+			on:click={() => searchParams(name, durationInDays)}
 		>
-			<!-- svelte-ignore missing-declaration -->
 			<Fa icon={faSearch} class="text-neutral-content" size="lg" />
 		</button>
 		<a href={createRoute} class=" right-14 ">
 			<button
-				class="btn variant-filled-primary hover:bg-primary lg:hidden md:hidden block sm:w-40 w-24 ml-4 rounded-lg bg-primary transition 
-				ease-in-out 
-				delay-150   
-				hover:scale-110  
-				duration-300 ...  "
+				class="btn variant-filled-primary hover:bg-primary lg:hidden md:hidden block sm:w-40 w-24 ml-4 rounded-lg bg-primary transition
+          ease-in-out
+          delay-150  
+          hover:scale-110  
+          duration-300 ...  "
 			>
 				ADD NEW
 			</button>
@@ -180,9 +173,11 @@
 	<table class="table rounded-b-none">
 		<thead class="sticky top-0">
 			<tr>
-				<th style="width: 7%;">Id</th>
-				<th style="width: 23%;">Name</th>
-				<th style="width: 70%;">Description</th>
+				<th style="width: 5%;">Id</th>
+				<th style="width: 18%;">Name</th>
+				<th style="width: 34%;">Description</th>
+				<th style="width: 18%;">Duration</th>
+				<th style="width: 35%;">Created Date</th>
 			</tr>
 		</thead>
 	</table>
@@ -191,9 +186,15 @@
 			<tbody class="">
 				{#each $dataTableStore.filtered as row, rowIndex}
 					<tr>
-						<td style="width: 7%;">{rowIndex + 1}</td>
-						<td style="width: 23%;">{row.Name}</td>
-						<td style="width: 30%;">{row.Description}</td>
+						<td style="width: 5%;">{row.index}</td>
+						<td style="width: 20%;">{row.Name}</td>
+						<td style="width: 35%;"
+							>{row.Description.length > 10
+								? row.Description.substring(0, 55) + '...'
+								: row.Description}</td
+						>
+						<td style="width: 20%;">{row.DurationInDays}</td>
+						<td style="width: 20%;">{date.format(new Date(row.CreatedAt), 'DD-MMM-YYYY')}</td>
 						<td style="">
 							<a href={editRoute(row.id)}
 								><Fa icon={faPencil} style="color-text-primary" size="md" /></a

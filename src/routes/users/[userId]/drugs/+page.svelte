@@ -3,6 +3,7 @@
 	import { createDataTableStore, dataTableHandler } from '@skeletonlabs/skeleton';
 	import { Paginator } from '@skeletonlabs/skeleton';
 	import { faPencil, faSearch, faTrash } from '@fortawesome/free-solid-svg-icons';
+	import date from 'date-and-time';
 	import BreadCrumbs from '$lib/components/breadcrumbs/breadcrums.svelte';
 	import Confirm from '$lib/components/modal/confirmModal.svelte';
 	import { page } from '$app/stores';
@@ -185,10 +186,11 @@
 	<table class="table rounded-b-none">
 		<thead class="sticky top-0">
 			<tr>
-				<th style="width: 7%;">Id</th>
-				<th style="width: 22%;">Drug Name</th>
-				<th style="width: 38%;">Generic Name</th>
-				<th style="width: 33%;">Ingredients</th>
+				<th style="width: 5%;">Id</th>
+				<th style="width: 19%;">Drug Name</th>
+				<th style="width: 33%;">Generic Name</th>
+				<th style="width: 18%;">Ingredients</th>
+				<th style="width: 35%;">Created Date</th>
 			</tr>
 		</thead>
 	</table>
@@ -197,10 +199,11 @@
 			<tbody class="">
 				{#each $dataTableStore.filtered as row, rowIndex}
 					<tr>
-						<td style="width: 7%;">{row.index}</td>
-						<td style="width: 95%;">{row.DrugName}</td>
-						<!-- <td style="width: 38%;">{row.GenericName}</td>
-							<td style="width: 33%;">{row.Ingredients}</td> -->
+						<td style="width: 5%;">{row.index}</td>
+						<td style="width: 21%;">{row.DrugName}</td>
+						<td style="width: 35%;">{row.GenericName}</td>
+						<td style="width: 19%;">{row.Ingredients}</td>
+						<td style="width: 20%;">{date.format(new Date(row.CreatedAt), 'DD-MMM-YYYY')}</td>
 						<td>
 							<a href={editRoute(row.id)}
 								><Fa icon={faPencil} style="color-text-primary" size="md" /></a

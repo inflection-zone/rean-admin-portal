@@ -19,7 +19,7 @@ export const GET = async (event: RequestEvent) => {
 
 	try {
 		const searchParams = {
-			drugName,
+			name: drugName,
 			genericName,
 			orderBy: sortBy,
 			order: sortOrder,

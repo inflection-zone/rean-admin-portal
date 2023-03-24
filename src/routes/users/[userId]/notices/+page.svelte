@@ -3,6 +3,7 @@
 	import { createDataTableStore, dataTableHandler } from '@skeletonlabs/skeleton';
 	import { Paginator } from '@skeletonlabs/skeleton';
 	import { page } from '$app/stores';
+	import date from 'date-and-time';
 	import BreadCrumbs from '$lib/components/breadcrumbs/breadcrums.svelte';
 	import Confirm from '$lib/components/modal/confirmModal.svelte';
 	import { faPencil, faSearch, faTrash } from '@fortawesome/free-solid-svg-icons';
@@ -12,14 +13,14 @@
 
 	export let data: PageServerData;
 	let notices = data.notice;
-	notices = notices.map((item, index) => ({ ...item, index: index + 1  }));
+	notices = notices.map((item, index) => ({ ...item, index: index + 1 }));
 
 	const userId = $page.params.userId;
 	const NoticeRoute = `/users/${userId}/notices`;
 	const editRoute = (id) => `/users/${userId}/notices/${id}/edit`;
 	const createRoute = `/users/${userId}/notices/create`;
 
-	const breadCrumbs = [ 
+	const breadCrumbs = [
 		{
 			name: 'Notice',
 			path: NoticeRoute
@@ -84,7 +85,7 @@
 			}
 		});
 		const response = await res.json();
-		notices = response.map((item, index) => ({ ...item, index: index + 1  }));
+		notices = response.map((item, index) => ({ ...item, index: index + 1 }));
 
 		dataTableStore.updateSource(notices);
 	}
@@ -180,10 +181,11 @@
 	<table class="table rounded-b-none">
 		<thead class="sticky top-0">
 			<tr>
-				<th style="width: 7%;">Id</th>
-				<th style="width: 22%;">Title</th>
-				<th style="width: 28%;">Link</th>
-				<th style="width: 45%;">Active Days</th>
+				<th style="width: 5%;">Id</th>
+				<th style="width: 19%;">Title</th>
+				<th style="width: 33%;">Link</th>
+				<th style="width: 18%;">Active Days</th>
+				<th style="width: 35%;">Created Date</th>
 			</tr>
 		</thead>
 	</table>
@@ -192,10 +194,11 @@
 			<tbody class="">
 				{#each $dataTableStore.filtered as row, rowIndex}
 					<tr>
-						<td style="width: 7%;">{row.index}</td>
-						<td style="width: 22%;">{row.Title}</td>
-						<td style="width: 30%;">{row.Link}</td>
-						<td style="width: 30%;">{row.DaysActive}</td>
+						<td style="width: 5%;">{row.index}</td>
+						<td style="width: 20%;">{row.Title}</td>
+						<td style="width: 35%;">{row.Link}</td>
+						<td style="width: 20%;">{row.DaysActive}</td>
+						<td style="width: 20%;">{date.format(new Date(row.PostDate), 'DD-MMM-YYYY')}</td>
 						<td>
 							<a href={editRoute(row.id)}
 								><Fa icon={faPencil} style="color-text-primary" size="md" /></a

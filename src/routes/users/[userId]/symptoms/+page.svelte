@@ -3,6 +3,7 @@
 	import { createDataTableStore, dataTableHandler } from '@skeletonlabs/skeleton';
 	import { Paginator } from '@skeletonlabs/skeleton';
 	import { page } from '$app/stores';
+	import date from 'date-and-time';
 	import Image from '$lib/components/image.svelte';
 	import BreadCrumbs from '$lib/components/breadcrumbs/breadcrums.svelte';
 	import Confirm from '$lib/components/modal/confirmModal.svelte';
@@ -14,7 +15,6 @@
 	export let data: PageServerData;
 	let symptomData = data.symptoms;
 	symptomData = symptomData.map((item, index) => ({ ...item, index: index + 1 }));
-	console.log('data--', symptomData);
 
 	const dataTableStore = createDataTableStore(symptomData, {
 		search: '',
@@ -34,18 +34,16 @@
 	];
 
 	let symptom = undefined;
-	let description = undefined;
+	let tags = undefined;
 	let sortBy = 'CreatedAt';
 	let sortOrder = 'ascending';
 	let itemsPerPage = 10;
 	let pageIndex = 0;
 
-	const searchParams = async (symptom: string, description: string) => {
-		console.log('symp--', symptom);
-		console.log('symp--', description);
+	const searchParams = async (symptom: string, tags: string) => {
 		await searchSymptom({
 			symptom: symptom,
-			description: description
+			tags: tags
 		});
 	};
 
@@ -68,8 +66,8 @@
 		if (symptom) {
 			url += `&symptom=${symptom}`;
 		}
-		if (description) {
-			url += `&description=${description}`;
+		if (tags) {
+			url += `&tags=${tags}`;
 		}
 		const res = await fetch(url, {
 			method: 'GET',
@@ -80,7 +78,6 @@
 		const response = await res.json();
 
 		symptomData = response.map((item, index) => ({ ...item, index: index + 1 }));
-		console.log('res--', symptomData);
 		dataTableStore.updateSource(symptomData);
 	}
 	dataTableStore.subscribe((model) => dataTableHandler(model));
@@ -116,7 +113,6 @@
 	<div class="basis-1/2 justify-center items-center">
 		<div class="relative flex items-center">
 			<a href={createRoute} class="absolute right-4 lg:mr-[-32px] ">
-				<!-- <Fa icon={faCirclePlus} style="color: #5832A1" size="4x" /> -->
 				<button
 					class="btn variant-filled-primary w-28 rounded-lg hover:bg-primary bg-primary transition
           ease-in-out
@@ -147,8 +143,8 @@
 		<div class="relative flex items-center  ">
 			<input
 				type="text"
-				placeholder="Search by description"
-				bind:value={description}
+				placeholder="Search by tags"
+				bind:value={tags}
 				class="input input-bordered input-primary w-full"
 			/>
 		</div>
@@ -156,7 +152,7 @@
 	<div class="sm:flex flex">
 		<button
 			class="btn variant-filled-primary lg:w-20 md:w-20 sm:w-20 w-20 rounded-lg bg-primary hover:bg-primary  "
-			on:click={() => searchParams(symptom, description)}
+			on:click={() => searchParams(symptom, tags)}
 		>
 			<Fa icon={faSearch} class="text-neutral-content" size="lg" />
 		</button>
@@ -178,10 +174,11 @@
 	<table class="table rounded-b-none">
 		<thead class="sticky top-0">
 			<tr>
-				<th style="width: 7%;">Id</th>
-				<th style="width: 23%;">Symptom</th>
-				<th style="width: 30%;">Description</th>
-				<th style="width: 50%;">Image</th>
+				<th style="width: 5%;">Id</th>
+				<th style="width: 19%;">Symptom</th>
+				<th style="width: 33%;">Tags</th>
+				<th style="width: 18%;">Image</th>
+				<th style="width: 35%;">Created Date</th>
 			</tr>
 		</thead>
 	</table>
@@ -190,13 +187,14 @@
 			<tbody class="">
 				{#each $dataTableStore.filtered as row, rowIndex}
 					<tr>
-						<td style="width: 7%;">{row.index}</td>
-						<td style="width: 23%;">{row.Symptom}</td>
-						<td style="width: 30%;">{row.Description}</td>
-						<td style="width: 30%;">
+						<td style="width: 5%;">{row.index}</td>
+						<td style="width: 20%;">{row.Symptom}</td>
+						<td style="width: 35%;">{row.Tags}</td>
+						<td style="width: 20%;">
 							<!-- svelte-ignore missing-declaration -->
 							<Image cls="flex h-10 w-10 rounded-lg" source={row.ImageUrl} w="24" h="24" />
 						</td>
+						<td style="width: 20%;">{date.format(new Date(row.CreatedAt), 'DD-MMM-YYYY')}</td>
 						<td style="">
 							<a href={editRoute(row.id)}
 								><Fa icon={faPencil} style="color-text-primary" size="md" /></a
