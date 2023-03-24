@@ -20,7 +20,7 @@ export const GET = async (event: RequestEvent) => {
 	try {
 		const searchParams = {
 			name,
-			PreferenceWeight: preferenceWeight,
+			preferenceWeight: preferenceWeight,
 			orderBy: sortBy,
 			order: sortOrder,
 			itemsPerPage,

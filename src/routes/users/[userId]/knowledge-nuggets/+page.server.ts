@@ -14,7 +14,6 @@ export const load: PageServerLoad = async (event: RequestEvent) => {
 			throw error(response.HttpCode, response.Message);
 		}
 		const knowledgeNuggets = response.Data.KnowledgeNuggetRecords.Items;
-		console.log('data===',knowledgeNuggets)
 		return {
 			knowledgeNuggets,
 			sessionId,

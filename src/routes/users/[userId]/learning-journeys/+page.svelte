@@ -3,6 +3,7 @@
 	import { createDataTableStore, dataTableHandler } from '@skeletonlabs/skeleton';
 	import { Paginator } from '@skeletonlabs/skeleton';
 	import { page } from '$app/stores';
+	import date from 'date-and-time';
 	import BreadCrumbs from '$lib/components/breadcrumbs/breadcrums.svelte';
 	import Confirm from '$lib/components/modal/confirmModal.svelte';
 	import { faSearch, faTrash, faPencil } from '@fortawesome/free-solid-svg-icons';
@@ -13,7 +14,7 @@
 	export let data: PageServerData;
 	let learningPaths = data.learningPaths;
 	learningPaths = learningPaths.map((item, index) => ({ ...item, index: index + 1 }));
-
+	console.log('course', learningPaths);
 	const userId = $page.params.userId;
 	const learningJourneyRoute = `/users/${userId}/learning-journeys`;
 	const editRoute = (id) => `/users/${userId}/learning-journeys/${id}/edit`;
@@ -183,10 +184,11 @@
 	<table class="table rounded-b-none">
 		<thead class="sticky top-0">
 			<tr>
-				<th style="width: 7%;">Id</th>
-				<th style="width: 23%;">Name</th>
-				<th style="width: 30%;">Description</th>
-				<th style="width: 50%;">Preference Weight</th>
+				<th style="width: 5%;">Id</th>
+				<th style="width: 18%;">Name</th>
+				<th style="width: 34%;">Description</th>
+				<th style="width: 18%;">Preference Weight</th>
+				<th style="width: 35%;">Created Date</th>
 			</tr>
 		</thead>
 	</table>
@@ -195,10 +197,15 @@
 			<tbody class="">
 				{#each $dataTableStore.filtered as row, rowIndex}
 					<tr>
-						<td style="width: 7%;">{row.index}</td>
-						<td style="width: 23%;">{row.Name}</td>
-						<td style="width: 30%;">{row.Description}</td>
-						<td style="width: 30%;">{row.PreferenceWeight}</td>
+						<td style="width: 5%;">{row.index}</td>
+						<td style="width: 20%;">{row.Name}</td>
+						<td style="width: 35%;"
+							>{row.Description.length > 10
+								? row.Description.substring(0, 55) + '...'
+								: row.Description}</td
+						>
+						<td style="width: 20%;">{row.PreferenceWeight}</td>
+						<td style="width: 20%;">{date.format(new Date(row.CreatedAt), 'DD-MMM-YYYY')}</td>
 						<td style="">
 							<a href={editRoute(row.id)}
 								><Fa icon={faPencil} style="color-text-primary" size="md" /></a
