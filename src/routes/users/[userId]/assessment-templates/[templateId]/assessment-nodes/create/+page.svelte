@@ -3,8 +3,8 @@
 	import { faMultiply } from '@fortawesome/free-solid-svg-icons';
 	import BreadCrumbs from '$lib/components/breadcrumbs/breadcrums.svelte';
 	import { page } from '$app/stores';
-	import Singleoption from './single.choice.svelte';
-	import Multipleoption from './multiple.choice.svelte';
+	import SingleChoice from './single.choice.svelte';
+	import MultipleChoice from './multiple.choice.svelte';
 
 	let show = '';
 	const onChange = (val) => {
@@ -12,8 +12,9 @@
 	};
 
 	const userId = $page.params.userId;
-	const createRoute = `/users/${userId}/assessments/assessment-nodes/create`;
-	const assessmentNodeRoutes = `/users/${userId}/assessments/assessment-nodes`;
+	const templateId = $page.params.templateId;
+	const createRoute = `/users/${userId}/assessment-templates/${templateId}/assessment-nodes/create`;
+	const assessmentNodeRoutes = `/users/${userId}/assessment-templates/${templateId}assessments/assessment-nodes`;
 
 	const breadCrumbs = [
 		{
@@ -59,8 +60,8 @@
 					placeholder="Select node type here..."
 					><option selected>Node Type</option>
 					<option>Question</option>
-					<option>3</option>
-					<option>4</option>
+					<option>Message</option>
+					<option>Node List</option>
 				</select>
 			</div>
 		</div>
@@ -97,7 +98,7 @@
 			<div class="w-1/3">
 				<!-- svelte-ignore a11y-label-has-associated-control -->
 				<label class="label">
-					<span>Query Type</span>
+					<span>Query Response Type</span>
 				</label>
 			</div>
 			<div class="w-2/3">
@@ -107,20 +108,20 @@
 					placeholder="Select query type here..."
 					class="select select-info w-full "
 					on:change={(val) => onChange(val)}
-					><option selected value="textChoice">Text</option>
-					<option value="singleChoice">Single choice question</option>
-					<option value="multiChoice">Multiple choice question</option>
-					<option value="yesnoChoice">Yes no question</option>
-					<option value="okChoice">Ok</option>
+					><option selected >Text</option>
+					<option value="Single Choice Selection">Single choice question</option>
+					<option value="Multi Choice Selection">Multiple choice question</option>
+					<option >Yes no question</option>
+					<option>Ok</option>
 					<option>None</option>
 				</select>
 			</div>
 		</div>
 
-		{#if show === 'singleChoice'}
-			<Singleoption />
+		{#if show === 'Single Choice Selection'}
+			<SingleChoice />
 		{:else if show === 'multiChoice'}
-			<Multipleoption />
+			<MultipleChoice />
 		{/if}
 
 		<div class="flex items-center mt-7 lg:mx-16 md:mx-12 mr-10">

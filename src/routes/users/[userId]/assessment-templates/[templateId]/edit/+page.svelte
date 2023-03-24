@@ -7,21 +7,20 @@
 
 	export let data: PageServerData;
 	let initiaData = {};
-	let id = data.assessment.id;
-	let assetCode = data.assessment.assetCode;
-	let title = data.assessment.title;
-	let description = data.assessment.description;
-	let displayCode = data.assessment.displayCode;
-	let type = data.assessment.type;
-	let provider = data.assessment.provider;
-	let providerAssessmentCode = data.assessment.providerAssessmentCode;
-	let serveListNodeChildrenAtOnce = data.assessment.serveListNodeChildrenAtOnce;
+	let id = data.assessmentTemplate.id;
+	let title = data.assessmentTemplate.Title;
+	let description = data.assessmentTemplate.Description;
+	let displayCode = data.assessmentTemplate.DisplayCode;
+	let assessmentType = data.assessmentTemplate.Type;
+	let provider = data.assessmentTemplate.Provider;
+	let providerAssessmentCode = data.assessmentTemplate.ProviderAssessmentCode;
+	let serveListNodeChildrenAtOnce = data.assessmentTemplate.ServeListNodeChildrenAtOnce;
 
 	//Original data
 	let _title = title;
 	let _description = description;
 	let _displayCode = displayCode;
-	let _type = type;
+	let _assessmentType = assessmentType;
 	let _provider = provider;
 	let _providerAssessmentCode = providerAssessmentCode;
 	let _serveListNodeChildrenAtOnce = serveListNodeChildrenAtOnce;
@@ -30,16 +29,18 @@
 		title = _title;
 		description = _description;
 		displayCode = _displayCode;
-		type = _type;
+		assessmentType = _assessmentType;
 		provider = _provider;
 		providerAssessmentCode = _providerAssessmentCode;
 		serveListNodeChildrenAtOnce = _serveListNodeChildrenAtOnce;
 	}
 
 	const userId = $page.params.userId;
-	const editRoute = `/users/${userId}/assessments/${id}/edit`;
-	const viewRoute = `/users/${userId}/assessments/${id}/view`;
-	const assessmentsRoutes = `/users/${userId}/assessments`;
+	const templateId = $page.params.templateId;
+	const editRoute = `/users/${userId}/assessment-templates/${templateId}/edit`;
+	const viewRoute = `/users/${userId}/assessment-templates/${templateId}/view`;
+	const assessmentsRoutes = `/users/${userId}/assessment-templates`;
+
 
 	const breadCrumbs = [
 		{
@@ -77,16 +78,6 @@
 
 			<div class="hidden">{id}</div>
 
-			<div class="flex items-center mb-4 mt-10 lg:mx-16 md:mx-12 mx-10">
-				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
-					<!-- svelte-ignore a11y-label-has-associated-control -->
-					<label class="label">
-						<span>Asset Code</span>
-					</label>
-				</div>
-				<span class="span w-1/2 md:2/3 lg:2/3" id="assetCode">{assetCode}</span>
-			</div>
-
 			<div class="flex items-center mb-4 mt-10 mx-16">
 				<div class="w-1/3">
 					<!-- svelte-ignore a11y-label-has-associated-control -->
@@ -97,7 +88,7 @@
 				<div class="w-2/3">
 					<input
 						type="text"
-						name="name"
+						name="title"
 						bind:value={title}
 						placeholder="Enter title here..."
 						class="input w-full "
@@ -105,7 +96,7 @@
 				</div>
 			</div>
 
-			<div class="flex items-center my-4 mx-16">
+			<div class="flex items-center mt-4 mx-16">
 				<div class="w-1/3">
 					<!-- svelte-ignore a11y-label-has-associated-control -->
 					<label class="label">
@@ -122,9 +113,8 @@
 				</div>
 			</div>
 
-			<div class="flex items-center my-4 mx-16">
+			<!-- <div class="flex items-center my-4 mx-16">
 				<div class="w-1/3">
-					<!-- svelte-ignore a11y-label-has-associated-control -->
 					<label class="label">
 						<span>Display code</span>
 					</label>
@@ -138,8 +128,8 @@
 						placeholder="Enter display code here"
 					/>
 				</div>
-			</div>
-			<div class="flex items-center my-4 mx-16">
+			</div> -->
+			<div class="flex items-center my-2 mx-16">
 				<div class="w-1/3">
 					<!-- svelte-ignore a11y-label-has-associated-control -->
 					<label class="label">
@@ -147,11 +137,13 @@
 					</label>
 				</div>
 				<div class="w-2/3">
-					<select class="select w-full" bind:value={type} placeholder="Select type here...">
-						<option selected>Careplan</option>
-						<option>Auto</option>
-						<option>Dark mode</option>
-						<option>Light mode</option>
+					<select class="select w-full" name='type' bind:value={assessmentType} placeholder="Select type here...">
+						<option selected>{assessmentType}</option>
+						<option>Daily Update</option>
+						<option>Symptom</option>
+						<option>Survey</option>
+						<option>Protocol</option>
+						<option>Custom</option>
 					</select>
 				</div>
 			</div>
@@ -190,9 +182,8 @@
 					/>
 				</div>
 			</div>
-			<div class="flex items-center my-4 mx-16">
+			<!-- <div class="flex items-center my-4 mx-16">
 				<div class="w-1/3">
-					<!-- svelte-ignore a11y-label-has-associated-control -->
 					<label class="label">
 						<span>Servelist Node Children At Once</span>
 					</label>
@@ -206,7 +197,7 @@
 						placeholder="Enter servelist node children at once here..."
 					/>
 				</div>
-			</div>
+			</div> -->
 
 			<div class="flex items-center my-8 lg:mx-16 md:mx-12 mx-4 ">
 				<div class="lg:w-1/2 md:w-1/2 sm:w-1/2  w-1/3" />

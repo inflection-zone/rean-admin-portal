@@ -10,13 +10,12 @@
 
 	export let data: PageServerData;
 	let id = data.assessment.id;
-	let assetCode = data.assessment.assetCode;
-	let title = data.assessment.title;
-	let description = data.assessment.description;
-	let displayCode = data.assessment.displayCode;
-	let type = data.assessment.type;
-	let providerAssessmentCode = data.assessment.providerAssessmentCode;
-	let serveListNodeChildrenAtOnce = data.assessment.serveListNodeChildrenAtOnce;
+	let title = data.assessment.Title;
+	let description = data.assessment.Description;
+	let displayCode = data.assessment.DisplayCode;
+	let type = data.assessment.Type;
+	let providerAssessmentCode = data.assessment.ProviderAssessmentCode;
+	let serveListNodeChildrenAtOnce = data.assessment.ServeListNodeChildrenAtOnce;
 
 	onMount(() => {
 		show(data);
@@ -24,13 +23,15 @@
 	});
 
 	const userId = $page.params.userId;
-	const editRoute = `/users/${userId}/assessments/${id}/edit`;
-	const viewRoute = `/users/${userId}/assessments/${id}/view`;
-	const assessmentsRoutes = `/users/${userId}/assessments`;
+	const templateId = $page.params.templateId;
+	const editRoute = `/users/${userId}/assessment-templates/${templateId}/edit`;
+	const viewRoute = `/users/${userId}/assessment-templates/${templateId}/view`;
+	const assessmentsRoutes = `/users/${userId}/assessment-templates`;
+	const nodeRoute =`/users/${userId}/assessment-templates/${templateId}/assessment-nodes/create`;
 
 	const breadCrumbs = [
 		{
-			name: 'Assessments',
+			name: 'Assessment-Template',
 			path: assessmentsRoutes
 		},
 		{
@@ -58,16 +59,6 @@
 				</div>
 			</div>
 			<div class="hidden">{id}</div>
-
-			<div class="flex items-center mb-4 mt-10 lg:mx-16 md:mx-12 mx-10">
-				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
-					<!-- svelte-ignore a11y-label-has-associated-control -->
-					<label class="label">
-						<span>Asset Code</span>
-					</label>
-				</div>
-				<span class="span w-1/2 md:2/3 lg:2/3" id="assetCode">{assetCode}</span>
-			</div>
 
 			<div class="flex items-center mb-4 mt-10 lg:mx-16 md:mx-12 mx-10">
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
@@ -132,20 +123,28 @@
 				</span>
 			</div>
 
-			<div class="flex items-center mt-7 lg:mx-16 md:mx-12 mr-10">
-				<div class="lg:w-5/6 w-2/3 " />
-				<div class="lg:w-1/6 w-1/3 ">
-					<a href={editRoute}>
-						<button
-							type="submit"
-							class="btn variant-ringed-primary lg:w-full w-24 mb-10 lg:mr-4 mr-1"
-						>
-							Edit
-							<Fa icon={faPen} size="lg" class="lg:ml-4 sm:ml-2 ml-1" />
-						</button>
-					</a>
-				</div>
-			</div>
+			<div class="flex  items-center mt-10 lg:mx-10 md:mx-16">
+        <div class="lg:w-8/12 min-[280px]:w-1/3 sm:w-1/2 md:w-1/2" />
+        <div class="flex lg:w-1/3 gap-3 min-[280px]:w-2/4 ">
+          <a href={nodeRoute}>
+          <button
+              type="submit"
+              class="btn variant-filled-primary lg:w-full md:w-28 sm:w-28 min-[280px]:w-28 w-20 mb-8 lg:mr-4 mr-1   "
+            >
+             Add Node
+            </button>
+          </a>
+          <a href={editRoute}>
+            <button
+              type="submit"
+              class="btn variant-filled-primary lg:w-full md:w-28 sm:w-24 min-[280px]:w-24 w-20 mb-8 lg:mr-4 mr-1 "
+            >
+              Edit
+              <Fa icon={faPen} size="lg" class="lg:ml-4 sm:ml-2 ml-1" />
+            </button>
+          </a>
+        </div>
+      </div>
 		</form>
 	</div>
 </main>
