@@ -58,6 +58,12 @@ const learningJourneys: TabDefinition = {
     default: false,
 };
 
+const priorities: TabDefinition = {
+    name: 'Priorities',
+    path: `/users/userId/priorities`,
+    default: false,
+};
+
 const assessments: TabDefinition = {
     name: 'Assessment - Templates',
     path: `/users/userId/assessment-templates`,
@@ -95,6 +101,7 @@ export const sidebarMenu = (userId) => {
         courses,
         learningJourneys,
         knowledgeNuggets,
+        priorities,
         symptoms
     ];
     return replaceUserId(menus, userId);

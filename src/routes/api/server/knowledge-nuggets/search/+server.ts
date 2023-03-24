@@ -9,7 +9,7 @@ export const GET = async (event: RequestEvent) => {
 
 	const searchParams: URLSearchParams = event.url.searchParams;
 	const topicName = searchParams.get('topicName') ?? undefined;
-	const briefInformation = searchParams.get('briefInformation') ?? undefined;
+	const tags = searchParams.get('tags') ?? undefined;
 	const sortBy = searchParams.get('sortBy') ?? 'CreatedAt';
 	const sortOrder = searchParams.get('sortOrder') ?? 'ascending';
 	const itemsPerPage_ = searchParams.get('pageIndex');
@@ -20,7 +20,7 @@ export const GET = async (event: RequestEvent) => {
 	try {
 		const searchParams = {
 			topicName,
-			briefInformation,
+			tags,
 			orderBy: sortBy,
 			order: sortOrder,
 			itemsPerPage,

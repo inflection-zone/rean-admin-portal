@@ -3,6 +3,7 @@
 	import { faMultiply, faPen } from '@fortawesome/free-solid-svg-icons';
 	import { onMount } from 'svelte';
 	import { show } from '$lib/utils/message.utils';
+	import date from 'date-and-time';
 	import { LocalStorageUtils } from '$lib/utils/local.storage.utils';
 	import BreadCrumbs from '$lib/components/breadcrumbs/breadcrums.svelte';
 	import { page } from '$app/stores';
@@ -75,6 +76,7 @@
 				</div>
 				<span class="span w-1/2 md:2/3 lg:2/3" id="briefInformation">{briefInformation}</span>
 			</div>
+
 			<div class="flex items-center my-4 lg:mx-16 md:mx-12 mx-10">
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
 					<!-- svelte-ignore a11y-label-has-associated-control -->
@@ -84,6 +86,7 @@
 				</div>
 				<span class="span w-1/2 md:2/3 lg:2/3" id="detailedInformation">{detailedInformation}</span>
 			</div>
+
 			<div class="flex items-center my-4 lg:mx-16 md:mx-12 mx-10">
 				<div class="span w-1/2 md:w-1/3 lg:w-1/3 ">
 					<!-- svelte-ignore a11y-label-has-associated-control -->
@@ -93,6 +96,7 @@
 				</div>
 				<span class="span w-1/2 md:2/3 lg:2/3" id="additionalResource">{additionalResource}</span>
 			</div>
+
 			<div class="flex items-center my-4 lg:mx-16 md:mx-12 mx-10">
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
 					<!-- svelte-ignore a11y-label-has-associated-control -->

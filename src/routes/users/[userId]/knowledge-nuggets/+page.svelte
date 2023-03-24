@@ -2,6 +2,7 @@
 	import Fa from 'svelte-fa';
 	import { createDataTableStore, dataTableHandler } from '@skeletonlabs/skeleton';
 	import { Paginator } from '@skeletonlabs/skeleton';
+	import date from 'date-and-time';
 	import type { PageServerData } from './$types';
 	import { faPencil, faSearch, faTrash } from '@fortawesome/free-solid-svg-icons';
 	import BreadCrumbs from '$lib/components/breadcrumbs/breadcrums.svelte';
@@ -27,7 +28,7 @@
 	];
 
 	let topicName = undefined;
-	let briefInformation = undefined;
+	let tags = undefined;
 	let sortBy = 'CreatedAt';
 	let sortOrder = 'ascending';
 	let itemsPerPage = 10;
@@ -47,10 +48,10 @@
 	);
 	// This automatically handles search, sort, etc when the model updates.
 
-	const searchParams = async (topicName: string, briefInformation: string) => {
+	const searchParams = async (topicName: string, tags: string) => {
 		await searchKnowledgeNugget({
 			topicName: topicName,
-			briefInformation: briefInformation
+			tags: tags
 		});
 	};
 
@@ -73,8 +74,8 @@
 		if (topicName) {
 			url += `&topicName=${topicName}`;
 		}
-		if (briefInformation) {
-			url += `&briefInformation=${briefInformation}`;
+		if (tags) {
+			url += `&tags=${tags}`;
 		}
 
 		const res = await fetch(url, {
@@ -151,17 +152,12 @@
 	</div>
 	<div class="basis-1/2 justify-center items-center">
 		<div class="relative flex items-center  ">
-			<input
-				type="text"
-				placeholder="Search by brief information"
-				bind:value={briefInformation}
-				class="input w-full"
-			/>
+			<input type="text" placeholder="Search by tags" bind:value={tags} class="input w-full" />
 		</div>
 	</div>
 	<div class="sm:flex flex">
 		<button
-			on:click={() => searchParams(topicName, briefInformation)}
+			on:click={() => searchParams(topicName, tags)}
 			class="btn variant-filled-primary lg:w-20 md:w-20 sm:w-20 w-20 rounded-lg bg-primary hover:bg-primary  "
 		>
 			<!-- svelte-ignore missing-declaration -->
@@ -185,10 +181,11 @@
 	<table class="table rounded-b-none">
 		<thead class="sticky top-0">
 			<tr>
-				<th style="width: 5%;">Id</th>
-				<th style="width: 15%;">Topic Name</th>
-				<th style="width: 30%;">Brief Information</th>
-				<th style="width: 30%;"> Detailed Information</th>
+				<th style="width: 4%;">Id</th>
+				<th style="width: 19%;">Topic Name</th>
+				<th style="width: 35%;">Tags</th>
+				<!-- <th style="width: 24%;">Additional Resource</th> -->
+				<th style="width: 20%;">Created Date</th>
 			</tr>
 		</thead>
 	</table>
@@ -197,11 +194,17 @@
 			<tbody class="">
 				{#each $dataTableStore.filtered as row, rowIndex}
 					<tr>
-						<td style="width: 7%;">{row.index}</td>
-						<td style="width: 22%;">{row.TopicName}</td>
-						<td style="width: 38%;">{row.BriefInformation}</td>
-						<td style="width: 33%;">{row.DetailedInformation}</td>
-						<td>
+						<td style="width: 5%;">{row.index}</td>
+						<td style="width: 25%;">{row.TopicName}</td>
+						<!-- <td style="width: 27%;">{row.Tags}</td> -->
+						<td style="width: 27%;"
+							>{row.Tags.length > 50 
+								? row.Tags.substring(0, 20) + '...'
+								: row.Tags}</td
+						>
+						<!-- <td style="width: 25%;">{row.AdditionalResource}</td> -->
+						<td style="width: 20%;">{date.format(new Date(row.CreatedAt), 'DD-MMM-YYYY')}</td>
+						<td style="width: 4%;">
 							<a href={editRoute(row.id)}
 								><Fa icon={faPencil} style="color-text-primary" size="md" /></a
 							>
