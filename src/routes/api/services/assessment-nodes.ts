@@ -11,10 +11,10 @@ export const createAssessmentNode = async (
 	title: string,
 	description: string,
 	queryType: string,
-	options: string[],
+	options: string[]
 ) => {
 	const body = {
-		ParentNodeId:parentNodeId,
+		ParentNodeId: parentNodeId,
 		NodeType: nodeType,
 		Title: title,
 		Description: description,
@@ -22,28 +22,36 @@ export const createAssessmentNode = async (
 		Options: options
 	};
 	if (options && options.length > 0) {
-		let count = 1
+		let count = 1;
 		const options = [];
 		for (const o of body.Options) {
-				const option = {
-						Text        : o,
-						Sequence : count,
-				};
-				options.push(option);
-				 count = count+1;
+			const option = {
+				Text: o,
+				Sequence: count
+			};
+			options.push(option);
+			count = count + 1;
 		}
 		body.Options = options;
-}
+	}
 	const url = BACKEND_API_URL + `/clinical/assessment-templates/${templateId}/nodes`;
 	return await post_(sessionId, url, body, true);
 };
 
-export const getAssessmentNodeById = async (sessionId: string, templateId:string, nodeId: string) => {
+export const getAssessmentNodeById = async (
+	sessionId: string,
+	templateId: string,
+	nodeId: string
+) => {
 	const url = BACKEND_API_URL + `/clinical/assessment-templates/${templateId}/nodes/${nodeId}`;
 	return await get_(sessionId, url, true);
 };
 
-export const searchAssessmentNodes = async (sessionId: string,templateId:string,searchParams?: any) => {
+export const searchAssessmentNodes = async (
+	sessionId: string,
+	templateId: string,
+	searchParams?: any
+) => {
 	let searchString = '';
 	if (searchParams) {
 		const keys = Object.keys(searchParams);
@@ -59,19 +67,20 @@ export const searchAssessmentNodes = async (sessionId: string,templateId:string,
 			searchString += params.join('&');
 		}
 	}
-	const url = BACKEND_API_URL + `/clinical/assessment-templates/${templateId}/nodes/search${searchString}`;
+	const url =
+		BACKEND_API_URL + `/clinical/assessment-templates/${templateId}/nodes/search${searchString}`;
 	return await get_(sessionId, url, true);
 };
 
 export const updateAssessmentNode = async (
 	sessionId: string,
-	templateId:string,
+	templateId: string,
 	nodeId: string,
 	nodeType: string,
 	title: string,
 	description: string,
 	queryType: string,
-	options:string[],
+	options: string[]
 ) => {
 	const body = {
 		NodeType: nodeType,
@@ -84,9 +93,11 @@ export const updateAssessmentNode = async (
 	return await put_(sessionId, url, body, true);
 };
 
-export const deleteAssessmentNode = async (sessionId: string, templateId: string, nodeId: string) => {
+export const deleteAssessmentNode = async (
+	sessionId: string,
+	templateId: string,
+	nodeId: string
+) => {
 	const url = BACKEND_API_URL + `/clinical/assessment-templates/${templateId}/nodes/${nodeId}`;
 	return await delete_(sessionId, url, true);
 };
-
-

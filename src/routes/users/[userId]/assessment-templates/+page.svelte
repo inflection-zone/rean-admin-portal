@@ -11,8 +11,8 @@
 	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 	export let data: PageServerData;
-	let assessmentTemplates= data.assessmentTemplates;
-	assessmentTemplates = assessmentTemplates.map((item, index) => ({ ...item, index: index + 1  }));
+	let assessmentTemplates = data.assessmentTemplates;
+	assessmentTemplates = assessmentTemplates.map((item, index) => ({ ...item, index: index + 1 }));
 
 	const userId = $page.params.userId;
 	const assessmentRoute = `/users/${userId}/assessment-templates`;
@@ -20,7 +20,7 @@
 	const viewRoute = (id) => `/users/${userId}/assessment-templates/${id}/view`;
 	const createRoute = `/users/${userId}/assessment-templates/create`;
 
-	const breadCrumbs = [ 
+	const breadCrumbs = [
 		{
 			name: 'Assessment-Template',
 			path: assessmentRoute
@@ -85,7 +85,7 @@
 			}
 		});
 		const response = await res.json();
-		assessmentTemplates = response.map((item, index) => ({ ...item, index: index + 1  }));
+		assessmentTemplates = response.map((item, index) => ({ ...item, index: index + 1 }));
 
 		dataTableStore.updateSource(assessmentTemplates);
 	}
@@ -194,9 +194,7 @@
 				{#each $dataTableStore.filtered as row, rowIndex}
 					<tr>
 						<td style="width: 7%;">{row.index}</td>
-						<td style="width: 22%;"><a href={viewRoute(row.id)}
-							>
-							{row.Title}</a></td>
+						<td style="width: 22%;"><a href={viewRoute(row.id)}> {row.Title}</a></td>
 						<td style="width: 30%;">{row.Type}</td>
 						<td style="width: 30%;">{row.Provider}</td>
 						<td>
@@ -214,7 +212,8 @@
 								}}
 							>
 								<button
-									on:click|preventDefault={() => confirmThis(handleAssessmentTemplateDelete, row.id)}
+									on:click|preventDefault={() =>
+										confirmThis(handleAssessmentTemplateDelete, row.id)}
 									class=""><Fa icon={faTrash} /></button
 								>
 								<span slot="title"> Delete </span>

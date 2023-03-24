@@ -11,7 +11,7 @@ export const createAssessmentTemplate = async (
 	displayCode: string,
 	type: string,
 	provider: string,
-	providerAssessmentCode: string,
+	providerAssessmentCode: string
 	// serveListNodeChildrenAtOnce: string
 ) => {
 	const body = {
@@ -21,14 +21,17 @@ export const createAssessmentTemplate = async (
 		DisplayCode: displayCode,
 		Type: type,
 		Provider: provider,
-		ProviderAssessmentCode: providerAssessmentCode,
+		ProviderAssessmentCode: providerAssessmentCode
 		// ServeListNodeChildrenAtOnce: serveListNodeChildrenAtOnce
 	};
 	const url = BACKEND_API_URL + '/clinical/assessment-templates';
 	return await post_(sessionId, url, body, true);
 };
 
-export const getAssessmentTemplateById = async (sessionId: string, assessmentTemplateId: string) => {
+export const getAssessmentTemplateById = async (
+	sessionId: string,
+	assessmentTemplateId: string
+) => {
 	const url = BACKEND_API_URL + `/clinical/assessment-templates/${assessmentTemplateId}`;
 	return await get_(sessionId, url, true);
 };
@@ -61,7 +64,7 @@ export const updateAssessmentTemplate = async (
 	// displayCode: string,
 	type: string,
 	provider: string,
-	providerAssessmentCode: string,
+	providerAssessmentCode: string
 	// serveListNodeChildrenAtOnce: string
 ) => {
 	const body = {
@@ -70,10 +73,10 @@ export const updateAssessmentTemplate = async (
 		// DisplayCode: displayCode,
 		Type: type,
 		Provider: provider,
-		ProviderAssessmentCode: providerAssessmentCode,
+		ProviderAssessmentCode: providerAssessmentCode
 		// ServeListNodeChildrenAtOnce: serveListNodeChildrenAtOnce
 	};
-	console.log("Bodety=========",body)
+	console.log('Bodety=========', body);
 	const url = BACKEND_API_URL + `/clinical/assessment-templates/${assessmentTemplateId}`;
 	return await put_(sessionId, url, body, true);
 };

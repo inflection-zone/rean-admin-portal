@@ -25,7 +25,7 @@ export const actions = {
 		// 	: null;
 		const sessionId = event.cookies.get('sessionId');
 
-		console.log(data)
+		console.log(data);
 		const response = await createAssessmentTemplate(
 			sessionId,
 			assetCode.valueOf() as string,
@@ -34,7 +34,7 @@ export const actions = {
 			// displayCode.valueOf() as string,
 			type.valueOf() as string,
 			provider.valueOf() as string,
-			providerAssessmentCode.valueOf() as string,
+			providerAssessmentCode.valueOf() as string
 			// serveListNodeChildrenAtOnce.valueOf() as string
 		);
 		const id = response.Data.AssessmentTemplate.id;
