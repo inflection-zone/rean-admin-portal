@@ -10,10 +10,10 @@ export const load: PageServerLoad = async (event: RequestEvent) => {
 
 	try {
 		const response = await searchPriorities(sessionId);
-		if (response.Status === 'failure' || response.HttpCode !== 200) {
-			throw error(response.HttpCode, response.Message);
-		}
-		const priority = response.Data;
+		// if (response.Status === 'failure' || response.HttpCode !== 200) {
+		// 	throw error(response.HttpCode, response.Message);
+		// }
+		const priority = response.Data.PriorityTypes;
 		return {
 			priority,
 			sessionId,
