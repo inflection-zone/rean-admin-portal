@@ -186,7 +186,7 @@
 			<tr>
 				<th style="width: 5%;">Id</th>
 				<th style="width: 18%;">Name</th>
-				<th style="width: 34%;">Description</th>
+				<th style="width: 33%;">Description</th>
 				<th style="width: 18%;">Preference Weight</th>
 				<th style="width: 35%;">Created Date</th>
 			</tr>
