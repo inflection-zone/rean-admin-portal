@@ -13,6 +13,7 @@ export const actions = {
 
 		const title = data.has('title') ? data.get('title') : null;
 		const description = data.has('description') ? data.get('description') : null;
+		const category = data.has('category') ? data.get('category') : null;
 		const link = data.has('link') ? data.get('link') : null;
 		const language = data.has('language') ? data.get('language') : null;
 		const copyright = data.has('copyright') ? data.get('copyright') : null;
@@ -25,6 +26,7 @@ export const actions = {
 			sessionId,
 			title.valueOf() as string,
 			description.valueOf() as string,
+			category.valueOf() as string,
 			link.valueOf() as string,
 			language.valueOf() as string,
 			copyright.valueOf() as string,
