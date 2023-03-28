@@ -1,6 +1,6 @@
 import type { RequestEvent } from '@sveltejs/kit';
 import { page } from '$app/stores';
-import { searchNewsfeeds } from '../../../services/newsfeeds';
+import { searchGoals } from '../../../services/goals';
 
 //////////////////////////////////////////////////////////////
 
@@ -8,8 +8,8 @@ export const GET = async (event: RequestEvent) => {
 	const sessionId = event.locals.sessionUser.sessionId;
 
 	const searchParams: URLSearchParams = event.url.searchParams;
-	const title = searchParams.get('title') ?? undefined;
-	const category = searchParams.get('category') ?? undefined;
+	const type = searchParams.get('type') ?? undefined;
+	const tags = searchParams.get('tags') ?? undefined;
 	const sortBy = searchParams.get('sortBy') ?? 'CreatedAt';
 	const sortOrder = searchParams.get('sortOrder') ?? 'ascending';
 	const itemsPerPage_ = searchParams.get('pageIndex');
@@ -19,20 +19,21 @@ export const GET = async (event: RequestEvent) => {
 
 	try {
 		const searchParams = {
-			title,
-			category,
+			type,
+			tags,
 			orderBy: sortBy,
 			order: sortOrder,
 			itemsPerPage,
 			pageIndex
 		};
 		console.log('Search parms: ', searchParams);
-		const response = await searchNewsfeeds(sessionId, searchParams);
-		const items = response.Data.RssfeedRecords.Items;
+		const response = await searchGoals(sessionId, searchParams);
+		const items = response.Data.GoalType.Items;
+		console.log('data==/////', response);
 
 		return new Response(JSON.stringify(items));
 	} catch (err) {
-		console.error(`Error retriving newsfeed: ${err.message}`);
+		console.error(`Error retriving goal: ${err.message}`);
 		return new Response(err.message);
 	}
 };

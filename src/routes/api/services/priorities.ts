@@ -37,7 +37,7 @@ export const searchPriorities = async (sessionId: string, searchParams?: any) =>
 			searchString += params.join('&');
 		}
 	}
-	const url = BACKEND_API_URL + `/types/priorities/search${searchString}`;
+	const url = BACKEND_API_URL + `/types/priorities/`;
 	return await get_(sessionId, url, true);
 };
 

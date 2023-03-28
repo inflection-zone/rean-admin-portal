@@ -8,6 +8,7 @@ export const createLearningJourney = async (
 	name: string,
 	preferenceWeight: number,
 	description: string,
+	durationInDays: number,
 	imageUrl: string,
 	courseIds: string[],
 ) => {
@@ -15,6 +16,7 @@ export const createLearningJourney = async (
 		Name: name,
 		PreferenceWeight: preferenceWeight,
 		Description: description,
+		DurationInDays: durationInDays,
 		ImageUrl: imageUrl,
 		CourseIds: courseIds,
 	};
@@ -53,6 +55,7 @@ export const updateLearningJourney = async (
 	name: string,
 	preferenceWeight: number,
 	description: string,
+	durationInDays: number,
 	imageUrl: string,
 	courseIds: string[],
 
@@ -61,6 +64,7 @@ export const updateLearningJourney = async (
 		Name: name,
 		PreferenceWeight: preferenceWeight,
 		Description: description,
+		DurationInDays: durationInDays,
 		ImageUrl: imageUrl,
 		CourseIds: courseIds,
 	};

@@ -11,7 +11,7 @@
 	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 	export let data: PageServerData;
-	let assessmentTemplates = data.assessmentTemplates;
+	let assessmentTemplates = data.assessmentTemplate;
 	assessmentTemplates = assessmentTemplates.map((item, index) => ({ ...item, index: index + 1 }));
 
 	const userId = $page.params.userId;
@@ -28,7 +28,7 @@
 	];
 
 	let title = undefined;
-	let assessmentType = undefined;
+	let type = undefined;
 	let sortBy = 'CreatedAt';
 	let sortOrder = 'ascending';
 	let itemsPerPage = 10;
@@ -48,15 +48,15 @@
 	);
 	// This automatically handles search, sort, etc when the model updates.
 
-	const searchParams = async (title: string, assessmentType: string) => {
-		await searchLinkage({
+	const searchParams = async (title: string, type: string) => {
+		await searchAssessmentTemplate({
 			title: title,
-			type: assessmentType
+			type: type
 		});
 	};
 
-	async function searchLinkage(model) {
-		let url = `/api/server/notices/search?`;
+	async function searchAssessmentTemplate(model) {
+		let url = `/api/server/assessment-templates/search?`;
 		if (sortOrder) {
 			url += `sortOrder=${sortOrder}`;
 		} else {
@@ -74,8 +74,8 @@
 		if (title) {
 			url += `&title=${title}`;
 		}
-		if (assessmentType) {
-			url += `&type=${assessmentType}`;
+		if (type) {
+			url += `&type=${type}`;
 		}
 
 		const res = await fetch(url, {
@@ -150,14 +150,14 @@
 			<input
 				type="text"
 				placeholder="Search by type"
-				bind:value={assessmentType}
+				bind:value={type}
 				class="input w-full"
 			/>
 		</div>
 	</div>
 	<div class="sm:flex flex">
 		<button
-			on:click={() => searchParams(title, assessmentType)}
+			on:click={() => searchParams(title, type)}
 			class="btn variant-filled-primary lg:w-20 md:w-20 sm:w-20 w-20 rounded-lg bg-primary hover:bg-primary  "
 		>
 			<!-- svelte-ignore missing-declaration -->
@@ -195,7 +195,7 @@
 					<tr>
 						<td style="width: 7%;">{row.index}</td>
 						<td style="width: 22%;"><a href={viewRoute(row.id)}> {row.Title}</a></td>
-						<td style="width: 30%;">{row.Type}</td>
+						<td style="width: 28%;">{row.Type}</td>
 						<td style="width: 30%;">{row.Provider}</td>
 						<td>
 							<a href={editRoute(row.id)}

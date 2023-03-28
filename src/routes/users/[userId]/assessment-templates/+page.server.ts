@@ -13,9 +13,9 @@ export const load: PageServerLoad = async (event: RequestEvent) => {
 		if (response.Status === 'failure' || response.HttpCode !== 200) {
 			throw error(response.HttpCode, response.Message);
 		}
-		const assessmentTemplates = response.Data.AssessmentTemplateRecords.Items;
+		const assessmentTemplate = response.Data.AssessmentTemplateRecords.Items;
 		return {
-			assessmentTemplates,
+			assessmentTemplate,
 			sessionId,
 			message: response.Message
 		};

@@ -12,24 +12,24 @@
 	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 	export let data: PageServerData;
-	let priorityTypes = data.priorityTypes;
+	let goalTypes = data.goalTypes;
 	let index = Number;
-	priorityTypes = priorityTypes.map((item, index) => ({ ...item, index: index + 1 }));
+	goalTypes = goalTypes.map((item, index) => ({ ...item, index: index + 1 }));
 
-	const dataTableStore = createDataTableStore(priorityTypes, {
+	const dataTableStore = createDataTableStore(goalTypes, {
 		search: '',
 		pagination: { offset: 0, limit: 10, size: 0, amounts: [10, 20, 30, 50] }
 	});
 
 	const userId = $page.params.userId;
-	const createRoute = `/users/${userId}/priorities/create`;
-	const editRoute = (id) => `/users/${userId}/priorities/${id}/edit`;
-	const priorityRoute = `/users/${userId}/priorities`;
+	const createRoute = `/users/${userId}/goals/create`;
+	const editRoute = (id) => `/users/${userId}/goals/${id}/edit`;
+	const goalRoute = `/users/${userId}/goals`;
 
 	const breadCrumbs = [
 		{
-			name: 'Priority',
-			path: priorityRoute
+			name: 'Goal',
+			path: goalRoute
 		}
 	];
 
@@ -41,14 +41,14 @@
 	let pageIndex = 0;
 
 	const searchParams = async (type: string, tags: string) => {
-		await searchPriority({
+		await searchGoal({
 			type: type,
 			tags: tags
 		});
 	};
 
-	async function searchPriority(model) {
-		let url = `/api/server/priorities/search?`;
+	async function searchGoal(model) {
+		let url = `/api/server/goals/search?`;
 		if (sortOrder) {
 			url += `sortOrder=${sortOrder}`;
 		} else {
@@ -77,24 +77,24 @@
 		});
 
 		const response = await res.json();
-		priorityTypes = response.map((item, index) => ({ ...item, index: index + 1 }));
-		dataTableStore.updateSource(priorityTypes);
+		goalTypes = response.map((item, index) => ({ ...item, index: index + 1 }));
+		dataTableStore.updateSource(goalTypes);
 	}
 
 	dataTableStore.subscribe((model) => dataTableHandler(model));
 
-	const handlePriorityDelete = async (e, id) => {
-		const priorityId = id;
-		console.log('priorityId', priorityId);
+	const handleGoalDelete = async (e, id) => {
+		const goalId = id;
+		console.log('goalId', goalId);
 		await Delete({
 			sessionId: data.sessionId,
-			priorityId: priorityId
+			goalId: goalId
 		});
-		window.location.href = priorityRoute;
+		window.location.href = goalRoute;
 	};
 
 	async function Delete(model) {
-		const response = await fetch(`/api/server/priorities`, {
+		const response = await fetch(`/api/server/goals`, {
 			method: 'DELETE',
 			body: JSON.stringify(model),
 			headers: {
@@ -148,7 +148,7 @@
 		<thead class="sticky top-0">
 			<tr>
 				<th style="width: 7%;">Id</th>
-				<th style="width: 23;">Type</th>
+				<th style="width: 21%;">Type</th>
 				<th style="width: 30%;">Tags</th>
 				<th style="width: 35%;">Created Date</th>
 			</tr>
@@ -160,8 +160,8 @@
 				{#each $dataTableStore.filtered as row, rowIndex}
 					<tr>
 						<td style="width: 7%;">{row.index}</td>
-						<td style="width: 28%;">{row.Type}</td>
-						<td style="width: 25;">{row.Tags}</td>
+						<td style="width: 23%;">{row.Type}</td>
+						<td style="width: 33%;">{row.Tags}</td>
 						<td style="width: 20%;">{date.format(new Date(row.CreatedAt), 'DD-MMM-YYYY')}</td>
 						<td style="">
 							<a href={editRoute(row.id)}
@@ -174,15 +174,15 @@
 								cancelTitle="Cancel"
 								let:confirm={confirmThis}
 								on:delete={(e) => {
-									handlePriorityDelete(e, row.id);
+									handleGoalDelete(e, row.id);
 								}}
 							>
 								<button
-									on:click|preventDefault={() => confirmThis(handlePriorityDelete, row.id)}
+									on:click|preventDefault={() => confirmThis(handleGoalDelete, row.id)}
 									class=""><Fa icon={faTrash} /></button
 								>
 								<span slot="title"> Delete </span>
-								<span slot="description"> Are you sure you want to delete a priority? </span>
+								<span slot="description"> Are you sure you want to delete a goal? </span>
 							</Confirm>
 						</td>
 					</tr>

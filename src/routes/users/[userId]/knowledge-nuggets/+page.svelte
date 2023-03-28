@@ -198,8 +198,8 @@
 						<td style="width: 25%;">{row.TopicName}</td>
 						<!-- <td style="width: 27%;">{row.Tags}</td> -->
 						<td style="width: 27%;"
-							>{row.Tags.length > 50 
-								? row.Tags.substring(0, 20) + '...'
+							>{row.Tags.length > 10 
+								? row.Tags.substring(0, 5) + '...'
 								: row.Tags}</td
 						>
 						<!-- <td style="width: 25%;">{row.AdditionalResource}</td> -->
