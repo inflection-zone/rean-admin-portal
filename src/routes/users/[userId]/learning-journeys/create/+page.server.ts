@@ -37,6 +37,7 @@ export const actions = {
 		const name = data.has('name') ? data.get('name') : null;
 		const preferenceWeight = data.has('preferenceWeight') ? data.get('preferenceWeight') : null;
 		const description = data.has('description') ? data.get('description') : null;
+		const durationInDays = data.has('durationInDays') ? data.get('durationInDays') : null;
 		const imageUrl = data.has('imageUrl') ? data.get('imageUrl') : null;
 		const courseIds = data.has('courseIds') ? data.getAll('courseIds') : null;
 		console.log("courses",courseIds);
@@ -47,6 +48,7 @@ export const actions = {
 			name.valueOf() as string,
 			preferenceWeight.valueOf() as number,
 			description.valueOf() as string,
+			durationInDays.valueOf() as number,
 			imageUrl.valueOf() as string,
 			courseIds.valueOf() as string[]
 		);

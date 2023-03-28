@@ -7,6 +7,7 @@ export const createNewsfeed = async (
 	sessionId: string,
 	title: string,
 	description: string,
+	category: string,
 	link: string,
 	language: string,
 	copyright: string,
@@ -17,6 +18,7 @@ export const createNewsfeed = async (
 	const body = {
 		Title: title,
 		Description: description,
+		Category: category,
 		Link: link,
 		Language: language,
 		Copyright: copyright,
@@ -58,6 +60,7 @@ export const updateNewsfeed = async (
 	newsfeedId: string,
 	title: string,
 	description: string,
+	category: string,
 	link: string,
 	language: string,
 	copyright: string,
@@ -68,6 +71,7 @@ export const updateNewsfeed = async (
 	const body = {
 		Title: title,
 		Description: description,
+		Category: category,
 		Link: link,
 		Language: language,
 		Copyright: copyright,

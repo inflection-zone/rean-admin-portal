@@ -5,33 +5,19 @@ import { delete_, get_, post_, put_ } from './common';
 
 export const createGoal = async (
 	sessionId: string,
-	patientUserId: string,
-	enrollmentId: string,
-	provider: string,
-	careplanName: string,
-	careplanCode: string,
-	title: string,
-	sequence: number,
-	healthPriorityId: string,
-	goalAchieved: boolean
+	type: string,
+	tags: string[]
 ) => {
 	const body = {
-		PatientUserId: patientUserId,
-		EnrollmentId: enrollmentId,
-		Provider: provider,
-		CareplanName: careplanName,
-		CareplanCode: careplanCode,
-		Title: title,
-		Sequence: sequence,
-		HealthPriorityId: healthPriorityId,
-		GoalAchieved: goalAchieved
+		Type: type,
+		Tags: tags
 	};
-	const url = BACKEND_API_URL + '/patient-goals';
+	const url = BACKEND_API_URL + '/types/goal-types';
 	return await post_(sessionId, url, body, true);
 };
 
 export const getGoalById = async (sessionId: string, goalId: string) => {
-	const url = BACKEND_API_URL + `/patient-goals/${goalId}`;
+	const url = BACKEND_API_URL + `/types/goal-types/${goalId}`;
 	return await get_(sessionId, url, true);
 };
 
@@ -51,39 +37,25 @@ export const searchGoals = async (sessionId: string, searchParams?: any) => {
 			searchString += params.join('&');
 		}
 	}
-	const url = BACKEND_API_URL + `/patient-goals/search${searchString}`;
+	const url = BACKEND_API_URL + `/types/goal-types/`;
 	return await get_(sessionId, url, true);
 };
 
 export const updateGoal = async (
 	sessionId: string,
 	goalId: string,
-	patientUserId: string,
-	enrollmentId: string,
-	provider: string,
-	careplanName: string,
-	careplanCode: string,
-	title: string,
-	sequence: number,
-	healthPriorityId: string,
-	goalAchieved: boolean
+	type: string,
+	tags: string[]
 ) => {
 	const body = {
-		PatientUserId: patientUserId,
-		EnrollmentId: enrollmentId,
-		Provider: provider,
-		CareplanName: careplanName,
-		CareplanCode: careplanCode,
-		Title: title,
-		Sequence: sequence,
-		HealthPriorityId: healthPriorityId,
-		GoalAchieved: goalAchieved
+		Type: type,
+		Tags: tags
 	};
-	const url = BACKEND_API_URL + `/patient-goals/${goalId}`;
+	const url = BACKEND_API_URL + `/types/goal-types/${goalId}`;
 	return await put_(sessionId, url, body, true);
 };
 
 export const deleteGoal = async (sessionId: string, goalId: string) => {
-	const url = BACKEND_API_URL + `/patient-goals/${goalId}`;
+	const url = BACKEND_API_URL + `/types/goal-types/${goalId}`;
 	return await delete_(sessionId, url, true);
 };

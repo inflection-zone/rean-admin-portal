@@ -28,7 +28,7 @@
 
 	const breadCrumbs = [
 		{
-			name: 'Symptom',
+			name: 'Symptoms',
 			path: symptomRoute
 		}
 	];
@@ -189,7 +189,7 @@
 					<tr>
 						<td style="width: 5%;">{row.index}</td>
 						<td style="width: 20%;">{row.Symptom}</td>
-						<td style="width: 35%;">{row.Tags}</td>
+						<td style="width: 33%;">{row.Tags}</td>
 						<td style="width: 20%;">
 							<!-- svelte-ignore missing-declaration -->
 							<Image cls="flex h-10 w-10 rounded-lg" source={row.ImageUrl} w="24" h="24" />

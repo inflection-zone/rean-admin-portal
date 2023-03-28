@@ -109,7 +109,7 @@
 	<div class="px-5 mb-5 ">
 		<form
 			method="post"
-			action="?/updateLinkageAction"
+			action="?/updateNoticeAction"
 			class="w-full  bg-[#ECE4FC] lg:mt-10 md:mt-8 sm:mt-6 mb-10 mt-4 lg:max-w-4xl md:max-w-xl sm:max-w-lg  rounded-lg mx-auto"
 		>
 			<div class="w-full  h-14 rounded-t-lg p-3  bg-[#7165E3]">
@@ -239,7 +239,7 @@
 				</div>
 			</div>
 
-			<div class="flex items-center mb-2 lg:mx-16 md:mx-12 mx-10">
+			<div class="flex items-start mb-2 lg:mx-16 md:mx-12 mx-10">
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
 					<!-- svelte-ignore a11y-label-has-associated-control -->
 					<label class="label">

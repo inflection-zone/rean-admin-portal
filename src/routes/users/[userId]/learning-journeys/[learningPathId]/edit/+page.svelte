@@ -15,6 +15,7 @@
 	let name = data.learningJourney.Name;
 	let preferenceWeight = data.learningJourney.PreferenceWeight;
 	let description = data.learningJourney.Description;
+	let durationInDays = data.learningJourney.DurationInDays;
 	let courses = data.learningJourney.Courses;
 	let imageUrl = data.learningJourney.ImageUrl;
 	$: avatarSource = imageUrl;
@@ -24,12 +25,14 @@
 	let _name = name;
 	let _preferenceWeight = preferenceWeight;
 	let _description = description;
+	let _durationInDays = durationInDays;
 	let _imageUrl = imageUrl;
 
 	function handleReset() {
 		name = _name;
 		preferenceWeight = _preferenceWeight;
 		description = _description;
+		durationInDays = _durationInDays;
 		imageUrl = _imageUrl;
 	}
 
@@ -160,6 +163,24 @@
 						bind:value={description}
 						name="description"
 						placeholder="Enter description here..."
+					/>
+				</div>
+			</div>
+
+			<div class="flex items-center mb-4 mt-2 lg:mx-16 md:mx-12 mx-10">
+				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
+					<!-- svelte-ignore a11y-label-has-associated-control -->
+					<label class="label">
+						<span>Duration In Days</span>
+					</label>
+				</div>
+				<div class="w-1/2 md:w-2/3 lg:w-2/3">
+					<input
+						type="number"
+						name="durationInDays"
+						placeholder="Enter duration here..."
+						class="input w-full "
+						bind:value={durationInDays}
 					/>
 				</div>
 			</div>

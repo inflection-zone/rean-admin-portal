@@ -14,6 +14,7 @@
 	let id = data.newsfeed.id;
 	let title = data.newsfeed.Title;
 	let description = data.newsfeed.Description;
+	let category = data.newsfeed.Category;
 	let link = data.newsfeed.Link;
 	let language = data.newsfeed.Language;
 	let copyright = data.newsfeed.Copyright;
@@ -90,6 +91,16 @@
 				<span class="span w-1/2 md:2/3 lg:2/3" id="description"> {description} </span>
 			</div>
 
+			<div class="flex items-center my-4 lg:mx-16 md:mx-12 mx-10">
+				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
+					<!-- svelte-ignore a11y-label-has-associated-control -->
+					<label class="label">
+						<span>Category</span>
+					</label>
+				</div>
+				<span class="span w-1/2 md:2/3 lg:2/3" id="category"> {category} </span>
+			</div>
+
 			<div class="flex items-center mb-4 lg:mx-16 md:mx-12 mx-10">
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
 					<!-- svelte-ignore a11y-label-has-associated-control -->
@@ -142,7 +153,7 @@
 				>
 			</div>
 
-			<div class="flex items-center my-4 lg:mx-16 md:mx-12 mx-10">
+			<div class="flex items-start my-4 lg:mx-16 md:mx-12 mx-10">
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
 					<!-- svelte-ignore a11y-label-has-associated-control -->
 					<label class="label">

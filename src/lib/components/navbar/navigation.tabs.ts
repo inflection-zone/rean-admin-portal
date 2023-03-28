@@ -40,6 +40,12 @@ const notices: TabDefinition = {
     default: false,
 };
 
+const goals: TabDefinition = {
+    name: 'Goals',
+    path: `/users/userId/goals`,
+    default: false,
+};
+
 const newsFeeds: TabDefinition = {
     name: 'Newsfeeds',
     path: `/users/userId/newsfeeds`,
@@ -98,6 +104,7 @@ export const sidebarMenu = (userId) => {
         notifications,
         notices,
         newsFeeds,
+        goals,
         courses,
         learningJourneys,
         knowledgeNuggets,

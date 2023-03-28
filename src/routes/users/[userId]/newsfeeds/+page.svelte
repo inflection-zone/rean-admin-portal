@@ -38,16 +38,16 @@
 	];
 
 	let title = undefined;
-	let description = undefined;
+	let category = undefined;
 	let sortBy = 'CreatedAt';
 	let sortOrder = 'ascending';
 	let itemsPerPage = 10;
 	let pageIndex = 0;
 
-	const searchParams = async (title: string, description: string) => {
+	const searchParams = async (title: string, category: string) => {
 		await searchNewsfeed({
 			title: title,
-			description: description
+			category: category
 		});
 	};
 
@@ -70,8 +70,8 @@
 		if (title) {
 			url += `&title=${title}`;
 		}
-		if (description) {
-			url += `&description=${description}`;
+		if (category) {
+			url += `&category=${category}`;
 		}
 
 		const res = await fetch(url, {
@@ -151,8 +151,8 @@
 		<div class="relative flex items-center  ">
 			<input
 				type="text"
-				placeholder="Search by description"
-				bind:value={description}
+				placeholder="Search by category"
+				bind:value={category}
 				class="input input-bordered input-primary w-full"
 			/>
 		</div>
@@ -160,7 +160,7 @@
 	<div class="sm:flex flex">
 		<button
 			class="btn variant-filled-primary lg:w-20 md:w-20 sm:w-20 w-20 rounded-lg bg-primary hover:bg-primary  "
-			on:click={() => searchParams(title, description)}
+			on:click={() => searchParams(title, category)}
 		>
 			<Fa icon={faSearch} class="text-neutral-content" size="lg" />
 		</button>
@@ -184,7 +184,7 @@
 				<th style="width: 5%;">Id</th>
 				<th style="width: 18%;">Title</th>
 				<th style="width: 31%;">Link</th>
-				<th style="width: 18%;">Newsfeed Items</th>
+				<th style="width: 18%;">Category</th>
 				<th style="width: 35%;">Created Date</th>
 			</tr>
 		</thead>
@@ -197,7 +197,7 @@
 						<td style="width: 5%;">{row.index}</td>
 						<td style="width: 19%;">{row.Title}</td>
 						<td style="width: 32%;">{row.Link}</td>
-						<td style="width: 19%;">{row.NewsfeedItemTitle}</td>
+						<td style="width: 19%;">{row.Category}</td>
 						<td style="width: 20%;">{date.format(new Date(row.CreatedAt), 'DD-MMM-YYYY')}</td>
 						<td style="">
 							<a href={editRoute(row.id)}
