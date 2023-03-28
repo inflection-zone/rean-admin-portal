@@ -3,9 +3,15 @@
 	import { faMultiply } from '@fortawesome/free-solid-svg-icons';
 	import BreadCrumbs from '$lib/components/breadcrumbs/breadcrums.svelte';
 	import { page } from '$app/stores';
+	import type { PageServerData } from './$types';
 	import SingleChoice from './single.choice.svelte';
 	import MultipleChoice from './multiple.choice.svelte';
 
+	/////////////////////////////////////////////////////////////////////////////////////
+
+	export let data: PageServerData;
+
+	const queryResponseTypes = data.queryResponseTypes;
 	let show = '';
 	const onChange = (val) => {
 		show = val.target.value;
@@ -58,7 +64,7 @@
 					required
 					class="select w-full"
 					placeholder="Select node type here..."
-					><option selected>Node Type</option>
+				>
 					<option>Question</option>
 					<option>Message</option>
 					<option>Node List</option>
@@ -78,10 +84,10 @@
 			</div>
 		</div>
 
-		<div class="flex items-center my-4 mx-16">
+		<div class="flex items-start mt-4 mx-16">
 			<div class="w-1/3">
 				<!-- svelte-ignore a11y-label-has-associated-control -->
-				<label class="label">
+				<label class="label mt-2">
 					<span>Description</span>
 				</label>
 			</div>
@@ -94,7 +100,7 @@
 				/>
 			</div>
 		</div>
-		<div class="flex items-center my-4 mx-16">
+		<div class="flex items-center my-2 mx-16">
 			<div class="w-1/3">
 				<!-- svelte-ignore a11y-label-has-associated-control -->
 				<label class="label">
@@ -108,19 +114,17 @@
 					placeholder="Select query type here..."
 					class="select select-info w-full "
 					on:change={(val) => onChange(val)}
-					><option selected >Text</option>
-					<option value="Single Choice Selection">Single choice question</option>
-					<option value="Multi Choice Selection">Multiple choice question</option>
-					<option >Yes no question</option>
-					<option>Ok</option>
-					<option>None</option>
+				>
+					{#each queryResponseTypes as responseType}
+						<option value={responseType}>{responseType}</option>
+					{/each}
 				</select>
 			</div>
 		</div>
 
 		{#if show === 'Single Choice Selection'}
 			<SingleChoice />
-		{:else if show === 'multiChoice'}
+		{:else if show === 'Multi Choice Selection'}
 			<MultipleChoice />
 		{/if}
 

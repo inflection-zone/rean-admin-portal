@@ -8,6 +8,8 @@
 	import { page } from '$app/stores';
 	import type { PageServerData } from './$types';
 
+	////////////////////////////////////////////////////////////////////////////////////////////
+	
 	export let data: PageServerData;
 	let id = data.assessmentNode.id;
 	let nodeType = data.assessmentNode.NodeType;
@@ -97,21 +99,23 @@
 				<span class="span w-1/2 md:2/3 lg:2/3" id="queryType"> {queryType} </span>
 			</div>
 
-			{#if options.length > 0}
+			
 			<div class="flex items-start my-4 lg:mx-16 md:mx-12 mx-10">
+				{#if options.length > 0}
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
 					<!-- svelte-ignore a11y-label-has-associated-control -->
 					<label class="label">
 						<span>Options</span>
 					</label>
 				</div>
-				<ol class="span w-1/2 md:w-2/3 lg:w-2/3 list-decimal" id="modules">
+				<ol class="span w-1/2 md:w-2/3 lg:w-2/3 list-decimal ml-3" id="modules">
 					{#each options as option}
 						<li>{option.Text}</li>
 			  	{/each}	
 				</ol>
+				{/if}
 			</div>
-			{/if}
+		
 
 			<div class="flex items-center mt-7 lg:mx-16 md:mx-12 mr-10">
 				<div class="lg:w-5/6 w-2/3 " />

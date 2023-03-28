@@ -4,16 +4,20 @@
 	import BreadCrumbs from '$lib/components/breadcrumbs/breadcrums.svelte';
 	import { page } from '$app/stores';
 	import type { PageServerData } from './$types';
-	import Singleoption from '../../create/single.choice.svelte';
-	import Multipleoption from '../../create/multiple.choice.svelte';
+	import SingleChoice from '../../create/single.choice.svelte';
+	import MultipleChoice from '../../create/multiple.choice.svelte';
 
+	//////////////////////////////////////////////////////////////////////////////////////
+	
 	export let data: PageServerData;
-	let initiaData = {};
+	const queryResponseTypes = data.queryResponseTypes;
 	let id = data.assessmentNode.id;
 	let nodeType = data.assessmentNode.NodeType;
 	let title = data.assessmentNode.Title;
 	let description = data.assessmentNode.Description;
-	let queryType = data.assessmentNode.QueryType;
+	let queryType = data.assessmentNode.QueryResponseType;
+	let options = data.assessmentNode.Options;
+	let optionValueStore = options;
 
 	//Original data
 	let _nodeType = nodeType;
@@ -45,8 +49,7 @@
 		}
 	];
 
-	let show = '';
-	show = 'multiChoice';
+	let show = queryType;
 	const onChange = (val) => {
 		show = val.target.value;
 	};
@@ -86,10 +89,9 @@
 					bind:value={nodeType}
 					placeholder="Select node type here..."
 					class="select w-full"
-					><option selected>Node Type</option>
-					<option>Question</option>
-					<option>3</option>
-					<option>4</option>
+					><option>Question</option>
+					<option>Message</option>
+					<option>Node List</option>
 				</select>
 			</div>
 		</div>
@@ -112,10 +114,10 @@
 			</div>
 		</div>
 
-		<div class="flex items-center my-4 mx-16">
+		<div class="flex items-start mt-4 mx-16">
 			<div class="w-1/3">
 				<!-- svelte-ignore a11y-label-has-associated-control -->
-				<label class="label">
+				<label class="label mt-2">
 					<span>Description</span>
 				</label>
 			</div>
@@ -128,35 +130,35 @@
 				/>
 			</div>
 		</div>
-		<div class="flex items-center my-4 mx-16">
+		<div class="flex items-center mb-4 mt-2 mx-16">
 			<div class="w-1/3">
 				<!-- svelte-ignore a11y-label-has-associated-control -->
 				<label class="label">
-					<span>Query Type</span>
+					<span>Query Response Type</span>
 				</label>
 			</div>
 			<div class="w-2/3">
 				<select
 					id="mySelect"
 					name="queryType"
-					bind:value={queryType}
 					class="select select-info w-full"
 					placeholder="Select query type here..."
 					on:change={(val) => onChange(val)}
-					><option selected value="textChoice">Text</option>
-					<option value="singleChoice">Single choice question</option>
-					<option value="multiChoice">Multiple choice question</option>
-					<option value="yesnoChoice">Yes no question</option>
-					<option value="okChoice">Ok</option>
-					<option>None</option>
+				>
+					<option selected value={queryType}>{queryType}</option>
+					{#each queryResponseTypes as responseType}
+						<option value={responseType}>{responseType}</option>
+					{/each}
 				</select>
 			</div>
 		</div>
-
-		{#if show === 'singleChoice'}
-			<Singleoption />
-		{:else if show === 'multiChoice'}
-			<Multipleoption />
+		
+		{#if show === 'Single Choice Selection'}
+			<SingleChoice {optionValueStore}/>
+		{:else if show === 'Multi Choice Selection'}
+			<MultipleChoice {optionValueStore} />
+		{:else}
+			<div />
 		{/if}
 
 		<div class="flex items-center my-8 lg:mx-16 md:mx-12 mx-4 ">

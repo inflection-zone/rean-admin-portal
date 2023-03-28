@@ -4,6 +4,7 @@ import { errorMessage, successMessage } from '$lib/utils/message.utils';
 import type { PageServerLoad } from './$types';
 import {
 	getAssessmentNodeById,
+	getQueryResponseTypes,
 	updateAssessmentNode
 } from '../../../../../../../api/services/assessment-nodes';
 
@@ -15,16 +16,19 @@ export const load: PageServerLoad = async (event: RequestEvent) => {
 	try {
 		const templateId = event.params.templateId;
 		const assessmentNodeId = event.params.nodeId;
+		const _queryResponseTypes = await getQueryResponseTypes(sessionId);
 		const response = await getAssessmentNodeById(sessionId, templateId, assessmentNodeId);
 
 		if (response.Status === 'failure' || response.HttpCode !== 200) {
 			throw error(response.HttpCode, response.Message);
 		}
 		const assessmentNode = response.Data.AssessmentNode;
+		const queryResponseTypes = _queryResponseTypes.Data.QueryResponseTypes;
 		const id = response.Data.AssessmentNode.id;
 		return {
 			location: `${id}/edit`,
 			assessmentNode,
+			queryResponseTypes,
 			message: response.Message
 		};
 	} catch (error) {
@@ -47,7 +51,7 @@ export const actions = {
 		const options = data.has('options') ? data.getAll('options') : [];
 		const sessionId = event.cookies.get('sessionId');
 
-
+		console.log("data",data);
 		const response = await updateAssessmentNode(
 			sessionId,
 			templateId,
@@ -58,14 +62,14 @@ export const actions = {
 			queryType.valueOf() as string,
 			options.valueOf()as string[],
 		);
-		const id = response.Data.assessmentNode.id;
+		const nodeId = response.Data.AssessmentNode.id;
 
 		if (response.Status === 'failure' || response.HttpCode !== 200) {
-			throw redirect(303, '/assessments/assessment-nodes', errorMessage(response.Message), event);
+			throw redirect(303, '/users/${userId}/assessment-templates', errorMessage(response.Message), event);
 		}
 		throw redirect(
 			303,
-			`/users/${userId}/assessments/assessment-nodes/${id}/view`,
+			`/users/${userId}/assessment-templates/${templateId}/assessment-nodes/${nodeId}/view`,
 			successMessage(`assessment node updated successful!`),
 			event
 		);

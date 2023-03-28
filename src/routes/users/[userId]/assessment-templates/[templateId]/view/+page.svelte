@@ -27,7 +27,7 @@
 	const editRoute = `/users/${userId}/assessment-templates/${templateId}/edit`;
 	const viewRoute = `/users/${userId}/assessment-templates/${templateId}/view`;
 	const assessmentsRoutes = `/users/${userId}/assessment-templates`;
-	const nodeRoute =`/users/${userId}/assessment-templates/${templateId}/assessment-nodes/create`;
+	const nodeRoute =`/users/${userId}/assessment-templates/${templateId}/assessment-nodes`;
 
 	const breadCrumbs = [
 		{
@@ -125,13 +125,13 @@
 
 			<div class="flex  items-center mt-10 lg:mx-10 md:mx-16">
         <div class="lg:w-8/12 min-[280px]:w-1/3 sm:w-1/2 md:w-1/2" />
-        <div class="flex lg:w-1/3 gap-3 min-[280px]:w-2/4 ">
+        <div class="flex lg:w-1/3 min-[280px]:w-2/4 ">
           <a href={nodeRoute}>
           <button
               type="submit"
-              class="btn variant-filled-primary lg:w-full md:w-28 sm:w-28 min-[280px]:w-28 w-20 mb-8 lg:mr-4 mr-1   "
+              class="btn variant-filled-primary lg:w-full md:w-28 sm:w-28 min-[280px]:w-28 w-20 mb-8 "
             >
-             Add Node
+             Assessment Nodes
             </button>
           </a>
           <a href={editRoute}>
