@@ -277,7 +277,7 @@
 					<select
 						name="addressType"
 						class="select w-full"
-						placeholder="Select course here..."
+						placeholder="Select address type here..."
 						bind:value={addressType}
 					>
 						<option>Home</option>
@@ -297,7 +297,7 @@
 					<input
 						type="text"
 						name="AddressLine"
-						placeholder="Enter image resource here..."
+						placeholder="Enter address here..."
 						class="input w-full "
 						bind:value={addressLine}
 					/>
@@ -315,7 +315,7 @@
 					<input
 						type="text"
 						name="city"
-						placeholder="Enter image resource here..."
+						placeholder="Enter city here..."
 						class="input w-1/3 "
 						bind:value={city}
 					/>
@@ -349,7 +349,7 @@
 					<select
 						name="state"
 						class="select w-1/2"
-						placeholder="Select course here..."
+						placeholder="Select state here..."
 						bind:value={state}
 					>
 						<option>Maharashtra</option>
@@ -391,7 +391,7 @@
 				</div>
 			</div>
 
-			<div class="flex items-center mb-4 lg:mx-16 md:mx-12 mx-10">
+			<div class="flex items-start mb-4 lg:mx-16 md:mx-12 mx-10">
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
 					<!-- svelte-ignore a11y-label-has-associated-control -->
 					<label class="label">

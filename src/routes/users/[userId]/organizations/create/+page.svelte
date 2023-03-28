@@ -213,7 +213,7 @@
 					</label>
 				</div>
 				<div class="w-1/2 md:w-2/3 lg:w-2/3">
-					<select name="addressType" class="select w-full" placeholder="Select course here...">
+					<select name="addressType" class="select w-full" placeholder="Select address type here...">
 						<option>Home</option>
 						<option>office</option>
 					</select>
@@ -231,7 +231,7 @@
 					<input
 						type="text"
 						name="AddressLine"
-						placeholder="Enter image resource here..."
+						placeholder="Enter address here..."
 						class="input w-full "
 					/>
 				</div>
@@ -248,7 +248,7 @@
 					<input
 					type="text"
 					name="city"
-					placeholder="Enter district here..."
+					placeholder="Enter city here..."
 					class="input w-1/3 "
 				/>
 				</div>
@@ -277,7 +277,7 @@
 					</label>
 				</div>
 				<div class="w-1/2 md:w-2/3 lg:w-2/3">
-					<select name="state" class="select w-1/2" placeholder="Select course here...">
+					<select name="state" class="select w-1/2" placeholder="Select state here...">
 						<option>Maharashtra</option>
 					</select>
 				</div>
@@ -290,7 +290,7 @@
 					</label>
 				</div>
 				<div class="w-1/2 md:w-2/3 lg:w-2/3">
-					<select name="country" class="select w-full" placeholder="Select course here...">
+					<select name="country" class="select w-full" placeholder="Select country here...">
 						<option>India</option>
 						<option>office</option>
 					</select>

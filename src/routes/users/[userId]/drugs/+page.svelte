@@ -187,7 +187,7 @@
 		<thead class="sticky top-0">
 			<tr>
 				<th style="width: 5%;">Id</th>
-				<th style="width: 19%;">Drug Name</th>
+				<th style="width: 19%;">Name</th>
 				<th style="width: 33%;">Generic Name</th>
 				<th style="width: 18%;">Ingredients</th>
 				<th style="width: 35%;">Created Date</th>
