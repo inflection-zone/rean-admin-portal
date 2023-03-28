@@ -10,12 +10,12 @@ export const load: PageServerLoad = async (event: RequestEvent) => {
 
 	try {
 		const response = await searchGoals(sessionId);
-		// if (response.Status === 'failure' || response.HttpCode !== 200) {
-		// 	throw error(response.HttpCode, response.Message);
-		// }
-		const goal = response.Data.GoalTypes;
+		if (response.Status === 'failure' || response.HttpCode !== 200) {
+			throw error(response.HttpCode, response.Message);
+		}
+		const goalTypes = response.Data.GoalTypes;
 		return {
-			goal,
+			goalTypes,
 			sessionId,
 			message: response.Message
 		};

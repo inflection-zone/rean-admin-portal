@@ -12,11 +12,11 @@
 	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 	export let data: PageServerData;
-	let goals = data.goal;
+	let goalTypes = data.goalTypes;
 	let index = Number;
-	goals = goals.map((item, index) => ({ ...item, index: index + 1 }));
+	goalTypes = goalTypes.map((item, index) => ({ ...item, index: index + 1 }));
 
-	const dataTableStore = createDataTableStore(goals, {
+	const dataTableStore = createDataTableStore(goalTypes, {
 		search: '',
 		pagination: { offset: 0, limit: 10, size: 0, amounts: [10, 20, 30, 50] }
 	});
@@ -77,8 +77,8 @@
 		});
 
 		const response = await res.json();
-		goals = response.map((item, index) => ({ ...item, index: index + 1 }));
-		dataTableStore.updateSource(goals);
+		goalTypes = response.map((item, index) => ({ ...item, index: index + 1 }));
+		dataTableStore.updateSource(goalTypes);
 	}
 
 	dataTableStore.subscribe((model) => dataTableHandler(model));
@@ -131,35 +131,17 @@
 <div
 	class="flex flex-row mx-10 lg:mt-10 md:mt-10 sm:mt-4 mt-4 lg:gap-7 md:gap-8 sm:gap-4 gap-4 lg:flex-row md:flex-row sm:flex-col min-[280px]:flex-col"
 >
-	<!-- <div class="basis-1/2 justify-center items-center ">
-		<div class="relative flex items-center">
-			<input type="text" placeholder="Search by type" bind:value={type} class="input w-full" />
-		</div>
-	</div>
-	<div class="basis-1/2 justify-center items-center">
-		<div class="relative flex items-center  ">
-			<input type="text" placeholder="Search by tags" bind:value={tags} class="input w-full" />
-		</div>
-	</div>
-	<div class="sm:flex flex">
+	<a href={createRoute} class=" right-14 ">
 		<button
-			class="btn variant-filled-primary lg:w-20 md:w-20 sm:w-20 w-20 rounded-lg bg-primary hover:bg-primary  "
-			on:click={() => searchParams(type, tags)}
-		>
-			<Fa icon={faSearch} class="text-neutral-content" size="lg" />
-		</button>
-		<a href={createRoute} class=" right-14 ">
-			<button
-				class="btn variant-filled-primary hover:bg-primary lg:hidden md:hidden block sm:w-40 w-24 ml-4 rounded-lg bg-primary transition
+			class="btn variant-filled-primary hover:bg-primary lg:hidden md:hidden block sm:w-40 w-24 ml-4 rounded-lg bg-primary transition
           ease-in-out
           delay-150  
           hover:scale-110  
           duration-300 ...  "
-			>
-				ADD NEW
-			</button>
-		</a>
-	</div> -->
+		>
+			ADD NEW
+		</button>
+	</a>
 </div>
 <div class="flex justify-center flex-col mt-4 mx-10 mb-10 overflow-y-auto ">
 	<table class="table rounded-b-none">
