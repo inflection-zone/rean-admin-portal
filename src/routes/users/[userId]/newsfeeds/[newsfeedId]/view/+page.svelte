@@ -23,9 +23,7 @@
 	let image = data.newsfeed.Image;
 	let tags_ = data.newsfeed.Tags;
 	let tags = tags_.join(', ');
-	let newsfeedItems = data.newsfeed.NewsfeedItems;
-	// let newsfeedItems = data.newsfeed;
-	// let newsfeedItemTitle = newsfeedItems.FeedItems[0].Title;
+	let newsfeedItems = data.newsfeed.FeedItems;
 
 	onMount(() => {
 		show(data);
