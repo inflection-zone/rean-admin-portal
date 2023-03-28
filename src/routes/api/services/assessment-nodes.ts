@@ -49,7 +49,6 @@ export const getAssessmentNodeById = async (
 
 export const searchAssessmentNodes = async (
 	sessionId: string,
-	templateId: string,
 	searchParams?: any
 ) => {
 	let searchString = '';
@@ -68,8 +67,8 @@ export const searchAssessmentNodes = async (
 		}
 	}
 	const url =
-		BACKEND_API_URL + `/clinical/assessment-templates/${templateId}/nodes/search${searchString}`;
-	return await get_(sessionId, url, true);
+		BACKEND_API_URL + `/clinical/assessment-templates/nodes/search${searchString}`;
+	return await get_(sessionId, url,true);
 };
 
 export const updateAssessmentNode = async (
@@ -112,6 +111,7 @@ export const deleteAssessmentNode = async (
 	nodeId: string
 ) => {
 	const url = BACKEND_API_URL + `/clinical/assessment-templates/${templateId}/nodes/${nodeId}`;
+	console.log("url",url)
 	return await delete_(sessionId, url, true);
 };
 

@@ -8,6 +8,8 @@
 	import { page } from '$app/stores';
 	import type { PageServerData } from './$types';
 
+	////////////////////////////////////////////////////////////////////////////////////////////
+	
 	export let data: PageServerData;
 	let id = data.assessmentNode.id;
 	let nodeType = data.assessmentNode.NodeType;

@@ -7,6 +7,8 @@
 	import SingleChoice from '../../create/single.choice.svelte';
 	import MultipleChoice from '../../create/multiple.choice.svelte';
 
+	//////////////////////////////////////////////////////////////////////////////////////
+	
 	export let data: PageServerData;
 	const queryResponseTypes = data.queryResponseTypes;
 	let id = data.assessmentNode.id;
@@ -132,7 +134,7 @@
 			<div class="w-1/3">
 				<!-- svelte-ignore a11y-label-has-associated-control -->
 				<label class="label">
-					<span>Query Type</span>
+					<span>Query Response Type</span>
 				</label>
 			</div>
 			<div class="w-2/3">
