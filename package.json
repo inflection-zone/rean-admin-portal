@@ -51,6 +51,7 @@
 		"dexie": "^3.2.3",
 		"dotenv": "^16.0.3",
 		"svelte-fa": "^3.0.3",
+		"svelte-tree-view-component": "^1.0.3",
 		"sveltekit-flash-message": "^0.9.8"
 	}
 }
