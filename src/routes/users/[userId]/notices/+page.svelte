@@ -177,15 +177,17 @@
 	</div>
 </div>
 
-<div class="flex justify-center flex-col mt-4 mx-10 overflow-y-auto ">
+<div class="flex justify-center flex-col mt-4 mx-10 mb-10 overflow-y-auto ">
 	<table class="table rounded-b-none">
 		<thead class="sticky top-0">
 			<tr>
 				<th style="width: 5%;">Id</th>
-				<th style="width: 19%;">Title</th>
-				<th style="width: 33%;">Link</th>
-				<th style="width: 18%;">Active Days</th>
+				<th style="width: 20%;">Title</th>
+				<th style="width: 34%;">Link</th>
+				<th style="width: 20%;">Active Days</th>
 				<th style="width: 35%;">Created Date</th>
+				<th style="width: 8%;"></th>
+				<th style="width: 8%;"></th>
 			</tr>
 		</thead>
 	</table>
@@ -195,16 +197,16 @@
 				{#each $dataTableStore.filtered as row, rowIndex}
 					<tr>
 						<td style="width: 5%;">{row.index}</td>
-						<td style="width: 20%;">{row.Title}</td>
+						<td style="width: 21%;">{row.Title}</td>
 						<td style="width: 35%;">{row.Link}</td>
 						<td style="width: 20%;">{row.DaysActive}</td>
 						<td style="width: 20%;">{date.format(new Date(row.PostDate), 'DD-MMM-YYYY')}</td>
-						<td>
+						<td style="width: 8%;">
 							<a href={editRoute(row.id)}
 								><Fa icon={faPencil} style="color-text-primary" size="md" /></a
 							>
 						</td>
-						<td>
+						<td style="width: 8%;">
 							<Confirm
 								confirmTitle="Delete"
 								cancelTitle="Cancel"

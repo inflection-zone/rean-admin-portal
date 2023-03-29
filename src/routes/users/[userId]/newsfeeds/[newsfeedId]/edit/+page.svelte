@@ -20,6 +20,7 @@
 	let id = data.newsfeed.id;
 	let title = data.newsfeed.Title;
 	let description = data.newsfeed.Description;
+	let category = data.newsfeed.Category;
 	let link = data.newsfeed.Link;
 	let language = data.newsfeed.Language;
 	let copyright = data.newsfeed.Copyright;
@@ -29,9 +30,12 @@
 	$: avatarSource = image;
 	let tags = data.newsfeed.Tags;
 
+	console.log('data--',data)
+
 	//Original data
 	let _title = title;
 	let _description = description;
+	let _category = category;
 	let _link = link;
 	let _language = language;
 	let _copyright = copyright;
@@ -43,6 +47,7 @@
 	function handleReset() {
 		title = _title;
 		description = _description;
+		category = _category;
 		link = _link;
 		language = _language;
 		copyright = _copyright;
@@ -127,7 +132,7 @@
 				</div>
 			</div>
 			<div class="hidden">{id}</div>
-			<div class="flex items-center mb-2 mt-10 lg:mx-16 md:mx-12 mx-10">
+			<div class="flex items-center mb-4 mt-10 lg:mx-16 md:mx-12 mx-10">
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
 					<!-- svelte-ignore a11y-label-has-associated-control -->
 					<label class="label">
@@ -145,7 +150,7 @@
 				</div>
 			</div>
 
-			<div class="flex items-center mb-1 lg:mx-16 md:mx-12 mx-10">
+			<div class="flex items-center mb-4 lg:mx-16 md:mx-12 mx-10">
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
 					<!-- svelte-ignore a11y-label-has-associated-control -->
 					<label class="label">
@@ -162,7 +167,25 @@
 				</div>
 			</div>
 
-			<div class="flex items-center mb-2 lg:mx-16 md:mx-12 mx-10">
+			<div class="flex items-center mb-4 lg:mx-16 md:mx-12 mx-10">
+				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
+					<!-- svelte-ignore a11y-label-has-associated-control -->
+					<label class="label">
+						<span>Category</span>
+					</label>
+				</div>
+				<div class="w-1/2 md:w-2/3 lg:w-2/3">
+					<input
+						type="text"
+						name="category"
+						bind:value={category}
+						placeholder="Enter category here..."
+						class="input w-full "
+					/>
+				</div>
+			</div>
+
+			<div class="flex items-center mb-4 lg:mx-16 md:mx-12 mx-10">
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
 					<!-- svelte-ignore a11y-label-has-associated-control -->
 					<label class="label">
@@ -180,7 +203,7 @@
 				</div>
 			</div>
 
-			<div class="flex items-center mb-2 lg:mx-16 md:mx-12 mx-10">
+			<div class="flex items-center mb-4 lg:mx-16 md:mx-12 mx-10">
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
 					<!-- svelte-ignore a11y-label-has-associated-control -->
 					<label class="label">
@@ -198,7 +221,7 @@
 				</div>
 			</div>
 
-			<div class="flex items-center mb-2 lg:mx-16 md:mx-12 mx-10">
+			<div class="flex items-center mb-4 lg:mx-16 md:mx-12 mx-10">
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
 					<!-- svelte-ignore a11y-label-has-associated-control -->
 					<label class="label">
@@ -216,7 +239,7 @@
 				</div>
 			</div>
 
-			<div class="flex items-center mb-2 lg:mx-16 md:mx-12 mx-10">
+			<div class="flex items-center mb-4 lg:mx-16 md:mx-12 mx-10">
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
 					<!-- svelte-ignore a11y-label-has-associated-control -->
 					<label class="label">
@@ -244,7 +267,7 @@
 				<span class="span w-1/2 md:2/3 lg:2/3" id="updated">{date.format(updated, 'DD MMM YYYY')}</span>
 			</div>
 
-			<div class="flex items-start my-2 lg:mx-16 md:mx-12 mx-10">
+			<div class="flex items-start my-2 mb-4 lg:mx-16 md:mx-12 mx-10">
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
 					<!-- svelte-ignore a11y-label-has-associated-control -->
 					<label class="label">
@@ -278,7 +301,7 @@
 				</div>
 			</div>
 
-			<div class="flex items-center mb-1 lg:mx-16 md:mx-12 mx-10">
+			<div class="flex items-center mb-4 lg:mx-16 md:mx-12 mx-10">
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
 					<!-- svelte-ignore a11y-label-has-associated-control -->
 					<label class="label">

@@ -26,7 +26,7 @@
 
 	const breadCrumbs = [
 		{
-			name: 'Goal',
+			name: 'Goal-Type',
 			path: goalRoute
 		},
 		{

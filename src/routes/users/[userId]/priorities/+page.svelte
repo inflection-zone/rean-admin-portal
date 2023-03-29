@@ -28,7 +28,7 @@
 
 	const breadCrumbs = [
 		{
-			name: 'Priority',
+			name: 'Priority-Type',
 			path: priorityRoute
 		}
 	];
@@ -147,10 +147,12 @@
 	<table class="table rounded-b-none">
 		<thead class="sticky top-0">
 			<tr>
-				<th style="width: 7%;">Id</th>
-				<th style="width: 23;">Type</th>
+				<th style="width: 5%;">Id</th>
+				<th style="width: 20;">Type</th>
 				<th style="width: 30%;">Tags</th>
-				<th style="width: 35%;">Created Date</th>
+				<th style="width: 24%;">Created Date</th>
+				<th style="width: 8%;"></th>
+				<th style="width: 8%;"></th>
 			</tr>
 		</thead>
 	</table>
@@ -159,16 +161,16 @@
 			<tbody class="">
 				{#each $dataTableStore.filtered as row, rowIndex}
 					<tr>
-						<td style="width: 7%;">{row.index}</td>
-						<td style="width: 28%;">{row.Type}</td>
-						<td style="width: 25;">{row.Tags}</td>
-						<td style="width: 20%;">{date.format(new Date(row.CreatedAt), 'DD-MMM-YYYY')}</td>
-						<td style="">
+						<td style="width: 5%;">{row.index}</td>
+						<td style="width: 25%;">{row.Type}</td>
+						<td style="width: 30;">{row.Tags}</td>
+						<td style="width: 24%;">{date.format(new Date(row.CreatedAt), 'DD-MMM-YYYY')}</td>
+						<td style="width: 8%;">
 							<a href={editRoute(row.id)}
 								><Fa icon={faPencil} style="color-text-primary" size="md" /></a
 							>
 						</td>
-						<td>
+						<td style="width: 8%;">
 							<Confirm
 								confirmTitle="Delete"
 								cancelTitle="Cancel"
