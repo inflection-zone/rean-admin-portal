@@ -8,14 +8,16 @@
 	import Confirm from '$lib/components/modal/confirmModal.svelte';
 	import { faPencil, faSearch, faTrash } from '@fortawesome/free-solid-svg-icons';
 	import type { PageServerData } from './$types';
+	import { TreeView, TreeBranch, TreeLeaf } from "svelte-tree-view-component";
 
 	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 	export let data: PageServerData;
-	let course = data.courses;
-	course = course.map((item, index) => ({ ...item, index: index + 1 }));
+	let courses = data.courses;
 
-	const dataTableStore = createDataTableStore(course, {
+	courses = courses.map((item, index) => ({ ...item, index: index + 1 }));
+
+	const dataTableStore = createDataTableStore(courses, {
 		search: '',
 		pagination: { offset: 0, limit: 10, size: 0, amounts: [10, 20, 30, 50] }
 	});
@@ -76,8 +78,8 @@
 		});
 		const response = await res.json();
 
-		course = response.map((item, index) => ({ ...item, index: index + 1 }));
-		dataTableStore.updateSource(course);
+		courses = response.map((item, index) => ({ ...item, index: index + 1 }));
+		dataTableStore.updateSource(courses);
 	}
 	dataTableStore.subscribe((model) => dataTableHandler(model));
 
@@ -102,6 +104,19 @@
 </script>
 
 <BreadCrumbs crumbs={breadCrumbs} />
+<TreeView >
+	{#each courses as course}
+	<TreeBranch rootContent={course.Name}>
+		{#each course.Modules as module}
+			<TreeBranch rootContent={module.Name}>
+				{#each module.CourseContents as content}
+					<TreeLeaf>{content.Title}</TreeLeaf>
+				{/each}
+			</TreeBranch>
+		{/each}
+	</TreeBranch>
+	{/each}
+</TreeView>
 
 <div
 	class=" mr-14 mt-8 lg:flex-row md:flex-row sm:flex-col flex-col lg:block md:block sm:hidden hidden"
@@ -231,3 +246,21 @@
 			/>{/if}
 	</div>
 </div>
+
+<!-- <TreeView {tree} /> -->
+<style>
+	.container {
+		display: flex;
+	}
+
+	.tree-view {
+		flex-basis: 30%;
+	}
+
+	.desc {
+		padding: 10px 10px 10px 10px;
+		flex-basis: 60%;
+		background: #eee;
+		height: 50%;
+	}
+</style>
