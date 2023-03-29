@@ -177,15 +177,17 @@
 	</div>
 </div>
 
-<div class="flex justify-center flex-col mx-10 mt-4 overflow-y-auto ">
+<div class="flex justify-center flex-col mx-10 mt-4 mb-10 overflow-y-auto ">
 	<table class="table rounded-b-none">
 		<thead class="sticky top-0">
 			<tr>
 				<th style="width: 5%;">Id</th>
-				<th style="width: 18%;">Type</th>
-				<th style="width: 18%;">Name</th>
-				<th style="width: 18%;">Phone</th>
-				<th style="width: 35%">Email</th>
+				<th style="width: 20%;">Type</th>
+				<th style="width: 20%;">Name</th>
+				<th style="width: 20%;">Phone</th>
+				<th style="width: 20%">Email</th>
+				<th style="width: 8%;"></th>
+				<th style="width: 8%;"></th>
 			</tr>
 		</thead>
 	</table>
@@ -195,14 +197,14 @@
 				{#each $dataTableStore.filtered as row, rowIndex}
 					<tr>
 						<td style="width: 5%;">{row.index}</td>
-						<td style="width: 19%;">{row.Type}</td>
+						<td style="width: 20%;">{row.Type}</td>
 						<td style="width: 20%;">{row.Name}</td>
-						<td style="width: 19%;">{row.ContactPhone}</td>
+						<td style="width: 20%;">{row.ContactPhone}</td>
 						<td style="width: 20%;">{row.ContactEmail}</td>
-						<td style="">
+						<td style="width: 8%;">
 							<a class="text-primary" href={editRoute(row.id)}><Fa icon={faPencil} /></a></td
 						>
-						<td style=""
+						<td style="width: 8%;"
 							><Confirm
 								confirmTitle="Delete"
 								cancelTitle="Cancel"
