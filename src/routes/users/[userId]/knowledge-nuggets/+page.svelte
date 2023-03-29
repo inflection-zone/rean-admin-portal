@@ -177,15 +177,17 @@
 	</div>
 </div>
 
-<div class="flex justify-center flex-col mt-4 mx-10 overflow-y-auto ">
+<div class="flex justify-center flex-col mt-4 mx-10 mb-10 overflow-y-auto ">
 	<table class="table rounded-b-none">
 		<thead class="sticky top-0">
 			<tr>
-				<th style="width: 4%;">Id</th>
-				<th style="width: 19%;">Topic Name</th>
-				<th style="width: 35%;">Tags</th>
+				<th style="width: 3%;">Id</th>
+				<th style="width: 17%;">Topic Name</th>
+				<th style="width: 36%;">Tags</th>
 				<!-- <th style="width: 24%;">Additional Resource</th> -->
-				<th style="width: 20%;">Created Date</th>
+				<th style="width: 15%;">Created Date</th>
+				<th style="width: 2%;"></th>
+				<th style="width: 2%;"></th>
 			</tr>
 		</thead>
 	</table>
@@ -194,22 +196,22 @@
 			<tbody class="">
 				{#each $dataTableStore.filtered as row, rowIndex}
 					<tr>
-						<td style="width: 5%;">{row.index}</td>
-						<td style="width: 25%;">{row.TopicName}</td>
+						<td style="width: 4%;">{row.index}</td>
+						<td style="width: 19%;">{row.TopicName}</td>
 						<!-- <td style="width: 27%;">{row.Tags}</td> -->
-						<td style="width: 27%;"
+						<td style="width: 36%;"
 							>{row.Tags.length > 10 
 								? row.Tags.substring(0, 5) + '...'
 								: row.Tags}</td
 						>
 						<!-- <td style="width: 25%;">{row.AdditionalResource}</td> -->
-						<td style="width: 20%;">{date.format(new Date(row.CreatedAt), 'DD-MMM-YYYY')}</td>
-						<td style="width: 4%;">
+						<td style="width: 17%;">{date.format(new Date(row.CreatedAt), 'DD-MMM-YYYY')}</td>
+						<td style="width: 2%;">
 							<a href={editRoute(row.id)}
 								><Fa icon={faPencil} style="color-text-primary" size="md" /></a
 							>
 						</td>
-						<td>
+						<td style="width: 2%;">
 							<Confirm
 								confirmTitle="Delete"
 								cancelTitle="Cancel"

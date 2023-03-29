@@ -177,15 +177,17 @@
 		</a>
 	</div>
 </div>
-<div class="flex justify-center flex-col mx-10 mt-4 overflow-y-auto ">
+<div class="flex justify-center flex-col mx-10 mt-4 mb-10 overflow-y-auto ">
 	<table class="table rounded-b-none">
 		<thead class="sticky top-0">
 			<tr>
 				<th style="width: 5%;">Id</th>
-				<th style="width: 18%;">Title</th>
-				<th style="width: 31%;">Link</th>
-				<th style="width: 18%;">Category</th>
+				<th style="width: 19%;">Title</th>
+				<th style="width: 33%;">Link</th>
+				<th style="width: 19%;">Category</th>
 				<th style="width: 35%;">Created Date</th>
+				<th style="width: 8%;"></th>
+				<th style="width: 8%;"></th>
 			</tr>
 		</thead>
 	</table>
@@ -199,7 +201,7 @@
 						<td style="width: 32%;">{row.Link}</td>
 						<td style="width: 19%;">{row.Category}</td>
 						<td style="width: 20%;">{date.format(new Date(row.CreatedAt), 'DD-MMM-YYYY')}</td>
-						<td style="">
+						<td style="width: 8%;">
 							<a href={editRoute(row.id)}
 								><Fa icon={faPencil} style="color-text-primary" size="md" /></a
 							>

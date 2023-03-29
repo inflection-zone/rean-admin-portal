@@ -11,9 +11,14 @@
 	let fileinput;
 
 	const createRoute = `/users/${userId}/newsfeeds/${newsfeedId}/newsfeed-items/create`;
+	const newsfeedRoute = `/users/${userId}/newsfeeds`;
 	const newsfeedItemRoute = `/users/${userId}/newsfeeds/${newsfeedId}/newsfeed-items`;
 
 	const breadCrumbs = [
+		{
+			name: 'Newsfeed',
+			path: newsfeedRoute
+		},
 		{
 			name: 'Newsfeed-Item',
 			path: newsfeedItemRoute

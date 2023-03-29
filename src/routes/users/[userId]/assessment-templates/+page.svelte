@@ -138,7 +138,7 @@
 </div>
 
 <div
-	class="flex flex-row mx-14 lg:mt-10 md:mt-10 sm:mt-4 mt-4 lg:gap-7 md:gap-8 sm:gap-4 gap-4 lg:flex-row md:flex-row sm:flex-col min-[280px]:flex-col"
+	class="flex flex-row mx-10 lg:mt-10 md:mt-10 sm:mt-4 mt-4 lg:gap-7 md:gap-8 sm:gap-4 gap-4 lg:flex-row md:flex-row sm:flex-col min-[280px]:flex-col"
 >
 	<div class="basis-1/2 justify-center items-center ">
 		<div class="relative flex items-center">
@@ -177,14 +177,16 @@
 	</div>
 </div>
 
-<div class="flex justify-center flex-col mt-4 mx-10 overflow-y-auto ">
+<div class="flex justify-center flex-col mt-4 mx-10 mb-10 overflow-y-auto ">
 	<table class="table rounded-b-none">
 		<thead class="sticky top-0">
 			<tr>
-				<th style="width: 7%;">Id</th>
-				<th style="width: 22%;">Title</th>
-				<th style="width: 28%;">Type</th>
-				<th style="width: 45%;">Provider</th>
+				<th style="width: 5%;">Id</th>
+				<th style="width: 20%;">Title</th>
+				<th style="width: 30%;">Type</th>
+				<th style="width: 24%;">Provider</th>
+				<th style="width: 8%;"></th>
+				<th style="width: 8%;"></th>
 			</tr>
 		</thead>
 	</table>
@@ -193,16 +195,16 @@
 			<tbody class="">
 				{#each $dataTableStore.filtered as row, rowIndex}
 					<tr>
-						<td style="width: 7%;">{row.index}</td>
-						<td style="width: 22%;"><a href={viewRoute(row.id)}> {row.Title}</a></td>
-						<td style="width: 28%;">{row.Type}</td>
-						<td style="width: 30%;">{row.Provider}</td>
-						<td>
+						<td style="width: 5%;">{row.index}</td>
+						<td style="width: 20%;"><a href={viewRoute(row.id)}> {row.Title}</a></td>
+						<td style="width: 30%;">{row.Type}</td>
+						<td style="width: 24%;">{row.Provider}</td>
+						<td style="width: 8%;">
 							<a href={editRoute(row.id)}
 								><Fa icon={faPencil} style="color-text-primary" size="md" /></a
 							>
 						</td>
-						<td>
+						<td style="width: 8%;">
 							<Confirm
 								confirmTitle="Delete"
 								cancelTitle="Cancel"
@@ -217,7 +219,7 @@
 									class=""><Fa icon={faTrash} /></button
 								>
 								<span slot="title"> Delete </span>
-								<span slot="description"> Are you sure you want to delete a notice? </span>
+								<span slot="description"> Are you sure you want to delete a assessment template? </span>
 							</Confirm>
 						</td>
 					</tr>
