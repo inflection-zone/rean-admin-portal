@@ -51,7 +51,7 @@
 	];
 </script>
 
-<main class="h-screen mb-10">
+<main class=" mb-32">
 	<BreadCrumbs crumbs={breadCrumbs} />
 
 	<div class="px-3 mb-5">

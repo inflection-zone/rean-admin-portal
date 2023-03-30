@@ -17,9 +17,9 @@ const drugs: TabDefinition = {
     default: false,
 };
 
-const notifications: TabDefinition = {
-    name: 'Notifications',
-    path: `/users/userId/notifications`,
+const assessmentTemplate: TabDefinition = {
+    name: 'Assessment-Template',
+    path: `/users/userId/assessment-templates`,
     default: false,
 };
 
@@ -70,9 +70,9 @@ const priorities: TabDefinition = {
     default: false,
 };
 
-const assessments: TabDefinition = {
-    name: 'Assessment - Templates',
-    path: `/users/userId/assessment-templates`,
+const notifications: TabDefinition = {
+    name: 'Notification',
+    path: `/users/userId/notifications`,
     default: false,
 };
 
@@ -92,7 +92,7 @@ export const navbarMenu = (userId) => {
             home,
             apiClients,
             organizations,
-            assessments,
+            notifications,
     ];
     return replaceUserId(menus, userId);
 };
@@ -101,7 +101,7 @@ export const sidebarMenu = (userId) => {
     const menus = [
         home,
         drugs,
-        notifications,
+        assessmentTemplate,
         notices,
         newsFeeds,
         goals,
