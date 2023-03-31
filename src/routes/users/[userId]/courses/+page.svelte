@@ -8,7 +8,7 @@
 	import Confirm from '$lib/components/modal/confirmModal.svelte';
 	import { faPencil, faSearch, faTrash } from '@fortawesome/free-solid-svg-icons';
 	import type { PageServerData } from './$types';
-	import { TreeView, TreeBranch, TreeLeaf } from "svelte-tree-view-component";
+	import { TreeView, TreeBranch, TreeLeaf } from 'svelte-tree-view-component';
 
 	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -104,19 +104,6 @@
 </script>
 
 <BreadCrumbs crumbs={breadCrumbs} />
-<TreeView >
-	{#each courses as course}
-	<TreeBranch rootContent={course.Name}>
-		{#each course.Modules as module}
-			<TreeBranch rootContent={module.Name}>
-				{#each module.CourseContents as content}
-					<TreeLeaf>{content.Title}</TreeLeaf>
-				{/each}
-			</TreeBranch>
-		{/each}
-	</TreeBranch>
-	{/each}
-</TreeView>
 
 <div
 	class=" mr-14 mt-8 lg:flex-row md:flex-row sm:flex-col flex-col lg:block md:block sm:hidden hidden"
@@ -140,7 +127,78 @@
 		</div>
 	</div>
 </div>
-<div
+<a href={createRoute} class=" right-14 ">
+	<button
+		class="btn variant-filled-primary hover:bg-primary lg:hidden md:hidden block sm:w-40 w-24 ml-4 rounded-lg bg-primary transition
+			ease-in-out
+			delay-150  
+			hover:scale-110  
+			duration-300 ...  "
+	>
+		Add new
+	</button>
+</a>
+<!-- lineColor="#ECE4FC" -->
+
+<div class="ml-10 ">
+	<TreeView
+		lineColor="color-primary-500"
+		iconBackgroundColor="#ECE4FC"
+		branchHoverColor="#ECE4FC"
+	>
+		{#each courses as course}
+			<TreeBranch>
+				<div class="text-primary-500" slot="root">{course.Name}</div>
+				{#each course.Modules as module}
+					<TreeBranch>
+						<div class="text-secondary-500" slot="root">{module.Name}</div>
+						{#each module.CourseContents as content}
+							<TreeLeaf><div class="text-tertiary-500">{content.Title}</div></TreeLeaf>
+						{/each}
+					</TreeBranch>
+				{/each}
+			</TreeBranch>
+		{/each}
+	</TreeView>
+
+	<!-- <TreeView>
+	{#each courses as course}
+	<TreeBranch rootContent={course.Name}>
+		{#each course.Modules as module}
+			<TreeBranch rootContent={module.Name}>
+				{#each module.CourseContents as content}
+					<TreeLeaf>{content.Title}</TreeLeaf>
+				{/each}
+			</TreeBranch>
+		{/each}
+	</TreeBranch>
+	{/each}
+</TreeView> -->
+</div>
+
+<!-- <div
+	class=" mr-14 mt-8 lg:flex-row md:flex-row sm:flex-col flex-col lg:block md:block sm:hidden hidden"
+>
+	<div class="basis-1/2 justify-center items-center ">
+		<div class="relative flex items-center  " />
+	</div>
+	<div class="basis-1/2 justify-center items-center">
+		<div class="relative flex items-center">
+			<a href={createRoute} class="absolute right-4 lg:mr-[-32px] ">
+				<button
+					class="btn variant-filled-primary w-28 rounded-lg hover:bg-primary bg-primary transition
+          ease-in-out
+          delay-150  
+          hover:scale-110  
+          duration-300 ... "
+				>
+					Add new
+				</button>
+			</a>
+		</div>
+	</div>
+</div> -->
+<!-- <div
 	class="flex flex-row mx-10 lg:mt-10 md:mt-10 sm:mt-4 mt-4 lg:gap-7 md:gap-8 sm:gap-4 gap-4 lg:flex-row md:flex-row sm:flex-col min-[280px]:flex-col"
 >
 	<div class="basis-1/2 justify-center items-center ">
@@ -247,7 +305,7 @@
 				bind:settings={$dataTableStore.pagination}
 			/>{/if}
 	</div>
-</div>
+</div> -->
 
 <!-- <TreeView {tree} /> -->
 <style>
