@@ -114,10 +114,10 @@
 	};
 </script>
 
-<main class="h-screen mb-10">
+<main class="h-screen mb-60">
 	<BreadCrumbs crumbs={breadCrumbs} />
 
-	<div class=" flex justify-center mt-5 px-3 mb-10 flex-col items-center">
+	<div class=" px-5 mb-5">
 		<form
 			method="post"
 			action="?/updateNewsfeedAction"
