@@ -9,15 +9,19 @@ export const createAssessmentNode = async (
 	parentNodeId: string,
 	nodeType: string,
 	title: string,
-	description: string,
-	queryType: string,
-	options: string[]
+	description?: string,
+	message ?:string,
+	serveListNodeChildrenAtOnce?:boolean,
+	queryType?: string,
+	options?: string[]
 ) => {
 	const body = {
 		ParentNodeId: parentNodeId,
 		NodeType: nodeType,
 		Title: title,
 		Description: description,
+		Message: message,
+		ServeListNodeChildrenAtOnce: serveListNodeChildrenAtOnce,
 		QueryResponseType: queryType,
 		Options: options
 	};
@@ -33,6 +37,7 @@ export const createAssessmentNode = async (
 			count = count + 1;
 		}
 		body.Options = options;
+		console.log("body",body)
 	}
 	const url = BACKEND_API_URL + `/clinical/assessment-templates/${templateId}/nodes`;
 	return await post_(sessionId, url, body, true);
@@ -78,13 +83,15 @@ export const updateAssessmentNode = async (
 	nodeType: string,
 	title: string,
 	description: string,
-	queryType: string,
-	options: string[],
+	queryType?: string,
+	options?: string[],
+	message ?:string,
 ) => {
 	const body = {
 		NodeType: nodeType,
 		Title: title,
 		Description: description,
+		Message: message,
 		QueryResponseType: queryType,
 		Options: options
 	};

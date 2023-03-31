@@ -8,16 +8,17 @@
 	import MultipleChoice from '../../create/multiple.choice.svelte';
 
 	//////////////////////////////////////////////////////////////////////////////////////
-	
+
 	export let data: PageServerData;
 	const queryResponseTypes = data.queryResponseTypes;
 	let id = data.assessmentNode.id;
 	let nodeType = data.assessmentNode.NodeType;
 	let title = data.assessmentNode.Title;
-	let description = data.assessmentNode.Description;
+	let description = data.assessmentNode.Description ;
 	let queryType = data.assessmentNode.QueryResponseType;
-	let options = data.assessmentNode.Options;
+	let options = data.assessmentNode.Options ?? [];
 	let optionValueStore = options;
+	let message = data.assessmentNode.Message ?? null
 
 	//Original data
 	let _nodeType = nodeType;
@@ -48,10 +49,15 @@
 			path: editRoute
 		}
 	];
+	let selectedNodeType = nodeType;
+	let selectedQueryType = queryType;
 
-	let show = queryType;
-	const onChange = (val) => {
-		show = val.target.value;
+	const onSelectNodeType = (val) => {
+		selectedNodeType = val.target.value;
+	};
+
+	const onSelectQueryResponseType = (val) => {
+		selectedQueryType = val.target.value;
 	};
 </script>
 
@@ -89,7 +95,10 @@
 					bind:value={nodeType}
 					placeholder="Select node type here..."
 					class="select w-full"
-					><option>Question</option>
+					on:change={(val) => onSelectNodeType(val)}
+					>
+					<option selected>{nodeType}</option>
+					<option>Question</option>
 					<option>Message</option>
 					<option>Node List</option>
 				</select>
@@ -130,37 +139,60 @@
 				/>
 			</div>
 		</div>
-		<div class="flex items-center mb-4 mt-2 mx-16">
-			<div class="w-1/3">
-				<!-- svelte-ignore a11y-label-has-associated-control -->
-				<label class="label">
-					<span>Query Response Type</span>
-				</label>
+
+		{#if selectedNodeType === 'Question'}
+			<div class="flex items-center mb-4 mt-2 mx-16">
+				<div class="w-1/3">
+					<!-- svelte-ignore a11y-label-has-associated-control -->
+					<label class="label">
+						<span>Query Response Type</span>
+					</label>
+				</div>
+				<div class="w-2/3">
+					<select
+						id="mySelect"
+						name="queryType"
+						class="select select-info w-full"
+						placeholder="Select query type here..."
+						on:change={(val) => onSelectQueryResponseType(val)}
+					>
+						<option selected value={queryType}>{queryType}</option>
+						{#each queryResponseTypes as responseType}
+							<option value={responseType}>{responseType}</option>
+						{/each}
+					</select>
+				</div>
 			</div>
-			<div class="w-2/3">
-				<select
-					id="mySelect"
-					name="queryType"
-					class="select select-info w-full"
-					placeholder="Select query type here..."
-					on:change={(val) => onChange(val)}
-				>
-					<option selected value={queryType}>{queryType}</option>
-					{#each queryResponseTypes as responseType}
-						<option value={responseType}>{responseType}</option>
-					{/each}
-				</select>
+
+			{#if selectedQueryType === 'Single Choice Selection'}
+				<SingleChoice {optionValueStore} />
+			{:else if selectedQueryType === 'Multi Choice Selection'}
+				<MultipleChoice {optionValueStore} />
+			{:else}
+				<div />
+			{/if}
+			
+		{:else if selectedNodeType === 'Message'}
+			<div class="flex items-start mb-4 mt-2 mx-16">
+				<div class="w-1/3">
+					<!-- svelte-ignore a11y-label-has-associated-control -->
+					<label class="label mt-2">
+						<span>Message</span>
+					</label>
+				</div>
+				<div class="w-2/3">
+					<textarea
+						name="message"
+						required
+						class="textarea w-full"
+						placeholder="Enter message here..."
+						bind:value={message}
+					/>
+				</div>
 			</div>
-		</div>
-		
-		{#if show === 'Single Choice Selection'}
-			<SingleChoice {optionValueStore}/>
-		{:else if show === 'Multi Choice Selection'}
-			<MultipleChoice {optionValueStore} />
 		{:else}
 			<div />
 		{/if}
-
 		<div class="flex items-center my-8 lg:mx-16 md:mx-12 mx-4 ">
 			<div class="lg:w-1/2 md:w-1/2 sm:w-1/2  w-1/3" />
 			<div class="lg:w-1/4 md:w-1/4 sm:w-1/4  w-1/3 ">

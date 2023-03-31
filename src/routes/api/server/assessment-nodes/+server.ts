@@ -9,7 +9,7 @@ export const DELETE = async (event: RequestEvent) => {
 	
 	try {
 		console.log('Inside assessment node server endpoints');
-		const response = await deleteAssessmentNode(data.sessionId, data.assessmentTemplateId, data.assessmentnodeId);
+		const response = await deleteAssessmentNode(data.sessionId, data.assessmentTemplateId, data.assessmentNodeId);
 		return new Response(response.message);
 	} catch (err) {
 		console.error(`Error deleting assessment node: ${err.message}`);

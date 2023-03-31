@@ -1,7 +1,7 @@
 import { redirect } from 'sveltekit-flash-message/server';
 import { error, type RequestEvent } from '@sveltejs/kit';
 import { errorMessage, successMessage } from '$lib/utils/message.utils';
-import { createAssessmentNode, getQueryResponseTypes } from '../../../../../../api/services/assessment-nodes';
+import { createAssessmentNode, getQueryResponseTypes, searchAssessmentNodes } from '../../../../../../api/services/assessment-nodes';
 import { getAssessmentTemplateById } from '../../../../../../api/services/assessment-templates';
 import type { PageServerLoad } from './$types';
 
@@ -11,16 +11,26 @@ export const load: PageServerLoad = async (event: RequestEvent) => {
 	const sessionId = event.cookies.get('sessionId');
 
 	try {
-		const response = await getQueryResponseTypes(sessionId);
+		const templateId = event.params.templateId;
+		const searchParams = {
+			templateId: templateId
+		};
+		const _queryResponseTypes = await getQueryResponseTypes(sessionId);
+		const response = await searchAssessmentNodes(sessionId, searchParams);
+		const _assessmentTemplate = await getAssessmentTemplateById(sessionId,templateId);
 
 		if (response.Status === 'failure' || response.HttpCode !== 200) {
 			throw error(response.HttpCode, response.Message);
 		}
-		const queryResponseTypes = response.Data.QueryResponseTypes;
+		const queryResponseTypes = _queryResponseTypes.Data.QueryResponseTypes;
+		const assessmentNodes = response.Data.AssessmentNodeRecords.Items;
+		const assessmentTemplate = _assessmentTemplate.Data.AssessmentTemplate;
 		console.log("response",response);
 
 		return {
 			queryResponseTypes,
+			assessmentNodes,
+			assessmentTemplate,
 			message: response.Message
 		};
 	} catch (error) {
@@ -36,25 +46,26 @@ export const actions = {
 		const data = await request.formData();
 
 		const nodeType = data.has('nodeType') ? data.get('nodeType') : null;
+		const parentNodeId = data.has('parentNodeId') ? data.get('parentNodeId') : null;
 		const title = data.has('title') ? data.get('title') : null;
 		const description = data.has('description') ? data.get('description') : null;
 		const queryType = data.has('queryType') ? data.get('queryType') : null;
+		const message = data.has('message') ? data.get('message') : null;
+		const serveListNodeChildrenAtOnce = data.has('serveListNodeChildrenAtOnce') ? data.get('serveListNodeChildrenAtOnce') : false;
 		const options = data.has('options') ? data.getAll('options') : [];
 		const sessionId = event.cookies.get('sessionId');
-
-		console.log("data",data)
-		const _assessmentTemplate = await getAssessmentTemplateById(sessionId,templateId);
-		const assessmentTemplate = _assessmentTemplate.Data.AssessmentTemplate;
-		const parentNodeId = assessmentTemplate.RootNodeId;
+		
 		const response = await createAssessmentNode(
 			sessionId,
 			templateId,
-			parentNodeId,
+			parentNodeId.valueOf() as string,
 			nodeType.valueOf() as string,
 			title.valueOf() as string,
-			description.valueOf() as string,
-			queryType.valueOf() as string,
-			options.valueOf()as string[],
+			description ?.valueOf() as string ?? null,
+			message ?.valueOf() as string  ?? null,
+			serveListNodeChildrenAtOnce?.valueOf() as boolean  ?? null,
+			queryType?.valueOf() as string  ?? null,
+			options?.valueOf()as string[]  ?? null,
 		);
 		const nodeId = response.Data.AssessmentNode.id;
 		console.log("response",response)

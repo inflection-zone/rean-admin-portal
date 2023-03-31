@@ -96,7 +96,7 @@
 		const assessmentTemplateId = id;
 		await Delete({
 			sessionId: data.sessionId,
-			assessmentTemplateId
+			assessmentTemplateId : assessmentTemplateId,
 		});
 		window.location.href = assessmentRoute;
 	};
