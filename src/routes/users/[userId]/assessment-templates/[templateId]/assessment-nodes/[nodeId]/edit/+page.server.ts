@@ -49,6 +49,7 @@ export const actions = {
 		const description = data.has('description') ? data.get('description') : null;
 		const queryType = data.has('queryType') ? data.get('queryType') : null;
 		const options = data.has('options') ? data.getAll('options') : [];
+		const message = data.has('message') ? data.get('message') : null;
 		const sessionId = event.cookies.get('sessionId');
 
 		console.log("data",data);
@@ -58,9 +59,10 @@ export const actions = {
 			assessmentNodeId,
 			nodeType.valueOf() as string,
 			title.valueOf() as string,
-			description.valueOf() as string,
-			queryType.valueOf() as string,
-			options.valueOf()as string[],
+			description?.valueOf() as string,
+			queryType?.valueOf() as string,
+			options?.valueOf()as string[],
+			message?.valueOf() as string ,
 		);
 		const nodeId = response.Data.AssessmentNode.id;
 

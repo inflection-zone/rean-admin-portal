@@ -7,15 +7,17 @@
 	import BreadCrumbs from '$lib/components/breadcrumbs/breadcrums.svelte';
 	import { page } from '$app/stores';
 	import type { PageServerData } from './$types';
+	import { TreeView, TreeBranch, TreeLeaf } from 'svelte-tree-view-component';
 
 	export let data: PageServerData;
-	let id = data.assessment.id;
-	let title = data.assessment.Title;
-	let description = data.assessment.Description;
-	let displayCode = data.assessment.DisplayCode;
-	let type = data.assessment.Type;
-	let providerAssessmentCode = data.assessment.ProviderAssessmentCode;
-	let serveListNodeChildrenAtOnce = data.assessment.ServeListNodeChildrenAtOnce;
+	let assessmentNodes = data.assessmentNodesWithoutRootNode;
+	let id = data.assessmentTemplate.id;
+	let title = data.assessmentTemplate.Title;
+	let description = data.assessmentTemplate.Description;
+	let displayCode = data.assessmentTemplate.DisplayCode;
+	let type = data.assessmentTemplate.Type;
+	let providerAssessmentCode = data.assessmentTemplate.ProviderAssessmentCode;
+	let serveListNodeChildrenAtOnce = data.assessmentTemplate.ServeListNodeChildrenAtOnce;
 
 	onMount(() => {
 		show(data);
@@ -27,7 +29,7 @@
 	const editRoute = `/users/${userId}/assessment-templates/${templateId}/edit`;
 	const viewRoute = `/users/${userId}/assessment-templates/${templateId}/view`;
 	const assessmentsRoutes = `/users/${userId}/assessment-templates`;
-	const nodeRoute =`/users/${userId}/assessment-templates/${templateId}/assessment-nodes`;
+	const nodeRoute = `/users/${userId}/assessment-templates/${templateId}/assessment-nodes/create`;
 
 	const breadCrumbs = [
 		{
@@ -44,7 +46,7 @@
 <main class="h-screen mb-10">
 	<BreadCrumbs crumbs={breadCrumbs} />
 
-	<div class="px-3 mb-5">
+	<div class="px-3 pb-10 mb-5">
 		<form
 			method="get"
 			class="w-full lg:max-w-4xl md:max-w-xl sm:max-w-lg mb-10 bg-[#ECE4FC] mt-6 rounded-lg mx-auto"
@@ -115,7 +117,7 @@
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
 					<!-- svelte-ignore a11y-label-has-associated-control -->
 					<label class="label">
-						<span>Serve list node childrenAt once</span>
+						<span>Serve list node children at once</span>
 					</label>
 				</div>
 				<span class="span w-1/2 md:2/3 lg:2/3" id="serveListNodeChildrenAtOnce">
@@ -123,28 +125,59 @@
 				</span>
 			</div>
 
+			<div class="flex items-start mb-4 lg:mx-16 md:mx-12 mx-10">
+				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
+					<!-- svelte-ignore a11y-label-has-associated-control -->
+					<label class="label mt-2">
+						<span>Nodes</span>
+					</label>
+				</div>
+				<span class="span w-1/2 md:2/3 lg:2/3" id="serveListNodeChildrenAtOnce">
+					<!-- svelte-ignore empty-block -->
+					{#if assessmentNodes.length <= 0}
+						<div>Nodes are not available</div>
+					{:else}
+						<TreeView lineColor="#5832A1" iconBackgroundColor="#5832A1" branchHoverColor="#5832A1">
+							<TreeBranch rootContent="Assessment root node">
+								{#each assessmentNodes as node}
+									{#if node.NodeType === 'Node list'}
+										<TreeBranch rootContent={node.Title}>
+											{#each node.Children as child}
+												<TreeLeaf>{child.Title}</TreeLeaf>
+											{/each}
+										</TreeBranch>
+									{:else}
+										<TreeLeaf>{node.Title}</TreeLeaf>
+									{/if}
+								{/each}
+							</TreeBranch>
+						</TreeView>
+					{/if}
+				</span>
+			</div>
+
 			<div class="flex  items-center mt-10 lg:mx-10 md:mx-16">
-        <div class="lg:w-8/12 min-[280px]:w-1/3 sm:w-1/2 md:w-1/2" />
-        <div class="flex lg:w-1/3 min-[280px]:w-2/4 ">
-          <a href={nodeRoute}>
-          <button
-              type="submit"
-              class="btn variant-filled-primary lg:w-full md:w-28 sm:w-28 min-[280px]:w-28 w-20 mb-8 "
-            >
-             Assessment Nodes
-            </button>
-          </a>
-          <a href={editRoute}>
-            <button
-              type="submit"
-              class="btn variant-filled-primary lg:w-full md:w-28 sm:w-24 min-[280px]:w-24 w-20 mb-8 lg:mr-4 mr-1 "
-            >
-              Edit
-              <Fa icon={faPen} size="lg" class="lg:ml-4 sm:ml-2 ml-1" />
-            </button>
-          </a>
-        </div>
-      </div>
+				<div class="lg:w-8/12 min-[280px]:w-1/3 sm:w-1/2 md:w-1/2" />
+				<div class="flex lg:w-1/3 gap-2 min-[280px]:w-2/4 ">
+					<a href={nodeRoute}>
+						<button
+							type="submit"
+							class="btn variant-filled-primary lg:w-full md:w-28 sm:w-28 min-[280px]:w-28 w-20 mb-8 "
+						>
+							Add Node
+						</button>
+					</a>
+					<a href={editRoute}>
+						<button
+							type="submit"
+							class="btn variant-filled-primary lg:w-full md:w-28 sm:w-24 min-[280px]:w-24 w-20 mb-8 lg:mr-4 mr-1 "
+						>
+							Edit
+							<Fa icon={faPen} size="lg" class="lg:ml-4 sm:ml-2 ml-1" />
+						</button>
+					</a>
+				</div>
+			</div>
 		</form>
 	</div>
 </main>

@@ -7,6 +7,7 @@
 	import Confirm from '$lib/components/modal/confirmModal.svelte';
 	import { faPencil, faSearch, faTrash } from '@fortawesome/free-solid-svg-icons';
 	import type { PageServerData } from './$types';
+	
 
 	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -122,6 +123,7 @@
 		});
 	}
 </script>
+
 
 <BreadCrumbs crumbs={breadCrumbs} />
 

@@ -21,6 +21,7 @@ export const load: PageServerLoad = async (event: RequestEvent) => {
 		return {
 			location: `${id}/edit`,
 			assessmentNode,
+			sessionId,
 			message: response.Message
 		};
 	} catch (error) {

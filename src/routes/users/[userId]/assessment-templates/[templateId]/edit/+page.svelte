@@ -6,7 +6,6 @@
 	import type { PageServerData } from './$types';
 
 	export let data: PageServerData;
-	let initiaData = {};
 	let id = data.assessmentTemplate.id;
 	let title = data.assessmentTemplate.Title;
 	let description = data.assessmentTemplate.Description;
@@ -40,7 +39,6 @@
 	const editRoute = `/users/${userId}/assessment-templates/${templateId}/edit`;
 	const viewRoute = `/users/${userId}/assessment-templates/${templateId}/view`;
 	const assessmentsRoutes = `/users/${userId}/assessment-templates`;
-
 
 	const breadCrumbs = [
 		{
