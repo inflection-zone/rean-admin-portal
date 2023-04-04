@@ -190,7 +190,7 @@
 						<div class="span w-full lg:w-2/3 " id="modules">	
 							<table class="table-auto overflow-x-auto text-left ">
 								<thead class="font-semibold">
-									<tr class="">
+									<tr class="font-semibold">
 										<th style="width: 15%;">Sequence</th>
 										<th style="width: 15%;" >Node type</th>
 										<th style="width: 60%;">Title</th>

@@ -8,6 +8,7 @@
 	import { LocalStorageUtils } from '$lib/utils/local.storage.utils';
 	import BreadCrumbs from '$lib/components/breadcrumbs/breadcrums.svelte';
 	import Image from '$lib/components/image.svelte';
+	import { TreeView, TreeBranch, TreeLeaf } from 'svelte-tree-view-component';
 	
 	////////////////////////////////////////////////////////////////////////////////////////////////////////
 	
@@ -16,8 +17,10 @@
 	let name = data.course.Name;
 	let description = data.course.Description;
 	let imageUrl = data.course.ImageUrl;
+	console.log("imageUrl",imageUrl)
 	let modules = data.course.Modules;
 	let durationInDays = data.course.DurationInDays;
+	console.log(data.course)
 
 	onMount(() => {
 		show(data);
@@ -122,15 +125,28 @@
 						<span>Modules</span>
 					</label>
 				</div>
+				<span class="span w-1/2 md:2/3 lg:2/3" >
 				{#if modules.length <= 0}
 					<span class="span">Modules are not available!</span>
 				{:else}
-				<ol class="span w-1/2 md:w-2/3 lg:w-2/3 list-decimal" id="modules">
+				<!-- <ol class="span w-1/2 md:w-2/3 lg:w-2/3 list-decimal" id="modules">
 					{#each modules as module}
 						<li>{module.Name}</li>
 			  	{/each}	
-				</ol>
+				</ol> -->
+				<TreeView lineColor="#5832A1" iconBackgroundColor="#5832A1" branchHoverColor="#5832A1">
+						{#each modules as module}
+								<TreeBranch rootContent={module.Name}>
+									<!-- {#if module.CourseContents.length > 1} -->
+									{#each module.Contents as content}
+										<TreeLeaf>{content.Title}</TreeLeaf>
+									{/each}
+									<!-- {/if} -->
+								</TreeBranch>
+						{/each}
+				</TreeView>
 				{/if}
+			</span>
 			</div>
 			<div class="flex  items-center mt-10 lg:mx-10 md:mx-16">
         <div class="lg:w-8/12 min-[280px]:w-1/3 sm:w-1/2 md:w-1/2" />

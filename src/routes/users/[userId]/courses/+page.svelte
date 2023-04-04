@@ -9,6 +9,7 @@
 	import { faPencil, faSearch, faTrash } from '@fortawesome/free-solid-svg-icons';
 	import type { PageServerData } from './$types';
 	import { TreeView, TreeBranch, TreeLeaf } from 'svelte-tree-view-component';
+	import { goto } from '$app/navigation';
 
 	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -34,6 +35,9 @@
 		}
 	];
 
+	const onCourseClick = (id) => {
+    goto(`/users/${userId}/courses/${id}/view`);
+  };
 	let name = undefined;
 	let durationInDays = undefined;
 	let sortBy = 'CreatedAt';
@@ -142,18 +146,16 @@
 
 <div class="ml-10 ">
 	<TreeView
-		lineColor="color-primary-500"
-		iconBackgroundColor="#ECE4FC"
-		branchHoverColor="#ECE4FC"
+	lineColor="#5832A1" iconBackgroundColor="#5832A1" branchHoverColor="#5832A1"
 	>
 		{#each courses as course}
 			<TreeBranch>
-				<div class="text-primary-500" slot="root">{course.Name}</div>
+				<button on:click={onCourseClick(course.id)} class="text-primary-500" slot="root">{course.Name}</button>
 				{#each course.Modules as module}
 					<TreeBranch>
-						<div class="text-secondary-500" slot="root">{module.Name}</div>
+						<div class="text-secondary-800" slot="root">{module.Name}</div>
 						{#each module.CourseContents as content}
-							<TreeLeaf><div class="text-tertiary-500">{content.Title}</div></TreeLeaf>
+							<TreeLeaf><div class="text-secondary-500">{content.Title}</div></TreeLeaf>
 						{/each}
 					</TreeBranch>
 				{/each}

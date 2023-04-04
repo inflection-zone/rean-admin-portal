@@ -8,7 +8,6 @@
 	import { faPencil, faSearch, faTrash } from '@fortawesome/free-solid-svg-icons';
 	import type { PageServerData } from './$types';
 	
-
 	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 	export let data: PageServerData;
@@ -123,7 +122,6 @@
 		});
 	}
 </script>
-
 
 <BreadCrumbs crumbs={breadCrumbs} />
 
