@@ -18,7 +18,7 @@ const drugs: TabDefinition = {
 };
 
 const assessmentTemplate: TabDefinition = {
-    name: 'Assessment-Template',
+    name: 'Assessment-Templates',
     path: `/users/userId/assessment-templates`,
     default: false,
 };
@@ -71,7 +71,7 @@ const priorities: TabDefinition = {
 };
 
 const notifications: TabDefinition = {
-    name: 'Notification',
+    name: 'Notifications',
     path: `/users/userId/notifications`,
     default: false,
 };

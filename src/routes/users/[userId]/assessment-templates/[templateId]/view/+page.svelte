@@ -1,6 +1,14 @@
 <script lang="ts">
 	import Fa from 'svelte-fa';
-	import { faMultiply, faPen } from '@fortawesome/free-solid-svg-icons';
+	import {
+		faList,
+		faListDots,
+		faListNumeric,
+		faMessage,
+		faMultiply,
+		faPen,
+		faQuestionCircle
+	} from '@fortawesome/free-solid-svg-icons';
 	import { onMount } from 'svelte';
 	import { show } from '$lib/utils/message.utils';
 	import { LocalStorageUtils } from '$lib/utils/local.storage.utils';
@@ -18,6 +26,10 @@
 	let type = data.assessmentTemplate.Type;
 	let providerAssessmentCode = data.assessmentTemplate.ProviderAssessmentCode;
 	let serveListNodeChildrenAtOnce = data.assessmentTemplate.ServeListNodeChildrenAtOnce;
+
+	assessmentNodes = assessmentNodes.sort((a, b) => {
+		return a.Sequence - b.Sequence;
+	});
 
 	onMount(() => {
 		show(data);
@@ -88,7 +100,7 @@
 						<span>Display code</span>
 					</label>
 				</div>
-				<span class="span w-1/2 md:2/3 lg:2/3" id="displayCode"> {displayCode} </span>
+				<span class="span w-1/2 md:2/3 lg:2/3 uppercase" id="displayCode">{displayCode}</span>
 			</div>
 
 			<div class="flex items-center mb-4 lg:mx-16 md:mx-12 mx-10">
@@ -98,7 +110,7 @@
 						<span>Type</span>
 					</label>
 				</div>
-				<span class="span w-1/2 md:2/3 lg:2/3" id="type"> {type} </span>
+				<span class="span w-1/2 md:2/3 lg:2/3" id="type">{type}</span>
 			</div>
 
 			<div class="flex items-center mb-4 lg:mx-16 md:mx-12 mx-10">
@@ -132,22 +144,71 @@
 						<span>Nodes</span>
 					</label>
 				</div>
-				<span class="span w-1/2 md:2/3 lg:2/3" id="serveListNodeChildrenAtOnce">
+				<span class="span w-1/2 md:2/3 lg:2/3">
 					<!-- svelte-ignore empty-block -->
 					{#if assessmentNodes.length <= 0}
 						<div>Nodes are not available</div>
 					{:else}
 						<TreeView lineColor="#5832A1" iconBackgroundColor="#5832A1" branchHoverColor="#5832A1">
-							<TreeBranch rootContent="Assessment root node">
+							<TreeBranch rootContent="Root node">
 								{#each assessmentNodes as node}
 									{#if node.NodeType === 'Node list'}
-										<TreeBranch rootContent={node.Title}>
+										<TreeBranch defaultClosed>
+											<div slot="root" class="flex">
+												<Fa icon={faList} size="lg" class="mr-2" />
+												{node.Sequence}-{node.NodeType}-{node.Title}
+											</div>
 											{#each node.Children as child}
-												<TreeLeaf>{child.Title}</TreeLeaf>
+												{#if child.NodeType === 'Node list'}
+													<TreeBranch defaultClosed>
+														<div slot="root" class="flex">
+															<Fa icon={faList} size="lg" class="mr-2" />
+															{child.Sequence}-{child.NodeType}-{child.Title}
+														</div>
+													</TreeBranch>
+												{:else if child.NodeType === 'Question'}
+													<TreeLeaf
+														><div class="flex">
+															<Fa
+																icon={faQuestionCircle}
+																size="lg"
+																class="mr-2"
+															/>{child.Sequence}-{child.NodeType}-{child.Title}
+														</div></TreeLeaf
+													>
+												{:else}
+													<TreeLeaf
+														><div class="flex">
+															<Fa
+																icon={faMessage}
+																size="lg"
+																class="mr-2"
+															/>{node.Sequence}-{node.NodeType}-{node.Title}
+														</div></TreeLeaf
+													>
+												{/if}
 											{/each}
 										</TreeBranch>
+									{:else if node.NodeType === 'Question'}
+										<TreeLeaf
+											><div class="flex">
+												<Fa
+													icon={faQuestionCircle}
+													size="lg"
+													class="mr-2"
+												/>{node.Sequence}-{node.NodeType}-{node.Title}
+											</div></TreeLeaf
+										>
 									{:else}
-										<TreeLeaf>{node.Title}</TreeLeaf>
+										<TreeLeaf
+											><div class="flex">
+												<Fa
+													icon={faMessage}
+													size="lg"
+													class="mr-2"
+												/>{node.Sequence}-{node.NodeType}-{node.Title}
+											</div></TreeLeaf
+										>
 									{/if}
 								{/each}
 							</TreeBranch>
