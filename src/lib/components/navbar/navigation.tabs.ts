@@ -17,6 +17,18 @@ const drugs: TabDefinition = {
     default: false,
 };
 
+const labRecordType: TabDefinition = {
+    name: 'Lab-Record-Type',
+    path: `/users/userId/lab-record-types`,
+    default: false,
+};
+
+const personRoleType: TabDefinition = {
+    name: 'Person-Role-Type',
+    path: `/users/userId/person-role-types`,
+    default: false,
+};
+
 const assessmentTemplate: TabDefinition = {
     name: 'Assessment-Templates',
     path: `/users/userId/assessment-templates`,
@@ -108,6 +120,8 @@ export const sidebarMenu = (userId) => {
         courses,
         learningJourneys,
         knowledgeNuggets,
+        labRecordType,
+        personRoleType,
         priorities,
         symptoms
     ];
