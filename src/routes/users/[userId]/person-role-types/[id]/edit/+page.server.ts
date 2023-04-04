@@ -2,8 +2,11 @@ import * as cookie from 'cookie';
 import type { PageServerLoad, Action } from './$types';
 import { error, type RequestEvent } from '@sveltejs/kit';
 import { redirect } from 'sveltekit-flash-message/server';
-import { errorMessage, successMessage } from '$lib/utils/message.utils';;
-import { getPersonRoleTypeById, updatePersonRoleType } from '../../../../../api/services/person-role-types';
+import { errorMessage, successMessage } from '$lib/utils/message.utils';
+import {
+	getPersonRoleTypeById,
+	updatePersonRoleType
+} from '../../../../../api/services/person-role-types';
 
 /////////////////////////////////////////////////////////////////////////
 
@@ -35,7 +38,7 @@ export const actions = {
 		const userId = event.params.userId;
 		const data = await request.formData();
 
-    const roleName = data.has('roleName') ? data.get('roleName') : null;
+		const roleName = data.has('roleName') ? data.get('roleName') : null;
 		const description = data.has('description') ? data.get('description') : null;
 		const sessionId = event.cookies.get('sessionId');
 		const personRoleTypeId = event.params.id;

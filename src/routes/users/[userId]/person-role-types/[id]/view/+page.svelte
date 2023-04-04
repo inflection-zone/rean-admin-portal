@@ -11,8 +11,8 @@
 	export let data: PageServerData;
 	let id = data.personRoleType.id;
 	let roleName = data.personRoleType.RoleName;
-  let description = data.personRoleType.Description;
-	
+	let description = data.personRoleType.Description;
+
 	onMount(() => {
 		show(data);
 		LocalStorageUtils.removeItem('prevUrl');

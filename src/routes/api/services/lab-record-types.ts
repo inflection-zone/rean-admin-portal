@@ -9,19 +9,18 @@ export const createLabRecordType = async (
 	displayName: string,
 	snowmedCode: string,
 	loincCode: string,
-  normalRangeMin: number,
-  normalRangeMax: number,
-  unit: string
+	normalRangeMin: number,
+	normalRangeMax: number,
+	unit: string
 ) => {
 	const body = {
 		TypeName: typeName,
 		DisplayName: displayName,
 		SnowmedCode: snowmedCode,
 		LoincCode: loincCode,
-    NormalRangeMin: normalRangeMin,
-    NormalRangeMax: normalRangeMax,
-    Unit: unit
-
+		NormalRangeMin: normalRangeMin,
+		NormalRangeMax: normalRangeMax,
+		Unit: unit
 	};
 	const url = BACKEND_API_URL + '/types/lab-records';
 	return await post_(sessionId, url, body, true);
@@ -48,7 +47,7 @@ export const searchLabRecordTypes = async (sessionId: string, searchParams?: any
 		}
 	}
 	const url = BACKEND_API_URL + `/types/lab-records`;
-	console.log(url)
+	console.log(url);
 	return await get_(sessionId, url, true);
 };
 
@@ -59,18 +58,18 @@ export const updateLabRecordType = async (
 	displayName: string,
 	snowmedCode: string,
 	loincCode: string,
-  normalRangeMin: number,
-  normalRangeMax: number,
-  unit: string
+	normalRangeMin: number,
+	normalRangeMax: number,
+	unit: string
 ) => {
 	const body = {
 		TypeName: typeName,
 		DisplayName: displayName,
 		SnowmedCode: snowmedCode,
 		LoincCode: loincCode,
-    NormalRangeMin: normalRangeMin,
-    NormalRangeMax: normalRangeMax,
-    Unit: unit
+		NormalRangeMin: normalRangeMin,
+		NormalRangeMax: normalRangeMax,
+		Unit: unit
 	};
 	const url = BACKEND_API_URL + `/types/lab-records/${labRecordTypeId}`;
 	return await put_(sessionId, url, body, true);

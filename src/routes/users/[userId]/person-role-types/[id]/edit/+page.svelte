@@ -85,7 +85,7 @@
 				<div class="w-1/2 md:w-2/3 lg:w-2/3">
 					<textarea
 						name="description"
-            bind:value={description}
+						bind:value={description}
 						class="textarea w-full"
 						placeholder="Enter description here..."
 					/>

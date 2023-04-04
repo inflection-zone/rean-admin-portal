@@ -13,9 +13,9 @@ export const load: PageServerLoad = async (event: RequestEvent) => {
 		if (response.Status === 'failure' || response.HttpCode !== 200) {
 			throw error(response.HttpCode, response.Message);
 		}
-		const LabRecordTypes = response.Data.LabRecordTypes;
+		const labRecordTypes = response.Data.LabRecordTypes;
 		return {
-			LabRecordTypes,
+			labRecordTypes,
 			sessionId,
 			message: response.Message
 		};

@@ -11,13 +11,13 @@
 	export let data: PageServerData;
 	let id = data.labRecordType.id;
 	let typeName = data.labRecordType.TypeName;
-  let displayName = data.labRecordType.DisplayName;
-  let snowmedCode = data.labRecordType.SnowmedCode;
-  let loincCode = data.labRecordType.LoincCode;
-  let normalRangeMin = data.labRecordType.NormalRangeMin;
-  let normalRangeMax = data.labRecordType.NormalRangeMax;
-  let unit = data.labRecordType.Unit;
-	
+	let displayName = data.labRecordType.DisplayName;
+	let snowmedCode = data.labRecordType.SnowmedCode;
+	let loincCode = data.labRecordType.LoincCode;
+	let normalRangeMin = data.labRecordType.NormalRangeMin;
+	let normalRangeMax = data.labRecordType.NormalRangeMax;
+	let unit = data.labRecordType.Unit;
+
 	onMount(() => {
 		show(data);
 		LocalStorageUtils.removeItem('prevUrl');
@@ -68,7 +68,7 @@
 				<span class="span w-1/2 md:2/3 lg:2/3" id="typeName">{typeName}</span>
 			</div>
 
-      <div class="flex items-center mb-4 lg:mx-16 md:mx-12 mx-10">
+			<div class="flex items-center mb-4 lg:mx-16 md:mx-12 mx-10">
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
 					<!-- svelte-ignore a11y-label-has-associated-control -->
 					<label class="label">
@@ -78,7 +78,7 @@
 				<span class="span w-1/2 md:2/3 lg:2/3" id="displayName">{displayName}</span>
 			</div>
 
-      <div class="flex items-center mb-4 lg:mx-16 md:mx-12 mx-10">
+			<div class="flex items-center mb-4 lg:mx-16 md:mx-12 mx-10">
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
 					<!-- svelte-ignore a11y-label-has-associated-control -->
 					<label class="label">
@@ -88,7 +88,7 @@
 				<span class="span w-1/2 md:2/3 lg:2/3" id="snowmedCode">{snowmedCode}</span>
 			</div>
 
-      <div class="flex items-center mb-4 lg:mx-16 md:mx-12 mx-10">
+			<div class="flex items-center mb-4 lg:mx-16 md:mx-12 mx-10">
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
 					<!-- svelte-ignore a11y-label-has-associated-control -->
 					<label class="label">
@@ -98,7 +98,7 @@
 				<span class="span w-1/2 md:2/3 lg:2/3" id="loincCode">{loincCode}</span>
 			</div>
 
-      <div class="flex items-center mb-4 lg:mx-16 md:mx-12 mx-10">
+			<div class="flex items-center mb-4 lg:mx-16 md:mx-12 mx-10">
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
 					<!-- svelte-ignore a11y-label-has-associated-control -->
 					<label class="label">
@@ -108,7 +108,7 @@
 				<span class="span w-1/2 md:2/3 lg:2/3" id="normalRangeMin">{normalRangeMin}</span>
 			</div>
 
-      <div class="flex items-center mb-4 lg:mx-16 md:mx-12 mx-10">
+			<div class="flex items-center mb-4 lg:mx-16 md:mx-12 mx-10">
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
 					<!-- svelte-ignore a11y-label-has-associated-control -->
 					<label class="label">
@@ -118,7 +118,7 @@
 				<span class="span w-1/2 md:2/3 lg:2/3" id="normalRangeMax">{normalRangeMax}</span>
 			</div>
 
-      <div class="flex items-center mb-4 lg:mx-16 md:mx-12 mx-10">
+			<div class="flex items-center mb-4 lg:mx-16 md:mx-12 mx-10">
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
 					<!-- svelte-ignore a11y-label-has-associated-control -->
 					<label class="label">

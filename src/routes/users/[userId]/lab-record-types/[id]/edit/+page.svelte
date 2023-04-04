@@ -7,14 +7,14 @@
 
 	export let data: PageServerData;
 	let initiaData = {};
-  let id = data.labRecordType.id;
+	let id = data.labRecordType.id;
 	let typeName = data.labRecordType.TypeName;
-  let displayName = data.labRecordType.DisplayName;
-  let snowmedCode = data.labRecordType.SnowmedCode;
-  let loincCode = data.labRecordType.LoincCode;
-  let normalRangeMin = data.labRecordType.NormalRangeMin;
-  let normalRangeMax = data.labRecordType.NormalRangeMax;
-  let unit = data.labRecordType.Unit;
+	let displayName = data.labRecordType.DisplayName;
+	let snowmedCode = data.labRecordType.SnowmedCode;
+	let loincCode = data.labRecordType.LoincCode;
+	let normalRangeMin = data.labRecordType.NormalRangeMin;
+	let normalRangeMax = data.labRecordType.NormalRangeMax;
+	let unit = data.labRecordType.Unit;
 
 	//Original data
 	let _typeName = typeName;
@@ -81,7 +81,7 @@
 					<input
 						type="text"
 						name="typeName"
-            bind:value={typeName}
+						bind:value={typeName}
 						placeholder="Enter type name here..."
 						class="input w-full "
 					/>
@@ -99,7 +99,7 @@
 					<input
 						type="text"
 						name="displayName"
-            bind:value={displayName}
+						bind:value={displayName}
 						class="input w-full"
 						placeholder="Enter display name here..."
 					/>
@@ -117,7 +117,7 @@
 					<input
 						type="text"
 						name="snowmedCode"
-            bind:value={snowmedCode}
+						bind:value={snowmedCode}
 						class="input w-full"
 						placeholder="Enter snowmed code here..."
 					/>
@@ -135,7 +135,7 @@
 					<input
 						type="text"
 						name="loincCode"
-            bind:value={loincCode}
+						bind:value={loincCode}
 						class="input w-full"
 						placeholder="Enter loinc code here..."
 					/>
@@ -153,7 +153,7 @@
 					<input
 						type="text"
 						name="normalRangeMin"
-            bind:value={normalRangeMin}
+						bind:value={normalRangeMin}
 						class="input w-full"
 						placeholder="Enter normal range min here..."
 					/>
@@ -171,7 +171,7 @@
 					<input
 						type="text"
 						name="normalRangeMax"
-            bind:value={normalRangeMax}
+						bind:value={normalRangeMax}
 						class="input w-full"
 						placeholder="Enter normal range max here..."
 					/>
@@ -186,10 +186,15 @@
 					</label>
 				</div>
 				<div class="w-1/2 md:w-2/3 lg:w-2/3">
-					<input type="text" name="unit" bind:value={unit} class="input w-full" placeholder="Enter unit here..." />
+					<input
+						type="text"
+						name="unit"
+						bind:value={unit}
+						class="input w-full"
+						placeholder="Enter unit here..."
+					/>
 				</div>
 			</div>
-
 
 			<div class="flex items-center my-8 lg:mx-16 md:mx-12 mx-4 ">
 				<div class="lg:w-1/2 md:w-1/2 sm:w-1/2  w-1/3" />

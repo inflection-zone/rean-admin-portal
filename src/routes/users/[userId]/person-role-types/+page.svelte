@@ -33,53 +33,7 @@
 		}
 	];
 
-	let type = undefined;
-	let tags = undefined;
-	let sortBy = 'CreatedAt';
-	let sortOrder = 'ascending';
-	let itemsPerPage = 10;
-	let pageIndex = 0;
-
-	const searchParams = async (type: string, tags: string) => {
-		await searchPriority({
-			type: type,
-			tags: tags
-		});
-	};
-
-	async function searchPriority(model) {
-		let url = `/api/server/person-role-types/search?`;
-		if (sortOrder) {
-			url += `sortOrder=${sortOrder}`;
-		} else {
-			url += `sortOrder=ascending`;
-		}
-		if (sortBy) {
-			url += `&sortBy=${sortBy}`;
-		}
-		if (itemsPerPage) {
-			url += `&itemsPerPage=${itemsPerPage}`;
-		}
-		if (pageIndex) {
-			url += `&pageIndex=${pageIndex}`;
-		}
-		if (type) {
-			url += `&type=${type}`;
-		}
-		if (tags) {
-			url += `&tags=${tags}`;
-		}
-		const res = await fetch(url, {
-			method: 'GET',
-			headers: {
-				'content-type': 'application/json'
-			}
-		});
-
-		const response = await res.json();
-		personRoleTypes = response.map((item, index) => ({ ...item, index: index + 1 }));
-		dataTableStore.updateSource(personRoleTypes);
-	}
+	dataTableStore.updateSource(personRoleTypes);
 
 	dataTableStore.subscribe((model) => dataTableHandler(model));
 
@@ -151,8 +105,8 @@
 				<th style="width: 10;">Role Name</th>
 				<th style="width: 40%;">Description</th>
 				<th style="width: 20%;">Created Date</th>
-				<th style="width: 8%;"></th>
-				<th style="width: 8%;"></th>
+				<th style="width: 8%;" />
+				<th style="width: 8%;" />
 			</tr>
 		</thead>
 	</table>
@@ -163,9 +117,11 @@
 					<tr>
 						<td style="width: 4%;">{row.index}</td>
 						<td style="width: 20%;">{row.RoleName}</td>
-						<td style="width: 33;">{row.Description.length > 50 
-							? row.Description.substring(0, 47) + '...'
-							: row.Description}</td>
+						<td style="width: 33;"
+							>{row.Description.length > 50
+								? row.Description.substring(0, 47) + '...'
+								: row.Description}</td
+						>
 						<td style="width: 20%;">{date.format(new Date(row.CreatedAt), 'DD-MMM-YYYY')}</td>
 						<td style="width: 8%;">
 							<a href={editRoute(row.id)}
@@ -186,7 +142,9 @@
 									class=""><Fa icon={faTrash} /></button
 								>
 								<span slot="title"> Delete </span>
-								<span slot="description"> Are you sure you want to delete a person role type? </span>
+								<span slot="description">
+									Are you sure you want to delete a person role type?
+								</span>
 							</Confirm>
 						</td>
 					</tr>

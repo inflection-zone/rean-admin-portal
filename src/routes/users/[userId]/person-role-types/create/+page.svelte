@@ -3,7 +3,7 @@
 	import { faMultiply } from '@fortawesome/free-solid-svg-icons';
 	import BreadCrumbs from '$lib/components/breadcrumbs/breadcrums.svelte';
 	import { page } from '$app/stores';
-	
+
 	const userId = $page.params.userId;
 	const createRoute = `/users/${userId}/person-role-types/create`;
 	const personRoleTypesRoute = `/users/${userId}/person-role-types`;

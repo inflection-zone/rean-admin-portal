@@ -4,7 +4,6 @@
 	import Fa from 'svelte-fa';
 	import { faPencil, faTrash, faSearch } from '@fortawesome/free-solid-svg-icons';
 	import { page } from '$app/stores';
-	import date from 'date-and-time';
 	import Confirm from '$lib/components/modal/confirmModal.svelte';
 	import BreadCrumbs from '$lib/components/breadcrumbs/breadcrums.svelte';
 	import type { PageServerData } from './$types';
@@ -12,12 +11,11 @@
 	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 	export let data: PageServerData;
-  console.log(data)
-	let LabRecordTypes = data.LabRecordTypes;
+	let labRecordTypes = data.labRecordTypes;
 	let index = Number;
-	LabRecordTypes = LabRecordTypes.map((item, index) => ({ ...item, index: index + 1 }));
+	labRecordTypes = labRecordTypes.map((item, index) => ({ ...item, index: index + 1 }));
 
-	const dataTableStore = createDataTableStore(LabRecordTypes, {
+	const dataTableStore = createDataTableStore(labRecordTypes, {
 		search: '',
 		pagination: { offset: 0, limit: 10, size: 0, amounts: [10, 20, 30, 50] }
 	});
@@ -33,54 +31,6 @@
 			path: labRecordTypesRoute
 		}
 	];
-
-	let type = undefined;
-	let tags = undefined;
-	let sortBy = 'CreatedAt';
-	let sortOrder = 'ascending';
-	let itemsPerPage = 10;
-	let pageIndex = 0;
-
-	const searchParams = async (type: string, tags: string) => {
-		await searchPriority({
-			type: type,
-			tags: tags
-		});
-	};
-
-	async function searchPriority(model) {
-		let url = `/api/server/lab-record-types/search?`;
-		if (sortOrder) {
-			url += `sortOrder=${sortOrder}`;
-		} else {
-			url += `sortOrder=ascending`;
-		}
-		if (sortBy) {
-			url += `&sortBy=${sortBy}`;
-		}
-		if (itemsPerPage) {
-			url += `&itemsPerPage=${itemsPerPage}`;
-		}
-		if (pageIndex) {
-			url += `&pageIndex=${pageIndex}`;
-		}
-		if (type) {
-			url += `&type=${type}`;
-		}
-		if (tags) {
-			url += `&tags=${tags}`;
-		}
-		const res = await fetch(url, {
-			method: 'GET',
-			headers: {
-				'content-type': 'application/json'
-			}
-		});
-
-		const response = await res.json();
-		LabRecordTypes = response.map((item, index) => ({ ...item, index: index + 1 }));
-		dataTableStore.updateSource(LabRecordTypes);
-	}
 
 	dataTableStore.subscribe((model) => dataTableHandler(model));
 
@@ -153,8 +103,8 @@
 				<th style="width: 30%;">Display Name</th>
 				<th style="width: 15%;">Normal Range Min</th>
 				<th style="width: 15%;">Normal Range Max</th>
-				<th style="width: 8%;"></th>
-				<th style="width: 8%;"></th>
+				<th style="width: 8%;" />
+				<th style="width: 8%;" />
 			</tr>
 		</thead>
 	</table>

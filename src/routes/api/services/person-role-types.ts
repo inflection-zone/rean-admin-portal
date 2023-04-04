@@ -6,12 +6,11 @@ import { delete_, get_, post_, put_ } from './common';
 export const createPersonRoleType = async (
 	sessionId: string,
 	roleName: string,
-	description: string,
+	description: string
 ) => {
 	const body = {
 		RoleName: roleName,
-		Description: description,
-		
+		Description: description
 	};
 	const url = BACKEND_API_URL + '/types/person-roles';
 	return await post_(sessionId, url, body, true);
@@ -35,7 +34,6 @@ export const searchPersonRoleTypes = async (sessionId: string, searchParams?: an
 					params.push(param);
 				}
 			}
-			searchString += params.join('&');
 		}
 	}
 	const url = BACKEND_API_URL + `/types/person-roles`;
@@ -46,11 +44,11 @@ export const updatePersonRoleType = async (
 	sessionId: string,
 	personRoleTypeId: string,
 	roleName: string,
-	description: string,
+	description: string
 ) => {
 	const body = {
 		RoleName: roleName,
-		Description: description,
+		Description: description
 	};
 	const url = BACKEND_API_URL + `/types/person-roles/${personRoleTypeId}`;
 	return await put_(sessionId, url, body, true);
