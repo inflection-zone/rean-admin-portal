@@ -80,7 +80,7 @@
 	};
 </script>
 
-<main class=" mb-32">
+<main class="h-screen mb-64">
 	<BreadCrumbs crumbs={breadCrumbs} />
 
 	<div class="px-5 mb-5 ">
