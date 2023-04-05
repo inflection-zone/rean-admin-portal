@@ -18,6 +18,7 @@
 	const userId = $page.params.userId;
 	const drugRoute = `/users/${userId}/drugs`;
 	const editRoute = (id) => `/users/${userId}/drugs/${id}/edit`;
+	const viewRoute = (id) => `/users/${userId}/drugs/${id}/view`;
 	const createRoute = `/users/${userId}/drugs/create`;
 
 	const breadCrumbs = [
@@ -202,7 +203,7 @@
 				{#each $dataTableStore.filtered as row, rowIndex}
 					<tr>
 						<td style="width: 5%;">{row.index}</td>
-						<td style="width: 18%;">{row.DrugName}</td>
+						<td style="width: 18%;"><a href={viewRoute(row.id)}>{row.DrugName}</td>
 						<td style="width: 35%;">{row.GenericName}</td>
 						<td style="width: 19%;">{row.Ingredients}</td>
 						<td style="width: 30%;">{date.format(new Date(row.CreatedAt), 'DD-MMM-YYYY')}</td>

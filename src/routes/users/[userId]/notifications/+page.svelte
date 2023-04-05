@@ -18,6 +18,7 @@
 	const userId = $page.params.userId;
 	const notificationRoute = `/users/${userId}/notifications`;
 	const editRoute = (id) => `/users/${userId}/notifications/${id}/edit`;
+	const viewRoute = (id) => `/users/${userId}/notifications/${id}/view`;
 	const createRoute = `/users/${userId}/notifications/create`;
 
 	const breadCrumbs = [
@@ -182,7 +183,7 @@
 				{#each $dataTableStore.filtered as row, rowIndex}
 					<tr>
 						<td style="width: 5%;">{row.index}</td>
-						<td style="width: 19%;">{row.Title}</td>
+						<td style="width: 19%;"><a href={viewRoute(row.id)}>{row.Title}</td>
 						<td style="width: 30%;">{row.Body}</td>
 						<td style="width: 18%;">{row.Type}</td>
 						<td style="width: 35%;">{date.format(new Date(row.SentOn), 'DD-MMM-YYYY')}</td>

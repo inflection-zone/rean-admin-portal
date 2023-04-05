@@ -23,6 +23,7 @@
 	const userId = $page.params.userId;
 	const createRoute = `/users/${userId}/lab-record-types/create`;
 	const editRoute = (id) => `/users/${userId}/lab-record-types/${id}/edit`;
+	const viewRoute = (id) => `/users/${userId}/lab-record-types/${id}/view`;
 	const labRecordTypesRoute = `/users/${userId}/lab-record-types`;
 
 	const breadCrumbs = [
@@ -114,7 +115,7 @@
 				{#each $dataTableStore.filtered as row, rowIndex}
 					<tr>
 						<td style="width: 5%;">{row.index}</td>
-						<td style="width: 19%;">{row.TypeName}</td>
+						<td style="width: 19%;"><a href={viewRoute(row.id)}>{row.TypeName}</td>
 						<td style="width: 29;">{row.DisplayName}</td>
 						<td style="width: 15%;">{row.NormalRangeMin}</td>
 						<td style="width: 15%;">{row.NormalRangeMax}</td>

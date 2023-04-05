@@ -18,6 +18,7 @@
 	const userId = $page.params.userId;
 	const knowledgeNuggetRoute = `/users/${userId}/knowledge-nuggets`;
 	const editRoute = (id) => `/users/${userId}/knowledge-nuggets/${id}/edit`;
+	const viewRoute = (id) => `/users/${userId}/knowledge-nuggets/${id}/view`;
 	const createRoute = `/users/${userId}/knowledge-nuggets/create`;
 
 	const breadCrumbs = [
@@ -197,7 +198,7 @@
 				{#each $dataTableStore.filtered as row, rowIndex}
 					<tr>
 						<td style="width: 4%;">{row.index}</td>
-						<td style="width: 19%;">{row.TopicName}</td>
+						<td style="width: 19%;"><a href={viewRoute(row.id)}>{row.TopicName}</td>
 						<!-- <td style="width: 27%;">{row.Tags}</td> -->
 						<td style="width: 36%;"
 							>{row.Tags.length > 10 

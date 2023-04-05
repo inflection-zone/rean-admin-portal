@@ -28,6 +28,7 @@
 	const organizationRoute = `/users/${userId}/organizations`;
 	const createRoute = `/users/${userId}/organizations/create`;
 	const editRoute = (id) => `/users/${userId}/organizations/${id}/edit`;
+	const viewRoute = (id) => `/users/${userId}/organizations/${id}/view`;
 	const breadCrumbs = [
 		{
 			name: 'Organization',
@@ -197,7 +198,7 @@
 				{#each $dataTableStore.filtered as row, rowIndex}
 					<tr>
 						<td style="width: 5%;">{row.index}</td>
-						<td style="width: 20%;">{row.Type}</td>
+						<td style="width: 20%;"><a href={viewRoute(row.id)}>{row.Type}</td>
 						<td style="width: 20%;">{row.Name}</td>
 						<td style="width: 20%;">{row.ContactPhone}</td>
 						<td style="width: 20%;">{row.ContactEmail}</td>
