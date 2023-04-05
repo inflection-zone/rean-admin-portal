@@ -18,6 +18,7 @@
 	const userId = $page.params.userId;
 	const learningJourneyRoute = `/users/${userId}/learning-journeys`;
 	const editRoute = (id) => `/users/${userId}/learning-journeys/${id}/edit`;
+	const viewRoute = (id) => `/users/${userId}/learning-journeys/${id}/view`;
 	const createRoute = `/users/${userId}/learning-journeys/create`;
 
 	const breadCrumbs = [
@@ -200,7 +201,7 @@
 				{#each $dataTableStore.filtered as row, rowIndex}
 					<tr>
 						<td style="width: 5%;">{row.index}</td>
-						<td style="width: 19%;">{row.Name}</td>
+						<td style="width: 19%;"><a href={viewRoute(row.id)}>{row.Name}</td>
 						<td style="width: 34%;"
 							>{row.Description.length > 10
 								? row.Description.substring(0, 55) + '...'

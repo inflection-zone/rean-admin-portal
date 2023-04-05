@@ -10,6 +10,9 @@
 
 	let fileinput;
 
+	let retrievedTags = '';
+	let tagsPlaceholder = 'Enter a tags here...';
+
 	export let data: PageServerData;
 	let initiaData = {};
 	let id = data.symptom.id;
@@ -24,14 +27,15 @@
 	let _symptom = symptom;
 	let _description = description;
 	let _tags = tags;
-	let retrievedTags = '';
-	let tagsPlaceholder = 'Enter a tags here...';
 	let _language = language;
 	let _imageResourceId = imageResourceId;
 
 	function handleReset() {
+		symptom = _symptom;
 		description = _description;
 		tags = _tags;
+		language = _language;
+		imageResourceId = _imageResourceId;
 	}
 
 	const userId = $page.params.userId;

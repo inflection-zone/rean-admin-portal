@@ -24,6 +24,7 @@
 	const userId = $page.params.userId;
 	const symptomRoute = `/users/${userId}/symptoms`;
 	const editRoute = (id) => `/users/${userId}/symptoms/${id}/edit`;
+	const viewRoute = (id) => `/users/${userId}/symptoms/${id}/view`;
 	const createRoute = `/users/${userId}/symptoms/create`;
 
 	const breadCrumbs = [
@@ -190,7 +191,7 @@
 				{#each $dataTableStore.filtered as row, rowIndex}
 					<tr>
 						<td style="width: 5%;">{row.index}</td>
-						<td style="width: 20%;">{row.Symptom}</td>
+						<td style="width: 20%;"><a href={viewRoute(row.id)}>{row.Symptom}</td>
 						<td style="width: 33%;">{row.Tags}</td>
 						<td style="width: 20%;">
 							<!-- svelte-ignore missing-declaration -->

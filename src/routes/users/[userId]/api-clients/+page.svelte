@@ -22,6 +22,7 @@
 	const userId = $page.params.userId;
 	const createRoute = `/users/${userId}/api-clients/create`;
 	const editRoute = (id) => `/users/${userId}/api-clients/${id}/edit`;
+	const viewRoute = (id) => `/users/${userId}/api-clients/${id}/view`;
 	const apiClientRoute = `/users/${userId}/api-clients`;
 
 	const breadCrumbs = [
@@ -189,7 +190,7 @@
 				{#each $dataTableStore.filtered as row, rowIndex}
 					<tr>
 						<td style="width: 5%;">{row.index}</td>
-						<td style="width: 20%;">{row.ClientName}</td>
+						<td style="width: 20%;"><a href={viewRoute(row.id)}>{row.ClientName}</td>
 						<td style="width: 30%;">{row.Email}</td>
 						<td style="width: 24%;">{row.Phone}</td>
 						<td style="width: 8%;">
