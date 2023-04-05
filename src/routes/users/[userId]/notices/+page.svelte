@@ -18,6 +18,7 @@
 	const userId = $page.params.userId;
 	const NoticeRoute = `/users/${userId}/notices`;
 	const editRoute = (id) => `/users/${userId}/notices/${id}/edit`;
+	const viewRoute = (id) => `/users/${userId}/notices/${id}/view`;
 	const createRoute = `/users/${userId}/notices/create`;
 
 	const breadCrumbs = [
@@ -197,7 +198,7 @@
 				{#each $dataTableStore.filtered as row, rowIndex}
 					<tr>
 						<td style="width: 5%;">{row.index}</td>
-						<td style="width: 21%;">{row.Title}</td>
+						<td style="width: 21%;"><a href={viewRoute(row.id)}>{row.Title}</td>
 						<td style="width: 35%;">{row.Link}</td>
 						<td style="width: 20%;">{row.DaysActive}</td>
 						<td style="width: 20%;">{date.format(new Date(row.PostDate), 'DD-MMM-YYYY')}</td>

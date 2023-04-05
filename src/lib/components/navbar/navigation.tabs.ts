@@ -17,7 +17,19 @@ const drugs: TabDefinition = {
     default: false,
 };
 
-const assessmentTemplate: TabDefinition = {
+const labRecordTypes: TabDefinition = {
+    name: 'Lab-Record-Types',
+    path: `/users/userId/lab-record-types`,
+    default: false,
+};
+
+const personRoleTypes: TabDefinition = {
+    name: 'Person-Role-Types',
+    path: `/users/userId/person-role-types`,
+    default: false,
+};
+
+const assessmentTemplates: TabDefinition = {
     name: 'Assessment-Templates',
     path: `/users/userId/assessment-templates`,
     default: false,
@@ -101,13 +113,15 @@ export const sidebarMenu = (userId) => {
     const menus = [
         home,
         drugs,
-        assessmentTemplate,
+        assessmentTemplates,
         notices,
         newsFeeds,
         goals,
         courses,
         learningJourneys,
         knowledgeNuggets,
+        labRecordTypes,
+        personRoleTypes,
         priorities,
         symptoms
     ];

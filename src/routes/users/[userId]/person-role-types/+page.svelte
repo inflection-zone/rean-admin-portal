@@ -12,90 +12,44 @@
 	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 	export let data: PageServerData;
-	let goalTypes = data.goalTypes;
+	let personRoleTypes = data.personRoleTypes;
 	let index = Number;
-	goalTypes = goalTypes.map((item, index) => ({ ...item, index: index + 1 }));
+	personRoleTypes = personRoleTypes.map((item, index) => ({ ...item, index: index + 1 }));
 
-	const dataTableStore = createDataTableStore(goalTypes, {
+	const dataTableStore = createDataTableStore(personRoleTypes, {
 		search: '',
 		pagination: { offset: 0, limit: 10, size: 0, amounts: [10, 20, 30, 50] }
 	});
 
 	const userId = $page.params.userId;
-	const createRoute = `/users/${userId}/goals/create`;
-	const editRoute = (id) => `/users/${userId}/goals/${id}/edit`;
-	const viewRoute = (id) => `/users/${userId}/goals/${id}/view`;
-	const goalRoute = `/users/${userId}/goals`;
+	const createRoute = `/users/${userId}/person-role-types/create`;
+	const editRoute = (id) => `/users/${userId}/person-role-types/${id}/edit`;
+	const viewRoute = (id) => `/users/${userId}/person-role-types/${id}/view`;
+	const personRoleTypesRoute = `/users/${userId}/person-role-types`;
 
 	const breadCrumbs = [
 		{
-			name: 'Goal-Type',
-			path: goalRoute
+			name: 'Person-Role-Types',
+			path: personRoleTypesRoute
 		}
 	];
 
-	let type = undefined;
-	let tags = undefined;
-	let sortBy = 'CreatedAt';
-	let sortOrder = 'ascending';
-	let itemsPerPage = 10;
-	let pageIndex = 0;
-
-	const searchParams = async (type: string, tags: string) => {
-		await searchGoal({
-			type: type,
-			tags: tags
-		});
-	};
-
-	async function searchGoal(model) {
-		let url = `/api/server/goals/search?`;
-		if (sortOrder) {
-			url += `sortOrder=${sortOrder}`;
-		} else {
-			url += `sortOrder=ascending`;
-		}
-		if (sortBy) {
-			url += `&sortBy=${sortBy}`;
-		}
-		if (itemsPerPage) {
-			url += `&itemsPerPage=${itemsPerPage}`;
-		}
-		if (pageIndex) {
-			url += `&pageIndex=${pageIndex}`;
-		}
-		if (type) {
-			url += `&type=${type}`;
-		}
-		if (tags) {
-			url += `&tags=${tags}`;
-		}
-		const res = await fetch(url, {
-			method: 'GET',
-			headers: {
-				'content-type': 'application/json'
-			}
-		});
-
-		const response = await res.json();
-		goalTypes = response.map((item, index) => ({ ...item, index: index + 1 }));
-		dataTableStore.updateSource(goalTypes);
-	}
+	dataTableStore.updateSource(personRoleTypes);
 
 	dataTableStore.subscribe((model) => dataTableHandler(model));
 
-	const handleGoalDelete = async (e, id) => {
-		const goalId = id;
-		console.log('goalId', goalId);
+	const handlePersonRoleTypeDelete = async (e, id) => {
+		const personRoleTypeId = id;
+		console.log('personRoleTypeId', personRoleTypeId);
 		await Delete({
 			sessionId: data.sessionId,
-			goalId: goalId
+			personRoleTypeId: personRoleTypeId
 		});
-		window.location.href = goalRoute;
+		window.location.href = personRoleTypesRoute;
 	};
 
 	async function Delete(model) {
-		const response = await fetch(`/api/server/goals`, {
+		const response = await fetch(`/api/server/person-role-types`, {
 			method: 'DELETE',
 			body: JSON.stringify(model),
 			headers: {
@@ -148,12 +102,12 @@
 	<table class="table rounded-b-none">
 		<thead class="sticky top-0">
 			<tr>
-				<th style="width: 5%;">Id</th>
-				<th style="width: 20%;">Type</th>
-				<th style="width: 30%;">Tags</th>
-				<th style="width: 24%;">Created Date</th>
-				<th style="width: 8%;"></th>
-				<th style="width: 8%;"></th>
+				<th style="width: 4%;">Id</th>
+				<th style="width: 10;">Role Name</th>
+				<th style="width: 40%;">Description</th>
+				<th style="width: 20%;">Created Date</th>
+				<th style="width: 8%;" />
+				<th style="width: 8%;" />
 			</tr>
 		</thead>
 	</table>
@@ -162,10 +116,14 @@
 			<tbody class="">
 				{#each $dataTableStore.filtered as row, rowIndex}
 					<tr>
-						<td style="width: 5%;">{row.index}</td>
-						<td style="width: 20%;"><a href={viewRoute(row.id)}>{row.Type}</td>
-						<td style="width: 30%;">{row.Tags}</td>
-						<td style="width: 24%;">{date.format(new Date(row.CreatedAt), 'DD-MMM-YYYY')}</td>
+						<td style="width: 4%;">{row.index}</td>
+						<td style="width: 20%;"><a href={viewRoute(row.id)}>{row.RoleName}</td>
+						<td style="width: 33;"
+							>{row.Description.length > 50
+								? row.Description.substring(0, 47) + '...'
+								: row.Description}</td
+						>
+						<td style="width: 20%;">{date.format(new Date(row.CreatedAt), 'DD-MMM-YYYY')}</td>
 						<td style="width: 8%;">
 							<a href={editRoute(row.id)}
 								><Fa icon={faPencil} style="color-text-primary" size="md" /></a
@@ -177,15 +135,17 @@
 								cancelTitle="Cancel"
 								let:confirm={confirmThis}
 								on:delete={(e) => {
-									handleGoalDelete(e, row.id);
+									handlePersonRoleTypeDelete(e, row.id);
 								}}
 							>
 								<button
-									on:click|preventDefault={() => confirmThis(handleGoalDelete, row.id)}
+									on:click|preventDefault={() => confirmThis(handlePersonRoleTypeDelete, row.id)}
 									class=""><Fa icon={faTrash} /></button
 								>
 								<span slot="title"> Delete </span>
-								<span slot="description"> Are you sure you want to delete a goal? </span>
+								<span slot="description">
+									Are you sure you want to delete a person role type?
+								</span>
 							</Confirm>
 						</td>
 					</tr>
