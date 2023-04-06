@@ -12,7 +12,7 @@
 
 	const breadCrumbs = [
 		{
-			name: 'Api-client',
+			name: 'Api-clients',
 			path: apiClientRoute
 		},
 		{

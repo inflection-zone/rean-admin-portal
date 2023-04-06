@@ -30,6 +30,7 @@
 	assessmentNodes = assessmentNodes.sort((a, b) => {
 		return a.Sequence - b.Sequence;
 	});
+	console.log('ass---',data);
 
 	onMount(() => {
 		show(data);
@@ -45,7 +46,7 @@
 
 	const breadCrumbs = [
 		{
-			name: 'Assessment-Template',
+			name: 'Assessment-Templates',
 			path: assessmentsRoutes
 		},
 		{

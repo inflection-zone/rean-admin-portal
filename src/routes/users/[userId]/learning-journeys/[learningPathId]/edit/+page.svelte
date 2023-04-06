@@ -44,7 +44,7 @@
 
 	const breadCrumbs = [
 		{
-			name: 'Learning-Journey',
+			name: 'Learning-Journeys',
 			path: learningJourneyRoute
 		},
 		{

@@ -31,7 +31,7 @@
 	const viewRoute = (id) => `/users/${userId}/organizations/${id}/view`;
 	const breadCrumbs = [
 		{
-			name: 'Organization',
+			name: 'Organizations',
 			path: organizationRoute
 		}
 	];

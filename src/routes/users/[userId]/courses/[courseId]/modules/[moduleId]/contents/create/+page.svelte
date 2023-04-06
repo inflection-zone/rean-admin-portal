@@ -19,11 +19,11 @@
 
 	const breadCrumbs = [
 		{
-			name: 'Course',
+			name: 'Courses',
 			path: courseRoute
 		},
 		{
-			name: 'Module',
+			name: 'Modules',
 			path: moduleRoute
 		},
 		{

@@ -42,7 +42,7 @@
 
 	const breadCrumbs = [
 		{
-			name: 'Drug',
+			name: 'Drugs',
 			path: drugsRoute
 		},
 		{

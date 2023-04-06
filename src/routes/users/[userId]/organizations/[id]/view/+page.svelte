@@ -28,7 +28,6 @@
   let imageResourceId = data.organization.ImageUrl ?? undefined;
 	let isHealthFacility = data.organization.IsHealthFacility;
 
-	console.log('data', data);
 	onMount(() => {
 		show(data);
 		LocalStorageUtils.removeItem('prevUrl');
@@ -41,7 +40,7 @@
 
 	const breadCrumbs = [
 		{
-			name: 'Organization',
+			name: 'Organizations',
 			path: organizationRoute
 		},
 		{

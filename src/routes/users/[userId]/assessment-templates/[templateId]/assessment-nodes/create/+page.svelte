@@ -32,7 +32,7 @@
 
 	const breadCrumbs = [
 		{
-			name: 'Assessment-Node',
+			name: 'Assessment-Nodes',
 			path: assessmentNodeRoutes
 		},
 		{

@@ -21,7 +21,7 @@
 
   const breadCrumbs = [
 		{
-			name: 'Course-Content',
+			name: 'Course-Contents',
 			path: courseContentRoute
 		}
 	];

@@ -30,8 +30,6 @@
 	$: avatarSource = image;
 	let tags = data.newsfeed.Tags;
 
-	console.log('data--',data)
-
 	//Original data
 	let _title = title;
 	let _description = description;
@@ -63,7 +61,7 @@
 
 	const breadCrumbs = [
 		{
-			name: 'Newsfeed',
+			name: 'Newsfeeds',
 			path: newsfeedRoute
 		},
 		{

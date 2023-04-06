@@ -44,7 +44,7 @@
 
 	const breadCrumbs = [
 		{
-			name: 'Content',
+			name: 'Contents',
 			path: contentRoute
 		},
 		{

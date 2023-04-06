@@ -20,7 +20,7 @@
 
   const breadCrumbs = [
 		{
-			name: 'Module',
+			name: 'Modules',
 			path: moduleRoute
 		}
 	];
