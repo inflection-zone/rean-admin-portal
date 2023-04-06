@@ -9,6 +9,7 @@
 	import { faPencil, faSearch, faTrash } from '@fortawesome/free-solid-svg-icons';
 	import type { PageServerData } from './$types';
 	import { TreeView, TreeBranch, TreeLeaf } from 'svelte-tree-view-component';
+	import  CourseView  from '$lib/components/courses.view/courses.view.svelte';
 	import { goto } from '$app/navigation';
 
 	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -17,6 +18,7 @@
 	let courses = data.courses;
 
 	courses = courses.map((item, index) => ({ ...item, index: index + 1 }));
+	console.log("courses",courses)
 
 	const dataTableStore = createDataTableStore(courses, {
 		search: '',
@@ -30,14 +32,14 @@
 
 	const breadCrumbs = [
 		{
-			name: 'Course',
+			name: 'Courses',
 			path: courseRoute
 		}
 	];
 
-	const onCourseClick = (id) => {
-    goto(`/users/${userId}/courses/${id}/view`);
-  };
+	// const onCourseClick = (id) => {
+  //   goto(`/users/${userId}/courses/${id}/view`);
+  // };
 	let name = undefined;
 	let durationInDays = undefined;
 	let sortBy = 'CreatedAt';
@@ -87,17 +89,18 @@
 	}
 	dataTableStore.subscribe((model) => dataTableHandler(model));
 
-	const handleCourseDelete = async (e, id) => {
-		const symptomId = id;
-		await Delete({
+	const handleContentDelete = async (id) => {
+		const contentId = id;
+		console.log("contentId",contentId)
+		await DeleteContent({
 			sessionId: data.sessionId,
-			symptomId: symptomId
+			courseContentId: contentId
 		});
 		window.location.href = courseRoute;
 	};
 
-	async function Delete(model) {
-		const response = await fetch(`/api/server/courses`, {
+	async function DeleteContent(model) {
+		const response = await fetch(`/api/server/course-contents`, {
 			method: 'DELETE',
 			body: JSON.stringify(model),
 			headers: {
@@ -143,9 +146,22 @@
 	</button>
 </a>
 <!-- lineColor="#ECE4FC" -->
-
+<div class="mx-10 mt-10 mb-14">
+<!-- <div class="justify-center w-sceen mx-14 bg-tertiary-500 rounded-lg">
+	<div class="w-full h-14 rounded-t-lg p-3  bg-secondary-500">
+    <div class="ml-3 relative flex flex-row text-white text-xl">Courses</div>
+ 	 </div> -->
+	<CourseView courses={courses} userId={userId} on:searchCourse = {async (e) => {
+		await searchParams (e.detail.name, e.detail.durationInDays);
+	 }}
+	on:deleteActivity = {async (e) => {
+		await handleContentDelete(e.detail.contentId);
+	 }}
+	 />
+</div>
+<!-- </div> -->
 <div class="ml-10 ">
-	<TreeView
+	<!-- <TreeView
 	lineColor="#5832A1" iconBackgroundColor="#5832A1" branchHoverColor="#5832A1"
 	>
 		{#each courses as course}
@@ -161,7 +177,7 @@
 				{/each}
 			</TreeBranch>
 		{/each}
-	</TreeView>
+	</TreeView> -->
 
 	<!-- <TreeView>
 	{#each courses as course}
