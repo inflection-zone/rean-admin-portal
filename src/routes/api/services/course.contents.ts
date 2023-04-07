@@ -11,7 +11,7 @@ export const createCourseContent = async (
 	sequence: number,
 	contentType: string,
 	resourceLink: string,
-	imageUrl: string,
+	imageUrl: string
 ) => {
 	const body = {
 		ModuleId: moduleId,
@@ -20,7 +20,7 @@ export const createCourseContent = async (
 		Sequence: sequence,
 		ImageUrl: imageUrl,
 		ContentType: contentType,
-		ResourceLink: resourceLink,
+		ResourceLink: resourceLink
 	};
 	const url = BACKEND_API_URL + '/educational/course-contents';
 	return await post_(sessionId, url, body, true);
@@ -60,7 +60,7 @@ export const updateCourseContent = async (
 	sequence: number,
 	contentType: string,
 	resourceLink: string,
-	imageUrl: string,
+	imageUrl: string
 ) => {
 	const body = {
 		ModuleId: moduleId,

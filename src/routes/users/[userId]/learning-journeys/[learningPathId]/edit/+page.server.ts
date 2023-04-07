@@ -36,7 +36,7 @@ export const actions = {
 		const request = event.request;
 		const userId = event.params.userId;
 		const data = await request.formData();
-		
+
 		const name = data.has('name') ? data.get('name') : null;
 		const preferenceWeight = data.has('preferenceWeight') ? data.get('preferenceWeight') : null;
 		const description = data.has('description') ? data.get('description') : null;
@@ -54,7 +54,7 @@ export const actions = {
 			description.valueOf() as string,
 			durationInDays.valueOf() as number,
 			imageUrl.valueOf() as string,
-			courseIds.valueOf() as string[],
+			courseIds.valueOf() as string[]
 		);
 		const learningPathId = response.Data.LearningPath.id;
 

@@ -18,7 +18,7 @@ export const actions = {
 		const language = data.has('language') ? data.get('language') : null;
 		const copyright = data.has('copyright') ? data.get('copyright') : null;
 		const favicon = data.has('favicon') ? data.get('favicon') : null;
-		const image = data.has('image') ? data.get('image') : null
+		const image = data.has('image') ? data.get('image') : null;
 		const tags = data.has('tags') ? data.getAll('tags') : null;
 		const sessionId = event.cookies.get('sessionId');
 

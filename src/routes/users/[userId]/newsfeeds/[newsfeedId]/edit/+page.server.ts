@@ -17,9 +17,9 @@ export const load: PageServerLoad = async (event: RequestEvent) => {
 		if (response.Status === 'failure' || response.HttpCode !== 200) {
 			throw error(response.HttpCode, response.Message);
 		}
-		const newsfeed = response.Data.Rssfeed;	
+		const newsfeed = response.Data.Rssfeed;
 		return {
-			newsfeed,
+			newsfeed
 		};
 	} catch (error) {
 		console.error(`Error retriving newsfeed: ${error.message}`);
@@ -39,7 +39,7 @@ export const actions = {
 		const language = data.has('language') ? data.get('language') : null;
 		const copyright = data.has('copyright') ? data.get('copyright') : null;
 		const favicon = data.has('favicon') ? data.get('favicon') : null;
-		const image = data.has('image') ? data.get('image') : null
+		const image = data.has('image') ? data.get('image') : null;
 		const tags = data.has('tags') ? data.getAll('tags') : null;
 		const sessionId = event.cookies.get('sessionId');
 		const newsfeedId = event.params.newsfeedId;

@@ -1,6 +1,5 @@
 <script lang="ts">
 	import { page } from '$app/stores';
-	import type { PageServerData } from './$types';
 	import Fa from 'svelte-fa';
 	import {
 		faMultiply,
@@ -15,6 +14,7 @@
 	import BreadCrumbs from '$lib/components/breadcrumbs/breadcrums.svelte';
 	import Image from '$lib/components/image.svelte';
 	import { TreeView, TreeBranch, TreeLeaf } from 'svelte-tree-view-component';
+	import type { PageServerData } from './$types';
 
 	///////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -144,23 +144,23 @@
 						<TreeView lineColor="#5832A1" iconBackgroundColor="#5832A1" branchHoverColor="#5832A1">
 							<TreeBranch rootContent="Course">
 								{#each courses as course}
-								<TreeLeaf>
-									{course.Sequence}-{course.Name}
-								 <TreeBranch rootContent="Module">
-									{#each course.Modules as module}
 									<TreeLeaf>
-										{module.Name}
-									<TreeBranch rootContent="Content">
-										{#each module.Contents as content}
-										<TreeLeaf>	
-											{content.Title}
-										</TreeLeaf>
-										{/each}
+										{course.Sequence}-{course.Name}
+										<TreeBranch rootContent="Module">
+											{#each course.Modules as module}
+												<TreeLeaf>
+													{module.Name}
+													<TreeBranch rootContent="Content">
+														{#each module.Contents as content}
+															<TreeLeaf>
+																{content.Title}
+															</TreeLeaf>
+														{/each}
+													</TreeBranch>
+												</TreeLeaf>
+											{/each}
 										</TreeBranch>
 									</TreeLeaf>
-									{/each}
-									</TreeBranch>
-								</TreeLeaf>
 								{/each}
 							</TreeBranch>
 						</TreeView>

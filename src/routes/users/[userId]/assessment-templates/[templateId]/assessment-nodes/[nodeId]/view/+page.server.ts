@@ -16,7 +16,6 @@ export const load: PageServerLoad = async (event: RequestEvent) => {
 			throw error(response.HttpCode, response.Message);
 		}
 		const assessmentNode = response.Data.AssessmentNode;
-		console.log("response",response);
 		const id = response.Data.AssessmentNode.id;
 		return {
 			location: `${id}/edit`,

@@ -7,7 +7,7 @@ import { searchAssessmentNodes } from '../../../../../api/services/assessment-no
 
 export const load: PageServerLoad = async (event: RequestEvent) => {
 	const sessionId = event.cookies.get('sessionId');
-	
+
 	try {
 		const templateId = event.params.templateId;
 		const searchParams = {
@@ -18,7 +18,7 @@ export const load: PageServerLoad = async (event: RequestEvent) => {
 			throw error(response.HttpCode, response.Message);
 		}
 		const assessmentNodes = response.Data.AssessmentNodeRecords.Items;
-		
+
 		return {
 			assessmentNodes,
 			sessionId,

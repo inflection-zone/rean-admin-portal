@@ -115,7 +115,7 @@
 				{#each $dataTableStore.filtered as row, rowIndex}
 					<tr>
 						<td style="width: 5%;">{row.index}</td>
-						<td style="width: 19%;"><a href={viewRoute(row.id)}>{row.TypeName}</td>
+						<td style="width: 19%;"><a href={viewRoute(row.id)}>{row.TypeName}</a></td>
 						<td style="width: 29;">{row.DisplayName}</td>
 						<td style="width: 15%;">{row.NormalRangeMin}</td>
 						<td style="width: 15%;">{row.NormalRangeMax}</td>

@@ -52,7 +52,7 @@ export const actions = {
 		const message = data.has('message') ? data.get('message') : null;
 		const sessionId = event.cookies.get('sessionId');
 
-		console.log("data",data);
+		console.log('data', data);
 		const response = await updateAssessmentNode(
 			sessionId,
 			templateId,
@@ -61,13 +61,18 @@ export const actions = {
 			title.valueOf() as string,
 			description?.valueOf() as string,
 			queryType?.valueOf() as string,
-			options?.valueOf()as string[],
-			message?.valueOf() as string ,
+			options?.valueOf() as string[],
+			message?.valueOf() as string
 		);
 		const nodeId = response.Data.AssessmentNode.id;
 
 		if (response.Status === 'failure' || response.HttpCode !== 200) {
-			throw redirect(303, '/users/${userId}/assessment-templates', errorMessage(response.Message), event);
+			throw redirect(
+				303,
+				'/users/${userId}/assessment-templates',
+				errorMessage(response.Message),
+				event
+			);
 		}
 		throw redirect(
 			303,

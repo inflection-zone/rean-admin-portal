@@ -172,8 +172,8 @@
 				<th style="width: 30%;">Body</th>
 				<th style="width: 18%;">Type</th>
 				<th style="width: 35%;">Created Date</th>
-				<th style="width: 8%;"></th>
-				<th style="width: 8%;"></th>
+				<th style="width: 8%;" />
+				<th style="width: 8%;" />
 			</tr>
 		</thead>
 	</table>
@@ -183,7 +183,7 @@
 				{#each $dataTableStore.filtered as row, rowIndex}
 					<tr>
 						<td style="width: 5%;">{row.index}</td>
-						<td style="width: 19%;"><a href={viewRoute(row.id)}>{row.Title}</td>
+						<td style="width: 19%;"><a href={viewRoute(row.id)}>{row.Title}</a></td>
 						<td style="width: 30%;">{row.Body}</td>
 						<td style="width: 18%;">{row.Type}</td>
 						<td style="width: 35%;">{date.format(new Date(row.SentOn), 'DD-MMM-YYYY')}</td>

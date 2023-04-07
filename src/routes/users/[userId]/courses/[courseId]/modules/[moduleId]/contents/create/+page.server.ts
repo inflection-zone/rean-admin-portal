@@ -21,8 +21,6 @@ export const actions = {
 		const imageUrl = data.has('imageUrl') ? data.get('imageUrl') : null;
 		const sessionId = event.cookies.get('sessionId');
 
-		console.log("data",data);
-
 		const response = await createCourseContent(
 			sessionId,
 			// courseId,
@@ -32,9 +30,8 @@ export const actions = {
 			sequence.valueOf() as number,
 			contentType.valueOf() as string,
 			resourceLink.valueOf() as string,
-			imageUrl.valueOf() as string,
+			imageUrl.valueOf() as string
 		);
-		console.log("response",response)
 		const id = response.Data.CourseContent.id;
 
 		if (response.Status === 'failure' || response.HttpCode !== 201) {

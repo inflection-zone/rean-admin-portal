@@ -1,18 +1,16 @@
-import { uploadBinary } from '../../../services/file.resource'
+import { uploadBinary } from '../../../services/file.resource';
 import type { RequestEvent, RequestHandler } from './$types';
 import * as fs from 'fs';
 
 //////////////////////////////////////////////////////////////
 
 export const POST = (async (event: RequestEvent) => {
-
 	try {
 		console.log(`Upload in progress---`);
 
 		console.log(JSON.stringify(event, null, 2));
 
 		const data_ = await event.request.json();
-		//console.log(data_);
 		const params: URLSearchParams = event.url.searchParams;
 		console.log(`search params : ` + params);
 		const filename = event.request.headers.get('filename');
@@ -32,18 +30,12 @@ export const POST = (async (event: RequestEvent) => {
 
 		console.log('Uploading file resource ...');
 		//const location = path.join(process.cwd(), filePath);
-		const response = await uploadBinary(
-			sessionId,
-			buffer,
-			filename,
-			true
-		);
+		const response = await uploadBinary(sessionId, buffer, filename, true);
 		console.log(JSON.stringify(response, null, 2));
 
 		fs.unlinkSync(filePath);
 
 		return new Response(JSON.stringify(response));
-
 	} catch (err) {
 		//console.error(`Error uploading file: ${err.message}`);
 		console.error(`Error uploading file: ${JSON.stringify(err.stack.split('\n'), null, 2)}`);

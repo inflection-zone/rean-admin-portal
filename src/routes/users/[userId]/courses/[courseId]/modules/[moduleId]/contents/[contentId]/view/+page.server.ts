@@ -9,7 +9,7 @@ export const load: PageServerLoad = async (event: RequestEvent) => {
 
 	try {
 		const contentId = event.params.contentId;
-		const response = await getCourseContentById(sessionId,contentId);
+		const response = await getCourseContentById(sessionId, contentId);
 
 		if (response.Status === 'failure' || response.HttpCode !== 200) {
 			throw error(response.HttpCode, response.Message);

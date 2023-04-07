@@ -8,9 +8,6 @@
 
 	let retrievedTags = '';
 	let tagsPlaceholder = 'Enter a tags here...';
-	// function handleTags(event) {
-	// 	retrievedTags = event.detail.tags;
-	// }
 
 	const userId = $page.params.userId;
 	let image = undefined;
@@ -48,17 +45,15 @@
 		console.log(Date.now().toString());
 		const response = await res.json();
 		if (response.Status === 'success' && response.HttpCode === 201) {
-				  const imageResourceId = response.Data.FileResources[0].id;
-					console.log ('imageResourceId', imageResourceId);
-					const image_ = response.Data.FileResources[0].Url;
-					console.log ('image_', image_);
+			const imageResourceId = response.Data.FileResources[0].id;
+			console.log('imageResourceId', imageResourceId);
+			const image_ = response.Data.FileResources[0].Url;
+			console.log('image_', image_);
 			if (image_) {
 				image = image_;
 			}
 			console.log(image);
-
-		}
-		else {
+		} else {
 			showMessage(response.Message, 'error');
 		}
 	};
@@ -213,21 +208,20 @@
 					</label>
 				</div>
 				<div class="flex flex-row gap-8 w-1/2 md:w-2/3 lg:w-2/3 ">
-						<input
-							accept="image/png, image/jpeg"
-							type="file"
-							id="fileUpload"
-							class="input"
-							name="fileinput"
-							placeholder="Image"
-							on:change={async (e) => await onFileSelected(e)}
-						/>
+					<input
+						accept="image/png, image/jpeg"
+						type="file"
+						id="fileUpload"
+						class="input"
+						name="fileinput"
+						placeholder="Image"
+						on:change={async (e) => await onFileSelected(e)}
+					/>
 					<!-- <button 
 						class="capitalize btn variant-filled-primary lg:w-[19%] md:w-[22%] md:text-[13px] sm:w-[30%] sm:text-[12px] min-[320px]:w-[40%] min-[320px]:text-[10px]"
 						>Upload</button
 					> -->
 					<input type="hidden" name="image" value={image} />
-				
 				</div>
 			</div>
 
@@ -240,9 +234,9 @@
 				</div>
 				<div class="w-1/2 md:w-2/3 lg:w-2/3">
 					<InputChip
-					chips="variant-filled-error rounded-2xl"
-					name="tags"
-					placeholder={tagsPlaceholder}
+						chips="variant-filled-error rounded-2xl"
+						name="tags"
+						placeholder={tagsPlaceholder}
 					/>
 				</div>
 			</div>

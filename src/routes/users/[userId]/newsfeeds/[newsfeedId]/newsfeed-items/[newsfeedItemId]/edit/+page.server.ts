@@ -36,7 +36,7 @@ export const actions = {
 		const newsfeedId = event.params.newsfeedId;
 		const newsfeedItemId = event.params.newsfeedItemId;
 		const data = await request.formData();
-		
+
 		const title = data.has('title') ? data.get('title') : null;
 		const description = data.has('description') ? data.get('description') : null;
 		const link = data.has('link') ? data.get('link') : null;

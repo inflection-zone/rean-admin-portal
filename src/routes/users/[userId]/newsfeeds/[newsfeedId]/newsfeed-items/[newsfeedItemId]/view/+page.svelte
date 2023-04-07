@@ -18,7 +18,7 @@
 	let authorName = data.newsfeedItem.AuthorName;
 	let authorEmail = data.newsfeedItem.AuthorEmail;
 	let authorLink = data.newsfeedItem.AuthorLink;
-	let publishingDate =  new Date(data.newsfeedItem.PublishingDate);
+	let publishingDate = new Date(data.newsfeedItem.PublishingDate);
 	let image = data.newsfeedItem.Image;
 
 	onMount(() => {
@@ -107,7 +107,6 @@
 				<span class="span w-1/2 md:2/3 lg:2/3" id="authorName"> {authorName} </span>
 			</div>
 
-			
 			<div class="flex items-center my-4 lg:mx-16 md:mx-12 mx-10">
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
 					<!-- svelte-ignore a11y-label-has-associated-control -->
@@ -118,7 +117,6 @@
 				<span class="span w-1/2 md:2/3 lg:2/3" id="authorEmail"> {authorEmail} </span>
 			</div>
 
-			
 			<div class="flex items-center my-4 lg:mx-16 md:mx-12 mx-10">
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
 					<!-- svelte-ignore a11y-label-has-associated-control -->
@@ -129,7 +127,6 @@
 				<span class="span w-1/2 md:2/3 lg:2/3" id="authorLink"> {authorLink} </span>
 			</div>
 
-
 			<div class="flex items-center mb-4 lg:mx-16 md:mx-12 mx-10">
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
 					<!-- svelte-ignore a11y-label-has-associated-control -->
@@ -137,7 +134,9 @@
 						<span>Published Date</span>
 					</label>
 				</div>
-				<span class="span w-1/2 md:2/3 lg:2/3" id="publishingDate">{date.format(publishingDate, 'DD MMM YYYY')}</span>
+				<span class="span w-1/2 md:2/3 lg:2/3" id="publishingDate"
+					>{date.format(publishingDate, 'DD MMM YYYY')}</span
+				>
 			</div>
 
 			<div class="flex items-start my-4 lg:mx-16 md:mx-12 mx-10">

@@ -12,8 +12,8 @@ export const createNewsfeed = async (
 	language: string,
 	copyright: string,
 	favicon: string,
-	image:string,
-	tags: string[],
+	image: string,
+	tags: string[]
 ) => {
 	const body = {
 		Title: title,
@@ -24,7 +24,7 @@ export const createNewsfeed = async (
 		Copyright: copyright,
 		Favicon: favicon,
 		Image: image,
-		Tags: tags,
+		Tags: tags
 	};
 	const url = BACKEND_API_URL + '/rss-feeds';
 	return await post_(sessionId, url, body, true);
@@ -65,8 +65,8 @@ export const updateNewsfeed = async (
 	language: string,
 	copyright: string,
 	favicon: string,
-	image:string,
-	tags: string[],
+	image: string,
+	tags: string[]
 ) => {
 	const body = {
 		Title: title,
@@ -76,8 +76,8 @@ export const updateNewsfeed = async (
 		Language: language,
 		Copyright: copyright,
 		Favicon: favicon,
-		Image:image,
-		Tags: tags,
+		Image: image,
+		Tags: tags
 	};
 	const url = BACKEND_API_URL + `/rss-feeds/${newsfeedId}`;
 	return await put_(sessionId, url, body, true);

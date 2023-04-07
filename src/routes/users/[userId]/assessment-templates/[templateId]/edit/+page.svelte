@@ -135,7 +135,12 @@
 					</label>
 				</div>
 				<div class="w-2/3">
-					<select class="select w-full" name='type' bind:value={assessmentType} placeholder="Select type here...">
+					<select
+						class="select w-full"
+						name="type"
+						bind:value={assessmentType}
+						placeholder="Select type here..."
+					>
 						<option selected>{assessmentType}</option>
 						<option>Daily Update</option>
 						<option>Symptom</option>

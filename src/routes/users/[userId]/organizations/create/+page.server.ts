@@ -1,5 +1,5 @@
 import { redirect } from 'sveltekit-flash-message/server';
-import type {  RequestEvent } from '@sveltejs/kit';
+import type { RequestEvent } from '@sveltejs/kit';
 import { errorMessage, successMessage } from '$lib/utils/message.utils';
 import { createOrganization } from '../../../../api/services/organizations';
 import { createAddress } from '../../../../api/services/addresses';
@@ -11,10 +11,10 @@ import { getOrganizationTypes } from '../../../../api/services/types';
 
 export const load: PageServerLoad = async (event: RequestEvent) => {
 	try {
-		   const types: OrganizationTypes[] = await getOrganizationTypes();
+		const types: OrganizationTypes[] = await getOrganizationTypes();
 		return {
 			message: 'Common data successfully retrieved!',
-			types,
+			types
 		};
 	} catch (error) {
 		console.error(`Error retieving data : ${error.message}`);
@@ -27,7 +27,7 @@ export const actions = {
 		const request = event.request;
 		const userId = event.params.userId;
 		const data = await request.formData();
-     
+
 		const addressType = data.has('addressType') ? data.get('addressType') : null;
 		const addressLine = data.has('AddressLine') ? data.get('AddressLine') : null;
 		const city = data.has('city') ? data.get('city') : null;
@@ -41,7 +41,7 @@ export const actions = {
 		const contactEmail = data.has('contactEmail') ? data.get('contactEmail') : null;
 		const about = data.has('about') ? data.get('about') : null;
 		const operationalSince = data.has('operationalSince') ? data.get('operationalSince') : null;
-	  const imageResourceId = data.has('imageResourceId') ? data.get('imageResourceId') : null;
+		const imageResourceId = data.has('imageResourceId') ? data.get('imageResourceId') : null;
 		const isHealthFacility = data.has('isHealthFacility') ? data.get('isHealthFacility') : false;
 
 		const sessionId = event.cookies.get('sessionId');
@@ -55,10 +55,10 @@ export const actions = {
 			country.valueOf() as string,
 			postalCode.valueOf() as number
 		);
-		
+
 		const addressesId_ = addressResponse.Data.Address.id;
-    		const addressesId = addressesId_.split(',');
-		
+		const addressesId = addressesId_.split(',');
+
 		if (addressResponse.Status === 'failure' || addressResponse.HttpCode !== 201) {
 			throw redirect(303, '/organizations', errorMessage(addressResponse.Message), event);
 		}
@@ -75,9 +75,9 @@ export const actions = {
 			imageResourceId.valueOf() as string,
 			isHealthFacility.valueOf() as boolean
 		);
-		
+
 		const id = response.Data.Organization.id;
-     
+
 		if (response.Status === 'failure' || response.HttpCode !== 201) {
 			throw redirect(303, '/organizations', errorMessage(response.Message), event);
 		}

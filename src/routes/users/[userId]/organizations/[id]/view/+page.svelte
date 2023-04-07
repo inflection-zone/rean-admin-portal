@@ -7,9 +7,9 @@
 	import { LocalStorageUtils } from '$lib/utils/local.storage.utils';
 	import BreadCrumbs from '$lib/components/breadcrumbs/breadcrums.svelte';
 	import { page } from '$app/stores';
-	import type { PageServerData } from './$types';
 	import Image from '$lib/components/image.svelte';
-	
+	import type { PageServerData } from './$types';
+
 	export let data: PageServerData;
 	let id = data.organization.id;
 	let type = data.organization.Type;
@@ -25,14 +25,14 @@
 	let state = data.organization.Addresses[0].State;
 	let country = data.organization.Addresses[0].Country;
 	let postalCode = data.organization.Addresses[0].PostalCode;
-  let imageResourceId = data.organization.ImageUrl ?? undefined;
+	let imageResourceId = data.organization.ImageUrl ?? undefined;
 	let isHealthFacility = data.organization.IsHealthFacility;
 
 	onMount(() => {
 		show(data);
 		LocalStorageUtils.removeItem('prevUrl');
 	});
-	
+
 	const userId = $page.params.userId;
 	const editRoute = `/users/${userId}/organizations/${id}/edit`;
 	const viewRoute = `/users/${userId}/organizations/${id}/view`;

@@ -41,5 +41,5 @@ export const actions = {
 			successMessage(`notice created successful!`),
 			event
 		);
-	},
+	}
 };
