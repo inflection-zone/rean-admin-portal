@@ -35,11 +35,11 @@
 
 	const breadCrumbs = [
 		{
-			name: 'Course',
+			name: 'Courses',
 			path:  courseRoute
 		},
 		{
-			name: 'Content',
+			name: 'Contents',
 			path: contentRoute
 		},
 		{

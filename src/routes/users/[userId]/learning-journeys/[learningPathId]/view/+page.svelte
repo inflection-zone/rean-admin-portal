@@ -2,24 +2,35 @@
 	import { page } from '$app/stores';
 	import type { PageServerData } from './$types';
 	import Fa from 'svelte-fa';
-	import { faMultiply, faPen } from '@fortawesome/free-solid-svg-icons';
+	import {
+		faMultiply,
+		faPen,
+		faList,
+		faMessage,
+		faQuestionCircle
+	} from '@fortawesome/free-solid-svg-icons';
 	import { onMount } from 'svelte';
 	import { show } from '$lib/utils/message.utils';
 	import { LocalStorageUtils } from '$lib/utils/local.storage.utils';
-	import BreadCrumbs from '$lib/components/breadcrumbs/breadcrums.svelte'
+	import BreadCrumbs from '$lib/components/breadcrumbs/breadcrums.svelte';
 	import Image from '$lib/components/image.svelte';
-	
-  ///////////////////////////////////////////////////////////////////////////////////////////////////////////
-	
+	import { TreeView, TreeBranch, TreeLeaf } from 'svelte-tree-view-component';
+
+	///////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 	export let data: PageServerData;
-	const learningPathId = $page.params.learningPathId
+	let courses = data.learningJourney.Courses;
+	let learningPathId = $page.params.learningPathId;
 	let id = data.learningJourney.id;
 	let name = data.learningJourney.Name;
 	let preferenceWeight = data.learningJourney.PreferenceWeight;
 	let description = data.learningJourney.Description;
 	let durationInDays = data.learningJourney.DurationInDays;
 	let imageUrl = data.learningJourney.ImageUrl;
-	let courses = data.learningJourney.Courses;
+
+	courses = courses.sort((a, b) => {
+		return a.Sequence - b.Sequence;
+	});
 
 	onMount(() => {
 		show(data);
@@ -29,11 +40,12 @@
 	const userId = $page.params.userId;
 	const editRoute = `/users/${userId}/learning-journeys/${learningPathId}/edit`;
 	const viewRoute = `/users/${userId}/learning-journeys/${learningPathId}/view`;
+	const courseRoute = `/users/${userId}/courses`;
 	const learningJourneyRoute = `/users/${userId}/learning-journeys`;
 
 	const breadCrumbs = [
 		{
-			name: 'Learning-Journey',
+			name: 'Learning-Journeys',
 			path: learningJourneyRoute
 		},
 		{
@@ -105,20 +117,6 @@
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
 					<!-- svelte-ignore a11y-label-has-associated-control -->
 					<label class="label">
-						<span>Courses</span>
-					</label>
-				</div>
-				<ol class="span w-1/2 md:w-2/3 lg:w-2/3 list-decimal ml-6" id="course">
-					{#each courses as course}
-						<li>{course.Name}</li>
-			  	{/each}	
-				</ol>
-			</div>
-
-			<div class="flex items-start my-4 lg:mx-16 md:mx-12 mx-10">
-				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
-					<!-- svelte-ignore a11y-label-has-associated-control -->
-					<label class="label">
 						<span>Image</span>
 					</label>
 				</div>
@@ -129,6 +127,45 @@
 				{:else}
 					<Image cls="flex h-24 w-24 rounded-md" source={imageUrl} w="24" h="24" />
 				{/if}
+			</div>
+
+			<div class="flex items-start mb-4 lg:mx-16 md:mx-12 mx-10">
+				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
+					<!-- svelte-ignore a11y-label-has-associated-control -->
+					<label class="label mt-2">
+						<span>Courses</span>
+					</label>
+				</div>
+				<span class="span w-1/2 md:2/3 lg:2/3">
+					<!-- svelte-ignore empty-block -->
+					{#if courses.length <= 0}
+						<div>Courses are not available</div>
+					{:else}
+						<TreeView lineColor="#5832A1" iconBackgroundColor="#5832A1" branchHoverColor="#5832A1">
+							<TreeBranch rootContent="Course">
+								{#each courses as course}
+								<TreeLeaf>
+									{course.Sequence}-{course.Name}
+								 <TreeBranch rootContent="Module">
+									{#each course.Modules as module}
+									<TreeLeaf>
+										{module.Name}
+									<TreeBranch rootContent="Content">
+										{#each module.Contents as content}
+										<TreeLeaf>	
+											{content.Title}
+										</TreeLeaf>
+										{/each}
+										</TreeBranch>
+									</TreeLeaf>
+									{/each}
+									</TreeBranch>
+								</TreeLeaf>
+								{/each}
+							</TreeBranch>
+						</TreeView>
+					{/if}
+				</span>
 			</div>
 
 			<div class="flex items-center mt-7 lg:mx-16 md:mx-12 mr-10">

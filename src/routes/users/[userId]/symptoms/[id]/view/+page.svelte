@@ -30,7 +30,7 @@
 
 	const breadCrumbs = [
 		{
-			name: 'Symptom',
+			name: 'Symptoms',
 			path: symptomRoute
 		},
 		{

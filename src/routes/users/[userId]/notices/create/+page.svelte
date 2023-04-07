@@ -19,7 +19,7 @@
 
 	const breadCrumbs = [
 		{
-			name: 'Notice',
+			name: 'Notices',
 			path: noticeRoute
 		},
 		{

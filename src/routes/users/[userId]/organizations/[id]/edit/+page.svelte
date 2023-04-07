@@ -86,7 +86,7 @@
 
 	const breadCrumbs = [
 		{
-			name: 'Organization',
+			name: 'Organizations',
 			path: organizationRoute
 		},
 		{

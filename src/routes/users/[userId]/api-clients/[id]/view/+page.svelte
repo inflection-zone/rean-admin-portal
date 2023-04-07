@@ -12,8 +12,6 @@
 	let clientCode = data.apiClient.ClientCode;
 	let phone = data.apiClient.Phone;
 	let email = data.apiClient.Email;
-	
-
 	  
 	onMount(() => {
 		show(data);
@@ -29,7 +27,7 @@
 
 	const breadCrumbs = [
 		{
-			name: 'Api-Client',
+			name: 'Api-Clients',
 			path: apiClientRoute
 		},
 		{

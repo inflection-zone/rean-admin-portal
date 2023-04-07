@@ -10,7 +10,7 @@
 
 	const breadCrumbs = [
 		{
-			name: 'Assessment-Template',
+			name: 'Assessment-Templates',
 			path: assessmentsRoutes
 		},
 		{
@@ -84,9 +84,6 @@
 				<input
 					type="text"
 					name="displayCode"
-
-
-
 					class="input w-full"
 					placeholder="Enter display code here"
 				/>
