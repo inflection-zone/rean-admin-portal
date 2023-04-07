@@ -31,7 +31,6 @@
 	courses = courses.sort((a, b) => {
 		return a.Sequence - b.Sequence;
 	});
-	console.log('ass---',courses);
 
 	onMount(() => {
 		show(data);

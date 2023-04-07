@@ -38,7 +38,6 @@ export const actions = {
 			// serveListNodeChildrenAtOnce.valueOf() as string
 		);
 		const id = response.Data.AssessmentTemplate.id;
-		console.log('res--',response)
 
 		if (response.Status === 'failure' || response.HttpCode !== 201) {
 			throw redirect(303, '/assessment-templates', errorMessage(response.Message), event);

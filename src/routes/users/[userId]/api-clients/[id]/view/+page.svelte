@@ -12,8 +12,6 @@
 	let clientCode = data.apiClient.ClientCode;
 	let phone = data.apiClient.Phone;
 	let email = data.apiClient.Email;
-	
-
 	  
 	onMount(() => {
 		show(data);
