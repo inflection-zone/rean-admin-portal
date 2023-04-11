@@ -14,7 +14,7 @@
 	let topicName = data.knowledgeNugget.TopicName;
 	let briefInformation = data.knowledgeNugget.BriefInformation;
 	let detailedInformation = data.knowledgeNugget.DetailedInformation;
-	let additionalResource = data.knowledgeNugget.AdditionalResource;
+	let additionalResources = data.knowledgeNugget.AdditionalResources;
 	let tags_ = data.knowledgeNugget.Tags;
 	let tags = tags_.join(', ');
 
@@ -94,7 +94,7 @@
 						<span>Additional Resource</span>
 					</label>
 				</div>
-				<span class="span w-1/2 md:2/3 lg:2/3" id="additionalResource">{additionalResource}</span>
+				<span class="span w-1/2 md:2/3 lg:2/3" id="additionalResources">{additionalResources}</span>
 			</div>
 
 			<div class="flex items-center my-4 lg:mx-16 md:mx-12 mx-10">

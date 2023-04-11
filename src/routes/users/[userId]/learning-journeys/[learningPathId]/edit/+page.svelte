@@ -1,11 +1,11 @@
 <script lang="ts">
 	import { page } from '$app/stores';
-	import type { PageServerData } from './$types';
 	import Fa from 'svelte-fa';
 	import { faMultiply } from '@fortawesome/free-solid-svg-icons';
 	import BreadCrumbs from '$lib/components/breadcrumbs/breadcrums.svelte';
 	import Image from '$lib/components/image.svelte';
 	import { showMessage } from '$lib/utils/message.utils';
+	import type { PageServerData } from './$types';
 
 	///////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -19,8 +19,8 @@
 	let courses = data.learningJourney.Courses;
 	let imageUrl = data.learningJourney.ImageUrl;
 	$: avatarSource = imageUrl;
-	const courseNames = courses.map(item => item.Name);
-	console.log(courseNames);
+	const courseNames = courses.map((item) => item.Name);
+
 	//Original data
 	let _name = name;
 	let _preferenceWeight = preferenceWeight;
@@ -194,15 +194,15 @@
 				</div>
 				<div class="w-1/2 md:w-2/3 lg:w-2/3">
 					<select
-					 	name="courseIds"
+						name="courseIds"
 						class="select"
 						multiple
 						placeholder="Select course here..."
 						value={courseNames}
 					>
-					{#each allCources  as course}
-						<option value={course.id}>{course.Name}</option>
-					{/each}
+						{#each allCources as course}
+							<option value={course.id}>{course.Name}</option>
+						{/each}
 					</select>
 				</div>
 			</div>
@@ -215,25 +215,25 @@
 					</label>
 				</div>
 				<div class="flex flex-row gap-2 w-1/2 md:w-2/3 lg:w-2/3 ">
-						{#if imageUrl === 'undefined'}
-							<input
-								name="fileinput"
-								type="file"
-								class="true input w-full"
-								placeholder="Image"
-								on:change={async (e) => await onFileSelected(e)}
-							/>
-						{:else}
-							<Image cls="flex h-24 w-24 rounded-lg" source={imageUrl} w="24" h="24" />
-							<input
-								name="fileinput"
-								type="file"
-								class="true input w-full"
-								placeholder="Image"
-								on:change={async (e) => await onFileSelected(e)}
-							/>
-						{/if}
-						<input type="hidden" name="imageUrl" value={imageUrl} />
+					{#if imageUrl === 'undefined'}
+						<input
+							name="fileinput"
+							type="file"
+							class="true input w-full"
+							placeholder="Image"
+							on:change={async (e) => await onFileSelected(e)}
+						/>
+					{:else}
+						<Image cls="flex h-24 w-24 rounded-lg" source={imageUrl} w="24" h="24" />
+						<input
+							name="fileinput"
+							type="file"
+							class="true input w-full"
+							placeholder="Image"
+							on:change={async (e) => await onFileSelected(e)}
+						/>
+					{/if}
+					<input type="hidden" name="imageUrl" value={imageUrl} />
 				</div>
 			</div>
 

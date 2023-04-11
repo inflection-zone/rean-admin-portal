@@ -180,8 +180,8 @@
 				<th style="width: 35%;">Tags</th>
 				<th style="width: 18%;">Image</th>
 				<th style="width: 35%;">Created Date</th>
-				<th style="width: 8%;"></th>
-				<th style="width: 8%;"></th>
+				<th style="width: 8%;" />
+				<th style="width: 8%;" />
 			</tr>
 		</thead>
 	</table>
@@ -191,7 +191,7 @@
 				{#each $dataTableStore.filtered as row, rowIndex}
 					<tr>
 						<td style="width: 5%;">{row.index}</td>
-						<td style="width: 20%;"><a href={viewRoute(row.id)}>{row.Symptom}</td>
+						<td style="width: 20%;"><a href={viewRoute(row.id)}>{row.Symptom}</a></td>
 						<td style="width: 33%;">{row.Tags}</td>
 						<td style="width: 20%;">
 							<!-- svelte-ignore missing-declaration -->

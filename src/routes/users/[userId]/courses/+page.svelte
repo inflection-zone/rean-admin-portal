@@ -7,9 +7,9 @@
 	import BreadCrumbs from '$lib/components/breadcrumbs/breadcrums.svelte';
 	import Confirm from '$lib/components/modal/confirmModal.svelte';
 	import { faPencil, faSearch, faTrash } from '@fortawesome/free-solid-svg-icons';
-	import type { PageServerData } from './$types';
 	import { TreeView, TreeBranch, TreeLeaf } from 'svelte-tree-view-component';
 	import { goto } from '$app/navigation';
+	import type { PageServerData } from './$types';
 
 	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -36,8 +36,8 @@
 	];
 
 	const onCourseClick = (id) => {
-    goto(`/users/${userId}/courses/${id}/view`);
-  };
+		goto(`/users/${userId}/courses/${id}/view`);
+	};
 	let name = undefined;
 	let durationInDays = undefined;
 	let sortBy = 'CreatedAt';
@@ -145,12 +145,12 @@
 <!-- lineColor="#ECE4FC" -->
 
 <div class="ml-10 ">
-	<TreeView
-	lineColor="#5832A1" iconBackgroundColor="#5832A1" branchHoverColor="#5832A1"
-	>
+	<TreeView lineColor="#5832A1" iconBackgroundColor="#5832A1" branchHoverColor="#5832A1">
 		{#each courses as course}
 			<TreeBranch>
-				<button on:click={onCourseClick(course.id)} class="text-primary-500" slot="root">{course.Name}</button>
+				<button on:click={onCourseClick(course.id)} class="text-primary-500" slot="root"
+					>{course.Name}</button
+				>
 				{#each course.Modules as module}
 					<TreeBranch>
 						<div class="text-secondary-800" slot="root">{module.Name}</div>

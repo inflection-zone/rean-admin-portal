@@ -15,7 +15,6 @@ export const load: PageServerLoad = async (event: RequestEvent) => {
 			throw error(response.HttpCode, response.Message);
 		}
 		const module = response.Data.CourseModule;
-		console.log(module)
 		const id = response.Data.CourseModule.id;
 		return {
 			location: `${id}/edit`,

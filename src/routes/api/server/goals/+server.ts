@@ -6,7 +6,7 @@ import { deleteGoal } from '../../services/goals';
 export const DELETE = async (event: RequestEvent) => {
 	const request = event.request;
 	const data = await request.json();
-	
+
 	try {
 		console.log('Inside goal server endpoints');
 		const response = await deleteGoal(data.sessionId, data.goalId);

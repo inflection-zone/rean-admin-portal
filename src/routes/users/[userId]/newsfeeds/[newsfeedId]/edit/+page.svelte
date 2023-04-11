@@ -11,9 +11,6 @@
 
 	let retrievedTags = '';
 	let tagsPlaceholder = 'Enter a tags here...';
-	// function handleTags(event) {
-	// 	retrievedTags = event.detail.tags;
-	// }
 
 	export let data: PageServerData;
 	let initiaData = {};
@@ -262,7 +259,9 @@
 						<span>Updated</span>
 					</label>
 				</div>
-				<span class="span w-1/2 md:2/3 lg:2/3" id="updated">{date.format(updated, 'DD MMM YYYY')}</span>
+				<span class="span w-1/2 md:2/3 lg:2/3" id="updated"
+					>{date.format(updated, 'DD MMM YYYY')}</span
+				>
 			</div>
 
 			<div class="flex items-start my-2 mb-4 lg:mx-16 md:mx-12 mx-10">
@@ -307,11 +306,7 @@
 					</label>
 				</div>
 				<div class="w-1/2 md:w-2/3 lg:w-2/3">
-					<InputChip
-					chips="variant-filled-error rounded-2xl"
-					name="tags"
-					bind:value= {tags}
-					/>
+					<InputChip chips="variant-filled-error rounded-2xl" name="tags" bind:value={tags} />
 				</div>
 			</div>
 

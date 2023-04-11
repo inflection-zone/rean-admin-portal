@@ -12,14 +12,14 @@
 	let topicName = data.KnowledgeNugget.TopicName;
 	let briefInformation = data.KnowledgeNugget.BriefInformation;
 	let detailedInformation = data.KnowledgeNugget.DetailedInformation;
-	let additionalResource = data.KnowledgeNugget.AdditionalResource;
+	let additionalResources = data.KnowledgeNugget.AdditionalResources;
 	let tags = data.KnowledgeNugget.Tags;
 
 	//Original data
 	let _topicName = topicName;
 	let _briefInformation = briefInformation;
 	let _detailedInformation = detailedInformation;
-	let _additionalResource = additionalResource;
+	let _additionalResources = additionalResources;
 	let _tags = tags;
 	let retrievedTags = '';
 	let tagsPlaceholder = 'Enter a tags here...';
@@ -31,7 +31,7 @@
 		topicName = _topicName;
 		briefInformation = _briefInformation;
 		detailedInformation = _detailedInformation;
-		additionalResource = _additionalResource;
+		additionalResources = _additionalResources;
 		tags = _tags;
 	}
 
@@ -92,7 +92,7 @@
 				</div>
 			</div>
 
-			<div class="flex items-center mb-2 lg:mx-16 md:mx-12 mx-10">
+			<div class="flex items-center mb-4 lg:mx-16 md:mx-12 mx-10">
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
 					<!-- svelte-ignore a11y-label-has-associated-control -->
 					<label class="label">
@@ -108,7 +108,7 @@
 					/>
 				</div>
 			</div>
-			<div class="flex items-center mb-2 lg:mx-16 md:mx-12 mx-10">
+			<div class="flex items-center mb-4 lg:mx-16 md:mx-12 mx-10">
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
 					<!-- svelte-ignore a11y-label-has-associated-control -->
 					<label class="label">
@@ -124,7 +124,7 @@
 					/>
 				</div>
 			</div>
-			<div class="flex items-center mb-2 lg:mx-16 md:mx-12 mx-10">
+			<div class="flex items-center mb-4 lg:mx-16 md:mx-12 mx-10">
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
 					<!-- svelte-ignore a11y-label-has-associated-control -->
 					<label class="label">
@@ -133,15 +133,15 @@
 				</div>
 				<div class="w-1/2 md:w-2/3 lg:w-2/3">
 					<textarea
-						name="additionalResource"
-						bind:value={additionalResource}
+						name="additionalResources"
+						bind:value={additionalResources}
 						class="input w-full"
 						placeholder="Enter additional resource here..."
 					/>
 				</div>
 			</div>
 
-			<div class="flex items-center lg:mx-16 md:mx-12 mx-10">
+			<div class="flex items-center mb-4 lg:mx-16 md:mx-12 mx-10">
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
 					<!-- svelte-ignore a11y-label-has-associated-control -->
 					<label class="label">
@@ -149,14 +149,10 @@
 					</label>
 				</div>
 				<div class="w-1/2 md:w-2/3 lg:w-2/3">
-					<InputChip
-					chips="variant-filled-error rounded-2xl"
-					name="tags"
-					bind:value= {tags}
-					/>
+					<InputChip chips="variant-filled-error rounded-2xl" name="tags" bind:value={tags} />
 				</div>
 			</div>
-			
+
 			<div class="flex items-center my-8 lg:mx-16 md:mx-12 mx-4 ">
 				<div class="lg:w-1/2 md:w-1/2 sm:w-1/2  w-1/3" />
 				<div class="lg:w-1/4 md:w-1/4 sm:w-1/4  w-1/3 ">

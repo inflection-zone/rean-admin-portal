@@ -15,7 +15,7 @@ export const actions = {
 		const Body = data.has('Body') ? data.get('Body') : null;
 		const type = data.has('type') ? data.get('type') : null;
 		const broadcastToAll = data.has('broadcastToAll') ? data.get('broadcastToAll') : null;
-		const imageUrl = data.has('imageUrl') ? data.get('imageUrl') : null
+		const imageUrl = data.has('imageUrl') ? data.get('imageUrl') : null;
 		const sessionId = event.cookies.get('sessionId');
 
 		const response = await createNotification(

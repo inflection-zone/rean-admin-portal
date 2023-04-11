@@ -7,7 +7,7 @@
 	import Confirm from '$lib/components/modal/confirmModal.svelte';
 	import { faPencil, faSearch, faTrash } from '@fortawesome/free-solid-svg-icons';
 	import type { PageServerData } from './$types';
-	
+
 	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 	export let data: PageServerData;
@@ -64,7 +64,7 @@
 	};
 
 	async function searchNode(model) {
-		templateId
+		templateId;
 		let url = `/api/server/assessment-nodes/search?templateId=${templateId}&`;
 		if (sortOrder) {
 			url += `sortOrder=${sortOrder}`;
@@ -103,7 +103,7 @@
 
 	const handleAssessmentNodeDelete = async (e, id) => {
 		const assessmentNodeId = id;
-		console.log("assessmentNodeId",assessmentNodeId)
+		console.log('assessmentNodeId', assessmentNodeId);
 		await Delete({
 			sessionId: data.sessionId,
 			assessmentTemplateId: templateId,
@@ -191,8 +191,8 @@
 				<th style="width: 22%;">Title</th>
 				<th style="width: 30%;">Node Type</th>
 				<th style="width: 30%;">Query Response Type</th>
-				<th></th>
-				<th></th>
+				<th />
+				<th />
 			</tr>
 		</thead>
 	</table>

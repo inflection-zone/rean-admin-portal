@@ -13,7 +13,7 @@ export const load: PageServerLoad = async (event: RequestEvent) => {
 		}
 		const organization = response.Data.Organizations.Items;
 		console.log('organization', organization);
-	
+
 		return {
 			organization,
 			sessionId,

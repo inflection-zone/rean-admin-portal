@@ -6,7 +6,7 @@ import { deletePersonRoleType } from '../../services/person-role-types';
 export const DELETE = async (event: RequestEvent) => {
 	const request = event.request;
 	const data = await request.json();
-	
+
 	try {
 		console.log('Inside person role type server endpoints');
 		const response = await deletePersonRoleType(data.sessionId, data.personRoleTypeId);

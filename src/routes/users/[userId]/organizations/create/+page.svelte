@@ -3,12 +3,12 @@
 	import { faMultiply } from '@fortawesome/free-solid-svg-icons';
 	import BreadCrumbs from '$lib/components/breadcrumbs/breadcrums.svelte';
 	import { page } from '$app/stores';
-	import type { PageServerData } from './$types';
 	import { oragnizationTypesStore } from '$lib/store/general.store';
 	import { LocalStorageUtils } from '$lib/utils/local.storage.utils';
 	import { showMessage } from '$lib/utils/message.utils';
 	import { Country, State, City } from 'country-state-city';
-	console.log(Country.getAllCountries());
+	import type { PageServerData } from './$types';
+
 	let country = Country.getAllCountries();
 	let checkboxValue = false;
 	const userId = $page.params.userId;
@@ -16,7 +16,6 @@
 	let imageUrl = undefined;
 	let fileinput;
 	export let data: PageServerData;
-	
 
 	const createRoute = `/users/${userId}/organizations/create`;
 	const organizationRoute = `/users/${userId}/organizations`;
@@ -213,7 +212,11 @@
 					</label>
 				</div>
 				<div class="w-1/2 md:w-2/3 lg:w-2/3">
-					<select name="addressType" class="select w-full" placeholder="Select address type here...">
+					<select
+						name="addressType"
+						class="select w-full"
+						placeholder="Select address type here..."
+					>
 						<option>Home</option>
 						<option>office</option>
 					</select>
@@ -244,13 +247,8 @@
 						<span>City</span>
 					</label>
 				</div>
-				<div class="w-1/2 md:w-2/3 lg:w-2/3" >
-					<input
-					type="text"
-					name="city"
-					placeholder="Enter city here..."
-					class="input w-1/3 "
-				/>
+				<div class="w-1/2 md:w-2/3 lg:w-2/3">
+					<input type="text" name="city" placeholder="Enter city here..." class="input w-1/3 " />
 				</div>
 			</div>
 			<div class="flex items-center mb-4 lg:mx-16 md:mx-12 mx-10">

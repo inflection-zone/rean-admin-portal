@@ -17,7 +17,7 @@ export const load: PageServerLoad = async (event: RequestEvent) => {
 		}
 		const knowledgeNugget = response.Data.KnowledgeNugget;
 		const id = response.Data.KnowledgeNugget.id;
-		console.log('res==',response)
+
 		return {
 			location: `${id}/edit`,
 			knowledgeNugget,

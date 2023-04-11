@@ -19,7 +19,6 @@ export const load: PageServerLoad = async (event: RequestEvent) => {
 			throw error(response.HttpCode, response.Message);
 		}
 		const apiClient = response.Data.Client;
-		console.log('api client', apiClient);
 		return {
 			apiClient
 		};
@@ -33,7 +32,7 @@ export const actions = {
 		const request = event.request;
 		const userId = event.params.userId;
 		const data = await request.formData();
-    console.log("data>>>>>>>",data);
+
 		const clientName = data.has('clientName') ? data.get('clientName') : null;
 		const password = data.has('password') ? data.get('password') : null;
 		const phone = data.has('phone') ? data.get('phone') : null;

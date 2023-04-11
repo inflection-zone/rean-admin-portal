@@ -2,7 +2,10 @@ import { error, type RequestEvent } from '@sveltejs/kit';
 import { redirect } from 'sveltekit-flash-message/server';
 import { errorMessage, successMessage } from '$lib/utils/message.utils';
 import type { PageServerLoad } from './$types';
-import { getCourseContentById, updateCourseContent } from '../../../../../../../../../../../../../Projects/rean-admin/src/routes/api/services/course.contents';
+import {
+	getCourseContentById,
+	updateCourseContent
+} from '../../../../../../../../../api/services/course.contents';
 
 /////////////////////////////////////////////////////////////////////////
 
@@ -29,9 +32,9 @@ export const actions = {
 	updateCourseContentAction: async (event: RequestEvent) => {
 		const request = event.request;
 		const userId = event.params.userId;
-    const courseId = event.params.courseId;
-    const moduleId = event.params.moduleId;
-    const contentId = event.params.contentId;
+		const courseId = event.params.courseId;
+		const moduleId = event.params.moduleId;
+		const contentId = event.params.contentId;
 
 		const data = await request.formData();
 		const title = data.has('title') ? data.get('title') : null;
@@ -41,7 +44,7 @@ export const actions = {
 		const resourceLink = data.has('resourceLink') ? data.get('resourceLink') : null;
 		const imageUrl = data.has('imageUrl') ? data.get('imageUrl') : null;
 		const sessionId = event.cookies.get('sessionId');
-	 console.log("data",data)
+		console.log('data', data);
 		const response = await updateCourseContent(
 			sessionId,
 			moduleId,
@@ -51,7 +54,7 @@ export const actions = {
 			sequence.valueOf() as number,
 			contentType.valueOf() as string,
 			resourceLink.valueOf() as string,
-			imageUrl.valueOf() as string,
+			imageUrl.valueOf() as string
 		);
 		const id = response.Data.CourseContent.id;
 

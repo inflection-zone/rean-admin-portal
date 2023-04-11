@@ -9,11 +9,10 @@ export const createNewsfeedItem = async (
 	title: string,
 	description: string,
 	link: string,
-	image:string,
+	image: string,
 	authorName: string,
 	authorEmail: string,
 	authorLink: string
-        
 ) => {
 	const body = {
 		FeedId: newsfeedId,
@@ -61,7 +60,7 @@ export const updateNewsfeedItem = async (
 	title: string,
 	description: string,
 	link: string,
-	image:string,
+	image: string,
 	authorName: string,
 	authorEmail: string,
 	authorLink: string

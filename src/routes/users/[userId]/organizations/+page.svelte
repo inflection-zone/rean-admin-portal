@@ -15,15 +15,11 @@
 	let index = Number;
 	organizations = organizations.map((item, index) => ({ ...item, index: index + 1 }));
 
-	const dataTableStore = createDataTableStore(
-		// Pass your source data here:
-		organizations,
-		{
-			search: '',
-			sort: '',
-			pagination: { offset: 0, limit: 10, size: 0, amounts: [10, 20, 30, 50] }
-		}
-	);
+	const dataTableStore = createDataTableStore(organizations, {
+		search: '',
+		sort: '',
+		pagination: { offset: 0, limit: 10, size: 0, amounts: [10, 20, 30, 50] }
+	});
 
 	const organizationRoute = `/users/${userId}/organizations`;
 	const createRoute = `/users/${userId}/organizations/create`;
@@ -164,7 +160,7 @@
 		>
 			<Fa icon={faSearch} class="text-neutral-content" size="lg" />
 		</button>
-		<a href="#" class=" right-14 ">
+		<a href={createRoute} class=" right-14 ">
 			<button
 				class="btn variant-filled-primary hover:bg-primary lg:hidden md:hidden block sm:w-40 w-24 ml-4 rounded-lg bg-primary transition 
           			ease-in-out 
@@ -187,8 +183,8 @@
 				<th style="width: 20%;">Name</th>
 				<th style="width: 20%;">Phone</th>
 				<th style="width: 20%">Email</th>
-				<th style="width: 8%;"></th>
-				<th style="width: 8%;"></th>
+				<th style="width: 8%;" />
+				<th style="width: 8%;" />
 			</tr>
 		</thead>
 	</table>
@@ -198,7 +194,7 @@
 				{#each $dataTableStore.filtered as row, rowIndex}
 					<tr>
 						<td style="width: 5%;">{row.index}</td>
-						<td style="width: 20%;"><a href={viewRoute(row.id)}>{row.Type}</td>
+						<td style="width: 20%;"><a href={viewRoute(row.id)}>{row.Type}</a></td>
 						<td style="width: 20%;">{row.Name}</td>
 						<td style="width: 20%;">{row.ContactPhone}</td>
 						<td style="width: 20%;">{row.ContactEmail}</td>

@@ -2,7 +2,10 @@ import { error, type RequestEvent } from '@sveltejs/kit';
 import { redirect } from 'sveltekit-flash-message/server';
 import { errorMessage, successMessage } from '$lib/utils/message.utils';
 import type { PageServerLoad } from './$types';
-import { getAssessmentTemplateById, updateAssessmentTemplate } from '../../../../../api/services/assessment-templates';
+import {
+	getAssessmentTemplateById,
+	updateAssessmentTemplate
+} from '../../../../../api/services/assessment-templates';
 
 /////////////////////////////////////////////////////////////////////////
 
@@ -48,7 +51,7 @@ export const actions = {
 		// 	? data.get('serveListNodeChildrenAtOnce')
 		// 	: null;
 		const sessionId = event.cookies.get('sessionId');
-		console.log("data",data)
+		console.log('data', data);
 		const response = await updateAssessmentTemplate(
 			sessionId,
 			assessmentTemplateId,
@@ -57,7 +60,7 @@ export const actions = {
 			// displayCode.valueOf() as string,
 			type.valueOf() as string,
 			provider.valueOf() as string,
-			providerAssessmentCode.valueOf() as string,
+			providerAssessmentCode.valueOf() as string
 			// serveListNodeChildrenAtOnce.valueOf() as string
 		);
 		const id = response.Data.AssessmentTemplate.id;

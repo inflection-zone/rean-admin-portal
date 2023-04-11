@@ -10,8 +10,8 @@ export const createAssessmentNode = async (
 	nodeType: string,
 	title: string,
 	description?: string,
-	message ?:string,
-	serveListNodeChildrenAtOnce?:boolean,
+	message?: string,
+	serveListNodeChildrenAtOnce?: boolean,
 	queryType?: string,
 	options?: string[]
 ) => {
@@ -37,7 +37,7 @@ export const createAssessmentNode = async (
 			count = count + 1;
 		}
 		body.Options = options;
-		console.log("body",body)
+		console.log('body', body);
 	}
 	const url = BACKEND_API_URL + `/clinical/assessment-templates/${templateId}/nodes`;
 	return await post_(sessionId, url, body, true);
@@ -52,10 +52,7 @@ export const getAssessmentNodeById = async (
 	return await get_(sessionId, url, true);
 };
 
-export const searchAssessmentNodes = async (
-	sessionId: string,
-	searchParams?: any
-) => {
+export const searchAssessmentNodes = async (sessionId: string, searchParams?: any) => {
 	let searchString = '';
 	if (searchParams) {
 		const keys = Object.keys(searchParams);
@@ -71,9 +68,8 @@ export const searchAssessmentNodes = async (
 			searchString += params.join('&');
 		}
 	}
-	const url =
-		BACKEND_API_URL + `/clinical/assessment-templates/nodes/search${searchString}`;
-	return await get_(sessionId, url,true);
+	const url = BACKEND_API_URL + `/clinical/assessment-templates/nodes/search${searchString}`;
+	return await get_(sessionId, url, true);
 };
 
 export const updateAssessmentNode = async (
@@ -85,7 +81,7 @@ export const updateAssessmentNode = async (
 	description: string,
 	queryType?: string,
 	options?: string[],
-	message ?:string,
+	message?: string
 ) => {
 	const body = {
 		NodeType: nodeType,
@@ -118,13 +114,11 @@ export const deleteAssessmentNode = async (
 	nodeId: string
 ) => {
 	const url = BACKEND_API_URL + `/clinical/assessment-templates/${templateId}/nodes/${nodeId}`;
-	console.log("url",url)
+	console.log('url', url);
 	return await delete_(sessionId, url, true);
 };
 
-export const getQueryResponseTypes = async (
-	sessionId: string,
-) => {
+export const getQueryResponseTypes = async (sessionId: string) => {
 	const url = BACKEND_API_URL + `/types/query-response-types`;
 	return await get_(sessionId, url);
 };
