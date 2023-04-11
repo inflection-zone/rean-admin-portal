@@ -139,21 +139,43 @@
 				/>
 			</div>
 		</div>
-		<!-- <div class="flex items-center my-4 mx-16">
+		<div class="flex items-center my-4 mx-16">
 			<div class="w-1/3">
+				<!-- svelte-ignore a11y-label-has-associated-control -->
 				<label class="label">
 					<span>Servelist Node Children At Once</span>
 				</label>
 			</div>
-			<div class="w-2/3">
-				<input
-					type="text"
-					name="serveListNodeChildrenAtOnce"
-					class="input w-full"
-					placeholder="Enter servelist node children at once here..."
-				/>
+			<div class="w-1/2 md:w-2/3 lg:w-2/3">
+				<label class="label cursor-pointer">
+					<input
+						type="checkbox"
+						name="serveListNodeChildrenAtOnce"
+						value="true"
+						class="checkbox checkbox-primary border-primary-200 hover:border-primary-400 checkbox-md ml-2"
+					/>
+				</label>
 			</div>
-		</div> -->
+		</div>
+
+		<div class="flex items-center my-4 mx-16">
+			<div class="w-1/3">
+				<!-- svelte-ignore a11y-label-has-associated-control -->
+				<label class="label">
+					<span>Scoring Applicable</span>
+				</label>
+			</div>
+			<div class="w-1/2 md:w-2/3 lg:w-2/3">
+				<label class="label cursor-pointer">
+					<input
+						type="checkbox"
+						name="scoringApplicable"
+						value="true"
+						class="checkbox checkbox-primary border-primary-200 hover:border-primary-400 checkbox-md ml-2"
+					/>
+				</label>
+			</div>
+		</div>
 
 		<div class="flex items-center mt-7 lg:mx-16 md:mx-12 mr-10">
 			<div class="w-3/4" />

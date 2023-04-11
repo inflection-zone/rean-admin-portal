@@ -11,8 +11,9 @@ export const createAssessmentTemplate = async (
 	displayCode: string,
 	type: string,
 	provider: string,
-	providerAssessmentCode: string
-	// serveListNodeChildrenAtOnce: string
+	providerAssessmentCode: string,
+	serveListNodeChildrenAtOnce: boolean,
+	scoringApplicable:boolean,
 ) => {
 	const body = {
 		// AssetCode: assetCode,
@@ -21,8 +22,9 @@ export const createAssessmentTemplate = async (
 		DisplayCode: displayCode,
 		Type: type,
 		Provider: provider,
-		ProviderAssessmentCode: providerAssessmentCode
-		// ServeListNodeChildrenAtOnce: serveListNodeChildrenAtOnce
+		ProviderAssessmentCode: providerAssessmentCode,
+		ServeListNodeChildrenAtOnce: serveListNodeChildrenAtOnce,
+		ScoringApplicable:scoringApplicable
 	};
 	const url = BACKEND_API_URL + '/clinical/assessment-templates';
 	return await post_(sessionId, url, body, true);
