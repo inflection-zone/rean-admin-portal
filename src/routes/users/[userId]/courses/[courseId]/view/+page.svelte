@@ -128,19 +128,21 @@
 					{#if modules.length <= 0}
 						<span class="span">Modules are not available!</span>
 					{:else}
-						<!-- <ol class="span w-1/2 md:w-2/3 lg:w-2/3 list-decimal" id="modules">
-					{#each modules as module}
-						<li>{module.Name}</li>
-			  	{/each}	
-				</ol> -->
 						<TreeView lineColor="#5832A1" iconBackgroundColor="#5832A1" branchHoverColor="#5832A1">
-							{#each modules as module}
-								<TreeBranch rootContent={module.Name}>
-									<!-- {#if module.CourseContents.length > 1} -->
-									{#each module.Contents as content}
-										<TreeLeaf>{content.Title}</TreeLeaf>
+							{#each modules as module, i}
+								<TreeBranch defaultClosed>
+									<div slot="root" class="flex">
+										<img class="w-6 mr-2 mb-4" alt="logo" src="/module.png" />
+										{i + 1}-{module.Name}
+									</div>
+									{#each module.Contents as content, i}
+										<TreeLeaf>
+											<div class="flex">
+												<img class="w-6 mr-2 mb-4" alt="logo" src="/content.png" />
+												{content.Sequence}-{content.Title}
+											</div>
+										</TreeLeaf>
 									{/each}
-									<!-- {/if} -->
 								</TreeBranch>
 							{/each}
 						</TreeView>
