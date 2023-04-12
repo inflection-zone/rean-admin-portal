@@ -14,7 +14,8 @@
 	let topicName = data.knowledgeNugget.TopicName;
 	let briefInformation = data.knowledgeNugget.BriefInformation;
 	let detailedInformation = data.knowledgeNugget.DetailedInformation;
-	let additionalResources = data.knowledgeNugget.AdditionalResources;
+	let additionalResources_ = data.knowledgeNugget.AdditionalResources;
+	let additionalResources = additionalResources_.join(', ');
 	let tags_ = data.knowledgeNugget.Tags;
 	let tags = tags_.join(', ');
 
@@ -50,8 +51,8 @@
 		>
 			<div class="w-full  h-14 rounded-t-lg p-3  bg-[#7165E3]">
 				<div class="ml-3 relative flex flex-row text-white lg:text-xl text-lg ">
-					<div class="lg:hidden md:hidden block">View Knowledge Nuggets</div>
-					<div class="lg:block md:block hidden">View Knowledge Nuggets</div>
+					<div class="lg:hidden md:hidden block">View Knowledge Nugget</div>
+					<div class="lg:block md:block hidden">View Knowledge Nugget</div>
 					<a href={knowledgeNuggetsRoute}>
 						<Fa icon={faMultiply} size="lg" class="absolute right-0 lg:pr-3 pr-0 text-white" />
 					</a>

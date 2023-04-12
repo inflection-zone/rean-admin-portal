@@ -31,6 +31,7 @@
 	courses = courses.sort((a, b) => {
 		return a.Sequence - b.Sequence;
 	});
+	console.log('courses===', courses);
 
 	onMount(() => {
 		show(data);
@@ -142,27 +143,36 @@
 						<div>Courses are not available</div>
 					{:else}
 						<TreeView lineColor="#5832A1" iconBackgroundColor="#5832A1" branchHoverColor="#5832A1">
-							<TreeBranch rootContent="Course">
-								{#each courses as course}
-									<TreeLeaf>
-										{course.Sequence}-{course.Name}
-										<TreeBranch rootContent="Module">
-											{#each course.Modules as module}
-												<TreeLeaf>
-													{module.Name}
-													<TreeBranch rootContent="Content">
-														{#each module.Contents as content}
-															<TreeLeaf>
-																{content.Title}
-															</TreeLeaf>
-														{/each}
-													</TreeBranch>
-												</TreeLeaf>
-											{/each}
-										</TreeBranch>
-									</TreeLeaf>
-								{/each}
-							</TreeBranch>
+							{#each courses as course, i}
+								<TreeBranch defaultClosed>
+									<div slot="root" class="flex">
+										<img class="w-6 mr-2 " alt="logo" src="/course.png" />
+										{i + 1}-{course.Name}
+									</div>
+									{#if course.Modules.length <= 0}
+										<div />
+									{:else}
+										{#each course.Modules as module, i}
+											<TreeBranch defaultClosed>
+												<div slot="root" class="flex">
+													<img class="w-6 mr-2 mb-4" alt="logo" src="/module.png" />
+													{i + 1}-{module.Name}
+												</div>
+												{#if module.Contents.length <= 0}{:else}
+													{#each module.Contents as content, i}
+														<TreeLeaf>
+															<div class="flex">
+																<img class="w-6 mr-2 mb-4" alt="logo" src="/content.png" />
+																{content.Sequence}-{content.Title}
+															</div>
+														</TreeLeaf>
+													{/each}
+												{/if}
+											</TreeBranch>
+										{/each}
+									{/if}
+								</TreeBranch>
+							{/each}
 						</TreeView>
 					{/if}
 				</span>

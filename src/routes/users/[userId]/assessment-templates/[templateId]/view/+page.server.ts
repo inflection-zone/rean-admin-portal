@@ -22,7 +22,7 @@ export const load: PageServerLoad = async (event: RequestEvent) => {
 		const assessmentTemplate = response.Data.AssessmentTemplate;
 		const assessmentNodes = _assessmentNodes.Data.AssessmentNodeRecords.Items;
 		const assessmentNodesWithoutRootNode = assessmentNodes.filter((assessmentnode) => assessmentnode.Title != 'Assessment root node');
-		console.log('ds',assessmentNodesWithoutRootNode)
+
 		const id = response.Data.AssessmentTemplate.id;
 		return {
 			location: `${id}/edit`,
