@@ -1,8 +1,18 @@
 <script lang="ts">
 	import Fa from 'svelte-fa';
-	import { faAngleDown, faAngleUp, faEdit, faPencil, faPlus, faTrash } from '@fortawesome/free-solid-svg-icons';
+	import {
+		faAngleDown,
+		faAngleUp,
+		faEdit,
+		faPencil,
+		faPlus,
+		faTrash
+	} from '@fortawesome/free-solid-svg-icons';
 	import { createEventDispatcher } from 'svelte';
-	import { goto } from '$app/navigation';
+	import Confirm from '$lib/components/modal/confirmModal.svelte';
+
+	///////////////////////////////////////////////////////////////////////////////////////////////
+
 	export let headerText;
 	export let color = '';
 	export let paddingBottom = `${12}px`;
@@ -11,66 +21,81 @@
 	export let paddingRight = `${20}px`;
 	export let marginBottom = `${10}px`;
 	export let itemsCount;
-	export let id = undefined;
-  export let addRoute = undefined;
+	export let addRoute = undefined;
 	export let editRoute = undefined;
+	export let faIcon = undefined;
 	let expanded = false;
 	const dispatch = createEventDispatcher();
 	const handlelDeleteClick = async (id) => {
 		dispatch('onDeleteClick', {
-			courseId: id
+			id: id
 		});
 	};
 
-  const handlelAddClick = async () => {
-    dispatch('onAddClick', 
-    goto(`${addRoute}`));
-	};
 </script>
 
 <div class="collapsible pb-1 ml-3 first:pt-4 ">
 	<!-- <h3> -->
 	<!-- svelte-ignore a11y-click-events-have-key-events -->
-	<span
-		
+	<span 
 		style="--color:{color}; --paddingBottom:{paddingBottom}; --paddingTop:{paddingTop}; --paddingLeft:{paddingLeft}; paddingRight:{paddingRight};--marginBottom:{marginBottom};"
-		class="text-lg text-white pr-6"
+		class="text-lg text-white pr-6 justify-start "
 	>
-  <!-- <div class="flex gap-4"> -->
+		<!-- <div class="flex gap-4"> -->
 		<!-- <div class="w-5"> -->
-		{headerText}
+		<div class=" flex gap-2">
+			<Fa class="text-white mt-2" icon={faIcon} />
+			{headerText}
+		</div>
 		<!-- </div> -->
-	<div class="flex gap-6">
-		<div class="text-white text-center pr-0">
-			{itemsCount}
+		<div class="flex gap-6 justify-end">
+			<div class="text-white text-center pr-0 mr-5">
+				{itemsCount}
+			</div>
+			<div class="w-5 my-2">
+				<a href={addRoute}>
+					<Fa class="text-white" icon={faPlus} />
+				</a>
+			</div>
+			<div class="w-5 my-2">
+				<a href={editRoute}>
+					<Fa class="text-white" icon={faPencil} />
+				</a>
+			</div>
+			<div class="h-4 w-2 my-1">
+				<Confirm
+					confirmTitle="Delete"
+					cancelTitle="Cancel"
+					let:confirm={confirmThis}
+					on:delete={(id) => {
+						handlelDeleteClick(id);
+					}}
+				>
+					<button on:click|once ={(id) => confirmThis(handlelDeleteClick, id)} class=""
+						><Fa icon={faTrash} /></button
+					>
+					<div class="" slot="title">Delete</div>
+					<div slot="description">Are you sure you want to delete a content?</div>
+				</Confirm>
+
+			</div>
+			<svg
+				aria-expanded={expanded}
+				on:click={() => (expanded = !expanded)}
+				viewBox="0 0 20 20"
+				fill="none"
+				class="pt-1 pr-3 h-4 w-2"
+			>
+				{#if expanded == false}
+					<Fa class="vert" icon={faAngleDown} />
+				{:else}
+					<Fa icon={faAngleUp} />
+				{/if}
+			</svg>
 		</div>
-    <div class="w-5 my-2">
-      <a href={addRoute}>
-	    <Fa class="text-white" icon={faPlus} />
-    </a>
-		</div>
-    <div class="w-5 my-2">
-      <a href={editRoute}>
-	    <Fa class="text-white" icon={faPencil} />
-    </a>
-		</div>
-    <div>
-		<button class="h-4 w-2 mx-0" on:click = {handlelDeleteClick(id)}>
-			<Fa icon={faTrash} />
-		</button>
-    </div>
-		<svg aria-expanded={expanded}
-		on:click={() => (expanded = !expanded)} viewBox="0 0 20 20" fill="none" class="pt-1 pr-3 h-4 w-2">
-			{#if expanded == false}
-				<Fa class="vert" icon={faAngleDown} />
-			{:else}
-				<Fa icon={faAngleUp} />
-			{/if}
-		</svg>
-  </div>
 	</span>
 	<!-- </h3> -->
-	<div class="content " hidden={!expanded}>
+	<div class="content" hidden={!expanded}>
 		<slot />
 	</div>
 </div>

@@ -51,9 +51,9 @@
         <slot name="description">This action can't be undone!</slot>
       </span>
     </div>
-    <div class="actions bg-base-100">
+    <div class="actions bg-White">
       <button
-        class=" btn btn-outline btn-primary btn-sm leading-none font-semibold text-lg pr-4 mr-4"
+        class=" btn variant-filled-primary leading-none pr-4 mr-4"
         on:click={() => (showDialog = false)}
       >
         <slot name="cancel">
@@ -61,7 +61,7 @@
         </slot>
       </button>
       <button
-        class="btn btn-error text-base-100 btn-sm "
+        class="btn variant-filled-error "
   
         on:click|preventDefault = {async () => {
          await handlelDeleteClick();

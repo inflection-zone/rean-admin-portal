@@ -1,16 +1,10 @@
 <script lang="ts">
-	import Fa from 'svelte-fa';
 	import { createDataTableStore, dataTableHandler } from '@skeletonlabs/skeleton';
-	import { Paginator } from '@skeletonlabs/skeleton';
 	import { page } from '$app/stores';
-	import date from 'date-and-time';
 	import BreadCrumbs from '$lib/components/breadcrumbs/breadcrums.svelte';
-	import Confirm from '$lib/components/modal/confirmModal.svelte';
-	import { faPencil, faSearch, faTrash } from '@fortawesome/free-solid-svg-icons';
 	import type { PageServerData } from './$types';
-	import { TreeView, TreeBranch, TreeLeaf } from 'svelte-tree-view-component';
 	import  CourseView  from '$lib/components/courses.view/courses.view.svelte';
-	import { goto } from '$app/navigation';
+	import { showMessage } from '$lib/utils/message.utils';
 
 	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -37,9 +31,6 @@
 		}
 	];
 
-	// const onCourseClick = (id) => {
-  //   goto(`/users/${userId}/courses/${id}/view`);
-  // };
 	let name = undefined;
 	let durationInDays = undefined;
 	let sortBy = 'CreatedAt';
@@ -88,6 +79,61 @@
 		dataTableStore.updateSource(courses);
 	}
 	dataTableStore.subscribe((model) => dataTableHandler(model));
+
+
+	const handleCourseDelete = async (id, modules) => {
+		const courseId = id;
+		console.log("courseId",courseId)
+		for (const module of modules){
+			await DeleteModule ({
+			sessionId: data.sessionId,
+			moduleId: module.id,
+		})
+		}
+		await DeleteCourse({
+			sessionId: data.sessionId,
+			courseId: courseId
+		});
+		showMessage(`Course deteted successfully!`, 'success');
+		window.location.href = courseRoute;
+	};
+
+	async function DeleteCourse(model) {
+		const response = await fetch(`/api/server/courses`, {
+			method: 'DELETE',
+			body: JSON.stringify(model),
+			headers: {
+				'content-type': 'application/json'
+			}
+		});
+		console.log("response",response)
+	}
+
+	const handleModuleDelete = async (id, contents) => {
+		const moduleId = id;
+		console.log("moduleId",moduleId)
+		for (const content of contents){
+			await DeleteContent({
+			sessionId: data.sessionId,
+			courseContentId: content.id,
+		});
+		}
+		await DeleteModule({
+			sessionId: data.sessionId,
+			moduleId: moduleId
+		});
+		window.location.href = courseRoute;
+	};
+
+	async function DeleteModule(model) {
+		const response = await fetch(`/api/server/modules`, {
+			method: 'DELETE',
+			body: JSON.stringify(model),
+			headers: {
+				'content-type': 'application/json'
+			}
+		});
+	}
 
 	const handleContentDelete = async (id) => {
 		const contentId = id;
@@ -154,45 +200,19 @@
 	<CourseView courses={courses} userId={userId} on:searchCourse = {async (e) => {
 		await searchParams (e.detail.name, e.detail.durationInDays);
 	 }}
-	on:deleteActivity = {async (e) => {
+	 on:deleteActivity = {async (e) => {
 		await handleContentDelete(e.detail.contentId);
 	 }}
+	 on:onModuleDeleteClick = {async (e) => {
+		await handleModuleDelete(e.detail.moduleId, e.detail.contents);
+	 }}
+	 on:onCourseDeleteClick = {async (e) => {
+		await handleCourseDelete(e.detail.courseId, e.detail.modules);
+	 }}
 	 />
+	 
 </div>
 <!-- </div> -->
-<div class="ml-10 ">
-	<!-- <TreeView
-	lineColor="#5832A1" iconBackgroundColor="#5832A1" branchHoverColor="#5832A1"
-	>
-		{#each courses as course}
-			<TreeBranch>
-				<button on:click={onCourseClick(course.id)} class="text-primary-500" slot="root">{course.Name}</button>
-				{#each course.Modules as module}
-					<TreeBranch>
-						<div class="text-secondary-800" slot="root">{module.Name}</div>
-						{#each module.CourseContents as content}
-							<TreeLeaf><div class="text-secondary-500">{content.Title}</div></TreeLeaf>
-						{/each}
-					</TreeBranch>
-				{/each}
-			</TreeBranch>
-		{/each}
-	</TreeView> -->
-
-	<!-- <TreeView>
-	{#each courses as course}
-	<TreeBranch rootContent={course.Name}>
-		{#each course.Modules as module}
-			<TreeBranch rootContent={module.Name}>
-				{#each module.CourseContents as content}
-					<TreeLeaf>{content.Title}</TreeLeaf>
-				{/each}
-			</TreeBranch>
-		{/each}
-	</TreeBranch>
-	{/each}
-</TreeView> -->
-</div>
 
 <!-- <div
 	class=" mr-14 mt-8 lg:flex-row md:flex-row sm:flex-col flex-col lg:block md:block sm:hidden hidden"
