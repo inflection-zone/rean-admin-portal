@@ -23,7 +23,7 @@
 
 	const breadCrumbs = [
 		{
-			name: 'Learning-Journey',
+			name: 'Learning-Journeys',
 			path: learningJourneyRoute
 		}
 	];
@@ -190,8 +190,8 @@
 				<th style="width: 34%;">Description</th>
 				<th style="width: 19%;">Preference Weight</th>
 				<th style="width: 35%;">Created Date</th>
-				<th style="width: 8%;"></th>
-				<th style="width: 8%;"></th>
+				<th style="width: 8%;" />
+				<th style="width: 8%;" />
 			</tr>
 		</thead>
 	</table>
@@ -201,7 +201,7 @@
 				{#each $dataTableStore.filtered as row, rowIndex}
 					<tr>
 						<td style="width: 5%;">{row.index}</td>
-						<td style="width: 19%;"><a href={viewRoute(row.id)}>{row.Name}</td>
+						<td style="width: 19%;"><a href={viewRoute(row.id)}>{row.Name}</a></td>
 						<td style="width: 34%;"
 							>{row.Description.length > 10
 								? row.Description.substring(0, 55) + '...'

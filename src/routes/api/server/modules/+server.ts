@@ -6,7 +6,7 @@ import { deleteModule } from '../../services/modules';
 export const DELETE = async (event: RequestEvent) => {
 	const request = event.request;
 	const data = await request.json();
-	
+
 	try {
 		console.log('Inside module server endpoints');
 		const response = await deleteModule(data.sessionId, data.moduleId);

@@ -34,7 +34,7 @@
 
 	const breadCrumbs = [
 		{
-			name: 'Notice',
+			name: 'Notices',
 			path: noticeRoute
 		},
 		{
@@ -98,7 +98,9 @@
 						<span>Post Date</span>
 					</label>
 				</div>
-				<span class="span w-1/2 md:2/3 lg:2/3" id="postDate">{date.format(postDate, 'DD MMM YYYY')}</span>
+				<span class="span w-1/2 md:2/3 lg:2/3" id="postDate"
+					>{date.format(postDate, 'DD MMM YYYY')}</span
+				>
 			</div>
 
 			<div class="flex items-center my-4 lg:mx-16 md:mx-12 mx-10">

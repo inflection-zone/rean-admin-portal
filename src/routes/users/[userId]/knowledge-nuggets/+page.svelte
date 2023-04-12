@@ -3,11 +3,11 @@
 	import { createDataTableStore, dataTableHandler } from '@skeletonlabs/skeleton';
 	import { Paginator } from '@skeletonlabs/skeleton';
 	import date from 'date-and-time';
-	import type { PageServerData } from './$types';
 	import { faPencil, faSearch, faTrash } from '@fortawesome/free-solid-svg-icons';
 	import BreadCrumbs from '$lib/components/breadcrumbs/breadcrums.svelte';
 	import Confirm from '$lib/components/modal/confirmModal.svelte';
 	import { page } from '$app/stores';
+	import type { PageServerData } from './$types';
 
 	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -182,13 +182,13 @@
 	<table class="table rounded-b-none">
 		<thead class="sticky top-0">
 			<tr>
-				<th style="width: 3%;">Id</th>
-				<th style="width: 17%;">Topic Name</th>
-				<th style="width: 36%;">Tags</th>
+				<th style="width: 5%;">Id</th>
+				<th style="width: 21%;">Topic Name</th>
+				<th style="width: 33%;">Tags</th>
 				<!-- <th style="width: 24%;">Additional Resource</th> -->
 				<th style="width: 15%;">Created Date</th>
-				<th style="width: 2%;"></th>
-				<th style="width: 2%;"></th>
+				<th style="width: 8%;" />
+				<th style="width: 8%;" />
 			</tr>
 		</thead>
 	</table>
@@ -197,22 +197,20 @@
 			<tbody class="">
 				{#each $dataTableStore.filtered as row, rowIndex}
 					<tr>
-						<td style="width: 4%;">{row.index}</td>
-						<td style="width: 19%;"><a href={viewRoute(row.id)}>{row.TopicName}</td>
+						<td style="width: 5%;">{row.index}</td>
+						<td style="width: 21%;"><a href={viewRoute(row.id)}>{row.TopicName}</a></td>
 						<!-- <td style="width: 27%;">{row.Tags}</td> -->
-						<td style="width: 36%;"
-							>{row.Tags.length > 10 
-								? row.Tags.substring(0, 5) + '...'
-								: row.Tags}</td
+						<td style="width: 33%;"
+							>{row.Tags.length > 10 ? row.Tags.substring(0, 5) + '...' : row.Tags}</td
 						>
 						<!-- <td style="width: 25%;">{row.AdditionalResource}</td> -->
-						<td style="width: 17%;">{date.format(new Date(row.CreatedAt), 'DD-MMM-YYYY')}</td>
-						<td style="width: 2%;">
+						<td style="width: 15%;">{date.format(new Date(row.CreatedAt), 'DD-MMM-YYYY')}</td>
+						<td style="width: 8%;">
 							<a href={editRoute(row.id)}
 								><Fa icon={faPencil} style="color-text-primary" size="md" /></a
 							>
 						</td>
-						<td style="width: 2%;">
+						<td style="width: 8%;">
 							<Confirm
 								confirmTitle="Delete"
 								cancelTitle="Cancel"

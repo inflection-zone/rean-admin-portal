@@ -4,7 +4,7 @@
 	import BreadCrumbs from '$lib/components/breadcrumbs/breadcrums.svelte';
 	import { page } from '$app/stores';
 
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	/////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 	const userId = $page.params.userId;
 	const createRoute = `/users/${userId}/api-clients/create`;
@@ -12,7 +12,7 @@
 
 	const breadCrumbs = [
 		{
-			name: 'Api-client',
+			name: 'Api-clients',
 			path: apiClientRoute
 		},
 		{
@@ -20,7 +20,6 @@
 			path: createRoute
 		}
 	];
-	
 </script>
 
 <main class="h-screen mb-10">

@@ -1,13 +1,12 @@
 import type { RequestEvent } from '@sveltejs/kit';
 import { deleteCourseContent } from '../../services/course.contents';
 
-
 //////////////////////////////////////////////////////////////
 
 export const DELETE = async (event: RequestEvent) => {
 	const request = event.request;
 	const data = await request.json();
-	
+
 	try {
 		console.log('Inside course content server endpoints');
 		const response = await deleteCourseContent(data.sessionId, data.courseContentId);

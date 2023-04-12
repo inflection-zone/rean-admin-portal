@@ -42,7 +42,7 @@
 
 	const breadCrumbs = [
 		{
-			name: 'Notification',
+			name: 'Notifications',
 			path: notificationRoute
 		},
 		{
@@ -233,7 +233,7 @@
 					> -->
 				</div>
 			</div>
-			
+
 			<div class="flex items-center my-8 lg:mx-16 md:mx-12 mx-4 ">
 				<div class="lg:w-1/2 md:w-1/2 sm:w-1/2  w-1/3" />
 				<div class="lg:w-1/4 md:w-1/4 sm:w-1/4  w-1/3 ">

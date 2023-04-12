@@ -3,16 +3,16 @@
 	import { faMultiply } from '@fortawesome/free-solid-svg-icons';
 	import BreadCrumbs from '$lib/components/breadcrumbs/breadcrums.svelte';
 	import { page } from '$app/stores';
-	import type { PageServerData } from './$types';
 	import { oragnizationTypesStore } from '$lib/store/general.store';
 	import { LocalStorageUtils } from '$lib/utils/local.storage.utils';
 	import Image from '$lib/components/image.svelte';
 	import { showMessage } from '$lib/utils/message.utils';
+	import type { PageServerData } from './$types';
+
 	export let data: PageServerData;
 	oragnizationTypesStore.set(data.types);
 	LocalStorageUtils.setItem('personRoles', JSON.stringify(data.types));
 	let oraganizationTypes = data.types;
-
 	let id = data.organization.id;
 	let type = data.organization.Type;
 	let name = data.organization.Name;
@@ -28,7 +28,7 @@
 	let country = data.organization.Addresses[0].Country;
 	let postalCode = data.organization.Addresses[0].PostalCode;
 	let imageUrl = data.organization.ImageUrl ?? undefined;
-	let imageResourceId = data.organization.ImageResourceId ;
+	let imageResourceId = data.organization.ImageResourceId;
 
 	let isHealthFacility = data.organization.IsHealthFacility;
 	let fileinput;
@@ -53,7 +53,7 @@
 	let _state = state;
 	let _country = country;
 	let _postalCode = postalCode;
-	let _imageResourceId= imageResourceId;
+	let _imageResourceId = imageResourceId;
 
 	//let _imageResource = imageResource;
 	let _isHealthFacility = isHealthFacility;
@@ -78,15 +78,14 @@
 	}
 
 	const userId = $page.params.userId;
-		
-	
+
 	const editRoute = `/users/${userId}/organizations/${id}/edit`;
 	const viewRoute = `/users/${userId}/organizations/${id}/view`;
 	const organizationRoute = `/users/${userId}/organizations`;
 
 	const breadCrumbs = [
 		{
-			name: 'Organization',
+			name: 'Organizations',
 			path: organizationRoute
 		},
 		{
@@ -418,7 +417,6 @@
 						/>
 					{/if}
 					<input type="hidden" name="imageResourceId" bind:value={imageResourceId} />
-				
 				</div>
 			</div>
 

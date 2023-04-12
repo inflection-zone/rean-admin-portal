@@ -4,15 +4,16 @@
 	import Fa from 'svelte-fa';
 	import { faPencil, faTrash, faSearch } from '@fortawesome/free-solid-svg-icons';
 	import { page } from '$app/stores';
-	import type { PageServerData } from './$types';
 	import Confirm from '$lib/components/modal/confirmModal.svelte';
 	import BreadCrumbs from '$lib/components/breadcrumbs/breadcrums.svelte';
+	import type { PageServerData } from './$types';
+
 	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 	export let data: PageServerData;
 	let apiClient = data.apiClients;
-	let index=Number;
-	apiClient = apiClient.map((item,index) => ({ ...item,index: index + 1  }));
+	let index = Number;
+	apiClient = apiClient.map((item, index) => ({ ...item, index: index + 1 }));
 
 	const dataTableStore = createDataTableStore(apiClient, {
 		search: '',
@@ -27,7 +28,7 @@
 
 	const breadCrumbs = [
 		{
-			name: 'Api-client',
+			name: 'Api-clients',
 			path: apiClientRoute
 		}
 	];
@@ -76,18 +77,18 @@
 			}
 		});
 		const response = await res.json();
-		apiClient = response.map((item, index) => ({ ...item, index: index + 1  }));
+		apiClient = response.map((item, index) => ({ ...item, index: index + 1 }));
 		dataTableStore.updateSource(apiClient);
 	}
 	dataTableStore.subscribe((model) => dataTableHandler(model));
-	
+
 	const handleApiClientDelete = async (e, id) => {
-    	const clientId = id;
-    
-    	await Delete({
-      		sessionId: data.sessionId,
-      		apiClientId:clientId
-    	});
+		const clientId = id;
+
+		await Delete({
+			sessionId: data.sessionId,
+			apiClientId: clientId
+		});
 		window.location.href = apiClientRoute;
 	};
 
@@ -157,7 +158,7 @@
 		>
 			<Fa icon={faSearch} class="text-neutral-content" size="lg" />
 		</button>
-		<a href="#" class=" right-14 ">
+		<a href={createRoute} class=" right-14 ">
 			<button
 				class="btn variant-filled-primary hover:bg-primary lg:hidden md:hidden block sm:w-40 w-24 ml-4 rounded-lg bg-primary transition 
          			 ease-in-out 
@@ -179,8 +180,8 @@
 				<th style="width: 20%;">Name</th>
 				<th style="width: 30%;">Email</th>
 				<th style="width: 24%;">Phone</th>
-				<th style="width: 8%;"></th>
-				<th style="width: 8%;"></th>
+				<th style="width: 8%;" />
+				<th style="width: 8%;" />
 			</tr>
 		</thead>
 	</table>
@@ -190,7 +191,7 @@
 				{#each $dataTableStore.filtered as row, rowIndex}
 					<tr>
 						<td style="width: 5%;">{row.index}</td>
-						<td style="width: 20%;"><a href={viewRoute(row.id)}>{row.ClientName}</td>
+						<td style="width: 20%;"><a href={viewRoute(row.id)}>{row.ClientName}</a></td>
 						<td style="width: 30%;">{row.Email}</td>
 						<td style="width: 24%;">{row.Phone}</td>
 						<td style="width: 8%;">

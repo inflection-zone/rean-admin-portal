@@ -23,11 +23,11 @@ export const load: PageServerLoad = async (event: RequestEvent) => {
 		const organization = response.Data.Organization;
 		const imageResourceId = organization.ImageResourceId;
 		if (imageResourceId) {
-			organization['ImageUrl'] = BACKEND_API_URL + `/file-resources/${imageResourceId}/download?disposition=inline`;
-			}
-		  else {
-				organization['ImageUrl'] = null;
-			}
+			organization['ImageUrl'] =
+				BACKEND_API_URL + `/file-resources/${imageResourceId}/download?disposition=inline`;
+		} else {
+			organization['ImageUrl'] = null;
+		}
 		return {
 			organization,
 			types
@@ -42,7 +42,7 @@ export const actions = {
 		const request = event.request;
 		const userId = event.params.userId;
 		const data = await request.formData();
-		
+
 		const type = data.has('type') ? data.get('type') : null;
 		const addressType = data.has('addressType') ? data.get('addressType') : null;
 		const addressLine = data.has('AddressLine') ? data.get('AddressLine') : null;
@@ -87,7 +87,7 @@ export const actions = {
 			about.valueOf() as string,
 			operationalSince.valueOf() as Date,
 			addressesId,
-		  imageResourceId.valueOf() as string,
+			imageResourceId.valueOf() as string,
 			isHealthFacility.valueOf() as boolean
 		);
 		console.log('response', response);

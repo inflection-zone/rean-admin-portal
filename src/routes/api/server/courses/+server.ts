@@ -6,7 +6,7 @@ import { deleteCourse } from '../../services/courses';
 export const DELETE = async (event: RequestEvent) => {
 	const request = event.request;
 	const data = await request.json();
-	
+
 	try {
 		console.log('Inside course server endpoints');
 		const response = await deleteCourse(data.sessionId, data.courseId);

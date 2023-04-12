@@ -24,12 +24,17 @@ export const actions = {
 			name.valueOf() as string,
 			description.valueOf() as string,
 			// sequence.valueOf() as number,
-			durationInMins.valueOf() as number,
+			durationInMins.valueOf() as number
 		);
 		const id = response.Data.CourseModule.id;
-		console.log("response",response)
+		console.log('response', response);
 		if (response.Status === 'failure' || response.HttpCode !== 201) {
-			throw redirect(303, '/users/${userId}/courses/${courseId}/modules', errorMessage(response.Message), event);
+			throw redirect(
+				303,
+				'/users/${userId}/courses/${courseId}/modules',
+				errorMessage(response.Message),
+				event
+			);
 		}
 		throw redirect(
 			303,

@@ -22,7 +22,7 @@
 
 	const breadCrumbs = [
 		{
-			name: 'Assessment-Template',
+			name: 'Assessment-Templates',
 			path: assessmentRoute
 		}
 	];
@@ -96,7 +96,7 @@
 		const assessmentTemplateId = id;
 		await Delete({
 			sessionId: data.sessionId,
-			assessmentTemplateId : assessmentTemplateId,
+			assessmentTemplateId: assessmentTemplateId
 		});
 		window.location.href = assessmentRoute;
 	};
@@ -147,12 +147,7 @@
 	</div>
 	<div class="basis-1/2 justify-center items-center">
 		<div class="relative flex items-center  ">
-			<input
-				type="text"
-				placeholder="Search by type"
-				bind:value={type}
-				class="input w-full"
-			/>
+			<input type="text" placeholder="Search by type" bind:value={type} class="input w-full" />
 		</div>
 	</div>
 	<div class="sm:flex flex">
@@ -185,8 +180,8 @@
 				<th style="width: 20%;">Title</th>
 				<th style="width: 30%;">Type</th>
 				<th style="width: 24%;">Provider</th>
-				<th style="width: 8%;"></th>
-				<th style="width: 8%;"></th>
+				<th style="width: 8%;" />
+				<th style="width: 8%;" />
 			</tr>
 		</thead>
 	</table>
@@ -219,7 +214,9 @@
 									class=""><Fa icon={faTrash} /></button
 								>
 								<span slot="title"> Delete </span>
-								<span slot="description"> Are you sure you want to delete a assessment template? </span>
+								<span slot="description">
+									Are you sure you want to delete a assessment template?
+								</span>
 							</Confirm>
 						</td>
 					</tr>

@@ -1,30 +1,25 @@
 <script lang="ts">
 	import { createDataTableStore, dataTableHandler } from '@skeletonlabs/skeleton';
 	import { Paginator } from '@skeletonlabs/skeleton';
-	import type { PageServerData } from './$types';
 	import { page } from '$app/stores';
 	import date from 'date-and-time';
 	import Fa from 'svelte-fa';
 	import BreadCrumbs from '$lib/components/breadcrumbs/breadcrums.svelte';
 	import Confirm from '$lib/components/modal/confirmModal.svelte';
 	import { faPencil, faTrash, faSearch } from '@fortawesome/free-solid-svg-icons';
+	import type { PageServerData } from './$types';
+
 	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 	export let data: PageServerData;
 	let newsfeeds = data.newsfeeds;
 	newsfeeds = newsfeeds.map((item, index) => ({ ...item, index: index + 1 }));
 
-	const dataTableStore = createDataTableStore(
-		// Pass your source data here:
-		newsfeeds,
-		{
-			// The current search term.
-			search: '',
-			// The current sort key.
-			sort: '',
-			// Paginator component settings.
-			pagination: { offset: 0, limit: 10, size: 0, amounts: [10, 20, 30, 50] }
-		}
-	);
+	const dataTableStore = createDataTableStore(newsfeeds, {
+		search: '',
+		sort: '',
+		pagination: { offset: 0, limit: 10, size: 0, amounts: [10, 20, 30, 50] }
+	});
 	const userId = $page.params.userId;
 	const newsfeedRoute = `/users/${userId}/newsfeeds`;
 	const editRoute = (id) => `/users/${userId}/newsfeeds/${id}/edit`;
@@ -187,8 +182,8 @@
 				<th style="width: 33%;">Link</th>
 				<th style="width: 19%;">Category</th>
 				<th style="width: 35%;">Created Date</th>
-				<th style="width: 8%;"></th>
-				<th style="width: 8%;"></th>
+				<th style="width: 8%;" />
+				<th style="width: 8%;" />
 			</tr>
 		</thead>
 	</table>
@@ -198,7 +193,7 @@
 				{#each $dataTableStore.filtered as row, rowIndex}
 					<tr>
 						<td style="width: 5%;">{row.index}</td>
-						<td style="width: 19%;"><a href={viewRoute(row.id)}>{row.Title}</td>
+						<td style="width: 19%;"><a href={viewRoute(row.id)}>{row.Title}</a></td>
 						<td style="width: 32%;">{row.Link}</td>
 						<td style="width: 19%;">{row.Category}</td>
 						<td style="width: 20%;">{date.format(new Date(row.CreatedAt), 'DD-MMM-YYYY')}</td>

@@ -14,7 +14,6 @@ export const load: PageServerLoad = async (event: RequestEvent) => {
 			throw error(response.HttpCode, response.Message);
 		}
 		const module = response.Data.CourseModules.Items;
-    console.log('res',response)
 		return {
 			module,
 			sessionId,

@@ -27,19 +27,19 @@
 
 	const userId = $page.params.userId;
 	const courseId = $page.params.courseId;
-  const moduleId = $page.params.moduleId;
-	const courseRoute = `/users/${userId}/courses`
+	const moduleId = $page.params.moduleId;
+	const courseRoute = `/users/${userId}/courses`;
 	const editRoute = `/users/${userId}/courses/${courseId}/modules/${moduleId}/contents/${id}/edit`;
 	const viewRoute = `/users/${userId}/courses/${courseId}/modules/${moduleId}/contents/${id}/view`;
 	const contentRoute = `/users/${userId}/courses/${courseId}/modules/${moduleId}/contents/create`;
 
 	const breadCrumbs = [
 		{
-			name: 'Course',
-			path:  courseRoute
+			name: 'Courses',
+			path: courseRoute
 		},
 		{
-			name: 'Content',
+			name: 'Contents',
 			path: contentRoute
 		},
 		{

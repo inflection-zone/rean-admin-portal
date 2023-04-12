@@ -14,11 +14,11 @@
 	let id = data.assessmentNode.id;
 	let nodeType = data.assessmentNode.NodeType;
 	let title = data.assessmentNode.Title;
-	let description = data.assessmentNode.Description ;
+	let description = data.assessmentNode.Description;
 	let queryType = data.assessmentNode.QueryResponseType;
 	let options = data.assessmentNode.Options ?? [];
 	let optionValueStore = options;
-	let message = data.assessmentNode.Message ?? null
+	let message = data.assessmentNode.Message ?? null;
 
 	//Original data
 	let _nodeType = nodeType;
@@ -41,7 +41,7 @@
 
 	const breadCrumbs = [
 		{
-			name: 'Assessment-Node',
+			name: 'Assessment-Nodes',
 			path: assessmentNodeRoutes
 		},
 		{
@@ -96,7 +96,7 @@
 					placeholder="Select node type here..."
 					class="select w-full"
 					on:change={(val) => onSelectNodeType(val)}
-					>
+				>
 					<option selected>{nodeType}</option>
 					<option>Question</option>
 					<option>Message</option>
@@ -171,7 +171,6 @@
 			{:else}
 				<div />
 			{/if}
-			
 		{:else if selectedNodeType === 'Message'}
 			<div class="flex items-start mb-4 mt-2 mx-16">
 				<div class="w-1/3">

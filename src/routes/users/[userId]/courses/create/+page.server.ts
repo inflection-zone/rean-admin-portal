@@ -22,7 +22,7 @@ export const actions = {
 			name.valueOf() as string,
 			description.valueOf() as string,
 			imageUrl.valueOf() as string,
-			durationInDays.valueOf() as number,
+			durationInDays.valueOf() as number
 		);
 		const courseId = response.Data.Course.id;
 

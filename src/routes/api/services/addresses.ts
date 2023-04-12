@@ -9,20 +9,18 @@ export const createAddress = async (
 	addressLine: string,
 	city: string,
 	district: string,
- 	state:string,
-  	country: string,
-  	postalCode: number,
-  
- 
+	state: string,
+	country: string,
+	postalCode: number
 ) => {
 	const body = {
-	Type: type,
-	AddressLine:addressLine,
-	City:city, 
-	District:district, 
-  	State:state,
-  	Country:country, 
-  	PostalCode: postalCode, 
+		Type: type,
+		AddressLine: addressLine,
+		City: city,
+		District: district,
+		State: state,
+		Country: country,
+		PostalCode: postalCode
 	};
 	const url = BACKEND_API_URL + '/addresses';
 	return await post_(sessionId, url, body, true);
@@ -33,7 +31,7 @@ export const getAddressById = async (sessionId: string, addressId: string) => {
 	return await get_(sessionId, url, true);
 };
 
-export const searchAddress= async (sessionId: string, searchParams?: any) => {
+export const searchAddress = async (sessionId: string, searchParams?: any) => {
 	let searchString = '';
 	if (searchParams) {
 		const keys = Object.keys(searchParams);
@@ -50,7 +48,7 @@ export const searchAddress= async (sessionId: string, searchParams?: any) => {
 		}
 	}
 	const url = BACKEND_API_URL + `/addresses/search${searchString}`;
-	
+
 	return await get_(sessionId, url, true);
 };
 
@@ -62,11 +60,11 @@ export const updateAddress = async (
 	phone: number,
 	email: string
 ) => {
-const body = {
-	ClientName: clientName,
-	Password: password,
-	Phone: phone,
-	Email: email
+	const body = {
+		ClientName: clientName,
+		Password: password,
+		Phone: phone,
+		Email: email
 	};
 	const url = BACKEND_API_URL + `/addresses/${addressId}`;
 	return await put_(sessionId, url, body, true);

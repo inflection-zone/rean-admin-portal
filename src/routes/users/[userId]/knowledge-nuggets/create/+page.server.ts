@@ -15,7 +15,9 @@ export const actions = {
 		const detailedInformation = data.has('detailedInformation')
 			? data.get('detailedInformation')
 			: null;
-		const additionalResource = data.has('additionalResource') ? data.getAll('additionalResource') : null;
+		const additionalResources = data.has('additionalResources')
+			? data.getAll('additionalResources')
+			: null;
 		const tags = data.has('tags') ? data.getAll('tags') : null;
 		const sessionId = event.cookies.get('sessionId');
 
@@ -24,7 +26,7 @@ export const actions = {
 			topicName.valueOf() as string,
 			briefInformation.valueOf() as string,
 			detailedInformation.valueOf() as string,
-			additionalResource.valueOf() as string[],
+			additionalResources.valueOf() as string[],
 			tags.valueOf() as string[]
 		);
 		const id = response.Data.KnowledgeNugget.id;

@@ -28,7 +28,7 @@
 
 	const breadCrumbs = [
 		{
-			name: 'Priority-Type',
+			name: 'Priority-Types',
 			path: priorityRoute
 		},
 		{

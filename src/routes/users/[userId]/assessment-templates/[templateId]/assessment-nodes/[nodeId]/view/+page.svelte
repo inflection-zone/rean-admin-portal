@@ -33,12 +33,13 @@
 	const editRoute = `/users/${userId}/assessment-templates/${templateId}/assessment-nodes/${nodeId}/edit`;
 	const viewRoute = `/users/${userId}/assessment-templates/${templateId}/assessment-nodes/${nodeId}/view`;
 	const assessmentNodeRoutes = `/users/${userId}/assessment-templates/${templateId}/assessment-nodes`;
-	const createNodeRoute = `/users/${userId}/assessment-templates/${templateId}/assessment-nodes/create`
-	const editNodeRoute  = (id) => `/users/${userId}/assessment-templates/${templateId}/assessment-nodes/${id}/edit`;
+	const createNodeRoute = `/users/${userId}/assessment-templates/${templateId}/assessment-nodes/create`;
+	const editNodeRoute = (id) =>
+		`/users/${userId}/assessment-templates/${templateId}/assessment-nodes/${id}/edit`;
 
 	const breadCrumbs = [
 		{
-			name: 'Assessment-Node',
+			name: 'Assessment-Nodes',
 			path: assessmentNodeRoutes
 		},
 		{
@@ -49,11 +50,11 @@
 
 	const handleAssessmentNodeDelete = async (e, id) => {
 		const assessmentNodeId = id;
-		console.log("assessmentNodeId",assessmentNodeId)
+		console.log('assessmentNodeId', assessmentNodeId);
 		await Delete({
 			sessionId: data.sessionId,
 			assessmentTemplateId: templateId,
-			assessmentNodeId:assessmentNodeId 
+			assessmentNodeId: assessmentNodeId
 		});
 		window.location.href = viewRoute;
 	};
@@ -66,7 +67,7 @@
 				'content-type': 'application/json'
 			}
 		});
-		console.log()
+		console.log();
 	}
 </script>
 
@@ -187,56 +188,58 @@
 					{#if childrenNodes.length <= 0}
 						<span class="span">Children nodes not available!</span>
 					{:else}
-						<div class="span w-full lg:w-2/3 " id="modules">	
+						<div class="span w-full lg:w-2/3 " id="modules">
 							<table class="table-auto overflow-x-auto text-left ">
 								<thead class="font-semibold">
 									<tr class="font-semibold">
 										<th style="width: 15%;">Sequence</th>
-										<th style="width: 15%;" >Node type</th>
+										<th style="width: 15%;">Node type</th>
 										<th style="width: 60%;">Title</th>
-								    <th style="width: 5%;"></th>
-										<th style="width: 5%;"></th>
+										<th style="width: 5%;" />
+										<th style="width: 5%;" />
 									</tr>
 								</thead>
 								<tbody>
 									{#each childrenNodes as node}
-									<tr>
-										<td style="width: 10%;">{node.Sequence}</td>
-										<td style="width: 20%;">{node.NodeType}</td>
-										<td style="width: 60%;">{node.Title}</td>
-										<td style="width: 5%;">
-											<a href={editNodeRoute(node.id)}
-												><Fa icon={faPencil} style="color-text-primary" size="md" /></a
-											>
-										</td>
-										<td style="width: 5%;">
-											<Confirm
-												confirmTitle="Delete"
-												cancelTitle="Cancel"
-												let:confirm={confirmThis}
-												on:delete={(e) => {
-													handleAssessmentNodeDelete(e, node.id);
-												}}
-											>
-												<button
-													on:click|preventDefault={() => confirmThis(handleAssessmentNodeDelete, node.id)}
-													class=""><Fa icon={faTrash} /></button
+										<tr>
+											<td style="width: 10%;">{node.Sequence}</td>
+											<td style="width: 20%;">{node.NodeType}</td>
+											<td style="width: 60%;">{node.Title}</td>
+											<td style="width: 5%;">
+												<a href={editNodeRoute(node.id)}
+													><Fa icon={faPencil} style="color-text-primary" size="md" /></a
 												>
-												<span slot="title"> Delete </span>
-												<span slot="description"> Are you sure you want to delete a child node? </span>
-											</Confirm>
-										</td>
-									</tr>
+											</td>
+											<td style="width: 5%;">
+												<Confirm
+													confirmTitle="Delete"
+													cancelTitle="Cancel"
+													let:confirm={confirmThis}
+													on:delete={(e) => {
+														handleAssessmentNodeDelete(e, node.id);
+													}}
+												>
+													<button
+														on:click|preventDefault={() =>
+															confirmThis(handleAssessmentNodeDelete, node.id)}
+														class=""><Fa icon={faTrash} /></button
+													>
+													<span slot="title"> Delete </span>
+													<span slot="description">
+														Are you sure you want to delete a child node?
+													</span>
+												</Confirm>
+											</td>
+										</tr>
 									{/each}
 								</tbody>
-							</table>							
-								<!-- <li>{node.Title}</li> -->
-						
+							</table>
+							<!-- <li>{node.Title}</li> -->
 						</div>
 					{/if}
 				</div>
 			{/if}
-			{#if (nodeType ==='Node list')}
+			{#if nodeType === 'Node list'}
 				<div class="flex items-center mt-10 lg:mx-10 md:mx-16">
 					<div class="lg:w-8/12 w-1/3 sm:w-1/2 md:w-1/2 max-[375px]:w-1/4" />
 					<div class="flex lg:w-1/3 gap-2 w-2/4 max-[375px]:w-full ">

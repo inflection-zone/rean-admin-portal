@@ -12,8 +12,8 @@
 	import { LocalStorageUtils } from '$lib/utils/local.storage.utils';
 	import BreadCrumbs from '$lib/components/breadcrumbs/breadcrums.svelte';
 	import { page } from '$app/stores';
-	import type { PageServerData } from './$types';
 	import { TreeView, TreeBranch, TreeLeaf } from 'svelte-tree-view-component';
+	import type { PageServerData } from './$types';
 
 	export let data: PageServerData;
 	let assessmentNodes = data.assessmentNodesWithoutRootNode;
@@ -44,7 +44,7 @@
 
 	const breadCrumbs = [
 		{
-			name: 'Assessment-Template',
+			name: 'Assessment-Templates',
 			path: assessmentsRoutes
 		},
 		{
@@ -229,27 +229,27 @@
 			</div>
 
 			<div class="flex  items-center mt-10 lg:mx-10 md:mx-16">
-        <div class="lg:w-8/12 min-[280px]:w-1/3 sm:w-1/2 md:w-1/2" />
-        <div class="flex lg:w-1/3 min-[280px]:w-2/4 gap-3">
-          <a href={nodeRoute}>
-          <button
-              type="submit"
-              class="btn variant-filled-primary lg:w-full md:w-28 sm:w-28 min-[280px]:w-28 w-20 mb-8 "
-            >
-             Assessment Nodes
-            </button>
-          </a>
-          <a href={editRoute}>
-            <button
-              type="submit"
-              class="btn variant-filled-primary lg:w-full md:w-28 sm:w-24 min-[280px]:w-24 w-20 mb-8 lg:mr-4 pr-2"
-            >
-              Edit
-              <Fa icon={faPen} size="lg" class="lg:ml-4 sm:ml-2 ml-1" />
-            </button>
-          </a>
-        </div>
-      </div>
+				<div class="lg:w-8/12 min-[280px]:w-1/3 sm:w-1/2 md:w-1/2" />
+				<div class="flex lg:w-1/3 min-[280px]:w-2/4 gap-3">
+					<a href={nodeRoute}>
+						<button
+							type="submit"
+							class="btn variant-filled-primary lg:w-full md:w-28 sm:w-28 min-[280px]:w-28 w-20 mb-8 "
+						>
+							Assessment Nodes
+						</button>
+					</a>
+					<a href={editRoute}>
+						<button
+							type="submit"
+							class="btn variant-filled-primary lg:w-full md:w-28 sm:w-24 min-[280px]:w-24 w-20 mb-8 lg:mr-4 pr-2"
+						>
+							Edit
+							<Fa icon={faPen} size="lg" class="lg:ml-4 sm:ml-2 ml-1" />
+						</button>
+					</a>
+				</div>
+			</div>
 		</form>
 	</div>
 </main>

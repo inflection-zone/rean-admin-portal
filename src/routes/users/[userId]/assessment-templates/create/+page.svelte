@@ -10,7 +10,7 @@
 
 	const breadCrumbs = [
 		{
-			name: 'Assessment-Template',
+			name: 'Assessment-Templates',
 			path: assessmentsRoutes
 		},
 		{
@@ -84,9 +84,6 @@
 				<input
 					type="text"
 					name="displayCode"
-
-
-
 					class="input w-full"
 					placeholder="Enter display code here"
 				/>
@@ -110,7 +107,7 @@
 				</select>
 			</div>
 		</div>
-		
+
 		<div class="flex items-center my-4 mx-16">
 			<div class="w-1/3">
 				<!-- svelte-ignore a11y-label-has-associated-control -->

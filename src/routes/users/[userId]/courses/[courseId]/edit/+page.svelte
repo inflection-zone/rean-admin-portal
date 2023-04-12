@@ -39,7 +39,7 @@
 
 	const breadCrumbs = [
 		{
-			name: 'Course',
+			name: 'Courses',
 			path: courseRoute
 		},
 		{
@@ -125,7 +125,7 @@
 					/>
 				</div>
 			</div>
-			
+
 			<div class="flex items-center mb-2 lg:mx-16 md:mx-12 mx-10">
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
 					<!-- svelte-ignore a11y-label-has-associated-control -->
@@ -170,15 +170,15 @@
 				</div>
 				<div class="w-1/2 md:w-2/3 lg:w-2/3">
 					<select
-					 	name="courseIds"
+						name="courseIds"
 						class="select"
 						multiple
 						placeholder="Select modules here..."
 						value={modules}
 					>
-					{#each modules  as module}
-						<option value={module.id}>{module.Name}</option>
-					{/each}
+						{#each modules as module}
+							<option value={module.id}>{module.Name}</option>
+						{/each}
 					</select>
 				</div>
 			</div>
@@ -191,25 +191,25 @@
 					</label>
 				</div>
 				<div class="flex flex-row gap-2 w-1/2 md:w-2/3 lg:w-2/3 ">
-						{#if imageUrl === 'undefined'}
-							<input
-								name="fileinput"
-								type="file"
-								class="true input w-full"
-								placeholder="Image"
-								on:change={async (e) => await onFileSelected(e)}
-							/>
-						{:else}
-							<Image cls="flex h-24 w-24 rounded-lg" source={imageUrl} w="24" h="24" />
-							<input
-								name="fileinput"
-								type="file"
-								class="true input w-full"
-								placeholder="Image"
-								on:change={async (e) => await onFileSelected(e)}
-							/>
-						{/if}
-						<input type="hidden" name="imageUrl" value={imageUrl} />
+					{#if imageUrl === 'undefined'}
+						<input
+							name="fileinput"
+							type="file"
+							class="true input w-full"
+							placeholder="Image"
+							on:change={async (e) => await onFileSelected(e)}
+						/>
+					{:else}
+						<Image cls="flex h-24 w-24 rounded-lg" source={imageUrl} w="24" h="24" />
+						<input
+							name="fileinput"
+							type="file"
+							class="true input w-full"
+							placeholder="Image"
+							on:change={async (e) => await onFileSelected(e)}
+						/>
+					{/if}
+					<input type="hidden" name="imageUrl" value={imageUrl} />
 				</div>
 			</div>
 

@@ -7,8 +7,8 @@
 	import BreadCrumbs from '$lib/components/breadcrumbs/breadcrums.svelte';
 	import { page } from '$app/stores';
 	import date from 'date-and-time';
-	import type { PageServerData } from './$types';
 	import Image from '$lib/components/image.svelte';
+	import type { PageServerData } from './$types';
 
 	export let data: PageServerData;
 	let id = data.newsfeed.id;
@@ -39,7 +39,7 @@
 
 	const breadCrumbs = [
 		{
-			name: 'Newsfeed',
+			name: 'Newsfeeds',
 			path: newsfeedRoute
 		},
 		{
@@ -188,8 +188,8 @@
 					<ol class="span w-1/2 md:w-2/3 lg:w-2/3 list-decimal" id="newsfeedItems">
 						<!-- {newsfeedItemTitle} -->
 						{#each newsfeedItems as newsfeedItem}
-						<li>{newsfeedItem.Title}</li>
-			  	{/each}	
+							<li>{newsfeedItem.Title}</li>
+						{/each}
 					</ol>
 				{/if}
 			</div>

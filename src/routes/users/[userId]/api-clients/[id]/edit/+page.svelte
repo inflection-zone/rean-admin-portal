@@ -14,9 +14,6 @@
 	let phone = data.apiClient.Phone;
 	let email = data.apiClient.Email;
 
-
-	console.log("id--",id);
-
 	//Original data
 	let _clientName = clientName;
 	let _password = password;
@@ -37,7 +34,7 @@
 
 	const breadCrumbs = [
 		{
-			name: 'Api-Client',
+			name: 'Api-Clients',
 			path: apiClientRoute
 		},
 		{
@@ -66,17 +63,17 @@
 			</div>
 			<div class="hidden">{id}</div>
 			<div class="flex items-center mb-4 mt-10 lg:mx-16 md:mx-12 mx-10">
-        <div class="w-1/2 md:w-1/3 lg:w-1/3">
-          <!-- svelte-ignore a11y-label-has-associated-control -->
-          <!-- svelte-ignore a11y-label-has-associated-control -->
+				<div class="w-1/2 md:w-1/3 lg:w-1/3">
+					<!-- svelte-ignore a11y-label-has-associated-control -->
+					<!-- svelte-ignore a11y-label-has-associated-control -->
 					<label class="label">
 						<span>Client Code</span>
 					</label>
-        </div>
-        <!-- svelte-ignore a11y-label-has-associated-control -->
+				</div>
+				<!-- svelte-ignore a11y-label-has-associated-control -->
 				<span class="span w-1/2 md:2/3 lg:2/3" id="clientCode"> {clientCode} </span>
-      </div>
-		
+			</div>
+
 			<div class="flex items-center mb-4 mt-4 lg:mx-16 md:mx-12 mx-10">
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
 					<!-- svelte-ignore a11y-label-has-associated-control -->

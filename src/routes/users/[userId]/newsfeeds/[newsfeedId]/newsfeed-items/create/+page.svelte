@@ -16,11 +16,11 @@
 
 	const breadCrumbs = [
 		{
-			name: 'Newsfeed',
+			name: 'Newsfeeds',
 			path: newsfeedRoute
 		},
 		{
-			name: 'Newsfeed-Item',
+			name: 'Newsfeed-Items',
 			path: newsfeedItemRoute
 		},
 		{

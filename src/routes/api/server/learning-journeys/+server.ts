@@ -1,7 +1,6 @@
 import type { RequestEvent } from '@sveltejs/kit';
 import { deleteLearningJourney } from '../../services/learning-journeys';
 
-
 //////////////////////////////////////////////////////////////
 
 export const DELETE = async (event: RequestEvent) => {

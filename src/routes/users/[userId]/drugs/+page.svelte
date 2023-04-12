@@ -192,8 +192,8 @@
 				<th style="width: 34%;">Generic Name</th>
 				<th style="width: 18%;">Ingredients</th>
 				<th style="width: 30%;">Created Date</th>
-				<th style="width: 8%;"></th>
-				<th style="width: 8%;"></th>
+				<th style="width: 8%;" />
+				<th style="width: 8%;" />
 			</tr>
 		</thead>
 	</table>
@@ -203,7 +203,7 @@
 				{#each $dataTableStore.filtered as row, rowIndex}
 					<tr>
 						<td style="width: 5%;">{row.index}</td>
-						<td style="width: 18%;"><a href={viewRoute(row.id)}>{row.DrugName}</td>
+						<td style="width: 18%;"><a href={viewRoute(row.id)}>{row.DrugName}</a></td>
 						<td style="width: 35%;">{row.GenericName}</td>
 						<td style="width: 19%;">{row.Ingredients}</td>
 						<td style="width: 30%;">{date.format(new Date(row.CreatedAt), 'DD-MMM-YYYY')}</td>

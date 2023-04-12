@@ -17,11 +17,11 @@
 
 	const breadCrumbs = [
 		{
-			name: 'Course',
+			name: 'Courses',
 			path: courseRoute
 		},
 		{
-			name: 'Module',
+			name: 'Modules',
 			path: moduleRoute
 		},
 		{
@@ -48,16 +48,15 @@
 		console.log(Date.now().toString());
 		const response = await res.json();
 		if (response.Status === 'success' && response.HttpCode === 201) {
-				  const imageResourceId = response.Data.FileResources[0].id;
-					console.log ('imageResourceId', imageResourceId);
-					const imageUrl_ = response.Data.FileResources[0].Url;
-					console.log ('imageUrl_', imageUrl_);
+			const imageResourceId = response.Data.FileResources[0].id;
+			console.log('imageResourceId', imageResourceId);
+			const imageUrl_ = response.Data.FileResources[0].Url;
+			console.log('imageUrl_', imageUrl_);
 			if (imageUrl_) {
-			imageUrl = imageUrl_;
+				imageUrl = imageUrl_;
 			}
 			console.log(imageUrl);
-		}
-		else {
+		} else {
 			showMessage(response.Message, 'error');
 		}
 	};
@@ -72,7 +71,6 @@
 			await upload(e.target.result, filename);
 		};
 	};
-
 </script>
 
 <main class="h-screen mb-10">
@@ -145,7 +143,12 @@
 					</label>
 				</div>
 				<div class="w-1/2 md:w-2/3 lg:w-2/3">
-					<input type="number" name="durationInMins" placeholder="Enter duration here..." class="input w-full " />
+					<input
+						type="number"
+						name="durationInMins"
+						placeholder="Enter duration here..."
+						class="input w-full "
+					/>
 				</div>
 			</div>
 

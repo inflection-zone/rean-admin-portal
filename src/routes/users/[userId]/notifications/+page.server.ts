@@ -14,7 +14,6 @@ export const load: PageServerLoad = async (event: RequestEvent) => {
 			throw error(response.HttpCode, response.Message);
 		}
 		const notification = response.Data.NotificationRecords.Items;
-		console.log('data===',notification)
 		return {
 			notification,
 			sessionId,
