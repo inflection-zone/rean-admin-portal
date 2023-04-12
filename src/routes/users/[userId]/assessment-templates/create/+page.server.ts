@@ -20,9 +20,11 @@ export const actions = {
 		const providerAssessmentCode = data.has('providerAssessmentCode')
 			? data.get('providerAssessmentCode')
 			: null;
-		// const serveListNodeChildrenAtOnce = data.has('serveListNodeChildrenAtOnce')
-		// 	? data.get('serveListNodeChildrenAtOnce')
-		// 	: null;
+		const serveListNodeChildrenAtOnce = data.has('serveListNodeChildrenAtOnce')
+			? data.get('serveListNodeChildrenAtOnce')
+			: false;
+			const scoringApplicable = data.has('scoringApplicable') ? data.get('scoringApplicable') : false;
+
 		const sessionId = event.cookies.get('sessionId');
 
 		console.log(data);
@@ -34,8 +36,9 @@ export const actions = {
 			// displayCode.valueOf() as string,
 			type.valueOf() as string,
 			provider.valueOf() as string,
-			providerAssessmentCode.valueOf() as string
-			// serveListNodeChildrenAtOnce.valueOf() as string
+			providerAssessmentCode.valueOf() as string,
+			serveListNodeChildrenAtOnce.valueOf() as boolean,
+			scoringApplicable.valueOf() as boolean
 		);
 		const id = response.Data.AssessmentTemplate.id;
 

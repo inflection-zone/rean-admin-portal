@@ -2,12 +2,13 @@
 	import Fa from 'svelte-fa';
 	import {
 		faList,
-		faListDots,
-		faListNumeric,
 		faMessage,
 		faMultiply,
 		faPen,
-		faQuestionCircle
+		faQuestionCircle,
+
+		faShareNodes
+
 	} from '@fortawesome/free-solid-svg-icons';
 	import { onMount } from 'svelte';
 	import { show } from '$lib/utils/message.utils';
@@ -26,6 +27,7 @@
 	let type = data.assessmentTemplate.Type;
 	let providerAssessmentCode = data.assessmentTemplate.ProviderAssessmentCode;
 	let serveListNodeChildrenAtOnce = data.assessmentTemplate.ServeListNodeChildrenAtOnce;
+	let scoringApplicable = data.assessmentTemplate.ScoringApplicable;
 
 	assessmentNodes = assessmentNodes.sort((a, b) => {
 		return a.Sequence - b.Sequence;
@@ -137,6 +139,18 @@
 				</span>
 			</div>
 
+			<div class="flex items-center mb-4 lg:mx-16 md:mx-12 mx-10">
+				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
+					<!-- svelte-ignore a11y-label-has-associated-control -->
+					<label class="label">
+						<span>Scoring Applicable</span>
+					</label>
+				</div>
+				<span class="span w-1/2 md:2/3 lg:2/3" id="scoringApplicable">
+					{scoringApplicable}
+				</span>
+			</div>
+
 			<div class="flex items-start mb-4 lg:mx-16 md:mx-12 mx-10">
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
 					<!-- svelte-ignore a11y-label-has-associated-control -->
@@ -155,14 +169,14 @@
 									{#if node.NodeType === 'Node list'}
 										<TreeBranch defaultClosed>
 											<div slot="root" class="flex">
-												<Fa icon={faList} size="lg" class="mr-2" />
+												<Fa icon={faShareNodes} size="lg" class="mr-2" />
 												{node.Sequence}-{node.NodeType}-{node.Title}
 											</div>
 											{#each node.Children as child}
 												{#if child.NodeType === 'Node list'}
 													<TreeBranch defaultClosed>
 														<div slot="root" class="flex">
-															<Fa icon={faList} size="lg" class="mr-2" />
+															<Fa icon={faShareNodes} size="lg" class="mr-2" />
 															{child.Sequence}-{child.NodeType}-{child.Title}
 														</div>
 													</TreeBranch>
