@@ -39,14 +39,13 @@
 	};
 
 	const handleContentDelete = async (id) => {
-		dispatch('deleteActivity', {
+		dispatch('onContentDeleteClick', {
 			contentId: id
 		});
 	};
 
 	const handlelCourseDelete = async (courseId, modules) => {
-		dispatch('onCourseDeleteClick',
-		 {
+		dispatch('onCourseDeleteClick', {
 			courseId: courseId,
 			modules:modules,
 		});

@@ -200,7 +200,7 @@
 	<CourseView courses={courses} userId={userId} on:searchCourse = {async (e) => {
 		await searchParams (e.detail.name, e.detail.durationInDays);
 	 }}
-	 on:deleteActivity = {async (e) => {
+	 on:onContentDeleteClick = {async (e) => {
 		await handleContentDelete(e.detail.contentId);
 	 }}
 	 on:onModuleDeleteClick = {async (e) => {
