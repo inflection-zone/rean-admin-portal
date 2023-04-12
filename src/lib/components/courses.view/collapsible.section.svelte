@@ -23,7 +23,7 @@
 	export let itemsCount;
 	export let addRoute = undefined;
 	export let editRoute = undefined;
-	export let faIcon = undefined;
+	export let src = undefined;
 	let expanded = false;
 	const dispatch = createEventDispatcher();
 	const handlelDeleteClick = async (id) => {
@@ -44,7 +44,8 @@
 		<!-- <div class="flex gap-4"> -->
 		<!-- <div class="w-5"> -->
 		<div class=" flex gap-2">
-			<Fa class="text-white mt-2" icon={faIcon} />
+			<!-- svelte-ignore a11y-missing-attribute -->
+			<img class="w-6 mr-2 " src = {src} />
 			{headerText}
 		</div>
 		<!-- </div> -->

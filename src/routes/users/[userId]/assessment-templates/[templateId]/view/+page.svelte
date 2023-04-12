@@ -5,7 +5,10 @@
 		faMessage,
 		faMultiply,
 		faPen,
-		faQuestionCircle
+		faQuestionCircle,
+
+		faShareNodes
+
 	} from '@fortawesome/free-solid-svg-icons';
 	import { onMount } from 'svelte';
 	import { show } from '$lib/utils/message.utils';
@@ -166,14 +169,14 @@
 									{#if node.NodeType === 'Node list'}
 										<TreeBranch defaultClosed>
 											<div slot="root" class="flex">
-												<Fa icon={faList} size="lg" class="mr-2" />
+												<Fa icon={faShareNodes} size="lg" class="mr-2" />
 												{node.Sequence}-{node.NodeType}-{node.Title}
 											</div>
 											{#each node.Children as child}
 												{#if child.NodeType === 'Node list'}
 													<TreeBranch defaultClosed>
 														<div slot="root" class="flex">
-															<Fa icon={faList} size="lg" class="mr-2" />
+															<Fa icon={faShareNodes} size="lg" class="mr-2" />
 															{child.Sequence}-{child.NodeType}-{child.Title}
 														</div>
 													</TreeBranch>

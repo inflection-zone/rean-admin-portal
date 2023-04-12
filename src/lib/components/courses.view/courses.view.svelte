@@ -76,7 +76,7 @@
 					itemsCount="Moules ({course.Modules.length})"
 					addRoute={addModuleRoute(course.id)}
 					editRoute={editCourseRoute(course.id)}
-					faIcon={faBook}
+					src="/course.png"
 					on:onDeleteClick|once={async () => {
 						await handlelCourseDelete(course.id,course.Modules);
 					}}
@@ -95,7 +95,8 @@
 									itemsCount="Contents ({module.CourseContents.length})"
 									addRoute={addContentRoute(course.id, module.id)}
 									editRoute={editModuleRoute(course.id, module.id)}
-									faIcon={faBook}
+									
+									src = "/module.png"
 									on:onDeleteClick|once={async () => {
 										await handlelModuleDelete(module.id, module.CourseContents);
 									}}
