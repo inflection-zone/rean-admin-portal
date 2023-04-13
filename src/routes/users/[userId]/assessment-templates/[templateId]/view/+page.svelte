@@ -2,13 +2,12 @@
 	import Fa from 'svelte-fa';
 	import {
 		faList,
+		faListDots,
+		faListNumeric,
 		faMessage,
 		faMultiply,
 		faPen,
-		faQuestionCircle,
-
-		faShareNodes
-
+		faQuestionCircle
 	} from '@fortawesome/free-solid-svg-icons';
 	import { onMount } from 'svelte';
 	import { show } from '$lib/utils/message.utils';
@@ -27,7 +26,6 @@
 	let type = data.assessmentTemplate.Type;
 	let providerAssessmentCode = data.assessmentTemplate.ProviderAssessmentCode;
 	let serveListNodeChildrenAtOnce = data.assessmentTemplate.ServeListNodeChildrenAtOnce;
-	let scoringApplicable = data.assessmentTemplate.ScoringApplicable;
 
 	assessmentNodes = assessmentNodes.sort((a, b) => {
 		return a.Sequence - b.Sequence;
@@ -139,18 +137,6 @@
 				</span>
 			</div>
 
-			<div class="flex items-center mb-4 lg:mx-16 md:mx-12 mx-10">
-				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
-					<!-- svelte-ignore a11y-label-has-associated-control -->
-					<label class="label">
-						<span>Scoring Applicable</span>
-					</label>
-				</div>
-				<span class="span w-1/2 md:2/3 lg:2/3" id="scoringApplicable">
-					{scoringApplicable}
-				</span>
-			</div>
-
 			<div class="flex items-start mb-4 lg:mx-16 md:mx-12 mx-10">
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
 					<!-- svelte-ignore a11y-label-has-associated-control -->
@@ -169,14 +155,14 @@
 									{#if node.NodeType === 'Node list'}
 										<TreeBranch defaultClosed>
 											<div slot="root" class="flex">
-												<Fa icon={faShareNodes} size="lg" class="mr-2" />
+												<Fa icon={faList} size="lg" class="mr-2" />
 												{node.Sequence}-{node.NodeType}-{node.Title}
 											</div>
 											{#each node.Children as child}
 												{#if child.NodeType === 'Node list'}
 													<TreeBranch defaultClosed>
 														<div slot="root" class="flex">
-															<Fa icon={faShareNodes} size="lg" class="mr-2" />
+															<Fa icon={faList} size="lg" class="mr-2" />
 															{child.Sequence}-{child.NodeType}-{child.Title}
 														</div>
 													</TreeBranch>
@@ -231,13 +217,13 @@
 				</span>
 			</div>
 
-			<div class="flex  items-center mt-10 lg:mx-10 md:mx-16">
-				<div class="lg:w-8/12 min-[280px]:w-1/3 sm:w-1/2 md:w-1/2" />
-				<div class="flex lg:w-1/3 min-[280px]:w-2/4 gap-3">
+			<div class="flex items-center mt-10 lg:mx-10 md:mx-16">
+				<div class="lg:w-8/12 min-[280px]:w-1/3 sm:w-1/6 md:w-1/2" />
+				<div class="flex lg:w-1/4 min-[280px]:w-1/6 sm:w-4/5 sm:mr-20 gap-3">
 					<a href={nodeRoute}>
 						<button
 							type="submit"
-							class="btn variant-filled-primary lg:w-full md:w-28 sm:w-28 min-[280px]:w-28 w-20 mb-8 "
+							class="btn variant-filled-primary lg:w-full md:w-32 md:text-sm lg:text-md sm:text-xs sm:w-32 min-[280px]:w-32 min-[280px]:text-xs w-20 mb-8 h-10"
 						>
 							Assessment Nodes
 						</button>
@@ -245,7 +231,7 @@
 					<a href={editRoute}>
 						<button
 							type="submit"
-							class="btn variant-filled-primary lg:w-full md:w-28 sm:w-24 min-[280px]:w-24 w-20 mb-8 lg:mr-4 pr-2"
+							class="btn variant-filled-primary lg:w-full md:w-32 sm:w-24 lg:text-md min-[280px]:w-32 w-20 mb-8 lg:mr-4 pr-2 h-10"
 						>
 							Edit
 							<Fa icon={faPen} size="lg" class="lg:ml-4 sm:ml-2 ml-1" />
