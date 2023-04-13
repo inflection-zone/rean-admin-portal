@@ -76,7 +76,7 @@
 					itemsCount="Moules ({course.Modules.length})"
 					addRoute={addModuleRoute(course.id)}
 					editRoute={editCourseRoute(course.id)}
-					src="/course.png"
+					src="/courses.png"
 					on:onDeleteClick|once={async () => {
 						await handlelCourseDelete(course.id,course.Modules);
 					}}
@@ -96,7 +96,7 @@
 									addRoute={addContentRoute(course.id, module.id)}
 									editRoute={editModuleRoute(course.id, module.id)}
 									
-									src = "/module.png"
+									src = "/modules.png"
 									on:onDeleteClick|once={async () => {
 										await handlelModuleDelete(module.id, module.CourseContents);
 									}}
