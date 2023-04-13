@@ -19,7 +19,7 @@
 	let courses = data.learningJourney.Courses;
 	let imageUrl = data.learningJourney.ImageUrl;
 	$: avatarSource = imageUrl;
-	const courseNames = courses.map((item) => item.Name);
+	let courseIds:string[] = courses.map((item) => item.id);
 
 	//Original data
 	let _name = name;
@@ -198,7 +198,7 @@
 						class="select"
 						multiple
 						placeholder="Select course here..."
-						value={courseNames}
+						value = {courseIds}
 					>
 						{#each allCources as course}
 							<option value={course.id}>{course.Name}</option>
