@@ -24,6 +24,7 @@
 	export let addRoute = undefined;
 	export let editRoute = undefined;
 	export let src = undefined;
+	export let viewRoute = undefined;
 	let expanded = false;
 	const dispatch = createEventDispatcher();
 	const handlelDeleteClick = async (id) => {
@@ -35,18 +36,18 @@
 </script>
 
 <div class="collapsible pb-1 ml-3 first:pt-4 ">
-	<!-- <h3> -->
+
 	<!-- svelte-ignore a11y-click-events-have-key-events -->
 	<span 
 		style="--color:{color}; --paddingBottom:{paddingBottom}; --paddingTop:{paddingTop}; --paddingLeft:{paddingLeft}; paddingRight:{paddingRight};--marginBottom:{marginBottom};"
 		class="text-lg text-white pr-6 justify-start "
 	>
-		<!-- <div class="flex gap-4"> -->
-		<!-- <div class="w-5"> -->
-		<div class=" flex gap-2">
+			<div class=" flex gap-2">
 			<!-- svelte-ignore a11y-missing-attribute -->
 			<img class="w-8 mr-2" src = {src} />
-			{headerText}
+			<a class="text-white" href= {viewRoute}>
+			<div class="text-white">{headerText}</div></a>
+			
 		</div>
 		<!-- </div> -->
 		<div class="flex gap-6 justify-end">
@@ -95,7 +96,7 @@
 			</svg>
 		</div>
 	</span>
-	<!-- </h3> -->
+
 	<div class="content" hidden={!expanded}>
 		<slot />
 	</div>
@@ -105,16 +106,12 @@
 	.collapsible {
 		border-radius: 20px;
 	}
-	h3 {
-		margin: 0;
-	}
+
 	span {
 		display: flex;
 		justify-content: space-between;
 		width: 96%;
-		/* border: 2px; */
 		border-radius: 9px;
-		/* margin: 13px; */
 		margin-bottom: var(--marginBottom);
 		margin-left: 23px;
 		background: var(--color);
@@ -122,7 +119,6 @@
 		padding-top: var(--paddingTop);
 		padding-left: var(--paddingLeft);
 		padding-right: var(--paddingRight);
-		/* padding: 1em 0.5em; */
 	}
 	svg {
 		height: 1.4em;

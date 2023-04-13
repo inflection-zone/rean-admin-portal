@@ -24,6 +24,12 @@
 		`/users/${userId}/courses/${courseId}/modules/${moduleId}/edit`;
 	let editContentRoute = (courseId, moduleId, contentId) =>
 		`/users/${userId}/courses/${courseId}/modules/${moduleId}/contents/${contentId}/edit`;
+	let viewCourseRoute = (courseId) => `/users/${userId}/courses/${courseId}/view`;
+	let viewModuleRoute = (courseId, moduleId) =>
+		`/users/${userId}/courses/${courseId}/modules/${moduleId}/view`;
+	let viewContentRoute = (courseId, moduleId, contentId)	=> 
+	`/users/${userId}/courses/${courseId}/modules/${moduleId}/contents/${contentId}/edit`;
+	
 	const dataTableStore = createDataTableStore(courses, {
 		search: '',
 		pagination: { offset: 0, limit: 10, size: 0, amounts: [10, 20, 30, 50] }
@@ -76,6 +82,7 @@
 					itemsCount="Moules ({course.Modules.length})"
 					addRoute={addModuleRoute(course.id)}
 					editRoute={editCourseRoute(course.id)}
+					viewRoute = {viewCourseRoute(course.id)}
 					src="/courses.png"
 					on:onDeleteClick|once={async () => {
 						await handlelCourseDelete(course.id,course.Modules);
@@ -95,6 +102,7 @@
 									itemsCount="Contents ({module.CourseContents.length})"
 									addRoute={addContentRoute(course.id, module.id)}
 									editRoute={editModuleRoute(course.id, module.id)}
+									viewRoute = {viewModuleRoute(course.id, module.id)}
 									
 									src = "/modules.png"
 									on:onDeleteClick|once={async () => {
@@ -120,7 +128,9 @@
 													{#each module.CourseContents as content, i}
 														<tr>
 															<td style="width: 5%;">{i + 1}</td>
-															<td style="width: 40%;">{content.Title}</td>
+															<td style="width: 40%;">
+																<a href={viewContentRoute(course.id, module.id, content.id)}
+																	>{content.Title}</a></td>
 															<td style="width: 20%;">{content.ContentType}</td>
 															<td style="width: 20%;">{content.DurationInMins}</td>
 															<td style="width: 5%;">

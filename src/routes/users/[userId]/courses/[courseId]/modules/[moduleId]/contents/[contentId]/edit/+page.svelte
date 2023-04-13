@@ -41,12 +41,12 @@
 	const moduleId = $page.params.moduleId;
 	const editRoute = `/users/${userId}/courses/${courseId}/modules/${moduleId}/contents/${id}/edit`;
 	const viewRoute = `/users/${userId}/courses/${courseId}/modules/${moduleId}/contents/${id}/view`;
-	const contentRoute = `/users/${userId}/courses/${courseId}/modules/${moduleId}/contents/create`;
+	const courseRoute = `/users/${userId}/courses`;
 
 	const breadCrumbs = [
 		{
-			name: 'Contents',
-			path: contentRoute
+			name: 'Courses',
+			path: courseRoute
 		},
 		{
 			name: 'Edit',
