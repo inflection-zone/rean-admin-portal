@@ -7,7 +7,7 @@ export const createOrganization = async (
 	sessionId: string,
 	type: string,
 	name: string,
-	contactPhone: number,
+	contactPhone: string,
 	contactEmail: string,
 	about: string,
 	operationalSince: Date,
