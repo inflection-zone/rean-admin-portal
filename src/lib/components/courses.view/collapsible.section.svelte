@@ -45,7 +45,7 @@
 		<!-- <div class="w-5"> -->
 		<div class=" flex gap-2">
 			<!-- svelte-ignore a11y-missing-attribute -->
-			<img class="w-6 mr-2 " src = {src} />
+			<img class="w-8 mr-2" src = {src} />
 			{headerText}
 		</div>
 		<!-- </div> -->
