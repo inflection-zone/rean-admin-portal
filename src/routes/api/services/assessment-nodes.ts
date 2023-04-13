@@ -122,3 +122,18 @@ export const getQueryResponseTypes = async (sessionId: string) => {
 	const url = BACKEND_API_URL + `/types/query-response-types`;
 	return await get_(sessionId, url);
 };
+
+export const addScoringCondition = async (
+	sessionId: string,
+	templateId: string,
+	nodeId: string,
+	resolutionScore: number,
+) => {
+	const body = {
+		NodeId: nodeId,
+		ResolutionScore: resolutionScore
+	};
+	const url = BACKEND_API_URL + `/clinical/assessment-templates/${templateId}/scoring-conditions/`;
+	console.log("url",url)
+	return await post_(sessionId, url, body, true);
+};

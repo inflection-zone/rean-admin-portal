@@ -13,6 +13,7 @@
 
 	const queryResponseTypes = data.queryResponseTypes;
 	const assessmentNodes = data.assessmentNodes;
+	const scoringApplicable = data.assessmentTemplate.ScoringApplicable;
 
 	let selectedNodeType = 'Question';
 	let selectedQueryType = '';
@@ -95,7 +96,6 @@
 					class="select w-full"
 					placeholder="Select node type here..."
 				>
-					<!-- <option value={parentNodeId}> {title} - {displayCode}</option> -->
 					{#each assessmentNodes as node}
 						<option value={node.id}>{node.NodeType} - {node.Title} - {node.DisplayCode}</option>
 					{/each}
@@ -154,7 +154,70 @@
 				</div>
 			</div>
 			<div>
-				{#if selectedQueryType === 'Single Choice Selection'}
+				{#if scoringApplicable === true}
+					{#if selectedQueryType === 'Single Choice Selection'}
+						<SingleChoice />
+						<div class="flex items-center my-4 mx-16">
+							<div class="w-1/3">
+								<!-- svelte-ignore a11y-label-has-associated-control -->
+								<label class="label">
+									<span>Resolution Score</span>
+								</label>
+							</div>
+							<div class="w-2/3">
+								<input
+									type="number"
+									name="resolutionScore"
+									class="input w-full"
+									placeholder="Enter resolution score here..."
+								/>
+							</div>
+						</div>
+					{:else if selectedQueryType === 'Multi Choice Selection'}
+						<MultipleChoice />
+						<div class="flex items-center my-4 mx-16">
+							<div class="w-1/3">
+								<!-- svelte-ignore a11y-label-has-associated-control -->
+								<label class="label">
+									<span>Resolution Score</span>
+								</label>
+							</div>
+							<div class="w-2/3">
+								<input
+									type="number"
+									name="resolutionScore"
+									class="input w-full"
+									placeholder="Enter resolution score here..."
+								/>
+							</div>
+						</div>
+					{:else if selectedQueryType === 'Boolean'}
+						<div class="flex items-center my-4 mx-16">
+							<div class="w-1/3">
+								<!-- svelte-ignore a11y-label-has-associated-control -->
+								<label class="label">
+									<span>Resolution Score</span>
+								</label>
+							</div>
+							<div class="w-2/3">
+								<input
+									type="number"
+									name="resolutionScore"
+									class="input w-full"
+									placeholder="Enter resolution score here..."
+								/>
+							</div>
+						</div>
+					{/if}
+					<input
+									type="boolean"
+									name="scoringApplicable"
+									class="input w-full"
+									placeholder=""
+									hidden
+									value={scoringApplicable}
+								/>
+				{:else if selectedQueryType === 'Single Choice Selection'}
 					<SingleChoice />
 				{:else if selectedQueryType === 'Multi Choice Selection'}
 					<MultipleChoice />
@@ -254,7 +317,6 @@
 				</div>
 			</div>
 		{/if}
-
 		<div class="flex items-center mt-7 lg:mx-16 md:mx-12 mr-10">
 			<div class="w-3/4" />
 			<div class="w-1/4 ">
