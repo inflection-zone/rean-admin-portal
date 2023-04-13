@@ -155,7 +155,7 @@
 					<a href={moduleRoute}>
 						<button
 							type="submit"
-							class="btn variant-filled-primary lg:w-full md:w-28 sm:w-28 min-[280px]:w-28 w-20 mb-8 lg:mr-4 mr-1   "
+							class="btn variant-filled-primary lg:w-full md:w-32 md:text-sm sm:text-xs sm:w-32 min-[280px]:w-32 min-[280px]:text-xs w-20 mb-8 h-10"
 						>
 							Add Module
 						</button>
@@ -170,7 +170,7 @@
 						</button>
 					</a>
 				</div>
-			</div>
+			</div> 
 		</form>
 	</div>
 </main>
