@@ -29,3 +29,4 @@ export const personRolesStore = writable([]);
 export const currentUserRoleStore = writable('');
 export const genderTypesStore = writable([]);
 export const oragnizationTypesStore = writable([]);
+export const showModal = writable(false);

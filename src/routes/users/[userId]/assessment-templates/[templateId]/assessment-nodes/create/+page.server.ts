@@ -82,13 +82,15 @@ export const actions = {
 			(options?.valueOf() as string[]) ?? null
 		);
 		const nodeId = response.Data.AssessmentNode.id;
+		console.log("scoringApplicable",scoringApplicable);
+		console.log("Query respose type", _queryType);
 
-	// if (
-	// 		(scoringApplicable === true) && 
-	// 		(_queryType ==='Single Choice Selection' ||
-	// 			_queryType === 'Multi Choice Selection' ||
-	// 			_queryType === 'Boolean')
-	// 	) {
+	if (
+			(scoringApplicable === true) && 
+			(_queryType ==='Single Choice Selection' ||
+				_queryType === 'Multi Choice Selection' ||
+				_queryType === 'Boolean')
+		) {
 			const scoringCondition = await 
 			 addScoringCondition(
 				sessionId,
@@ -97,7 +99,7 @@ export const actions = {
 				resolutionScore?.valueOf() as number
 			);
 			console.log("scoringCondition----",scoringCondition);
-		// }
+		}
 
 		if (response.Status === 'failure' || response.HttpCode !== 201) {
 			throw redirect(
