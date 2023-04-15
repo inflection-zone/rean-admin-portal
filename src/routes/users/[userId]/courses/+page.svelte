@@ -168,7 +168,7 @@
 		<div class="relative flex items-center">
 			<a href={createRoute} class="absolute right-4 lg:mr-[-32px] ">
 				<button
-					class="btn variant-filled-primary w-28 rounded-lg hover:bg-primary bg-primary transition
+					class="btn variant-filled-primary w-28 mr-4 rounded-lg hover:bg-primary bg-primary transition
           ease-in-out
           delay-150  
           hover:scale-110  
@@ -192,7 +192,7 @@
 	</button>
 </a>
 <!-- lineColor="#ECE4FC" -->
-<div class="mx-10 mt-10 mb-14">
+<div class="mt-10 mb-14">
 <!-- <div class="justify-center w-sceen mx-14 bg-tertiary-500 rounded-lg">
 	<div class="w-full h-14 rounded-t-lg p-3  bg-secondary-500">
     <div class="ml-3 relative flex flex-row text-white text-xl">Courses</div>

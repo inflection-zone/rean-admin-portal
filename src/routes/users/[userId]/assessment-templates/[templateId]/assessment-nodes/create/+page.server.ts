@@ -2,6 +2,7 @@ import { redirect } from 'sveltekit-flash-message/server';
 import { error, type RequestEvent } from '@sveltejs/kit';
 import { errorMessage, successMessage } from '$lib/utils/message.utils';
 import {
+	addScoringCondition,
 	createAssessmentNode,
 	getQueryResponseTypes,
 	searchAssessmentNodes
@@ -58,6 +59,14 @@ export const actions = {
 			? data.get('serveListNodeChildrenAtOnce')
 			: false;
 		const options = data.has('options') ? data.getAll('options') : [];
+		const resolutionScore = data.has('resolutionScore') ? data.get('resolutionScore') : null;
+		const _scoringApplicable = data.has('scoringApplicable')
+			? data.get('scoringApplicable')
+			: false;
+		const scoringApplicable = _scoringApplicable.valueOf() as boolean;
+		console.log("scoringApplicable------------",scoringApplicable)
+		const _queryType = queryType?.valueOf() as string;
+		console.log("queryType",_queryType)
 		const sessionId = event.cookies.get('sessionId');
 
 		const response = await createAssessmentNode(
@@ -73,7 +82,25 @@ export const actions = {
 			(options?.valueOf() as string[]) ?? null
 		);
 		const nodeId = response.Data.AssessmentNode.id;
-		
+		console.log("scoringApplicable",scoringApplicable);
+		console.log("Query respose type", _queryType);
+
+	if (
+			(scoringApplicable === true) && 
+			(_queryType ==='Single Choice Selection' ||
+				_queryType === 'Multi Choice Selection' ||
+				_queryType === 'Boolean')
+		) {
+			const scoringCondition = await 
+			 addScoringCondition(
+				sessionId,
+				templateId,
+				nodeId,
+				resolutionScore?.valueOf() as number
+			);
+			console.log("scoringCondition----",scoringCondition);
+		}
+
 		if (response.Status === 'failure' || response.HttpCode !== 201) {
 			throw redirect(
 				303,

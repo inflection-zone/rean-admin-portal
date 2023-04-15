@@ -38,11 +38,13 @@ export const actions = {
 		const type = data.has('type') ? data.get('type') : null;
 		const name = data.has('name') ? data.get('name') : null;
 		const contactPhone = data.has('contactPhone') ? data.get('contactPhone') : null;
+		const countryCode = data.has('countryCode') ? data.get('countryCode') : '+91';
 		const contactEmail = data.has('contactEmail') ? data.get('contactEmail') : null;
 		const about = data.has('about') ? data.get('about') : null;
 		const operationalSince = data.has('operationalSince') ? data.get('operationalSince') : null;
 		const imageResourceId = data.has('imageResourceId') ? data.get('imageResourceId') : null;
 		const isHealthFacility = data.has('isHealthFacility') ? data.get('isHealthFacility') : false;
+		const phone = countryCode.valueOf() as string + "-" + contactPhone.valueOf() as string;
 
 		const sessionId = event.cookies.get('sessionId');
 		const addressResponse = await createAddress(
@@ -67,7 +69,7 @@ export const actions = {
 			sessionId,
 			type.valueOf() as string,
 			name.valueOf() as string,
-			contactPhone.valueOf() as number,
+			phone,
 			contactEmail.valueOf() as string,
 			about.valueOf() as string,
 			operationalSince.valueOf() as Date,
