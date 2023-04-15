@@ -249,7 +249,7 @@
 						<span>Image</span>
 					</label>
 				</div>
-				<div class="flex flex-row gap-8 w-1/2 md:w-2/3 lg:w-2/3 ">
+				<div class="flex flex-row gap-4 w-1/2 md:w-2/3 lg:w-2/3 ">
 					{#if image === 'undefined'}
 						<input
 							name="fileinput"
