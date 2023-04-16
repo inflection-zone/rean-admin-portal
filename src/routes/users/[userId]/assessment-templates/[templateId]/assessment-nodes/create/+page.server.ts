@@ -63,10 +63,10 @@ export const actions = {
 		const _scoringApplicable = data.has('scoringApplicable')
 			? data.get('scoringApplicable')
 			: false;
-		const scoringApplicable = _scoringApplicable.valueOf() as boolean;
-		console.log("scoringApplicable------------",scoringApplicable)
-		const _queryType = queryType?.valueOf() as string;
-		console.log("queryType",_queryType)
+		// const scoringApplicable = _scoringApplicable.valueOf() as boolean;
+		// console.log("scoringApplicable------------",scoringApplicable)
+		// const _queryType = queryType?.valueOf() as string;
+		// console.log("queryType",_queryType)
 		const sessionId = event.cookies.get('sessionId');
 
 		const response = await createAssessmentNode(
@@ -82,15 +82,19 @@ export const actions = {
 			(options?.valueOf() as string[]) ?? null
 		);
 		const nodeId = response.Data.AssessmentNode.id;
-		console.log("scoringApplicable",scoringApplicable);
-		console.log("Query respose type", _queryType);
+		const scoringApplicable = _scoringApplicable.valueOf() as boolean;
+		const _queryType = queryType?.valueOf() as string;
+		
+		console.log("NodeId------------",nodeId)
+		console.log("scoringApplicable------------",scoringApplicable)
+		console.log("queryType-----------",_queryType)
 
-	if (
-			(scoringApplicable === true) && 
-			(_queryType ==='Single Choice Selection' ||
-				_queryType === 'Multi Choice Selection' ||
-				_queryType === 'Boolean')
-		) {
+	// if (
+	// 		(scoringApplicable === true) && 
+	// 		(_queryType ==='Single Choice Selection' ||
+	// 			_queryType === 'Multi Choice Selection' ||
+	// 			_queryType === 'Boolean')
+	// 	) {
 			const scoringCondition = await 
 			 addScoringCondition(
 				sessionId,
@@ -99,7 +103,7 @@ export const actions = {
 				resolutionScore?.valueOf() as number
 			);
 			console.log("scoringCondition----",scoringCondition);
-		}
+		// }
 
 		if (response.Status === 'failure' || response.HttpCode !== 201) {
 			throw redirect(
