@@ -34,9 +34,9 @@
 <div class="mx-10">
 	<form
 		action="?/getApiKey" method="POST"
-		class="w-full  bg-tertiary-500 lg:mt-10 md:mt-8 sm:mt-6 mb-10 mt-4 lg:max-w-4xl md:max-w-xl sm:max-w-lg  rounded-lg mx-auto"
+		class="w-full bg-tertiary-500 lg:mt-10 md:mt-8 sm:mt-6 mb-10 mt-4 lg:max-w-4xl md:max-w-xl sm:max-w-lg  rounded-lg mx-auto"
 	>
-		<div class="w-full  h-14 rounded-t-lg p-3  bg-[#7165E3]">
+		<div class="w-full h-14 rounded-t-lg p-3 bg-[#7165E3]">
 			<div class="ml-3 relative flex flex-row text-white text-xl">
 				Update Api Key
 				<div on:click={() => dialog.close()}>
@@ -48,7 +48,7 @@
 			</div>
 			</div>
 		</div>
-		<label class="label mb-4 mx-5 mt-8">
+		<label class="label mb-4 mx-5 mt-5">
 			<span class="">User Name *</span>
 			<input
 				class="input"
@@ -90,11 +90,11 @@
 			/>
 		</label>
 		<div class="flex justify-end gap-6">
-			<button type="button" class="btn variant-ringed-primary text-primary-500 w-full ml-4 my-5 " on:click={() => dialog.close()}
+			<button type="button" class="btn variant-ringed-primary text-primary-500 w-full ml-5 mt-5 mb-8 " on:click={() => dialog.close()}
 				>Close</button
 			>
 			<button type="button"
-				class="btn variant-filled-primary w-full mr-4 my-5"
+				class="btn variant-filled-primary w-full mr-5 mt-5 mb-8"
 				on:click = {async () =>{ await handlelSubmitClick(userName, password, validFrom, validTill)
 					await dialog.close();} }
       >Submit</button

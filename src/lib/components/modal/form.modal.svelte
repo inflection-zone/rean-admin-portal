@@ -34,7 +34,7 @@
 	>
 		<div class="w-full  h-14 rounded-t-lg p-3  bg-[#7165E3]">
 			<div class="ml-3 relative flex flex-row text-white text-xl">
-				Provide credentials
+				Provide Credentials
 				<div on:click={() => dialog.close()}>
 					<Fa
 					icon={faMultiply}
@@ -44,7 +44,7 @@
 			</div>
 			</div>
 		</div>
-		<label class="label mb-4 mx-5 mt-8">
+		<label class="label mb-4 mx-5 mt-5">
 			<span class="">User Name *</span>
 			<input
 				class="input"
@@ -66,11 +66,11 @@
 		</label>
 
 		<div class="flex justify-end gap-6">
-			<button type="button" class="btn variant-ringed-primary text-primary-500 w-full ml-4 my-5 " on:click={() => dialog.close()}
+			<button type="button" class="btn variant-ringed-primary text-primary-500 ml-5 w-full mt-5 mb-8" on:click={() => dialog.close()}
 				>Close</button
 			>
 			<button type="button"
-				class="btn variant-filled-primary w-full mr-4 my-5"
+				class="btn variant-filled-primary w-full mr-5 mt-5 mb-8"
 				on:click = {async () =>{ await handlelSubmitClick(userName, password)
 					await dialog.close();} }
       >Submit</button
