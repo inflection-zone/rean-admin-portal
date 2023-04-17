@@ -183,7 +183,7 @@
 	</div>
 </div>
 
-<div class="flex justify-center flex-col mt-4 mx-10 overflow-y-auto ">
+<div class="flex justify-center flex-col mt-4 mb-10 mx-10 overflow-y-auto ">
 	<table class="table rounded-b-none">
 		<thead class="sticky top-0">
 			<tr>

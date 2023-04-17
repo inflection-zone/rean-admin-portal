@@ -345,7 +345,7 @@
 						<input
 							type="checkbox"
 							name="isHealthFacility"
-							class="checkbox checkbox-primary checkbox-md"
+							class="checkbox checkbox-primary border-primary-200 hover:border-primary-400 checkbox-md ml-2"
 							value={checkboxValue}
 							on:click={handleClick}
 						/>
