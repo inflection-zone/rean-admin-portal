@@ -237,14 +237,14 @@
 				</div>
 			</div>
 
-			<div class="flex items-start mb-4 lg:mx-16 md:mx-12 mx-10">
+			<div class="flex items-start my-2 lg:mx-16 md:mx-12 mx-10">
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
 					<!-- svelte-ignore a11y-label-has-associated-control -->
 					<label class="label">
 						<span>Image</span>
 					</label>
 				</div>
-				<div class="flex flex-row gap-8 w-1/2 md:w-2/3 lg:w-2/3 ">
+				<div class="flex flex-row gap-4 w-1/2 md:w-2/3 lg:w-2/3 ">
 					{#if imageUrl === 'undefined'}
 						<input
 							name="fileinput"

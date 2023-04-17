@@ -144,7 +144,7 @@
 							type="checkbox"
 							name="broadcastToAll"
 							value="true"
-							class="checkbox checkbox-primary checkbox-md"
+							class="checkbox checkbox-primary border-primary-200 hover:border-primary-400 checkbox-md ml-2"
 						/>
 					</label>
 				</div>

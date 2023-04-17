@@ -220,9 +220,9 @@
 				</span>
 			</div>
 
-			<div class="flex items-center mt-10 lg:mx-10 md:mx-16">
+			<div class="flex items-center mt-10 lg:mx-10 md:mx-16 min-[280px]:mr-72">
 				<div class="lg:w-8/12 min-[280px]:w-1/3 sm:w-1/6 md:w-1/2" />
-				<div class="flex lg:w-1/4 min-[280px]:w-1/6 sm:w-4/5 sm:mr-20 gap-3">
+				<div class="flex lg:w-1/4 min-[280px]:w-1/6 sm:w-5/6 sm:mr-10 gap-3">
 					<a href={nodeRoute}>
 						<button
 							type="submit"
@@ -234,7 +234,7 @@
 					<a href={editRoute}>
 						<button
 							type="submit"
-							class="btn variant-filled-primary lg:w-full md:w-32 sm:w-24 lg:text-md min-[280px]:w-32 w-20 mb-8 lg:mr-4 pr-2 h-10"
+							class="btn variant-filled-primary lg:w-full md:w-28 sm:w-24 lg:text-md min-[280px]:w-24 w-20 mb-8 lg:mr-4 pr-2 h-10"
 						>
 							Edit
 							<Fa icon={faPen} size="lg" class="lg:ml-4 sm:ml-2 ml-1" />

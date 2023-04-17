@@ -194,7 +194,7 @@
 							type="checkbox"
 							name="broadcastToAll"
 							bind:checked={broadcastToAll}
-							class="checkbox checkbox-primary checkbox-md"
+							class="checkbox checkbox-primary border-primary-200 hover:border-primary-400 checkbox-md ml-2"
 						/>
 					</label>
 				</div>
@@ -207,7 +207,7 @@
 						<span>Image</span>
 					</label>
 				</div>
-				<div class="flex flex-row gap-8 w-1/2 md:w-2/3 lg:w-2/3 ">
+				<div class="flex flex-row gap-4 w-1/2 md:w-2/3 lg:w-2/3 ">
 					{#if imageUrl === 'undefined'}
 						<input
 							name="fileinput"
@@ -227,10 +227,6 @@
 						/>
 					{/if}
 					<input type="hidden" name="imageUrl" value={imageUrl} />
-					<!-- <button
-						class="capitalize btn variant-filled-primary lg:w-[19%] md:w-[22%] md:text-[13px] sm:w-[30%] sm:text-[12px] min-[320px]:w-[40%] min-[320px]:text-[10px]"
-						>Upload</button
-					> -->
 				</div>
 			</div>
 

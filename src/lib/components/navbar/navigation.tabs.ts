@@ -53,7 +53,7 @@ const notices: TabDefinition = {
 };
 
 const goals: TabDefinition = {
-    name: 'Goals',
+    name: 'Goal-Types',
     path: `/users/userId/goals`,
     default: false,
 };
@@ -77,7 +77,7 @@ const learningJourneys: TabDefinition = {
 };
 
 const priorities: TabDefinition = {
-    name: 'Priorities',
+    name: 'Priority-Types',
     path: `/users/userId/priorities`,
     default: false,
 };
