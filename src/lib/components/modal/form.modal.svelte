@@ -1,0 +1,121 @@
+<script lang="ts">
+	import { createEventDispatcher } from 'svelte';
+	import {showGetApiKeyModal } from '../../store/general.store';
+	import Fa from 'svelte-fa';
+	import { faMultiply } from '@fortawesome/free-solid-svg-icons';
+	export let userName = undefined;
+	export let password = undefined;
+  let dialog; // HTMLDialogElement
+
+	$: if (dialog && $showGetApiKeyModal) dialog.showModal();
+
+	console.log("$showGetApiKeyModal",$showGetApiKeyModal)
+
+	const dispatch = createEventDispatcher();
+	const handlelSubmitClick = async (userName: string, password: string) => {
+		dispatch('submit', {
+			userName: userName,
+			password: password,
+		});
+	};
+
+</script>
+<!-- svelte-ignore a11y-click-events-have-key-events -->
+<dialog
+	class=""
+	bind:this={dialog}
+	on:close={() => showGetApiKeyModal.set(false)}
+	on:click|self={() => dialog.close()}
+>
+<div class="mx-10">
+	<form
+		action="?/getApiKey" method="POST"
+		class="w-full  bg-tertiary-500 lg:mt-10 md:mt-8 sm:mt-6 mb-10 mt-4 lg:max-w-4xl md:max-w-xl sm:max-w-lg  rounded-lg mx-auto"
+	>
+		<div class="w-full  h-14 rounded-t-lg p-3  bg-[#7165E3]">
+			<div class="ml-3 relative flex flex-row text-white text-xl">
+				Provide credentials
+				<div on:click={() => dialog.close()}>
+					<Fa
+					icon={faMultiply}
+					size="lg"
+					class="absolute right-0 lg:pr-3 md:pr-2 pr-0 text-white"
+				/>
+			</div>
+			</div>
+		</div>
+		<label class="label mb-4 mx-5 mt-8">
+			<span class="">User Name</span>
+			<input
+				class="input"
+				name="userName"
+				type="text"
+				bind:value={userName}
+				placeholder="Enter user name here..."
+			/>
+		</label>
+		<label class="label mx-5 mt-4">
+			<span>Password</span>
+			<input
+				class="input"
+				type="password"
+				name="password"
+				bind:value={password}
+				placeholder="Enter password here..."
+			/>
+		</label>
+
+		<div class="flex justify-end gap-6">
+			<button type="button" class="btn variant-ringed-primary text-primary-500 w-full ml-4 my-5 " on:click={() => dialog.close()}
+				>Close</button
+			>
+			<button type="button"
+				class="btn variant-filled-primary w-full mr-4 my-5"
+				on:click = {async () =>{ await handlelSubmitClick(userName, password)
+					await dialog.close();} }
+      >Submit</button
+			>
+		</div>
+	</form>
+</div>
+</dialog>
+
+<style>
+	dialog {
+		max-width: 72em;
+		border-radius: 0.2em;
+		border: none;
+		padding: 0;
+	}
+	dialog::backdrop {
+		background: rgba(0, 0, 0, 0.3);
+	}
+	dialog > div {
+		padding: 1em;
+	}
+	dialog[open] {
+		animation: zoom 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+	}
+	@keyframes zoom {
+		from {
+			transform: scale(0.95);
+		}
+		to {
+			transform: scale(1);
+		}
+	}
+	dialog[open]::backdrop {
+		animation: fade 0.2s ease-out;
+	}
+	@keyframes fade {
+		from {
+			opacity: 0;
+		}
+		to {
+			opacity: 1;
+		}
+	}
+	button {
+		display: block;
+	}
+</style>

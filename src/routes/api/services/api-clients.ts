@@ -83,12 +83,11 @@ export const updateApiKey = async (
 	userName: string,
 	password: string,
 	validFrom?: Date,
-	validStill?: Date
-	
+	validTill?: Date
 ) => {
 	const body = {
 		ValidFrom: validFrom,
-		ValidStill: validStill
+		ValidTill: validTill
 	};
 	const url = BACKEND_API_URL + `/api-clients/${apiClientCode}/renew-api-key`;
 	return await put(url, body, true, userName, password);
