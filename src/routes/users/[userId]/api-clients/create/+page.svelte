@@ -48,13 +48,14 @@
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
 					<!-- svelte-ignore a11y-label-has-associated-control -->
 					<label class="label">
-						<span>Client Name</span>
+						<span>Client Name *</span>
 					</label>
 				</div>
 				<div class="w-1/2 md:w-2/3 lg:w-2/3">
 					<input
 						type="text"
 						name="clientName"
+						required
 						placeholder="Enter client name here..."
 						class="input w-full "
 					/>
@@ -65,12 +66,13 @@
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
 					<!-- svelte-ignore a11y-label-has-associated-control -->
 					<label class="label">
-						<span>Password</span>
+						<span>Password *</span>
 					</label>
 				</div>
 				<div class="w-1/2 md:w-2/3 lg:w-2/3">
 					<input
-						type="text"
+						type="password"
+						required
 						name="password"
 						placeholder="Enter password here..."
 						class="input w-full "
@@ -82,11 +84,17 @@
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
 					<!-- svelte-ignore a11y-label-has-associated-control -->
 					<label class="label">
-						<span>Phone</span>
+						<span>Phone *</span>
 					</label>
 				</div>
 				<div class="w-1/2 md:w-2/3 lg:w-2/3">
-					<input type="text" name="phone" placeholder="Enter phone here..." class="input w-full " />
+					<input
+						type="number"
+						required
+						name="phone"
+						placeholder="Enter phone here..."
+						class="input w-full "
+					/>
 				</div>
 			</div>
 
@@ -94,11 +102,17 @@
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
 					<!-- svelte-ignore a11y-label-has-associated-control -->
 					<label class="label">
-						<span>Email</span>
+						<span>Email *</span>
 					</label>
 				</div>
 				<div class="w-1/2 md:w-2/3 lg:w-2/3">
-					<input type="text" name="email" placeholder="Enter email here..." class="input w-full " />
+					<input
+						type="text"
+						name="email"
+						required
+						placeholder="Enter email here..."
+						class="input w-full "
+					/>
 				</div>
 			</div>
 

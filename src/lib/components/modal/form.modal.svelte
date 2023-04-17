@@ -45,7 +45,7 @@
 			</div>
 		</div>
 		<label class="label mb-4 mx-5 mt-8">
-			<span class="">User Name</span>
+			<span class="">User Name *</span>
 			<input
 				class="input"
 				name="userName"
@@ -55,7 +55,7 @@
 			/>
 		</label>
 		<label class="label mx-5 mt-4">
-			<span>Password</span>
+			<span>Password *</span>
 			<input
 				class="input"
 				type="password"
