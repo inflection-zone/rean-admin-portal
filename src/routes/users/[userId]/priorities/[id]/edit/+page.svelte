@@ -62,13 +62,14 @@
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
 					<!-- svelte-ignore a11y-label-has-associated-control -->
 					<label class="label">
-						<span>Type</span>
+						<span>Type *</span>
 					</label>
 				</div>
 				<div class="w-1/2 md:w-2/3 lg:w-2/3">
 					<input
 						type="text"
 						name="type"
+						required
 						bind:value={type}
 						placeholder="Enter type here..."
 						class="input w-full "
