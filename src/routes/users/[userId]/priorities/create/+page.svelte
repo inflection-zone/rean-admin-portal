@@ -27,11 +27,11 @@
 <main class="h-screen mb-40">
 	<BreadCrumbs crumbs={breadCrumbs} />
 
-	<div class="px-5 mb-14 ">
+	<div class="">
 		<form
 			method="post"
 			action="?/createPriorityAction"
-			class="w-full  bg-[#ECE4FC] md:mt-8 sm:mt-6 lg:mt-10 lg:max-w-4xl md:max-w-xl sm:max-w-lg  rounded-lg mx-auto"
+			class="w-full  bg-[#ECE4FC] md:mt-8 sm:mt-6 lg:mt-10 mt-4 lg:max-w-4xl md:max-w-xl sm:max-w-lg  rounded-lg mx-auto"
 		>
 			<div class="w-full  h-14 rounded-t-lg p-3  bg-[#7165E3]">
 				<div class="ml-3 relative flex flex-row text-white text-xl">
