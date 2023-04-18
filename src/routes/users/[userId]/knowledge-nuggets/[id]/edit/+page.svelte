@@ -12,7 +12,6 @@
 	let topicName = data.KnowledgeNugget.TopicName;
 	let briefInformation = data.KnowledgeNugget.BriefInformation;
 	let detailedInformation = data.KnowledgeNugget.DetailedInformation;
-	// let additionalResources = data.KnowledgeNugget.AdditionalResources;
 	let additionalResources_ = data.KnowledgeNugget.AdditionalResources;
 	let additionalResources = additionalResources_.join(', ');
 	let tags = data.KnowledgeNugget.Tags;
@@ -94,7 +93,7 @@
 				</div>
 			</div>
 
-			<div class="flex items-center mb-4 lg:mx-16 md:mx-12 mx-10">
+			<div class="flex items-start mb-4 lg:mx-16 md:mx-12 mx-10">
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
 					<!-- svelte-ignore a11y-label-has-associated-control -->
 					<label class="label">
@@ -110,7 +109,7 @@
 					/>
 				</div>
 			</div>
-			<div class="flex items-center mb-4 lg:mx-16 md:mx-12 mx-10">
+			<div class="flex items-start mb-4 lg:mx-16 md:mx-12 mx-10">
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
 					<!-- svelte-ignore a11y-label-has-associated-control -->
 					<label class="label">
@@ -134,7 +133,8 @@
 					</label>
 				</div>
 				<div class="w-1/2 md:w-2/3 lg:w-2/3">
-					<textarea
+					<input
+					  type=text
 						name="additionalResources"
 						bind:value={additionalResources}
 						class="input w-full"
