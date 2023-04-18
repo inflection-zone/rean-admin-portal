@@ -7,11 +7,11 @@ export const createLabRecordType = async (
 	sessionId: string,
 	typeName: string,
 	displayName: string,
-	snowmedCode: string,
-	loincCode: string,
 	normalRangeMin: number,
 	normalRangeMax: number,
-	unit: string
+	snowmedCode?: string,
+	loincCode?: string,
+	unit?: string
 ) => {
 	const body = {
 		TypeName: typeName,
@@ -56,11 +56,11 @@ export const updateLabRecordType = async (
 	labRecordTypeId: string,
 	typeName: string,
 	displayName: string,
-	snowmedCode: string,
-	loincCode: string,
 	normalRangeMin: number,
 	normalRangeMax: number,
-	unit: string
+	snowmedCode?: string,
+	loincCode?: string,
+	unit?: string
 ) => {
 	const body = {
 		TypeName: typeName,

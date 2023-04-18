@@ -23,7 +23,7 @@
 <main class="h-screen mb-44">
 	<BreadCrumbs crumbs={breadCrumbs} />
 
-	<div class="px-5 mb-5 ">
+	<div class="">
 		<form
 			method="post"
 			action="?/createLabRecordTypeAction"
@@ -46,13 +46,14 @@
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
 					<!-- svelte-ignore a11y-label-has-associated-control -->
 					<label class="label">
-						<span>Type Name</span>
+						<span>Type Name *</span>
 					</label>
 				</div>
 				<div class="w-1/2 md:w-2/3 lg:w-2/3">
 					<input
 						type="text"
 						name="typeName"
+						required
 						placeholder="Enter type name here..."
 						class="input w-full "
 					/>
@@ -63,13 +64,14 @@
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
 					<!-- svelte-ignore a11y-label-has-associated-control -->
 					<label class="label">
-						<span>Display Name</span>
+						<span>Display Name *</span>
 					</label>
 				</div>
 				<div class="w-1/2 md:w-2/3 lg:w-2/3">
 					<input
 						type="text"
 						name="displayName"
+						required
 						class="input w-full"
 						placeholder="Enter display name here..."
 					/>
@@ -114,13 +116,14 @@
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
 					<!-- svelte-ignore a11y-label-has-associated-control -->
 					<label class="label">
-						<span>Normal Range Min</span>
+						<span>Normal Range Min *</span>
 					</label>
 				</div>
 				<div class="w-1/2 md:w-2/3 lg:w-2/3">
 					<input
 						type="text"
 						name="normalRangeMin"
+						required
 						class="input w-full"
 						placeholder="Enter normal range min here..."
 					/>
@@ -131,13 +134,14 @@
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
 					<!-- svelte-ignore a11y-label-has-associated-control -->
 					<label class="label">
-						<span>Normal Range Max</span>
+						<span>Normal Range Max *</span>
 					</label>
 				</div>
 				<div class="w-1/2 md:w-2/3 lg:w-2/3">
 					<input
 						type="text"
 						name="normalRangeMax"
+						required
 						class="input w-full"
 						placeholder="Enter normal range max here..."
 					/>
