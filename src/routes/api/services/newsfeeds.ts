@@ -6,14 +6,14 @@ import { delete_, get_, post_, put_ } from './common';
 export const createNewsfeed = async (
 	sessionId: string,
 	title: string,
-	description: string,
-	category: string,
-	link: string,
-	language: string,
-	copyright: string,
-	favicon: string,
-	image: string,
-	tags: string[]
+	description?: string,
+	category?: string,
+	link?: string,
+	language?: string,
+	copyright?: string,
+	favicon?: string,
+	image?: string,
+	tags?: string[]
 ) => {
 	const body = {
 		Title: title,
@@ -59,14 +59,14 @@ export const updateNewsfeed = async (
 	sessionId: string,
 	newsfeedId: string,
 	title: string,
-	description: string,
-	category: string,
-	link: string,
-	language: string,
-	copyright: string,
-	favicon: string,
-	image: string,
-	tags: string[]
+	description?: string,
+	category?: string,
+	link?: string,
+	language?: string,
+	copyright?: string,
+	favicon?: string,
+	image?: string,
+	tags?: string[]
 ) => {
 	const body = {
 		Title: title,
