@@ -51,12 +51,12 @@ export const actions = {
 			sessionId,
 			drugId,
 			drugName.valueOf() as string,
-			genericName.valueOf() as string,
-			ingredients.valueOf() as string,
-			strength.valueOf() as string,
-			otherCommercialNames.valueOf() as string,
-			manufacturer.valueOf() as string,
-			otherInformation.valueOf() as string
+			genericName?.valueOf() as string,
+			ingredients?.valueOf() as string,
+			strength?.valueOf() as string,
+			otherCommercialNames?.valueOf() as string,
+			manufacturer?.valueOf() as string,
+			otherInformation?.valueOf() as string
 		);
 		const id = response.Data.Drug.id;
 

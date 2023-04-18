@@ -6,12 +6,12 @@ import { delete_, get_, post_, put_ } from './common';
 export const createDrug = async (
 	sessionId: string,
 	drugName: string,
-	genericName: string,
-	ingredients: string,
-	strength: string,
-	otherCommercialNames: string,
-	manufacturer: string,
-	otherInformation: string
+	genericName?: string,
+	ingredients?: string,
+	strength?: string,
+	otherCommercialNames?: string,
+	manufacturer?: string,
+	otherInformation?: string
 ) => {
 	const body = {
 		DrugName: drugName,
@@ -55,12 +55,12 @@ export const updateDrug = async (
 	sessionId: string,
 	drugId: string,
 	drugName: string,
-	genericName: string,
-	ingredients: string,
-	strength: string,
-	otherCommercialNames: string,
-	manufacturer: string,
-	otherInformation: string
+	genericName?: string,
+	ingredients?: string,
+	strength?: string,
+	otherCommercialNames?: string,
+	manufacturer?: string,
+	otherInformation?: string
 ) => {
 	const body = {
 		DrugName: drugName,
