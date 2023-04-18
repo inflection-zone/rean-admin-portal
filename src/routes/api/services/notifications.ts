@@ -6,10 +6,10 @@ import { delete_, get_, post_, put_ } from './common';
 export const createNotification = async (
 	sessionId: string,
 	title: string,
-	Body: string,
-	type: string,
-	broadcastToAll: boolean,
-	imageUrl: string
+	Body?: string,
+	type?: string,
+	broadcastToAll?: boolean,
+	imageUrl?: string
 ) => {
 	const body = {
 		Title: title,
@@ -51,10 +51,10 @@ export const updateNotification = async (
 	sessionId: string,
 	notificationId: string,
 	title: string,
-	Body: string,
-	type: string,
-	broadcastToAll: boolean,
-	imageUrl: string
+	Body?: string,
+	type?: string,
+	broadcastToAll?: boolean,
+	imageUrl?: string
 ) => {
 	const body = {
 		Title: title,
