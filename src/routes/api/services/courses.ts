@@ -14,8 +14,9 @@ export const createCourse = async (
 		Name: name,
 		Description: description,
 		ImageUrl: imageUrl,
-		DurationInDays: durationInDays
+		DurationInDays: Number(durationInDays)
 	};
+	console.log("body",body);
 	const url = BACKEND_API_URL + '/educational/courses';
 	return await post_(sessionId, url, body, true);
 };

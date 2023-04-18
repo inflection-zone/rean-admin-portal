@@ -93,7 +93,7 @@
 <main class="h-screen mb-10">
 	<BreadCrumbs crumbs={breadCrumbs} />
 
-	<div class=" flex justify-center mt-5 px-3 mb-10 flex-col items-center">
+	<div class=" flex justify-center mb-10 flex-col items-center">
 		<form
 			method="post"
 			action="?/updateCourseAction"
