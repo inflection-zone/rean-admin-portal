@@ -6,18 +6,18 @@ import { delete_, get_, post_, put_ } from './common';
 export const createNotice = async (
 	sessionId: string,
 	title: string,
-	description: string,
-	link: string,
-	daysActive: number,
-	tags: string[],
-	action: string,
-	imageUrl: string
+	description?: string,
+	link?: string,
+	daysActive?: number,
+	tags?: string[],
+	action?: string,
+	imageUrl?: string
 ) => {
 	const body = {
 		Title: title,
 		Description: description,
 		Link: link,
-		DaysActive: daysActive,
+		DaysActive: Number(daysActive),
 		Tags: tags,
 		Action: action,
 		ImageUrl: imageUrl
@@ -55,18 +55,18 @@ export const updateNotice = async (
 	sessionId: string,
 	noticeId: string,
 	title: string,
-	description: string,
-	link: string,
-	daysActive: number,
-	tags: string[],
-	action: string,
-	imageUrl: string
+	description?: string,
+	link?: string,
+	daysActive?: number,
+	tags?: string[],
+	action?: string,
+	imageUrl?: string
 ) => {
 	const body = {
 		Title: title,
 		Description: description,
 		Link: link,
-		DaysActive: daysActive,
+		DaysActive: Number(daysActive),
 		Tags: tags,
 		Action: action,
 		ImageUrl: imageUrl

@@ -73,7 +73,7 @@
 <main class="h-screen mb-32">
 	<BreadCrumbs crumbs={breadCrumbs} />
 
-	<div class="px-5 mb-5 ">
+	<div class="">
 		<form
 			method="post"
 			action="?/createNoticeAction"
@@ -96,14 +96,14 @@
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
 					<!-- svelte-ignore a11y-label-has-associated-control -->
 					<label class="label">
-						<span>Title</span>
+						<span>Title *</span>
 					</label>
 				</div>
 				<div class="w-1/2 md:w-2/3 lg:w-2/3">
-					<input type="text" name="title" placeholder="Enter title here..." class="input w-full " />
+					<input type="text" name="title" required placeholder="Enter title here..." class="input w-full " />
 				</div>
 			</div>
-			<div class="flex items-center mb-4 lg:mx-16 md:mx-12 mx-10">
+			<div class="flex items-start mb-4 lg:mx-16 md:mx-12 mx-10">
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
 					<!-- svelte-ignore a11y-label-has-associated-control -->
 					<label class="label">
@@ -113,7 +113,6 @@
 				<div class="w-1/2 md:w-2/3 lg:w-2/3">
 					<textarea
 						name="description"
-						required
 						class="textarea w-full"
 						placeholder="Enter description here..."
 					/>
@@ -199,10 +198,6 @@
 						placeholder="Image"
 						on:change={async (e) => await onFileSelected(e)}
 					/>
-					<!-- <button 
-						class="capitalize btn variant-filled-primary lg:w-[19%] md:w-[22%] md:text-[13px] sm:w-[30%] sm:text-[12px] min-[320px]:w-[40%] min-[320px]:text-[10px]"
-						>Upload</button
-					> -->
 					<input type="hidden" name="imageUrl" value={imageUrl} />
 				</div>
 			</div>

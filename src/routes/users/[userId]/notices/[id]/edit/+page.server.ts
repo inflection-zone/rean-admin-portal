@@ -49,12 +49,12 @@ export const actions = {
 			sessionId,
 			linkageId,
 			title.valueOf() as string,
-			description.valueOf() as string,
-			link.valueOf() as string,
-			daysActive.valueOf() as number,
-			tags.valueOf() as string[],
-			action.valueOf() as string,
-			imageUrl.valueOf() as string
+			description?.valueOf() as string,
+			link?.valueOf() as string,
+			daysActive?.valueOf() as number,
+			tags?.valueOf() as string[],
+			action?.valueOf() as string,
+			imageUrl?.valueOf() as string
 		);
 		const id = response.Data.Notice.id;
 
