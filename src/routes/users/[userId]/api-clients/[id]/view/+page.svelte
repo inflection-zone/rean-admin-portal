@@ -129,7 +129,7 @@
 <main class="h-screen mb-10">
 	<BreadCrumbs crumbs={breadCrumbs} />
 
-	<div class="px-3 mb-5">
+	<div class="">
 		<div
 			class="w-full lg:max-w-4xl md:max-w-xl sm:max-w-lg my-10 bg-[#ECE4FC] mt-6 rounded-lg mx-auto"
 		>
@@ -172,7 +172,7 @@
 				<span class="span w-1/2 md:2/3 lg:2/3" id="phone">{phone}</span>
 			</div>
 
-			<div class="flex items-center mb-4 lg:mx-16 md:mx-12 mx-10">
+			<div class="flex items-center my-4 lg:mx-16 md:mx-12 mx-10">
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
 					<!-- svelte-ignore a11y-label-has-associated-control -->
 					<label class="label">
@@ -185,20 +185,22 @@
 			{#if apiKey === undefined}
 				<div />
 			{:else}
-				<div class="flex items-center mb-4 lg:mx-16 md:mx-12 mx-10">
+				<div class="flex items-center my-4 lg:mx-16 md:mx-12 mx-10">
 					<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
 						<!-- svelte-ignore a11y-label-has-associated-control -->
 						<label class="label">
 							<span>Api Key</span>
 						</label>
 					</div>
-					<span class="span w-1/2 md:2/3 lg:2/3" id="email">{apiKey}</span>
+					<div class="flex gap-3 items-center w-1/2 md:2/3 lg:2/3">
+					<span class="span" id="email">{apiKey}</span>
 					<button
-						class="btn variant-filled-primary"
+						class="btn variant-ringed-primary text-primary-500 "
 						use:clipboard={apiKey}
 						on:click={onClickHandler}
-						disabled={copied}>{copied ? 'Copied 👍' : 'Copy api key'}</button
+						disabled={copied}><Fa icon={faCopy} size="lg" class="" /></button
 					>
+				 </div>
 				</div>
 			{/if}
 
