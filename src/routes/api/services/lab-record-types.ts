@@ -7,10 +7,10 @@ export const createLabRecordType = async (
 	sessionId: string,
 	typeName: string,
 	displayName: string,
-	normalRangeMin: number,
-	normalRangeMax: number,
 	snowmedCode?: string,
 	loincCode?: string,
+	normalRangeMin?: number,
+	normalRangeMax?: number,
 	unit?: string
 ) => {
 	const body = {
@@ -18,8 +18,8 @@ export const createLabRecordType = async (
 		DisplayName: displayName,
 		SnowmedCode: snowmedCode,
 		LoincCode: loincCode,
-		NormalRangeMin: normalRangeMin,
-		NormalRangeMax: normalRangeMax,
+		NormalRangeMin: Number(normalRangeMin),
+		NormalRangeMax: Number(normalRangeMax),
 		Unit: unit
 	};
 	const url = BACKEND_API_URL + '/types/lab-records';
@@ -56,10 +56,10 @@ export const updateLabRecordType = async (
 	labRecordTypeId: string,
 	typeName: string,
 	displayName: string,
-	normalRangeMin: number,
-	normalRangeMax: number,
 	snowmedCode?: string,
 	loincCode?: string,
+	normalRangeMin?: number,
+	normalRangeMax?: number,
 	unit?: string
 ) => {
 	const body = {
@@ -67,8 +67,8 @@ export const updateLabRecordType = async (
 		DisplayName: displayName,
 		SnowmedCode: snowmedCode,
 		LoincCode: loincCode,
-		NormalRangeMin: normalRangeMin,
-		NormalRangeMax: normalRangeMax,
+		NormalRangeMin: Number(normalRangeMin),
+		NormalRangeMax: Number(normalRangeMax),
 		Unit: unit
 	};
 	const url = BACKEND_API_URL + `/types/lab-records/${labRecordTypeId}`;

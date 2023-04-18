@@ -148,14 +148,13 @@
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
 					<!-- svelte-ignore a11y-label-has-associated-control -->
 					<label class="label">
-						<span>Normal Range Min *</span>
+						<span>Normal Range Min</span>
 					</label>
 				</div>
 				<div class="w-1/2 md:w-2/3 lg:w-2/3">
 					<input
 						type="text"
 						name="normalRangeMin"
-						required
 						bind:value={normalRangeMin}
 						class="input w-full"
 						placeholder="Enter normal range min here..."
@@ -167,14 +166,13 @@
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
 					<!-- svelte-ignore a11y-label-has-associated-control -->
 					<label class="label">
-						<span>Normal Range Max *</span>
+						<span>Normal Range Max</span>
 					</label>
 				</div>
 				<div class="w-1/2 md:w-2/3 lg:w-2/3">
 					<input
 						type="text"
 						name="normalRangeMax"
-						required
 						bind:value={normalRangeMax}
 						class="input w-full"
 						placeholder="Enter normal range max here..."
