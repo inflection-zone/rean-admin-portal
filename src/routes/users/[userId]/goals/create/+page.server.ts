@@ -18,10 +18,9 @@ export const actions = {
 		const response = await createGoal(
 			sessionId,
 			type.valueOf() as string,
-			tags.valueOf() as string[]
+			tags?.valueOf() as string[]
 		);
 		const id = response.Data.GoalType.id;
-		console.log('res---', response);
 		if (response.Status === 'failure' || response.HttpCode !== 201) {
 			throw redirect(303, '/goals', errorMessage(response.Message), event);
 		}
