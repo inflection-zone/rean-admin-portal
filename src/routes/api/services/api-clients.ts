@@ -10,7 +10,7 @@ export const createApiClient = async (
 	sessionId: string,
 	clientName: string,
 	password: string,
-	phone: number,
+	phone: string,
 	email: string
 ) => {
 	const body = {
@@ -19,6 +19,9 @@ export const createApiClient = async (
 		Phone: phone,
 		Email: email
 	};
+	if (Helper.isPhone(phone)) {
+		body.Phone = Helper.sanitizePhone(phone);
+}
 	const url = BACKEND_API_URL + '/api-clients';
 	return await post_(sessionId, url, body, true);
 };
@@ -83,12 +86,11 @@ export const updateApiKey = async (
 	userName: string,
 	password: string,
 	validFrom?: Date,
-	validStill?: Date
-	
+	validTill?: Date
 ) => {
 	const body = {
 		ValidFrom: validFrom,
-		ValidStill: validStill
+		ValidTill: validTill
 	};
 	const url = BACKEND_API_URL + `/api-clients/${apiClientCode}/renew-api-key`;
 	return await put(url, body, true, userName, password);
