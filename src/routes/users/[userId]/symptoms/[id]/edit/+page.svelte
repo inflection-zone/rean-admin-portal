@@ -99,7 +99,7 @@
 <main class="h-screen mb-10">
 	<BreadCrumbs crumbs={breadCrumbs} />
 
-	<div class="px-5 mb-5 ">
+	<div class="">
 		<form
 			method="post"
 			action="?/updateSymptomAction"
