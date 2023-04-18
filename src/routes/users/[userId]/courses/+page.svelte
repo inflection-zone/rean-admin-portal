@@ -192,7 +192,7 @@
 	</button>
 </a>
 <!-- lineColor="#ECE4FC" -->
-<div class="mt-10 mb-14">
+<div class="flex justify-center rounded-lg flex-col mt-14 mb-10 lg:gap-6 md:gap-4 gap-4 md:ml-4 md:flex-col sm:flex-col min-[280px]:flex-col overflow-auto">
 <!-- <div class="justify-center w-sceen mx-14 bg-tertiary-500 rounded-lg">
 	<div class="w-full h-14 rounded-t-lg p-3  bg-secondary-500">
     <div class="ml-3 relative flex flex-row text-white text-xl">Courses</div>
