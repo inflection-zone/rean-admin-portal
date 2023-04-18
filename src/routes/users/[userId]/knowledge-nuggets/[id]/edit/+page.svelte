@@ -57,7 +57,7 @@
 <main class="h-screen mb-10">
 	<BreadCrumbs crumbs={breadCrumbs} />
 
-	<div class="h-screen mb-10 ">
+	<div class="">
 		<form
 			method="post"
 			action="?/updateKnowledgeNuggetAction"

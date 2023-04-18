@@ -27,7 +27,7 @@
 <main class="h-screen mb-10">
 	<BreadCrumbs crumbs={breadCrumbs} />
 
-	<div class="h-screen mb-10 ">
+	<div class="">
 		<form
 			method="post"
 			action="?/createKnowledgeNuggetAction"
@@ -73,7 +73,6 @@
 				<div class="w-1/2 md:w-2/3 lg:w-2/3">
 					<textarea
 						name="briefInformation"
-						required
 						class="textarea textarea-primary w-full"
 						placeholder="Enter brief information here..."
 					/>
@@ -89,7 +88,6 @@
 				<div class="w-1/2 md:w-2/3 lg:w-2/3">
 					<textarea
 						name="detailedInformation"
-						required
 						class="textarea w-full"
 						placeholder="Enter detailed information here..."
 					/>
