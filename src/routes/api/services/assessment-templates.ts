@@ -5,10 +5,8 @@ import { delete_, get_, post_, put_ } from './common';
 
 export const createAssessmentTemplate = async (
 	sessionId: string,
-	// assetCode: string,
 	title: string,
 	description: string,
-	displayCode: string,
 	type: string,
 	provider: string,
 	providerAssessmentCode: string,
@@ -16,16 +14,15 @@ export const createAssessmentTemplate = async (
 	scoringApplicable:boolean,
 ) => {
 	const body = {
-		// AssetCode: assetCode,
 		Title: title,
 		Description: description,
-		DisplayCode: displayCode,
 		Type: type,
 		Provider: provider,
 		ProviderAssessmentCode: providerAssessmentCode,
 		ServeListNodeChildrenAtOnce: serveListNodeChildrenAtOnce,
 		ScoringApplicable:scoringApplicable
 	};
+	console.log('Bodety=========', body);
 	const url = BACKEND_API_URL + '/clinical/assessment-templates';
 	return await post_(sessionId, url, body, true);
 };
@@ -63,7 +60,6 @@ export const updateAssessmentTemplate = async (
 	assessmentTemplateId: string,
 	title: string,
 	description: string,
-	// displayCode: string,
 	type: string,
 	provider: string,
 	providerAssessmentCode: string
@@ -72,7 +68,6 @@ export const updateAssessmentTemplate = async (
 	const body = {
 		Title: title,
 		Description: description,
-		// DisplayCode: displayCode,
 		Type: type,
 		Provider: provider,
 		ProviderAssessmentCode: providerAssessmentCode
