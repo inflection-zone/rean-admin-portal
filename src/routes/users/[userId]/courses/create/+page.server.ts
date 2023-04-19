@@ -16,13 +16,13 @@ export const actions = {
 		const imageUrl = data.has('imageUrl') ? data.get('imageUrl') : null;
 		const durationInDays = data.has('durationInDays') ? data.get('durationInDays') : null;
 		const sessionId = event.cookies.get('sessionId');
-
+		
 		const response = await createCourse(
 			sessionId,
 			name.valueOf() as string,
 			description.valueOf() as string,
 			imageUrl.valueOf() as string,
-			durationInDays.valueOf() as number
+			durationInDays?.valueOf() as number
 		);
 		const courseId = response.Data.Course.id;
 

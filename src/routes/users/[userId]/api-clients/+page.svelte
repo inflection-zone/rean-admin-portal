@@ -28,7 +28,7 @@
 
 	const breadCrumbs = [
 		{
-			name: 'Api-clients',
+			name: 'Api-Clients',
 			path: apiClientRoute
 		}
 	];

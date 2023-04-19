@@ -49,7 +49,7 @@
 	<form
 		method="post"
 		action="?/createAssessmentNodeAction"
-		class="w-full max-w-4xl  bg-[#ECE4FC] mt-6 mb-20  rounded-lg mx-auto"
+		class="w-full  bg-[#ECE4FC] lg:mt-10 md:mt-8 sm:mt-6 mb-10 mt-4 lg:max-w-4xl md:max-w-xl sm:max-w-lg  rounded-lg mx-auto"
 	>
 		<div class="w-full  h-14 rounded-t-lg p-3  bg-[#7165E3]">
 			<div class="ml-3 relative flex flex-row text-white text-xl">
@@ -61,13 +61,13 @@
 		</div>
 
 		<div class="flex items-center mb-4 mt-10 mx-16">
-			<div class="w-1/3">
+			<div class="w-1/2 md:w-1/3 lg:w-1/3">
 				<!-- svelte-ignore a11y-label-has-associated-control -->
 				<label class="label">
-					<span>Node Type</span>
+					<span>Node Type *</span>
 				</label>
 			</div>
-			<div class="w-2/3">
+			<div class="w-1/2 md:w-2/3 lg:w-2/3">
 				<select
 					name="nodeType"
 					required
@@ -83,13 +83,13 @@
 		</div>
 
 		<div class="flex items-center my-4 mx-16">
-			<div class="w-1/3">
+			<div class="w-1/2 md:w-1/3 lg:w-1/3">
 				<!-- svelte-ignore a11y-label-has-associated-control -->
 				<label class="label">
-					<span>Parent Node</span>
+					<span>Parent Node *</span>
 				</label>
 			</div>
-			<div class="w-2/3">
+			<div class="w-1/2 md:w-2/3 lg:w-2/3">
 				<select
 					name="parentNodeId"
 					required
@@ -103,43 +103,43 @@
 			</div>
 		</div>
 
-		{#if selectedNodeType === 'Question'}
-			<div class="flex items-center my-4 mx-16">
-				<div class="w-1/3">
-					<!-- svelte-ignore a11y-label-has-associated-control -->
-					<label class="label">
-						<span>Title</span>
-					</label>
-				</div>
-				<div class="w-2/3">
-					<input type="text" name="title" class="input w-full" placeholder="Enter title here..." />
-				</div>
+		<div class="flex items-center my-4 mx-16">
+			<div class="w-1/2 md:w-1/3 lg:w-1/3">
+				<!-- svelte-ignore a11y-label-has-associated-control -->
+				<label class="label">
+					<span>Title *</span>
+				</label>
 			</div>
+			<div class="w-1/2 md:w-2/3 lg:w-2/3">
+				<input type="text" name="title" class="input w-full" placeholder="Enter title here..." />
+			</div>
+		</div>
 
-			<div class="flex items-start mt-4 mx-16">
-				<div class="w-1/3">
-					<!-- svelte-ignore a11y-label-has-associated-control -->
-					<label class="label mt-2">
-						<span>Description</span>
-					</label>
-				</div>
-				<div class="w-2/3">
-					<textarea
-						name="description"
-						required
-						class="textarea w-full"
-						placeholder="Enter description here..."
-					/>
-				</div>
+		<div class="flex items-start mt-4 mx-16">
+			<div class="w-1/2 md:w-1/3 lg:w-1/3">
+				<!-- svelte-ignore a11y-label-has-associated-control -->
+				<label class="label mt-2">
+					<span>Description</span>
+				</label>
 			</div>
+			<div class="w-1/2 md:w-2/3 lg:w-2/3">
+				<textarea
+					name="description"
+					class="textarea w-full"
+					placeholder="Enter description here..."
+				/>
+			</div>
+		</div>
+
+		{#if selectedNodeType === 'Question'}
 			<div class="flex items-center my-2 mx-16">
-				<div class="w-1/3">
+				<div class="w-1/2 md:w-1/3 lg:w-1/3">
 					<!-- svelte-ignore a11y-label-has-associated-control -->
 					<label class="label">
-						<span>Query Response Type</span>
+						<span>Query Response Type *</span>
 					</label>
 				</div>
-				<div class="w-2/3">
+				<div class="w-1/2 md:w-2/3 lg:w-2/3">
 					<select
 						id="mySelect"
 						name="queryType"
@@ -158,13 +158,13 @@
 					{#if selectedQueryType === 'Single Choice Selection'}
 						<SingleChoice />
 						<div class="flex items-center my-4 mx-16">
-							<div class="w-1/3">
+							<div class="w-1/2 md:w-1/3 lg:w-1/3">
 								<!-- svelte-ignore a11y-label-has-associated-control -->
 								<label class="label">
 									<span>Resolution Score</span>
 								</label>
 							</div>
-							<div class="w-2/3">
+							<div class="w-1/2 md:w-2/3 lg:w-2/3">
 								<input
 									type="number"
 									name="resolutionScore"
@@ -176,13 +176,13 @@
 					{:else if selectedQueryType === 'Multi Choice Selection'}
 						<MultipleChoice />
 						<div class="flex items-center my-4 mx-16">
-							<div class="w-1/3">
+							<div class="w-1/2 md:w-1/3 lg:w-1/3">
 								<!-- svelte-ignore a11y-label-has-associated-control -->
 								<label class="label">
 									<span>Resolution Score</span>
 								</label>
 							</div>
-							<div class="w-2/3">
+							<div class="w-1/2 md:w-2/3 lg:w-2/3">
 								<input
 									type="number"
 									name="resolutionScore"
@@ -193,13 +193,13 @@
 						</div>
 					{:else if selectedQueryType === 'Boolean'}
 						<div class="flex items-center my-4 mx-16">
-							<div class="w-1/3">
+							<div class="w-1/2 md:w-1/3 lg:w-1/3">
 								<!-- svelte-ignore a11y-label-has-associated-control -->
 								<label class="label">
 									<span>Resolution Score</span>
 								</label>
 							</div>
-							<div class="w-2/3">
+							<div class="w-1/2 md:w-2/3 lg:w-2/3">
 								<input
 									type="number"
 									name="resolutionScore"
@@ -224,42 +224,15 @@
 				{/if}
 			</div>
 		{:else if selectedNodeType === 'Message'}
-			<div class="flex items-center my-4 mx-16">
-				<div class="w-1/3">
-					<!-- svelte-ignore a11y-label-has-associated-control -->
-					<label class="label">
-						<span>Title</span>
-					</label>
-				</div>
-				<div class="w-2/3">
-					<input type="text" name="title" class="input w-full" placeholder="Enter title here..." />
-				</div>
-			</div>
-
-			<div class="flex items-start mt-4 mx-16">
-				<div class="w-1/3">
-					<!-- svelte-ignore a11y-label-has-associated-control -->
-					<label class="label mt-2">
-						<span>Description</span>
-					</label>
-				</div>
-				<div class="w-2/3">
-					<textarea
-						name="description"
-						required
-						class="textarea w-full"
-						placeholder="Enter description here..."
-					/>
-				</div>
-			</div>
+			
 			<div class="flex items-start mb-4 mt-2 mx-16">
-				<div class="w-1/3">
+				<div class="w-1/2 md:w-1/3 lg:w-1/3">
 					<!-- svelte-ignore a11y-label-has-associated-control -->
 					<label class="label mt-2">
 						<span>Message</span>
 					</label>
 				</div>
-				<div class="w-2/3">
+				<div class="w-1/2 md:w-2/3 lg:w-2/3">
 					<textarea
 						name="message"
 						required
@@ -269,43 +242,15 @@
 				</div>
 			</div>
 		{:else}
-			<div class="flex items-center my-4 mx-16">
-				<div class="w-1/3">
-					<!-- svelte-ignore a11y-label-has-associated-control -->
-					<label class="label">
-						<span>Title</span>
-					</label>
-				</div>
-				<div class="w-2/3">
-					<input type="text" name="title" class="input w-full" placeholder="Enter title here..." />
-				</div>
-			</div>
-
-			<div class="flex items-start mt-4 nb-2 mx-16">
-				<div class="w-1/3">
-					<!-- svelte-ignore a11y-label-has-associated-control -->
-					<label class="label mt-2">
-						<span>Description</span>
-					</label>
-				</div>
-				<div class="w-2/3">
-					<textarea
-						name="description"
-						required
-						class="textarea w-full"
-						placeholder="Enter description here..."
-					/>
-				</div>
-			</div>
-
+			
 			<div class="flex items-center mb-4 lg:mx-16 md:mx-12 mx-10">
-				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
+				<div class="w-1/2 md:w-1/2 md:w-1/3 lg:w-1/3 ">
 					<!-- svelte-ignore a11y-label-has-associated-control -->
 					<label class="label">
 						<span>Serve List Node Children At Once</span>
 					</label>
 				</div>
-				<div class="w-1/2 md:w-2/3 lg:w-2/3">
+				<div class="w-1/2 md:w-1/2 md:w-2/3 lg:w-2/3 lg:w-1/2 md:w-2/3 lg:w-2/3">
 					<label class="label cursor-pointer">
 						<input
 							type="checkbox"
