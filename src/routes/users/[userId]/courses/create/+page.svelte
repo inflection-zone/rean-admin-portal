@@ -70,7 +70,7 @@
 <main class="h-screen mb-10">
 	<BreadCrumbs crumbs={breadCrumbs} />
 
-	<div class="px-5 mb-5 ">
+	<div>
 		<form
 			method="post"
 			action="?/createCourseAction"
@@ -93,29 +93,13 @@
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
 					<!-- svelte-ignore a11y-label-has-associated-control -->
 					<label class="label">
-						<span>Name</span>
+						<span>Name *</span>
 					</label>
 				</div>
 				<div class="w-1/2 md:w-2/3 lg:w-2/3">
-					<input type="text" name="name" placeholder="Enter name here..." class="input w-full " />
+					<input type="text" name="name" required placeholder="Enter name here..." class="input w-full " />
 				</div>
 			</div>
-
-			<!-- <div class="flex items-center my-4 lg:mx-16 md:mx-12 mx-10">
-				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
-					<label class="label">
-						<span>Name</span>
-					</label>
-				</div>
-				<div class="w-1/2 md:w-2/3 lg:w-2/3">
-					<select class="select w-full" placeholder="Select learning journey here...">
-						<option selected>Careplan</option>
-						<option>Auto</option>
-						<option>Dark mode</option>
-						<option>Light mode</option>
-					</select>
-				</div>
-			</div> -->
 
 			<div class="flex items-center mb-2 lg:mx-16 md:mx-12 mx-10">
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
@@ -127,7 +111,6 @@
 				<div class="w-1/2 md:w-2/3 lg:w-2/3">
 					<textarea
 						name="description"
-						required
 						class="textarea w-full"
 						placeholder="Enter description here..."
 					/>

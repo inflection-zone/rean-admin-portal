@@ -48,7 +48,7 @@
 <main class="h-screen mb-10">
 	<BreadCrumbs crumbs={breadCrumbs} />
 
-	<div class="px-3 mb-5">
+	<div>
 		<form
 			method="get"
 			class="w-full lg:max-w-4xl md:max-w-xl sm:max-w-lg mb-10 bg-[#ECE4FC] mt-6 rounded-lg mx-auto"
@@ -72,15 +72,6 @@
 				</div>
 				<span class="span w-1/2 md:2/3 lg:2/3" id="name">{name}</span>
 			</div>
-
-			<!-- <div class="flex items-center my-4 lg:mx-16 md:mx-12 mx-10">
-				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
-					<label class="label">
-						<span>Learning Journey</span>
-					</label>
-				</div>
-				<span class="w-1/2 md:2/3 lg:2/3" id="learningJourney">{learningJourney}</span>
-			</div> -->
 
 			<div class="flex items-start my-4 lg:mx-16 md:mx-12 mx-10">
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">

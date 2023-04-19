@@ -269,7 +269,7 @@
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
 					<!-- svelte-ignore a11y-label-has-associated-control -->
 					<label class="label">
-						<span>addressType</span>
+						<span>Address Type</span>
 					</label>
 				</div>
 				<div class="w-1/2 md:w-2/3 lg:w-2/3">
@@ -280,7 +280,7 @@
 						bind:value={addressType}
 					>
 						<option>Home</option>
-						<option>office</option>
+						<option>Office</option>
 					</select>
 				</div>
 			</div>

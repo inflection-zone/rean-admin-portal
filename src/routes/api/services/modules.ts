@@ -16,7 +16,7 @@ export const createModule = async (
 		Name: name,
 		Description: description,
 		// Sequence: sequence,
-		DurationInMins: durationInMins
+		DurationInMins: Number(durationInMins)
 	};
 	const url = BACKEND_API_URL + '/educational/course-modules';
 	return await post_(sessionId, url, body, true);
@@ -63,6 +63,7 @@ export const updateModule = async (
 		// Sequence: sequence,
 		DurationInMins: durationInMins
 	};
+	console.log("body",body)
 	const url = BACKEND_API_URL + `/educational/course-modules/${moduleId}`;
 	return await put_(sessionId, url, body, true);
 };

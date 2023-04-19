@@ -26,7 +26,7 @@
 	<form
 		method="post"
 		action="?/createAssessmentAction"
-		class="w-full max-w-4xl  bg-[#ECE4FC] mt-6 mb-20  rounded-lg mx-auto"
+		class="w-full  bg-[#ECE4FC] lg:mt-10 md:mt-8 sm:mt-6 mb-10 mt-4 lg:max-w-4xl md:max-w-xl sm:max-w-lg  rounded-lg mx-auto"
 	>
 		<div class="w-full  h-14 rounded-t-lg p-3  bg-[#7165E3]">
 			<div class="ml-3 relative flex flex-row text-white text-xl">
@@ -37,16 +37,14 @@
 			</div>
 		</div>
 
-		<div class="hidden" id="assetCode" />
-
 		<div class="flex items-center mb-4 mt-10 mx-16">
-			<div class="w-1/3">
+			<div class="w-1/2 md:w-1/3 lg:w-1/3">
 				<!-- svelte-ignore a11y-label-has-associated-control -->
 				<label class="label">
-					<span>Title*</span>
+					<span>Title *</span>
 				</label>
 			</div>
-			<div class="w-2/3">
+			<div class="w-1/2 md:w-2/3 lg:w-2/3">
 				<input
 					type="text"
 					name="title"
@@ -57,46 +55,30 @@
 			</div>
 		</div>
 
-		<div class="flex items-center mt-4 mb-2 mx-16">
-			<div class="w-1/3">
+		<div class="flex items-start mt-4 mb-2 mx-16">
+			<div class="w-1/2 md:w-1/3 lg:w-1/3">
 				<!-- svelte-ignore a11y-label-has-associated-control -->
-				<label class="label">
+				<label class="label mt-2">
 					<span>Description</span>
 				</label>
 			</div>
-			<div class="w-2/3">
+			<div class="w-1/2 md:w-2/3 lg:w-2/3">
 				<textarea
 					name="description"
-					required
 					class="textarea w-full"
 					placeholder="Enter description here..."
 				/>
 			</div>
 		</div>
 
-		<!-- <div class="flex items-center my-4 mx-16">
-			<div class="w-1/3">
-				<label class="label">
-					<span>Display code</span>
-				</label>
-			</div>
-			<div class="w-2/3">
-				<input
-					type="text"
-					name="displayCode"
-					class="input w-full"
-					placeholder="Enter display code here"
-				/>
-			</div>
-		</div> -->
 		<div class="flex items-center my-2 mx-16">
-			<div class="w-1/3">
+			<div class="w-1/2 md:w-1/3 lg:w-1/3">
 				<!-- svelte-ignore a11y-label-has-associated-control -->
 				<label class="label">
-					<span>Type</span>
+					<span>Type *</span>
 				</label>
 			</div>
-			<div class="w-2/3">
+			<div class="w-1/2 md:w-2/3 lg:w-2/3">
 				<select class="select w-full" name="type" placeholder="Select type here...">
 					<option selected>Careplan</option>
 					<option>Daily Update</option>
@@ -109,25 +91,25 @@
 		</div>
 
 		<div class="flex items-center my-4 mx-16">
-			<div class="w-1/3">
+			<div class="w-1/2 md:w-1/3 lg:w-1/3">
 				<!-- svelte-ignore a11y-label-has-associated-control -->
 				<label class="label">
 					<span>Provider</span>
 				</label>
 			</div>
-			<div class="w-2/3">
+			<div class="w-1/2 md:w-2/3 lg:w-2/3">
 				<input type="text" name="provider" class="input w-full" placeholder="Enter provider here" />
 			</div>
 		</div>
 
 		<div class="flex items-center my-4 mx-16">
-			<div class="w-1/3">
+			<div class="w-1/2 md:w-1/3 lg:w-1/3">
 				<!-- svelte-ignore a11y-label-has-associated-control -->
 				<label class="label">
 					<span>Provider Assessment Code</span>
 				</label>
 			</div>
-			<div class="w-2/3">
+			<div class="w-1/2 md:w-2/3 lg:w-2/3">
 				<input
 					type="text"
 					name="providerAssessmentCode"
@@ -137,13 +119,13 @@
 			</div>
 		</div>
 		<div class="flex items-center my-4 mx-16">
-			<div class="w-1/3">
+			<div class="w-1/2 md:w-1/3 lg:w-1/3">
 				<!-- svelte-ignore a11y-label-has-associated-control -->
 				<label class="label">
 					<span>Servelist Node Children At Once</span>
 				</label>
 			</div>
-			<div class="w-1/2 md:w-2/3 lg:w-2/3">
+			<div class="w-1/2 md:w-1/2 md:w-2/3 lg:w-2/3 lg:w-1/2 md:w-2/3 lg:w-2/3">
 				<label class="label cursor-pointer">
 					<input
 						type="checkbox"
@@ -156,13 +138,13 @@
 		</div>
 
 		<div class="flex items-center my-4 mx-16">
-			<div class="w-1/3">
+			<div class="w-1/2 md:w-1/3 lg:w-1/3">
 				<!-- svelte-ignore a11y-label-has-associated-control -->
 				<label class="label">
 					<span>Scoring Applicable</span>
 				</label>
 			</div>
-			<div class="w-1/2 md:w-2/3 lg:w-2/3">
+			<div class="w-1/2 md:w-1/2 md:w-2/3 lg:w-2/3 lg:w-1/2 md:w-2/3 lg:w-2/3">
 				<label class="label cursor-pointer">
 					<input
 						type="checkbox"
