@@ -18,7 +18,7 @@ export const actions = {
 		const response = await createPersonRoleType(
 			sessionId,
 			roleName.valueOf() as string,
-			description.valueOf() as string
+			description?.valueOf() as string
 		);
 		const id = response.Data.RoleType.id;
 
