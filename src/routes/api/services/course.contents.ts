@@ -16,11 +16,11 @@ export const createCourseContent = async (
 	const body = {
 		ModuleId: moduleId,
 		Title: title,
-		Description: description,
-		Sequence: sequence,
-		ImageUrl: imageUrl,
-		ContentType: contentType,
-		ResourceLink: resourceLink
+		Description: description ? description : null,
+		Sequence: sequence ? sequence : null,
+		ImageUrl: imageUrl ? imageUrl : null,
+		ContentType: contentType ? contentType : null,
+		ResourceLink: resourceLink,
 	};
 	const url = BACKEND_API_URL + '/educational/course-contents';
 	return await post_(sessionId, url, body, true);
@@ -65,11 +65,11 @@ export const updateCourseContent = async (
 	const body = {
 		ModuleId: moduleId,
 		Title: title,
-		Description: description,
-		Sequence: sequence,
-		ImageUrl: imageUrl,
-		ContentType: contentType,
-		ResourceLink: resourceLink
+		Description: description ? description : null,
+		Sequence: sequence ? sequence : null,
+		ImageUrl: imageUrl ? imageUrl : null,
+		ContentType: contentType ? contentType : null,
+		ResourceLink: resourceLink,
 	};
 	const url = BACKEND_API_URL + `/educational/course-contents/${contentId}`;
 	return await put_(sessionId, url, body, true);
