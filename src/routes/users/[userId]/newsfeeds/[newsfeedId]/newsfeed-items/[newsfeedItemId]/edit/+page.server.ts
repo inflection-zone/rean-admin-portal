@@ -38,6 +38,7 @@ export const actions = {
 		const data = await request.formData();
 
 		const title = data.has('title') ? data.get('title') : null;
+		const content = data.has('content') ? data.get('content') : null;
 		const description = data.has('description') ? data.get('description') : null;
 		const link = data.has('link') ? data.get('link') : null;
 		const image = data.has('image') ? data.get('image') : null;
@@ -51,12 +52,13 @@ export const actions = {
 			newsfeedItemId,
 			newsfeedId,
 			title.valueOf() as string,
-			description.valueOf() as string,
-			link.valueOf() as string,
-			image.valueOf() as string,
-			authorName.valueOf() as string,
-			authorEmail.valueOf() as string,
-			authorLink.valueOf() as string
+			content.valueOf() as string,
+			description?.valueOf() as string,
+			link?.valueOf() as string,
+			image?.valueOf() as string,
+			authorName?.valueOf() as string,
+			authorEmail?.valueOf() as string,
+			authorLink?.valueOf() as string
 		);
 		const id = response.Data.RssfeedItem.id;
 

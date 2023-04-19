@@ -72,10 +72,10 @@
 	};
 </script>
 
-<main class="h-screen mb-10">
+<main class="h-screen mb-48">
 	<BreadCrumbs crumbs={breadCrumbs} />
 
-	<div class="px-5 mb-5 ">
+	<div class="">
 		<form
 			method="post"
 			action="?/createNewsfeedItemAction"
@@ -98,15 +98,15 @@
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
 					<!-- svelte-ignore a11y-label-has-associated-control -->
 					<label class="label">
-						<span>Title</span>
+						<span>Title *</span>
 					</label>
 				</div>
 				<div class="w-1/2 md:w-2/3 lg:w-2/3">
-					<input type="text" name="title" placeholder="Enter title here..." class="input w-full " />
+					<input type="text" name="title" required placeholder="Enter title here..." class="input w-full " />
 				</div>
 			</div>
 
-			<div class="flex items-center mb-2 lg:mx-16 md:mx-12 mx-10">
+			<div class="flex items-start mb-2 lg:mx-16 md:mx-12 mx-10">
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
 					<!-- svelte-ignore a11y-label-has-associated-control -->
 					<label class="label">
@@ -130,7 +130,19 @@
 					</label>
 				</div>
 				<div class="w-1/2 md:w-2/3 lg:w-2/3">
-					<input type="text" name="link" placeholder="Enter link here..." class="input w-full " />
+					<input type="url" name="link" placeholder="Enter link here..." class="input w-full " />
+				</div>
+			</div>
+
+			<div class="flex items-center mb-4 lg:mx-16 md:mx-12 mx-10">
+				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
+					<!-- svelte-ignore a11y-label-has-associated-control -->
+					<label class="label">
+						<span>Content *</span>
+					</label>
+				</div>
+				<div class="w-1/2 md:w-2/3 lg:w-2/3">
+					<input type="text" name="content" required placeholder="Enter content here..." class="input w-full " />
 				</div>
 			</div>
 
@@ -177,7 +189,7 @@
 				</div>
 				<div class="w-1/2 md:w-2/3 lg:w-2/3">
 					<input
-						type="text"
+						type="url"
 						name="authorLink"
 						placeholder="Enter author link here..."
 						class="input w-full "
@@ -202,10 +214,6 @@
 						placeholder="Image"
 						on:change={async (e) => await onFileSelected(e)}
 					/>
-					<!-- <button 
-						class="capitalize btn variant-filled-primary lg:w-[19%] md:w-[22%] md:text-[13px] sm:w-[30%] sm:text-[12px] min-[320px]:w-[40%] min-[320px]:text-[10px]"
-						>Upload</button
-					> -->
 					<input type="hidden" name="image" value={image} />
 				</div>
 			</div>
