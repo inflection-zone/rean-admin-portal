@@ -12,7 +12,7 @@ export const createCourse = async (
 ) => {
 	const body = {
 		Name: name,
-		Description: description ? description: null,
+		Description: description ? description : null,
 		ImageUrl: imageUrl ? imageUrl : null,
 		DurationInDays: durationInDays ? durationInDays : null,
 	};
@@ -57,7 +57,7 @@ export const updateCourse = async (
 	const body = {
 		courseId,
 		Name: name,
-		Description: description ? description: null,
+		Description: description ? description : null,
 		ImageUrl: imageUrl ? imageUrl : null,
 		DurationInDays: durationInDays ? durationInDays : null,
 	};
