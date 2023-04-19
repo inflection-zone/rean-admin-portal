@@ -6,14 +6,14 @@ import { delete_, get_, post_, put_ } from './common';
 export const createNewsfeed = async (
 	sessionId: string,
 	title: string,
-	description?: string,
-	category?: string,
-	link?: string,
-	language?: string,
-	copyright?: string,
-	favicon?: string,
-	image?: string,
-	tags?: string[]
+	description: string,
+	category: string,
+	link: string,
+	language: string,
+	copyright: string,
+	favicon: string,
+	image: string,
+	tags: string[]
 ) => {
 	const body = {
 		Title: title,
@@ -24,7 +24,7 @@ export const createNewsfeed = async (
 		Copyright: copyright ? copyright : null,
 		Favicon: favicon ? favicon : null,
 		Image: image ? image : null,
-		Tags: tags
+		Tags: tags ? tags : []
 	};
 	const url = BACKEND_API_URL + '/rss-feeds';
 	return await post_(sessionId, url, body, true);
@@ -59,14 +59,14 @@ export const updateNewsfeed = async (
 	sessionId: string,
 	newsfeedId: string,
 	title: string,
-	description?: string,
-	category?: string,
-	link?: string,
-	language?: string,
-	copyright?: string,
-	favicon?: string,
-	image?: string,
-	tags?: string[]
+	description: string,
+	category: string,
+	link: string,
+	language: string,
+	copyright: string,
+	favicon: string,
+	image: string,
+	tags: string[]
 ) => {
 	const body = {
 		Title: title,
@@ -77,7 +77,7 @@ export const updateNewsfeed = async (
 		Copyright: copyright ? copyright : null,
 		Favicon: favicon ? favicon : null,
 		Image: image ? image : null,
-		Tags: tags
+		Tags: tags ? tags : null,
 	};
 	const url = BACKEND_API_URL + `/rss-feeds/${newsfeedId}`;
 	return await put_(sessionId, url, body, true);

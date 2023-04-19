@@ -8,12 +8,12 @@ export const createNewsfeedItem = async (
 	newsfeedId: string,
 	title: string,
 	content: string,
-	description?: string,
-	link?: string,
-	image?: string,
-	authorName?: string,
-	authorEmail?: string,
-	authorLink?: string
+	description: string,
+	link: string,
+	image: string,
+	authorName: string,
+	authorEmail: string,
+	authorLink: string
 ) => {
 	const body = {
 		FeedId: newsfeedId,
@@ -26,6 +26,7 @@ export const createNewsfeedItem = async (
 		AuthorEmail: authorEmail ? authorEmail : null,
 		AuthorLink: authorLink ? authorLink : null,
 	};
+	console.log('body--',body)
 	const url = BACKEND_API_URL + '/rss-feeds/feed-items';
 	return await post_(sessionId, url, body, true);
 };
@@ -79,6 +80,7 @@ export const updateNewsfeedItem = async (
 		AuthorEmail: authorEmail ? authorEmail : null,
 		AuthorLink: authorLink ? authorLink : null,
 	};
+	console.log('body--',body)
 	const url = BACKEND_API_URL + `/rss-feeds/feed-items/${newsfeedItemId}`;
 	return await put_(sessionId, url, body, true);
 };
