@@ -10,14 +10,9 @@
 
 	export let data: PageServerData;
 	let id = data.priority.id;
-	let patientUserId = data.priority.patientUserId;
-	let provider = data.priority.provider;
-	let source = data.priority.source;
-	let enrollmentId = data.priority.enrollmentId;
-	let careplanCode = data.priority.careplanCode;
-	let careplanName = data.priority.careplanName;
-	let healthPriorityType = data.priority.healthPriorityType;
-	let isPrimary = data.priority.isPrimary;
+	let type = data.priority.Type;
+	let tags_ = data.priority.Tags;
+	let tags = tags_.join(', ');
 
 	onMount(() => {
 		show(data);
@@ -31,7 +26,7 @@
 
 	const breadCrumbs = [
 		{
-			name: 'Priority',
+			name: 'Priority-Types',
 			path: priorityRoute
 		},
 		{
@@ -51,8 +46,8 @@
 		>
 			<div class="w-full  h-14 rounded-t-lg p-3  bg-[#7165E3]">
 				<div class="ml-3 relative flex flex-row text-white lg:text-xl text-lg ">
-					<div class="lg:hidden md:hidden block">View Priority</div>
-					<div class="lg:block md:block hidden">View Priority</div>
+					<div class="lg:hidden md:hidden block">View Health Priority</div>
+					<div class="lg:block md:block hidden">View Health Priority</div>
 					<a href={priorityRoute}>
 						<Fa icon={faMultiply} size="lg" class="absolute right-0 lg:pr-3 pr-0 text-white" />
 					</a>
@@ -63,79 +58,20 @@
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
 					<!-- svelte-ignore a11y-label-has-associated-control -->
 					<label class="label">
-						<span>Patient User Id</span>
+						<span>Type</span>
 					</label>
 				</div>
-				<span class="span w-1/2 md:2/3 lg:2/3" id="patientUserId">{patientUserId}</span>
-			</div>
-			<div class="flex items-center my-4 lg:mx-16 md:mx-12 mx-10">
-				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
-					<!-- svelte-ignore a11y-label-has-associated-control -->
-					<label class="label">
-						<span>Provider</span>
-					</label>
-				</div>
-				<span class="span w-1/2 md:2/3 lg:2/3" id="provider">{provider}</span>
+				<span class="span w-1/2 md:2/3 lg:2/3" id="type">{type}</span>
 			</div>
 
 			<div class="flex items-center my-4 lg:mx-16 md:mx-12 mx-10">
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
 					<!-- svelte-ignore a11y-label-has-associated-control -->
 					<label class="label">
-						<span>Source</span>
+						<span>Tags</span>
 					</label>
 				</div>
-				<span class="span w-1/2 md:2/3 lg:2/3" id="source"> {source} </span>
-			</div>
-
-			<div class="flex items-center my-4 lg:mx-16 md:mx-12 mx-10">
-				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
-					<!-- svelte-ignore a11y-label-has-associated-control -->
-					<label class="label">
-						<span>Enrollment Id</span>
-					</label>
-				</div>
-				<span class="span w-1/2 md:2/3 lg:2/3" id="enrollmentId"> {enrollmentId} </span>
-			</div>
-
-			<div class="flex items-center my-4 lg:mx-16 md:mx-12 mx-10">
-				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
-					<!-- svelte-ignore a11y-label-has-associated-control -->
-					<label class="label">
-						<span>Careplan Code</span>
-					</label>
-				</div>
-				<span class="span w-1/2 md:2/3 lg:2/3" id="careplanCode"> {careplanCode} </span>
-			</div>
-
-			<div class="flex items-center my-4 lg:mx-16 md:mx-12 mx-10">
-				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
-					<!-- svelte-ignore a11y-label-has-associated-control -->
-					<label class="label">
-						<span>Careplan Name</span>
-					</label>
-				</div>
-				<span class="span w-1/2 md:2/3 lg:2/3" id="careplanName"> {careplanName} </span>
-			</div>
-
-			<div class="flex items-center my-4 lg:mx-16 md:mx-12 mx-10">
-				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
-					<!-- svelte-ignore a11y-label-has-associated-control -->
-					<label class="label">
-						<span>Health Priority Type</span>
-					</label>
-				</div>
-				<span class="span w-1/2 md:2/3 lg:2/3" id="healthPriorityType"> {healthPriorityType} </span>
-			</div>
-
-			<div class="flex items-center my-4 lg:mx-16 md:mx-12 mx-10">
-				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
-					<!-- svelte-ignore a11y-label-has-associated-control -->
-					<label class="label">
-						<span>Is Primary</span>
-					</label>
-				</div>
-				<span class="span w-1/2 md:2/3 lg:2/3" id="isPrimary"> {isPrimary} </span>
+				<span class="span w-1/2 md:2/3 lg:2/3">{tags} </span>
 			</div>
 
 			<div class="flex items-center mt-7 lg:mx-16 md:mx-12 mr-10">

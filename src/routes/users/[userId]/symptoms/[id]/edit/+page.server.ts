@@ -2,6 +2,7 @@ import * as cookie from 'cookie';
 import { error, type RequestEvent } from '@sveltejs/kit';
 import { redirect } from 'sveltekit-flash-message/server';
 import { errorMessage, successMessage } from '$lib/utils/message.utils';
+import { BACKEND_API_URL } from '$env/static/private';
 import type { PageServerLoad, Action } from './$types';
 import { getSymptomById, updateSymptom } from '../../../../../api/services/symptoms';
 
@@ -17,7 +18,14 @@ export const load: PageServerLoad = async (event: RequestEvent) => {
 		if (response.Status === 'failure' || response.HttpCode !== 200) {
 			throw error(response.HttpCode, response.Message);
 		}
-		const symptom = response.Data;
+		const symptom = response.Data.SymptomType;
+		const imageResourceId = symptom.ImageResourceId;
+		if (imageResourceId) {
+			symptom['ImageUrl'] =
+				BACKEND_API_URL + `/file-resources/${imageResourceId}/download?disposition=inline`;
+		} else {
+			symptom['ImageUrl'] = null;
+		}
 		return {
 			symptom
 		};
@@ -34,8 +42,7 @@ export const actions = {
 
 		const symptom = data.has('symptom') ? data.get('symptom') : null;
 		const description = data.has('description') ? data.get('description') : null;
-		const temp = data.has('tags') ? data.get('tags') : null;
-		const tags = temp ? JSON.parse(temp?.valueOf() as string) : [];
+		const tags = data.has('tags') ? data.getAll('tags') : null;
 		const language = data.has('language') ? data.get('language') : null;
 		const imageResourceId = data.has('imageResourceId') ? data.get('imageResourceId') : null;
 		const sessionId = event.cookies.get('sessionId');
@@ -46,11 +53,12 @@ export const actions = {
 			symptomId,
 			symptom.valueOf() as string,
 			description.valueOf() as string,
-			tags,
+			tags.valueOf() as string[],
 			language.valueOf() as string,
 			imageResourceId.valueOf() as string
 		);
-		const id = response.Data.id;
+
+		const id = response.Data.SymptomType.id;
 
 		if (response.Status === 'failure' || response.HttpCode !== 200) {
 			throw redirect(303, '/symptoms', errorMessage(response.Message), event);

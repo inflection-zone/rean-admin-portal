@@ -8,12 +8,14 @@ export const createNotification = async (
 	title: string,
 	Body: string,
 	type: string,
-	imageUrl:string
+	broadcastToAll: boolean,
+	imageUrl: string
 ) => {
 	const body = {
 		Title: title,
 		Body: Body,
 		Type: type,
+		BroadcastToAll: broadcastToAll,
 		ImageUrl: imageUrl
 	};
 	const url = BACKEND_API_URL + '/general/notifications';
@@ -51,13 +53,15 @@ export const updateNotification = async (
 	title: string,
 	Body: string,
 	type: string,
-	imageUrl:string
+	broadcastToAll: boolean,
+	imageUrl: string
 ) => {
 	const body = {
 		Title: title,
 		Body: Body,
 		Type: type,
-		ImageUrl:imageUrl
+		BroadcastToAll: broadcastToAll,
+		ImageUrl: imageUrl
 	};
 	const url = BACKEND_API_URL + `/general/notifications/${notificationId}`;
 	return await put_(sessionId, url, body, true);

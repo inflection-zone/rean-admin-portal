@@ -3,20 +3,41 @@
 	import { faMultiply } from '@fortawesome/free-solid-svg-icons';
 	import BreadCrumbs from '$lib/components/breadcrumbs/breadcrums.svelte';
 	import { page } from '$app/stores';
+	import { oragnizationTypesStore } from '$lib/store/general.store';
+	import { LocalStorageUtils } from '$lib/utils/local.storage.utils';
+	import Image from '$lib/components/image.svelte';
+	import { showMessage } from '$lib/utils/message.utils';
 	import type { PageServerData } from './$types';
 
 	export let data: PageServerData;
-	let initiaData = {};
+	oragnizationTypesStore.set(data.types);
+	LocalStorageUtils.setItem('personRoles', JSON.stringify(data.types));
+	let oraganizationTypes = data.types;
 	let id = data.organization.id;
-	let type = data.organization.type;
-	let name = data.organization.name;
-	let contactNumber = data.organization.phone;
-	let email = data.organization.email;
-	let about = data.organization.about;
-	let operationalSince = data.organization.operationalSince;
-	let address = data.organization.address;
-	let imageResource = data.organization.imageResource;
-	let isHealthFacility = data.organization.isHealthFacility;
+	let type = data.organization.Type;
+	let name = data.organization.Name;
+	let contactNumber = data.organization.ContactPhone;
+	let email = data.organization.ContactEmail;
+	let about = data.organization.About;
+	let operationalSince = data.organization.OperationalSince;
+	let addressType = data.organization.Addresses[0].Type;
+	let addressLine = data.organization.Addresses[0].AddressLine;
+	let city = data.organization.Addresses[0].City;
+	let district = data.organization.Addresses[0].District;
+	let state = data.organization.Addresses[0].State;
+	let country = data.organization.Addresses[0].Country;
+	let postalCode = data.organization.Addresses[0].PostalCode;
+	let imageUrl = data.organization.ImageUrl ?? undefined;
+	let imageResourceId = data.organization.ImageResourceId;
+
+	let isHealthFacility = data.organization.IsHealthFacility;
+	let fileinput;
+	console.log('data', imageResourceId);
+
+	let checkboxValue = false;
+	const handleClick = () => {
+		checkboxValue = !checkboxValue;
+	};
 
 	//Original data
 	let _type = type;
@@ -25,8 +46,16 @@
 	let _email = email;
 	let _about = about;
 	let _operationalSince = operationalSince;
-	let _address = address;
-	let _imageResource = imageResource;
+	let _addressLine = addressLine;
+	let _addressType = addressType;
+	let _city = city;
+	let _district = district;
+	let _state = state;
+	let _country = country;
+	let _postalCode = postalCode;
+	let _imageResourceId = imageResourceId;
+
+	//let _imageResource = imageResource;
 	let _isHealthFacility = isHealthFacility;
 
 	function handleReset() {
@@ -36,19 +65,27 @@
 		email = _email;
 		about = _about;
 		operationalSince = _operationalSince;
-		address = _address;
-		imageResource = _imageResource;
+		addressLine = _addressLine;
+		addressType = _addressType;
+		city = _city;
+		district = _district;
+		state = _state;
+		country = _country;
+		postalCode = _postalCode;
+
+		imageResourceId = _imageResourceId;
 		isHealthFacility = _isHealthFacility;
 	}
 
 	const userId = $page.params.userId;
+
 	const editRoute = `/users/${userId}/organizations/${id}/edit`;
 	const viewRoute = `/users/${userId}/organizations/${id}/view`;
 	const organizationRoute = `/users/${userId}/organizations`;
 
 	const breadCrumbs = [
 		{
-			name: 'Organization',
+			name: 'Organizations',
 			path: organizationRoute
 		},
 		{
@@ -56,9 +93,51 @@
 			path: editRoute
 		}
 	];
+
+	const upload = async (imgBase64, filename) => {
+		const data = {};
+		console.log(imgBase64);
+		const imgData = imgBase64.split(',');
+		data['image'] = imgData[1];
+		console.log(JSON.stringify(data));
+		const res = await fetch(`/api/server/file-resources/upload`, {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json',
+				Accept: 'application/json',
+				filename: filename
+			},
+			body: JSON.stringify(data)
+		});
+		console.log(Date.now().toString());
+		const response = await res.json();
+		if (response.Status === 'success' && response.HttpCode === 201) {
+			const imageUrl_ = response.Data.FileResources[0].Url;
+			console.log('imageUrl', imageUrl);
+			const imageResourceId_ = response.Data.FileResources[0].id;
+			console.log('imageResourceId_', imageUrl);
+			if (imageResourceId_) {
+				imageResourceId = imageResourceId_;
+			}
+			console.log('======', imageResourceId_);
+		} else {
+			showMessage(response.Message, 'error');
+		}
+	};
+
+	const onFileSelected = async (e) => {
+		let f = e.target.files[0];
+		const filename = f.name;
+		let reader = new FileReader();
+		reader.readAsDataURL(f);
+		reader.onload = async (e) => {
+			fileinput = e.target.result;
+			await upload(e.target.result, filename);
+		};
+	};
 </script>
 
-<main class="h-screen mb-60">
+<main class=" mb-32">
 	<BreadCrumbs crumbs={breadCrumbs} />
 
 	<div class=" flex justify-center mt-5 px-3 mb-10 flex-col items-center">
@@ -84,11 +163,15 @@
 					</label>
 				</div>
 				<div class="w-1/2 md:w-2/3 lg:w-2/3">
-					<select class="select w-full" bind:value={type} placeholder="select type here...">
-						<option value="Careplan">Careplan</option>
-						<option value="Auto">Auto</option>
-						<option>Dark mode</option>
-						<option>Light mode</option>
+					<select
+						class="select w-full"
+						bind:value={type}
+						name="type"
+						placeholder="select type here..."
+					>
+						{#each oraganizationTypes as types}
+							<option>{types}</option>
+						{/each}
 					</select>
 				</div>
 			</div>
@@ -182,7 +265,27 @@
 				</div>
 			</div>
 
-			<div class="flex items-center mb-2 lg:mx-16 md:mx-12 mx-10">
+			<div class="flex items-center mb-4 lg:mx-16 md:mx-12 mx-10">
+				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
+					<!-- svelte-ignore a11y-label-has-associated-control -->
+					<label class="label">
+						<span>Address Type</span>
+					</label>
+				</div>
+				<div class="w-1/2 md:w-2/3 lg:w-2/3">
+					<select
+						name="addressType"
+						class="select w-full"
+						placeholder="Select address type here..."
+						bind:value={addressType}
+					>
+						<option>Home</option>
+						<option>Office</option>
+					</select>
+				</div>
+			</div>
+
+			<div class="flex items-center mb-4 lg:mx-16 md:mx-12 mx-10">
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
 					<!-- svelte-ignore a11y-label-has-associated-control -->
 					<label class="label">
@@ -190,11 +293,12 @@
 					</label>
 				</div>
 				<div class="w-1/2 md:w-2/3 lg:w-2/3">
-					<textarea
-						class="textarea w-full"
-						name="address"
-						bind:value={address}
+					<input
+						type="text"
+						name="AddressLine"
 						placeholder="Enter address here..."
+						class="input w-full "
+						bind:value={addressLine}
 					/>
 				</div>
 			</div>
@@ -203,17 +307,116 @@
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
 					<!-- svelte-ignore a11y-label-has-associated-control -->
 					<label class="label">
-						<span>Image Resource</span>
+						<span>City</span>
 					</label>
 				</div>
 				<div class="w-1/2 md:w-2/3 lg:w-2/3">
 					<input
 						type="text"
-						name="imageResource"
-						bind:value={imageResource}
-						placeholder="Enter image resource here..."
-						class="input w-full "
+						name="city"
+						placeholder="Enter city here..."
+						class="input w-1/3 "
+						bind:value={city}
 					/>
+				</div>
+			</div>
+			<div class="flex items-center mb-4 lg:mx-16 md:mx-12 mx-10">
+				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
+					<!-- svelte-ignore a11y-label-has-associated-control -->
+					<label class="label">
+						<span>District</span>
+					</label>
+				</div>
+				<div class="w-1/2 md:w-2/3 lg:w-2/3">
+					<input
+						type="text"
+						name="district"
+						placeholder="Enter district here..."
+						class="input w-1/3 "
+						bind:value={district}
+					/>
+				</div>
+			</div>
+			<div class="flex items-center mb-4 lg:mx-16 md:mx-12 mx-10">
+				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
+					<!-- svelte-ignore a11y-label-has-associated-control -->
+					<label class="label">
+						<span>State/Province</span>
+					</label>
+				</div>
+				<div class="w-1/2 md:w-2/3 lg:w-2/3">
+					<select
+						name="state"
+						class="select w-1/2"
+						placeholder="Select state here..."
+						bind:value={state}
+					>
+						<option>Maharashtra</option>
+					</select>
+				</div>
+			</div>
+			<div class="flex items-center mb-4 lg:mx-16 md:mx-12 mx-10">
+				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
+					<!-- svelte-ignore a11y-label-has-associated-control -->
+					<label class="label">
+						<span>Country</span>
+					</label>
+				</div>
+				<div class="w-1/2 md:w-2/3 lg:w-2/3">
+					<input
+						type="text"
+						name="country"
+						placeholder="Enter country here..."
+						class="input w-1/3 "
+						bind:value={country}
+					/>
+				</div>
+			</div>
+			<div class="flex items-center mb-4 lg:mx-16 md:mx-12 mx-10">
+				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
+					<!-- svelte-ignore a11y-label-has-associated-control -->
+					<label class="label">
+						<span>Zip/postal code</span>
+					</label>
+				</div>
+				<div class="w-1/2 md:w-2/3 lg:w-2/3">
+					<input
+						type="text"
+						name="postalCode"
+						placeholder="Enter postal code or zip code here..."
+						class="input w-1/3 "
+						bind:value={postalCode}
+					/>
+				</div>
+			</div>
+
+			<div class="flex items-start my-4 lg:mx-16 md:mx-12 mx-10">
+				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
+					<!-- svelte-ignore a11y-label-has-associated-control -->
+					<label class="label">
+						<span>Image Resource</span>
+					</label>
+				</div>
+				<div class="flex flex-row gap-4 w-1/2 md:w-2/3 lg:w-2/3 ">
+					{#if imageUrl === 'undefined'}
+						<input
+							name="fileinput"
+							type="file"
+							class="true input w-full"
+							placeholder="Image"
+							on:change={async (e) => await onFileSelected(e)}
+						/>
+					{:else}
+						<Image cls="flex h-24 w-24 rounded-lg" source={imageUrl} w="24" h="24" />
+						<input
+							name="fileinput"
+							type="file"
+							class="true input w-full"
+							placeholder="Image"
+							on:change={async (e) => await onFileSelected(e)}
+						/>
+					{/if}
+					<input type="hidden" name="imageResourceId" bind:value={imageResourceId} />
 				</div>
 			</div>
 
@@ -228,8 +431,11 @@
 					<label class="label cursor-pointer">
 						<input
 							type="checkbox"
+							name="isHealthFacility"
 							bind:checked={isHealthFacility}
-							class="checkbox checkbox-primary checkbox-md"
+							value="true"
+							on:click={handleClick}
+							class="checkbox checkbox-primary border-primary-200 hover:border-primary-400 checkbox-md ml-2"
 						/>
 					</label>
 				</div>

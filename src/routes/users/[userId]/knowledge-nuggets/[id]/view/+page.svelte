@@ -3,6 +3,7 @@
 	import { faMultiply, faPen } from '@fortawesome/free-solid-svg-icons';
 	import { onMount } from 'svelte';
 	import { show } from '$lib/utils/message.utils';
+	import date from 'date-and-time';
 	import { LocalStorageUtils } from '$lib/utils/local.storage.utils';
 	import BreadCrumbs from '$lib/components/breadcrumbs/breadcrums.svelte';
 	import { page } from '$app/stores';
@@ -13,10 +14,10 @@
 	let topicName = data.knowledgeNugget.TopicName;
 	let briefInformation = data.knowledgeNugget.BriefInformation;
 	let detailedInformation = data.knowledgeNugget.DetailedInformation;
-	let additionalResource = data.knowledgeNugget.AdditionalResource;
-	let tags = data.knowledgeNugget.Tags;
-	// let tags_ = data.knowledgeNugget.Tags;
-	// let tags = tags_.join(', ');
+	let additionalResources_ = data.knowledgeNugget.AdditionalResources;
+	let additionalResources = additionalResources_.join(', ');
+	let tags_ = data.knowledgeNugget.Tags;
+	let tags = tags_.join(', ');
 
 	onMount(() => {
 		show(data);
@@ -50,8 +51,8 @@
 		>
 			<div class="w-full  h-14 rounded-t-lg p-3  bg-[#7165E3]">
 				<div class="ml-3 relative flex flex-row text-white lg:text-xl text-lg ">
-					<div class="lg:hidden md:hidden block">View Knowledge Nuggets</div>
-					<div class="lg:block md:block hidden">View Knowledge Nuggets</div>
+					<div class="lg:hidden md:hidden block">View Knowledge Nugget</div>
+					<div class="lg:block md:block hidden">View Knowledge Nugget</div>
 					<a href={knowledgeNuggetsRoute}>
 						<Fa icon={faMultiply} size="lg" class="absolute right-0 lg:pr-3 pr-0 text-white" />
 					</a>
@@ -74,8 +75,9 @@
 						<span>Brief Information</span>
 					</label>
 				</div>
-				<span class="span w-1/2 md:2/3 lg:2/3" id="briefInformation"> {briefInformation} </span>
+				<span class="span w-1/2 md:2/3 lg:2/3" id="briefInformation">{briefInformation}</span>
 			</div>
+
 			<div class="flex items-center my-4 lg:mx-16 md:mx-12 mx-10">
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
 					<!-- svelte-ignore a11y-label-has-associated-control -->
@@ -85,6 +87,7 @@
 				</div>
 				<span class="span w-1/2 md:2/3 lg:2/3" id="detailedInformation">{detailedInformation}</span>
 			</div>
+
 			<div class="flex items-center my-4 lg:mx-16 md:mx-12 mx-10">
 				<div class="span w-1/2 md:w-1/3 lg:w-1/3 ">
 					<!-- svelte-ignore a11y-label-has-associated-control -->
@@ -92,16 +95,17 @@
 						<span>Additional Resource</span>
 					</label>
 				</div>
-				<span class="span w-1/2 md:2/3 lg:2/3" id="additionalResource"> {additionalResource} </span>
+				<span class="span w-1/2 md:2/3 lg:2/3" id="additionalResources">{additionalResources}</span>
 			</div>
+
 			<div class="flex items-center my-4 lg:mx-16 md:mx-12 mx-10">
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
 					<!-- svelte-ignore a11y-label-has-associated-control -->
 					<label class="label">
-						<span>Tag</span>
+						<span>Tags</span>
 					</label>
 				</div>
-				<span class="span w-1/2 md:2/3 lg:2/3"> {tags} </span>
+				<span class="span w-1/2 md:2/3 lg:2/3">{tags}</span>
 			</div>
 
 			<div class="flex items-center mt-7 lg:mx-16 md:mx-12 mr-10">

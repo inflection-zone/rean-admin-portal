@@ -18,12 +18,12 @@ export const createSymptom = async (
 		Language: language,
 		ImageResourceId: imageResourceId
 	};
-	const url = BACKEND_API_URL + '/clinical/symptoms';
+	const url = BACKEND_API_URL + '/clinical/symptom-types';
 	return await post_(sessionId, url, body, true);
 };
 
 export const getSymptomById = async (sessionId: string, symptonId: string) => {
-	const url = BACKEND_API_URL + `/clinical/symptoms/${symptonId}`;
+	const url = BACKEND_API_URL + `/clinical/symptom-types/${symptonId}`;
 	return await get_(sessionId, url, true);
 };
 
@@ -43,7 +43,7 @@ export const searchSymptoms = async (sessionId: string, searchParams?: any) => {
 			searchString += params.join('&');
 		}
 	}
-	const url = BACKEND_API_URL + `/clinical/symptoms/search${searchString}`;
+	const url = BACKEND_API_URL + `/clinical/symptom-types/search${searchString}`;
 	return await get_(sessionId, url, true);
 };
 
@@ -63,11 +63,11 @@ export const updateSymptom = async (
 		Language: language,
 		ImageResourceId: imageResourceId
 	};
-	const url = BACKEND_API_URL + `/clinical/symptoms/${symptonId}`;
+	const url = BACKEND_API_URL + `/clinical/symptom-types/${symptonId}`;
 	return await put_(sessionId, url, body, true);
 };
 
 export const deleteSymptom = async (sessionId: string, symptonId: string) => {
-	const url = BACKEND_API_URL + `/clinical/symptoms/${symptonId}`;
+	const url = BACKEND_API_URL + `/clinical/symptom-types/${symptonId}`;
 	return await delete_(sessionId, url, true);
 };

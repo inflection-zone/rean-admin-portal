@@ -38,7 +38,8 @@ export const actions = {
 		const title = data.has('title') ? data.get('title') : null;
 		const Body = data.has('Body') ? data.get('Body') : null;
 		const type = data.has('type') ? data.get('type') : null;
-		const imageUrl = data.has('imageUrl') ? data.get('imageUrl') : null
+		const broadcastToAll = data.has('broadcastToAll') ? data.get('broadcastToAll') : null;
+		const imageUrl = data.has('imageUrl') ? data.get('imageUrl') : null;
 		const sessionId = event.cookies.get('sessionId');
 		const notificationId = event.params.id;
 
@@ -48,10 +49,10 @@ export const actions = {
 			title.valueOf() as string,
 			Body.valueOf() as string,
 			type.valueOf() as string,
+			broadcastToAll.valueOf() as boolean,
 			imageUrl.valueOf() as string
 		);
 		const id = response.Data.Notification.id;
-		console.log(response);
 
 		if (response.Status === 'failure' || response.HttpCode !== 200) {
 			throw redirect(303, '/notifications', errorMessage(response.Message), event);

@@ -13,33 +13,35 @@ export const actions = {
 
 		const title = data.has('title') ? data.get('title') : null;
 		const description = data.has('description') ? data.get('description') : null;
+		const category = data.has('category') ? data.get('category') : null;
 		const link = data.has('link') ? data.get('link') : null;
 		const language = data.has('language') ? data.get('language') : null;
 		const copyright = data.has('copyright') ? data.get('copyright') : null;
 		const favicon = data.has('favicon') ? data.get('favicon') : null;
-		//const image = data.has('image') ? data.get('image') : null;
-		//const tags = data.has('tags') ? data.get('tags') : null;
+		const image = data.has('image') ? data.get('image') : null;
+		const tags = data.has('tags') ? data.getAll('tags') : null;
 		const sessionId = event.cookies.get('sessionId');
 
 		const response = await createNewsfeed(
 			sessionId,
 			title.valueOf() as string,
 			description.valueOf() as string,
+			category.valueOf() as string,
 			link.valueOf() as string,
 			language.valueOf() as string,
 			copyright.valueOf() as string,
-			favicon.valueOf() as string
-			// image.valueOf() as File,
-			//tags.valueOf() as string[],
+			favicon.valueOf() as string,
+			image.valueOf() as string,
+			tags.valueOf() as string[]
 		);
-		const id = response.Data.Rssfeed.id;
+		const newsfeedId = response.Data.Rssfeed.id;
 
 		if (response.Status === 'failure' || response.HttpCode !== 201) {
 			throw redirect(303, '/newsfeeds', errorMessage(response.Message), event);
 		}
 		throw redirect(
 			303,
-			`/users/${userId}/newsfeeds/${id}/view`,
+			`/users/${userId}/newsfeeds/${newsfeedId}/view`,
 			successMessage(`newsfeed created successful!`),
 			event
 		);

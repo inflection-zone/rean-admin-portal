@@ -11,31 +11,17 @@ export const actions = {
 		const userId = event.params.userId;
 		const data = await request.formData();
 
-		const patientUserId = data.has('patientUserId') ? data.get('patientUserId') : null;
-		const enrollmentId = data.has('enrollmentId') ? data.get('enrollmentId') : null;
-		const provider = data.has('provider') ? data.get('provider') : null;
-		const careplanName = data.has('careplanName') ? data.get('careplanName') : null;
-		const careplanCode = data.has('careplanCode') ? data.get('careplanCode') : null;
-		const title = data.has('title') ? data.get('title') : null;
-		const sequence = data.has('sequence') ? data.get('sequence') : null;
-		const healthPriorityId = data.has('healthPriorityId') ? data.get('healthPriorityId') : null;
-		const goalAchieved = data.has('goalAchieved') ? data.get('goalAchieved') : null;
+		const type = data.has('type') ? data.get('type') : null;
+		const tags = data.has('tags') ? data.getAll('tags') : null;
 		const sessionId = event.cookies.get('sessionId');
 
 		const response = await createGoal(
 			sessionId,
-			patientUserId.valueOf() as string,
-			enrollmentId.valueOf() as string,
-			provider.valueOf() as string,
-			careplanName.valueOf() as string,
-			careplanCode.valueOf() as string,
-			title.valueOf() as string,
-			sequence.valueOf() as number,
-			healthPriorityId.valueOf() as string,
-			goalAchieved.valueOf() as boolean
+			type.valueOf() as string,
+			tags.valueOf() as string[]
 		);
-		const id = response.Data.id;
-
+		const id = response.Data.GoalType.id;
+		console.log('res---', response);
 		if (response.Status === 'failure' || response.HttpCode !== 201) {
 			throw redirect(303, '/goals', errorMessage(response.Message), event);
 		}

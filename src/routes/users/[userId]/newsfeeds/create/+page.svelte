@@ -4,20 +4,21 @@
 	import BreadCrumbs from '$lib/components/breadcrumbs/breadcrums.svelte';
 	import { page } from '$app/stores';
 	import { InputChip } from '@skeletonlabs/skeleton';
+	import { showMessage } from '$lib/utils/message.utils';
 
 	let retrievedTags = '';
 	let tagsPlaceholder = 'Enter a tags here...';
-	// function handleTags(event) {
-	// 	retrievedTags = event.detail.tags;
-	// }
 
 	const userId = $page.params.userId;
+	let image = undefined;
+	let fileinput;
+
 	const createRoute = `/users/${userId}/newsfeeds/create`;
 	const newsfeedRoute = `/users/${userId}/newsfeeds`;
 
 	const breadCrumbs = [
 		{
-			name: 'Newsfeed',
+			name: 'Newsfeeds',
 			path: newsfeedRoute
 		},
 		{
@@ -25,9 +26,51 @@
 			path: createRoute
 		}
 	];
+
+	const upload = async (imgBase64, filename) => {
+		const data = {};
+		console.log(imgBase64);
+		const imgData = imgBase64.split(',');
+		data['image'] = imgData[1];
+		console.log(JSON.stringify(data));
+		const res = await fetch(`/api/server/file-resources/upload`, {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json',
+				Accept: 'application/json',
+				filename: filename
+			},
+			body: JSON.stringify(data)
+		});
+		console.log(Date.now().toString());
+		const response = await res.json();
+		if (response.Status === 'success' && response.HttpCode === 201) {
+			const imageResourceId = response.Data.FileResources[0].id;
+			console.log('imageResourceId', imageResourceId);
+			const image_ = response.Data.FileResources[0].Url;
+			console.log('image_', image_);
+			if (image_) {
+				image = image_;
+			}
+			console.log(image);
+		} else {
+			showMessage(response.Message, 'error');
+		}
+	};
+
+	const onFileSelected = async (e) => {
+		let f = e.target.files[0];
+		const filename = f.name;
+		let reader = new FileReader();
+		reader.readAsDataURL(f);
+		reader.onload = async (e) => {
+			fileinput = e.target.result;
+			await upload(e.target.result, filename);
+		};
+	};
 </script>
 
-<main class="h-screen mb-10">
+<main class="h-screen mb-44">
 	<BreadCrumbs crumbs={breadCrumbs} />
 
 	<div class="px-5 mb-5 ">
@@ -61,7 +104,7 @@
 				</div>
 			</div>
 
-			<div class="flex items-center mb-2 lg:mx-16 md:mx-12 mx-10">
+			<div class="flex items-center mb-4 lg:mx-16 md:mx-12 mx-10">
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
 					<!-- svelte-ignore a11y-label-has-associated-control -->
 					<label class="label">
@@ -77,7 +120,24 @@
 				</div>
 			</div>
 
-			<div class="flex items-center mb-2 lg:mx-16 md:mx-12 mx-10">
+			<div class="flex items-center mb-4 lg:mx-16 md:mx-12 mx-10">
+				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
+					<!-- svelte-ignore a11y-label-has-associated-control -->
+					<label class="label">
+						<span>Category</span>
+					</label>
+				</div>
+				<div class="w-1/2 md:w-2/3 lg:w-2/3">
+					<input
+						type="text"
+						name="category"
+						placeholder="Enter category here..."
+						class="input w-full "
+					/>
+				</div>
+			</div>
+
+			<div class="flex items-center mb-4 lg:mx-16 md:mx-12 mx-10">
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
 					<!-- svelte-ignore a11y-label-has-associated-control -->
 					<label class="label">
@@ -89,7 +149,7 @@
 				</div>
 			</div>
 
-			<div class="flex items-center mb-2 lg:mx-16 md:mx-12 mx-10">
+			<div class="flex items-center mb-4 lg:mx-16 md:mx-12 mx-10">
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
 					<!-- svelte-ignore a11y-label-has-associated-control -->
 					<label class="label">
@@ -106,7 +166,7 @@
 				</div>
 			</div>
 
-			<div class="flex items-center mb-2 lg:mx-16 md:mx-12 mx-10">
+			<div class="flex items-center mb-4 lg:mx-16 md:mx-12 mx-10">
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
 					<!-- svelte-ignore a11y-label-has-associated-control -->
 					<label class="label">
@@ -123,7 +183,7 @@
 				</div>
 			</div>
 
-			<div class="flex items-center mb-2 lg:mx-16 md:mx-12 mx-10">
+			<div class="flex items-center mb-4 lg:mx-16 md:mx-12 mx-10">
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
 					<!-- svelte-ignore a11y-label-has-associated-control -->
 					<label class="label">
@@ -140,7 +200,7 @@
 				</div>
 			</div>
 
-			<div class="flex items-center my-2 lg:mx-16 md:mx-12 mx-10">
+			<div class="flex items-center my-2 mb-4 lg:mx-16 md:mx-12 mx-10">
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
 					<!-- svelte-ignore a11y-label-has-associated-control -->
 					<label class="label">
@@ -149,24 +209,27 @@
 				</div>
 				<div class="flex flex-row gap-8 w-1/2 md:w-2/3 lg:w-2/3 ">
 					<input
-						name="image"
+						accept="image/png, image/jpeg"
 						type="file"
 						id="fileUpload"
-						class="input w-full"
+						class="input"
+						name="fileinput"
 						placeholder="Image"
+						on:change={async (e) => await onFileSelected(e)}
 					/>
-					<button
+					<!-- <button 
 						class="capitalize btn variant-filled-primary lg:w-[19%] md:w-[22%] md:text-[13px] sm:w-[30%] sm:text-[12px] min-[320px]:w-[40%] min-[320px]:text-[10px]"
 						>Upload</button
-					>
+					> -->
+					<input type="hidden" name="image" value={image} />
 				</div>
 			</div>
 
-			<div class="flex items-center mb-1 lg:mx-16 md:mx-12 mx-10">
+			<div class="flex items-center mb-4 lg:mx-16 md:mx-12 mx-10">
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
 					<!-- svelte-ignore a11y-label-has-associated-control -->
 					<label class="label">
-						<span>Tag</span>
+						<span>Tags</span>
 					</label>
 				</div>
 				<div class="w-1/2 md:w-2/3 lg:w-2/3">
@@ -175,7 +238,6 @@
 						name="tags"
 						placeholder={tagsPlaceholder}
 					/>
-					<input type="hidden" name="tags" class="input" value={JSON.stringify(retrievedTags)} />
 				</div>
 			</div>
 

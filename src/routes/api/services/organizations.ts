@@ -7,27 +7,26 @@ export const createOrganization = async (
 	sessionId: string,
 	type: string,
 	name: string,
-	contactPhone: number,
-	email: string,
+	contactPhone: string,
+	contactEmail: string,
 	about: string,
 	operationalSince: Date,
-	address: string,
-	//imageResource: string,
+	address: string[],
+	imageResourceId: string,
 	isHealthFacility: boolean
 ) => {
 	const body = {
 		Type: type,
 		Name: name,
 		ContactPhone: contactPhone,
-		Email: email,
+		ContactEmail: contactEmail,
 		About: about,
 		OperationalSince: operationalSince,
-		Address: address,
-		//ImageResource: imageResource,
+		AddressIds: address,
+		ImageResourceId: imageResourceId,
 		IsHealthFacility: isHealthFacility
 	};
 	const url = BACKEND_API_URL + '/organizations';
-	console.log('url===', url);
 	return await post_(sessionId, url, body, true);
 };
 
@@ -66,7 +65,7 @@ export const updateOrganization = async (
 	about: string,
 	operationalSince: Date,
 	address: string,
-	imageResource: string,
+	imageResourceId: string,
 	isHealthFacility: boolean
 ) => {
 	const body = {
@@ -76,8 +75,8 @@ export const updateOrganization = async (
 		Email: email,
 		About: about,
 		OperationalSince: operationalSince,
-		Address: address,
-		ImageResource: imageResource,
+		AddressIds: address,
+		ImageResourceId: imageResourceId,
 		IsHealthFacility: isHealthFacility
 	};
 	const url = BACKEND_API_URL + `/organizations/${organizationId}`;

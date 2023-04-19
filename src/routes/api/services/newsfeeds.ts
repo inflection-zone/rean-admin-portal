@@ -7,22 +7,24 @@ export const createNewsfeed = async (
 	sessionId: string,
 	title: string,
 	description: string,
+	category: string,
 	link: string,
 	language: string,
 	copyright: string,
-	favicon: string
-	// image: File,
-	//tags: string[],
+	favicon: string,
+	image: string,
+	tags: string[]
 ) => {
 	const body = {
 		Title: title,
 		Description: description,
-		link: link,
-		language: language,
-		copyright: copyright,
-		favicon: favicon
-		// Image: image,
-		//Tags: tags,
+		Category: category,
+		Link: link,
+		Language: language,
+		Copyright: copyright,
+		Favicon: favicon,
+		Image: image,
+		Tags: tags
 	};
 	const url = BACKEND_API_URL + '/rss-feeds';
 	return await post_(sessionId, url, body, true);
@@ -58,22 +60,24 @@ export const updateNewsfeed = async (
 	newsfeedId: string,
 	title: string,
 	description: string,
+	category: string,
 	link: string,
 	language: string,
 	copyright: string,
-	favicon: string
-	// image: File,
-	//tags: string[],
+	favicon: string,
+	image: string,
+	tags: string[]
 ) => {
 	const body = {
 		Title: title,
 		Description: description,
-		link: link,
-		language: language,
-		copyright: copyright,
-		favicon: favicon
-		// Image: image,
-		//Tags: tags,
+		Category: category,
+		Link: link,
+		Language: language,
+		Copyright: copyright,
+		Favicon: favicon,
+		Image: image,
+		Tags: tags
 	};
 	const url = BACKEND_API_URL + `/rss-feeds/${newsfeedId}`;
 	return await put_(sessionId, url, body, true);

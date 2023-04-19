@@ -17,9 +17,12 @@ export const load: PageServerLoad = async (event: RequestEvent) => {
 		if (response.Status === 'failure' || response.HttpCode !== 200) {
 			throw error(response.HttpCode, response.Message);
 		}
-		const priority = response.Data;
+		const priority = response.Data.PriorityType;
+		const id = response.Data.PriorityType.id;
 		return {
-			priority
+			location: `${id}/edit`,
+			priority,
+			message: response.Message
 		};
 	} catch (error) {
 		console.error(`Error retriving priority: ${error.message}`);
@@ -32,32 +35,18 @@ export const actions = {
 		const userId = event.params.userId;
 		const data = await request.formData();
 
-		const patientUserId = data.has('patientUserId') ? data.get('patientUserId') : null;
-		const provider = data.has('provider') ? data.get('provider') : null;
-		const source = data.has('source') ? data.get('source') : null;
-		const enrollmentId = data.has('enrollmentId') ? data.get('enrollmentId') : null;
-		const careplanCode = data.has('careplanCode') ? data.get('careplanCode') : null;
-		const careplanName = data.has('careplanName') ? data.get('careplanName') : null;
-		const healthPriorityType = data.has('healthPriorityType')
-			? data.get('healthPriorityType')
-			: null;
-		const isPrimary = data.has('isPrimary') ? data.get('isPrimary') : null;
+		const type = data.has('type') ? data.get('type') : null;
+		const tags = data.has('tags') ? data.getAll('tags') : null;
 		const sessionId = event.cookies.get('sessionId');
 		const priorityId = event.params.id;
 
 		const response = await updatePriority(
 			sessionId,
 			priorityId,
-			patientUserId.valueOf() as string,
-			provider.valueOf() as string,
-			source.valueOf() as string,
-			enrollmentId.valueOf() as string,
-			careplanCode.valueOf() as string,
-			careplanName.valueOf() as string,
-			healthPriorityType.valueOf() as string,
-			isPrimary.valueOf() as boolean
+			type.valueOf() as string,
+			tags.valueOf() as string[]
 		);
-		const id = response.Data.id;
+		const id = response.Data.PriorityType.id;
 
 		if (response.Status === 'failure' || response.HttpCode !== 200) {
 			throw redirect(303, '/priorities', errorMessage(response.Message), event);

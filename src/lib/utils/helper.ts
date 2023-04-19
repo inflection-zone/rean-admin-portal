@@ -180,4 +180,9 @@ export class Helper {
         return blob;
     };
 
+    public static encodeToBase64 = (str: string) => {
+        const buffer = Buffer.from(str, 'utf-8');
+        return buffer.toString('base64');
+    };
+
 }

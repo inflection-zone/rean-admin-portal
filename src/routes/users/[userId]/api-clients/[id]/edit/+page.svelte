@@ -8,10 +8,11 @@
 	export let data: PageServerData;
 	let initiaData = {};
 	let id = data.apiClient.id;
-	let clientName = data.apiClient.clientName;
-	let password = data.apiClient.password;
-	let phone = data.apiClient.phone;
-	let email = data.apiClient.email;
+	let clientName = data.apiClient.ClientName;
+	let clientCode = data.apiClient.ClientCode;
+	let password = data.apiClient.Password;
+	let phone = data.apiClient.Phone;
+	let email = data.apiClient.Email;
 
 	//Original data
 	let _clientName = clientName;
@@ -33,7 +34,7 @@
 
 	const breadCrumbs = [
 		{
-			name: 'Api-Client',
+			name: 'Api-Clients',
 			path: apiClientRoute
 		},
 		{
@@ -46,7 +47,7 @@
 <main class="h-screen mb-10">
 	<BreadCrumbs crumbs={breadCrumbs} />
 
-	<div class=" flex justify-center mt-5 px-3 mb-10 flex-col items-center">
+	<div class=" flex justify-center mt-5 flex-col items-center">
 		<form
 			method="post"
 			action="?/updateApiClientAction"
@@ -62,10 +63,22 @@
 			</div>
 			<div class="hidden">{id}</div>
 			<div class="flex items-center mb-4 mt-10 lg:mx-16 md:mx-12 mx-10">
+				<div class="w-1/2 md:w-1/3 lg:w-1/3">
+					<!-- svelte-ignore a11y-label-has-associated-control -->
+					<!-- svelte-ignore a11y-label-has-associated-control -->
+					<label class="label">
+						<span>Client Code</span>
+					</label>
+				</div>
+				<!-- svelte-ignore a11y-label-has-associated-control -->
+				<span class="span w-1/2 md:2/3 lg:2/3" id="clientCode"> {clientCode} </span>
+			</div>
+
+			<div class="flex items-center mb-4 mt-4 lg:mx-16 md:mx-12 mx-10">
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
 					<!-- svelte-ignore a11y-label-has-associated-control -->
 					<label class="label">
-						<span>Client Name</span>
+						<span>Client Name *</span>
 					</label>
 				</div>
 				<div class="w-1/2 md:w-2/3 lg:w-2/3">
@@ -83,7 +96,7 @@
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
 					<!-- svelte-ignore a11y-label-has-associated-control -->
 					<label class="label">
-						<span>Password</span>
+						<span>Password *</span>
 					</label>
 				</div>
 				<div class="w-1/2 md:w-2/3 lg:w-2/3">
@@ -101,7 +114,7 @@
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
 					<!-- svelte-ignore a11y-label-has-associated-control -->
 					<label class="label">
-						<span>Phone</span>
+						<span>Phone *</span>
 					</label>
 				</div>
 				<div class="w-1/2 md:w-2/3 lg:w-2/3">
@@ -119,7 +132,7 @@
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
 					<!-- svelte-ignore a11y-label-has-associated-control -->
 					<label class="label">
-						<span>Email</span>
+						<span>Email *</span>
 					</label>
 				</div>
 				<div class="w-1/2 md:w-2/3 lg:w-2/3">

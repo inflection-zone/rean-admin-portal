@@ -4,19 +4,22 @@
 	import BreadCrumbs from '$lib/components/breadcrumbs/breadcrums.svelte';
 	import { page } from '$app/stores';
 	import { showMessage } from '$lib/utils/message.utils';
-	import Image from '$lib/components/image.svelte';
-  /////////////////////////////////////////////////////////////////////////////////////////////////////////
-	
+	import type { PageServerData } from './$types';
+
+	/////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+	export let data: PageServerData;
+	const courses = data.courses;
 	const userId = $page.params.userId;
 	const createRoute = `/users/${userId}/learning-journeys/create`;
 	const learningJourneyRoute = `/users/${userId}/learning-journeys`;
 
 	let imageUrl = undefined;
 	let fileinput;
-
+	let value = [];
 	const breadCrumbs = [
 		{
-			name: 'Learning-Journey',
+			name: 'Learning-Journeys',
 			path: learningJourneyRoute
 		},
 		{
@@ -43,17 +46,15 @@
 		console.log(Date.now().toString());
 		const response = await res.json();
 		if (response.Status === 'success' && response.HttpCode === 201) {
-				  const imageResourceId = response.Data.FileResources[0].id;
-					console.log ('imageResourceId', imageResourceId);
-					const imageUrl_ = response.Data.FileResources[0].Url;
-					console.log ('imageUrl_', imageUrl_);
+			const imageResourceId = response.Data.FileResources[0].id;
+			console.log('imageResourceId', imageResourceId);
+			const imageUrl_ = response.Data.FileResources[0].Url;
+			console.log('imageUrl_', imageUrl_);
 			if (imageUrl_) {
-			imageUrl = imageUrl_;
+				imageUrl = imageUrl_;
 			}
 			console.log(imageUrl);
-			// window.location.href = `/users/${userId}/learning-journeys/create`;
-		}
-		else {
+		} else {
 			showMessage(response.Message, 'error');
 		}
 	};
@@ -68,10 +69,9 @@
 			await upload(e.target.result, filename);
 		};
 	};
-	
 </script>
 
-<main class="h-screen mb-10">
+<main class="h-screen mb-32">
 	<BreadCrumbs crumbs={breadCrumbs} />
 
 	<div class="h-screen mb-10 ">
@@ -93,7 +93,7 @@
 				</div>
 			</div>
 
-			<div class="flex items-center mb-4 mt-10 lg:mx-16 md:mx-12 mx-10">
+			<div class="flex items-start mb-4 mt-10 lg:mx-16 md:mx-12 mx-10">
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
 					<!-- svelte-ignore a11y-label-has-associated-control -->
 					<label class="label">
@@ -104,7 +104,7 @@
 					<input type="text" name="name" placeholder="Enter  name here..." class="input w-full " />
 				</div>
 			</div>
-			<div class="flex items-center my-4 lg:mx-16 md:mx-12 mx-10">
+			<div class="flex items-start my-4 lg:mx-16 md:mx-12 mx-10">
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
 					<!-- svelte-ignore a11y-label-has-associated-control -->
 					<label class="label">
@@ -121,7 +121,7 @@
 				</div>
 			</div>
 
-			<div class="flex items-center mb-2 lg:mx-16 md:mx-12 mx-10">
+			<div class="flex items-start mb-2 lg:mx-16 md:mx-12 mx-10">
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
 					<!-- svelte-ignore a11y-label-has-associated-control -->
 					<label class="label">
@@ -137,7 +137,47 @@
 					/>
 				</div>
 			</div>
-			<div class="flex items-center my-2 lg:mx-16 md:mx-12 mx-10">
+
+			<div class="flex items-center mb-4 mt-2 lg:mx-16 md:mx-12 mx-10">
+				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
+					<!-- svelte-ignore a11y-label-has-associated-control -->
+					<label class="label">
+						<span>Duration In Days</span>
+					</label>
+				</div>
+				<div class="w-1/2 md:w-2/3 lg:w-2/3">
+					<input
+						type="number"
+						name="durationInDays"
+						placeholder="Enter duration here..."
+						class="input w-full "
+					/>
+				</div>
+			</div>
+
+			<div class="flex items-start mb-4 mt-2 lg:mx-16 md:mx-12 mx-10">
+				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
+					<!-- svelte-ignore a11y-label-has-associated-control -->
+					<label class="label">
+						<span>Courses</span>
+					</label>
+				</div>
+				<div class="w-1/2 md:w-2/3 lg:w-2/3">
+					<select
+						name="courseIds"
+						class="select"
+						multiple
+						placeholder="Select course here..."
+						bind:value
+					>
+						{#each courses as course}
+							<option value={course.id}>{course.Name}</option>
+						{/each}
+					</select>
+				</div>
+			</div>
+
+			<div class="flex items-start my-2 lg:mx-16 md:mx-12 mx-10">
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
 					<!-- svelte-ignore a11y-label-has-associated-control -->
 					<label class="label">
@@ -154,16 +194,6 @@
 						on:change={async (e) => await onFileSelected(e)}
 					/>
 					<input type="hidden" name="imageUrl" value={imageUrl} />
-					<!-- {#if imageUrl === 'undefined'}
-					<span class="span">Image</span>
-				
-				{:else}
-					<Image cls="flex h-24 w-24 rounded-full" source={imageUrl} w="24" h="24" />
-				{/if} -->
-					<!-- <button
-						class="capitalize btn variant-filled-primary lg:w-[19%] md:w-[22%] md:text-[13px] sm:w-[30%] sm:text-[12px] min-[320px]:w-[40%] min-[320px]:text-[10px]"
-						>Upload</button
-					> -->
 				</div>
 			</div>
 

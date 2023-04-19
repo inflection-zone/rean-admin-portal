@@ -10,59 +10,101 @@ const home: TabDefinition = {
     path: `/users/userId/home`,
     default: true,
 };
-const notifications: TabDefinition = {
-    name: 'Notifications',
-    path: `/users/userId/notifications`,
+
+const drugs: TabDefinition = {
+    name: 'Drugs',
+    path: `/users/userId/drugs`,
     default: false,
 };
+
+const labRecordTypes: TabDefinition = {
+    name: 'Lab-Record-Types',
+    path: `/users/userId/lab-record-types`,
+    default: false,
+};
+
+const personRoleTypes: TabDefinition = {
+    name: 'Person-Role-Types',
+    path: `/users/userId/person-role-types`,
+    default: false,
+};
+
+const assessmentTemplates: TabDefinition = {
+    name: 'Assessment-Templates',
+    path: `/users/userId/assessment-templates`,
+    default: false,
+};
+
 const apiClients: TabDefinition = {
     name: 'Clients',
     path: `/users/userId/api-clients`,
     default: false,
 };
+
 const organizations: TabDefinition = {
     name: 'Organizations',
     path: `/users/userId/organizations`,
     default: false,
 };
-const linkages: TabDefinition = {
-    name: 'Linkages',
-    path: `/users/userId/linkages`,
+const notices: TabDefinition = {
+    name: 'Notices',
+    path: `/users/userId/notices`,
     default: false,
 };
+
+const goals: TabDefinition = {
+    name: 'Goal-Types',
+    path: `/users/userId/goals`,
+    default: false,
+};
+
 const newsFeeds: TabDefinition = {
     name: 'Newsfeeds',
     path: `/users/userId/newsfeeds`,
     default: false,
 };
+
 const knowledgeNuggets: TabDefinition = {
     name: 'Knowledge-Nuggets',
     path: `/users/userId/knowledge-nuggets`,
     default: false,
 };
+
 const learningJourneys: TabDefinition = {
     name: 'Learning-Journeys',
     path: `/users/userId/learning-journeys`,
     default: false,
 };
-const assessments: TabDefinition = {
-    name: 'Assessments',
-    path: `/users/userId/assessments`,
+
+const priorities: TabDefinition = {
+    name: 'Priority-Types',
+    path: `/users/userId/priorities`,
     default: false,
 };
+
+const notifications: TabDefinition = {
+    name: 'Notifications',
+    path: `/users/userId/notifications`,
+    default: false,
+};
+
 const symptoms: TabDefinition = {
     name: 'Symptoms',
     path: `/users/userId/symptoms`,
     default: false,
 };
 
+const courses: TabDefinition = {
+    name: 'Courses',
+    path: `/users/userId/courses`,
+    default: false,
+};
 export const navbarMenu = (userId) => {
     const menus = [
             home,
             apiClients,
             organizations,
-            assessments,
-
+            notifications,
     ];
     return replaceUserId(menus, userId);
 };
@@ -70,11 +112,17 @@ export const navbarMenu = (userId) => {
 export const sidebarMenu = (userId) => {
     const menus = [
         home,
-        notifications,
-        linkages,
+        drugs,
+        assessmentTemplates,
+        notices,
         newsFeeds,
+        goals,
+        courses,
         learningJourneys,
         knowledgeNuggets,
+        labRecordTypes,
+        personRoleTypes,
+        priorities,
         symptoms
     ];
     return replaceUserId(menus, userId);

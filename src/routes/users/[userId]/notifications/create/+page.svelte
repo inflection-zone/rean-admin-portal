@@ -43,17 +43,15 @@
 		console.log(Date.now().toString());
 		const response = await res.json();
 		if (response.Status === 'success' && response.HttpCode === 201) {
-				  const imageResourceId = response.Data.FileResources[0].id;
-					console.log ('imageResourceId', imageResourceId);
-					const imageUrl_ = response.Data.FileResources[0].Url;
-					console.log ('imageUrl_', imageUrl_);
+			const imageResourceId = response.Data.FileResources[0].id;
+			console.log('imageResourceId', imageResourceId);
+			const imageUrl_ = response.Data.FileResources[0].Url;
+			console.log('imageUrl_', imageUrl_);
 			if (imageUrl_) {
-			imageUrl = imageUrl_;
+				imageUrl = imageUrl_;
 			}
 			console.log(imageUrl);
-
-		}
-		else {
+		} else {
 			showMessage(response.Message, 'error');
 		}
 	};
@@ -133,6 +131,25 @@
 				</div>
 			</div>
 
+			<div class="flex items-center mb-4 lg:mx-16 md:mx-12 mx-10">
+				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
+					<!-- svelte-ignore a11y-label-has-associated-control -->
+					<label class="label">
+						<span>Broadcast To All</span>
+					</label>
+				</div>
+				<div class="w-1/2 md:w-2/3 lg:w-2/3">
+					<label class="label cursor-pointer">
+						<input
+							type="checkbox"
+							name="broadcastToAll"
+							value="true"
+							class="checkbox checkbox-primary border-primary-200 hover:border-primary-400 checkbox-md ml-2"
+						/>
+					</label>
+				</div>
+			</div>
+
 			<div class="flex items-center my-2 lg:mx-16 md:mx-12 mx-10">
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
 					<!-- svelte-ignore a11y-label-has-associated-control -->
@@ -141,23 +158,23 @@
 					</label>
 				</div>
 				<div class="flex flex-row gap-8 w-1/2 md:w-2/3 lg:w-2/3 ">
-						<input
-							accept="image/png, image/jpeg"
-							type="file"
-							id="fileUpload"
-							class="input"
-							name="fileinput"
-							placeholder="Image"
-							on:change={async (e) => await onFileSelected(e)}
-						/>
+					<input
+						accept="image/png, image/jpeg"
+						type="file"
+						id="fileUpload"
+						class="input"
+						name="fileinput"
+						placeholder="Image"
+						on:change={async (e) => await onFileSelected(e)}
+					/>
 					<!-- <button 
 						class="capitalize btn variant-filled-primary lg:w-[19%] md:w-[22%] md:text-[13px] sm:w-[30%] sm:text-[12px] min-[320px]:w-[40%] min-[320px]:text-[10px]"
 						>Upload</button
 					> -->
 					<input type="hidden" name="imageUrl" value={imageUrl} />
-				
 				</div>
 			</div>
+
 			<div class="flex items-center mt-7 lg:mx-16 md:mx-12 mr-10">
 				<div class="w-3/4" />
 				<div class="w-1/4 ">

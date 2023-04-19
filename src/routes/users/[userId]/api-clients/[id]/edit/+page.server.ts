@@ -1,4 +1,3 @@
-import * as cookie from 'cookie';
 import { error, type RequestEvent } from '@sveltejs/kit';
 import { redirect } from 'sveltekit-flash-message/server';
 import { errorMessage, successMessage } from '$lib/utils/message.utils';
@@ -18,8 +17,7 @@ export const load: PageServerLoad = async (event: RequestEvent) => {
 		if (response.Status === 'failure' || response.HttpCode !== 200) {
 			throw error(response.HttpCode, response.Message);
 		}
-		const apiClient = response.Data;
-		console.log('api client', apiClient);
+		const apiClient = response.Data.Client;
 		return {
 			apiClient
 		};
@@ -49,7 +47,7 @@ export const actions = {
 			phone.valueOf() as number,
 			email.valueOf() as string
 		);
-		const id = response.Data.id;
+		const id = response.Data.Client.id;
 
 		if (response.Status === 'failure' || response.HttpCode !== 200) {
 			throw redirect(303, '/api-clients', errorMessage(response.Message), event);

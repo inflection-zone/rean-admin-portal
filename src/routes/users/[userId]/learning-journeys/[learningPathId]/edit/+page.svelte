@@ -1,31 +1,38 @@
 <script lang="ts">
 	import { page } from '$app/stores';
-	import type { PageServerData } from './$types';
 	import Fa from 'svelte-fa';
 	import { faMultiply } from '@fortawesome/free-solid-svg-icons';
 	import BreadCrumbs from '$lib/components/breadcrumbs/breadcrums.svelte';
 	import Image from '$lib/components/image.svelte';
 	import { showMessage } from '$lib/utils/message.utils';
+	import type { PageServerData } from './$types';
 
 	///////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 	export let data: PageServerData;
+	let allCources = data.courses;
 	let id = data.learningJourney.id;
 	let name = data.learningJourney.Name;
 	let preferenceWeight = data.learningJourney.PreferenceWeight;
 	let description = data.learningJourney.Description;
+	let durationInDays = data.learningJourney.DurationInDays;
+	let courses = data.learningJourney.Courses;
 	let imageUrl = data.learningJourney.ImageUrl;
 	$: avatarSource = imageUrl;
+	let courseIds:string[] = courses.map((item) => item.id);
+
 	//Original data
 	let _name = name;
 	let _preferenceWeight = preferenceWeight;
 	let _description = description;
+	let _durationInDays = durationInDays;
 	let _imageUrl = imageUrl;
 
 	function handleReset() {
 		name = _name;
 		preferenceWeight = _preferenceWeight;
 		description = _description;
+		durationInDays = _durationInDays;
 		imageUrl = _imageUrl;
 	}
 
@@ -37,7 +44,7 @@
 
 	const breadCrumbs = [
 		{
-			name: 'Learning-Journey',
+			name: 'Learning-Journeys',
 			path: learningJourneyRoute
 		},
 		{
@@ -88,7 +95,7 @@
 	};
 </script>
 
-<main class="h-screen mb-10">
+<main class="h-screen mb-44">
 	<BreadCrumbs crumbs={breadCrumbs} />
 
 	<div class=" flex justify-center mt-5 px-3 mb-10 flex-col items-center">
@@ -107,24 +114,25 @@
 			</div>
 
 			<div class="hidden">{id}</div>
-			<div class="flex items-center mb-4 mt-10 lg:mx-16 md:mx-12 mx-10">
+			<div class="flex items-start mb-4 mt-10 lg:mx-16 md:mx-12 mx-10">
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
 					<!-- svelte-ignore a11y-label-has-associated-control -->
 					<label class="label">
-						<span>Name*</span>
+						<span>Name</span>
 					</label>
 				</div>
 				<div class="w-1/2 md:w-2/3 lg:w-2/3">
 					<input
 						type="text"
 						name="name"
+						required
 						bind:value={name}
 						placeholder="xxxxxxxxxxxxxx"
 						class="input w-full "
 					/>
 				</div>
 			</div>
-			<div class="flex items-center my-4 lg:mx-16 md:mx-12 mx-10">
+			<div class="flex items-start my-4 lg:mx-16 md:mx-12 mx-10">
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
 					<!-- svelte-ignore a11y-label-has-associated-control -->
 					<label class="label">
@@ -134,7 +142,7 @@
 				<div class="w-1/2 md:w-2/3 lg:w-2/3">
 					<input
 						type="text"
-						name="resourceLink"
+						name="preferenceWeight"
 						bind:value={preferenceWeight}
 						placeholder="Enter prefrence weight here..."
 						class="input w-full "
@@ -142,7 +150,7 @@
 				</div>
 			</div>
 
-			<div class="flex items-center mb-2 lg:mx-16 md:mx-12 mx-10">
+			<div class="flex items-start mb-2 lg:mx-16 md:mx-12 mx-10">
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
 					<!-- svelte-ignore a11y-label-has-associated-control -->
 					<label class="label">
@@ -158,35 +166,74 @@
 					/>
 				</div>
 			</div>
-			<div class="flex items-center my-2 lg:mx-16 md:mx-12 mx-10">
+
+			<div class="flex items-center mb-4 mt-2 lg:mx-16 md:mx-12 mx-10">
+				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
+					<!-- svelte-ignore a11y-label-has-associated-control -->
+					<label class="label">
+						<span>Duration In Days</span>
+					</label>
+				</div>
+				<div class="w-1/2 md:w-2/3 lg:w-2/3">
+					<input
+						type="number"
+						name="durationInDays"
+						placeholder="Enter duration here..."
+						class="input w-full "
+						bind:value={durationInDays}
+					/>
+				</div>
+			</div>
+
+			<div class="flex items-start mt-2 mb-4  lg:mx-16 md:mx-12 mx-10">
+				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
+					<!-- svelte-ignore a11y-label-has-associated-control -->
+					<label class="label">
+						<span>Courses</span>
+					</label>
+				</div>
+				<div class="w-1/2 md:w-2/3 lg:w-2/3">
+					<select
+						name="courseIds"
+						class="select"
+						multiple
+						placeholder="Select course here..."
+						value = {courseIds}
+					>
+						{#each allCources as course}
+							<option value={course.id}>{course.Name}</option>
+						{/each}
+					</select>
+				</div>
+			</div>
+
+			<div class="flex items-start my-2 lg:mx-16 md:mx-12 mx-10">
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
 					<!-- svelte-ignore a11y-label-has-associated-control -->
 					<label class="label">
 						<span>Image</span>
 					</label>
 				</div>
-				<div class="flex flex-row gap-8 w-1/2 md:w-2/3 lg:w-2/3 ">
-					<div class="flex flex-row gap-8 w-1/2 md:w-2/3 lg:w-2/3 ">
-						{#if imageUrl === 'undefined'}
-							<input
-								name="fileinput"
-								type="file"
-								class="true input w-full"
-								placeholder="Image"
-								on:change={async (e) => await onFileSelected(e)}
-							/>
-						{:else}
-							<Image cls="flex h-24 w-24 rounded-full" source={imageUrl} w="24" h="24" />
-							<input
-								name="fileinput"
-								type="file"
-								class="true input w-full"
-								placeholder="Image"
-								on:change={async (e) => await onFileSelected(e)}
-							/>
-						{/if}
-						<input type="hidden" name="imageUrl" value={imageUrl} />
-					</div>
+				<div class="flex flex-row gap-4 w-1/2 md:w-2/3 lg:w-2/3 ">
+					{#if imageUrl === 'undefined'}
+						<input
+							name="fileinput"
+							type="file"
+							class="true input w-full"
+							placeholder="Image"
+							on:change={async (e) => await onFileSelected(e)}
+						/>
+					{:else}
+						<Image cls="flex h-24 w-24 rounded-lg" source={imageUrl} w="24" h="24" />
+						<input
+							name="fileinput"
+							type="file"
+							class="true input w-full"
+							placeholder="Image"
+							on:change={async (e) => await onFileSelected(e)}
+						/>
+					{/if}
+					<input type="hidden" name="imageUrl" value={imageUrl} />
 				</div>
 			</div>
 

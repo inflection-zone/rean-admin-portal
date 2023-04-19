@@ -10,15 +10,9 @@
 
 	export let data: PageServerData;
 	let id = data.goal.id;
-	let patientUserId = data.goal.patientUserId;
-	let enrollmentId = data.goal.enrollmentId;
-	let provider = data.goal.provider;
-	let careplanName = data.goal.careplanName;
-	let careplanCode = data.goal.careplanCode;
-	let title = data.goal.title;
-	let sequence = data.goal.sequence;
-	let healthPriorityId = data.goal.healthPriorityId;
-	let goalAchieved = data.goal.goalAchieved;
+	let type = data.goal.Type;
+	let tags_ = data.goal.Tags;
+	let tags = tags_.join(', ');
 
 	onMount(() => {
 		show(data);
@@ -32,7 +26,7 @@
 
 	const breadCrumbs = [
 		{
-			name: 'Goal',
+			name: 'Goal-Types',
 			path: goalRoute
 		},
 		{
@@ -64,90 +58,20 @@
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
 					<!-- svelte-ignore a11y-label-has-associated-control -->
 					<label class="label">
-						<span>Patient User Id</span>
+						<span>Type</span>
 					</label>
 				</div>
-				<span class="span w-1/2 md:2/3 lg:2/3" id="patientUserId">{patientUserId}</span>
+				<span class="span w-1/2 md:2/3 lg:2/3" id="type">{type}</span>
 			</div>
 
 			<div class="flex items-center my-4 lg:mx-16 md:mx-12 mx-10">
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
 					<!-- svelte-ignore a11y-label-has-associated-control -->
 					<label class="label">
-						<span>Enrollment Id</span>
+						<span>Tags</span>
 					</label>
 				</div>
-				<span class="span w-1/2 md:2/3 lg:2/3" id="enrollmentId"> {enrollmentId} </span>
-			</div>
-
-			<div class="flex items-center my-4 lg:mx-16 md:mx-12 mx-10">
-				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
-					<!-- svelte-ignore a11y-label-has-associated-control -->
-					<label class="label">
-						<span>Provider</span>
-					</label>
-				</div>
-				<span class="span w-1/2 md:2/3 lg:2/3" id="provider">{provider}</span>
-			</div>
-
-			<div class="flex items-center my-4 lg:mx-16 md:mx-12 mx-10">
-				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
-					<!-- svelte-ignore a11y-label-has-associated-control -->
-					<label class="label">
-						<span>Careplan Name</span>
-					</label>
-				</div>
-				<span class="span w-1/2 md:2/3 lg:2/3" id="careplanName"> {careplanName} </span>
-			</div>
-
-			<div class="flex items-center my-4 lg:mx-16 md:mx-12 mx-10">
-				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
-					<!-- svelte-ignore a11y-label-has-associated-control -->
-					<label class="label">
-						<span>Careplan Code</span>
-					</label>
-				</div>
-				<span class="span w-1/2 md:2/3 lg:2/3" id="careplanCode"> {careplanCode} </span>
-			</div>
-
-			<div class="flex items-center my-4 lg:mx-16 md:mx-12 mx-10">
-				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
-					<!-- svelte-ignore a11y-label-has-associated-control -->
-					<label class="label">
-						<span>Title</span>
-					</label>
-				</div>
-				<span class="span w-1/2 md:2/3 lg:2/3" id="title"> {title} </span>
-			</div>
-
-			<div class="flex items-center my-4 lg:mx-16 md:mx-12 mx-10">
-				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
-					<!-- svelte-ignore a11y-label-has-associated-control -->
-					<label class="label">
-						<span>Sequence</span>
-					</label>
-				</div>
-				<span class="span w-1/2 md:2/3 lg:2/3" id="sequence"> {sequence} </span>
-			</div>
-
-			<div class="flex items-center my-4 lg:mx-16 md:mx-12 mx-10">
-				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
-					<!-- svelte-ignore a11y-label-has-associated-control -->
-					<label class="label">
-						<span>Health Priority Id</span>
-					</label>
-				</div>
-				<span class="span w-1/2 md:2/3 lg:2/3" id="healthPriorityId"> {healthPriorityId} </span>
-			</div>
-
-			<div class="flex items-center my-4 lg:mx-16 md:mx-12 mx-10">
-				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
-					<!-- svelte-ignore a11y-label-has-associated-control -->
-					<label class="label">
-						<span>Goal Achieved</span>
-					</label>
-				</div>
-				<span class="span w-1/2 md:2/3 lg:2/3" id="goalAchieved"> {goalAchieved} </span>
+				<span class="span w-1/2 md:2/3 lg:2/3">{tags} </span>
 			</div>
 
 			<div class="flex items-center mt-7 lg:mx-16 md:mx-12 mr-10">

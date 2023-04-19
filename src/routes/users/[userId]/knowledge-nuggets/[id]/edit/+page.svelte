@@ -1,43 +1,42 @@
 <script lang="ts">
-  import type { PageServerData } from './$types';
+	import type { PageServerData } from './$types';
 	import Fa from 'svelte-fa';
 	import { faMultiply } from '@fortawesome/free-solid-svg-icons';
 	import BreadCrumbs from '$lib/components/breadcrumbs/breadcrums.svelte';
 	import { page } from '$app/stores';
 	import { InputChip } from '@skeletonlabs/skeleton';
-	
+
 	export let data: PageServerData;
 	let initiaData = {};
 	let id = data.KnowledgeNugget.id;
 	let topicName = data.KnowledgeNugget.TopicName;
 	let briefInformation = data.KnowledgeNugget.BriefInformation;
 	let detailedInformation = data.KnowledgeNugget.DetailedInformation;
-	let additionalResource = data.KnowledgeNugget.AdditionalResource;
+	// let additionalResources = data.KnowledgeNugget.AdditionalResources;
+	let additionalResources_ = data.KnowledgeNugget.AdditionalResources;
+	let additionalResources = additionalResources_.join(', ');
 	let tags = data.KnowledgeNugget.Tags;
 
 	//Original data
 	let _topicName = topicName;
 	let _briefInformation = briefInformation;
 	let _detailedInformation = detailedInformation;
-	let _additionalResource = additionalResource;
-	let _tags = JSON.stringify(tags);
+	let _additionalResources = additionalResources;
+	let _tags = tags;
 	let retrievedTags = '';
 	let tagsPlaceholder = 'Enter a tags here...';
 
 	function handleTags(event) {
 		retrievedTags = event.detail.tags;
 	}
-
-	let tagsList = [`${tags}`];
 	function handleReset() {
 		topicName = _topicName;
 		briefInformation = _briefInformation;
 		detailedInformation = _detailedInformation;
-		additionalResource = _additionalResource;
-		tagsList = [`${tags}`];
-
+		additionalResources = _additionalResources;
+		tags = _tags;
 	}
-	
+
 	const userId = $page.params.userId;
 	const editRoute = `/users/${userId}/knowledge-nuggets/${id}/edit`;
 	const viewRoute = `/users/${userId}/knowledge-nuggets/${id}/view`;
@@ -66,7 +65,7 @@
 		>
 			<div class="w-full  h-14 rounded-t-lg p-3  bg-[#7165E3] mb-10">
 				<div class="ml-3 relative flex flex-row text-white text-xl">
-					Edit Knowledge Nuggets
+					Edit Knowledge Nugget
 					<a href={viewRoute}>
 						<Fa
 							icon={faMultiply}
@@ -95,7 +94,7 @@
 				</div>
 			</div>
 
-			<div class="flex items-center mb-2 lg:mx-16 md:mx-12 mx-10">
+			<div class="flex items-center mb-4 lg:mx-16 md:mx-12 mx-10">
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
 					<!-- svelte-ignore a11y-label-has-associated-control -->
 					<label class="label">
@@ -111,7 +110,7 @@
 					/>
 				</div>
 			</div>
-			<div class="flex items-center mb-2 lg:mx-16 md:mx-12 mx-10">
+			<div class="flex items-center mb-4 lg:mx-16 md:mx-12 mx-10">
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
 					<!-- svelte-ignore a11y-label-has-associated-control -->
 					<label class="label">
@@ -127,7 +126,7 @@
 					/>
 				</div>
 			</div>
-			<div class="flex items-center mb-2 lg:mx-16 md:mx-12 mx-10">
+			<div class="flex items-center mb-4 lg:mx-16 md:mx-12 mx-10">
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
 					<!-- svelte-ignore a11y-label-has-associated-control -->
 					<label class="label">
@@ -136,29 +135,23 @@
 				</div>
 				<div class="w-1/2 md:w-2/3 lg:w-2/3">
 					<textarea
-						name="additionalResource"
-						bind:value={additionalResource}
+						name="additionalResources"
+						bind:value={additionalResources}
 						class="input w-full"
 						placeholder="Enter additional resource here..."
 					/>
 				</div>
 			</div>
-			<div class="flex items-center lg:mx-16 md:mx-12 mx-10">
+
+			<div class="flex items-center mb-4 lg:mx-16 md:mx-12 mx-10">
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
 					<!-- svelte-ignore a11y-label-has-associated-control -->
 					<label class="label">
-						<span>Tag</span>
+						<span>Tags</span>
 					</label>
 				</div>
 				<div class="w-1/2 md:w-2/3 lg:w-2/3">
-					<InputChip
-						chips="variant-filled-error rounded-2xl"
-						name="tags"
-						placeholder={tagsPlaceholder}
-						on:tags={handleTags}
-					  bind:value={tagsList} 
-					/>
-					<input type="hidden" name="tags" value={JSON.stringify(tags)} />
+					<InputChip chips="variant-filled-error rounded-2xl" name="tags" bind:value={tags} />
 				</div>
 			</div>
 

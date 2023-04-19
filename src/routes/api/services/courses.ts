@@ -5,17 +5,18 @@ import { delete_, get_, post_, put_ } from './common';
 
 export const createCourse = async (
 	sessionId: string,
-	learningPathId: string,
 	name: string,
 	description: string,
-	imageUrl: string
+	imageUrl: string,
+	durationInDays: number,
 ) => {
 	const body = {
-		LearningPathId: learningPathId,
 		Name: name,
-		Description: description,
-		ImageUrl: imageUrl
+		Description: description ? description : null,
+		ImageUrl: imageUrl ? imageUrl : null,
+		DurationInDays: durationInDays ? durationInDays : null,
 	};
+	console.log("body",body);
 	const url = BACKEND_API_URL + '/educational/courses';
 	return await post_(sessionId, url, body, true);
 };
@@ -47,26 +48,24 @@ export const searchCourses = async (sessionId: string, searchParams?: any) => {
 
 export const updateCourse = async (
 	sessionId: string,
-	learningPathId: string,
 	courseId: string,
 	name: string,
-	// learningJourney: string,
 	description: string,
-	image: string
+	imageUrl: string,
+	durationInDays: number
 ) => {
 	const body = {
-		learningPathId,
 		courseId,
 		Name: name,
-		// LearningJourney: learningJourney,
-		Description: description,
-		Image: image
+		Description: description ? description : null,
+		ImageUrl: imageUrl ? imageUrl : null,
+		DurationInDays: durationInDays ? durationInDays : null,
 	};
-	const url = BACKEND_API_URL + `/educational/courses${courseId}`;
+	const url = BACKEND_API_URL + `/educational/courses/${courseId}`;
 	return await put_(sessionId, url, body, true);
 };
 
 export const deleteCourse = async (sessionId: string, courseId: string) => {
-	const url = BACKEND_API_URL + `/educational/courses${courseId}`;
+	const url = BACKEND_API_URL + `/educational/courses/${courseId}`;
 	return await delete_(sessionId, url, true);
 };

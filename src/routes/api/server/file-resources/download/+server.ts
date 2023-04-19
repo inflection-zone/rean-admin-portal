@@ -1,7 +1,5 @@
 import type { RequestEvent } from '@sveltejs/kit';
-import {
-    download,
-} from '../../../services/file.resource'
+import { download } from '../../../services/file.resource';
 
 //////////////////////////////////////////////////////////////
 
@@ -12,7 +10,7 @@ export const GET = async (event: RequestEvent) => {
 		console.log('Downloading file resource...');
 		const response = await download(
 			data.sessionId,
-            data.fileResourceId,
+			data.fileResourceId,
 			asAttachment == 'true' ? true : false
 		);
 		return response;
