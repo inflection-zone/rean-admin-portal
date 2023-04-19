@@ -10,7 +10,7 @@ export const createPersonRoleType = async (
 ) => {
 	const body = {
 		RoleName: roleName,
-		Description: description
+		Description: description ? description : null,
 	};
 	const url = BACKEND_API_URL + '/types/person-roles';
 	return await post_(sessionId, url, body, true);
@@ -48,7 +48,7 @@ export const updatePersonRoleType = async (
 ) => {
 	const body = {
 		RoleName: roleName,
-		Description: description
+		Description: description ? description : null,
 	};
 	const url = BACKEND_API_URL + `/types/person-roles/${personRoleTypeId}`;
 	return await put_(sessionId, url, body, true);

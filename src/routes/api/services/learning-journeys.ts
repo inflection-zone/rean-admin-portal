@@ -14,10 +14,10 @@ export const createLearningJourney = async (
 ) => {
 	const body = {
 		Name: name,
-		PreferenceWeight: Number(preferenceWeight),
-		Description: description,
-		DurationInDays: Number(durationInDays),
-		ImageUrl: imageUrl,
+		PreferenceWeight: preferenceWeight ? preferenceWeight : null,
+		Description: description ? description : null,
+		DurationInDays: durationInDays ? durationInDays : null,
+		ImageUrl: imageUrl ? imageUrl : null,
 		CourseIds: courseIds
 	};
 	const url = BACKEND_API_URL + '/educational/learning-paths';
@@ -61,10 +61,10 @@ export const updateLearningJourney = async (
 ) => {
 	const body = {
 		Name: name,
-		PreferenceWeight: Number(preferenceWeight),
-		Description: description,
-		DurationInDays: Number(durationInDays),
-		ImageUrl: imageUrl,
+		PreferenceWeight: preferenceWeight ? preferenceWeight : null,
+		Description: description ? description : null,
+		DurationInDays: durationInDays ? durationInDays : null,
+		ImageUrl: imageUrl ? imageUrl : null,
 		CourseIds: courseIds
 	};
 	console.log(body);

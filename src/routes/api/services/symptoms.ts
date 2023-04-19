@@ -13,12 +13,11 @@ export const createSymptom = async (
 ) => {
 	const body = {
 		Symptom: symptom,
-		Description: description,
+		Description: description ? description : null,
 		Tags: tags,
 		Language: language,
 		ImageResourceId: imageResourceId
 	};
-	console.log('body--',body)
 	const url = BACKEND_API_URL + '/clinical/symptom-types';
 	return await post_(sessionId, url, body, true);
 };
@@ -59,7 +58,7 @@ export const updateSymptom = async (
 ) => {
 	const body = {
 		Symptom: symptom,
-		Description: description,
+		Description: description ? description : null,
 		Tags: tags,
 		Language: language,
 		ImageResourceId: imageResourceId
