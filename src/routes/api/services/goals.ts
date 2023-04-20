@@ -6,11 +6,11 @@ import { delete_, get_, post_, put_ } from './common';
 export const createGoal = async (
 	sessionId: string,
 	type: string,
-	tags?: string[]
+	tags: string[]
 ) => {
 	const body = {
 		Type: type,
-		Tags: tags
+		Tags: tags ? tags : null,
 	};
 	const url = BACKEND_API_URL + '/types/goal-types';
 	return await post_(sessionId, url, body, true);
@@ -45,11 +45,11 @@ export const updateGoal = async (
 	sessionId: string,
 	goalId: string,
 	type: string,
-	tags?: string[]
+	tags: string[]
 ) => {
 	const body = {
 		Type: type,
-		Tags: tags
+		Tags: tags ? tags : null,
 	};
 	const url = BACKEND_API_URL + `/types/goal-types/${goalId}`;
 	return await put_(sessionId, url, body, true);

@@ -6,11 +6,11 @@ import { delete_, get_, post_, put_ } from './common';
 export const createLearningJourney = async (
 	sessionId: string,
 	name: string,
-	preferenceWeight?: number,
-	description?: string,
-	durationInDays?: number,
-	imageUrl?: string,
-	courseIds?: string[]
+	preferenceWeight: number,
+	description: string,
+	durationInDays: number,
+	imageUrl: string,
+	courseIds: string[]
 ) => {
 	const body = {
 		Name: name,

@@ -18,7 +18,7 @@ export const createNotice = async (
 		Description: description ? description : null,
 		Link: link ? link : null,
 		DaysActive: daysActive ? daysActive : null,
-		Tags: tags,
+		Tags: tags ? tags : null,
 		Action: action ? action : null,
 		ImageUrl: imageUrl ? imageUrl : null,
 	};
@@ -68,7 +68,7 @@ export const updateNotice = async (
 		Description: description ? description : null,
 		Link: link ? link : null,
 		DaysActive: daysActive ? daysActive : null,
-		Tags: tags,
+		Tags: tags ? tags : null,
 		Action: action ? action : null,
 		ImageUrl: imageUrl ? imageUrl : null,
 	};

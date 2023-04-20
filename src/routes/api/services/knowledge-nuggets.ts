@@ -5,18 +5,18 @@ import { delete_, get_, post_, put_ } from './common';
 
 export const createKnowledgeNugget = async (
 	sessionId: string,
-	topicName?: string,
-	briefInformation?: string,
-	detailedInformation?: string,
-	additionalResources?: string[],
-	tags?: string[]
+	topicName: string,
+	briefInformation: string,
+	detailedInformation: string,
+	additionalResources: string[],
+	tags: string[]
 ) => {
 	const body = {
 		TopicName: topicName ? topicName : null,
 	  BriefInformation: briefInformation ? briefInformation : null,
 		DetailedInformation: detailedInformation ? detailedInformation : null,
 		AdditionalResources: additionalResources ? additionalResources : null,
-		Tags: tags
+		Tags: tags ? tags : null,
 	};
 	const url = BACKEND_API_URL + '/educational/knowledge-nuggets';
 	return await post_(sessionId, url, body, true);
@@ -50,18 +50,18 @@ export const searchKnowledgeNuggets = async (sessionId: string, searchParams?: a
 export const updateKnowledgeNugget = async (
 	sessionId: string,
 	knowledgeNuggetId: string,
-	topicName?: string,
-	briefInformation?: string,
-	detailedInformation?: string,
-	additionalResources?: string[],
-	tags?: string[]
+	topicName: string,
+	briefInformation: string,
+	detailedInformation: string,
+	additionalResources: string[],
+	tags: string[]
 ) => {
 	const body = {
 		TopicName: topicName ? topicName : null,
 	  BriefInformation: briefInformation ? briefInformation : null,
 		DetailedInformation: detailedInformation ? detailedInformation : null,
 		AdditionalResources: additionalResources ? additionalResources : null,
-		Tags: tags
+		Tags: tags ? tags : null,
 	};
 	console.log('body--',body)
 	const url = BACKEND_API_URL + `/educational/knowledge-nuggets/${knowledgeNuggetId}`;

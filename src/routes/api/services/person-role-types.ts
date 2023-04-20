@@ -6,7 +6,7 @@ import { delete_, get_, post_, put_ } from './common';
 export const createPersonRoleType = async (
 	sessionId: string,
 	roleName: string,
-	description?: string
+	description: string
 ) => {
 	const body = {
 		RoleName: roleName,
@@ -44,7 +44,7 @@ export const updatePersonRoleType = async (
 	sessionId: string,
 	personRoleTypeId: string,
 	roleName: string,
-	description?: string
+	description: string,
 ) => {
 	const body = {
 		RoleName: roleName,

@@ -6,16 +6,16 @@ import { delete_, get_, post_, put_ } from './common';
 export const createNotification = async (
 	sessionId: string,
 	title: string,
-	Body?: string,
-	type?: string,
-	broadcastToAll?: boolean,
-	imageUrl?: string
+	Body: string,
+	type: string,
+	broadcastToAll: boolean,
+	imageUrl: string
 ) => {
 	const body = {
 		Title: title,
 		Body: Body ? Body : null,
 		Type: type ? type : null,
-		BroadcastToAll: broadcastToAll,
+		BroadcastToAll: broadcastToAll ? broadcastToAll : null,
 		ImageUrl: imageUrl ? imageUrl : null,
 	};
 	const url = BACKEND_API_URL + '/general/notifications';
@@ -51,16 +51,16 @@ export const updateNotification = async (
 	sessionId: string,
 	notificationId: string,
 	title: string,
-	Body?: string,
-	type?: string,
-	broadcastToAll?: boolean,
-	imageUrl?: string
+	Body: string,
+	type: string,
+	broadcastToAll: boolean,
+	imageUrl: string
 ) => {
 	const body = {
 		Title: title,
 		Body: Body ? Body : null,
 		Type: type ? type : null,
-		BroadcastToAll: broadcastToAll,
+		BroadcastToAll: broadcastToAll ? broadcastToAll : null,
 		ImageUrl: imageUrl ? imageUrl : null,
 	};
 	const url = BACKEND_API_URL + `/general/notifications/${notificationId}`;

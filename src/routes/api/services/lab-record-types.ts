@@ -7,10 +7,10 @@ export const createLabRecordType = async (
 	sessionId: string,
 	typeName: string,
 	displayName: string,
-	snowmedCode?: string,
-	loincCode?: string,
-	normalRangeMin?: number,
-	normalRangeMax?: number,
+	snowmedCode: string,
+	loincCode: string,
+	normalRangeMin: number,
+	normalRangeMax: number,
 	unit?: string
 ) => {
 	const body = {
@@ -56,20 +56,20 @@ export const updateLabRecordType = async (
 	labRecordTypeId: string,
 	typeName: string,
 	displayName: string,
-	snowmedCode?: string,
-	loincCode?: string,
-	normalRangeMin?: number,
-	normalRangeMax?: number,
-	unit?: string
+	snowmedCode: string,
+	loincCode: string,
+	normalRangeMin: number,
+	normalRangeMax: number,
+	unit: string
 ) => {
 	const body = {
 		TypeName: typeName,
 		DisplayName: displayName,
-		SnowmedCode: snowmedCode,
-		LoincCode: loincCode,
-		NormalRangeMin: Number(normalRangeMin),
-		NormalRangeMax: Number(normalRangeMax),
-		Unit: unit
+		SnowmedCode: snowmedCode ? snowmedCode : null,
+		LoincCode: loincCode ? loincCode : null,
+		NormalRangeMin: normalRangeMin ? normalRangeMin : null,
+		NormalRangeMax: normalRangeMax ? normalRangeMax : null,
+		Unit: unit ? unit : null,
 	};
 	const url = BACKEND_API_URL + `/types/lab-records/${labRecordTypeId}`;
 	return await put_(sessionId, url, body, true);
