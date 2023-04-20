@@ -53,12 +53,12 @@ export const actions = {
 			newsfeedId,
 			title.valueOf() as string,
 			content.valueOf() as string,
-			description?.valueOf() as string,
-			link?.valueOf() as string,
-			image?.valueOf() as string,
-			authorName?.valueOf() as string,
-			authorEmail?.valueOf() as string,
-			authorLink?.valueOf() as string
+			description.valueOf() as string,
+			link.valueOf() as string,
+			image.valueOf() as string,
+			authorName.valueOf() as string,
+			authorEmail.valueOf() as string,
+			authorLink.valueOf() as string
 		);
 		const id = response.Data.RssfeedItem.id;
 

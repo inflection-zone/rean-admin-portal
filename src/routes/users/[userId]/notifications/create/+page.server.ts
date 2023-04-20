@@ -21,10 +21,10 @@ export const actions = {
 		const response = await createNotification(
 			sessionId,
 			title.valueOf() as string,
-			Body?.valueOf() as string,
-			type?.valueOf() as string,
-			broadcastToAll?.valueOf() as boolean,
-			imageUrl?.valueOf() as string
+			Body.valueOf() as string,
+			type.valueOf() as string,
+			broadcastToAll.valueOf() as boolean,
+			imageUrl.valueOf() as string
 		);
 		const id = response.Data.Notification.id;
 

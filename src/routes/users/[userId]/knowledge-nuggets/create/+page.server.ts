@@ -23,11 +23,11 @@ export const actions = {
 
 		const response = await createKnowledgeNugget(
 			sessionId,
-			topicName?.valueOf() as string,
-			briefInformation?.valueOf() as string,
-			detailedInformation?.valueOf() as string,
-			additionalResources?.valueOf() as string[],
-			tags?.valueOf() as string[]
+			topicName.valueOf() as string,
+			briefInformation.valueOf() as string,
+			detailedInformation.valueOf() as string,
+			additionalResources.valueOf() as string[],
+			tags.valueOf() as string[]
 		);
 		const id = response.Data.KnowledgeNugget.id;
 

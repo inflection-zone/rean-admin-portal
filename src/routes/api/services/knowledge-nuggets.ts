@@ -13,10 +13,10 @@ export const createKnowledgeNugget = async (
 ) => {
 	const body = {
 		TopicName: topicName ? topicName : null,
-	  BriefInformation: briefInformation ? briefInformation : null,
+		BriefInformation: briefInformation ? briefInformation : null,
 		DetailedInformation: detailedInformation ? detailedInformation : null,
 		AdditionalResources: additionalResources ? additionalResources : null,
-		Tags: tags ? tags : null,
+		Tags: tags ? tags : null
 	};
 	const url = BACKEND_API_URL + '/educational/knowledge-nuggets';
 	return await post_(sessionId, url, body, true);
@@ -58,12 +58,12 @@ export const updateKnowledgeNugget = async (
 ) => {
 	const body = {
 		TopicName: topicName ? topicName : null,
-	  BriefInformation: briefInformation ? briefInformation : null,
+		BriefInformation: briefInformation ? briefInformation : null,
 		DetailedInformation: detailedInformation ? detailedInformation : null,
 		AdditionalResources: additionalResources ? additionalResources : null,
-		Tags: tags ? tags : null,
+		Tags: tags ? tags : null
 	};
-	console.log('body--',body)
+	console.log('body--', body);
 	const url = BACKEND_API_URL + `/educational/knowledge-nuggets/${knowledgeNuggetId}`;
 	return await put_(sessionId, url, body, true);
 };

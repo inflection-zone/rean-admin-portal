@@ -44,7 +44,7 @@ export const actions = {
 			sessionId,
 			priorityId,
 			type.valueOf() as string,
-			tags?.valueOf() as string[]
+			tags.valueOf() as string[]
 		);
 		const id = response.Data.PriorityType.id;
 

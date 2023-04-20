@@ -11,7 +11,7 @@ export const createLabRecordType = async (
 	loincCode: string,
 	normalRangeMin: number,
 	normalRangeMax: number,
-	unit?: string
+	unit: string
 ) => {
 	const body = {
 		TypeName: typeName,
@@ -20,7 +20,7 @@ export const createLabRecordType = async (
 		LoincCode: loincCode ? loincCode : null,
 		NormalRangeMin: normalRangeMin ? normalRangeMin : null,
 		NormalRangeMax: normalRangeMax ? normalRangeMax : null,
-		Unit: unit ? unit : null,
+		Unit: unit ? unit : null
 	};
 	const url = BACKEND_API_URL + '/types/lab-records';
 	return await post_(sessionId, url, body, true);
@@ -69,7 +69,7 @@ export const updateLabRecordType = async (
 		LoincCode: loincCode ? loincCode : null,
 		NormalRangeMin: normalRangeMin ? normalRangeMin : null,
 		NormalRangeMax: normalRangeMax ? normalRangeMax : null,
-		Unit: unit ? unit : null,
+		Unit: unit ? unit : null
 	};
 	const url = BACKEND_API_URL + `/types/lab-records/${labRecordTypeId}`;
 	return await put_(sessionId, url, body, true);

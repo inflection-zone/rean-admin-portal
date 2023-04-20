@@ -25,14 +25,14 @@ export const actions = {
 		const response = await createNewsfeed(
 			sessionId,
 			title.valueOf() as string,
-			description?.valueOf() as string,
-			category?.valueOf() as string,
-			link?.valueOf() as string,
-			language?.valueOf() as string,
-			copyright?.valueOf() as string,
-			favicon?.valueOf() as string,
-			image?.valueOf() as string,
-			tags?.valueOf() as string[]
+			description.valueOf() as string,
+			category.valueOf() as string,
+			link.valueOf() as string,
+			language.valueOf() as string,
+			copyright.valueOf() as string,
+			favicon.valueOf() as string,
+			image.valueOf() as string,
+			tags.valueOf() as string[]
 		);
 		const newsfeedId = response.Data.Rssfeed.id;
 

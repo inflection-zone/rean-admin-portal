@@ -11,7 +11,7 @@ export const actions = {
 		const userId = event.params.userId;
 		const newsfeedId = event.params.newsfeedId;
 		const data = await request.formData();
-		
+
 		const title = data.has('title') ? data.get('title') : null;
 		const content = data.has('content') ? data.get('content') : null;
 		const description = data.has('description') ? data.get('description') : null;
@@ -27,12 +27,12 @@ export const actions = {
 			newsfeedId,
 			title.valueOf() as string,
 			content.valueOf() as string,
-			description?.valueOf() as string,
-			link?.valueOf() as string,
-			image?.valueOf() as string,
-			authorName?.valueOf() as string,
-			authorEmail?.valueOf() as string,
-			authorLink?.valueOf() as string
+			description.valueOf() as string,
+			link.valueOf() as string,
+			image.valueOf() as string,
+			authorName.valueOf() as string,
+			authorEmail.valueOf() as string,
+			authorLink.valueOf() as string
 		);
 		const newsfeedItemId = response.Data.RssfeedItem.id;
 

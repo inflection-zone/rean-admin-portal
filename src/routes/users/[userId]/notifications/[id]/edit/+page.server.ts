@@ -47,10 +47,10 @@ export const actions = {
 			sessionId,
 			notificationId,
 			title.valueOf() as string,
-			Body?.valueOf() as string,
-			type?.valueOf() as string,
-			broadcastToAll?.valueOf() as boolean,
-			imageUrl?.valueOf() as string
+			Body.valueOf() as string,
+			type.valueOf() as string,
+			broadcastToAll.valueOf() as boolean,
+			imageUrl.valueOf() as string
 		);
 		const id = response.Data.Notification.id;
 

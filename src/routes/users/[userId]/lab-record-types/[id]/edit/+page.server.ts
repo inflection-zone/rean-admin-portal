@@ -53,11 +53,11 @@ export const actions = {
 			labRecordTypeId,
 			typeName.valueOf() as string,
 			displayName.valueOf() as string,
-			snowmedCode?.valueOf() as string,
-			loincCode?.valueOf() as string,
-			normalRangeMin?.valueOf() as number,
-			normalRangeMax?.valueOf() as number,
-			unit?.valueOf() as string
+			snowmedCode.valueOf() as string,
+			loincCode.valueOf() as string,
+			normalRangeMin.valueOf() as number,
+			normalRangeMax.valueOf() as number,
+			unit.valueOf() as string
 		);
 		const id = response.Data.LabRecordType.id;
 

@@ -48,14 +48,14 @@ export const actions = {
 			sessionId,
 			newsfeedId,
 			title.valueOf() as string,
-			description?.valueOf() as string,
-			category?.valueOf() as string,
-			link?.valueOf() as string,
-			language?.valueOf() as string,
-			copyright?.valueOf() as string,
-			favicon?.valueOf() as string,
-			image?.valueOf() as string,
-			tags?.valueOf() as string[]
+			description.valueOf() as string,
+			category.valueOf() as string,
+			link.valueOf() as string,
+			language.valueOf() as string,
+			copyright.valueOf() as string,
+			favicon.valueOf() as string,
+			image.valueOf() as string,
+			tags.valueOf() as string[]
 		);
 		const id = response.Data.Rssfeed.id;
 
