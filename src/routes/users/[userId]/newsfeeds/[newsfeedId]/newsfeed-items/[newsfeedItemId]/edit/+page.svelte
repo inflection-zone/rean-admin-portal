@@ -169,7 +169,7 @@
 				</div>
 				<div class="w-1/2 md:w-2/3 lg:w-2/3">
 					<input
-						type="text"
+						type="url"
 						bind:value={link}
 						name="link"
 						placeholder="Enter link here..."
@@ -242,7 +242,7 @@
 				</div>
 				<div class="w-1/2 md:w-2/3 lg:w-2/3">
 					<input
-						type="text"
+						type="url"
 						name="authorLink"
 						bind:value={authorLink}
 						placeholder="Enter author link here..."
