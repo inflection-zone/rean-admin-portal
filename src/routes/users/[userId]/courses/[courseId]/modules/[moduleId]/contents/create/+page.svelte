@@ -12,7 +12,7 @@
 	const moduleId = $page.params.moduleId;
 	const createRoute = `/users/${userId}/courses/${courseId}/modules/${moduleId}/contents/create`;
 	const courseRoute = `/users/${userId}/courses`;
-	const moduleRoute = `/users/${userId}/courses/${courseId}/modules/create`;
+	const moduleRoute = `/users/${userId}/courses/${courseId}/modules/${moduleId}/view`;
 
 	let imageUrl = undefined;
 	let fileinput;
@@ -25,6 +25,10 @@
 		{
 			name: 'Modules',
 			path: moduleRoute
+		},
+		{
+			name: 'Content',
+			path: createRoute
 		},
 		{
 			name: 'Create',

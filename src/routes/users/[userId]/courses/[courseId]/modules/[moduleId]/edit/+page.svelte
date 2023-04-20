@@ -36,7 +36,7 @@
 	const moduleId = $page.params.moduleId;
 	const editRoute = `/users/${userId}/courses/${courseId}/modules/${moduleId}/edit`;
 	const viewRoute = `/users/${userId}/courses/${courseId}/modules/${moduleId}/view`;
-	const moduleRoute = `/users/${userId}/courses/${courseId}/modules`;
+	const moduleRoute = `/users/${userId}/courses/${courseId}/modules/${moduleId}/view`;
 	const courseRoute = `/users/${userId}/courses`;
 
 	const breadCrumbs = [
@@ -46,7 +46,7 @@
 		},
 		{
 			name: 'Modules',
-			path: moduleRoute
+			path: viewRoute
 		},
 		{
 			name: 'Edit',

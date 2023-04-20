@@ -22,7 +22,7 @@
 		},
 		{
 			name: 'Modules',
-			path: moduleRoute
+			path: createRoute
 		},
 		{
 			name: 'Create',
