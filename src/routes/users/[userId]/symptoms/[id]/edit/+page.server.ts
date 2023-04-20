@@ -55,7 +55,7 @@ export const actions = {
 			language.valueOf() as string,
 			imageResourceId.valueOf() as string,
 			description.valueOf() as string,
-			tags.valueOf() as string[]
+			tags?.valueOf() as string[]
 		);
 
 		const id = response.Data.SymptomType.id;

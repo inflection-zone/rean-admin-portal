@@ -140,7 +140,7 @@
 				</div>
 				<div class="w-1/2 md:w-2/3 lg:w-2/3">
 					<input
-						type="text"
+						type="number"
 						name="preferenceWeight"
 						bind:value={preferenceWeight}
 						placeholder="Enter prefrence weight here..."

@@ -17,11 +17,12 @@
 	let link = data.notice.Link;
 	let postDate = new Date(data.notice.PostDate);
 	let daysActive = data.notice.DaysActive;
-	let tags = data.notice.Tags;
+	let tags = data.notice.Tags ?? null;
 	let action = data.notice.Action;
 	let imageUrl = data.notice.ImageUrl;
 	$: avatarSource = imageUrl;
 
+	console.log("tags",tags)
 	//Original data
 	let _title = title;
 	let _description = description;

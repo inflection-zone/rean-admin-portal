@@ -52,7 +52,7 @@ export const actions = {
 			description.valueOf() as string,
 			link.valueOf() as string,
 			daysActive.valueOf() as number,
-			tags.valueOf() as string[],
+			tags?.valueOf() as string[],
 			action.valueOf() as string,
 			imageUrl.valueOf() as string
 		);
