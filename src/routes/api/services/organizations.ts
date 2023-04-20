@@ -17,14 +17,14 @@ export const createOrganization = async (
 ) => {
 	const body = {
 		Type: type,
-		Name: name,
-		ContactPhone: contactPhone,
-		ContactEmail: contactEmail,
-		About: about,
-		OperationalSince: operationalSince,
+		Name: name ? name : null,
+		ContactPhone: contactPhone ? contactPhone : null,
+		ContactEmail: contactEmail ? contactEmail : null,
+		About: about ? about : null,
+		OperationalSince: operationalSince ? operationalSince : null,
 		AddressIds: address,
-		ImageResourceId: imageResourceId,
-		IsHealthFacility: isHealthFacility
+		ImageResourceId: imageResourceId ? imageResourceId : null,
+		IsHealthFacility: isHealthFacility ? isHealthFacility : false,
 	};
 	const url = BACKEND_API_URL + '/organizations';
 	return await post_(sessionId, url, body, true);
@@ -70,15 +70,16 @@ export const updateOrganization = async (
 ) => {
 	const body = {
 		Type: type,
-		Name: name,
-		ContactNumber: contactNumber,
-		Email: email,
-		About: about,
-		OperationalSince: operationalSince,
+		Name: name ? name : null,
+		contactPhone: contactNumber ? contactNumber : null,
+		ContactEmail: email ? email : null,
+		About: about ? about : null,
+		OperationalSince: operationalSince ? operationalSince : null,
 		AddressIds: address,
-		ImageResourceId: imageResourceId,
-		IsHealthFacility: isHealthFacility
+		ImageResourceId: imageResourceId ? imageResourceId : null,
+		IsHealthFacility: isHealthFacility ? isHealthFacility : false,
 	};
+	console.log("body",body)
 	const url = BACKEND_API_URL + `/organizations/${organizationId}`;
 	return await put_(sessionId, url, body, true);
 };

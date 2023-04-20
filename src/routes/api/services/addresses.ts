@@ -14,13 +14,13 @@ export const createAddress = async (
 	postalCode: number
 ) => {
 	const body = {
-		Type: type,
+		Type: type ? type : 'Home',
 		AddressLine: addressLine,
-		City: city,
-		District: district,
-		State: state,
-		Country: country,
-		PostalCode: postalCode
+		City: city ? city : null,
+		District: district ? district : null,
+		State: state ? state : null,
+		Country: country ? country : null,
+		PostalCode: postalCode ? postalCode : null,
 	};
 	const url = BACKEND_API_URL + '/addresses';
 	return await post_(sessionId, url, body, true);
