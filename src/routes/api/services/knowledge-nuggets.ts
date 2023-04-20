@@ -12,7 +12,7 @@ export const createKnowledgeNugget = async (
 	tags: string[]
 ) => {
 	const body = {
-		TopicName: topicName ? topicName : null,
+		TopicName: topicName,
 		BriefInformation: briefInformation ? briefInformation : null,
 		DetailedInformation: detailedInformation ? detailedInformation : null,
 		AdditionalResources: additionalResources ? additionalResources : null,
@@ -57,7 +57,7 @@ export const updateKnowledgeNugget = async (
 	tags: string[]
 ) => {
 	const body = {
-		TopicName: topicName ? topicName : null,
+		TopicName: topicName,
 		BriefInformation: briefInformation ? briefInformation : null,
 		DetailedInformation: detailedInformation ? detailedInformation : null,
 		AdditionalResources: additionalResources ? additionalResources : null,
