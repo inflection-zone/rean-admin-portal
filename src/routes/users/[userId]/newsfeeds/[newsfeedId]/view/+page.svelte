@@ -172,7 +172,11 @@
 						<span>Tags</span>
 					</label>
 				</div>
-				<span class="span w-1/2 md:2/3 lg:2/3">{tags} </span>
+				{#if tags.length <= 0}
+					<span class="span">Tags not specified</span>
+				{:else}
+					<span class="span w-1/2 md:2/3 lg:2/3">{tags} </span>
+				{/if}
 			</div>
 
 			<div class="flex items-start my-4 lg:mx-16 md:mx-12 mx-10">

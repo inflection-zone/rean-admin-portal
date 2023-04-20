@@ -95,7 +95,11 @@
 						<span>Additional Resource</span>
 					</label>
 				</div>
-				<span class="span w-1/2 md:2/3 lg:2/3" id="additionalResources">{additionalResources}</span>
+				{#if tags.length <= 0}
+					<span class="span">Additional resource not specified</span>
+				{:else}
+					<span class="span w-1/2 md:2/3 lg:2/3">{tags} </span>
+				{/if}
 			</div>
 
 			<div class="flex items-center my-4 lg:mx-16 md:mx-12 mx-10">
@@ -105,7 +109,11 @@
 						<span>Tags</span>
 					</label>
 				</div>
-				<span class="span w-1/2 md:2/3 lg:2/3">{tags}</span>
+				{#if tags.length <= 0}
+					<span class="span">Tags not specified</span>
+				{:else}
+					<span class="span w-1/2 md:2/3 lg:2/3">{tags} </span>
+				{/if}
 			</div>
 
 			<div class="flex items-center mt-7 lg:mx-16 md:mx-12 mr-10">
