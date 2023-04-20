@@ -19,8 +19,8 @@ export const createAssessmentNode = async (
 		ParentNodeId: parentNodeId,
 		NodeType: nodeType,
 		Title: title,
-		Description: description,
-		Message: message,
+		Description: description ? description : null,
+		Message: message ? message : null,
 		ServeListNodeChildrenAtOnce: serveListNodeChildrenAtOnce,
 		QueryResponseType: queryType,
 		Options: options
@@ -86,8 +86,8 @@ export const updateAssessmentNode = async (
 	const body = {
 		NodeType: nodeType,
 		Title: title,
-		Description: description,
-		Message: message,
+		Description: description ? description : null,
+		Message: message ? message : null,
 		QueryResponseType: queryType,
 		Options: options
 	};

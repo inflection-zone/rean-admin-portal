@@ -12,7 +12,7 @@
 	let country = Country.getAllCountries();
 	let checkboxValue = false;
 	const userId = $page.params.userId;
-	let imageResourceId = undefined;
+	let imageResourceId = '';
 	let imageUrl = undefined;
 	let fileinput;
 	export let data: PageServerData;
@@ -105,7 +105,7 @@
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
 					<!-- svelte-ignore a11y-label-has-associated-control -->
 					<label class="label">
-						<span>Type</span>
+						<span>Type *</span>
 					</label>
 				</div>
 				<div class="w-1/2 md:w-2/3 lg:w-2/3">
@@ -121,11 +121,11 @@
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
 					<!-- svelte-ignore a11y-label-has-associated-control -->
 					<label class="label">
-						<span>Name</span>
+						<span>Name *</span>
 					</label>
 				</div>
 				<div class="w-1/2 md:w-2/3 lg:w-2/3">
-					<input type="text" name="name" placeholder="Enter name here..." class="input w-full " />
+					<input type="text" name="name" required placeholder="Enter name here..." class="input w-full " />
 				</div>
 			</div>
 
@@ -133,7 +133,7 @@
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
 					<!-- svelte-ignore a11y-label-has-associated-control -->
 					<label class="label">
-						<span>Contact Number</span>
+						<span>Contact Number *</span>
 					</label>
 				</div>
 				<div class="flex gap-2 w-1/2 md:w-2/3 lg:w-2/3">
@@ -153,6 +153,7 @@
 							name="contactPhone"
 							placeholder="Enter contact number here..."
 							class="input w-full max-w-md"
+							required
 						/>
 					</div>
 				</div>
@@ -162,7 +163,7 @@
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
 					<!-- svelte-ignore a11y-label-has-associated-control -->
 					<label class="label">
-						<span>Email</span>
+						<span>Email *</span>
 					</label>
 				</div>
 				<div class="w-1/2 md:w-2/3 lg:w-2/3">
@@ -171,6 +172,7 @@
 						name="contactEmail"
 						placeholder="Enter email here..."
 						class="input w-full "
+						required
 					/>
 				</div>
 			</div>
@@ -208,7 +210,7 @@
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
 					<!-- svelte-ignore a11y-label-has-associated-control -->
 					<label class="label">
-						<span>Address Type</span>
+						<span>Address Type *</span>
 					</label>
 				</div>
 				<div class="w-1/2 md:w-2/3 lg:w-2/3">
@@ -227,7 +229,7 @@
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
 					<!-- svelte-ignore a11y-label-has-associated-control -->
 					<label class="label">
-						<span>Address</span>
+						<span>Address Line *</span>
 					</label>
 				</div>
 				<div class="w-1/2 md:w-2/3 lg:w-2/3">
@@ -236,6 +238,7 @@
 						name="AddressLine"
 						placeholder="Enter address here..."
 						class="input w-full "
+						required
 					/>
 				</div>
 			</div>

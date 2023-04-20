@@ -61,6 +61,8 @@ export const updateCourse = async (
 		ImageUrl: imageUrl ? imageUrl : null,
 		DurationInDays: durationInDays ? durationInDays : null,
 	};
+
+	console.log( "body",body)
 	const url = BACKEND_API_URL + `/educational/courses/${courseId}`;
 	return await put_(sessionId, url, body, true);
 };
