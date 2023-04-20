@@ -18,7 +18,7 @@ export const actions = {
 		const response = await createPriority(
 			sessionId,
 			type.valueOf() as string,
-			tags.valueOf() as string[]
+			tags?.valueOf() as string[]
 		);
 		const id = response.Data.PriorityType.id;
 
