@@ -50,7 +50,7 @@ export const actions = {
 			description.valueOf() as string,
 			durationInDays.valueOf() as number,
 			imageUrl.valueOf() as string,
-			courseIds.valueOf() as string[]
+			courseIds?.valueOf() as string[]
 		);
 		console.log('response', response.Data);
 		const learningPathId = response.Data.LearningPath.id;
