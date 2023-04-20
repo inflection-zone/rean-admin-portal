@@ -192,7 +192,8 @@
 	</button>
 </a>
 
-<div class="mt-10 mb-14">
+<div class="flex justify-center rounded-lg flex-col mt-14 mb-10 lg:gap-6 md:gap-4 gap-4 md:ml-4 md:flex-col sm:flex-col min-[280px]:flex-col overflow-auto">
+	
 	<CourseView courses={courses} userId={userId} on:searchCourse = {async (e) => {
 		await searchParams (e.detail.name, e.detail.durationInDays);
 	 }}

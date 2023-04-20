@@ -14,6 +14,7 @@
 	let title = data.newsfeedItem.Title;
 	let description = data.newsfeedItem.Description;
 	let link = data.newsfeedItem.Link;
+	let content = data.newsfeedItem.Content;
 	let authorName = data.newsfeedItem.AuthorName;
 	let authorEmail = data.newsfeedItem.AuthorEmail;
 	let authorLink = data.newsfeedItem.AuthorLink;
@@ -25,6 +26,7 @@
 	let _title = title;
 	let _description = description;
 	let _link = link;
+	let _content = content;
 	let _authorName = authorName;
 	let _authorEmail = authorEmail;
 	let _authorLink = authorLink;
@@ -35,7 +37,7 @@
 		title = _title;
 		description = _description;
 		link = _link;
-		link = _link;
+		content = _content;
 		authorName = _authorName;
 		authorEmail = _authorEmail;
 		authorLink = _authorLink;
@@ -105,14 +107,14 @@
 	};
 </script>
 
-<main class="h-screen mb-32">
+<main class="h-screen mb-52">
 	<BreadCrumbs crumbs={breadCrumbs} />
 
-	<div class=" flex justify-center mt-5 px-3 mb-10 flex-col items-center">
+	<div class="">
 		<form
 			method="post"
 			action="?/updateNewsfeedItemAction"
-			class="w-full lg:max-w-4xl md:max-w-xl sm:max-w-lg bg-[#ECE4FC] rounded-lg mx-auto"
+			class="w-full  bg-[#ECE4FC] lg:mt-10 md:mt-8 sm:mt-6 mb-10 mt-4 lg:max-w-4xl md:max-w-xl sm:max-w-lg  rounded-lg mx-auto"
 		>
 			<div class="w-full  h-14 rounded-t-lg p-3  bg-[#7165E3]">
 				<div class="ml-3 relative flex flex-row text-white text-xl">
@@ -127,7 +129,7 @@
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
 					<!-- svelte-ignore a11y-label-has-associated-control -->
 					<label class="label">
-						<span>Title</span>
+						<span>Title *</span>
 					</label>
 				</div>
 				<div class="w-1/2 md:w-2/3 lg:w-2/3">
@@ -141,7 +143,7 @@
 				</div>
 			</div>
 
-			<div class="flex items-center mb-2 lg:mx-16 md:mx-12 mx-10">
+			<div class="flex items-start mb-2 lg:mx-16 md:mx-12 mx-10">
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
 					<!-- svelte-ignore a11y-label-has-associated-control -->
 					<label class="label">
@@ -171,6 +173,25 @@
 						bind:value={link}
 						name="link"
 						placeholder="Enter link here..."
+						class="input w-full "
+					/>
+				</div>
+			</div>
+
+			<div class="flex items-center mb-4 lg:mx-16 md:mx-12 mx-10">
+				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
+					<!-- svelte-ignore a11y-label-has-associated-control -->
+					<label class="label">
+						<span>Content *</span>
+					</label>
+				</div>
+				<div class="w-1/2 md:w-2/3 lg:w-2/3">
+					<input
+						type="text"
+						bind:value={content}
+						name="content"
+						required
+						placeholder="Enter content here..."
 						class="input w-full "
 					/>
 				</div>
@@ -269,10 +290,6 @@
 						/>
 					{/if}
 					<input type="hidden" name="image" value={image} />
-					<!-- <button
-						class="capitalize btn variant-filled-primary lg:w-[19%] md:w-[22%] md:text-[13px] sm:w-[30%] sm:text-[12px] min-[320px]:w-[40%] min-[320px]:text-[10px]"
-						>Upload</button
-					> -->
 				</div>
 			</div>
 

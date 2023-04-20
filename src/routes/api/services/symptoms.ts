@@ -6,15 +6,15 @@ import { delete_, get_, post_, put_ } from './common';
 export const createSymptom = async (
 	sessionId: string,
 	symptom: string,
+	language: string,
+	imageResourceId: string,
 	description: string,
 	tags: string[],
-	language: string,
-	imageResourceId: string
 ) => {
 	const body = {
 		Symptom: symptom,
-		Description: description,
-		Tags: tags,
+		Description: description ? description : null,
+		Tags: tags ? tags : null,
 		Language: language,
 		ImageResourceId: imageResourceId
 	};
@@ -51,15 +51,15 @@ export const updateSymptom = async (
 	sessionId: string,
 	symptonId: string,
 	symptom: string,
+	language: string,
+	imageResourceId: string,
 	description: string,
 	tags: string[],
-	language: string,
-	imageResourceId: string
 ) => {
 	const body = {
 		Symptom: symptom,
-		Description: description,
-		Tags: tags,
+		Description: description ? description : null,
+		Tags: tags ? tags : null,
 		Language: language,
 		ImageResourceId: imageResourceId
 	};

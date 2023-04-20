@@ -10,7 +10,7 @@ export const createGoal = async (
 ) => {
 	const body = {
 		Type: type,
-		Tags: tags
+		Tags: tags ? tags : null,
 	};
 	const url = BACKEND_API_URL + '/types/goal-types';
 	return await post_(sessionId, url, body, true);
@@ -49,7 +49,7 @@ export const updateGoal = async (
 ) => {
 	const body = {
 		Type: type,
-		Tags: tags
+		Tags: tags ? tags : null,
 	};
 	const url = BACKEND_API_URL + `/types/goal-types/${goalId}`;
 	return await put_(sessionId, url, body, true);
