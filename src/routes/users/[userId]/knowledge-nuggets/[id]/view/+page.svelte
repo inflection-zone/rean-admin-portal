@@ -95,10 +95,10 @@
 						<span>Additional Resource</span>
 					</label>
 				</div>
-				{#if tags.length <= 0}
+				{#if additionalResources.length <= 0}
 					<span class="span">Additional resource not specified</span>
 				{:else}
-					<span class="span w-1/2 md:2/3 lg:2/3">{tags} </span>
+					<span class="span w-1/2 md:2/3 lg:2/3">{additionalResources} </span>
 				{/if}
 			</div>
 
