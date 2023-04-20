@@ -30,6 +30,7 @@
 	const userId = $page.params.userId;
 	const templateId = $page.params.templateId;
 	const nodeId = $page.params.nodeId;
+	const assessmentsRoutes = `/users/${userId}/assessment-templates`;
 	const editRoute = `/users/${userId}/assessment-templates/${templateId}/assessment-nodes/${nodeId}/edit`;
 	const viewRoute = `/users/${userId}/assessment-templates/${templateId}/assessment-nodes/${nodeId}/view`;
 	const assessmentNodeRoutes = `/users/${userId}/assessment-templates/${templateId}/assessment-nodes`;
@@ -38,6 +39,10 @@
 		`/users/${userId}/assessment-templates/${templateId}/assessment-nodes/${id}/edit`;
 
 	const breadCrumbs = [
+		{
+			name: 'Assessment-Templates',
+			path: assessmentsRoutes
+		},
 		{
 			name: 'Assessment-Nodes',
 			path: assessmentNodeRoutes

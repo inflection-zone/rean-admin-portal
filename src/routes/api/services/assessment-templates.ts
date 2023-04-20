@@ -61,8 +61,9 @@ export const updateAssessmentTemplate = async (
 	description: string,
 	type: string,
 	provider: string,
-	providerAssessmentCode: string
-	// serveListNodeChildrenAtOnce: string
+	providerAssessmentCode: string,
+	serveListNodeChildrenAtOnce: string,
+	scoringApplicable: string,
 ) => {
 	const body = {
 		Title: title,
@@ -70,7 +71,8 @@ export const updateAssessmentTemplate = async (
 		Type: type,
 		Provider: provider ? provider : null,
 		ProviderAssessmentCode: providerAssessmentCode ? providerAssessmentCode : null,
-		// ServeListNodeChildrenAtOnce: serveListNodeChildrenAtOnce ? serveListNodeChildrenAtOnce : false,
+		ServeListNodeChildrenAtOnce: serveListNodeChildrenAtOnce ? serveListNodeChildrenAtOnce : false,
+		ScoringApplicable:scoringApplicable ? scoringApplicable : false
 	};
 	
 	const url = BACKEND_API_URL + `/clinical/assessment-templates/${assessmentTemplateId}`;

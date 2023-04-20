@@ -30,8 +30,13 @@
 	const templateId = $page.params.templateId;
 	const createRoute = `/users/${userId}/assessment-templates/${templateId}/assessment-nodes/create`;
 	const assessmentNodeRoutes = `/users/${userId}/assessment-templates/${templateId}/assessment-nodes`;
+	const assessmentsRoutes = `/users/${userId}/assessment-templates`;
 
 	const breadCrumbs = [
+		{
+			name: 'Assessment-Templates',
+			path: assessmentsRoutes
+		},
 		{
 			name: 'Assessment-Nodes',
 			path: assessmentNodeRoutes

@@ -14,6 +14,7 @@
 	let provider = data.assessmentTemplate.Provider;
 	let providerAssessmentCode = data.assessmentTemplate.ProviderAssessmentCode;
 	let serveListNodeChildrenAtOnce = data.assessmentTemplate.ServeListNodeChildrenAtOnce;
+	let scoringApplicable = data.assessmentTemplate.ScoringApplicable;
 
 	//Original data
 	let _title = title;
@@ -94,7 +95,7 @@
 				</div>
 			</div>
 
-			<div class="flex items-center mt-4 mx-16">
+			<div class="flex items-start mt-4 mx-16">
 				<div class="w-1/2 md:w-1/3 lg:w-1/3">
 					<!-- svelte-ignore a11y-label-has-associated-control -->
 					<label class="label">
@@ -169,26 +170,50 @@
 					/>
 				</div>
 			</div>
-			<!-- <div class="flex items-center my-4 mx-16">
+			
+			<div class="flex items-center my-4 mx-16">
 				<div class="w-1/2 md:w-1/3 lg:w-1/3">
+					<!-- svelte-ignore a11y-label-has-associated-control -->
 					<label class="label">
 						<span>Servelist Node Children At Once</span>
 					</label>
 				</div>
 				<div class="w-1/2 md:w-2/3 lg:w-2/3">
-					<input
-						type="text"
-						bind:value={serveListNodeChildrenAtOnce}
-						name="servelistNodeChildrenAtOnce"
-						class="input w-full"
-						placeholder="Enter servelist node children at once here..."
-					/>
+					<label class="label cursor-pointer">
+						<input
+							type="checkbox"
+							name="serveListNodeChildrenAtOnce"
+							bind:value={serveListNodeChildrenAtOnce}
+							bind:checked= {serveListNodeChildrenAtOnce}
+							class="checkbox checkbox-primary border-primary-200 hover:border-primary-400 checkbox-md ml-2"
+						/>
+					</label>
 				</div>
-			</div> -->
+			</div>
+	
+			<div class="flex items-center my-4 mx-16">
+				<div class="w-1/2 md:w-1/3 lg:w-1/3">
+					<!-- svelte-ignore a11y-label-has-associated-control -->
+					<label class="label">
+						<span>Scoring Applicable</span>
+					</label>
+				</div>
+				<div class="w-1/2 md:w-2/3 lg:w-2/3">
+					<label class="label cursor-pointer">
+						<input
+							type="checkbox"
+							name="scoringApplicable"
+							class="checkbox checkbox-primary border-primary-200 hover:border-primary-400 checkbox-md ml-2"
+							bind:value={scoringApplicable}
+							bind:checked= {scoringApplicable}
+						/>
+					</label>
+				</div>
+			</div>
 
 			<div class="flex items-center my-8 lg:mx-16 md:mx-12 mx-4 ">
-				<div class="lg:w-1/2 md:w-1/2 sm:w-1/2  w-1/2 md:w-1/3 lg:w-1/3" />
-				<div class="lg:w-1/4 md:w-1/4 sm:w-1/4  w-1/2 md:w-1/3 lg:w-1/3 ">
+				<div class="lg:w-1/2 md:w-1/2 sm:w-1/2  w-1/2" />
+				<div class="lg:w-1/4 md:w-1/4 sm:w-1/4  w-1/2  ">
 					<button
 						type="button"
 						on:click={handleReset}
@@ -197,7 +222,7 @@
 						Reset</button
 					>
 				</div>
-				<div class="lg:w-1/4 md:w-1/4 sm:w-1/4 w-1/2 md:w-1/3 lg:w-1/3">
+				<div class="lg:w-1/4 md:w-1/4 sm:w-1/4 w-1/2">
 					<button
 						type="submit"
 						class="btn variant-filled-primary lg:w-40 lg:ml-8 md:ml-6 sm:ml-2 mb-10"
