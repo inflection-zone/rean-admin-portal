@@ -15,12 +15,12 @@ export const createNotice = async (
 ) => {
 	const body = {
 		Title: title,
-		Description: description,
-		Link: link,
-		DaysActive: daysActive,
-		Tags: tags,
-		Action: action,
-		ImageUrl: imageUrl
+		Description: description ? description : null,
+		Link: link ? link : null,
+		DaysActive: daysActive ? daysActive : null,
+		Tags: tags ? tags : null,
+		Action: action ? action : null,
+		ImageUrl: imageUrl ? imageUrl : null,
 	};
 	const url = BACKEND_API_URL + '/general/notices';
 	return await post_(sessionId, url, body, true);
@@ -63,13 +63,14 @@ export const updateNotice = async (
 	imageUrl: string
 ) => {
 	const body = {
+		noticeId,
 		Title: title,
-		Description: description,
-		Link: link,
-		DaysActive: daysActive,
-		Tags: tags,
-		Action: action,
-		ImageUrl: imageUrl
+		Description: description ? description : null,
+		Link: link ? link : null,
+		DaysActive: daysActive ? daysActive : null,
+		Tags: tags ? tags : null,
+		Action: action ? action : null,
+		ImageUrl: imageUrl ? imageUrl : null,
 	};
 	const url = BACKEND_API_URL + `/general/notices/${noticeId}`;
 	return await put_(sessionId, url, body, true);

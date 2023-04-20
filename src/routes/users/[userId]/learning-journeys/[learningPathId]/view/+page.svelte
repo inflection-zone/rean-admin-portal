@@ -31,7 +31,6 @@
 	courses = courses.sort((a, b) => {
 		return a.Sequence - b.Sequence;
 	});
-	console.log('courses===', courses);
 
 	onMount(() => {
 		show(data);
@@ -59,7 +58,7 @@
 <main class="h-screen mb-10">
 	<BreadCrumbs crumbs={breadCrumbs} />
 
-	<div class="px-3 pb-10 mb-5">
+	<div class="">
 		<form
 			method="get"
 			class="w-full lg:max-w-2xl md:max-w-xl sm:max-w-lg mb-10 bg-[#ECE4FC] mt-6 rounded-lg mx-auto"

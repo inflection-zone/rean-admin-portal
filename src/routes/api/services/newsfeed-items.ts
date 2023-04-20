@@ -7,6 +7,7 @@ export const createNewsfeedItem = async (
 	sessionId: string,
 	newsfeedId: string,
 	title: string,
+	content: string,
 	description: string,
 	link: string,
 	image: string,
@@ -17,13 +18,15 @@ export const createNewsfeedItem = async (
 	const body = {
 		FeedId: newsfeedId,
 		Title: title,
-		Description: description,
-		Link: link,
-		Image: image,
-		AuthorName: authorName,
-		AuthorEmail: authorEmail,
-		AuthorLink: authorLink
+		Content: content,
+		Description: description ? description : null,
+		Link: link ? link : null,
+		Image: image ? image : null,
+		AuthorName: authorName ? authorName : null,
+		AuthorEmail: authorEmail ? authorEmail : null,
+		AuthorLink: authorLink ? authorLink : null,
 	};
+	console.log('body--',body)
 	const url = BACKEND_API_URL + '/rss-feeds/feed-items';
 	return await post_(sessionId, url, body, true);
 };
@@ -58,6 +61,7 @@ export const updateNewsfeedItem = async (
 	newsfeedItemId: string,
 	newsfeedId: string,
 	title: string,
+	content: string,
 	description: string,
 	link: string,
 	image: string,
@@ -68,13 +72,15 @@ export const updateNewsfeedItem = async (
 	const body = {
 		FeedId: newsfeedId,
 		Title: title,
-		Description: description,
-		Link: link,
-		Image: image,
-		AuthorName: authorName,
-		AuthorEmail: authorEmail,
-		AuthorLink: authorLink
+		Content: content,
+		Description: description ? description : null,
+		Link: link ? link : null,
+		Image: image ? image : null,
+		AuthorName: authorName ? authorName : null,
+		AuthorEmail: authorEmail ? authorEmail : null,
+		AuthorLink: authorLink ? authorLink : null,
 	};
+	console.log('body--',body)
 	const url = BACKEND_API_URL + `/rss-feeds/feed-items/${newsfeedItemId}`;
 	return await put_(sessionId, url, body, true);
 };

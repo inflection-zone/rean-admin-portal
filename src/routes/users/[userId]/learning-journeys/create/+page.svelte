@@ -97,11 +97,11 @@
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
 					<!-- svelte-ignore a11y-label-has-associated-control -->
 					<label class="label">
-						<span>Name</span>
+						<span>Name *</span>
 					</label>
 				</div>
 				<div class="w-1/2 md:w-2/3 lg:w-2/3">
-					<input type="text" name="name" placeholder="Enter  name here..." class="input w-full " />
+					<input type="text" name="name" required placeholder="Enter  name here..." class="input w-full " />
 				</div>
 			</div>
 			<div class="flex items-start my-4 lg:mx-16 md:mx-12 mx-10">
@@ -131,7 +131,6 @@
 				<div class="w-1/2 md:w-2/3 lg:w-2/3">
 					<textarea
 						name="description"
-						required
 						class="textarea w-full"
 						placeholder="Enter description here..."
 					/>

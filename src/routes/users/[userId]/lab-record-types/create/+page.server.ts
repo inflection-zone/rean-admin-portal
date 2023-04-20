@@ -30,7 +30,6 @@ export const actions = {
 			normalRangeMax.valueOf() as number,
 			unit.valueOf() as string
 		);
-		console.log('res-', response);
 		const id = response.Data.LabRecordType.id;
 
 		if (response.Status === 'failure' || response.HttpCode !== 201) {

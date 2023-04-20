@@ -27,7 +27,7 @@
 <main class="h-screen mb-10">
 	<BreadCrumbs crumbs={breadCrumbs} />
 
-	<div class="h-screen mb-10 ">
+	<div class="">
 		<form
 			method="post"
 			action="?/createKnowledgeNuggetAction"
@@ -63,7 +63,7 @@
 				</div>
 			</div>
 
-			<div class="flex items-center mb-4 lg:mx-16 md:mx-12 mx-10">
+			<div class="flex items-start mb-4 lg:mx-16 md:mx-12 mx-10">
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
 					<!-- svelte-ignore a11y-label-has-associated-control -->
 					<label class="label">
@@ -73,13 +73,12 @@
 				<div class="w-1/2 md:w-2/3 lg:w-2/3">
 					<textarea
 						name="briefInformation"
-						required
 						class="textarea textarea-primary w-full"
 						placeholder="Enter brief information here..."
 					/>
 				</div>
 			</div>
-			<div class="flex items-center mb-4 lg:mx-16 md:mx-12 mx-10">
+			<div class="flex items-start mb-4 lg:mx-16 md:mx-12 mx-10">
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
 					<!-- svelte-ignore a11y-label-has-associated-control -->
 					<label class="label">
@@ -89,7 +88,6 @@
 				<div class="w-1/2 md:w-2/3 lg:w-2/3">
 					<textarea
 						name="detailedInformation"
-						required
 						class="textarea w-full"
 						placeholder="Enter detailed information here..."
 					/>

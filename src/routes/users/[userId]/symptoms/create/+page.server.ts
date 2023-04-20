@@ -12,19 +12,19 @@ export const actions = {
 		const data = await request.formData();
 
 		const symptom = data.has('symptom') ? data.get('symptom') : null;
-		const description = data.has('description') ? data.get('description') : null;
-		const tags = data.has('tags') ? data.getAll('tags') : null;
 		const language = data.has('language') ? data.get('language') : null;
 		const imageResourceId = data.has('imageResourceId') ? data.get('imageResourceId') : null;
+		const description = data.has('description') ? data.get('description') : null;
+		const tags = data.has('tags') ? data.getAll('tags') : null;
 		const sessionId = event.cookies.get('sessionId');
 
 		const response = await createSymptom(
 			sessionId,
 			symptom.valueOf() as string,
-			description.valueOf() as string,
-			tags.valueOf() as string[],
 			language.valueOf() as string,
-			imageResourceId.valueOf() as string
+			imageResourceId.valueOf() as string,
+			description.valueOf() as string,
+			tags.valueOf() as string[]
 		);
 		const id = response.Data.SymptomType.id;
 
