@@ -192,7 +192,7 @@
 					<tr>
 						<td style="width: 5%;">{row.index}</td>
 						<td style="width: 20%;"><a href={viewRoute(row.id)}>{row.Symptom}</a></td>
-						<td style="width: 33%;">{row.Tags.length > 10 ? row.Tags.substring(0, 5) + '...' : row.Tags}</td>
+						<td style="width: 33%;">{row.Tags}</td>
 						<td style="width: 20%;">
 							<!-- svelte-ignore missing-declaration -->
 							<Image cls="flex h-10 w-10 rounded-lg" source={row.ImageUrl} w="24" h="24" />

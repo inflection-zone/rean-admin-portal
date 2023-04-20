@@ -198,8 +198,8 @@
 				{#each $dataTableStore.filtered as row, rowIndex}
 					<tr>
 						<td style="width: 5%;">{row.index}</td>
-						<td style="width: 21%;"><a href={viewRoute(row.id)}>{row.Title.length > 7
-							? row.Title.substring(0, 20) + '...'
+						<td style="width: 21%;"><a href={viewRoute(row.id)}>{row.Title.length > 10
+							? row.Title.substring(0, 13) + '...'
 							: row.Title}</a></td>
 						<td style="width: 35%;">{row.Link}</td>
 						<td style="width: 20%;">{row.DaysActive}</td>

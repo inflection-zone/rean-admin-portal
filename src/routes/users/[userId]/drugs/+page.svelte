@@ -204,13 +204,13 @@
 					<tr>
 						<td style="width: 5%;">{row.index}</td>
 						<td style="width: 18%;"><a href={viewRoute(row.id)}>{row.DrugName.length > 10
-							? row.DrugName.substring(0, 20) + '...'
+							? row.DrugName.substring(0, 13) + '...'
 							: row.DrugName}</a></td>
 						<td style="width: 35%;">{row.GenericName.length > 10
-							? row.GenericName.substring(0, 20) + '...'
+							? row.GenericName.substring(0, 15) + '...'
 							: row.GenericName}</td>
 						<td style="width: 19%;">{row.Ingredients.length > 10
-							? row.Ingredients.substring(0, 20) + '...'
+							? row.Ingredients.substring(0, 15) + '...'
 							: row.Ingredients}</td>
 						<td style="width: 30%;">{date.format(new Date(row.CreatedAt), 'DD-MMM-YYYY')}</td>
 						<td style="width: 8%;">

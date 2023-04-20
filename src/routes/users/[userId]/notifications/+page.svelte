@@ -184,7 +184,7 @@
 					<tr>
 						<td style="width: 5%;">{row.index}</td>
 						<td style="width: 19%;"><a href={viewRoute(row.id)}>{row.Title.length > 10
-							? row.Title.substring(0, 20) + '...'
+							? row.Title.substring(0, 13) + '...'
 							: row.Title}</a></td>
 						<td style="width: 30%;">{row.Body.length > 10
 							? row.Body.substring(0, 20) + '...'
