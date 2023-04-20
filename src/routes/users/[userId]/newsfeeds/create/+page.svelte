@@ -192,7 +192,7 @@
 				</div>
 				<div class="w-1/2 md:w-2/3 lg:w-2/3">
 					<input
-						type="text"
+						type="url"
 						name="favicon"
 						placeholder="Enter favicon here..."
 						class="input w-full "
