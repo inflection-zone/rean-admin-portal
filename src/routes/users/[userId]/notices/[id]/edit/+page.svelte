@@ -22,7 +22,7 @@
 	let imageUrl = data.notice.ImageUrl;
 	$: avatarSource = imageUrl;
 
-	console.log("tags",tags)
+	console.log('tags', tags);
 	//Original data
 	let _title = title;
 	let _description = description;
@@ -170,7 +170,7 @@
 				</div>
 				<div class="w-1/2 md:w-2/3 lg:w-2/3">
 					<input
-						type="text"
+						type="url"
 						name="link"
 						bind:value={link}
 						placeholder="Enter link here..."
@@ -200,7 +200,7 @@
 				</div>
 				<div class="w-1/2 md:w-2/3 lg:w-2/3">
 					<input
-						type="text"
+						type="number"
 						name="daysActive"
 						bind:value={daysActive}
 						placeholder="Enter days active here..."
@@ -209,7 +209,7 @@
 				</div>
 			</div>
 
-			<div class="flex items-center mb-4 lg:mx-16 md:mx-12 mx-10">
+			<div class="flex items-start mb-4 lg:mx-16 md:mx-12 mx-10">
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
 					<!-- svelte-ignore a11y-label-has-associated-control -->
 					<label class="label">
@@ -266,10 +266,6 @@
 						/>
 					{/if}
 					<input type="hidden" name="imageUrl" value={imageUrl} />
-					<!-- <button
-						class="capitalize btn variant-filled-primary lg:w-[19%] md:w-[22%] md:text-[13px] sm:w-[30%] sm:text-[12px] min-[320px]:w-[40%] min-[320px]:text-[10px]"
-						>Upload</button
-					> -->
 				</div>
 			</div>
 
