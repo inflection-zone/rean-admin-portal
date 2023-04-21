@@ -33,7 +33,7 @@ export const actions = {
 		if (response.Status === 'failure' || response.HttpCode !== 201) {
 			throw redirect(
 				303,
-				'/users/${userId}/courses/${courseId}/modules',
+				`/users/${userId}/courses`,
 				errorMessage(response.Message),
 				event
 			);
@@ -41,7 +41,7 @@ export const actions = {
 		throw redirect(
 			303,
 			`/users/${userId}/courses/${courseId}/modules/${id}/view`,
-			successMessage(`Module created successful!`),
+			successMessage(`Module created successfully !`),
 			event
 		);
 	}

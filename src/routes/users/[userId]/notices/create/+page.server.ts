@@ -33,12 +33,12 @@ export const actions = {
 		const id = response.Data.Notice.id;
 
 		if (response.Status === 'failure' || response.HttpCode !== 201) {
-			throw redirect(303, '/notices', errorMessage(response.Message), event);
+			throw redirect(303, `/users/${userId}/notices`, errorMessage(response.Message), event);
 		}
 		throw redirect(
 			303,
 			`/users/${userId}/notices/${id}/view`,
-			successMessage(`notice created successful!`),
+			successMessage(`Notice created successfully !`),
 			event
 		);
 	}

@@ -62,12 +62,12 @@ export const actions = {
 		const id = response.Data.CourseContent.id;
 
 		if (response.Status === 'failure' || response.HttpCode !== 200) {
-			throw redirect(303, '/learning-journeys/contents', errorMessage(response.Message), event);
+			throw redirect(303, `/users/${userId}/courses`, errorMessage(response.Message), event);
 		}
 		throw redirect(
 			303,
 			`/users/${userId}/courses/${courseId}/modules/${moduleId}/contents/${id}/view`,
-			successMessage(`content updated successful!`),
+			successMessage(`Content updated successfully !`),
 			event
 		);
 	}

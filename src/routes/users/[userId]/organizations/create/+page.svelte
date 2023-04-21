@@ -125,7 +125,13 @@
 					</label>
 				</div>
 				<div class="w-1/2 md:w-2/3 lg:w-2/3">
-					<input type="text" name="name" required placeholder="Enter name here..." class="input w-full " />
+					<input
+						type="text"
+						name="name"
+						required
+						placeholder="Enter name here..."
+						class="input w-full "
+					/>
 				</div>
 			</div>
 

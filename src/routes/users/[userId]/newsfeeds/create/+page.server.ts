@@ -37,12 +37,12 @@ export const actions = {
 		const newsfeedId = response.Data.Rssfeed.id;
 
 		if (response.Status === 'failure' || response.HttpCode !== 201) {
-			throw redirect(303, '/newsfeeds', errorMessage(response.Message), event);
+			throw redirect(303, `/users/${userId}/newsfeeds`, errorMessage(response.Message), event);
 		}
 		throw redirect(
 			303,
 			`/users/${userId}/newsfeeds/${newsfeedId}/view`,
-			successMessage(`newsfeed created successful!`),
+			successMessage(`Newsfeed created successfully !`),
 			event
 		);
 	}

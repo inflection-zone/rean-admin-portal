@@ -90,7 +90,7 @@
 						type="text"
 						name="snowmedCode"
 						class="input w-full"
-						placeholder="Enter snowmed code here..."
+						placeholder="Enter snomed code here..."
 					/>
 				</div>
 			</div>
