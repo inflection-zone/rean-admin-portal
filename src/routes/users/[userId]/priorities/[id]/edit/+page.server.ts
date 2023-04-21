@@ -1,8 +1,7 @@
-import * as cookie from 'cookie';
 import { error, type RequestEvent } from '@sveltejs/kit';
 import { redirect } from 'sveltekit-flash-message/server';
 import { errorMessage, successMessage } from '$lib/utils/message.utils';
-import type { PageServerLoad, Action } from './$types';
+import type { PageServerLoad } from './$types';
 import { getPriorityById, updatePriority } from '../../../../../api/services/priorities';
 
 /////////////////////////////////////////////////////////////////////////
@@ -49,12 +48,12 @@ export const actions = {
 		const id = response.Data.PriorityType.id;
 
 		if (response.Status === 'failure' || response.HttpCode !== 200) {
-			throw redirect(303, '/priorities', errorMessage(response.Message), event);
+			throw redirect(303, `/users/${userId}/priorities`, errorMessage(response.Message), event);
 		}
 		throw redirect(
 			303,
 			`/users/${userId}/priorities/${id}/view`,
-			successMessage(`priority updated successful!`),
+			successMessage(`Priority updated successfully!`),
 			event
 		);
 	}
