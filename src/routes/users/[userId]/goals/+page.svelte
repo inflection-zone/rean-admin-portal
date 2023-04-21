@@ -163,7 +163,9 @@
 				{#each $dataTableStore.filtered as row, rowIndex}
 					<tr>
 						<td style="width: 5%;">{row.index}</td>
-						<td style="width: 20%;"><a href={viewRoute(row.id)}>{row.Type}</a></td>
+						<td style="width: 20%;"><a href={viewRoute(row.id)}>{row.Type.length > 15
+							? row.Type.substring(0, 13) + '...'
+							: row.Type}</a></td>
 						<td style="width: 30%;">{row.Tags}</td>
 						<td style="width: 24%;">{date.format(new Date(row.CreatedAt), 'DD-MMM-YYYY')}</td>
 						<td style="width: 8%;">
