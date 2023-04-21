@@ -19,14 +19,15 @@ export const actions = {
 		const contentType = data.has('contentType') ? data.get('contentType') : null;
 		const resourceLink = data.has('resourceLink') ? data.get('resourceLink') : null;
 		const imageUrl = data.has('imageUrl') ? data.get('imageUrl') : null;
+		const durationInMins = data.has('durationInMins') ? data.get('durationInMins') : null;
 		const sessionId = event.cookies.get('sessionId');
 
 		const response = await createCourseContent(
 			sessionId,
-			// courseId,
 			moduleId,
 			title.valueOf() as string,
 			description.valueOf() as string,
+			durationInMins.valueOf() as number,
 			sequence.valueOf() as number,
 			contentType.valueOf() as string,
 			resourceLink.valueOf() as string,
