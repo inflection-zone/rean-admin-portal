@@ -27,12 +27,12 @@ export const actions = {
 		const courseId = response.Data.Course.id;
 
 		if (response.Status === 'failure' || response.HttpCode !== 201) {
-			throw redirect(303, '/learning-journeys/courses', errorMessage(response.Message), event);
+			throw redirect(303, `/users/${userId}/courses`, errorMessage(response.Message), event);
 		}
 		throw redirect(
 			303,
 			`/users/${userId}/courses/${courseId}/view`,
-			successMessage(`course created successful!`),
+			successMessage(`Course created successfully !`),
 			event
 		);
 	}

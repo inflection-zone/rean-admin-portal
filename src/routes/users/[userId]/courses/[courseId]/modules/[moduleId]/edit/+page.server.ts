@@ -53,7 +53,7 @@ export const actions = {
 		if (response.Status === 'failure' || response.HttpCode !== 200) {
 			throw redirect(
 				303,
-				`/users/${userId}/courses/${courseId}/modules`,
+				`/users/${userId}/courses`,
 				errorMessage(response.Message),
 				event
 			);
@@ -61,7 +61,7 @@ export const actions = {
 		throw redirect(
 			303,
 			`/users/${userId}/courses/${courseId}/modules/${id}/view`,
-			successMessage(`module updated successful!`),
+			successMessage(`Module updated successfully !`),
 			event
 		);
 	}

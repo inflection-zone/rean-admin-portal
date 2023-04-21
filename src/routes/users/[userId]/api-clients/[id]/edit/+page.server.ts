@@ -50,12 +50,12 @@ export const actions = {
 		const id = response.Data.Client.id;
 
 		if (response.Status === 'failure' || response.HttpCode !== 200) {
-			throw redirect(303, '/api-clients', errorMessage(response.Message), event);
+			throw redirect(303, `/users/${userId}/api-clients`, errorMessage(response.Message), event);
 		}
 		throw redirect(
 			303,
 			`/users/${userId}/api-clients/${id}/view`,
-			successMessage(`api client updated successful!`),
+			successMessage(`Api client updated successfully !`),
 			event
 		);
 	}

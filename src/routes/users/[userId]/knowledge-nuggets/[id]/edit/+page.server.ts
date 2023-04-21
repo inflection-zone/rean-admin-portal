@@ -62,12 +62,12 @@ export const actions = {
 		const id = response.Data.KnowledgeNugget.id;
 
 		if (response.Status === 'failure' || response.HttpCode !== 200) {
-			throw redirect(303, '/knowledge-nuggets', errorMessage(response.Message), event);
+			throw redirect(303, `/users/${userId}/knowledge-nuggets`, errorMessage(response.Message), event);
 		}
 		throw redirect(
 			303,
 			`/users/${userId}/knowledge-nuggets/${id}/view`,
-			successMessage(`knowledge nuggets updated successful!`),
+			successMessage(`Knowledge nuggets updated successfully !`),
 			event
 		);
 	}

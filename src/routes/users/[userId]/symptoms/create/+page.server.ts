@@ -29,12 +29,12 @@ export const actions = {
 		const id = response.Data.SymptomType.id;
 
 		if (response.Status === 'failure' || response.HttpCode !== 201) {
-			throw redirect(303, '/symptoms', errorMessage(response.Message), event);
+			throw redirect(303, `/users/${userId}/symptoms`, errorMessage(response.Message), event);
 		}
 		throw redirect(
 			303,
 			`/users/${userId}/symptoms/${id}/view`,
-			successMessage(`symptom created successful!`),
+			successMessage(`Symptom created successfully !`),
 			event
 		);
 	}

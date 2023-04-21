@@ -1,8 +1,7 @@
-import * as cookie from 'cookie';
 import { error, type RequestEvent } from '@sveltejs/kit';
 import { redirect } from 'sveltekit-flash-message/server';
 import { errorMessage, successMessage } from '$lib/utils/message.utils';
-import type { PageServerLoad, Action } from './$types';
+import type { PageServerLoad } from './$types';
 import { getDrugById, updateDrug } from '../../../../../api/services/drugs';
 
 /////////////////////////////////////////////////////////////////////////
@@ -61,12 +60,12 @@ export const actions = {
 		const id = response.Data.Drug.id;
 
 		if (response.Status === 'failure' || response.HttpCode !== 200) {
-			throw redirect(303, '/drugs', errorMessage(response.Message), event);
+			throw redirect(303, `/users/${userId}/drugs`, errorMessage(response.Message), event);
 		}
 		throw redirect(
 			303,
 			`/users/${userId}/drugs/${id}/view`,
-			successMessage(`drug updated successful!`),
+			successMessage(`Drug updated successfully !`),
 			event
 		);
 	}

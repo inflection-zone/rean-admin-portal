@@ -87,7 +87,6 @@
 
 	const handleNewsfeedDelete = async (e, id) => {
 		const newsfeedId = id;
-		console.log('organizationId', newsfeedId);
 		await Delete({
 			sessionId: data.sessionId,
 			newsfeedId
@@ -96,7 +95,7 @@
 	};
 
 	async function Delete(model) {
-		const response = await fetch(`/api/server/newsfeeds/delete`, {
+		const response = await fetch(`/api/server/newsfeeds`, {
 			method: 'DELETE',
 			body: JSON.stringify(model),
 			headers: {

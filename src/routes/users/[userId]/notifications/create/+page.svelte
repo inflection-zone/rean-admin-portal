@@ -3,7 +3,6 @@
 	import { faMultiply } from '@fortawesome/free-solid-svg-icons';
 	import BreadCrumbs from '$lib/components/breadcrumbs/breadcrums.svelte';
 	import { page } from '$app/stores';
-	import { FileButton } from '@skeletonlabs/skeleton';
 	import { showMessage } from '$lib/utils/message.utils';
 
 	const userId = $page.params.userId;
@@ -98,7 +97,13 @@
 					</label>
 				</div>
 				<div class="w-1/2 md:w-2/3 lg:w-2/3">
-					<input type="text" name="title" required placeholder="Enter title here..." class="input" />
+					<input
+						type="text"
+						name="title"
+						required
+						placeholder="Enter title here..."
+						class="input"
+					/>
 				</div>
 			</div>
 

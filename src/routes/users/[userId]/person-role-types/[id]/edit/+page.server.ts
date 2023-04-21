@@ -1,5 +1,4 @@
-import * as cookie from 'cookie';
-import type { PageServerLoad, Action } from './$types';
+import type { PageServerLoad } from './$types';
 import { error, type RequestEvent } from '@sveltejs/kit';
 import { redirect } from 'sveltekit-flash-message/server';
 import { errorMessage, successMessage } from '$lib/utils/message.utils';
@@ -52,12 +51,12 @@ export const actions = {
 		const id = response.Data.RoleType.id;
 
 		if (response.Status === 'failure' || response.HttpCode !== 200) {
-			throw redirect(303, '/person-role-types', errorMessage(response.Message), event);
+			throw redirect(303, `/users/${userId}/person-role-types`, errorMessage(response.Message), event);
 		}
 		throw redirect(
 			303,
 			`/users/${userId}/person-role-types/${id}/view`,
-			successMessage(`goal updated successful!`),
+			successMessage(`Person role type updated successfully !`),
 			event
 		);
 	}

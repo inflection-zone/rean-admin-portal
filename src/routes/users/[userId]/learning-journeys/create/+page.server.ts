@@ -55,12 +55,12 @@ export const actions = {
 		console.log('response', response.Data);
 		const learningPathId = response.Data.LearningPath.id;
 		if (response.Status === 'failure' || response.HttpCode !== 201) {
-			throw redirect(303, '/learning-journeys', errorMessage(response.Message), event);
+			throw redirect(303, `/users/${userId}/learning-journeys`, errorMessage(response.Message), event);
 		}
 		throw redirect(
 			303,
 			`/users/${userId}/learning-journeys/${learningPathId}/view`,
-			successMessage(`learning journey created successful!`),
+			successMessage(`Learning journey created successfully !`),
 			event
 		);
 	}

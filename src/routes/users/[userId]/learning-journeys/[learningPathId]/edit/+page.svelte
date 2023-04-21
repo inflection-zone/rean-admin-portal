@@ -19,7 +19,7 @@
 	let courses = data.learningJourney.Courses;
 	let imageUrl = data.learningJourney.ImageUrl;
 	$: avatarSource = imageUrl;
-	let courseIds:string[] = courses.map((item) => item.id);
+	let courseIds: string[] = courses.map((item) => item.id);
 
 	//Original data
 	let _name = name;
@@ -122,13 +122,7 @@
 					</label>
 				</div>
 				<div class="w-1/2 md:w-2/3 lg:w-2/3">
-					<input
-						type="text"
-						name="name"
-						required
-						bind:value={name}
-						class="input w-full "
-					/>
+					<input type="text" name="name" required bind:value={name} class="input w-full " />
 				</div>
 			</div>
 			<div class="flex items-center my-4 lg:mx-16 md:mx-12 mx-10">
@@ -197,7 +191,7 @@
 						class="select"
 						multiple
 						placeholder="Select course here..."
-						value = {courseIds}
+						value={courseIds}
 					>
 						{#each allCources as course}
 							<option value={course.id}>{course.Name}</option>

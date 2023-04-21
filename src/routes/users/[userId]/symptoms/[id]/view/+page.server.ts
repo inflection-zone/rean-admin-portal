@@ -1,6 +1,5 @@
-import * as cookie from 'cookie';
-import { error, redirect, type RequestEvent } from '@sveltejs/kit';
-import type { PageServerLoad, Action } from './$types';
+import { error, type RequestEvent } from '@sveltejs/kit';
+import type { PageServerLoad } from './$types';
 import { BACKEND_API_URL } from '$env/static/private';
 import { getSymptomById } from '../../../../../api/services/symptoms';
 
