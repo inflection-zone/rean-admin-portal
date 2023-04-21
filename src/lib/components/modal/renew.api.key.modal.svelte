@@ -49,7 +49,7 @@
 			</div>
 		</div>
 		<label class="label mb-4 mx-5 mt-5">
-			<span class="">User Name *</span>
+			<span class="">Client Code *</span>
 			<input
 				class="input"
 				name="userName"

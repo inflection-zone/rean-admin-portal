@@ -16,6 +16,7 @@ export const actions = {
 		const description = data.has('description') ? data.get('description') : null;
 		// const sequence = data.has('sequence') ? data.get('sequence') : null;
 		const durationInMins = data.has('durationInMins') ? data.get('durationInMins') : null;
+		const imageUrl = data.has('imageUrl') ? data.get('imageUrl') : null;
 		const sessionId = event.cookies.get('sessionId');
 
 		const response = await createModule(
@@ -24,7 +25,8 @@ export const actions = {
 			name.valueOf() as string,
 			description.valueOf() as string,
 			// sequence.valueOf() as number,
-			durationInMins.valueOf() as number
+			durationInMins.valueOf() as number,
+			imageUrl.valueOf() as string,
 		);
 		const id = response.Data.CourseModule.id;
 		console.log('response', response);

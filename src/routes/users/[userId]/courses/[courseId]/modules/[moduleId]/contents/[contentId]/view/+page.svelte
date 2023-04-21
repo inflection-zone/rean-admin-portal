@@ -19,6 +19,7 @@
 	let contentType = data.content.ContentType;
 	let resourceLink = data.content.ResourceLink;
 	let imageUrl = data.content.ImageUrl;
+	let durationInMins = data.content.DurationInMins;
 
 	onMount(() => {
 		show(data);
@@ -90,6 +91,16 @@
 					</label>
 				</div>
 				<span class="span w-1/2 md:2/3 lg:2/3" id="description">{description}</span>
+			</div>
+
+			<div class="flex items-center my-4 lg:mx-16 md:mx-12 mx-10">
+				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
+					<!-- svelte-ignore a11y-label-has-associated-control -->
+					<label class="label">
+						<span>Duration In Mins</span>
+					</label>
+				</div>
+				<span class="span w-1/2 md:2/3 lg:2/3" id="durationInMins">{durationInMins}</span>
 			</div>
 
 			<div class="flex items-center my-4 lg:mx-16 md:mx-12 mx-10">

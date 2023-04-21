@@ -186,7 +186,7 @@
 				<div class="w-1/2 md:w-2/3 lg:w-2/3">
 					<!-- svelte-ignore a11y-label-has-associated-control -->
 					<label class="label mt-2">
-						<span>Message</span>
+						<span>Message *</span>
 					</label>
 				</div>
 				<div class="w-1/2 md:w-2/3 lg:w-2/3">
