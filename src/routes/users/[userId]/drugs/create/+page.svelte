@@ -109,8 +109,8 @@
 					<select class="select w-full" name="strength" placeholder="Select strength here...">
 						<option selected>High</option>
 						<option>Auto</option>
-						<option>low</option>
-						<option>medium</option>
+						<option>Low</option>
+						<option>Medium</option>
 					</select>
 				</div>
 			</div>
