@@ -39,14 +39,24 @@
 	const userId = $page.params.userId;
 	const courseId = $page.params.courseId;
 	const moduleId = $page.params.moduleId;
-	const editRoute = `/users/${userId}/courses/${courseId}/modules/${moduleId}/contents/${id}/edit`;
-	const viewRoute = `/users/${userId}/courses/${courseId}/modules/${moduleId}/contents/${id}/view`;
+	const contentId = $page.params.contentId;
+	const editRoute = `/users/${userId}/courses/${courseId}/modules/${moduleId}/contents/${contentId}/edit`;
+	const viewRoute = `/users/${userId}/courses/${courseId}/modules/${moduleId}/contents/${contentId}/view`;
 	const courseRoute = `/users/${userId}/courses`;
+	const moduleRoute = `/users/${userId}/courses/${courseId}/modules/${moduleId}/view`;
 
 	const breadCrumbs = [
 		{
 			name: 'Courses',
 			path: courseRoute
+		},
+		{
+			name: 'Modules',
+			path: moduleRoute
+		},
+		{
+			name: 'Content',
+			path: viewRoute
 		},
 		{
 			name: 'Edit',

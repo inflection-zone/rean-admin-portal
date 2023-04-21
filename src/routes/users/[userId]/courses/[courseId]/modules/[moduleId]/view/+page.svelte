@@ -39,7 +39,7 @@
 		},
 		{
 			name: 'Modules',
-			path: moduleRoute
+			path: viewRoute
 		},
 		{
 			name: 'View',
@@ -82,7 +82,7 @@
 						<span>Description</span>
 					</label>
 				</div>
-				<span class="span w-1/2 md:2/3 lg:2/3" id="description"> {description} </span>
+				<span class="span w-1/2 md:2/3 lg:2/3" id="description">{description}</span>
 			</div>
 
 			<!-- <div class="flex items-center my-4 lg:mx-16 md:mx-12 mx-10">
@@ -100,7 +100,7 @@
 						<span>Duration In Mins</span>
 					</label>
 				</div>
-				<span class="span w-1/2 md:2/3 lg:2/3" id="durationInMins"> {durationInMins} </span>
+				<span class="span w-1/2 md:2/3 lg:2/3" id="durationInMins">{durationInMins}</span>
 			</div>
 
 			<!-- <div class="flex items-start my-4 lg:mx-16 md:mx-12 mx-10">

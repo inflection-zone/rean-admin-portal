@@ -125,7 +125,7 @@
 					<span>Servelist Node Children At Once</span>
 				</label>
 			</div>
-			<div class="w-1/2 md:w-1/2 md:w-2/3 lg:w-2/3 lg:w-1/2 md:w-2/3 lg:w-2/3">
+			<div class="w-1/2 md:w-2/3 lg:w-2/3">
 				<label class="label cursor-pointer">
 					<input
 						type="checkbox"
@@ -144,7 +144,7 @@
 					<span>Scoring Applicable</span>
 				</label>
 			</div>
-			<div class="w-1/2 md:w-1/2 md:w-2/3 lg:w-2/3 lg:w-1/2 md:w-2/3 lg:w-2/3">
+			<div class="w-1/2 md:w-2/3 lg:w-2/3">
 				<label class="label cursor-pointer">
 					<input
 						type="checkbox"

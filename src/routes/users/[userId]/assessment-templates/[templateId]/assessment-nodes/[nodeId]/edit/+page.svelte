@@ -39,11 +39,16 @@
 
 	const userId = $page.params.userId;
 	const templateId = $page.params.templateId;
+	const assessmentsRoutes = `/users/${userId}/assessment-templates`;
 	const editRoute = `/users/${userId}/assessment-templates/${templateId}/assessment-nodes/${id}/edit`;
 	const viewRoute = `/users/${userId}/assessment-templates/${templateId}/assessment-nodes/${id}/view`;
 	const assessmentNodeRoutes = `/users/${userId}/assessment-templates/${templateId}/assessment-nodes`;
 
 	const breadCrumbs = [
+		{
+			name: 'Assessment-Templates',
+			path: assessmentsRoutes
+		},
 		{
 			name: 'Assessment-Nodes',
 			path: assessmentNodeRoutes
@@ -71,7 +76,7 @@
 	<form
 		method="post"
 		action="?/updateAssessmentNodeAction"
-		class="w-full lg:mt-10 md:mt-8 sm:mt-6 mb-10 mt-4 lg:max-w-4xl md:max-w-xl sm:max-w-lg bg-[#ECE4FC] mt-6 mb-20  rounded-lg mx-auto"
+		class="w-full lg:mt-10 md:mt-8 sm:mt-6 lg:max-w-4xl md:max-w-xl sm:max-w-lg bg-[#ECE4FC] mt-6 mb-20  rounded-lg mx-auto"
 	>
 		<div class="w-full  h-14 rounded-t-lg p-3  bg-[#7165E3]">
 			<div class="ml-3 relative flex flex-row text-white text-xl">
@@ -198,8 +203,8 @@
 			<div />
 		{/if}
 		<div class="flex items-center my-8 lg:mx-16 md:mx-12 mx-4 ">
-			<div class="lg:w-1/2 md:w-1/2 sm:w-1/2  w-1/2 md:w-2/3 lg:w-2/3" />
-			<div class="lg:w-1/4 md:w-1/4 sm:w-1/4  w-1/2 md:w-2/3 lg:w-2/3 ">
+			<div class="lg:w-1/2 md:w-1/2 sm:w-1/2 "/>
+			<div class="lg:w-1/4 md:w-1/4 sm:w-1/4 ">
 				<button
 					type="button"
 					on:click={handleReset}
@@ -208,7 +213,7 @@
 					Reset</button
 				>
 			</div>
-			<div class="lg:w-1/4 md:w-1/4 sm:w-1/4 w-1/2 md:w-2/3 lg:w-2/3">
+			<div class="lg:w-1/4 md:w-1/4 sm:w-1/4 ">
 				<button
 					type="submit"
 					class="btn variant-filled-primary lg:w-40 lg:ml-8 md:ml-6 sm:ml-2 mb-10"
