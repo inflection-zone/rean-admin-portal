@@ -123,7 +123,7 @@
 	</div>
 	<div class="basis-1/2 justify-center items-center">
 		<div class="relative flex items-center">
-			<a href={createRoute} class="absolute right-4 lg:mr-[-18px] ">
+			<a href={createRoute} class="absolute right-1 lg:mr-[-20px]">
 				<button
 					class="btn variant-filled-primary w-28 rounded-lg hover:bg-primary bg-primary transition 
           ease-in-out 
@@ -139,7 +139,7 @@
 </div>
 
 <div
-	class="flex flex-row mx-14 lg:mt-10 md:mt-10 sm:mt-4 mt-4 lg:gap-7 md:gap-8 sm:gap-4 gap-4 lg:flex-row md:flex-row sm:flex-col min-[280px]:flex-col"
+	class="flex flex-row mx-10 lg:mt-10 md:mt-10 sm:mt-4 mt-4 lg:gap-7 md:gap-8 sm:gap-4 gap-4 lg:flex-row md:flex-row sm:flex-col min-[280px]:flex-col"
 >
 	<div class="basis-1/2 justify-center items-center ">
 		<div class="relative flex items-center">
@@ -203,8 +203,8 @@
 						<td style="width: 5%;">{row.index}</td>
 						<td style="width: 19%;"><a href={viewRoute(row.id)}>{row.Name}</a></td>
 						<td style="width: 34%;"
-							>{row.Description.length > 10
-								? row.Description.substring(0, 55) + '...'
+							>{row.Description.length > 30
+								? row.Description.substring(0, 28) + '...'
 								: row.Description}</td
 						>
 						<td style="width: 20%;">{row.PreferenceWeight}</td>
