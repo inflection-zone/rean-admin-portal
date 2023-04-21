@@ -163,7 +163,7 @@
 				{#each $dataTableStore.filtered as row, rowIndex}
 					<tr>
 						<td style="width: 5%;">{row.index}</td>
-						<td style="width: 20%;"><a href={viewRoute(row.id)}>{row.Type.length > 10
+						<td style="width: 20%;"><a href={viewRoute(row.id)}>{row.Type.length > 15
 							? row.Type.substring(0, 13) + '...'
 							: row.Type}</a></td>
 						<td style="width: 30%;">{row.Tags}</td>

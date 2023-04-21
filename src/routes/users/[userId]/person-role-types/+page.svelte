@@ -117,7 +117,7 @@
 				{#each $dataTableStore.filtered as row, rowIndex}
 					<tr>
 						<td style="width: 4%;">{row.index}</td>
-						<td style="width: 20%;"><a href={viewRoute(row.id)}>{row.RoleName.length > 10
+						<td style="width: 20%;"><a href={viewRoute(row.id)}>{row.RoleName.length > 15
 							? row.RoleName.substring(0, 13) + '...'
 							: row.RoleName}</a></td>
 						<td style="width: 33;"
