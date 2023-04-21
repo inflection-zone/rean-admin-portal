@@ -145,8 +145,8 @@
 					>
 						<option value="High">High</option>
 						<option value="Auto">Auto</option>
-						<option>medium</option>
-						<option>low</option>
+						<option>Medium</option>
+						<option>Low</option>
 					</select>
 				</div>
 			</div>

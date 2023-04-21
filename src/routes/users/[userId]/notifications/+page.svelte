@@ -8,6 +8,7 @@
 	import Confirm from '$lib/components/modal/confirmModal.svelte';
 	import { faPencil, faSearch, faTrash } from '@fortawesome/free-solid-svg-icons';
 	import type { PageServerData } from './$types';
+	import { Helper } from '$lib/utils/helper';
 
 	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -183,12 +184,8 @@
 				{#each $dataTableStore.filtered as row, rowIndex}
 					<tr>
 						<td style="width: 5%;">{row.index}</td>
-						<td style="width: 19%;"><a href={viewRoute(row.id)}>{row.Title.length > 15
-							? row.Title.substring(0, 13) + '...'
-							: row.Title}</a></td>
-						<td style="width: 30%;">{row.Body.length > 30
-							? row.Body.substring(0, 28) + '...'
-							: row.Body}</td>
+						<td style="width: 19%;"><a href={viewRoute(row.id)}>{Helper.truncateText(row.Title,20)}</a></td>
+						<td style="width: 30%;">{Helper.truncateText(row.Body,40)}</td>
 						<td style="width: 18%;">{row.Type}</td>
 						<td style="width: 35%;">{date.format(new Date(row.SentOn), 'DD-MMM-YYYY')}</td>
 						<td style="width: 8%;">

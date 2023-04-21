@@ -16,6 +16,7 @@
 	let contentType = data.content.ContentType;
 	let resourceLink = data.content.ResourceLink;
 	let sequence = data.content.Sequence;
+	let durationInMins = data.content.DurationInMins;
 	let imageUrl = data.content.ImageUrl;
 	$: avatarSource = imageUrl;
 
@@ -26,6 +27,7 @@
 	let _resourceLink = resourceLink;
 	let _sequence = sequence;
 	let _imageUrl = imageUrl;
+	let _durationInMins = durationInMins;
 
 	function handleReset() {
 		title = _title;
@@ -34,6 +36,7 @@
 		resourceLink = _resourceLink;
 		sequence = _sequence;
 		imageUrl = _imageUrl;
+		durationInMins = _durationInMins;
 	}
 
 	const userId = $page.params.userId;
@@ -156,6 +159,24 @@
 						bind:value={description}
 						class="textarea w-full"
 						placeholder="Enter description here..."
+					/>
+				</div>
+			</div>
+
+			<div class="flex items-center mb-4 mt-2 lg:mx-16 md:mx-12 mx-10">
+				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
+					<!-- svelte-ignore a11y-label-has-associated-control -->
+					<label class="label">
+						<span>Duration In Mins</span>
+					</label>
+				</div>
+				<div class="w-1/2 md:w-2/3 lg:w-2/3">
+					<input
+						type="number"
+						name="durationInMins"
+						placeholder="Enter sequence here..."
+						class="input w-full "
+						bind:value={durationInMins}
 					/>
 				</div>
 			</div>
