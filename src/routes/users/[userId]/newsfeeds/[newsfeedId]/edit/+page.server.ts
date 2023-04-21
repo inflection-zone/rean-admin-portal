@@ -55,7 +55,7 @@ export const actions = {
 			copyright.valueOf() as string,
 			favicon.valueOf() as string,
 			image.valueOf() as string,
-			tags.valueOf() as string[]
+			tags?.valueOf() as string[]
 		);
 		const id = response.Data.Rssfeed.id;
 

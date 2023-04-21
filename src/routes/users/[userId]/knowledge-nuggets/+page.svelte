@@ -185,7 +185,6 @@
 				<th style="width: 5%;">Id</th>
 				<th style="width: 21%;">Topic Name</th>
 				<th style="width: 33%;">Tags</th>
-				<!-- <th style="width: 24%;">Additional Resource</th> -->
 				<th style="width: 15%;">Created Date</th>
 				<th style="width: 8%;" />
 				<th style="width: 8%;" />
@@ -199,11 +198,9 @@
 					<tr>
 						<td style="width: 5%;">{row.index}</td>
 						<td style="width: 21%;"><a href={viewRoute(row.id)}>{row.TopicName}</a></td>
-						<!-- <td style="width: 27%;">{row.Tags}</td> -->
 						<td style="width: 33%;"
-							>{row.Tags.length > 10 ? row.Tags.substring(0, 5) + '...' : row.Tags}</td
+							>{row.Tags}</td
 						>
-						<!-- <td style="width: 25%;">{row.AdditionalResource}</td> -->
 						<td style="width: 15%;">{date.format(new Date(row.CreatedAt), 'DD-MMM-YYYY')}</td>
 						<td style="width: 8%;">
 							<a href={editRoute(row.id)}

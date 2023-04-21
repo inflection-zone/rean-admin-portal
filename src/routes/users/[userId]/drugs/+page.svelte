@@ -189,8 +189,8 @@
 			<tr>
 				<th style="width: 5%;">Id</th>
 				<th style="width: 18%;">Name</th>
-				<th style="width: 34%;">Generic Name</th>
-				<th style="width: 18%;">Ingredients</th>
+				<th style="width: 27%;">Generic Name</th>
+				<th style="width: 25%;">Ingredients</th>
 				<th style="width: 30%;">Created Date</th>
 				<th style="width: 8%;" />
 				<th style="width: 8%;" />
@@ -203,9 +203,15 @@
 				{#each $dataTableStore.filtered as row, rowIndex}
 					<tr>
 						<td style="width: 5%;">{row.index}</td>
-						<td style="width: 18%;"><a href={viewRoute(row.id)}>{row.DrugName}</a></td>
-						<td style="width: 35%;">{row.GenericName}</td>
-						<td style="width: 19%;">{row.Ingredients}</td>
+						<td style="width: 18%;"><a href={viewRoute(row.id)}>{row.DrugName.length > 15
+							? row.DrugName.substring(0, 13) + '...'
+							: row.DrugName}</a></td>
+						<td style="width: 28%;">{row.GenericName.length > 30
+							? row.GenericName.substring(0, 27) + '...'
+							: row.GenericName}</td>
+						<td style="width: 26%;">{row.Ingredients.length > 30
+							? row.Ingredients.substring(0, 27) + '...'
+							: row.Ingredients}</td>
 						<td style="width: 30%;">{date.format(new Date(row.CreatedAt), 'DD-MMM-YYYY')}</td>
 						<td style="width: 8%;">
 							<a href={editRoute(row.id)}

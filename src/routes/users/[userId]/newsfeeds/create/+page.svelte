@@ -104,7 +104,7 @@
 				</div>
 			</div>
 
-			<div class="flex items-start mb-4 lg:mx-16 md:mx-12 mx-10">
+			<div class="flex items-start mb-2 lg:mx-16 md:mx-12 mx-10">
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
 					<!-- svelte-ignore a11y-label-has-associated-control -->
 					<label class="label">
@@ -200,7 +200,7 @@
 				</div>
 			</div>
 
-			<div class="flex items-center my-2 mb-4 lg:mx-16 md:mx-12 mx-10">
+			<div class="flex items-start my-2 mb-4 lg:mx-16 md:mx-12 mx-10">
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
 					<!-- svelte-ignore a11y-label-has-associated-control -->
 					<label class="label">
@@ -221,7 +221,7 @@
 				</div>
 			</div>
 
-			<div class="flex items-center mb-4 lg:mx-16 md:mx-12 mx-10">
+			<div class="flex items-start mb-4 lg:mx-16 md:mx-12 mx-10">
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
 					<!-- svelte-ignore a11y-label-has-associated-control -->
 					<label class="label">
