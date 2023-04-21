@@ -1,8 +1,7 @@
-import * as cookie from 'cookie';
 import { error, type RequestEvent } from '@sveltejs/kit';
 import { redirect } from 'sveltekit-flash-message/server';
 import { errorMessage, successMessage } from '$lib/utils/message.utils';
-import type { PageServerLoad, Action } from './$types';
+import type { PageServerLoad } from './$types';
 import { getNoticeById, updateNotice } from '../../../../../api/services/notices';
 
 /////////////////////////////////////////////////////////////////////////
@@ -59,12 +58,12 @@ export const actions = {
 		const id = response.Data.Notice.id;
 
 		if (response.Status === 'failure' || response.HttpCode !== 200) {
-			throw redirect(303, '/notices', errorMessage(response.Message), event);
+			throw redirect(303, `/users/${userId}/notices`, errorMessage(response.Message), event);
 		}
 		throw redirect(
 			303,
 			`/users/${userId}/notices/${id}/view`,
-			successMessage(`notice updated successful!`),
+			successMessage(`Notice updated successfully !`),
 			event
 		);
 	}

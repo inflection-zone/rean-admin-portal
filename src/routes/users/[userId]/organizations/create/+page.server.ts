@@ -44,7 +44,7 @@ export const actions = {
 		const operationalSince = data.has('operationalSince') ? data.get('operationalSince') : null;
 		const imageResourceId = data.has('imageResourceId') ? data.get('imageResourceId') : null;
 		const isHealthFacility = data.has('isHealthFacility') ? data.get('isHealthFacility') : false;
-		const phone = countryCode.valueOf() as string + "-" + contactPhone.valueOf() as string;
+		const phone = ((countryCode.valueOf() as string) + '-' + contactPhone.valueOf()) as string;
 
 		const sessionId = event.cookies.get('sessionId');
 		const addressResponse = await createAddress(
@@ -81,12 +81,12 @@ export const actions = {
 		const id = response.Data.Organization.id;
 
 		if (response.Status === 'failure' || response.HttpCode !== 201) {
-			throw redirect(303, '/organizations', errorMessage(response.Message), event);
+			throw redirect(303, `/users/${userId}/organizations`, errorMessage(response.Message), event);
 		}
 		throw redirect(
 			303,
 			`/users/${userId}/organizations/${id}/view`,
-			successMessage(`organization created successful!`),
+			successMessage(`Organization created successfully !`),
 			event
 		);
 	}

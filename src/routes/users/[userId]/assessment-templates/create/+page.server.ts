@@ -39,12 +39,12 @@ export const actions = {
 		const id = response.Data.AssessmentTemplate.id;
 
 		if (response.Status === 'failure' || response.HttpCode !== 201) {
-			throw redirect(303, '/assessment-templates', errorMessage(response.Message), event);
+			throw redirect(303, `/users/${userId}/assessment-templates`, errorMessage(response.Message), event);
 		}
 		throw redirect(
 			303,
 			`/users/${userId}/assessment-templates/${id}/view`,
-			successMessage(`Assessment template created successful!`),
+			successMessage(`Assessment template created successfully !`),
 			event
 		);
 	}

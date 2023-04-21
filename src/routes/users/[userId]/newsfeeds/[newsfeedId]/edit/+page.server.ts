@@ -1,8 +1,7 @@
-import * as cookie from 'cookie';
 import { error, type RequestEvent } from '@sveltejs/kit';
 import { redirect } from 'sveltekit-flash-message/server';
 import { errorMessage, successMessage } from '$lib/utils/message.utils';
-import type { PageServerLoad, Action } from './$types';
+import type { PageServerLoad } from './$types';
 import { getNewsfeedById, updateNewsfeed } from '../../../../../api/services/newsfeeds';
 
 /////////////////////////////////////////////////////////////////////////
@@ -60,12 +59,12 @@ export const actions = {
 		const id = response.Data.Rssfeed.id;
 
 		if (response.Status === 'failure' || response.HttpCode !== 200) {
-			throw redirect(303, '/newsfeeds', errorMessage(response.Message), event);
+			throw redirect(303, `/users/${userId}/newsfeeds`, errorMessage(response.Message), event);
 		}
 		throw redirect(
 			303,
 			`/users/${userId}/newsfeeds/${id}/view`,
-			successMessage(`newsfeed updated successful!`),
+			successMessage(`Newsfeed updated successfully !`),
 			event
 		);
 	}

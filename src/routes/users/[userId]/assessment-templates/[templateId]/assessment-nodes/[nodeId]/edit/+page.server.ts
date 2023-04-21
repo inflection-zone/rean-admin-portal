@@ -76,7 +76,7 @@ export const actions = {
 		if (response.Status === 'failure' || response.HttpCode !== 200) {
 			throw redirect(
 				303,
-				'/users/${userId}/assessment-templates',
+				`/users/${userId}/assessment-templates`,
 				errorMessage(response.Message),
 				event
 			);
@@ -84,7 +84,7 @@ export const actions = {
 		throw redirect(
 			303,
 			`/users/${userId}/assessment-templates/${templateId}/assessment-nodes/${nodeId}/view`,
-			successMessage(`assessment node updated successful!`),
+			successMessage(`Assessment node updated successfully !`),
 			event
 		);
 	}

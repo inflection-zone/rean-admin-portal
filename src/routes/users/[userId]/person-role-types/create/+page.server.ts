@@ -23,12 +23,12 @@ export const actions = {
 		const id = response.Data.RoleType.id;
 
 		if (response.Status === 'failure' || response.HttpCode !== 201) {
-			throw redirect(303, '/person-role-types', errorMessage(response.Message), event);
+			throw redirect(303, `/users/${userId}/person-role-types`, errorMessage(response.Message), event);
 		}
 		throw redirect(
 			303,
 			`/users/${userId}/person-role-types/${id}/view`,
-			successMessage(`person role type created successful!`),
+			successMessage(`Person role type created successfully !`),
 			event
 		);
 	}

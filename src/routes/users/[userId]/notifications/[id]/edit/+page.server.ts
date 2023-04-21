@@ -55,12 +55,12 @@ export const actions = {
 		const id = response.Data.Notification.id;
 
 		if (response.Status === 'failure' || response.HttpCode !== 200) {
-			throw redirect(303, '/notifications', errorMessage(response.Message), event);
+			throw redirect(303, `/users/${userId}/notifications`, errorMessage(response.Message), event);
 		}
 		throw redirect(
 			303,
 			`/users/${userId}/notifications/${id}/view`,
-			successMessage(`notification updated successful!`),
+			successMessage(`Notification updated successfully !`),
 			event
 		);
 	}

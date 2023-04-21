@@ -116,7 +116,7 @@ export const actions = {
 		throw redirect(
 			303,
 			`/users/${userId}/assessment-templates/${templateId}/assessment-nodes/${nodeId}/view`,
-			successMessage(`Assessment node updated successful!`),
+			successMessage(`Assessment node created successfully !`),
 			event
 		);
 	}

@@ -1,9 +1,8 @@
-import * as cookie from 'cookie';
 import { error, type RequestEvent } from '@sveltejs/kit';
 import { redirect } from 'sveltekit-flash-message/server';
 import { errorMessage, successMessage } from '$lib/utils/message.utils';
 import { BACKEND_API_URL } from '$env/static/private';
-import type { PageServerLoad, Action } from './$types';
+import type { PageServerLoad } from './$types';
 import { getSymptomById, updateSymptom } from '../../../../../api/services/symptoms';
 
 /////////////////////////////////////////////////////////////////////////
@@ -61,12 +60,12 @@ export const actions = {
 		const id = response.Data.SymptomType.id;
 
 		if (response.Status === 'failure' || response.HttpCode !== 200) {
-			throw redirect(303, '/symptoms', errorMessage(response.Message), event);
+			throw redirect(303, `/users/${userId}/symptoms`, errorMessage(response.Message), event);
 		}
 		throw redirect(
 			303,
 			`/users/${userId}/symptoms/${id}/view`,
-			successMessage(`symptom updated successful!`),
+			successMessage(`Symptom updated successfully !`),
 			event
 		);
 	}

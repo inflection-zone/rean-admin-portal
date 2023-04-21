@@ -1,12 +1,13 @@
 import { error, type RequestEvent } from '@sveltejs/kit';
 import { redirect } from 'sveltekit-flash-message/server';
 import { errorMessage, successMessage } from '$lib/utils/message.utils';
-import type { PageServerLoad, Action } from './$types';
+import type { PageServerLoad } from './$types';
 import type { OrganizationTypes } from '$lib/types/domain.models';
+import { BACKEND_API_URL } from '$env/static/private';
 import { getOrganizationById, updateOrganization } from '../../../../../api/services/organizations';
 import { getOrganizationTypes } from '../../../../../api/services/types';
 import { createAddress } from '../../../../../api/services/addresses';
-import { BACKEND_API_URL } from '$env/static/private';
+
 /////////////////////////////////////////////////////////////////////////
 
 export const load: PageServerLoad = async (event: RequestEvent) => {
@@ -74,7 +75,7 @@ export const actions = {
 		const addressesId = addressesId_.split(',');
 
 		if (addressResponse.Status === 'failure' || addressResponse.HttpCode !== 201) {
-			throw redirect(303, '/organizations', errorMessage(addressResponse.Message), event);
+			throw redirect(303, `/users/${userId}/organizations`, errorMessage(addressResponse.Message), event);
 		}
 
 		const response = await updateOrganization(
@@ -94,12 +95,12 @@ export const actions = {
 		const id = response.Data.Organization.id;
 
 		if (response.Status === 'failure' || response.HttpCode !== 200) {
-			throw redirect(303, '/organizations', errorMessage(response.Message), event);
+			throw redirect(303, `/users/${userId}/organizations`, errorMessage(response.Message), event);
 		}
 		throw redirect(
 			303,
 			`/users/${userId}/organizations/${id}/view`,
-			successMessage(`organization updated successful!`),
+			successMessage(`Organization updated successfully !`),
 			event
 		);
 	}

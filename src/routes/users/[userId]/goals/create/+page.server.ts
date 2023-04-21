@@ -22,12 +22,12 @@ export const actions = {
 		);
 		const id = response.Data.GoalType.id;
 		if (response.Status === 'failure' || response.HttpCode !== 201) {
-			throw redirect(303, '/goals', errorMessage(response.Message), event);
+			throw redirect(303, `/users/${userId}/goals`, errorMessage(response.Message), event);
 		}
 		throw redirect(
 			303,
 			`/users/${userId}/goals/${id}/view`,
-			successMessage(`goal created successful!`),
+			successMessage(`Goal type created successfully !`),
 			event
 		);
 	}

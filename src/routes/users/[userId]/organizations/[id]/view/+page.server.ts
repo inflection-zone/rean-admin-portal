@@ -1,9 +1,8 @@
-import * as cookie from 'cookie';
-import { error, redirect, type RequestEvent } from '@sveltejs/kit';
-import type { PageServerLoad, Action } from './$types';
-import { getOrganizationById } from '../../../../../api/services/organizations';
-import { getFileResourceById } from '../../../../../api/services/file.resource';
+import { error, type RequestEvent } from '@sveltejs/kit';
 import { BACKEND_API_URL } from '$env/static/private';
+import type { PageServerLoad } from './$types';
+import { getOrganizationById } from '../../../../../api/services/organizations';
+
 ////////////////////////////////////////////////////////////////////////////
 
 export const load: PageServerLoad = async (event: RequestEvent) => {

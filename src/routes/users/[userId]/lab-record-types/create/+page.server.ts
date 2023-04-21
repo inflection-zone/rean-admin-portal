@@ -33,12 +33,12 @@ export const actions = {
 		const id = response.Data.LabRecordType.id;
 
 		if (response.Status === 'failure' || response.HttpCode !== 201) {
-			throw redirect(303, '/person-role-types', errorMessage(response.Message), event);
+			throw redirect(303, `/users/${userId}/lab-record-types`, errorMessage(response.Message), event);
 		}
 		throw redirect(
 			303,
 			`/users/${userId}/lab-record-types/${id}/view`,
-			successMessage(`lab record type created successful!`),
+			successMessage(`Lab record type created successfully !`),
 			event
 		);
 	}

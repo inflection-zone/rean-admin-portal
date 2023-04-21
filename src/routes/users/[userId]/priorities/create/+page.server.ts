@@ -23,12 +23,12 @@ export const actions = {
 		const id = response.Data.PriorityType.id;
 
 		if (response.Status === 'failure' || response.HttpCode !== 201) {
-			throw redirect(303, '/priorities', errorMessage(response.Message), event);
+			throw redirect(303, `/users/${userId}/priorities`, errorMessage(response.Message), event);
 		}
 		throw redirect(
 			303,
 			`/users/${userId}/priorities/${id}/view`,
-			successMessage(`priority created successful!`),
+			successMessage(`Priority created successfully !`),
 			event
 		);
 	}

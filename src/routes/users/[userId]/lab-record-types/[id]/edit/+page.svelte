@@ -121,7 +121,7 @@
 						name="snowmedCode"
 						bind:value={snowmedCode}
 						class="input w-full"
-						placeholder="Enter snowmed code here..."
+						placeholder="Enter snomed code here..."
 					/>
 				</div>
 			</div>
