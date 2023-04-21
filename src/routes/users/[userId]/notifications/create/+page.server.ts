@@ -14,7 +14,7 @@ export const actions = {
 		const title = data.has('title') ? data.get('title') : null;
 		const Body = data.has('Body') ? data.get('Body') : null;
 		const type = data.has('type') ? data.get('type') : null;
-		const broadcastToAll = data.has('broadcastToAll') ? data.get('broadcastToAll') : null;
+		const broadcastToAll = data.has('broadcastToAll') ? data.get('broadcastToAll') : false;
 		const imageUrl = data.has('imageUrl') ? data.get('imageUrl') : null;
 		const sessionId = event.cookies.get('sessionId');
 

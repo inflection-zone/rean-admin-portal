@@ -15,7 +15,7 @@ export const createNotification = async (
 		Title: title,
 		Body: Body ? Body : null,
 		Type: type ? type : null,
-		BroadcastToAll: broadcastToAll ? broadcastToAll : null,
+		BroadcastToAll: broadcastToAll ? broadcastToAll : false,
 		ImageUrl: imageUrl ? imageUrl : null,
 	};
 	const url = BACKEND_API_URL + '/general/notifications';
@@ -60,7 +60,7 @@ export const updateNotification = async (
 		Title: title,
 		Body: Body ? Body : null,
 		Type: type ? type : null,
-		BroadcastToAll: broadcastToAll ? broadcastToAll : null,
+		BroadcastToAll: broadcastToAll ? broadcastToAll : false,
 		ImageUrl: imageUrl ? imageUrl : null,
 	};
 	const url = BACKEND_API_URL + `/general/notifications/${notificationId}`;
