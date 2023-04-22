@@ -100,10 +100,10 @@
 		<thead class="sticky top-0">
 			<tr>
 				<th style="width: 5%;">Id</th>
-				<th style="width: 19%;">Type Name</th>
-				<th style="width: 30%;">Display Name</th>
-				<th style="width: 15%;">Normal Range Min</th>
-				<th style="width: 15%;">Normal Range Max</th>
+				<th style="width: 18%;">Type Name</th>
+				<th style="width: 27%;">Display Name</th>
+				<th style="width: 15%;">Minimum Normal Range</th>
+				<th style="width: 15%;">Maximum Normal Range</th>
 				<th style="width: 8%;" />
 				<th style="width: 8%;" />
 			</tr>
@@ -118,11 +118,11 @@
 						<td style="width: 19%;"><a href={viewRoute(row.id)}>{row.TypeName.length > 15
 							? row.TypeName.substring(0, 13) + '...'
 							: row.TypeName}</a></td>
-						<td style="width: 29;">{row.DisplayName.length > 20
+						<td style="width: 22;">{row.DisplayName.length > 20
 							? row.DisplayName.substring(0, 18) + '...'
 							: row.DisplayName}</td>
-						<td style="width: 15%;">{row.NormalRangeMin}</td>
-						<td style="width: 15%;">{row.NormalRangeMax}</td>
+						<td style="width: 16%;">{row.NormalRangeMin}</td>
+						<td style="width: 16%;">{row.NormalRangeMax}</td>
 						<td style="width: 8%;">
 							<a href={editRoute(row.id)}
 								><Fa icon={faPencil} style="color-text-primary" size="md" /></a

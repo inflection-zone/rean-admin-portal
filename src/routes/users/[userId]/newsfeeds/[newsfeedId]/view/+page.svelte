@@ -49,7 +49,7 @@
 	];
 </script>
 
-<main class="h-screen mb-44">
+<main class="h-screen mb-56">
 	<BreadCrumbs crumbs={breadCrumbs} />
 
 	<div class="">
@@ -129,14 +129,19 @@
 				<span class="span w-1/2 md:2/3 lg:2/3" id="copyright"> {copyright} </span>
 			</div>
 
-			<div class="flex items-center mb-4 lg:mx-16 md:mx-12 mx-10">
+			<div class="flex items-start mb-4 lg:mx-16 md:mx-12 mx-10">
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
 					<!-- svelte-ignore a11y-label-has-associated-control -->
 					<label class="label">
 						<span>Favicon</span>
 					</label>
 				</div>
-				<span class="span w-1/2 md:2/3 lg:2/3" id="favicon"> {favicon} </span>
+				{#if favicon === 'undefined'}
+					<span class="span">Image not specified</span>
+				{:else}
+					<Image cls="flex h-24 w-24 rounded-lg" source={favicon} w="24" h="24" />
+				{/if}
+				<!-- <span class="span w-1/2 md:2/3 lg:2/3" id="favicon"> {favicon} </span> -->
 			</div>
 
 			<div class="flex items-center mb-4 lg:mx-16 md:mx-12 mx-10">

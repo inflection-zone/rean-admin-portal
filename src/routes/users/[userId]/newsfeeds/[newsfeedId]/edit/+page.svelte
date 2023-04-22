@@ -109,7 +109,7 @@
 	};
 </script>
 
-<main class="h-screen mb-60">
+<main class="h-screen mb-96">
 	<BreadCrumbs crumbs={breadCrumbs} />
 
 	<div class="">
@@ -235,14 +235,35 @@
 				</div>
 			</div>
 
-			<div class="flex items-center mb-4 lg:mx-16 md:mx-12 mx-10">
+			<div class="flex items-start mb-4 lg:mx-16 md:mx-12 mx-10">
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
 					<!-- svelte-ignore a11y-label-has-associated-control -->
 					<label class="label">
 						<span>Favicon</span>
 					</label>
 				</div>
-				<div class="w-1/2 md:w-2/3 lg:w-2/3">
+				<div class="flex flex-row gap-4 w-1/2 md:w-2/3 lg:w-2/3 ">
+					{#if image === 'undefined'}
+						<input
+							name="fileinput"
+							type="file"
+							class="true input w-full"
+							placeholder="Image"
+							on:change={async (e) => await onFileSelected(e)}
+						/>
+					{:else}
+						<Image cls="flex h-24 w-24 rounded-lg" source={favicon} w="24" h="24" />
+						<input
+							name="fileinput"
+							type="file"
+							class="true input w-full"
+							placeholder="Image"
+							on:change={async (e) => await onFileSelected(e)}
+						/>
+					{/if}
+					<input type="hidden" name="favicon" value={favicon} />
+				</div>
+				<!-- <div class="w-1/2 md:w-2/3 lg:w-2/3">
 					<input
 						type="text"
 						name="favicon"
@@ -250,7 +271,7 @@
 						placeholder="Enter favicon here..."
 						class="input w-full "
 					/>
-				</div>
+				</div> -->
 			</div>
 
 			<div class="flex items-center mb-4 lg:mx-16 md:mx-12 mx-10">
