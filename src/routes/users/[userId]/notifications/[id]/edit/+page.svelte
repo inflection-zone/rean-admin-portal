@@ -193,6 +193,7 @@
 						<input
 							type="checkbox"
 							name="broadcastToAll"
+							bind:value={broadcastToAll}
 							bind:checked={broadcastToAll}
 							class="checkbox checkbox-primary border-primary-200 hover:border-primary-400 checkbox-md ml-2"
 						/>
