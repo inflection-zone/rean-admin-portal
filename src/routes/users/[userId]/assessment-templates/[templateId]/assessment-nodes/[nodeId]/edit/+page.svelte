@@ -92,7 +92,7 @@
 		</div>
 
 		<div class="flex items-center mb-4 mt-10 mx-16">
-			<div class="w-1/2 md:w-2/3 lg:w-2/3">
+			<div class="w-1/2 md:w-1/3 lg:w-1/3">
 				<!-- svelte-ignore a11y-label-has-associated-control -->
 				<label class="label">
 					<span>Node Type *</span>
@@ -115,7 +115,7 @@
 		</div> 
 
 		<div class="flex items-center my-4 mx-16">
-			<div class="w-1/2 md:w-2/3 lg:w-2/3">
+			<div class="w-1/2 md:w-1/3 lg:w-1/3">
 				<!-- svelte-ignore a11y-label-has-associated-control -->
 				<label class="label">
 					<span>Title *</span>
@@ -134,7 +134,7 @@
 		</div>
 
 		<div class="flex items-start mt-4 mx-16">
-			<div class="w-1/2 md:w-2/3 lg:w-2/3">
+			<div class="w-1/2 md:w-1/3 lg:w-1/3">
 				<!-- svelte-ignore a11y-label-has-associated-control -->
 				<label class="label mt-2">
 					<span>Description</span>
@@ -152,7 +152,7 @@
 
 		{#if selectedNodeType === 'Question'}
 			<div class="flex items-center mb-4 mt-2 mx-16">
-				<div class="w-1/2 md:w-2/3 lg:w-2/3">
+				<div class="w-1/2 md:w-1/3 lg:w-1/3">
 					<!-- svelte-ignore a11y-label-has-associated-control -->
 					<label class="label">
 						<span>Query Response Type *</span>
@@ -183,7 +183,7 @@
 			{/if}
 		{:else if selectedNodeType === 'Message'}
 			<div class="flex items-start mb-4 mt-2 mx-16">
-				<div class="w-1/2 md:w-2/3 lg:w-2/3">
+				<div class="w-1/2 md:w-1/3 lg:w-1/3">
 					<!-- svelte-ignore a11y-label-has-associated-control -->
 					<label class="label mt-2">
 						<span>Message *</span>

@@ -134,7 +134,7 @@
 				<span class="span w-1/2 md:2/3 lg:2/3" id="description">{description}</span>
 			</div>
 
-			{#if nodeType === 'Questin'}
+			{#if nodeType === 'Question'}
 				<div class="flex items-center mb-4 lg:mx-16 md:mx-12 mx-10">
 					<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
 						<!-- svelte-ignore a11y-label-has-associated-control -->
