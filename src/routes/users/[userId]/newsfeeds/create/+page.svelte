@@ -90,7 +90,6 @@
 		}
 	};
 
-
 	const onFileSelected = async (e) => {
 		let f = e.target.files[0];
 		const filename = f.name;
