@@ -1,12 +1,18 @@
 <script lang="ts">
 	import Fa from 'svelte-fa';
-	import { createDataTableStore, dataTableHandler } from '@skeletonlabs/skeleton';
+	import {
+		createDataTableStore,
+		dataTableHandler,
+		tableA11y,
+		tableInteraction
+	} from '@skeletonlabs/skeleton';
 	import { Paginator } from '@skeletonlabs/skeleton';
 	import { page } from '$app/stores';
 	import BreadCrumbs from '$lib/components/breadcrumbs/breadcrums.svelte';
 	import Confirm from '$lib/components/modal/confirmModal.svelte';
 	import { faPencil, faSearch, faTrash } from '@fortawesome/free-solid-svg-icons';
 	import type { PageServerData } from './$types';
+	import { Helper } from '$lib/utils/helper';
 
 	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -173,12 +179,18 @@
 </div>
 
 <div class="flex justify-center flex-col mt-4 mx-10 mb-10 overflow-y-auto ">
-	<table class="table rounded-b-none">
-		<thead class="sticky top-0">
+	<table class="table rounded-b-none" role="grid" use:tableInteraction use:tableA11y>
+		<thead
+			on:click={(e) => {
+				dataTableStore.sort(e);
+			}}
+			on:keypress
+			class="sticky top-0"
+		>
 			<tr>
-				<th style="width: 5%;">Id</th>
-				<th style="width: 20%;">Title</th>
-				<th style="width: 30%;">Type</th>
+				<th data-sort="index" style="width: 5%;">Id</th>
+				<th data-sort="Title" style="width: 20%;">Title</th>
+				<th data-sort="Type" style="width: 30%;">Type</th>
 				<th style="width: 24%;">Provider</th>
 				<th style="width: 8%;" />
 				<th style="width: 8%;" />
@@ -190,10 +202,16 @@
 			<tbody class="">
 				{#each $dataTableStore.filtered as row, rowIndex}
 					<tr>
-						<td style="width: 5%;">{row.index}</td>
-						<td style="width: 20%;"><a href={viewRoute(row.id)}> {row.Title}</a></td>
-						<td style="width: 30%;">{row.Type}</td>
-						<td style="width: 24%;">{row.Provider}</td>
+						<td role="gridcell" aria-colindex={1} tabindex="0" style="width: 5%;">{row.index}</td>
+						<td role="gridcell" aria-colindex={2} tabindex="0" style="width: 20%;"
+							><a href={viewRoute(row.id)}>{Helper.truncateText(row.Title, 20)}</a></td
+						>
+						<td role="gridcell" aria-colindex={3} tabindex="0" style="width: 30%;"
+							>{Helper.truncateText(row.Type, 40)}</td
+						>
+						<td role="gridcell" aria-colindex={4} tabindex="0" style="width: 24%;"
+							>{Helper.truncateText(row.Provider, 40)}</td
+						>
 						<td style="width: 8%;">
 							<a href={editRoute(row.id)}
 								><Fa icon={faPencil} style="color-text-primary" size="md" /></a

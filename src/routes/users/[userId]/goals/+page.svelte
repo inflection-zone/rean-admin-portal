@@ -1,5 +1,10 @@
 <script lang="ts">
-	import { createDataTableStore, dataTableHandler } from '@skeletonlabs/skeleton';
+	import {
+		createDataTableStore,
+		dataTableHandler,
+		tableA11y,
+		tableInteraction
+	} from '@skeletonlabs/skeleton';
 	import { Paginator } from '@skeletonlabs/skeleton';
 	import Fa from 'svelte-fa';
 	import { faPencil, faTrash, faSearch } from '@fortawesome/free-solid-svg-icons';
@@ -8,6 +13,7 @@
 	import Confirm from '$lib/components/modal/confirmModal.svelte';
 	import BreadCrumbs from '$lib/components/breadcrumbs/breadcrums.svelte';
 	import type { PageServerData } from './$types';
+	import { Helper } from '$lib/utils/helper';
 
 	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -145,12 +151,18 @@
 	</a>
 </div>
 <div class="flex justify-center flex-col mt-4 mx-10 mb-10 overflow-y-auto ">
-	<table class="table rounded-b-none">
-		<thead class="sticky top-0">
+	<table class="table rounded-b-none" role="grid" use:tableInteraction use:tableA11y>
+		<thead
+			on:click={(e) => {
+				dataTableStore.sort(e);
+			}}
+			on:keypress
+			class="sticky top-0"
+		>
 			<tr>
-				<th style="width: 5%;">Id</th>
-				<th style="width: 20%;">Type</th>
-				<th style="width: 30%;">Tags</th>
+				<th data-sort="index" style="width: 5%;">Id</th>
+				<th data-sort="Type" style="width: 20%;">Type</th>
+				<th data-sort="Tags" style="width: 30%;">Tags</th>
 				<th style="width: 24%;">Created Date</th>
 				<th style="width: 8%;" />
 				<th style="width: 8%;" />
@@ -162,12 +174,14 @@
 			<tbody class="">
 				{#each $dataTableStore.filtered as row, rowIndex}
 					<tr>
-						<td style="width: 5%;">{row.index}</td>
-						<td style="width: 20%;"><a href={viewRoute(row.id)}>{row.Type.length > 15
-							? row.Type.substring(0, 13) + '...'
-							: row.Type}</a></td>
-						<td style="width: 30%;">{row.Tags}</td>
-						<td style="width: 24%;">{date.format(new Date(row.CreatedAt), 'DD-MMM-YYYY')}</td>
+						<td role="gridcell" aria-colindex={1} tabindex="0" style="width: 5%;">{row.index}</td>
+						<td role="gridcell" aria-colindex={2} tabindex="0" style="width: 20%;"
+							><a href={viewRoute(row.id)}>{Helper.truncateText(row.Type, 20)} </a></td
+						>
+						<td role="gridcell" aria-colindex={3} tabindex="0" style="width: 30%;">{row.Tags}</td>
+						<td role="gridcell" aria-colindex={4} tabindex="0" style="width: 24%;"
+							>{date.format(new Date(row.CreatedAt), 'DD-MMM-YYYY')}</td
+						>
 						<td style="width: 8%;">
 							<a href={editRoute(row.id)}
 								><Fa icon={faPencil} style="color-text-primary" size="md" /></a

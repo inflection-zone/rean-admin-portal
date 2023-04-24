@@ -1,5 +1,10 @@
 <script lang="ts">
-	import { createDataTableStore, dataTableHandler } from '@skeletonlabs/skeleton';
+	import {
+		createDataTableStore,
+		dataTableHandler,
+		tableA11y,
+		tableInteraction
+	} from '@skeletonlabs/skeleton';
 	import { Paginator } from '@skeletonlabs/skeleton';
 	import type { PageServerData } from './$types';
 	import { page } from '$app/stores';
@@ -8,6 +13,7 @@
 	const userId = $page.params.userId;
 	import Confirm from '$lib/components/modal/confirmModal.svelte';
 	import { faPencil, faTrash, faSearch } from '@fortawesome/free-solid-svg-icons';
+	import { Helper } from '$lib/utils/helper';
 	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 	export let data: PageServerData;
@@ -175,12 +181,18 @@
 </div>
 
 <div class="flex justify-center flex-col mx-10 mt-4 mb-10 overflow-y-auto ">
-	<table class="table rounded-b-none">
-		<thead class="sticky top-0">
+	<table class="table rounded-b-none" role="grid" use:tableInteraction use:tableA11y>
+		<thead
+			on:click={(e) => {
+				dataTableStore.sort(e);
+			}}
+			on:keypress
+			class="sticky top-0"
+		>
 			<tr>
-				<th style="width: 5%;">Id</th>
-				<th style="width: 20%;">Type</th>
-				<th style="width: 20%;">Name</th>
+				<th data-sort="index" style="width: 5%;">Id</th>
+				<th data-sort="Type" style="width: 20%;">Type</th>
+				<th data-sort="Name" style="width: 20%;">Name</th>
 				<th style="width: 20%;">Phone</th>
 				<th style="width: 20%">Email</th>
 				<th style="width: 8%;" />
@@ -193,11 +205,19 @@
 			<tbody class="">
 				{#each $dataTableStore.filtered as row, rowIndex}
 					<tr>
-						<td style="width: 5%;">{row.index}</td>
-						<td style="width: 20%;"><a href={viewRoute(row.id)}>{row.Type}</a></td>
-						<td style="width: 20%;">{row.Name}</td>
-						<td style="width: 20%;">{row.ContactPhone}</td>
-						<td style="width: 20%;">{row.ContactEmail}</td>
+						<td role="gridcell" aria-colindex={1} tabindex="0" style="width: 5%;">{row.index}</td>
+						<td role="gridcell" aria-colindex={2} tabindex="0" style="width: 20%;"
+							><a href={viewRoute(row.id)}>{Helper.truncateText(row.Type, 20)}</a></td
+						>
+						<td role="gridcell" aria-colindex={3} tabindex="0" style="width: 20%;"
+							>{Helper.truncateText(row.Name, 20)}</td
+						>
+						<td role="gridcell" aria-colindex={4} tabindex="0" style="width: 20%;"
+							>{row.ContactPhone}</td
+						>
+						<td role="gridcell" aria-colindex={5} tabindex="0" style="width: 20%;"
+							>{row.ContactEmail}</td
+						>
 						<td style="width: 8%;">
 							<a class="text-primary" href={editRoute(row.id)}><Fa icon={faPencil} /></a></td
 						>
