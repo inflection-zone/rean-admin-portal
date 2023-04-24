@@ -1,6 +1,11 @@
 <script lang="ts">
 	import Fa from 'svelte-fa';
-	import { createDataTableStore, dataTableHandler } from '@skeletonlabs/skeleton';
+	import {
+		createDataTableStore,
+		dataTableHandler,
+		tableA11y,
+		tableInteraction
+	} from '@skeletonlabs/skeleton';
 	import { Paginator } from '@skeletonlabs/skeleton';
 	import { page } from '$app/stores';
 	import date from 'date-and-time';
@@ -8,6 +13,7 @@
 	import Confirm from '$lib/components/modal/confirmModal.svelte';
 	import { faSearch, faTrash, faPencil } from '@fortawesome/free-solid-svg-icons';
 	import type { PageServerData } from './$types';
+	import { Helper } from '$lib/utils/helper';
 
 	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -182,13 +188,19 @@
 	</div>
 </div>
 <div class="flex justify-center flex-col mt-4 mx-10 mb-10 overflow-y-auto ">
-	<table class="table rounded-b-none">
-		<thead class="sticky top-0">
+	<table class="table rounded-b-none" role="grid" use:tableInteraction use:tableA11y>
+		<thead
+			on:click={(e) => {
+				dataTableStore.sort(e);
+			}}
+			on:keypress
+			class="sticky top-0"
+		>
 			<tr>
-				<th style="width: 5%;">Id</th>
-				<th style="width: 18%;">Name</th>
+				<th data-sort="index" style="width: 5%;">Id</th>
+				<th data-sort="Name" style="width: 19%;">Name</th>
 				<th style="width: 34%;">Description</th>
-				<th style="width: 19%;">Preference Weight</th>
+				<th data-sort="PreferenceWeight" style="width: 18%;">Preference Weight</th>
 				<th style="width: 35%;">Created Date</th>
 				<th style="width: 8%;" />
 				<th style="width: 8%;" />
@@ -200,15 +212,19 @@
 			<tbody class="">
 				{#each $dataTableStore.filtered as row, rowIndex}
 					<tr>
-						<td style="width: 5%;">{row.index}</td>
-						<td style="width: 19%;"><a href={viewRoute(row.id)}>{row.Name}</a></td>
-						<td style="width: 34%;"
-							>{row.Description.length > 30
-								? row.Description.substring(0, 28) + '...'
-								: row.Description}</td
+						<td role="gridcell" aria-colindex={1} tabindex="0" style="width: 5%;">{row.index}</td>
+						<td role="gridcell" aria-colindex={2} tabindex="0" style="width: 19%;"
+							><a href={viewRoute(row.id)}>{Helper.truncateText(row.Name, 20)}</a></td
 						>
-						<td style="width: 20%;">{row.PreferenceWeight}</td>
-						<td style="width: 35%;">{date.format(new Date(row.CreatedAt), 'DD-MMM-YYYY')}</td>
+						<td role="gridcell" aria-colindex={3} tabindex="0" style="width: 34%;"
+							>{Helper.truncateText(row.Description, 40)}</td
+						>
+						<td role="gridcell" aria-colindex={4} tabindex="0" style="width: 20%;"
+							>{row.PreferenceWeight}</td
+						>
+						<td role="gridcell" aria-colindex={5} tabindex="0" style="width: 35%;"
+							>{date.format(new Date(row.CreatedAt), 'DD-MMM-YYYY')}</td
+						>
 						<td style="width: 8%;">
 							<a href={editRoute(row.id)}
 								><Fa icon={faPencil} style="color-text-primary" size="md" /></a

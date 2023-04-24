@@ -1,6 +1,11 @@
 <script lang="ts">
 	import Fa from 'svelte-fa';
-	import { createDataTableStore, dataTableHandler } from '@skeletonlabs/skeleton';
+	import {
+		createDataTableStore,
+		dataTableHandler,
+		tableA11y,
+		tableInteraction
+	} from '@skeletonlabs/skeleton';
 	import { Paginator } from '@skeletonlabs/skeleton';
 	import { faPencil, faSearch, faTrash } from '@fortawesome/free-solid-svg-icons';
 	import date from 'date-and-time';
@@ -8,6 +13,7 @@
 	import Confirm from '$lib/components/modal/confirmModal.svelte';
 	import { page } from '$app/stores';
 	import type { PageServerData } from './$types';
+	import { Helper } from '$lib/utils/helper';
 
 	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -184,12 +190,18 @@
 </div>
 
 <div class="flex justify-center flex-col mt-4 mx-10 mb-10 overflow-y-auto ">
-	<table class="table rounded-b-none">
-		<thead class="sticky top-0">
+	<table class="table rounded-b-none" role="grid" use:tableInteraction use:tableA11y>
+		<thead
+			on:click={(e) => {
+				dataTableStore.sort(e);
+			}}
+			on:keypress
+			class="sticky top-0"
+		>
 			<tr>
-				<th style="width: 5%;">Id</th>
-				<th style="width: 18%;">Name</th>
-				<th style="width: 27%;">Generic Name</th>
+				<th data-sort="index" style="width: 5%;">Id</th>
+				<th data-sort="DrugName" style="width: 18%;">Name</th>
+				<th data-sort="GenericName" style="width: 30%;">Generic Name</th>
 				<th style="width: 25%;">Ingredients</th>
 				<th style="width: 30%;">Created Date</th>
 				<th style="width: 8%;" />
@@ -200,19 +212,21 @@
 	<div class=" overflow-y-auto h-[600px] bg-tertiary-500">
 		<table class="table w-full">
 			<tbody class="">
-				{#each $dataTableStore.filtered as row, rowIndex}
+				{#each $dataTableStore.filtered as row}
 					<tr>
-						<td style="width: 5%;">{row.index}</td>
-						<td style="width: 18%;"><a href={viewRoute(row.id)}>{row.DrugName.length > 15
-							? row.DrugName.substring(0, 13) + '...'
-							: row.DrugName}</a></td>
-						<td style="width: 28%;">{row.GenericName.length > 30
-							? row.GenericName.substring(0, 27) + '...'
-							: row.GenericName}</td>
-						<td style="width: 26%;">{row.Ingredients.length > 30
-							? row.Ingredients.substring(0, 27) + '...'
-							: row.Ingredients}</td>
-						<td style="width: 30%;">{date.format(new Date(row.CreatedAt), 'DD-MMM-YYYY')}</td>
+						<td role="gridcell" aria-colindex={1} tabindex="0" style="width: 5%;">{row.index}</td>
+						<td role="gridcell" aria-colindex={2} tabindex="0" style="width: 18%;"
+							><a href={viewRoute(row.id)}>{Helper.truncateText(row.DrugName, 20)}</a></td
+						>
+						<td role="gridcell" aria-colindex={3} tabindex="0" style="width: 31%;">
+							{Helper.truncateText(row.GenericName, 40)}
+						</td>
+						<td role="gridcell" aria-colindex={4} tabindex="0" style="width: 26%;"
+							>{Helper.truncateText(row.Ingredients, 40)}
+						</td>
+						<td role="gridcell" aria-colindex={5} tabindex="0" style="width: 30%;"
+							>{date.format(new Date(row.CreatedAt), 'DD-MMM-YYYY')}</td
+						>
 						<td style="width: 8%;">
 							<a href={editRoute(row.id)}
 								><Fa icon={faPencil} style="color-text-primary" size="md" /></a

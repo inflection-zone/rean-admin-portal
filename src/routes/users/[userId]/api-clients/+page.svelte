@@ -1,6 +1,10 @@
 <script lang="ts">
-	import { createDataTableStore, dataTableHandler, tableInteraction,
-	tableA11y } from '@skeletonlabs/skeleton';
+	import {
+		createDataTableStore,
+		dataTableHandler,
+		tableInteraction,
+		tableA11y
+	} from '@skeletonlabs/skeleton';
 	import { Paginator } from '@skeletonlabs/skeleton';
 	import Fa from 'svelte-fa';
 	import { faPencil, faTrash, faSearch } from '@fortawesome/free-solid-svg-icons';
@@ -8,6 +12,7 @@
 	import Confirm from '$lib/components/modal/confirmModal.svelte';
 	import BreadCrumbs from '$lib/components/breadcrumbs/breadcrums.svelte';
 	import type { PageServerData } from './$types';
+	import { Helper } from '$lib/utils/helper';
 
 	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -17,7 +22,7 @@
 	apiClients = apiClients.map((item, index) => ({ ...item, index: index + 1 }));
 
 	const dataTableStore = createDataTableStore(apiClients, {
-		sort : '',
+		sort: '',
 		search: '',
 		pagination: { offset: 0, limit: 10, size: 0, amounts: [10, 20, 30, 50] }
 	});
@@ -176,7 +181,13 @@
 
 <div class="flex justify-center flex-col mt-4 mx-10 mb-10 overflow-y-auto ">
 	<table class="table rounded-b-none" role="grid" use:tableInteraction use:tableA11y>
-		<thead on:click={(e) => { dataTableStore.sort(e) }} on:keypress class="sticky top-0">
+		<thead
+			on:click={(e) => {
+				dataTableStore.sort(e);
+			}}
+			on:keypress
+			class="sticky top-0"
+		>
 			<tr>
 				<th data-sort="index" style="width: 5%;">Id</th>
 				<th data-sort="ClientName" style="width: 20%;">Name</th>
@@ -193,7 +204,9 @@
 				{#each $dataTableStore.filtered as row}
 					<tr>
 						<td role="gridcell" aria-colindex={1} tabindex="0" style="width: 5%;">{row.index}</td>
-						<td role="gridcell" aria-colindex={2} tabindex="0" style="width: 20%;"><a href={viewRoute(row.id)}>{row.ClientName}</a></td>
+						<td role="gridcell" aria-colindex={2} tabindex="0" style="width: 20%;"
+							><a href={viewRoute(row.id)}>{Helper.truncateText(row.ClientName, 20)}</a></td
+						>
 						<td role="gridcell" aria-colindex={3} tabindex="0" style="width: 30%;">{row.Email}</td>
 						<td role="gridcell" aria-colindex={4} tabindex="0" style="width: 24%;">{row.Phone}</td>
 						<td style="width: 8%;">
