@@ -6,7 +6,7 @@ import type { OrganizationTypes } from '$lib/types/domain.models';
 import { BACKEND_API_URL } from '$env/static/private';
 import { getOrganizationById, updateOrganization } from '../../../../../api/services/organizations';
 import { getOrganizationTypes } from '../../../../../api/services/types';
-import { createAddress } from '../../../../../api/services/addresses';
+import { updateAddress } from '../../../../../api/services/addresses';
 
 /////////////////////////////////////////////////////////////////////////
 
@@ -59,10 +59,12 @@ export const actions = {
 		const operationalSince = data.has('operationalSince') ? data.get('operationalSince') : null;
 		const imageResourceId = data.has('imageResourceId') ? data.get('imageResourceId') : null;
 		const isHealthFacility = data.has('isHealthFacility') ? data.get('isHealthFacility') : null;
+		const addressId = data.has('addressId') ? data.get('addressId') : null;
 		const sessionId = event.cookies.get('sessionId');
 		const organizationId = event.params.id;
-		const addressResponse = await createAddress(
+		const addressResponse = await updateAddress(
 			sessionId,
+			addressId.valueOf() as string,
 			addressType.valueOf() as string,
 			addressLine.valueOf() as string,
 			city.valueOf() as string,
