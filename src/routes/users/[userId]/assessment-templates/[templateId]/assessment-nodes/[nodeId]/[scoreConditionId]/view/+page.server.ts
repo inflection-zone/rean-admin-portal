@@ -1,6 +1,7 @@
 import { error, type RequestEvent } from '@sveltejs/kit';
 import type { PageServerLoad } from './$types';
-import { getAssessmentNodeById } from '../../../../../../../api/services/assessment-nodes';
+import { getAssessmentNodeById, getScoringCondition } from '../../../../../../../../api/services/assessment-nodes';
+import { getAssessmentTemplateById } from '$routes/api/services/assessment-templates';
 
 ////////////////////////////////////////////////////////////////////////////
 
@@ -10,7 +11,13 @@ export const load: PageServerLoad = async (event: RequestEvent) => {
 	try {
 		const assessmentNodeId = event.params.nodeId;
 		const templateId = event.params.templateId;
+		const scoringConditionId = event.params.scoreConditionId;
 		const response = await getAssessmentNodeById(sessionId, templateId, assessmentNodeId);
+		const _templateScoringCondition = await getAssessmentTemplateById(sessionId, templateId) 
+		const _scoringCondition = await getScoringCondition(sessionId, templateId, scoringConditionId)
+		const templateScoringCondition = _templateScoringCondition.Data.AssessmentTemplate;
+		const scoringCondition = _scoringCondition.Data.ScoringCondition;
+		console.log("scoringCondition",scoringCondition);
 
 		if (response.Status === 'failure' || response.HttpCode !== 200) {
 			throw error(response.HttpCode, response.Message);
@@ -21,6 +28,8 @@ export const load: PageServerLoad = async (event: RequestEvent) => {
 			location: `${id}/edit`,
 			assessmentNode,
 			sessionId,
+			scoringCondition,
+			templateScoringCondition,
 			message: response.Message
 		};
 	} catch (error) {

@@ -8,6 +8,8 @@
 	import { page } from '$app/stores';
 	import type { PageServerData } from './$types';
 	import Confirm from '$lib/components/modal/confirmModal.svelte';
+	import { scoringApplicableCondition } from '$lib/store/general.store';
+
 	////////////////////////////////////////////////////////////////////////////////////////////
 
 	export let data: PageServerData;
@@ -21,18 +23,23 @@
 	let options = data.assessmentNode.Options ?? [];
 	let childrenNodes = data.assessmentNode.Children ?? [];
 	let displayCode = data.assessmentNode.DisplayCode;
+	let resolutionScore = data.scoringCondition.ResolutionScore;
+
+	scoringApplicableCondition.set(data.templateScoringCondition.ScoringApplicable);
 
 	onMount(() => {
 		show(data);
 		LocalStorageUtils.removeItem('prevUrl');
+		
 	});
 
 	const userId = $page.params.userId;
 	const templateId = $page.params.templateId;
 	const nodeId = $page.params.nodeId;
+	const scoreConditionId = $page.params.scoreConditionId;
 	const assessmentsRoutes = `/users/${userId}/assessment-templates`;
-	const editRoute = `/users/${userId}/assessment-templates/${templateId}/assessment-nodes/${nodeId}/edit`;
-	const viewRoute = `/users/${userId}/assessment-templates/${templateId}/assessment-nodes/${nodeId}/view`;
+	const editRoute = `/users/${userId}/assessment-templates/${templateId}/assessment-nodes/${nodeId}/${scoreConditionId}/edit`;
+	const viewRoute = `/users/${userId}/assessment-templates/${templateId}/assessment-nodes/${nodeId}/${scoreConditionId}/view`;
 	const assessmentNodeRoutes = `/users/${userId}/assessment-templates/${templateId}/assessment-nodes`;
 	const createNodeRoute = `/users/${userId}/assessment-templates/${templateId}/assessment-nodes/create`;
 	const editNodeRoute = (id) =>
@@ -145,7 +152,7 @@
 					<span class="span w-1/2 md:2/3 lg:2/3" id="queryType"> {queryType} </span>
 				</div>
 
-				<div class="flex items-start my-4 lg:mx-16 md:mx-12 mx-10">
+				<div class="flex items-start mt-4 lg:mx-16 md:mx-12 mx-10">
 					{#if options.length > 0}
 						<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
 							<!-- svelte-ignore a11y-label-has-associated-control -->
@@ -160,6 +167,17 @@
 						</ol>
 					{/if}
 				</div>
+				{#if $scoringApplicableCondition === true}
+				<div class="flex items-center mb-4 lg:mx-16 md:mx-12 mx-10">
+					<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
+						<!-- svelte-ignore a11y-label-has-associated-control -->
+						<label class="label">
+							<span>Resolution Score</span>
+						</label>
+					</div>
+					<span class="span w-1/2 md:2/3 lg:2/3" id="description">{resolutionScore}</span>
+				</div>
+				{/if}
 			{:else if nodeType === 'Message'}
 				<div class="flex items-center my-4 lg:mx-16 md:mx-12 mx-10">
 					<div class="w-1/2 md:w-1/3 lg:w-1/3 ">

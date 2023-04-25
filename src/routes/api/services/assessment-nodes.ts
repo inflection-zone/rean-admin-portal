@@ -159,6 +159,5 @@ export const updateScoringCondition = async (
 		ResolutionScore: resolutionScore
 	};
 	const url = BACKEND_API_URL + `/clinical/assessment-templates/${templateId}/scoring-conditions/${scoringConditionId}`;
-	console.log("url",url)
-	return await post_(sessionId, url, body, true);
+	return await put_(sessionId, url, body, true);
 };
