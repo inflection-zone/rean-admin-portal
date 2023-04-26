@@ -11,7 +11,7 @@ export const createAddress = async (
 	district: string,
 	state: string,
 	country: string,
-	postalCode: number
+	postalCode: string
 ) => {
 	const body = {
 		Type: type ? type : 'Home',
