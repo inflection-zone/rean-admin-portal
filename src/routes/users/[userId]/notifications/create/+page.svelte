@@ -5,6 +5,9 @@
 	import { page } from '$app/stores';
 	import { showMessage } from '$lib/utils/message.utils';
 
+	////////////////////////////////////////////////////////////////////////////////////
+
+	export let form;
 	const userId = $page.params.userId;
 	let imageUrl = undefined;
 	let fileinput;
@@ -102,8 +105,14 @@
 						name="title"
 						required
 						placeholder="Enter title here..."
-						class="input"
+						class="input {form?.errors?.title
+							? 'border-error-300 text-error-500'
+							: 'border-primary-200 text-primary-500'}"
+						value={form?.data?.title ?? ''}
 					/>
+					{#if form?.errors?.title}
+						<p class="text-error-500 text-xs">{form?.errors?.title[0]}</p>
+					{/if}
 				</div>
 			</div>
 
@@ -115,7 +124,18 @@
 					</label>
 				</div>
 				<div class="w-1/2 md:w-2/3 lg:w-2/3">
-					<input type="text" name="Body" placeholder="Enter body here..." class="input w-full " />
+					<input
+						type="text"
+						name="body"
+						placeholder="Enter body here..."
+						class="input w-full {form?.errors?.body
+							? 'border-error-300 text-error-500'
+							: 'border-primary-200 text-primary-500'}"
+						value={form?.data?.body ?? ''}
+					/>
+					{#if form?.errors?.body}
+						<p class="text-error-500 text-xs">{form?.errors?.body[0]}</p>
+					{/if}
 				</div>
 			</div>
 
@@ -133,6 +153,9 @@
 						<option>Dark mode</option>
 						<option>Light mode</option>
 					</select>
+					{#if form?.errors?.type}
+						<p class="text-error-500 text-xs">{form?.errors?.type[0]}</p>
+					{/if}
 				</div>
 			</div>
 
@@ -151,6 +174,9 @@
 							value="true"
 							class="checkbox checkbox-primary border-primary-200 hover:border-primary-400 checkbox-md ml-2"
 						/>
+						{#if form?.errors?.broadcastToAll}
+							<p class="text-error-500 text-xs">{form?.errors?.broadcastToAll[0]}</p>
+						{/if}
 					</label>
 				</div>
 			</div>
@@ -173,6 +199,9 @@
 						on:change={async (e) => await onFileSelected(e)}
 					/>
 					<input type="hidden" name="imageUrl" value={imageUrl} />
+					{#if form?.errors?.imageUrl}
+						<p class="text-error-500 text-xs">{form?.errors?.imageUrl[0]}</p>
+					{/if}
 				</div>
 			</div>
 

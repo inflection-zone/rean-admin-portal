@@ -3,6 +3,8 @@ import { redirect } from 'sveltekit-flash-message/server';
 import { errorMessage, successMessage } from '$lib/utils/message.utils';
 import type { PageServerLoad } from './$types';
 import { getNotificationById, updateNotification } from '../../../../../api/services/notifications';
+import type { NotificationDomainModel } from '$routes/api/domain-types/notifications';
+import { z } from 'zod';
 
 /////////////////////////////////////////////////////////////////////////
 
@@ -29,28 +31,45 @@ export const load: PageServerLoad = async (event: RequestEvent) => {
 	}
 };
 
+const updateNotificationSchema = z.object({
+	title: z.string().min(3).max(64),
+	body: z.string().min(10).max(64),
+	type: z.string().min(3).max(64),
+	broadcastToAll: z
+		.enum(['true', 'false'])
+		.transform((val) => val === 'true')
+		.default('false'),
+	imageUrl: z.string()
+});
+
 export const actions = {
 	updateNotificationAction: async (event: RequestEvent) => {
 		const request = event.request;
 		const userId = event.params.userId;
-		const data = await request.formData();
-
-		const title = data.has('title') ? data.get('title') : null;
-		const Body = data.has('Body') ? data.get('Body') : null;
-		const type = data.has('type') ? data.get('type') : null;
-		const broadcastToAll = data.has('broadcastToAll') ? data.get('broadcastToAll') : false;
-		const imageUrl = data.has('imageUrl') ? data.get('imageUrl') : null;
-		const sessionId = event.cookies.get('sessionId');
 		const notificationId = event.params.id;
-
+		const sessionId = event.cookies.get('sessionId');
+		const formData = Object.fromEntries(await request.formData());
+		let result: NotificationDomainModel = {};
+		try {
+			result = updateNotificationSchema.parse(formData);
+			console.log('result-----------', result);
+		} catch (err: any) {
+			const { fieldErrors: errors } = err.flatten();
+			console.log(errors);
+			const { ...rest } = formData;
+			return {
+				data: rest,
+				errors
+			};
+		}
 		const response = await updateNotification(
 			sessionId,
 			notificationId,
-			title.valueOf() as string,
-			Body.valueOf() as string,
-			type.valueOf() as string,
-			broadcastToAll?.valueOf() as boolean,
-			imageUrl.valueOf() as string
+			result.title,
+			result.body,
+			result.type,
+			result.broadcastToAll,
+			result.imageUrl
 		);
 		const id = response.Data.Notification.id;
 
