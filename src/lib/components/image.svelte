@@ -2,10 +2,13 @@
     import { browser } from "$app/environment";
     import { db } from '$lib/utils/local.db';
     import { Helper } from "$lib/utils/helper";
+	import { faMultiply } from "@fortawesome/free-solid-svg-icons";
+	import Fa from "svelte-fa";
     export let source;
     export let cls;
     export let w;
     export let h;
+    
     let objectUrl;
     async function loadImage() {
         if (!source) {
@@ -43,5 +46,4 @@
     })();
 </script>
 <img src={objectUrl} alt="" class={cls} width="{w}" height="{h}"/>
-
 

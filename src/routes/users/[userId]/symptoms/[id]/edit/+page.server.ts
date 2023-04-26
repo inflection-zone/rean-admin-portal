@@ -26,6 +26,7 @@ export const load: PageServerLoad = async (event: RequestEvent) => {
 			symptom['ImageUrl'] = null;
 		}
 		return {
+			sessionId,
 			symptom
 		};
 	} catch (error) {

@@ -1,7 +1,7 @@
 import { API_CLIENT_INTERNAL_KEY, BACKEND_API_URL } from '$env/static/private';
 import { SessionManager } from '../session.manager';
 import { error } from '@sveltejs/kit';
-import { get_ } from './common';
+import { delete_, get_ } from './common';
 import { ServerHelper } from '$lib/server/server.helper';
 import axios from 'axios';
 
@@ -100,6 +100,12 @@ export const uploadBinary = async (
 export const getFileResourceById = async (sessionId, fileResourceId) => {
 	const url = BACKEND_API_URL + `file-resources/${fileResourceId}`;
 	return await get_(sessionId, url);
+};
+
+export const deleteFileResource = async (sessionId: string, resourceId: string) => {
+	const url = BACKEND_API_URL + `/file-resources/${resourceId}`;
+	console.log('uri--',url)
+	return await delete_(sessionId, url, true);
 };
 
 export const download = async (sessionId, fileResourceId, asAttachment = false) => {

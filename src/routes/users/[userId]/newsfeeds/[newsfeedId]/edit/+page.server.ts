@@ -18,6 +18,7 @@ export const load: PageServerLoad = async (event: RequestEvent) => {
 		}
 		const newsfeed = response.Data.Rssfeed;
 		return {
+			sessionId,
 			newsfeed
 		};
 	} catch (error) {
@@ -42,7 +43,7 @@ export const actions = {
 		const tags = data.has('tags') ? data.getAll('tags') : null;
 		const sessionId = event.cookies.get('sessionId');
 		const newsfeedId = event.params.newsfeedId;
-
+		console.log('data--',data)
 		const response = await updateNewsfeed(
 			sessionId,
 			newsfeedId,

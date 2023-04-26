@@ -65,7 +65,7 @@
 	};
 </script>
 
-<div class="flex justify-center rounded-lg flex-col lg:mx-14 mx-2 bg-tertiary-500 overflow-auto">
+<div class="flex justify-center w-[94.2%] rounded-lg flex-col lg:mx-14 mx-2 bg-tertiary-500 overflow-auto">
 	<div class="flex justify-center flex-col w-full h-14 p-3 bg-secondary-500 min-[280px]:overflow-auto overflow-auto">
 		<div class="ml-3 relative flex flex-row text-white text-xl">Courses</div>
 	</div>
