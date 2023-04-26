@@ -1,35 +1,59 @@
 import { redirect } from 'sveltekit-flash-message/server';
-import { error, type RequestEvent } from '@sveltejs/kit';
 import { errorMessage, successMessage } from '$lib/utils/message.utils';
 import { createApiClient } from '../../../../api/services/api-clients';
+import { z } from 'zod';
+import type { ApiClientDomainModel } from '$routes/api/domain-types/api-clients';
 
 /////////////////////////////////////////////////////////////////////////
 
+const createApiClientSchema = z.object({
+	clientName: z
+		.string({ required_error: 'Client name is required' })
+		.min(3, { message: 'Client must be greater than 3 characters' })
+		.max(64, { message: 'Client name must be less than 64 characters' }),
+	phone: z
+		.string({ required_error: 'Contact number is required' })
+		.min(10, { message: 'Contact number is not valid' })
+		.max(64, { message: 'Contact number must be less than 64 characters' }),
+	email: z
+		.string({ required_error: 'Email is required' })
+		.email({ message: 'Enter valid email' })
+		.min(10, { message: 'Email must be greater than 10 characters' })
+		.max(64, { message: 'Email must be less than 64 characters' }),
+	password: z
+		.string({ required_error: 'Password is required' })
+		.min(6, { message: 'Password must be greater than 8 characters' })
+		.max(15, { message: 'Password must be less than 15 characters' })
+});
+
 export const actions = {
-	createApiClientAction: async (event: RequestEvent) => {
+	createApiClientAction: async (event) => {
 		const request = event.request;
-		const userId = event.params.userId;
-		const data = await request.formData();
-
-		const countryCode = '+91';
-		const clientName = data.has('clientName') ? data.get('clientName') : null;
-		const password = data.has('password') ? data.get('password') : null;
-		const phone = data.has('phone') ? data.get('phone') : null;
-		const email = data.has('email') ? data.get('email') : null;
 		const sessionId = event.cookies.get('sessionId');
-
-		if (!phone && !countryCode) {
-			throw error(400, `Phone is not valid!`);
+		const userId = event.params.userId;
+		const formData = Object.fromEntries(await request.formData());
+    let result : ApiClientDomainModel = {};
+		try {
+			result = createApiClientSchema.parse(formData);
+			console.log('result-----------', result);
+		} catch (err: any) {
+			const { fieldErrors: errors } = err.flatten();
+			console.log(errors);
+			const { ...rest } = formData;
+			return {
+				data: rest,
+				errors
+			};
 		}
-
+		const countryCode = '+91';
+		const phone = countryCode + '-'+ result.phone;
 		const response = await createApiClient(
 			sessionId,
-			clientName.valueOf() as string,
-			password.valueOf() as string,
-			phone.valueOf() as string,
-			email.valueOf() as string
+			result.clientName,
+			result.password,
+			phone,
+			result.email
 		);
-
 		const id = response.Data.Client.id;
 		if (response.Status === 'failure' || response.HttpCode !== 201) {
 			throw redirect(303, `/users/${userId}/api-clients`, errorMessage(response.Message), event);
