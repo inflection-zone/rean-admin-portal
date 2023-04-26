@@ -31,3 +31,4 @@ export const genderTypesStore = writable([]);
 export const oragnizationTypesStore = writable([]);
 export const showGetApiKeyModal = writable(false);
 export const showRenewApiKeyModal = writable(false);
+export const scoringApplicableCondition = writable(false);

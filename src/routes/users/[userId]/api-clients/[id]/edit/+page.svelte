@@ -6,6 +6,7 @@
 	import type { PageServerData } from './$types';
 
 	export let data: PageServerData;
+	export let form;
 	let initiaData = {};
 	let id = data.apiClient.id;
 	let clientName = data.apiClient.ClientName;
@@ -65,13 +66,12 @@
 			<div class="flex items-center mb-4 mt-10 lg:mx-16 md:mx-12 mx-10">
 				<div class="w-1/2 md:w-1/3 lg:w-1/3">
 					<!-- svelte-ignore a11y-label-has-associated-control -->
-					<!-- svelte-ignore a11y-label-has-associated-control -->
 					<label class="label">
 						<span>Client Code</span>
 					</label>
 				</div>
 				<!-- svelte-ignore a11y-label-has-associated-control -->
-				<span class="span w-1/2 md:2/3 lg:2/3" id="clientCode"> {clientCode} </span>
+				<span class="span w-1/2 md:2/3 lg:2/3" id="clientCode">{clientCode}</span>
 			</div>
 
 			<div class="flex items-center mb-4 mt-4 lg:mx-16 md:mx-12 mx-10">
@@ -87,8 +87,14 @@
 						name="clientName"
 						bind:value={clientName}
 						placeholder="Enter client name here..."
-						class="input w-full "
+						class="input w-full {form
+							?.errors?.clientName
+							? 'border-error-300'
+							: 'border-primary-200'}"
 					/>
+					{#if form?.errors?.clientName}
+					<p class="text-error-500 text-xs">{form?.errors?.clientName[0]}</p>
+				  {/if}
 				</div>
 			</div>
 
@@ -105,8 +111,14 @@
 						name="password"
 						bind:value={password}
 						placeholder="Enter password here..."
-						class="input w-full "
+						class="input w-full {form
+							?.errors?.password
+							? 'border-error-300'
+							: 'border-primary-200'}"
 					/>
+					{#if form?.errors?.password}
+					<p class="text-error-500 text-xs">{form?.errors?.password[0]}</p>
+				{/if}
 				</div>
 			</div>
 
@@ -123,8 +135,14 @@
 						name="phone"
 						bind:value={phone}
 						placeholder="Enter phone here..."
-						class="input w-full "
+						class="input w-full {form
+							?.errors?.phone
+							? 'border-error-300'
+							: 'border-primary-200'}"
 					/>
+					{#if form?.errors?.phone}
+					<p class="text-error-500 text-xs">{form?.errors?.phone[0]}</p>
+				 {/if}
 				</div>
 			</div>
 
@@ -141,8 +159,14 @@
 						name="email"
 						bind:value={email}
 						placeholder="Enter email here..."
-						class="input w-full "
+						class="input w-full {form
+							?.errors?.email
+							? 'border-error-300'
+							: 'border-primary-200'}"
 					/>
+					{#if form?.errors?.email}
+					<p class="text-error-500 text-xs">{form?.errors?.email[0]}</p>
+				{/if}
 				</div>
 			</div>
 
@@ -152,7 +176,7 @@
 					<button
 						type="button"
 						on:click={handleReset}
-						class="btn variant-ringed-primary lg:w-40 lg:ml-8 md:ml-6 sm:ml-1 mb-10"
+						class="btn variant-ringed-primary text-primary-500 lg:w-40 lg:ml-8 md:ml-6 sm:ml-1 mb-10"
 					>
 						Reset</button
 					>

@@ -1,19 +1,25 @@
 <script lang="ts">
 	import CollapsibleSection from '$lib/components/courses.view/collapsible.section.svelte';
 	import { createEventDispatcher } from 'svelte';
-	import { createDataTableStore, dataTableHandler } from '@skeletonlabs/skeleton';
+	import {
+		createDataTableStore,
+		dataTableHandler,
+		tableA11y,
+		tableInteraction
+	} from '@skeletonlabs/skeleton';
 	import Fa from 'svelte-fa';
 	import { Paginator } from '@skeletonlabs/skeleton';
-	import { faBook, faPencil, faTrash } from '@fortawesome/free-solid-svg-icons';
+	import { faPencil, faTrash } from '@fortawesome/free-solid-svg-icons';
 	import Confirm from '$lib/components/modal/confirmModal.svelte';
 
 	/////////////////////////////////////////////////////////////////////////////////////////////////
 
 	export let userId = undefined;
 	export let courses = [];
-	let name = undefined;
-	let durationInDays = undefined;
-	let expanded = false;
+	let contents = [];
+	contents = contents.sort((a, b) => {
+		return b.sequence - a.sequence;
+	});
 
 	courses = courses.map((item, index) => ({ ...item, index: index + 1 }));
 	let addModuleRoute = (courseId) => `/users/${userId}/courses/${courseId}/modules/create`;
@@ -27,22 +33,16 @@
 	let viewCourseRoute = (courseId) => `/users/${userId}/courses/${courseId}/view`;
 	let viewModuleRoute = (courseId, moduleId) =>
 		`/users/${userId}/courses/${courseId}/modules/${moduleId}/view`;
-	let viewContentRoute = (courseId, moduleId, contentId)	=> 
-	`/users/${userId}/courses/${courseId}/modules/${moduleId}/contents/${contentId}/edit`;
-	
+	let viewContentRoute = (courseId, moduleId, contentId) =>
+		`/users/${userId}/courses/${courseId}/modules/${moduleId}/contents/${contentId}/edit`;
+
 	const dataTableStore = createDataTableStore(courses, {
 		search: '',
+		sort: 'sequence',
 		pagination: { offset: 0, limit: 10, size: 0, amounts: [10, 20, 30, 50] }
 	});
 	dataTableStore.subscribe((model) => dataTableHandler(model));
 	const dispatch = createEventDispatcher();
-
-	const onSearchClick = async (name, durationIndays) => {
-		dispatch('searchCourse', {
-			name: name,
-			durationIndays: durationIndays
-		});
-	};
 
 	const handleContentDelete = async (id) => {
 		dispatch('onContentDeleteClick', {
@@ -53,20 +53,22 @@
 	const handlelCourseDelete = async (courseId, modules) => {
 		dispatch('onCourseDeleteClick', {
 			courseId: courseId,
-			modules:modules,
+			modules: modules
 		});
 	};
 
 	const handlelModuleDelete = async (moduleId, contents) => {
 		dispatch('onModuleDeleteClick', {
 			moduleId: moduleId,
-			contents:contents
+			contents: contents
 		});
 	};
 </script>
 
 <div class="flex justify-center rounded-lg flex-col lg:mx-14 mx-2 bg-tertiary-500 overflow-auto">
-	<div class="flex justify-center flex-col w-full h-14 p-3 bg-secondary-500 min-[280px]:overflow-auto overflow-auto">
+	<div
+		class="flex justify-center flex-col w-full h-14 p-3 bg-secondary-500 min-[280px]:overflow-auto overflow-auto"
+	>
 		<div class="ml-3 relative flex flex-row text-white text-xl">Courses</div>
 	</div>
 	<section class="text-base-100">
@@ -79,18 +81,17 @@
 					paddingLeft="20px"
 					marginBottom="12px"
 					headerText="{course.index}. {course.Name}"
-
 					itemsCount="Modules ({course.Modules.length})"
 					addRoute={addModuleRoute(course.id)}
 					editRoute={editCourseRoute(course.id)}
-					viewRoute = {viewCourseRoute(course.id)}
+					viewRoute={viewCourseRoute(course.id)}
 					src="/courses.png"
 					on:onDeleteClick|once={async () => {
-						await handlelCourseDelete(course.id,course.Modules);
+						await handlelCourseDelete(course.id, course.Modules);
 					}}
 				>
-					<!-- {#if course.Modules.length >= 0} -->
-						<div class="content">
+					<div class="content">
+						{#if course.Modules.length > 0}
 							{#each course.Modules as module, i}
 								<CollapsibleSection
 									color="#5832A1"
@@ -103,16 +104,17 @@
 									itemsCount="Contents ({module.CourseContents.length})"
 									addRoute={addContentRoute(course.id, module.id)}
 									editRoute={editModuleRoute(course.id, module.id)}
-									viewRoute = {viewModuleRoute(course.id, module.id)}
-									
-									src = "/modules.png"
+									viewRoute={viewModuleRoute(course.id, module.id)}
+									src="/modules.png"
 									on:onDeleteClick|once={async () => {
 										await handlelModuleDelete(module.id, module.CourseContents);
 									}}
 								>
-									<!-- {#if module.CourseContents.length >= 0}
-										<div /> -->
-									<!-- {:else} -->
+									{#if module.CourseContents.length <= 0}
+										<span class="items-center text-primary-500 ml-10 mb-4"
+											>Contents are not available</span
+										>
+									{:else}
 										<div class="content justify-center place-items-center grid">
 											<table class="table-auto overflow-x-auto text-left ">
 												<thead class="font-semibold text-primary-500">
@@ -128,10 +130,14 @@
 												<tbody class="text-primary-500">
 													{#each module.CourseContents as content, i}
 														<tr>
-															<td style="width: 5%;">{i + 1}</td>
+															<td style="width: 5%;" role="gridcell" aria-colindex={1} tabindex="0"
+																>{i + 1}</td
+															>
 															<td style="width: 40%;">
 																<a href={viewContentRoute(course.id, module.id, content.id)}
-																	>{content.Title}</a></td>
+																	>{content.Title}</a
+																></td
+															>
 															<td style="width: 20%;">{content.ContentType}</td>
 															<td style="width: 20%;">{content.DurationInMins}</td>
 															<td style="width: 5%;">
@@ -164,13 +170,13 @@
 												</tbody>
 											</table>
 										</div>
-									<!-- {/if} -->
+									{/if}
 								</CollapsibleSection>
 							{/each}
-						</div>
-					<!-- {:else}
-						<div class="content">Hello</div>
-					{/if} -->
+						{:else}
+							<span class="items-center text-primary-500 mb-4">Modules are not available</span>
+						{/if}
+					</div>
 				</CollapsibleSection>
 			{/each}
 		</div>

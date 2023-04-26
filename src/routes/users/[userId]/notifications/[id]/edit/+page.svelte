@@ -8,6 +8,9 @@
 	import Image from '$lib/components/image.svelte';
 	import { showMessage } from '$lib/utils/message.utils';
 
+	/////////////////////////////////////////////////////////////////////////////////////////////
+
+	export let form;
 	export let data: PageServerData;
 	let id = data.notification.id;
 	let title = data.notification.Title;
@@ -124,8 +127,13 @@
 						name="title"
 						bind:value={title}
 						placeholder="Enter title here..."
-						class="input w-full "
+						class="input w-full {form?.errors?.title
+							? 'border-error-300 text-error-500'
+							: 'border-primary-200 text-primary-500'}"
 					/>
+					{#if form?.errors?.title}
+						<p class="text-error-500 text-xs">{form?.errors?.title[0]}</p>
+					{/if}
 				</div>
 			</div>
 
@@ -139,11 +147,16 @@
 				<div class="w-1/2 md:w-2/3 lg:w-2/3">
 					<input
 						type="text"
-						name="Body"
+						name="body"
 						bind:value={Body}
 						placeholder="Enter body here..."
-						class="input w-full "
+						class="input w-full  {form?.errors?.body
+							? 'border-error-300 text-error-500'
+							: 'border-primary-200 text-primary-500'}"
 					/>
+					{#if form?.errors?.body}
+						<p class="text-error-500 text-xs">{form?.errors?.body[0]}</p>
+					{/if}
 				</div>
 			</div>
 
@@ -193,9 +206,13 @@
 						<input
 							type="checkbox"
 							name="broadcastToAll"
+							bind:value={broadcastToAll}
 							bind:checked={broadcastToAll}
 							class="checkbox checkbox-primary border-primary-200 hover:border-primary-400 checkbox-md ml-2"
 						/>
+						{#if form?.errors?.broadcastToAll}
+							<p class="text-error-500 text-xs">{form?.errors?.broadcastToAll[0]}</p>
+						{/if}
 					</label>
 				</div>
 			</div>

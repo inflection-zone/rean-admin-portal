@@ -7,7 +7,6 @@ import {
 	getQueryResponseTypes,
 	searchAssessmentNodes
 } from '../../../../../../api/services/assessment-nodes';
-import { getAssessmentTemplateById } from '../../../../../../api/services/assessment-templates';
 import type { PageServerLoad } from './$types';
 
 /////////////////////////////////////////////////////////////////////////
@@ -22,19 +21,16 @@ export const load: PageServerLoad = async (event: RequestEvent) => {
 		};
 		const _queryResponseTypes = await getQueryResponseTypes(sessionId);
 		const response = await searchAssessmentNodes(sessionId, searchParams);
-		const _assessmentTemplate = await getAssessmentTemplateById(sessionId, templateId);
 
 		if (response.Status === 'failure' || response.HttpCode !== 200) {
 			throw error(response.HttpCode, response.Message);
 		}
 		const queryResponseTypes = _queryResponseTypes.Data.QueryResponseTypes;
 		const assessmentNodes = response.Data.AssessmentNodeRecords.Items;
-		const assessmentTemplate = _assessmentTemplate.Data.AssessmentTemplate;
 
 		return {
 			queryResponseTypes,
 			assessmentNodes,
-			assessmentTemplate,
 			message: response.Message
 		};
 	} catch (error) {
@@ -59,14 +55,14 @@ export const actions = {
 			? data.get('serveListNodeChildrenAtOnce')
 			: false;
 		const options = data.has('options') ? data.getAll('options') : [];
-		const resolutionScore = data.has('resolutionScore') ? data.get('resolutionScore') : null;
+		const resolutionScore = data.has('resolutionScore') ? data.get('resolutionScore') : 1;
 		const _scoringApplicable = data.has('scoringApplicable')
 			? data.get('scoringApplicable')
 			: false;
-		// const scoringApplicable = _scoringApplicable.valueOf() as boolean;
-		// console.log("scoringApplicable------------",scoringApplicable)
-		// const _queryType = queryType?.valueOf() as string;
-		// console.log("queryType",_queryType)
+		const scoringApplicable = _scoringApplicable.valueOf() as boolean;
+		console.log('scoringApplicable', scoringApplicable);
+		const _queryType = queryType?.valueOf() as string;
+		console.log('queryType', _queryType);
 		const sessionId = event.cookies.get('sessionId');
 
 		const response = await createAssessmentNode(
@@ -82,28 +78,16 @@ export const actions = {
 			(options?.valueOf() as string[]) ?? null
 		);
 		const nodeId = response.Data.AssessmentNode.id;
-		const scoringApplicable = _scoringApplicable.valueOf() as boolean;
-		const _queryType = queryType?.valueOf() as string;
-		
-		console.log("NodeId------------",nodeId)
-		console.log("scoringApplicable------------",scoringApplicable)
-		console.log("queryType-----------",_queryType)
 
-	if (
-			(scoringApplicable === true) && 
-			(_queryType ==='Single Choice Selection' ||
-				_queryType === 'Multi Choice Selection' ||
-				_queryType === 'Boolean')
-		) {
-			const scoringCondition = await 
-			 addScoringCondition(
-				sessionId,
-				templateId,
-				nodeId,
-				resolutionScore?.valueOf() as number
-			);
-			console.log("scoringCondition----",scoringCondition);
-		}
+		const scoringCondition = await addScoringCondition(
+			sessionId,
+			templateId,
+			nodeId,
+			resolutionScore?.valueOf() as number
+		);
+
+		const scoringConditionId = scoringCondition.Data.ScoringCondition.id;
+		console.log('scoringCondition----', scoringCondition);
 
 		if (response.Status === 'failure' || response.HttpCode !== 201) {
 			throw redirect(
@@ -115,7 +99,7 @@ export const actions = {
 		}
 		throw redirect(
 			303,
-			`/users/${userId}/assessment-templates/${templateId}/assessment-nodes/${nodeId}/view`,
+			`/users/${userId}/assessment-templates/${templateId}/assessment-nodes/${nodeId}/${scoringConditionId}/view`,
 			successMessage(`Assessment node created successfully !`),
 			event
 		);
