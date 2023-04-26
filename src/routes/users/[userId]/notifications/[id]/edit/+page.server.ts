@@ -33,13 +33,13 @@ export const load: PageServerLoad = async (event: RequestEvent) => {
 
 const updateNotificationSchema = z.object({
 	title: z.string().min(3).max(64),
-	body: z.string().min(10).max(64),
+	body: z.string().optional(),
 	type: z.string().min(3).max(64),
 	broadcastToAll: z
 		.enum(['true', 'false'])
 		.transform((val) => val === 'true')
 		.default('false'),
-	imageUrl: z.string()
+	imageUrl: z.string(),
 });
 
 export const actions = {

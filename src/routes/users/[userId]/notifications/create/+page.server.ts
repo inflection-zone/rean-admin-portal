@@ -9,13 +9,13 @@ import type { NotificationDomainModel } from '$routes/api/domain-types/notificat
 
 const createNotificationSchema = z.object({
 	title: z.string().min(3).max(64),
-	body: z.string().min(10).max(64),
+	body: z.string().optional(),
 	type: z.string().min(3).max(64),
-	broadcastToAll: z
+	isHealthFacility: z
 		.enum(['true', 'false'])
 		.transform((val) => val === 'true')
 		.default('false'),
-	imageUrl: z.string()
+	imageUrl: z.string().optional(),
 });
 
 export const actions = {
