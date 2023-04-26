@@ -56,7 +56,7 @@ export const updateApiClient = async (
 	apiClientId: string,
 	clientName: string,
 	password: string,
-	phone: number,
+	phone: string,
 	email: string
 ) => {
 	const body = {

@@ -19,6 +19,7 @@
 	import { page } from '$app/stores';
 	import { TreeView, TreeBranch, TreeLeaf } from 'svelte-tree-view-component';
 	import type { PageServerData } from './$types';
+	import { scoringApplicableCondition } from '$lib/store/general.store';
 
 	export let data: PageServerData;
 	let assessmentNodes = data.assessmentNodesWithoutRootNode;
@@ -36,9 +37,14 @@
 		return a.Sequence - b.Sequence;
 	});
 
+	// $:scoringApplicableCondition.set(data.assessmentTemplate.ScoringApplicable);
+	// console.log("scoringApplicableCondition",$scoringApplicableCondition);
+
 	onMount(() => {
 		show(data);
 		LocalStorageUtils.removeItem('prevUrl');
+		scoringApplicableCondition.set(data.assessmentTemplate.ScoringApplicable);
+		console.log("scoringApplicableCondition",$scoringApplicableCondition);
 	});
 
 	const userId = $page.params.userId;

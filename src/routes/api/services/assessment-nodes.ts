@@ -137,3 +137,27 @@ export const addScoringCondition = async (
 	console.log("url",url)
 	return await post_(sessionId, url, body, true);
 };
+
+export const getScoringCondition = async (
+	sessionId: string,
+	templateId: string,
+	scoringConditionId: string
+) => {
+	const url = BACKEND_API_URL + `/clinical/assessment-templates/${templateId}/scoring-conditions/${scoringConditionId}`;
+	return await get_(sessionId, url, true);
+};
+
+export const updateScoringCondition = async (
+	sessionId: string,
+	templateId: string,
+	nodeId: string,
+	scoringConditionId: string,
+	resolutionScore: number,
+) => {
+	const body = {
+		NodeId: nodeId,
+		ResolutionScore: resolutionScore
+	};
+	const url = BACKEND_API_URL + `/clinical/assessment-templates/${templateId}/scoring-conditions/${scoringConditionId}`;
+	return await put_(sessionId, url, body, true);
+};

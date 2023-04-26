@@ -6,6 +6,7 @@
 	import type { PageServerData } from './$types';
 	import SingleChoice from './single.choice.svelte';
 	import MultipleChoice from './multiple.choice.svelte';
+	import { scoringApplicableCondition } from '$lib/store/general.store';
 
 	/////////////////////////////////////////////////////////////////////////////////////
 
@@ -13,8 +14,8 @@
 
 	const queryResponseTypes = data.queryResponseTypes;
 	const assessmentNodes = data.assessmentNodes;
-	const scoringApplicable = data.assessmentTemplate.ScoringApplicable;
-
+	const scoreCondition = $scoringApplicableCondition;
+	
 	let selectedNodeType = 'Question';
 	let selectedQueryType = '';
 
@@ -46,6 +47,7 @@
 			path: createRoute
 		}
 	];
+
 </script>
 
 <BreadCrumbs crumbs={breadCrumbs} />
@@ -159,7 +161,7 @@
 				</div>
 			</div>
 			<div>
-				{#if scoringApplicable === true}
+				{#if $scoringApplicableCondition === true}
 					{#if selectedQueryType === 'Single Choice Selection'}
 						<SingleChoice />
 						<div class="flex items-center my-4 mx-16">
@@ -220,7 +222,7 @@
 									class="input w-full"
 									placeholder=""
 									hidden
-									value={scoringApplicable}
+									value={$scoringApplicableCondition}
 								/>
 				{:else if selectedQueryType === 'Single Choice Selection'}
 					<SingleChoice />
