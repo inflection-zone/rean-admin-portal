@@ -8,6 +8,7 @@
 	let retrievedTags = '';
 	let tagsPlaceholder = 'Enter a tags here...';
 
+	export let form;
 	const userId = $page.params.userId;
 	const createRoute = `/users/${userId}/priorities/create`;
 	const priorityRoute = `/users/${userId}/priorities`;
@@ -59,8 +60,14 @@
 						name="type"
 						required
 						placeholder="Enter type here..."
-						class="input w-full "
+						class="input {form?.errors?.type
+							? 'border-error-300 text-error-500'
+							: 'border-primary-200 text-primary-500'}"
+						value={form?.data?.type ?? ''}
 					/>
+					{#if form?.errors?.type}
+						<p class="text-error-500 text-xs">{form?.errors?.type[0]}</p>
+					{/if}
 				</div>
 			</div>
 
@@ -77,6 +84,9 @@
 						name="tags"
 						placeholder={tagsPlaceholder}
 					/>
+					{#if form?.errors?.tags}
+						<p class="text-error-500 text-xs">{form?.errors?.tags[0]}</p>
+					{/if}
 				</div>
 			</div>
 

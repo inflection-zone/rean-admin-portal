@@ -6,6 +6,7 @@
 	import { page } from '$app/stores';
 	import type { PageServerData } from './$types';
 
+	export let form;
 	export let data: PageServerData;
 	let initiaData = {};
 	let id = data.priority.id;
@@ -72,8 +73,13 @@
 						required
 						bind:value={type}
 						placeholder="Enter type here..."
-						class="input w-full "
+						class="input w-full {form?.errors?.type
+							? 'border-error-300 text-error-500'
+							: 'border-primary-200 text-primary-500'}"
 					/>
+					{#if form?.errors?.type}
+						<p class="text-error-500 text-xs">{form?.errors?.type[0]}</p>
+					{/if}
 				</div>
 			</div>
 
@@ -86,6 +92,9 @@
 				</div>
 				<div class="w-1/2 md:w-2/3 lg:w-2/3">
 					<InputChip chips="variant-filled-error rounded-2xl" name="tags" bind:value={tags} />
+					{#if form?.errors?.tags}
+						<p class="text-error-500 text-xs">{form?.errors?.tags[0]}</p>
+					{/if}
 				</div>
 			</div>
 
