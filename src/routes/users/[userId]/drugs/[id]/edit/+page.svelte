@@ -5,6 +5,7 @@
 	import { page } from '$app/stores';
 	import type { PageServerData } from './$types';
 
+	export let form;
 	export let data: PageServerData;
 	let initiaData = {};
 	let id = data.drug.id;
@@ -84,8 +85,13 @@
 						required
 						bind:value={drugName}
 						placeholder="Enter name here..."
-						class="input w-full "
+						class="input w-full {form?.errors?.drugName
+							? 'border-error-300 text-error-500'
+							: 'border-primary-200 text-primary-500'}"
 					/>
+					{#if form?.errors?.drugName}
+						<p class="text-error-500 text-xs">{form?.errors?.drugName[0]}</p>
+					{/if}
 				</div>
 			</div>
 
@@ -108,6 +114,9 @@
 						<option>Dark mode</option>
 						<option>Light mode</option>
 					</select>
+					{#if form?.errors?.genericName}
+						<p class="text-error-500 text-xs">{form?.errors?.genericName[0]}</p>
+					{/if}
 				</div>
 			</div>
 
@@ -124,8 +133,13 @@
 						name="ingredients"
 						bind:value={ingredients}
 						placeholder="Enter ingredients here..."
-						class="input w-full "
+						class="input w-full  {form?.errors?.ingredients
+							? 'border-error-300 text-error-500'
+							: 'border-primary-200 text-primary-500'}"
 					/>
+					{#if form?.errors?.ingredients}
+						<p class="text-error-500 text-xs">{form?.errors?.ingredients[0]}</p>
+					{/if}
 				</div>
 			</div>
 
@@ -148,6 +162,9 @@
 						<option>Medium</option>
 						<option>Low</option>
 					</select>
+					{#if form?.errors?.strength}
+						<p class="text-error-500 text-xs">{form?.errors?.strength[0]}</p>
+					{/if}
 				</div>
 			</div>
 
@@ -164,8 +181,13 @@
 						name="otherCommercialNames"
 						bind:value={otherCommercialNames}
 						placeholder="Enter commercial name here..."
-						class="input w-full "
+						class="input w-full  {form?.errors?.otherCommercialNames
+							? 'border-error-300 text-error-500'
+							: 'border-primary-200 text-primary-500'}"
 					/>
+					{#if form?.errors?.otherCommercialNames}
+						<p class="text-error-500 text-xs">{form?.errors?.otherCommercialNames[0]}</p>
+					{/if}
 				</div>
 			</div>
 
@@ -182,8 +204,13 @@
 						name="manufacturer"
 						bind:value={manufacturer}
 						placeholder="Enter manufacture here..."
-						class="input w-full "
+						class="input w-full  {form?.errors?.manufacturer
+							? 'border-error-300 text-error-500'
+							: 'border-primary-200 text-primary-500'}"
 					/>
+					{#if form?.errors?.manufacturer}
+						<p class="text-error-500 text-xs">{form?.errors?.manufacturer[0]}</p>
+					{/if}
 				</div>
 			</div>
 
@@ -200,8 +227,13 @@
 						name="otherInformation"
 						bind:value={otherInformation}
 						placeholder="Enter other information here..."
-						class="input w-full "
+						class="input w-full  {form?.errors?.otherInformation
+							? 'border-error-300 text-error-500'
+							: 'border-primary-200 text-primary-500'}"
 					/>
+					{#if form?.errors?.otherInformation}
+						<p class="text-error-500 text-xs">{form?.errors?.otherInformation[0]}</p>
+					{/if}
 				</div>
 			</div>
 
