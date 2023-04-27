@@ -15,7 +15,7 @@ export const createLabRecordType = async (
 ) => {
 	const body = {
 		TypeName: typeName,
-		DisplayName: displayName,
+		DisplayName: displayName ? displayName : null,
 		SnowmedCode: snowmedCode ? snowmedCode : null,
 		LoincCode: loincCode ? loincCode : null,
 		NormalRangeMin: normalRangeMin ? normalRangeMin : null,
@@ -64,7 +64,7 @@ export const updateLabRecordType = async (
 ) => {
 	const body = {
 		TypeName: typeName,
-		DisplayName: displayName,
+		DisplayName: displayName ? displayName : null,
 		SnowmedCode: snowmedCode ? snowmedCode : null,
 		LoincCode: loincCode ? loincCode : null,
 		NormalRangeMin: normalRangeMin ? normalRangeMin : null,
