@@ -41,21 +41,17 @@ export const actions = {
 		const userId = event.params.userId;
 		const priorityId = event.params.id;
 		const sessionId = event.cookies.get('sessionId');
-
 		const data = await request.formData();
+		const formData = Object.fromEntries(data);
 
-		const type = data.has('type') ? data.get('type') : null;
 		const tags = data.has('tags') ? data.getAll('tags') : [];
-		const formData = {
-			type: type,
-			tags: tags
-		};
+		const formDataValue = { ...formData, tags: tags };
 
 		type PriorityTypeSchema = z.infer<typeof updatePriorityTypeSchema>;
 
 		let result: PriorityTypeSchema = {};
 		try {
-			result = updatePriorityTypeSchema.parse(formData);
+			result = updatePriorityTypeSchema.parse(formDataValue);
 			console.log('result', result);
 		} catch (err: any) {
 			const { fieldErrors: errors } = err.flatten();
