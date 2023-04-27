@@ -4,6 +4,7 @@ import { errorMessage, successMessage } from '$lib/utils/message.utils';
 import type { PageServerLoad } from './$types';
 import { getNotificationById, updateNotification } from '../../../../../api/services/notifications';
 import { z } from 'zod';
+import { zfd } from 'zod-form-data';
 
 /////////////////////////////////////////////////////////////////////////
 
@@ -30,14 +31,11 @@ export const load: PageServerLoad = async (event: RequestEvent) => {
 	}
 };
 
-const updateNotificationSchema = z.object({
+const updateNotificationSchema = zfd.formData({
 	title: z.string().min(3).max(64),
 	body: z.string().optional(),
 	type: z.string().min(3).max(64),
-	broadcastToAll: z
-		.enum(['true', 'false'])
-		.transform((val) => val === 'true')
-		.default('false'),
+	broadcastToAll: zfd.checkbox({ trueValue: "true" }),
 	imageUrl: z.string(),
 });
 
