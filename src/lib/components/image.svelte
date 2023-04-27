@@ -6,6 +6,7 @@
     export let cls;
     export let w;
     export let h;
+    
     let objectUrl;
     async function loadImage() {
         if (!source) {
@@ -43,5 +44,4 @@
     })();
 </script>
 <img src={objectUrl} alt="" class={cls} width="{w}" height="{h}"/>
-
 

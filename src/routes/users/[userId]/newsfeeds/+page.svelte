@@ -191,8 +191,8 @@
 				<th data-sort="index" style="width: 5%;">Id</th>
 				<th data-sort="Title" style="width: 19%;">Title</th>
 				<th style="width: 33%;">Link</th>
-				<th data-sort="Category" style="width: 19%;">Category</th>
-				<th style="width: 35%;">Created Date</th>
+				<th data-sort="Category" style="width: 18%;">Category</th>
+				<th style="width: 35%;">Newsfeed Items</th>
 				<th style="width: 8%;" />
 				<th style="width: 8%;" />
 			</tr>
@@ -214,8 +214,17 @@
 							>{row.Category}</td
 						>
 						<td role="gridcell" aria-colindex={5} tabindex="0" style="width: 20%;"
-							>{date.format(new Date(row.CreatedAt), 'DD-MMM-YYYY')}</td
-						>
+							>{#if newsfeeds.length <= 0}
+								<span>null</span>
+							{:else}
+								{#each row.FeedItems as items}
+									{#each items.Title as title}
+										{title}
+									{/each}
+								{/each}
+							{/if}
+						</td>
+
 						<td style="width: 8%;">
 							<a href={editRoute(row.id)}
 								><Fa icon={faPencil} style="color-text-primary" size="md" /></a
