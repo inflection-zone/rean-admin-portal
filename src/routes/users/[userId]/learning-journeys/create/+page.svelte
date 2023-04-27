@@ -8,6 +8,7 @@
 
 	/////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+	export let form;
 	export let data: PageServerData;
 	const courses = data.courses;
 	const userId = $page.params.userId;
@@ -106,8 +107,14 @@
 						name="name"
 						required
 						placeholder="Enter  name here..."
-						class="input w-full "
+						class="input {form?.errors?.name
+							? 'border-error-300 text-error-500'
+							: 'border-primary-200 text-primary-500'}"
+						value={form?.data?.name ?? ''}
 					/>
+					{#if form?.errors?.name}
+						<p class="text-error-500 text-xs">{form?.errors?.name[0]}</p>
+					{/if}
 				</div>
 			</div>
 			<div class="flex items-start my-4 lg:mx-16 md:mx-12 mx-10">
@@ -122,8 +129,14 @@
 						type="text"
 						name="preferenceWeight"
 						placeholder="Enter prefrence weight here..."
-						class="input w-full "
+						class="input w-full {form?.errors?.preferenceWeight
+							? 'border-error-300 text-error-500'
+							: 'border-primary-200 text-primary-500'}"
+						value={form?.data?.preferenceWeight ?? ''}
 					/>
+					{#if form?.errors?.preferenceWeight}
+						<p class="text-error-500 text-xs">{form?.errors?.preferenceWeight[0]}</p>
+					{/if}
 				</div>
 			</div>
 
@@ -137,9 +150,14 @@
 				<div class="w-1/2 md:w-2/3 lg:w-2/3">
 					<textarea
 						name="description"
-						class="textarea w-full"
 						placeholder="Enter description here..."
+						class="textarea w-full {form?.errors?.description
+							? 'border-error-300 text-error-500'
+							: 'border-primary-200 text-primary-500'}"
 					/>
+					{#if form?.errors?.description}
+						<p class="text-error-500 text-xs">{form?.errors?.description[0]}</p>
+					{/if}
 				</div>
 			</div>
 
@@ -155,8 +173,14 @@
 						type="number"
 						name="durationInDays"
 						placeholder="Enter duration here..."
-						class="input w-full "
+						class="input w-full {form?.errors?.durationInDays
+							? 'border-error-300 text-error-500'
+							: 'border-primary-200 text-primary-500'}"
+						value={form?.data?.durationInDays ?? ''}
 					/>
+					{#if form?.errors?.durationInDays}
+						<p class="text-error-500 text-xs">{form?.errors?.durationInDays[0]}</p>
+					{/if}
 				</div>
 			</div>
 
@@ -179,6 +203,9 @@
 							<option value={course.id}>{course.Name}</option>
 						{/each}
 					</select>
+					{#if form?.errors?.courseIds}
+					<p class="text-error-500 text-xs">{form?.errors?.courseIds[0]}</p>
+				  {/if}
 				</div>
 			</div>
 
@@ -199,6 +226,9 @@
 						on:change={async (e) => await onFileSelected(e)}
 					/>
 					<input type="hidden" name="imageUrl" value={imageUrl} />
+					{#if form?.errors?.imageUrl}
+						<p class="text-error-500 text-xs">{form?.errors?.imageUrl[0]}</p>
+					{/if}
 				</div>
 			</div>
 
