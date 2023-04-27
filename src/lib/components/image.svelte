@@ -2,8 +2,6 @@
     import { browser } from "$app/environment";
     import { db } from '$lib/utils/local.db';
     import { Helper } from "$lib/utils/helper";
-	import { faMultiply } from "@fortawesome/free-solid-svg-icons";
-	import Fa from "svelte-fa";
     export let source;
     export let cls;
     export let w;
