@@ -9,6 +9,7 @@
 	let retrievedTags = '';
 	let tagsPlaceholder = 'Enter a tags here...';
 
+	export let form;
 	const userId = $page.params.userId;
 	let imageResourceId = undefined;
 	let fileinput;
@@ -105,8 +106,14 @@
 						name="symptom"
 						required
 						placeholder="Enter symptom here..."
-						class="input w-full "
+						class="input {form?.errors?.title
+							? 'border-error-300 text-error-500'
+							: 'border-primary-200 text-primary-500'}"
+						value={form?.data?.symptom ?? ''}
 					/>
+					{#if form?.errors?.symptom}
+						<p class="text-error-500 text-xs">{form?.errors?.symptom[0]}</p>
+					{/if}
 				</div>
 			</div>
 
@@ -120,9 +127,14 @@
 				<div class="w-1/2 md:w-2/3 lg:w-2/3">
 					<textarea
 						name="description"
-						class="textarea w-full"
 						placeholder="Enter description here..."
+						class="textarea w-full {form?.errors?.description
+							? 'border-error-300 text-error-500'
+							: 'border-primary-200 text-primary-500'}"
 					/>
+					{#if form?.errors?.description}
+						<p class="text-error-500 text-xs">{form?.errors?.description[0]}</p>
+					{/if}
 				</div>
 			</div>
 
@@ -155,8 +167,14 @@
 						name="language"
 						required
 						placeholder="Enter language here..."
-						class="input w-full "
+						class="input w-full {form?.errors?.language
+							? 'border-error-300 text-error-500'
+							: 'border-primary-200 text-primary-500'}"
+						value={form?.data?.language ?? ''}
 					/>
+					{#if form?.errors?.language}
+						<p class="text-error-500 text-xs">{form?.errors?.language[0]}</p>
+					{/if}
 				</div>
 			</div>
 

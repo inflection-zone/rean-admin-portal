@@ -40,6 +40,7 @@
 		imageResourceId = _imageResourceId;
 	}
 
+	export let form;
 	const userId = $page.params.userId;
 	const editRoute = `/users/${userId}/symptoms/${id}/edit`;
 	const viewRoute = `/users/${userId}/symptoms/${id}/view`;
@@ -157,8 +158,13 @@
 						required
 						bind:value={symptom}
 						placeholder="Enter symptom here..."
-						class="input w-full "
+						class="input w-full {form?.errors?.symptom
+							? 'border-error-300 text-error-500'
+							: 'border-primary-200 text-primary-500'}"
 					/>
+					{#if form?.errors?.symptom}
+						<p class="text-error-500 text-xs">{form?.errors?.symptom[0]}</p>
+					{/if}
 				</div>
 			</div>
 
@@ -173,9 +179,14 @@
 					<textarea
 						name="description"
 						bind:value={description}
-						class="textarea w-full"
 						placeholder="Enter description here..."
+						class="textarea w-full  {form?.errors?.description
+							? 'border-error-300 text-error-500'
+							: 'border-primary-200 text-primary-500'}"
 					/>
+					{#if form?.errors?.description}
+						<p class="text-error-500 text-xs">{form?.errors?.description[0]}</p>
+					{/if}
 				</div>
 			</div>
 
@@ -205,8 +216,13 @@
 						required
 						bind:value={language}
 						placeholder="Enter language here..."
-						class="input w-full "
+						class="input w-full {form?.errors?.language
+							? 'border-error-300 text-error-500'
+							: 'border-primary-200 text-primary-500'}"
 					/>
+					{#if form?.errors?.language}
+						<p class="text-error-500 text-xs">{form?.errors?.language[0]}</p>
+					{/if}
 				</div>
 			</div>
 
