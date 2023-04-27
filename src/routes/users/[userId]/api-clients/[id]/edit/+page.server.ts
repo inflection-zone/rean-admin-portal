@@ -4,7 +4,6 @@ import { errorMessage, successMessage } from '$lib/utils/message.utils';
 import type { PageServerLoad } from './$types';
 import { getApiClientById, updateApiClient } from '../../../../../api/services/api-clients';
 import { z } from 'zod';
-import type { ApiClientDomainModel } from '$routes/api/domain-types/api-clients';
 
 /////////////////////////////////////////////////////////////////////////
 
@@ -29,23 +28,10 @@ export const load: PageServerLoad = async (event: RequestEvent) => {
 };
 
 const updateApiClientSchema = z.object({
-	clientName: z
-		.string({ required_error: 'Client name is required' })
-		.min(3, { message: 'Client name is required' })
-		.max(64, { message: 'Client name must be less than 64 characters' }),
-	phone: z
-		.string({ required_error: 'Contact number is required' })
-		.min(10, { message: 'Contact number is not valid' })
-		.max(64, { message: 'Contact number must be less than 64 characters' }),
-	email: z
-		.string({ required_error: 'Email is required' })
-		.email({ message: 'Enter valid email' })
-		.min(10, { message: 'Email must be greater than 10 characters' })
-		.max(64, { message: 'Email must be less than 64 characters' }),
-	password: z
-		.string({ required_error: 'Password is required' })
-		.min(6, { message: 'Password must be greater than 8 characters' })
-		.max(15, { message: 'Password must be less than 15 characters' })
+	clientName: z.string().min(3).max(64),
+	phone: z.string().min(10).max(64),
+	email: z.string().email().min(10).max(64),
+	password: z.string().min(6).max(15)
 });
 
 export const actions = {
@@ -55,7 +41,8 @@ export const actions = {
 		const sessionId = event.cookies.get('sessionId');
 		const apiClientId = event.params.id;
 		const formData = Object.fromEntries(await request.formData());
-    let result : ApiClientDomainModel = {};
+		type ApiClientSchema = z.infer<typeof updateApiClientSchema>;
+		let result: ApiClientSchema = {};
 		try {
 			result = updateApiClientSchema.parse(formData);
 			console.log('result-----------', result);

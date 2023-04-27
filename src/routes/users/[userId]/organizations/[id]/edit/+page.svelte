@@ -436,9 +436,8 @@
 						<input
 							type="checkbox"
 							name="isHealthFacility"
+							bind:value={isHealthFacility}
 							bind:checked={isHealthFacility}
-							value="true"
-							on:click={handleClick}
 							class="checkbox checkbox-primary border-primary-200 hover:border-primary-400 checkbox-md ml-2"
 						/>
 					</label>

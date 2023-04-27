@@ -3,9 +3,9 @@ import type { RequestEvent } from '@sveltejs/kit';
 import { errorMessage, successMessage } from '$lib/utils/message.utils';
 import { createGoal } from '../../../../api/services/goals';
 import { z } from 'zod';
-import type { GoalTypeDomainModel } from '$routes/api/domain-types/goal-types';
 
 /////////////////////////////////////////////////////////////////////////
+
 const createGoalTypeSchema = z.object({
 	type: z.string(),
 	tags: z.array(z.string()).optional(),
@@ -20,13 +20,13 @@ export const actions = {
 
 		const type = data.has('type') ? data.get('type') : null;
 		const tags = data.has('tags') ? data.getAll('tags') : [];
-
 		const formData = {
 			type: type,
 			tags: tags
 		}
 
-    let result : GoalTypeDomainModel = {};
+		type GoalTypeSchema = z.infer<typeof createGoalTypeSchema>;
+    let result : GoalTypeSchema = {};
 		try {
 			result = createGoalTypeSchema.parse(formData);
 			console.log('result-----------', result);
