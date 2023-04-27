@@ -3,7 +3,6 @@ import type { RequestEvent } from '@sveltejs/kit';
 import { errorMessage, successMessage } from '$lib/utils/message.utils';
 import { createNotification } from '../../../../api/services/notifications';
 import { z } from 'zod';
-import type { NotificationDomainModel } from '$routes/api/domain-types/notifications';
 
 /////////////////////////////////////////////////////////////////////////
 
@@ -11,7 +10,7 @@ const createNotificationSchema = z.object({
 	title: z.string().min(3).max(64),
 	body: z.string().optional(),
 	type: z.string().min(3).max(64),
-	isHealthFacility: z
+	broadcastToAll: z
 		.enum(['true', 'false'])
 		.transform((val) => val === 'true')
 		.default('false'),
@@ -24,7 +23,8 @@ export const actions = {
 		const userId = event.params.userId;
 		const sessionId = event.cookies.get('sessionId');
 		const formData = Object.fromEntries(await request.formData());
-		let result: NotificationDomainModel = {};
+		type NotificationSchema = z.infer<typeof createNotificationSchema>;
+		let result: NotificationSchema = {};
 		try {
 			result = createNotificationSchema.parse(formData);
 			console.log('result-----------', result);

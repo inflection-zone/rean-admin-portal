@@ -16,11 +16,16 @@
 
 	export let userId = undefined;
 	export let courses = [];
-	let contents = [];
-	contents = contents.sort((a, b) => {
-		return b.sequence - a.sequence;
-	});
 
+	// const sortedCourses = async (courses) => {
+  // for (const course of courses){
+	// 	for (const module of course.Modules){
+	// 	 module.CourseContents.sort((a, b) => { return a.Sequence - b.Sequence; });
+	// 	}
+	// 	}
+	// }
+	// let course = sortedCourses(courses);
+	// console.log("Courses",course);
 	courses = courses.map((item, index) => ({ ...item, index: index + 1 }));
 	let addModuleRoute = (courseId) => `/users/${userId}/courses/${courseId}/modules/create`;
 	let addContentRoute = (courseId, moduleId) =>
@@ -38,7 +43,7 @@
 
 	const dataTableStore = createDataTableStore(courses, {
 		search: '',
-		sort: 'sequence',
+		sort: '',
 		pagination: { offset: 0, limit: 10, size: 0, amounts: [10, 20, 30, 50] }
 	});
 	dataTableStore.subscribe((model) => dataTableHandler(model));

@@ -3,7 +3,6 @@ import { redirect } from 'sveltekit-flash-message/server';
 import { errorMessage, successMessage } from '$lib/utils/message.utils';
 import type { PageServerLoad } from './$types';
 import { getNotificationById, updateNotification } from '../../../../../api/services/notifications';
-import type { NotificationDomainModel } from '$routes/api/domain-types/notifications';
 import { z } from 'zod';
 
 /////////////////////////////////////////////////////////////////////////
@@ -49,10 +48,11 @@ export const actions = {
 		const notificationId = event.params.id;
 		const sessionId = event.cookies.get('sessionId');
 		const formData = Object.fromEntries(await request.formData());
-		let result: NotificationDomainModel = {};
+		type NotificationSchema = z.infer<typeof updateNotificationSchema>;
+		let result: NotificationSchema = {};
 		try {
 			result = updateNotificationSchema.parse(formData);
-			console.log('result-----------', result);
+			console.log('result', result);
 		} catch (err: any) {
 			const { fieldErrors: errors } = err.flatten();
 			console.log(errors);

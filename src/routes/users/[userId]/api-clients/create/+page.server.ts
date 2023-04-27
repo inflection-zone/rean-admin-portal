@@ -1,35 +1,46 @@
 import { redirect } from 'sveltekit-flash-message/server';
-import { error, type RequestEvent } from '@sveltejs/kit';
 import { errorMessage, successMessage } from '$lib/utils/message.utils';
 import { createApiClient } from '../../../../api/services/api-clients';
+import { z } from 'zod';
 
 /////////////////////////////////////////////////////////////////////////
 
+const createApiClientSchema =  z.object({
+	clientName: z.string().min(3).max(64),
+	phone: z.string().min(10).max(64),
+	email: z.string().email().min(10).max(64),
+	password: z.string().min(6).max(15)
+});
+
 export const actions = {
-	createApiClientAction: async (event: RequestEvent) => {
+	createApiClientAction: async (event) => {
 		const request = event.request;
-		const userId = event.params.userId;
-		const data = await request.formData();
-
-		const countryCode = '+91';
-		const clientName = data.has('clientName') ? data.get('clientName') : null;
-		const password = data.has('password') ? data.get('password') : null;
-		const phone = data.has('phone') ? data.get('phone') : null;
-		const email = data.has('email') ? data.get('email') : null;
 		const sessionId = event.cookies.get('sessionId');
-
-		if (!phone && !countryCode) {
-			throw error(400, `Phone is not valid!`);
+		const userId = event.params.userId;
+		const formData = Object.fromEntries(await request.formData());
+		type ApiClientSchema = z.infer<typeof createApiClientSchema>;
+    let result : ApiClientSchema = {};
+		try {
+			result = createApiClientSchema.parse(formData);
+			console.log('result-----------', result);
+		} catch (err: any) {
+			const { fieldErrors: errors } = err.flatten();
+			console.log(errors);
+			const { ...rest } = formData;
+			return {
+				data: rest,
+				errors
+			};
 		}
-
+		const countryCode = '+91';
+		const phone = countryCode + '-'+ result.phone;
 		const response = await createApiClient(
 			sessionId,
-			clientName.valueOf() as string,
-			password.valueOf() as string,
-			phone.valueOf() as string,
-			email.valueOf() as string
+			result.clientName,
+			result.password,
+			phone,
+			result.email
 		);
-
 		const id = response.Data.Client.id;
 		if (response.Status === 'failure' || response.HttpCode !== 201) {
 			throw redirect(303, `/users/${userId}/api-clients`, errorMessage(response.Message), event);

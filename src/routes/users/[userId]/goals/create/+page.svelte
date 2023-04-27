@@ -5,7 +5,9 @@
 	import BreadCrumbs from '$lib/components/breadcrumbs/breadcrums.svelte';
 	import { page } from '$app/stores';
 
-	let retrievedTags = '';
+	////////////////////////////////////////////////////////////////////////////////////////
+
+	export let form;
 	let tagsPlaceholder = 'Enter a tags here...';
 
 	const userId = $page.params.userId;
@@ -22,6 +24,7 @@
 			path: createRoute
 		}
 	];
+
 </script>
 
 <main class="h-screen mb-52">
@@ -59,8 +62,15 @@
 						name="type"
 						required
 						placeholder="Enter type here..."
-						class="input w-full "
+						class="input w-full {form
+							?.errors?.type
+							? 'border-error-300 text-error-500'
+							: 'border-primary-200 text-primary-500'}"
+							value={form?.data?.type ?? ""}
 					/>
+					{#if form?.errors?.type}
+					<p class="text-error-500 text-xs">{form?.errors?.type[0]}</p>
+				  {/if}
 				</div>
 			</div>
 
@@ -77,8 +87,13 @@
 						name="tags"
 						placeholder={tagsPlaceholder}
 					/>
+					{#if form?.errors?.tags}
+					<p class="text-error-500 text-xs">{form?.errors?.tags[0]}</p>
+				  {/if}
+					
 				</div>
 			</div>
+
 
 			<div class="flex items-center mt-7 lg:mx-16 md:mx-12 mr-10">
 				<div class="w-3/4" />

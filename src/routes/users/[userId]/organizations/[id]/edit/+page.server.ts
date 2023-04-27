@@ -58,7 +58,7 @@ export const actions = {
 		const about = data.has('about') ? data.get('about') : null;
 		const operationalSince = data.has('operationalSince') ? data.get('operationalSince') : null;
 		const imageResourceId = data.has('imageResourceId') ? data.get('imageResourceId') : null;
-		const isHealthFacility = data.has('isHealthFacility') ? data.get('isHealthFacility') : null;
+		const isHealthFacility = data.has('isHealthFacility') ? data.get('isHealthFacility') : false;
 		const addressId = data.has('addressId') ? data.get('addressId') : null;
 		const sessionId = event.cookies.get('sessionId');
 		const organizationId = event.params.id;
@@ -76,10 +76,11 @@ export const actions = {
 		const addressesId_ = addressResponse.Data.Address.id;
 		const addressesId = addressesId_.split(',');
 
-		if (addressResponse.Status === 'failure' || addressResponse.HttpCode !== 201) {
+		if (addressResponse.Status === 'failure' || addressResponse.HttpCode !== 200) {
 			throw redirect(303, `/users/${userId}/organizations`, errorMessage(addressResponse.Message), event);
 		}
 
+   console.log("data..........",data)
 		const response = await updateOrganization(
 			sessionId,
 			organizationId,
@@ -93,7 +94,7 @@ export const actions = {
 			imageResourceId.valueOf() as string,
 			isHealthFacility.valueOf() as boolean
 		);
-		console.log('response', response);
+		console.log('response----', response);
 		const id = response.Data.Organization.id;
 
 		if (response.Status === 'failure' || response.HttpCode !== 200) {
