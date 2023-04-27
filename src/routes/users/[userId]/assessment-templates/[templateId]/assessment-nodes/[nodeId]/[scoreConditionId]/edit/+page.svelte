@@ -10,6 +10,7 @@
 
 	//////////////////////////////////////////////////////////////////////////////////////
 
+	export let form;
 	export let data: PageServerData;
 	const queryResponseTypes = data.queryResponseTypes;
 	const assessmentNodes = data.assessmentNodes;
@@ -21,11 +22,11 @@
 	let options = data.assessmentNode.Options ?? [];
 	let optionValueStore = options;
 	let message = data.assessmentNode.Message ?? null;
-	let parentNodeId = data.assessmentNode.ParentNodeId
+	let parentNodeId = data.assessmentNode.ParentNodeId;
 	let resolutionScore = data.scoringCondition.ResolutionScore;
 	const scoringApplicable = $scoringApplicableCondition;
 
-	console.log("assessmentNode",data.assessmentNode)
+	console.log('assessmentNode', data.assessmentNode);
 
 	//Original data
 	let _nodeType = nodeType;
@@ -117,7 +118,7 @@
 					<option>Node List</option>
 				</select>
 			</div>
-		</div> 
+		</div>
 
 		<div class="flex items-center my-4 mx-16">
 			<div class="w-1/2 md:w-1/3 lg:w-1/3">
@@ -131,10 +132,15 @@
 					type="text"
 					name="title"
 					bind:value={title}
-					class="input w-full"
 					placeholder="Enter title here..."
 					required
+					class="input w-full {form?.errors?.title
+						? 'border-error-300 text-error-500'
+						: 'border-primary-200 text-primary-500'}"
 				/>
+				{#if form?.errors?.title}
+					<p class="text-error-500 text-xs">{form?.errors?.title[0]}</p>
+				{/if}
 			</div>
 		</div>
 
@@ -149,9 +155,15 @@
 				<textarea
 					name="description"
 					bind:value={description}
-					class="textarea w-full"
 					placeholder="Enter description here..."
+					class="textarea w-full
+					{form?.errors?.description
+						? 'border-error-300 text-error-500'
+						: 'border-primary-200 text-primary-500'}"
 				/>
+				{#if form?.errors?.description}
+					<p class="text-error-500 text-xs">{form?.errors?.description[0]}</p>
+				{/if}
 			</div>
 		</div>
 
@@ -180,43 +192,48 @@
 			</div>
 			<div>
 				{#if scoringApplicable === true}
-						{#if selectedQueryType === 'Single Choice Selection'}
-							<SingleChoice {optionValueStore} />
-						{:else if selectedQueryType === 'Multi Choice Selection'}
-							<MultipleChoice {optionValueStore} />
-						{:else if selectedQueryType === 'Boolean'}
-						<div></div>
-						{/if}
-						<div class="flex items-center my-4 mx-16">
-							<div class="w-1/2 md:w-1/3 lg:w-1/3">
-								<!-- svelte-ignore a11y-label-has-associated-control -->
-								<label class="label">
-									<span>Resolution Score *</span>
-								</label>
-							</div>
-							<div class="w-1/2 md:w-2/3 lg:w-2/3">
-								<input
-									type="number"
-									name="resolutionScore"
-									class="input w-full"
-									placeholder="Enter resolution score here..."
-									value={resolutionScore}
-								/>
-							</div>
-						</div>
-						<input
-										type="boolean"
-										name="scoringApplicable"
-										class="input w-full"
-										placeholder=""
-										hidden
-										value={scoringApplicable}
-									/>
-					{:else if selectedQueryType === 'Single Choice Selection'}
-						<SingleChoice {optionValueStore}/>
+					{#if selectedQueryType === 'Single Choice Selection'}
+						<SingleChoice {optionValueStore} />
 					{:else if selectedQueryType === 'Multi Choice Selection'}
-						<MultipleChoice {optionValueStore}/>
+						<MultipleChoice {optionValueStore} />
+					{:else if selectedQueryType === 'Boolean'}
+						<div />
 					{/if}
+					<div class="flex items-center my-4 mx-16">
+						<div class="w-1/2 md:w-1/3 lg:w-1/3">
+							<!-- svelte-ignore a11y-label-has-associated-control -->
+							<label class="label">
+								<span>Resolution Score *</span>
+							</label>
+						</div>
+						<div class="w-1/2 md:w-2/3 lg:w-2/3">
+							<input
+								type="number"
+								name="resolutionScore"
+								placeholder="Enter resolution score here..."
+								value={resolutionScore}
+								class="input w-full {form?.errors?.resolutionScore
+									? 'border-error-300 text-error-500'
+									: 'border-primary-200 text-primary-500'}"
+							/>
+							{#if form?.errors?.resolutionScore}
+								<p class="text-error-500 text-xs">{form?.errors?.resolutionScore[0]}</p>
+							{/if}
+						</div>
+					</div>
+					<input
+						type="boolean"
+						name="scoringApplicable"
+						class="input w-full"
+						placeholder=""
+						hidden
+						value={scoringApplicable}
+					/>
+				{:else if selectedQueryType === 'Single Choice Selection'}
+					<SingleChoice {optionValueStore} />
+				{:else if selectedQueryType === 'Multi Choice Selection'}
+					<MultipleChoice {optionValueStore} />
+				{/if}
 			</div>
 		{:else if selectedNodeType === 'Message'}
 			<div class="flex items-start mb-4 mt-2 mx-16">
@@ -230,17 +247,21 @@
 					<textarea
 						name="message"
 						required
-						class="textarea w-full"
 						placeholder="Enter message here..."
 						bind:value={message}
+						class="textarea w-full
+						{form?.errors?.message ? 'border-error-300 text-error-500' : 'border-primary-200 text-primary-500'}"
 					/>
+					{#if form?.errors?.message}
+						<p class="text-error-500 text-xs">{form?.errors?.message[0]}</p>
+					{/if}
 				</div>
 			</div>
 		{:else}
 			<div />
 		{/if}
 		<div class="flex items-center my-8 lg:mx-16 md:mx-12 mx-4 ">
-			<div class="lg:w-1/2 md:w-1/2 sm:w-1/2 "/>
+			<div class="lg:w-1/2 md:w-1/2 sm:w-1/2 " />
 			<div class="lg:w-1/4 md:w-1/4 sm:w-1/4 ">
 				<button
 					type="button"

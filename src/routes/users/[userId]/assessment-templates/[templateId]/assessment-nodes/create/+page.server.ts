@@ -8,6 +8,8 @@ import {
 	searchAssessmentNodes
 } from '../../../../../../api/services/assessment-nodes';
 import type { PageServerLoad } from './$types';
+import { zfd } from 'zod-form-data';
+import { z } from 'zod';
 
 /////////////////////////////////////////////////////////////////////////
 
@@ -38,56 +40,71 @@ export const load: PageServerLoad = async (event: RequestEvent) => {
 	}
 };
 
+const createAssessmentNodeSchema = zfd.formData({
+	nodeType: z.string(),
+	parentNodeId: z.string().uuid(),
+	title: z.string().min(3).max(256),
+	description: z.string().optional(),
+	queryType: z.string().optional(),
+	resolutionScore:zfd.numeric(z.number().default(1)),
+	providerAssessmentCode: z.string().optional(),
+	message: z.string().optional(),
+	serveListNodeChildrenAtOnce: zfd.checkbox({ trueValue: 'true' }),
+	scoringApplicable: zfd.checkbox({ trueValue: 'true' }),
+	options: z.array(z.string()),
+});
+
 export const actions = {
 	createAssessmentNodeAction: async (event: RequestEvent) => {
 		const request = event.request;
 		const userId = event.params.userId;
 		const templateId = event.params.templateId;
-		const data = await request.formData();
-
-		const nodeType = data.has('nodeType') ? data.get('nodeType') : null;
-		const parentNodeId = data.has('parentNodeId') ? data.get('parentNodeId') : null;
-		const title = data.has('title') ? data.get('title') : null;
-		const description = data.has('description') ? data.get('description') : null;
-		const queryType = data.has('queryType') ? data.get('queryType') : null;
-		const message = data.has('message') ? data.get('message') : null;
-		const serveListNodeChildrenAtOnce = data.has('serveListNodeChildrenAtOnce')
-			? data.get('serveListNodeChildrenAtOnce')
-			: false;
-		const options = data.has('options') ? data.getAll('options') : [];
-		const resolutionScore = data.has('resolutionScore') ? data.get('resolutionScore') : 1;
-		const _scoringApplicable = data.has('scoringApplicable')
-			? data.get('scoringApplicable')
-			: false;
-		const scoringApplicable = _scoringApplicable.valueOf() as boolean;
-		console.log('scoringApplicable', scoringApplicable);
-		const _queryType = queryType?.valueOf() as string;
-		console.log('queryType', _queryType);
 		const sessionId = event.cookies.get('sessionId');
+		const data = await request.formData();
+		const options = data.has('options') ? data.getAll('options') : [];
+		const formData = Object.fromEntries(data);
+		const formDataValue = {...formData, options:options};
+
+		type AssessmentNodeSchema = z.infer<typeof createAssessmentNodeSchema>;
+
+		let result: AssessmentNodeSchema = {};
+		try {
+			result = createAssessmentNodeSchema.parse(formDataValue);
+			console.log('result', result);
+		} catch (err: any) {
+			const { fieldErrors: errors } = err.flatten();
+			console.log(errors);
+			const { ...rest } = formData;
+			return {
+				data: rest,
+				errors
+			};
+		}
 
 		const response = await createAssessmentNode(
 			sessionId,
 			templateId,
-			parentNodeId.valueOf() as string,
-			nodeType.valueOf() as string,
-			title.valueOf() as string,
-			(description?.valueOf() as string) ?? null,
-			(message?.valueOf() as string) ?? null,
-			(serveListNodeChildrenAtOnce?.valueOf() as boolean) ?? null,
-			(queryType?.valueOf() as string) ?? null,
-			(options?.valueOf() as string[]) ?? null
+			result.parentNodeId,
+			result.nodeType,
+		  result.title,
+			result.description,
+			result.message,
+			result.serveListNodeChildrenAtOnce,
+			result.queryType,
+			result.options,
 		);
+		
 		const nodeId = response.Data.AssessmentNode.id;
 
 		const scoringCondition = await addScoringCondition(
 			sessionId,
 			templateId,
 			nodeId,
-			resolutionScore?.valueOf() as number
+			result.resolutionScore
 		);
 
 		const scoringConditionId = scoringCondition.Data.ScoringCondition.id;
-		console.log('scoringCondition----', scoringCondition);
+		console.log('scoringCondition', scoringCondition);
 
 		if (response.Status === 'failure' || response.HttpCode !== 201) {
 			throw redirect(
