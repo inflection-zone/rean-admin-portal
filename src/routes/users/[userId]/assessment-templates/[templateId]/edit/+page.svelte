@@ -5,6 +5,9 @@
 	import { page } from '$app/stores';
 	import type { PageServerData } from './$types';
 
+	////////////////////////////////////////////////////////////////
+
+	export let form;
 	export let data: PageServerData;
 	let id = data.assessmentTemplate.id;
 	let title = data.assessmentTemplate.Title;
@@ -56,7 +59,7 @@
 <main class="h-screen mb-10">
 	<BreadCrumbs crumbs={breadCrumbs} />
 
-	<div >
+	<div>
 		<form
 			method="post"
 			action="?/updateAssessmentAction"
@@ -90,8 +93,13 @@
 						name="title"
 						bind:value={title}
 						placeholder="Enter title here..."
-						class="input w-full "
+						class="input w-full {form?.errors?.title
+							? 'border-error-300 text-error-500'
+							: 'border-primary-200 text-primary-500'}"
 					/>
+					{#if form?.errors?.title}
+						<p class="text-error-500 text-xs">{form?.errors?.title[0]}</p>
+					{/if}
 				</div>
 			</div>
 
@@ -106,9 +114,14 @@
 					<textarea
 						name="description"
 						bind:value={description}
-						class="textarea w-full"
 						placeholder="Enter description here..."
+						class="textarea w-full{form?.errors?.description
+							? 'border-error-300 text-error-500'
+							: 'border-primary-200 text-primary-500'}"
 					/>
+					{#if form?.errors?.description}
+						<p class="text-error-500 text-xs">{form?.errors?.description[0]}</p>
+					{/if}
 				</div>
 			</div>
 
@@ -147,9 +160,14 @@
 						type="text"
 						name="provider"
 						bind:value={provider}
-						class="input w-full"
 						placeholder="Enter provider here"
+						class="input w-full {form?.errors?.provider
+							? 'border-error-300 text-error-500'
+							: 'border-primary-200 text-primary-500'}"
 					/>
+					{#if form?.errors?.provider}
+						<p class="text-error-500 text-xs">{form?.errors?.provider[0]}</p>
+					{/if}
 				</div>
 			</div>
 
@@ -165,12 +183,17 @@
 						type="text"
 						name="providerAssessmentCode"
 						bind:value={providerAssessmentCode}
-						class="input w-full"
 						placeholder="Enter provider assessment code here..."
+						class="input w-full {form?.errors?.providerAssessmentCode
+							? 'border-error-300 text-error-500'
+							: 'border-primary-200 text-primary-500'}"
 					/>
+					{#if form?.errors?.providerAssessmentCode}
+						<p class="text-error-500 text-xs">{form?.errors?.providerAssessmentCode[0]}</p>
+					{/if}
 				</div>
 			</div>
-			
+
 			<div class="flex items-center my-4 mx-16">
 				<div class="w-1/2 md:w-1/3 lg:w-1/3">
 					<!-- svelte-ignore a11y-label-has-associated-control -->
@@ -184,13 +207,16 @@
 							type="checkbox"
 							name="serveListNodeChildrenAtOnce"
 							bind:value={serveListNodeChildrenAtOnce}
-							bind:checked= {serveListNodeChildrenAtOnce}
+							bind:checked={serveListNodeChildrenAtOnce}
 							class="checkbox checkbox-primary border-primary-200 hover:border-primary-400 checkbox-md ml-2"
 						/>
+						{#if form?.errors?.serveListNodeChildrenAtOnce}
+							<p class="text-error-500 text-xs">{form?.errors?.serveListNodeChildrenAtOnce[0]}</p>
+						{/if}
 					</label>
 				</div>
 			</div>
-	
+
 			<div class="flex items-center my-4 mx-16">
 				<div class="w-1/2 md:w-1/3 lg:w-1/3">
 					<!-- svelte-ignore a11y-label-has-associated-control -->
@@ -205,8 +231,11 @@
 							name="scoringApplicable"
 							class="checkbox checkbox-primary border-primary-200 hover:border-primary-400 checkbox-md ml-2"
 							bind:value={scoringApplicable}
-							bind:checked= {scoringApplicable}
+							bind:checked={scoringApplicable}
 						/>
+						{#if form?.errors?.scoringApplicable}
+							<p class="text-error-500 text-xs">{form?.errors?.scoringApplicable[0]}</p>
+						{/if}
 					</label>
 				</div>
 			</div>

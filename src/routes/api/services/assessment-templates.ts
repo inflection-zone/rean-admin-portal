@@ -62,8 +62,8 @@ export const updateAssessmentTemplate = async (
 	type: string,
 	provider: string,
 	providerAssessmentCode: string,
-	serveListNodeChildrenAtOnce: string,
-	scoringApplicable: string,
+	serveListNodeChildrenAtOnce: boolean,
+	scoringApplicable: boolean,
 ) => {
 	const body = {
 		Title: title,
