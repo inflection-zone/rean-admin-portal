@@ -21,7 +21,7 @@ export const actions = {
 		const image = data.has('image') ? data.get('image') : null;
 		const tags = data.has('tags') ? data.getAll('tags') : null;
 		const sessionId = event.cookies.get('sessionId');
-
+		
 		const response = await createNewsfeed(
 			sessionId,
 			title.valueOf() as string,

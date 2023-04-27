@@ -4,6 +4,7 @@
 	import type { PageServerData } from './$types';
 	import BreadCrumbs from '$lib/components/breadcrumbs/breadcrums.svelte';
 	import Image from '$lib/components/image.svelte';
+	import Confirm from '$lib/components/modal/confirmModal.svelte';
 	import { showMessage } from '$lib/utils/message.utils';
 	import date from 'date-and-time';
 	import { page } from '$app/stores';
@@ -27,6 +28,10 @@
 	$: avatarSource = image;
 	let tags = data.newsfeed.Tags;
 
+	console.log('omage--',image)
+
+	console.log('data--', data);
+
 	//Original data
 	let _title = title;
 	let _description = description;
@@ -49,6 +54,28 @@
 		favicon = _favicon;
 		image = _image;
 		tags = _tags;
+	}
+
+	const handleImageDelete = async (e, id) => {
+		const resourceId = id;
+		console.log('imageResourceId', resourceId);
+		await Delete({
+			sessionId: data.sessionId,
+		resourceId: resourceId
+		});
+		// window.location.href = goalRoute;
+	};
+
+	async function Delete(model) {
+		console.log('model--', model);
+		const response = await fetch(`/api/server/file-resources/delete`, {
+			method: 'DELETE',
+			body: JSON.stringify(model),
+			headers: {
+				'content-type': 'application/json'
+			}
+		});
+		console.log('resp--', response);
 	}
 
 	const userId = $page.params.userId;
@@ -293,7 +320,7 @@
 						<span>Image</span>
 					</label>
 				</div>
-				<div class="flex flex-row gap-4 w-1/2 md:w-2/3 lg:w-2/3 ">
+				<div class="flex flex-row gap-4 w-1/2 md:w-2/3 lg:w-2/3 ml-20">
 					{#if image === 'undefined'}
 						<input
 							name="fileinput"
@@ -313,6 +340,13 @@
 						/>
 					{/if}
 					<input type="hidden" name="image" value={image} />
+				</div>
+				<div class="lg:w-1/4 md:w-1/4 sm:w-1/4 w-1/3">
+					<button
+						on:click|preventDefault={(e) => handleImageDelete(e, id)}
+						class="btn variant-filled-primary lg:w-20 lg:ml-8 md:ml-6 sm:ml-2 ml-20 h-12"
+						>Delete</button
+					>
 				</div>
 			</div>
 

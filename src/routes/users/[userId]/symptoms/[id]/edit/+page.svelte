@@ -23,6 +23,8 @@
 	let imageUrl = data.symptom.ImageUrl ?? undefined;
 	let imageResourceId = data.symptom.ImageResourceId ?? undefined;
 
+	console.log('data--',data)
+	console.log('imageResourceId--',imageResourceId)
 	//Original data
 	let _symptom = symptom;
 	let _description = description;
@@ -94,6 +96,28 @@
 			await upload(e.target.result, filename);
 		};
 	};
+
+	const handleImageDelete = async (e, imageResourceId) => {
+		const resourceId = imageResourceId;
+		console.log('imageResourceId==', resourceId);
+		await Delete({
+			sessionId: data.sessionId,
+			resourceId: resourceId
+		});
+		window.location.href = editRoute;
+	};
+
+	async function Delete(model) {
+		console.log('model--', model);
+		const response = await fetch(`/api/server/file-resources/delete`, {
+			method: 'DELETE',
+			body: JSON.stringify(model),
+			headers: {
+				'content-type': 'application/json'
+			}
+		});
+		console.log('resp--', response);
+	}
 </script>
 
 <main class="h-screen mb-10">
@@ -204,7 +228,7 @@
 							on:change={async (e) => await onFileSelected(e)}
 						/>
 					{:else}
-						<Image cls="flex h-24 w-24 rounded-lg" source={imageUrl} w="24" h="24" />
+						<Image cls="flex h-24 w-24 rounded-lg" source={imageUrl} w="24" h="24"/>
 						<input
 							name="fileinput"
 							type="file"
@@ -214,6 +238,13 @@
 						/>
 					{/if}
 					<input type="hidden" name="imageResourceId" value={imageResourceId} />
+			<div class="lg:w-1/4 md:w-1/4 sm:w-1/4 w-1/3">
+					<button
+						on:click|preventDefault={(e) => handleImageDelete(e, imageResourceId)}
+						class="btn variant-filled-primary lg:w-20 lg:ml-8 md:ml-6 sm:ml-2 ml-20 h-12"
+						>Delete</button
+					>
+				</div>
 				</div>
 			</div>
 
