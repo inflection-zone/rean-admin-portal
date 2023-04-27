@@ -9,6 +9,7 @@
 
 	///////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+	export let form;
 	export let data: PageServerData;
 	let allCources = data.courses;
 	let id = data.learningJourney.id;
@@ -122,7 +123,18 @@
 					</label>
 				</div>
 				<div class="w-1/2 md:w-2/3 lg:w-2/3">
-					<input type="text" name="name" required bind:value={name} class="input w-full " />
+					<input
+						type="text"
+						name="name"
+						required
+						bind:value={name}
+						class="input w-full {form?.errors?.name
+							? 'border-error-300 text-error-500'
+							: 'border-primary-200 text-primary-500'}"
+					/>
+					{#if form?.errors?.name}
+						<p class="text-error-500 text-xs">{form?.errors?.name[0]}</p>
+					{/if}
 				</div>
 			</div>
 			<div class="flex items-center my-4 lg:mx-16 md:mx-12 mx-10">
@@ -138,8 +150,13 @@
 						name="preferenceWeight"
 						bind:value={preferenceWeight}
 						placeholder="Enter prefrence weight here..."
-						class="input w-full "
+						class="input w-full {form?.errors?.preferenceWeight
+							? 'border-error-300 text-error-500'
+							: 'border-primary-200 text-primary-500'}"
 					/>
+					{#if form?.errors?.preferenceWeight}
+						<p class="text-error-500 text-xs">{form?.errors?.preferenceWeight[0]}</p>
+					{/if}
 				</div>
 			</div>
 
@@ -152,11 +169,16 @@
 				</div>
 				<div class="w-1/2 md:w-2/3 lg:w-2/3">
 					<textarea
-						class="textarea w-full"
 						bind:value={description}
 						name="description"
 						placeholder="Enter description here..."
+						class="textarea w-full {form?.errors?.description
+							? 'border-error-300 text-error-500'
+							: 'border-primary-200 text-primary-500'}"
 					/>
+					{#if form?.errors?.description}
+						<p class="text-error-500 text-xs">{form?.errors?.description[0]}</p>
+					{/if}
 				</div>
 			</div>
 
@@ -172,9 +194,14 @@
 						type="number"
 						name="durationInDays"
 						placeholder="Enter duration here..."
-						class="input w-full "
 						bind:value={durationInDays}
+						class="input w-full {form?.errors?.durationInDays
+							? 'border-error-300 text-error-500'
+							: 'border-primary-200 text-primary-500'}"
 					/>
+					{#if form?.errors?.durationInDays}
+						<p class="text-error-500 text-xs">{form?.errors?.durationInDays[0]}</p>
+					{/if}
 				</div>
 			</div>
 
@@ -197,6 +224,10 @@
 							<option value={course.id}>{course.Name}</option>
 						{/each}
 					</select>
+
+					{#if form?.errors?.courseIds}
+						<p class="text-error-500 text-xs">{form?.errors?.courseIds[0]}</p>
+					{/if}
 				</div>
 			</div>
 

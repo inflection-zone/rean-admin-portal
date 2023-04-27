@@ -5,6 +5,7 @@
 	import { page } from '$app/stores';
 	import type { PageServerData } from './$types';
 
+	export let form;
 	export let data: PageServerData;
 	let initiaData = {};
 	let id = data.personRoleType.id;
@@ -71,8 +72,13 @@
 						required
 						bind:value={roleName}
 						placeholder="Enter role name here..."
-						class="input w-full "
+						class="input w-full {form?.errors?.roleName
+							? 'border-error-300 text-error-500'
+							: 'border-primary-200 text-primary-500'}"
 					/>
+					{#if form?.errors?.roleName}
+						<p class="text-error-500 text-xs">{form?.errors?.roleName[0]}</p>
+					{/if}
 				</div>
 			</div>
 
@@ -87,9 +93,14 @@
 					<textarea
 						name="description"
 						bind:value={description}
-						class="textarea w-full"
 						placeholder="Enter description here..."
+						class="textarea w-full {form?.errors?.description
+							? 'border-error-300 text-error-500'
+							: 'border-primary-200 text-primary-500'}"
 					/>
+					{#if form?.errors?.description}
+						<p class="text-error-500 text-xs">{form?.errors?.description[0]}</p>
+					{/if}
 				</div>
 			</div>
 
