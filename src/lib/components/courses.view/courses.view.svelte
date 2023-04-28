@@ -70,7 +70,7 @@
 	};
 </script>
 
-	<div class="flex justify-center flex-col mt-4 mx-10 mb-10 overflow-y-auto  bg-tertiary-500 rounded-lg">
+	<div class="flex justify-center flex-col mx-10 mb-10 overflow-y-auto  bg-tertiary-500 rounded-lg">
 	<div class="flex justify-center flex-col w-full h-14 p-3 bg-secondary-500 min-[280px]:overflow-auto overflow-auto">
 		<div class="ml-3 relative flex flex-row text-white text-xl">Courses</div>
 	</div>
