@@ -2,8 +2,20 @@ import { redirect } from 'sveltekit-flash-message/server';
 import type { RequestEvent } from '@sveltejs/kit';
 import { errorMessage, successMessage } from '$lib/utils/message.utils';
 import { createCourseContent } from '../../../../../../../../api/services/course.contents';
+import { zfd } from 'zod-form-data';
+import { z } from 'zod';
 
 /////////////////////////////////////////////////////////////////////////
+
+const createContentSchema = zfd.formData({
+	title: z.string().max(256),
+	description: z.string().optional(),
+	sequence: zfd.numeric(z.number().optional()),
+	contentType: z.string(),
+	resourceLink: z.string().optional(),
+	imageUrl: z.string().optional(),
+	durationInMins: zfd.numeric(z.number().optional())
+});
 
 export const actions = {
 	createCourseContentAction: async (event: RequestEvent) => {
@@ -11,27 +23,35 @@ export const actions = {
 		const userId = event.params.userId;
 		const courseId = event.params.courseId;
 		const moduleId = event.params.moduleId;
-		const data = await request.formData();
-
-		const title = data.has('title') ? data.get('title') : null;
-		const description = data.has('description') ? data.get('description') : null;
-		const sequence = data.has('sequence') ? data.get('sequence') : null;
-		const contentType = data.has('contentType') ? data.get('contentType') : null;
-		const resourceLink = data.has('resourceLink') ? data.get('resourceLink') : null;
-		const imageUrl = data.has('imageUrl') ? data.get('imageUrl') : null;
-		const durationInMins = data.has('durationInMins') ? data.get('durationInMins') : null;
 		const sessionId = event.cookies.get('sessionId');
+		const formData = Object.fromEntries(await request.formData());
+
+		type ContentSchema = z.infer<typeof createContentSchema>;
+
+		let result: ContentSchema = {};
+		try {
+			result = createContentSchema.parse(formData);
+			console.log('result', result);
+		} catch (err: any) {
+			const { fieldErrors: errors } = err.flatten();
+			console.log(errors);
+			const { ...rest } = formData;
+			return {
+				data: rest,
+				errors
+			};
+		}
 
 		const response = await createCourseContent(
 			sessionId,
 			moduleId,
-			title.valueOf() as string,
-			description.valueOf() as string,
-			durationInMins.valueOf() as number,
-			sequence.valueOf() as number,
-			contentType.valueOf() as string,
-			resourceLink.valueOf() as string,
-			imageUrl.valueOf() as string
+			result.title,
+			result.description,
+			result.durationInMins,
+			result.sequence,
+			result.contentType,
+			result.resourceLink,
+			result.imageUrl
 		);
 		const id = response.Data.CourseContent.id;
 

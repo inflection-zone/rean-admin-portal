@@ -16,9 +16,9 @@
 	let id = data.course.id;
 	let name = data.course.Name;
 	let description = data.course.Description;
+	let durationInDays = data.course.DurationInDays;
 	let imageUrl = data.course.ImageUrl;
 	let modules = data.course.Modules;
-	let durationInDays = data.course.DurationInDays;
 	console.log(data.course);
 
 	onMount(() => {
@@ -51,7 +51,7 @@
 	<div>
 		<form
 			method="get"
-			class="w-full lg:max-w-4xl md:max-w-xl sm:max-w-lg mb-10 bg-[#ECE4FC] mt-6 rounded-lg mx-auto"
+			class="w-full  bg-[#ECE4FC] lg:mt-10 md:mt-8 sm:mt-6 mb-10 mt-4 lg:max-w-4xl md:max-w-xl sm:max-w-lg  rounded-lg mx-auto"
 		>
 			<div class="w-full  h-14 rounded-t-lg p-3  bg-[#7165E3]">
 				<div class="ml-3 relative flex flex-row text-white lg:text-xl text-lg ">
