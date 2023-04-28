@@ -60,10 +60,10 @@ export const updateOrganization = async (
 	organizationId: string,
 	type: string,
 	name: string,
-	contactNumber: number,
+	contactPhone: string,
 	email: string,
 	about: string,
-	operationalSince: Date,
+	operationalSince: string,
 	address: string,
 	imageResourceId: string,
 	isHealthFacility: boolean
@@ -71,7 +71,7 @@ export const updateOrganization = async (
 	const body = {
 		Type: type,
 		Name: name ? name : null,
-		contactPhone: contactNumber ? contactNumber : null,
+		ContactPhone: contactPhone ? contactPhone : null,
 		ContactEmail: email ? email : null,
 		About: about ? about : null,
 		OperationalSince: operationalSince ? operationalSince : null,
