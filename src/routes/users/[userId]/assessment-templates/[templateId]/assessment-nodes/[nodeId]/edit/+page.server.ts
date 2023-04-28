@@ -5,11 +5,9 @@ import type { PageServerLoad } from './$types';
 import {
 	getAssessmentNodeById,
 	getQueryResponseTypes,
-	getScoringCondition,
 	searchAssessmentNodes,
 	updateAssessmentNode,
-	updateScoringCondition
-} from '../../../../../../../../api/services/assessment-nodes';
+} from '../../../../../../../api/services/assessment-nodes';
 import { zfd } from 'zod-form-data';
 import { z } from 'zod';
 
@@ -21,15 +19,12 @@ export const load: PageServerLoad = async (event: RequestEvent) => {
 	try {
 		const templateId = event.params.templateId;
 		const assessmentNodeId = event.params.nodeId;
-		const scoringConditionId = event.params.scoreConditionId;
 		const searchParams = {
 			templateId: templateId
 		};
 		const _queryResponseTypes = await getQueryResponseTypes(sessionId);
 		const _assessmentNodes = await searchAssessmentNodes(sessionId, searchParams);
 		const response = await getAssessmentNodeById(sessionId, templateId, assessmentNodeId);
-		const _scoringCondition = await getScoringCondition(sessionId, templateId, scoringConditionId)
-		const scoringCondition = _scoringCondition.Data.ScoringCondition;
 
 		if (response.Status === 'failure' || response.HttpCode !== 200) {
 			throw error(response.HttpCode, response.Message);
@@ -43,7 +38,6 @@ export const load: PageServerLoad = async (event: RequestEvent) => {
 			assessmentNode,
 			queryResponseTypes,
 			assessmentNodes,
-			scoringCondition,
 			message: response.Message
 		};
 	} catch (error) {
@@ -108,17 +102,6 @@ export const actions = {
 
 		console.log("response",response.Data)
 
-		const scoringCondition = await updateScoringCondition(
-			sessionId,
-			templateId,
-			nodeId,
-			scoreConditionId,
-			result.resolutionScore,
-		);
-
-		const scoringConditionId = scoringCondition.Data.ScoringCondition.id;
-		console.log("response",scoringCondition.Data.ScoringCondition)
-
 		if (response.Status === 'failure' || response.HttpCode !== 200) {
 			throw redirect(
 				303,
@@ -129,7 +112,7 @@ export const actions = {
 		}
 		throw redirect(
 			303,
-			`/users/${userId}/assessment-templates/${templateId}/assessment-nodes/${nodeId}/${scoringConditionId}/view`,
+			`/users/${userId}/assessment-templates/${templateId}/assessment-nodes/${nodeId}/view`,
 			successMessage(`Assessment node updated successfully !`),
 			event
 		);

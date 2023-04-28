@@ -32,3 +32,4 @@ export const oragnizationTypesStore = writable([]);
 export const showGetApiKeyModal = writable(false);
 export const showRenewApiKeyModal = writable(false);
 export const scoringApplicableCondition = writable(false);
+export const showScoringConditionModal = writable(false);
