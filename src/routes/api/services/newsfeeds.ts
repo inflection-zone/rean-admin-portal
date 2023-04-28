@@ -20,11 +20,11 @@ export const createNewsfeed = async (
 		Description: description ? description : null,
 		Category: category ? category : null,
 		Link: link ? link : null,
-		Language: language ? language : null,
+		Language: language,
 		Copyright: copyright ? copyright : null,
 		Favicon: favicon ? favicon : null,
 		Image: image ? image : null,
-		Tags: tags ? tags : []
+		Tags: tags
 	};
 	const url = BACKEND_API_URL + '/rss-feeds';
 	return await post_(sessionId, url, body, true);
@@ -73,11 +73,11 @@ export const updateNewsfeed = async (
 		Description: description ? description : null,
 		Category: category ? category : null,
 		Link: link ? link : null,
-		Language: language ? language : null,
+		Language: language,
 		Copyright: copyright ? copyright : null,
 		Favicon: favicon ? favicon : null,
 		Image: image ? image : null,
-		Tags: tags ? tags : null,
+		Tags: tags
 	};
 	const url = BACKEND_API_URL + `/rss-feeds/${newsfeedId}`;
 	return await put_(sessionId, url, body, true);

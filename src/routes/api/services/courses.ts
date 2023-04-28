@@ -7,14 +7,14 @@ export const createCourse = async (
 	sessionId: string,
 	name: string,
 	description: string,
-	imageUrl: string,
 	durationInDays: number,
+	imageUrl: string,
 ) => {
 	const body = {
 		Name: name,
 		Description: description ? description : null,
-		ImageUrl: imageUrl ? imageUrl : null,
 		DurationInDays: durationInDays ? durationInDays : null,
+		ImageUrl: imageUrl ? imageUrl : null,
 	};
 	console.log("body",body);
 	const url = BACKEND_API_URL + '/educational/courses';
@@ -51,15 +51,15 @@ export const updateCourse = async (
 	courseId: string,
 	name: string,
 	description: string,
+	durationInDays: number,
 	imageUrl: string,
-	durationInDays: number
 ) => {
 	const body = {
 		courseId,
 		Name: name,
 		Description: description ? description : null,
-		ImageUrl: imageUrl ? imageUrl : null,
 		DurationInDays: durationInDays ? durationInDays : null,
+		ImageUrl: imageUrl ? imageUrl : null,
 	};
 
 	console.log( "body",body)

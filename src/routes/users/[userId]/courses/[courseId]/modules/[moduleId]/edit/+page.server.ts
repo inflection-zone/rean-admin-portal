@@ -3,6 +3,8 @@ import { redirect } from 'sveltekit-flash-message/server';
 import { errorMessage, successMessage } from '$lib/utils/message.utils';
 import type { PageServerLoad } from './$types';
 import { getModuleById, updateModule } from '../../../../../../../api/services/modules';
+import { zfd } from 'zod-form-data';
+import { z } from 'zod';
 
 /////////////////////////////////////////////////////////////////////////
 
@@ -25,40 +27,51 @@ export const load: PageServerLoad = async (event: RequestEvent) => {
 	}
 };
 
+const updateModuleSchema = zfd.formData({
+	name: z.string().max(256),
+	description: z.string().optional(),
+	durationInMins: zfd.numeric(z.number().optional()),
+	imageUrl: z.string().optional()
+});
+
 export const actions = {
 	updateModuleAction: async (event: RequestEvent) => {
 		const request = event.request;
 		const userId = event.params.userId;
-		const data = await request.formData();
-
-		const name = data.has('name') ? data.get('name') : null;
-		const description = data.has('description') ? data.get('description') : null;
-		// const sequence = data.has('sequence') ? data.get('sequence') : null;
-		const durationInMins = data.has('durationInMins') ? data.get('durationInMins') : null;
-		const imageUrl = data.has('imageUrl') ? data.get('imageUrl') : null;
 		const sessionId = event.cookies.get('sessionId');
 		const courseId = event.params.courseId;
 		const moduleId = event.params.moduleId;
+		const formData = Object.fromEntries(await request.formData());
+
+		type ModuleSchema = z.infer<typeof updateModuleSchema>;
+
+		let result: ModuleSchema = {};
+		try {
+			result = updateModuleSchema.parse(formData);
+			console.log('result', result);
+		} catch (err: any) {
+			const { fieldErrors: errors } = err.flatten();
+			console.log(errors);
+			const { ...rest } = formData;
+			return {
+				data: rest,
+				errors
+			};
+		}
 
 		const response = await updateModule(
 			sessionId,
 			moduleId,
 			courseId,
-			name.valueOf() as string,
-			description.valueOf() as string,
-			// sequence.valueOf() as number,
-			durationInMins.valueOf() as number,
-			imageUrl.valueOf() as string,
+			result.name,
+			result.description,
+			result.durationInMins,
+			result.imageUrl
 		);
 		const id = response.Data.CourseModule.id;
 
 		if (response.Status === 'failure' || response.HttpCode !== 200) {
-			throw redirect(
-				303,
-				`/users/${userId}/courses`,
-				errorMessage(response.Message),
-				event
-			);
+			throw redirect(303, `/users/${userId}/courses`, errorMessage(response.Message), event);
 		}
 		throw redirect(
 			303,

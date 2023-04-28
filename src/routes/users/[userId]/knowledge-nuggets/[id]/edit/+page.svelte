@@ -6,6 +6,7 @@
 	import { page } from '$app/stores';
 	import { InputChip } from '@skeletonlabs/skeleton';
 
+	export let form;
 	export let data: PageServerData;
 	let initiaData = {};
 	let id = data.KnowledgeNugget.id;
@@ -89,8 +90,13 @@
 						required
 						bind:value={topicName}
 						placeholder="Enter  name here..."
-						class="input w-full "
+						class="input w-full {form?.errors?.topicName
+							? 'border-error-300 text-error-500'
+							: 'border-primary-200 text-primary-500'}"
 					/>
+					{#if form?.errors?.topicName}
+						<p class="text-error-500 text-xs">{form?.errors?.topicName[0]}</p>
+					{/if}
 				</div>
 			</div>
 
@@ -105,9 +111,14 @@
 					<textarea
 						name="briefInformation"
 						bind:value={briefInformation}
-						class="textarea w-full"
 						placeholder="Enter  brief information here..."
+						class="textarea w-full {form?.errors?.briefInformation
+							? 'border-error-300 text-error-500'
+							: 'border-primary-200 text-primary-500'}"
 					/>
+					{#if form?.errors?.briefInformation}
+						<p class="text-error-500 text-xs">{form?.errors?.briefInformation[0]}</p>
+					{/if}
 				</div>
 			</div>
 			<div class="flex items-start mb-2 lg:mx-16 md:mx-12 mx-10">
@@ -121,9 +132,14 @@
 					<textarea
 						name="detailedInformation"
 						bind:value={detailedInformation}
-						class="textarea w-full"
 						placeholder="Enter detailed information here..."
+						class="textarea w-full {form?.errors?.detailedInformation
+							? 'border-error-300 text-error-500'
+							: 'border-primary-200 text-primary-500'}"
 					/>
+					{#if form?.errors?.detailedInformation}
+						<p class="text-error-500 text-xs">{form?.errors?.detailedInformation[0]}</p>
+					{/if}
 				</div>
 			</div>
 			<div class="flex items-center mb-4 lg:mx-16 md:mx-12 mx-10">
@@ -141,6 +157,9 @@
 						class="input w-full"
 						placeholder="Enter additional resource here..."
 					/>
+					{#if form?.errors?.additionalResources}
+						<p class="text-error-500 text-xs">{form?.errors?.additionalResources[0]}</p>
+					{/if}
 				</div>
 			</div>
 
@@ -153,6 +172,9 @@
 				</div>
 				<div class="w-1/2 md:w-2/3 lg:w-2/3">
 					<InputChip chips="variant-filled-error rounded-2xl" name="tags" bind:value={tags} />
+					{#if form?.errors?.tags}
+					<p class="text-error-500 text-xs">{form?.errors?.tags[0]}</p>
+				{/if}
 				</div>
 			</div>
 

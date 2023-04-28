@@ -13,6 +13,7 @@
 	let retrievedTags = '';
 	let tagsPlaceholder = 'Enter a tags here...';
 
+	export let form;
 	export let data: PageServerData;
 	let initiaData = {};
 	let id = data.symptom.id;
@@ -23,8 +24,6 @@
 	let imageUrl = data.symptom.ImageUrl ?? undefined;
 	let imageResourceId = data.symptom.ImageResourceId ?? undefined;
 
-	console.log('data--',data)
-	console.log('imageResourceId--',imageResourceId)
 	//Original data
 	let _symptom = symptom;
 	let _description = description;
@@ -40,7 +39,6 @@
 		imageResourceId = _imageResourceId;
 	}
 
-	export let form;
 	const userId = $page.params.userId;
 	const editRoute = `/users/${userId}/symptoms/${id}/edit`;
 	const viewRoute = `/users/${userId}/symptoms/${id}/view`;
@@ -199,6 +197,9 @@
 				</div>
 				<div class="w-1/2 md:w-2/3 lg:w-2/3">
 					<InputChip chips="variant-filled-error rounded-2xl" name="tags" bind:value={tags} />
+					{#if form?.errors?.tags}
+						<p class="text-error-500 text-xs">{form?.errors?.tags[0]}</p>
+					{/if}
 				</div>
 			</div>
 
@@ -254,13 +255,9 @@
 						/>
 					{/if}
 					<input type="hidden" name="imageResourceId" value={imageResourceId} />
-			<div class="lg:w-1/4 md:w-1/4 sm:w-1/4 w-1/3">
-					<button
-						on:click|preventDefault={(e) => handleImageDelete(e, imageResourceId)}
-						class="btn variant-filled-primary lg:w-20 lg:ml-8 md:ml-6 sm:ml-2 ml-20 h-12"
-						>Delete</button
-					>
-				</div>
+					{#if form?.errors?.imageResourceId}
+						<p class="text-error-500 text-xs">{form?.errors?.imageResourceId[0]}</p>
+					{/if}
 				</div>
 			</div>
 

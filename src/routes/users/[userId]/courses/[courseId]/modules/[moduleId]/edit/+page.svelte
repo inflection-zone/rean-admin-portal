@@ -7,6 +7,7 @@
 	import { showMessage } from '$lib/utils/message.utils';
 	import Image from '$lib/components/image.svelte';
 
+	export let form;
 	export let data: PageServerData;
 	let id = data.module.id;
 	let name = data.module.Name;
@@ -131,8 +132,13 @@
 						name="name"
 						bind:value={name}
 						placeholder="Enter name here..."
-						class="input w-full "
+						class="input w-full {form?.errors?.name
+							? 'border-error-300 text-error-500'
+							: 'border-primary-200 text-primary-500'}"
 					/>
+					{#if form?.errors?.name}
+						<p class="text-error-500 text-xs">{form?.errors?.name[0]}</p>
+					{/if}
 				</div>
 			</div>
 			<div class="flex items-center mb-2 lg:mx-16 md:mx-12 mx-10">
@@ -146,9 +152,14 @@
 					<textarea
 						name="description"
 						bind:value={description}
-						class="textarea w-full"
 						placeholder="Enter description here..."
+						class="textarea w-full {form?.errors?.description
+							? 'border-error-300 text-error-500'
+							: 'border-primary-200 text-primary-500'}"
 					/>
+					{#if form?.errors?.description}
+						<p class="text-error-500 text-xs">{form?.errors?.description[0]}</p>
+					{/if}
 				</div>
 			</div>
 			<!-- <div class="flex items-center my-2 lg:mx-16 md:mx-12 mx-10">
@@ -180,9 +191,14 @@
 						type="number"
 						name="durationInMins"
 						placeholder="Enter sequence here..."
-						class="input w-full "
 						bind:value={durationInMins}
+						class="input w-full {form?.errors?.durationInMins
+							? 'border-error-300 text-error-500'
+							: 'border-primary-200 text-primary-500'}"
 					/>
+					{#if form?.errors?.durationInMins}
+						<p class="text-error-500 text-xs">{form?.errors?.durationInMins[0]}</p>
+					{/if}
 				</div>
 			</div>
 			<div class="flex items-start my-2 lg:mx-16 md:mx-12 mx-10">
@@ -212,6 +228,9 @@
 						/>
 					{/if}
 					<input type="hidden" name="imageUrl" value={imageUrl} />
+					{#if form?.errors?.imageUrl}
+						<p class="text-error-500 text-xs">{form?.errors?.imageUrl[0]}</p>
+					{/if}
 				</div>
 			</div>
 			<div class="flex items-center my-8 lg:mx-16 md:mx-12 mx-4 ">
@@ -220,7 +239,7 @@
 					<button
 						type="button"
 						on:click={handleReset}
-						class="btn variant-ringed-primary lg:w-40 lg:ml-8 md:ml-6 sm:ml-1 mb-10"
+						class="btn variant-ringed-primary text-primary-500 lg:w-40 lg:ml-8 md:ml-6 sm:ml-1 mb-10"
 					>
 						Reset</button
 					>
