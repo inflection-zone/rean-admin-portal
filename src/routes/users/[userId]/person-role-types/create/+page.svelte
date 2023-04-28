@@ -4,6 +4,7 @@
 	import BreadCrumbs from '$lib/components/breadcrumbs/breadcrums.svelte';
 	import { page } from '$app/stores';
 
+	export let form;
 	const userId = $page.params.userId;
 	const createRoute = `/users/${userId}/person-role-types/create`;
 	const personRoleTypesRoute = `/users/${userId}/person-role-types`;
@@ -56,8 +57,14 @@
 						name="roleName"
 						required
 						placeholder="Enter role name here..."
-						class="input w-full "
+						class="input w-full{form?.errors?.roleName
+							? 'border-error-300 text-error-500'
+							: 'border-primary-200 text-primary-500'}"
+						value={form?.data?.roleName ?? ''}
 					/>
+					{#if form?.errors?.roleName}
+						<p class="text-error-500 text-xs">{form?.errors?.roleName[0]}</p>
+					{/if}
 				</div>
 			</div>
 
@@ -71,9 +78,14 @@
 				<div class="w-1/2 md:w-2/3 lg:w-2/3">
 					<textarea
 						name="description"
-						class="textarea w-full"
 						placeholder="Enter description here..."
+						class="textarea w-full{form?.errors?.description
+							? 'border-error-300 text-error-500'
+							: 'border-primary-200 text-primary-500'}"
 					/>
+					{#if form?.errors?.description}
+						<p class="text-error-500 text-xs">{form?.errors?.description[0]}</p>
+					{/if}
 				</div>
 			</div>
 
