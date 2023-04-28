@@ -9,6 +9,7 @@
 	let retrievedTags = '';
 	let tagsPlaceholder = 'Enter a tags here...';
 
+	export let form;
 	const userId = $page.params.userId;
 	let image = undefined;
 	let favicon = undefined;
@@ -148,8 +149,14 @@
 						name="title"
 						required
 						placeholder="Enter title here..."
-						class="input w-full "
+						class="input {form?.errors?.title
+							? 'border-error-300 text-error-500'
+							: 'border-primary-200 text-primary-500'}"
+						value={form?.data?.title ?? ''}
 					/>
+					{#if form?.errors?.title}
+						<p class="text-error-500 text-xs">{form?.errors?.title[0]}</p>
+					{/if}
 				</div>
 			</div>
 
@@ -163,9 +170,14 @@
 				<div class="w-1/2 md:w-2/3 lg:w-2/3">
 					<textarea
 						name="description"
-						class="textarea w-full"
 						placeholder="Enter description here..."
+						class="textarea w-full {form?.errors?.description
+							? 'border-error-300 text-error-500'
+							: 'border-primary-200 text-primary-500'}"
 					/>
+					{#if form?.errors?.description}
+						<p class="text-error-500 text-xs">{form?.errors?.description[0]}</p>
+					{/if}
 				</div>
 			</div>
 
@@ -181,8 +193,14 @@
 						type="text"
 						name="category"
 						placeholder="Enter category here..."
-						class="input w-full "
+						class="input {form?.errors?.category
+							? 'border-error-300 text-error-500'
+							: 'border-primary-200 text-primary-500'}"
+						value={form?.data?.category ?? ''}
 					/>
+					{#if form?.errors?.category}
+						<p class="text-error-500 text-xs">{form?.errors?.category[0]}</p>
+					{/if}
 				</div>
 			</div>
 
@@ -194,7 +212,15 @@
 					</label>
 				</div>
 				<div class="w-1/2 md:w-2/3 lg:w-2/3">
-					<input type="url" name="link" placeholder="Enter link here..." class="input w-full " />
+					<input type="url" name="link" placeholder="Enter link here..." 
+					class="input {form?.errors?.link
+						? 'border-error-300 text-error-500'
+						: 'border-primary-200 text-primary-500'}"
+					value={form?.data?.link ?? ''}
+				/>
+				{#if form?.errors?.link}
+					<p class="text-error-500 text-xs">{form?.errors?.link[0]}</p>
+				{/if}
 				</div>
 			</div>
 
@@ -202,16 +228,23 @@
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
 					<!-- svelte-ignore a11y-label-has-associated-control -->
 					<label class="label">
-						<span>Language</span>
+						<span>Language *</span>
 					</label>
 				</div>
 				<div class="w-1/2 md:w-2/3 lg:w-2/3">
 					<input
 						type="text"
 						name="language"
+						required
 						placeholder="Enter language here..."
-						class="input w-full "
+						class="input {form?.errors?.language
+							? 'border-error-300 text-error-500'
+							: 'border-primary-200 text-primary-500'}"
+						value={form?.data?.language ?? ''}
 					/>
+					{#if form?.errors?.language}
+						<p class="text-error-500 text-xs">{form?.errors?.language[0]}</p>
+					{/if}
 				</div>
 			</div>
 
@@ -227,8 +260,14 @@
 						type="text"
 						name="copyright"
 						placeholder="Enter copyright here..."
-						class="input w-full "
+						class="input {form?.errors?.copyright
+							? 'border-error-300 text-error-500'
+							: 'border-primary-200 text-primary-500'}"
+						value={form?.data?.copyright ?? ''}
 					/>
+					{#if form?.errors?.copyright}
+						<p class="text-error-500 text-xs">{form?.errors?.copyright[0]}</p>
+					{/if}
 				</div>
 			</div>
 
@@ -250,15 +289,10 @@
 						on:change={async (e) => await onFaviconSelected(e)}
 					/>
 					<input type="hidden" name="favicon" value={favicon} />
+					{#if form?.errors?.tags}
+						<p class="text-error-500 text-xs">{form?.errors?.tags[0]}</p>
+					{/if}
 				</div>
-				<!-- <div class="w-1/2 md:w-2/3 lg:w-2/3">
-					<input
-						type="url"
-						name="favicon"
-						placeholder="Enter favicon here..."
-						class="input w-full "
-					/>
-				</div> -->
 			</div>
 
 			<div class="flex items-center my-2 mb-4 lg:mx-16 md:mx-12 mx-10">
@@ -279,6 +313,9 @@
 						on:change={async (e) => await onFileSelected(e)}
 					/>
 					<input type="hidden" name="image" value={image} />
+					{#if form?.errors?.image}
+						<p class="text-error-500 text-xs">{form?.errors?.image[0]}</p>
+					{/if}
 				</div>
 			</div>
 
@@ -286,15 +323,19 @@
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
 					<!-- svelte-ignore a11y-label-has-associated-control -->
 					<label class="label">
-						<span>Tags</span>
+						<span>Tags *</span>
 					</label>
 				</div>
 				<div class="w-1/2 md:w-2/3 lg:w-2/3">
 					<InputChip
 						chips="variant-filled-error rounded-2xl"
 						name="tags"
+						required
 						placeholder={tagsPlaceholder}
 					/>
+					{#if form?.errors?.tags}
+						<p class="text-error-500 text-xs">{form?.errors?.tags[0]}</p>
+					{/if}
 				</div>
 			</div>
 
