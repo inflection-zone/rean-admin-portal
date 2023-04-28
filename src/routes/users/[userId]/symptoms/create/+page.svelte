@@ -106,7 +106,7 @@
 						name="symptom"
 						required
 						placeholder="Enter symptom here..."
-						class="input {form?.errors?.title
+						class="input w-full {form?.errors?.symptom
 							? 'border-error-300 text-error-500'
 							: 'border-primary-200 text-primary-500'}"
 						value={form?.data?.symptom ?? ''}
@@ -151,6 +151,9 @@
 						name="tags"
 						placeholder={tagsPlaceholder}
 					/>
+					{#if form?.errors?.tags}
+						<p class="text-error-500 text-xs">{form?.errors?.tags[0]}</p>
+					{/if}
 				</div>
 			</div>
 
@@ -196,8 +199,10 @@
 						placeholder="Image"
 						on:change={async (e) => await onFileSelected(e)}
 					/>
-
 					<input type="hidden" name="imageResourceId" value={imageResourceId} />
+					{#if form?.errors?.imageResourceId}
+						<p class="text-error-500 text-xs">{form?.errors?.imageResourceId[0]}</p>
+					{/if}
 				</div>
 			</div>
 

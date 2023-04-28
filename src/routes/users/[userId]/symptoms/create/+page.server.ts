@@ -3,10 +3,11 @@ import type { RequestEvent } from '@sveltejs/kit';
 import { z } from 'zod';
 import { errorMessage, successMessage } from '$lib/utils/message.utils';
 import { createSymptom } from '../../../../api/services/symptoms';
+import { zfd } from 'zod-form-data';
 
 /////////////////////////////////////////////////////////////////////////
 
-const createSymptomSchema = z.object({
+const createSymptomSchema = zfd.formData({
 	symptom: z.string().min(3).max(256),
 	description: z.string().optional(),
 	tags: z.array(z.string()).optional(),
