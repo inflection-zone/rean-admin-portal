@@ -8,7 +8,7 @@ import { zfd } from "zod-form-data";
 /////////////////////////////////////////////////////////////////////////
 
 const createNotificationSchema = zfd.formData({
-	title: z.string().min(3).max(64),
+	title: z.string().min(8).max(64),
 	body: z.string().optional(),
 	type: z.string().min(3).max(64),
 	broadcastToAll: zfd.checkbox({ trueValue: "true" }),
@@ -25,7 +25,7 @@ export const actions = {
 		let result: NotificationSchema = {};
 		try {
 			result = createNotificationSchema.parse(formData);
-			console.log('result-----------', result);
+			console.log('result', result);
 		} catch (err: any) {
 			const { fieldErrors: errors } = err.flatten();
 			console.log(errors);

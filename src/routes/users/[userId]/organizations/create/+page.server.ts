@@ -11,7 +11,7 @@ import { zfd } from "zod-form-data";
 
 /////////////////////////////////////////////////////////////////////////////////////////////
 
-export const load: PageServerLoad = async (event: RequestEvent) => {
+export const load: PageServerLoad = async () => {
 	try {
 		const types: OrganizationTypes[] = await getOrganizationTypes();
 		return {
@@ -40,10 +40,7 @@ const createOrganizationSchema = zfd.formData({
 	country: z.string().optional(),
 	postalCode: zfd.numeric(z.number().optional()),
 	imageResourceId: z.string().optional(),
-	isHealthFacility: z
-		.enum(['true', 'false'])
-		.transform((val) => val === 'true')
-		.default('false'),
+	isHealthFacility: zfd.checkbox({ trueValue: "true" }),
 });
 
 export const actions = {
@@ -58,7 +55,7 @@ export const actions = {
     let result : OrganizationSchema = {};
 		try {
 			result = createOrganizationSchema.parse(formData);
-			console.log('result-----------', result);
+			console.log('result', result);
 		} catch (err: any) {
 			const { fieldErrors: errors } = err.flatten();
 			console.log(errors);
@@ -78,7 +75,7 @@ export const actions = {
 			result.district,
 			result.state,
 			result.country,
-			result.postalCode
+			result.postalCode,
 		);
 
 		const addressesId_ = addressResponse.Data.Address.id;

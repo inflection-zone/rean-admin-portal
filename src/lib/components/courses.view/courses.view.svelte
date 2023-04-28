@@ -70,7 +70,7 @@
 	};
 </script>
 
-<div class="flex justify-center w-[94.2%] rounded-lg flex-col lg:mx-14 mx-2 bg-tertiary-500 overflow-auto">
+	<div class="flex justify-center flex-col mx-10 mb-10 overflow-y-auto  bg-tertiary-500 rounded-lg">
 	<div class="flex justify-center flex-col w-full h-14 p-3 bg-secondary-500 min-[280px]:overflow-auto overflow-auto">
 		<div class="ml-3 relative flex flex-row text-white text-xl">Courses</div>
 	</div>
@@ -93,7 +93,7 @@
 						await handlelCourseDelete(course.id, course.Modules);
 					}}
 				>
-					<div class="content">
+					<div class="content mx-3">
 						{#if course.Modules.length > 0}
 							{#each course.Modules as module, i}
 								<CollapsibleSection
@@ -184,7 +184,7 @@
 			{/each}
 		</div>
 	</section>
-	<div class=" w-full bg-secondary-500 h-36 lg:h-16 md:h-16 sm:h-36 mb-10 pt-1 rounded-b-lg ">
+	<div class=" w-full bg-secondary-500 h-36 lg:h-16 md:h-16 sm:h-36 pt-1 rounded-b-lg ">
 		{#if $dataTableStore.pagination}<Paginator
 				class="mt-2 mr-3 ml-3 "
 				buttonClasses="btn-icon bg-surface-500 w-5 h-8"
@@ -193,20 +193,16 @@
 			/>{/if}
 	</div>
 </div>
-
 <style>
 	section {
 		width: 100%;
 	}
 	.content {
-		/* position:justify-center; */
 		margin-top: 2px;
 		display: block;
 		margin-left: auto;
 		margin-right: auto;
 		width: 93%;
 		display: flex-col;
-
-		/* justify-items: center; */
 	}
 </style>
