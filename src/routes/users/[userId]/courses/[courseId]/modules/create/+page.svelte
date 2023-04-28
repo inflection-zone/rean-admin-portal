@@ -7,6 +7,7 @@
 
 	/////////////////////////////////////////////////////////////////////////////////////////
 
+	export let form;
 	const userId = $page.params.userId;
 	const courseId = $page.params.courseId;
 	let imageUrl = undefined;
@@ -103,7 +104,19 @@
 					</label>
 				</div>
 				<div class="w-1/2 md:w-2/3 lg:w-2/3">
-					<input type="text" name="name" required placeholder="Enter name here..." class="input w-full " />
+					<input
+						type="text"
+						name="name"
+						required
+						placeholder="Enter name here..."
+						class="input w-full {form?.errors?.name
+							? 'border-error-300 text-error-500'
+							: 'border-primary-200 text-primary-500'}"
+						value={form?.data?.name ?? ''}
+					/>
+					{#if form?.errors?.name}
+						<p class="text-error-500 text-xs">{form?.errors?.name[0]}</p>
+					{/if}
 				</div>
 			</div>
 			<div class="flex items-center mb-2 lg:mx-16 md:mx-12 mx-10">
@@ -116,9 +129,14 @@
 				<div class="w-1/2 md:w-2/3 lg:w-2/3">
 					<textarea
 						name="description"
-						class="textarea w-full"
 						placeholder="Enter  description here..."
+						class="textarea w-full {form?.errors?.description
+							? 'border-error-300 text-error-500'
+							: 'border-primary-200 text-primary-500'}"
 					/>
+					{#if form?.errors?.description}
+						<p class="text-error-500 text-xs">{form?.errors?.description[0]}</p>
+					{/if}
 				</div>
 			</div>
 
@@ -134,8 +152,14 @@
 						type="number"
 						name="durationInMins"
 						placeholder="Enter duration here..."
-						class="input w-full "
+						class="input w-full {form?.errors?.durationInMins
+							? 'border-error-300 text-error-500'
+							: 'border-primary-200 text-primary-500'}"
+						value={form?.data?.durationInMins ?? ''}
 					/>
+					{#if form?.errors?.durationInMins}
+						<p class="text-error-500 text-xs">{form?.errors?.durationInMins[0]}</p>
+					{/if}
 				</div>
 			</div>
 
@@ -156,6 +180,9 @@
 						on:change={async (e) => await onFileSelected(e)}
 					/>
 					<input type="hidden" name="imageUrl" value={imageUrl} />
+					{#if form?.errors?.imageUrl}
+						<p class="text-error-500 text-xs">{form?.errors?.imageUrl[0]}</p>
+					{/if}
 				</div>
 			</div>
 

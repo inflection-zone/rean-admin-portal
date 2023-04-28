@@ -13,6 +13,7 @@
 	let retrievedTags = '';
 	let tagsPlaceholder = 'Enter a tags here...';
 
+	export let form;
 	export let data: PageServerData;
 	let initiaData = {};
 	let id = data.newsfeed.id;
@@ -27,10 +28,6 @@
 	let image = data.newsfeed.Image;
 	$: avatarSource = image;
 	let tags = data.newsfeed.Tags;
-
-	console.log('omage--',image)
-
-	console.log('data--', data);
 
 	//Original data
 	let _title = title;
@@ -168,8 +165,13 @@
 						required
 						bind:value={title}
 						placeholder="Enter title here..."
-						class="input w-full "
+						class="input w-full {form?.errors?.title
+							? 'border-error-300 text-error-500'
+							: 'border-primary-200 text-primary-500'}"
 					/>
+					{#if form?.errors?.title}
+						<p class="text-error-500 text-xs">{form?.errors?.title[0]}</p>
+					{/if}
 				</div>
 			</div>
 
@@ -184,9 +186,14 @@
 					<textarea
 						name="description"
 						bind:value={description}
-						class="textarea w-full"
 						placeholder="Enter description here..."
+						class="textarea w-full {form?.errors?.description
+							? 'border-error-300 text-error-500'
+							: 'border-primary-200 text-primary-500'}"
 					/>
+					{#if form?.errors?.description}
+						<p class="text-error-500 text-xs">{form?.errors?.description[0]}</p>
+					{/if}
 				</div>
 			</div>
 
@@ -203,8 +210,13 @@
 						name="category"
 						bind:value={category}
 						placeholder="Enter category here..."
-						class="input w-full "
+						class="input w-full {form?.errors?.category
+							? 'border-error-300 text-error-500'
+							: 'border-primary-200 text-primary-500'}"
 					/>
+					{#if form?.errors?.category}
+						<p class="text-error-500 text-xs">{form?.errors?.category[0]}</p>
+					{/if}
 				</div>
 			</div>
 
@@ -221,8 +233,13 @@
 						name="link"
 						bind:value={link}
 						placeholder="Enter link here..."
-						class="input w-full "
+						class="input w-full {form?.errors?.link
+							? 'border-error-300 text-error-500'
+							: 'border-primary-200 text-primary-500'}"
 					/>
+					{#if form?.errors?.link}
+						<p class="text-error-500 text-xs">{form?.errors?.link[0]}</p>
+					{/if}
 				</div>
 			</div>
 
@@ -230,17 +247,23 @@
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
 					<!-- svelte-ignore a11y-label-has-associated-control -->
 					<label class="label">
-						<span>Language</span>
+						<span>Language *</span>
 					</label>
 				</div>
 				<div class="w-1/2 md:w-2/3 lg:w-2/3">
 					<input
 						type="text"
 						name="language"
+						required
 						bind:value={language}
 						placeholder="Enter language here..."
-						class="input w-full "
+						class="input w-full {form?.errors?.language
+							? 'border-error-300 text-error-500'
+							: 'border-primary-200 text-primary-500'}"
 					/>
+					{#if form?.errors?.language}
+						<p class="text-error-500 text-xs">{form?.errors?.language[0]}</p>
+					{/if}
 				</div>
 			</div>
 
@@ -257,8 +280,13 @@
 						name="copyright"
 						bind:value={copyright}
 						placeholder="Enter copyright here..."
-						class="input w-full "
+						class="input w-full {form?.errors?.copyright
+							? 'border-error-300 text-error-500'
+							: 'border-primary-200 text-primary-500'}"
 					/>
+					{#if form?.errors?.copyright}
+						<p class="text-error-500 text-xs">{form?.errors?.copyright[0]}</p>
+					{/if}
 				</div>
 			</div>
 
@@ -289,16 +317,10 @@
 						/>
 					{/if}
 					<input type="hidden" name="favicon" value={favicon} />
+					{#if form?.errors?.favicon}
+						<p class="text-error-500 text-xs">{form?.errors?.favicon[0]}</p>
+					{/if}
 				</div>
-				<!-- <div class="w-1/2 md:w-2/3 lg:w-2/3">
-					<input
-						type="text"
-						name="favicon"
-						bind:value={favicon}
-						placeholder="Enter favicon here..."
-						class="input w-full "
-					/>
-				</div> -->
 			</div>
 
 			<div class="flex items-center mb-4 lg:mx-16 md:mx-12 mx-10">
@@ -317,10 +339,10 @@
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
 					<!-- svelte-ignore a11y-label-has-associated-control -->
 					<label class="label">
-						<span>Image</span>
+						<span>Image *</span>
 					</label>
 				</div>
-				<div class="flex flex-row gap-4 w-1/2 md:w-2/3 lg:w-2/3 ml-20">
+				<div class="flex flex-row gap-4 w-1/2 md:w-2/3 lg:w-2/3 ">
 					{#if image === 'undefined'}
 						<input
 							name="fileinput"
@@ -339,14 +361,10 @@
 							on:change={async (e) => await onFileSelected(e)}
 						/>
 					{/if}
-					<input type="hidden" name="image" value={image} />
-				</div>
-				<div class="lg:w-1/4 md:w-1/4 sm:w-1/4 w-1/3">
-					<button
-						on:click|preventDefault={(e) => handleImageDelete(e, id)}
-						class="btn variant-filled-primary lg:w-20 lg:ml-8 md:ml-6 sm:ml-2 ml-20 h-12"
-						>Delete</button
-					>
+					<input type="hidden" required name="image" value={image} />
+					{#if form?.errors?.image}
+						<p class="text-error-500 text-xs">{form?.errors?.image[0]}</p>
+					{/if}
 				</div>
 			</div>
 
@@ -359,6 +377,9 @@
 				</div>
 				<div class="w-1/2 md:w-2/3 lg:w-2/3">
 					<InputChip chips="variant-filled-error rounded-2xl" name="tags" bind:value={tags} />
+					{#if form?.errors?.tags}
+					<p class="text-error-500 text-xs">{form?.errors?.tags[0]}</p>
+				{/if}
 				</div>
 			</div>
 

@@ -9,13 +9,13 @@
 
 	//////////////////////////////////////////////////////////////////////////////////////////
 
+	export let form;
 	export let data: PageServerData;
 	let id = data.course.id;
 	let name = data.course.Name;
 	let description = data.course.Description;
-	let imageUrl = data.course.ImageUrl;
-	let modules = data.course.Modules;
 	let durationInDays = data.course.DurationInDays;
+	let imageUrl = data.course.ImageUrl;
 	$: avatarSource = imageUrl;
 
 	//Original data
@@ -97,7 +97,7 @@
 		<form
 			method="post"
 			action="?/updateCourseAction"
-			class="w-full lg:max-w-4xl md:max-w-xl sm:max-w-lg bg-[#ECE4FC] rounded-lg mx-auto"
+			class="w-full  bg-[#ECE4FC] lg:mt-10 md:mt-8 sm:mt-6 mb-10 mt-4 lg:max-w-4xl md:max-w-xl sm:max-w-lg  rounded-lg mx-auto"
 		>
 			<div class="w-full  h-14 rounded-t-lg p-3  bg-[#7165E3]">
 				<div class="ml-3 relative flex flex-row text-white text-xl">
@@ -121,8 +121,13 @@
 						name="name"
 						bind:value={name}
 						placeholder="Enter name here..."
-						class="input w-full "
+						class="input w-full {form?.errors?.name
+							? 'border-error-300 text-error-500'
+							: 'border-primary-200 text-primary-500'}"
 					/>
+					{#if form?.errors?.name}
+						<p class="text-error-500 text-xs">{form?.errors?.name[0]}</p>
+					{/if}
 				</div>
 			</div>
 
@@ -135,11 +140,16 @@
 				</div>
 				<div class="w-1/2 md:w-2/3 lg:w-2/3">
 					<textarea
-						class="textarea w-full"
 						name="description"
 						bind:value={description}
 						placeholder="Enter description here..."
+						class="textarea w-full {form?.errors?.description
+							? 'border-error-300 text-error-500'
+							: 'border-primary-200 text-primary-500'}"
 					/>
+					{#if form?.errors?.description}
+						<p class="text-error-500 text-xs">{form?.errors?.description[0]}</p>
+					{/if}
 				</div>
 			</div>
 
@@ -155,15 +165,19 @@
 						type="number"
 						name="durationInDays"
 						placeholder="Enter duration here..."
-						class="input w-full "
 						bind:value={durationInDays}
+						class="input w-full {form?.errors?.durationInDays
+							? 'border-error-300 text-error-500'
+							: 'border-primary-200 text-primary-500'}"
 					/>
+					{#if form?.errors?.durationInDays}
+						<p class="text-error-500 text-xs">{form?.errors?.durationInDays[0]}</p>
+					{/if}
 				</div>
 			</div>
 
-			<div class="flex items-start mt-2 mb-4 hidden lg:mx-16 md:mx-12 mx-10">
+			<!-- <div class="flex items-start mt-2 mb-4 hidden lg:mx-16 md:mx-12 mx-10">
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
-					<!-- svelte-ignore a11y-label-has-associated-control -->
 					<label class="label">
 						<span>Modules</span>
 					</label>
@@ -180,8 +194,11 @@
 							<option value={module.id}>{module.Name}</option>
 						{/each}
 					</select>
+					{#if form?.errors?.courseIds}
+						<p class="text-error-500 text-xs">{form?.errors?.courseIds[0]}</p>
+					{/if}
 				</div>
-			</div>
+			</div> -->
 
 			<div class="flex items-start my-2 lg:mx-16 md:mx-12 mx-10">
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
@@ -210,6 +227,9 @@
 						/>
 					{/if}
 					<input type="hidden" name="imageUrl" value={imageUrl} />
+					{#if form?.errors?.imageUrl}
+						<p class="text-error-500 text-xs">{form?.errors?.imageUrl[0]}</p>
+					{/if}
 				</div>
 			</div>
 
@@ -219,7 +239,7 @@
 					<button
 						type="button"
 						on:click={handleReset}
-						class="btn variant-ringed-primary lg:w-40 lg:ml-8 md:ml-6 sm:ml-1 mb-10"
+						class="btn variant-ringed-primary text-primary-500 lg:w-40 lg:ml-8 md:ml-6 sm:ml-1 mb-10"
 					>
 						Reset</button
 					>

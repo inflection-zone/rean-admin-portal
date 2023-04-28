@@ -9,6 +9,7 @@
 	let retrievedTags = '';
 	let tagsPlaceholder = 'Enter a tags here...';
 
+	export let form;
 	const userId = $page.params.userId;
 	let imageUrl = undefined;
 	let fileinput;
@@ -105,8 +106,14 @@
 						name="title"
 						required
 						placeholder="Enter title here..."
-						class="input w-full "
+						class="input w-full {form?.errors?.title
+							? 'border-error-300 text-error-500'
+							: 'border-primary-200 text-primary-500'}"
+						value={form?.data?.title ?? ''}
 					/>
+					{#if form?.errors?.title}
+						<p class="text-error-500 text-xs">{form?.errors?.title[0]}</p>
+					{/if}
 				</div>
 			</div>
 			<div class="flex items-start mb-2 lg:mx-16 md:mx-12 mx-10">
@@ -119,9 +126,14 @@
 				<div class="w-1/2 md:w-2/3 lg:w-2/3">
 					<textarea
 						name="description"
-						class="textarea w-full"
 						placeholder="Enter description here..."
+						class="textarea w-full {form?.errors?.description
+							? 'border-error-300 text-error-500'
+							: 'border-primary-200 text-primary-500'}"
 					/>
+					{#if form?.errors?.description}
+						<p class="text-error-500 text-xs">{form?.errors?.description[0]}</p>
+					{/if}
 				</div>
 			</div>
 
@@ -133,7 +145,18 @@
 					</label>
 				</div>
 				<div class="w-1/2 md:w-2/3 lg:w-2/3">
-					<input type="url" name="link" placeholder="Enter link here..." class="input w-full " />
+					<input
+						type="url"
+						name="link"
+						placeholder="Enter link here..."
+						class="input w-full {form?.errors?.link
+							? 'border-error-300 text-error-500'
+							: 'border-primary-200 text-primary-500'}"
+						value={form?.data?.link ?? ''}
+					/>
+					{#if form?.errors?.link}
+						<p class="text-error-500 text-xs">{form?.errors?.link[0]}</p>
+					{/if}
 				</div>
 			</div>
 
@@ -149,8 +172,14 @@
 						type="number"
 						name="daysActive"
 						placeholder="Enter days active here..."
-						class="input w-full "
+						class="input w-full {form?.errors?.daysActive
+							? 'border-error-300 text-error-500'
+							: 'border-primary-200 text-primary-500'}"
+						value={form?.data?.daysActive ?? ''}
 					/>
+					{#if form?.errors?.daysActive}
+						<p class="text-error-500 text-xs">{form?.errors?.daysActive[0]}</p>
+					{/if}
 				</div>
 			</div>
 
@@ -167,6 +196,9 @@
 						name="tags"
 						placeholder={tagsPlaceholder}
 					/>
+					{#if form?.errors?.tags}
+						<p class="text-error-500 text-xs">{form?.errors?.tags[0]}</p>
+					{/if}
 				</div>
 			</div>
 
@@ -182,8 +214,14 @@
 						type="text"
 						name="action"
 						placeholder="Enter action here..."
-						class="input w-full "
+						class="input w-full {form?.errors?.action
+							? 'border-error-300 text-error-500'
+							: 'border-primary-200 text-primary-500'}"
+						value={form?.data?.action ?? ''}
 					/>
+					{#if form?.errors?.action}
+						<p class="text-error-500 text-xs">{form?.errors?.action[0]}</p>
+					{/if}
 				</div>
 			</div>
 
@@ -205,6 +243,9 @@
 						on:change={async (e) => await onFileSelected(e)}
 					/>
 					<input type="hidden" name="imageUrl" value={imageUrl} />
+					{#if form?.errors?.imageUrl}
+						<p class="text-error-500 text-xs">{form?.errors?.imageUrl[0]}</p>
+					{/if}
 				</div>
 			</div>
 

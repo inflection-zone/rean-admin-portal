@@ -7,6 +7,7 @@
 
 	////////////////////////////////////////////////////////////////////////////////////////////
 
+	export let form;
 	const userId = $page.params.userId;
 	const courseId = $page.params.courseId;
 	const moduleId = $page.params.moduleId;
@@ -109,7 +110,19 @@
 					</label>
 				</div>
 				<div class="w-1/2 md:w-2/3 lg:w-2/3">
-					<input type="text" name="title" required placeholder="Enter title here..." class="input w-full " />
+					<input
+						type="text"
+						name="title"
+						required
+						placeholder="Enter title here..."
+						class="input w-full {form?.errors?.title
+							? 'border-error-300 text-error-500'
+							: 'border-primary-200 text-primary-500'}"
+						value={form?.data?.title ?? ''}
+					/>
+					{#if form?.errors?.title}
+						<p class="text-error-500 text-xs">{form?.errors?.title[0]}</p>
+					{/if}
 				</div>
 			</div>
 			<div class="flex items-start mb-2 lg:mx-16 md:mx-12 mx-10">
@@ -122,9 +135,14 @@
 				<div class="w-1/2 md:w-2/3 lg:w-2/3">
 					<textarea
 						name="description"
-						class="textarea w-full"
 						placeholder="Enter  description here..."
+						class="textarea w-full {form?.errors?.description
+							? 'border-error-300 text-error-500'
+							: 'border-primary-200 text-primary-500'}"
 					/>
+					{#if form?.errors?.description}
+						<p class="text-error-500 text-xs">{form?.errors?.description[0]}</p>
+					{/if}
 				</div>
 			</div>
 
@@ -140,8 +158,14 @@
 						type="number"
 						name="durationInMins"
 						placeholder="Enter duration here..."
-						class="input w-full "
+						class="input w-full {form?.errors?.durationInMins
+							? 'border-error-300 text-error-500'
+							: 'border-primary-200 text-primary-500'}"
+						value={form?.data?.durationInMins ?? ''}
 					/>
+					{#if form?.errors?.durationInMins}
+						<p class="text-error-500 text-xs">{form?.errors?.durationInMins[0]}</p>
+					{/if}
 				</div>
 			</div>
 
@@ -163,23 +187,31 @@
 						<option>Video</option>
 						<option>Assessment</option>
 					</select>
+					{#if form?.errors?.contentType}
+						<p class="text-error-500 text-xs">{form?.errors?.contentType[0]}</p>
+					{/if}
 				</div>
 			</div>
 			<div class="flex items-center my-4 lg:mx-16 md:mx-12 mx-10">
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
 					<!-- svelte-ignore a11y-label-has-associated-control -->
 					<label class="label">
-						<span>Resource Link *</span>
+						<span>Resource Link</span>
 					</label>
 				</div>
 				<div class="w-1/2 md:w-2/3 lg:w-2/3">
 					<input
 						type="url"
 						name="resourceLink"
-						required
 						placeholder="Enter Resource link here..."
-						class="input w-full "
+						class="input w-full {form?.errors?.resourceLink
+							? 'border-error-300 text-error-500'
+							: 'border-primary-200 text-primary-500'}"
+						value={form?.data?.resourceLink ?? ''}
 					/>
+					{#if form?.errors?.resourceLink}
+						<p class="text-error-500 text-xs">{form?.errors?.resourceLink[0]}</p>
+					{/if}
 				</div>
 			</div>
 
@@ -195,8 +227,14 @@
 						type="number"
 						name="sequence"
 						placeholder="Enter sequence here..."
-						class="input w-full "
+						class="input w-full {form?.errors?.sequence
+							? 'border-error-300 text-error-500'
+							: 'border-primary-200 text-primary-500'}"
+						value={form?.data?.sequence ?? ''}
 					/>
+					{#if form?.errors?.sequence}
+						<p class="text-error-500 text-xs">{form?.errors?.sequence[0]}</p>
+					{/if}
 				</div>
 			</div>
 
@@ -217,6 +255,9 @@
 						on:change={async (e) => await onFileSelected(e)}
 					/>
 					<input type="hidden" name="imageUrl" value={imageUrl} />
+					{#if form?.errors?.imageUrl}
+						<p class="text-error-500 text-xs">{form?.errors?.imageUrl[0]}</p>
+					{/if}
 				</div>
 			</div>
 
