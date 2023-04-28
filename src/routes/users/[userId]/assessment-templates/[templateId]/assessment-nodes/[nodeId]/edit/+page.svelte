@@ -4,9 +4,8 @@
 	import BreadCrumbs from '$lib/components/breadcrumbs/breadcrums.svelte';
 	import { page } from '$app/stores';
 	import type { PageServerData } from './$types';
-	import SingleChoice from '../../../create/single.choice.svelte';
-	import MultipleChoice from '../../../create/multiple.choice.svelte';
-	import { scoringApplicableCondition } from '$lib/store/general.store';
+	import SingleChoice from '../../create/single.choice.svelte';
+	import MultipleChoice from '../../create/multiple.choice.svelte';
 
 	//////////////////////////////////////////////////////////////////////////////////////
 
@@ -23,10 +22,6 @@
 	let optionValueStore = options;
 	let message = data.assessmentNode.Message ?? null;
 	let parentNodeId = data.assessmentNode.ParentNodeId;
-	let resolutionScore = data.scoringCondition.ResolutionScore;
-	const scoringApplicable = $scoringApplicableCondition;
-
-	console.log('assessmentNode', data.assessmentNode);
 
 	//Original data
 	let _nodeType = nodeType;
@@ -44,10 +39,9 @@
 	const userId = $page.params.userId;
 	const templateId = $page.params.templateId;
 	const nodeId = $page.params.nodeId;
-	const scoreConditionId = $page.params.scoreConditionId;
 	const assessmentsRoutes = `/users/${userId}/assessment-templates`;
-	const editRoute = `/users/${userId}/assessment-templates/${templateId}/assessment-nodes/${nodeId}/${scoreConditionId}/edit`;
-	const viewRoute = `/users/${userId}/assessment-templates/${templateId}/assessment-nodes/${nodeId}/${scoreConditionId}/view`;
+	const editRoute = `/users/${userId}/assessment-templates/${templateId}/assessment-nodes/${nodeId}/edit`;
+	const viewRoute = `/users/${userId}/assessment-templates/${templateId}/assessment-nodes/${nodeId}/view`;
 	const assessmentNodeRoutes = `/users/${userId}/assessment-templates/${templateId}/assessment-nodes`;
 
 	const breadCrumbs = [
@@ -191,45 +185,7 @@
 				</div>
 			</div>
 			<div>
-				{#if scoringApplicable === true}
-					{#if selectedQueryType === 'Single Choice Selection'}
-						<SingleChoice {optionValueStore} />
-					{:else if selectedQueryType === 'Multi Choice Selection'}
-						<MultipleChoice {optionValueStore} />
-					{:else if selectedQueryType === 'Boolean'}
-						<div />
-					{/if}
-					<div class="flex items-center my-4 mx-16">
-						<div class="w-1/2 md:w-1/3 lg:w-1/3">
-							<!-- svelte-ignore a11y-label-has-associated-control -->
-							<label class="label">
-								<span>Resolution Score *</span>
-							</label>
-						</div>
-						<div class="w-1/2 md:w-2/3 lg:w-2/3">
-							<input
-								type="number"
-								name="resolutionScore"
-								placeholder="Enter resolution score here..."
-								value={resolutionScore}
-								class="input w-full {form?.errors?.resolutionScore
-									? 'border-error-300 text-error-500'
-									: 'border-primary-200 text-primary-500'}"
-							/>
-							{#if form?.errors?.resolutionScore}
-								<p class="text-error-500 text-xs">{form?.errors?.resolutionScore[0]}</p>
-							{/if}
-						</div>
-					</div>
-					<input
-						type="boolean"
-						name="scoringApplicable"
-						class="input w-full"
-						placeholder=""
-						hidden
-						value={scoringApplicable}
-					/>
-				{:else if selectedQueryType === 'Single Choice Selection'}
+				{#if selectedQueryType === 'Single Choice Selection'}
 					<SingleChoice {optionValueStore} />
 				{:else if selectedQueryType === 'Multi Choice Selection'}
 					<MultipleChoice {optionValueStore} />

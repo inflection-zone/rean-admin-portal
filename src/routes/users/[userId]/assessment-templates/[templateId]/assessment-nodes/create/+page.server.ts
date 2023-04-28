@@ -103,7 +103,6 @@ export const actions = {
 			result.resolutionScore
 		);
 
-		const scoringConditionId = scoringCondition.Data.ScoringCondition.id;
 		console.log('scoringCondition', scoringCondition);
 
 		if (response.Status === 'failure' || response.HttpCode !== 201) {
@@ -116,7 +115,7 @@ export const actions = {
 		}
 		throw redirect(
 			303,
-			`/users/${userId}/assessment-templates/${templateId}/assessment-nodes/${nodeId}/${scoringConditionId}/view`,
+			`/users/${userId}/assessment-templates/${templateId}/assessment-nodes/${nodeId}/view`,
 			successMessage(`Assessment node created successfully !`),
 			event
 		);

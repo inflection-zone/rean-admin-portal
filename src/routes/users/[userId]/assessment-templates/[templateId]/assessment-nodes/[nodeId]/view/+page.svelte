@@ -2,17 +2,19 @@
 	import Fa from 'svelte-fa';
 	import { faMultiply, faPen, faPencil, faTrash } from '@fortawesome/free-solid-svg-icons';
 	import { onMount } from 'svelte';
-	import { show } from '$lib/utils/message.utils';
+	import { show, showMessage } from '$lib/utils/message.utils';
 	import { LocalStorageUtils } from '$lib/utils/local.storage.utils';
 	import BreadCrumbs from '$lib/components/breadcrumbs/breadcrums.svelte';
 	import { page } from '$app/stores';
 	import type { PageServerData } from './$types';
 	import Confirm from '$lib/components/modal/confirmModal.svelte';
-	import { scoringApplicableCondition } from '$lib/store/general.store';
+	import UpdateScoringCondition from '$lib/components/modal/update.scoring.condition.modal.svelte';
+	import { scoringApplicableCondition, showScoringConditionModal } from '$lib/store/general.store';
 
 	////////////////////////////////////////////////////////////////////////////////////////////
 
 	export let data: PageServerData;
+	let sessionId = data.sessionId;
 	let id = data.assessmentNode.id;
 	let nodeType = data.assessmentNode.NodeType;
 	let title = data.assessmentNode.Title;
@@ -23,7 +25,9 @@
 	let options = data.assessmentNode.Options ?? [];
 	let childrenNodes = data.assessmentNode.Children ?? [];
 	let displayCode = data.assessmentNode.DisplayCode;
-	let resolutionScore = data.scoringCondition.ResolutionScore;
+	let resolutionScore = data.assessmentNode.ScoringCondition.ResolutionScore;
+	let scoringConditionId = data.assessmentNode.ScoringCondition.id;
+	console.log("templetenode =", data.assessmentNode);
 
 	scoringApplicableCondition.set(data.templateScoringCondition.ScoringApplicable);
 
@@ -36,10 +40,9 @@
 	const userId = $page.params.userId;
 	const templateId = $page.params.templateId;
 	const nodeId = $page.params.nodeId;
-	const scoreConditionId = $page.params.scoreConditionId;
 	const assessmentsRoutes = `/users/${userId}/assessment-templates`;
-	const editRoute = `/users/${userId}/assessment-templates/${templateId}/assessment-nodes/${nodeId}/${scoreConditionId}/edit`;
-	const viewRoute = `/users/${userId}/assessment-templates/${templateId}/assessment-nodes/${nodeId}/${scoreConditionId}/view`;
+	const editRoute = `/users/${userId}/assessment-templates/${templateId}/assessment-nodes/${nodeId}/edit`;
+	const viewRoute = `/users/${userId}/assessment-templates/${templateId}/assessment-nodes/${nodeId}/view`;
 	const assessmentNodeRoutes = `/users/${userId}/assessment-templates/${templateId}/assessment-nodes`;
 	const createNodeRoute = `/users/${userId}/assessment-templates/${templateId}/assessment-nodes/create`;
 	const editNodeRoute = (id) =>
@@ -59,7 +62,6 @@
 			path: viewRoute
 		}
 	];
-
 	const handleAssessmentNodeDelete = async (e, id) => {
 		const assessmentNodeId = id;
 		console.log('assessmentNodeId', assessmentNodeId);
@@ -81,11 +83,41 @@
 		});
 		console.log();
 	}
+
+	const onUpdateScoringCondition = async (resolutionScore: number) => {
+		await updateApiKey({
+			sessionId,
+			templateId,
+			nodeId,
+		  scoringConditionId,
+		  resolutionScore:resolutionScore ,			
+		});
+	};
+
+	async function updateApiKey(model) {
+		const response = await fetch(`/api/server/assessment-nodes/update-scoring-condition`, {
+			method: 'POST',
+			body: JSON.stringify(model),
+			headers: {
+				'content-type': 'application/json'
+			}
+		});
+		const resp = await response.text();
+		const scoringCondition = JSON.parse(resp);
+		resolutionScore = scoringCondition.ResolutionScore;
+		console.log(response);
+	}
 </script>
 
+<UpdateScoringCondition
+	on:updateScoringCondition={async (e) => {
+		await onUpdateScoringCondition(
+			e.detail.resolutionScore,
+		);
+	}}
+/>
 <main class="h-screen mb-10">
 	<BreadCrumbs crumbs={breadCrumbs} />
-
 	<div>
 		<form
 			method="get"
@@ -175,7 +207,17 @@
 							<span>Resolution Score</span>
 						</label>
 					</div>
-					<span class="span w-1/2 md:2/3 lg:2/3" id="description">{resolutionScore}</span>
+					<div class="flex  items-center gap-12 w-1/2 md:2/3 lg:2/3">
+						<span class="span " id="description">{resolutionScore}</span>
+						<button
+						class="btn variant-ringed-primary text-primary-500 btn-md"
+						on:click|capture={() => showScoringConditionModal.set(true)}
+					>
+						Update score
+					</button>
+					</div>
+				
+				
 				</div>
 				{/if}
 			{:else if nodeType === 'Message'}
