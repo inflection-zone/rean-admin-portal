@@ -6,6 +6,8 @@ import {
 	getAssessmentTemplateById,
 	updateAssessmentTemplate
 } from '../../../../../api/services/assessment-templates';
+import { zfd } from 'zod-form-data';
+import { z } from 'zod';
 
 /////////////////////////////////////////////////////////////////////////
 
@@ -31,39 +33,52 @@ export const load: PageServerLoad = async (event: RequestEvent) => {
 	}
 };
 
+const updateAssessmentTemplateSchema = zfd.formData({
+	title: z.string().min(3).max(256),
+	description: z.string().optional(),
+	type: z.string(),
+	provider: z.string().optional(),
+	providerAssessmentCode: z.string().optional(),
+	serveListNodeChildrenAtOnce: zfd.checkbox({ trueValue: 'true' }),
+	scoringApplicable: zfd.checkbox({ trueValue: 'true' })
+});
+
 export const actions = {
 	updateAssessmentAction: async (event: RequestEvent) => {
 		const request = event.request;
 		const userId = event.params.userId;
 		const assessmentTemplateId = event.params.templateId;
-
-		const data = await request.formData();
-
-		const title = data.has('title') ? data.get('title') : null;
-		const description = data.has('description') ? data.get('description') : null;
-		const type = data.has('type') ? data.get('type') : null;
-		const provider = data.has('provider') ? data.get('provider') : null;
-		const providerAssessmentCode = data.has('providerAssessmentCode')
-			? data.get('providerAssessmentCode')
-			: null;
-		const serveListNodeChildrenAtOnce = data.has('serveListNodeChildrenAtOnce')
-			? data.get('serveListNodeChildrenAtOnce')
-			: false;
-		const scoringApplicable = data.has('scoringApplicable')
-			? data.get('scoringApplicable')
-			: false;
 		const sessionId = event.cookies.get('sessionId');
-		console.log('data', data);
+
+		const formData = Object.fromEntries(await request.formData());
+
+		type AssessmentTemplateSchema = z.infer<typeof updateAssessmentTemplateSchema>;
+
+		let result: AssessmentTemplateSchema = {};
+
+		try {
+			result = updateAssessmentTemplateSchema.parse(formData);
+			console.log('result', result);
+		} catch (err: any) {
+			const { fieldErrors: errors } = err.flatten();
+			console.log(errors);
+			const { ...rest } = formData;
+			return {
+				data: rest,
+				errors
+			};
+		}
+		
 		const response = await updateAssessmentTemplate(
 			sessionId,
 			assessmentTemplateId,
-			title.valueOf() as string,
-			description.valueOf() as string,
-			type.valueOf() as string,
-			provider.valueOf() as string,
-			providerAssessmentCode.valueOf() as string,
-			serveListNodeChildrenAtOnce.valueOf() as string,
-			scoringApplicable.valueOf() as string,
+			result.title,
+			result.description,
+			result.type,
+			result.provider,
+			result.providerAssessmentCode,
+			result.serveListNodeChildrenAtOnce,
+			result.scoringApplicable,
 		);
 		const id = response.Data.AssessmentTemplate.id;
 

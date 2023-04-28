@@ -149,7 +149,7 @@
 							<span>Query Response Type</span>
 						</label>
 					</div>
-					<span class="span w-1/2 md:2/3 lg:2/3" id="queryType"> {queryType} </span>
+					<span class="span w-1/2 md:2/3 lg:2/3" id="queryType">{queryType}</span>
 				</div>
 
 				<div class="flex items-start mt-4 lg:mx-16 md:mx-12 mx-10">
@@ -160,7 +160,7 @@
 								<span>Options</span>
 							</label>
 						</div>
-						<ol class="span w-1/2 md:w-2/3 lg:w-2/3 list-decimal ml-3" id="modules">
+						<ol class="span w-1/2 md:w-2/3 lg:w-2/3 list-decimal ml-6" id="modules">
 							{#each options as option}
 								<li>{option.Text}</li>
 							{/each}

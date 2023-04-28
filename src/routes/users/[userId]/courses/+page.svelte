@@ -195,7 +195,7 @@
 	</a>
 </div>
 <div
-	class="flex justify-center rounded-lg w-full lg:-ml-2 flex-col mx-10 mt-4 mb-28 lg:gap-6 md:gap-4 gap-4 md:ml-4 md:flex-col sm:flex-col min-[280px]:flex-col"
+	class="flex justify-center rounded-lg w-full lg:ml-2 flex-col mx-10 mb-10 lg:gap-6 md:gap-4 gap-4 md:ml-4 md:flex-col sm:flex-col min-[280px]:flex-col"
 >
 	<CourseView
 		{courses}

@@ -16,7 +16,7 @@
 	let name = data.organization.Name;
 	let contactNumber = data.organization.ContactPhone;
 	let email = data.organization.ContactEmail;
-	let about = data.organization.About;
+	let about = data.organization.About ?? null;
 	let operationalSince = data.organization.OperationalSince;
 	let addressType = data.organization.Addresses[0].Type;
 	let addressLine = data.organization.Addresses[0].AddressLine;

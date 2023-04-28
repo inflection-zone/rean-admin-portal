@@ -17,18 +17,15 @@ export const actions = {
 		const userId = event.params.userId;
 		const sessionId = event.cookies.get('sessionId');
 		const data = await request.formData();
-
-		const type = data.has('type') ? data.get('type') : null;
+		const formData = Object.fromEntries(data);
 		const tags = data.has('tags') ? data.getAll('tags') : [];
-		const formData = {
-			type: type,
-			tags: tags
-		}
+		const formDataValue = {...formData, tags:tags}
 
 		type GoalTypeSchema = z.infer<typeof createGoalTypeSchema>;
     let result : GoalTypeSchema = {};
+		
 		try {
-			result = createGoalTypeSchema.parse(formData);
+			result = createGoalTypeSchema.parse(formDataValue);
 			console.log('result-----------', result);
 		} catch (err: any) {
 			const { fieldErrors: errors } = err.flatten();

@@ -4,6 +4,9 @@
 	import BreadCrumbs from '$lib/components/breadcrumbs/breadcrums.svelte';
 	import { page } from '$app/stores';
 
+	////////////////////////////////////////////////////////////////////////////////
+
+	export let form;
 	const userId = $page.params.userId;
 	const createRoute = `/users/${userId}/assessment-templates/create`;
 	const assessmentsRoutes = `/users/${userId}/assessment-templates`;
@@ -50,8 +53,14 @@
 					name="title"
 					required
 					placeholder="Enter title here..."
-					class="input w-full "
+					class="input w-full {form?.errors?.title
+						? 'border-error-300 text-error-500'
+						: 'border-primary-200 text-primary-500'}"
+					value={form?.data?.title ?? ''}
 				/>
+				{#if form?.errors?.title}
+					<p class="text-error-500 text-xs">{form?.errors?.title[0]}</p>
+				{/if}
 			</div>
 		</div>
 
@@ -65,9 +74,15 @@
 			<div class="w-1/2 md:w-2/3 lg:w-2/3">
 				<textarea
 					name="description"
-					class="textarea w-full"
 					placeholder="Enter description here..."
+					class="textarea w-full{form?.errors?.description
+						? 'border-error-300 text-error-500'
+						: 'border-primary-200 text-primary-500'}"
 				/>
+
+				{#if form?.errors?.description}
+					<p class="text-error-500 text-xs">{form?.errors?.description[0]}</p>
+				{/if}
 			</div>
 		</div>
 
@@ -98,7 +113,18 @@
 				</label>
 			</div>
 			<div class="w-1/2 md:w-2/3 lg:w-2/3">
-				<input type="text" name="provider" class="input w-full" placeholder="Enter provider here" />
+				<input
+					type="text"
+					name="provider"
+					placeholder="Enter provider here"
+					class="input w-full {form?.errors?.provider
+						? 'border-error-300 text-error-500'
+						: 'border-primary-200 text-primary-500'}"
+					value={form?.data?.provider ?? ''}
+				/>
+				{#if form?.errors?.provider}
+					<p class="text-error-500 text-xs">{form?.errors?.provider[0]}</p>
+				{/if}
 			</div>
 		</div>
 
@@ -113,9 +139,15 @@
 				<input
 					type="text"
 					name="providerAssessmentCode"
-					class="input w-full"
 					placeholder="Enter provider assessment code here..."
+					class="input w-full {form?.errors?.providerAssessmentCode
+						? 'border-error-300 text-error-500'
+						: 'border-primary-200 text-primary-500'}"
+					value={form?.data?.providerAssessmentCode ?? ''}
 				/>
+				{#if form?.errors?.providerAssessmentCode}
+					<p class="text-error-500 text-xs">{form?.errors?.providerAssessmentCode[0]}</p>
+				{/if}
 			</div>
 		</div>
 		<div class="flex items-center my-4 mx-16">
@@ -133,6 +165,9 @@
 						value="true"
 						class="checkbox checkbox-primary border-primary-200 hover:border-primary-400 checkbox-md ml-2"
 					/>
+					{#if form?.errors?.serveListNodeChildrenAtOnce}
+						<p class="text-error-500 text-xs">{form?.errors?.serveListNodeChildrenAtOnce[0]}</p>
+					{/if}
 				</label>
 			</div>
 		</div>
@@ -152,6 +187,9 @@
 						value="true"
 						class="checkbox checkbox-primary border-primary-200 hover:border-primary-400 checkbox-md ml-2"
 					/>
+					{#if form?.errors?.scoringApplicable}
+						<p class="text-error-500 text-xs">{form?.errors?.scoringApplicable[0]}</p>
+					{/if}
 				</label>
 			</div>
 		</div>
