@@ -79,7 +79,6 @@ export const updateOrganization = async (
 		ImageResourceId: imageResourceId ? imageResourceId : null,
 		IsHealthFacility: isHealthFacility ? isHealthFacility : false,
 	};
-	console.log("body---",body)
 	const url = BACKEND_API_URL + `/organizations/${organizationId}`;
 	return await put_(sessionId, url, body, true);
 };
