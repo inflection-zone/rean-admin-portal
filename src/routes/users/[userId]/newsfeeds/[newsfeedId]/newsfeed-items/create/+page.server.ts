@@ -1,38 +1,58 @@
 import { redirect } from 'sveltekit-flash-message/server';
+import { zfd } from 'zod-form-data';
+import { z } from 'zod';
 import { errorMessage, successMessage } from '$lib/utils/message.utils';
 import { createNewsfeedItem } from '../../../../../../api/services/newsfeed-items';
 import type { RequestEvent } from './$types';
 
 /////////////////////////////////////////////////////////////////////////
 
+const createNewsfeedItemSchema = zfd.formData({
+	title: z.string().max(256),
+	description: z.string().optional(),
+	link: z.string().optional(),
+	content: z.string(),
+	authorName: z.string().optional(),
+	authorEmail: z.string().optional(),
+	authorLink: z.string().optional(),
+	image: z.string().optional()
+});
+
 export const actions = {
 	createNewsfeedItemAction: async (event: RequestEvent) => {
 		const request = event.request;
 		const userId = event.params.userId;
 		const newsfeedId = event.params.newsfeedId;
-		const data = await request.formData();
-
-		const title = data.has('title') ? data.get('title') : null;
-		const content = data.has('content') ? data.get('content') : null;
-		const description = data.has('description') ? data.get('description') : null;
-		const link = data.has('link') ? data.get('link') : null;
-		const image = data.has('image') ? data.get('image') : null;
-		const authorName = data.has('authorName') ? data.get('authorName') : null;
-		const authorEmail = data.has('authorEmail') ? data.get('authorEmail') : null;
-		const authorLink = data.has('authorLink') ? data.get('authorLink') : null;
 		const sessionId = event.cookies.get('sessionId');
+		const formData = Object.fromEntries(await request.formData());
+
+		type NewsfeedsItemSchema = z.infer<typeof createNewsfeedItemSchema>;
+
+		let result: NewsfeedsItemSchema = {};
+		try {
+			result = createNewsfeedItemSchema.parse(formData);
+			console.log('result', result);
+		} catch (err: any) {
+			const { fieldErrors: errors } = err.flatten();
+			console.log(errors);
+			const { ...rest } = formData;
+			return {
+				data: rest,
+				errors
+			};
+		}
 
 		const response = await createNewsfeedItem(
 			sessionId,
 			newsfeedId,
-			title.valueOf() as string,
-			content.valueOf() as string,
-			description.valueOf() as string,
-			link.valueOf() as string,
-			image.valueOf() as string,
-			authorName.valueOf() as string,
-			authorEmail.valueOf() as string,
-			authorLink.valueOf() as string
+			result.title,
+			result.description,
+			result.link,
+			result.content,
+			result.authorName,
+			result.authorEmail,
+			result.authorLink,
+			result.image
 		);
 		const newsfeedItemId = response.Data.RssfeedItem.id;
 
