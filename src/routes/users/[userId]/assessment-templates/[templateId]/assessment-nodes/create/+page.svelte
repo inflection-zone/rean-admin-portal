@@ -10,12 +10,12 @@
 
 	/////////////////////////////////////////////////////////////////////////////////////
 
+	export let form;
 	export let data: PageServerData;
 
 	const queryResponseTypes = data.queryResponseTypes;
 	const assessmentNodes = data.assessmentNodes;
-	const scoreCondition = $scoringApplicableCondition;
-	
+
 	let selectedNodeType = 'Question';
 	let selectedQueryType = '';
 
@@ -47,7 +47,6 @@
 			path: createRoute
 		}
 	];
-
 </script>
 
 <BreadCrumbs crumbs={breadCrumbs} />
@@ -118,7 +117,18 @@
 				</label>
 			</div>
 			<div class="w-1/2 md:w-2/3 lg:w-2/3">
-				<input type="text" name="title" class="input w-full" placeholder="Enter title here..." />
+				<input
+					type="text"
+					name="title"
+					placeholder="Enter title here..."
+					class="input w-full {form?.errors?.title
+						? 'border-error-300 text-error-500'
+						: 'border-primary-200 text-primary-500'}"
+					value={form?.data?.title ?? ''}
+				/>
+				{#if form?.errors?.title}
+					<p class="text-error-500 text-xs">{form?.errors?.title[0]}</p>
+				{/if}
 			</div>
 		</div>
 
@@ -132,9 +142,15 @@
 			<div class="w-1/2 md:w-2/3 lg:w-2/3">
 				<textarea
 					name="description"
-					class="textarea w-full"
 					placeholder="Enter description here..."
+					class="textarea w-full
+					{form?.errors?.description
+						? 'border-error-300 text-error-500'
+						: 'border-primary-200 text-primary-500'}"
 				/>
+				{#if form?.errors?.description}
+					<p class="text-error-500 text-xs">{form?.errors?.description[0]}</p>
+				{/if}
 			</div>
 		</div>
 
@@ -175,9 +191,15 @@
 								<input
 									type="number"
 									name="resolutionScore"
-									class="input w-full"
 									placeholder="Enter resolution score here..."
+									class="input w-full {form?.errors?.resolutionScore
+										? 'border-error-300 text-error-500'
+										: 'border-primary-200 text-primary-500'}"
+									value={form?.data?.resolutionScore ?? ''}
 								/>
+								{#if form?.errors?.resolutionScore}
+									<p class="text-error-500 text-xs">{form?.errors?.resolutionScore[0]}</p>
+								{/if}
 							</div>
 						</div>
 					{:else if selectedQueryType === 'Multi Choice Selection'}
@@ -193,9 +215,15 @@
 								<input
 									type="number"
 									name="resolutionScore"
-									class="input w-full"
 									placeholder="Enter resolution score here..."
+									class="input w-full {form?.errors?.resolutionScore
+										? 'border-error-300 text-error-500'
+										: 'border-primary-200 text-primary-500'}"
+									value={form?.data?.resolutionScore ?? ''}
 								/>
+								{#if form?.errors?.resolutionScore}
+									<p class="text-error-500 text-xs">{form?.errors?.resolutionScore[0]}</p>
+								{/if}
 							</div>
 						</div>
 					{:else if selectedQueryType === 'Boolean'}
@@ -210,20 +238,26 @@
 								<input
 									type="number"
 									name="resolutionScore"
-									class="input w-full"
 									placeholder="Enter resolution score here..."
+									class="input w-full {form?.errors?.resolutionScore
+										? 'border-error-300 text-error-500'
+										: 'border-primary-200 text-primary-500'}"
+									value={form?.data?.resolutionScore ?? ''}
 								/>
+								{#if form?.errors?.resolutionScore}
+									<p class="text-error-500 text-xs">{form?.errors?.resolutionScore[0]}</p>
+								{/if}
 							</div>
 						</div>
 					{/if}
 					<input
-									type="boolean"
-									name="scoringApplicable"
-									class="input w-full"
-									placeholder=""
-									hidden
-									value={$scoringApplicableCondition}
-								/>
+						type="boolean"
+						name="scoringApplicable"
+						class="input w-full"
+						placeholder=""
+						hidden
+						value={$scoringApplicableCondition}
+					/>
 				{:else if selectedQueryType === 'Single Choice Selection'}
 					<SingleChoice />
 				{:else if selectedQueryType === 'Multi Choice Selection'}
@@ -231,7 +265,6 @@
 				{/if}
 			</div>
 		{:else if selectedNodeType === 'Message'}
-			
 			<div class="flex items-start mb-4 mt-2 mx-16">
 				<div class="w-1/2 md:w-1/3 lg:w-1/3">
 					<!-- svelte-ignore a11y-label-has-associated-control -->
@@ -243,13 +276,16 @@
 					<textarea
 						name="message"
 						required
-						class="textarea w-full"
 						placeholder="Enter message here..."
+						class="textarea w-full
+						{form?.errors?.message ? 'border-error-300 text-error-500' : 'border-primary-200 text-primary-500'}"
 					/>
+					{#if form?.errors?.message}
+						<p class="text-error-500 text-xs">{form?.errors?.message[0]}</p>
+					{/if}
 				</div>
 			</div>
 		{:else}
-			
 			<div class="flex items-center mb-4 lg:mx-16 md:mx-12 mx-10">
 				<div class="w-1/2 md:w-1/3 lg:w-1/3">
 					<!-- svelte-ignore a11y-label-has-associated-control -->

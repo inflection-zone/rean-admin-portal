@@ -10,6 +10,8 @@ import {
 	updateAssessmentNode,
 	updateScoringCondition
 } from '../../../../../../../../api/services/assessment-nodes';
+import { zfd } from 'zod-form-data';
+import { z } from 'zod';
 
 /////////////////////////////////////////////////////////////////////////
 
@@ -49,6 +51,19 @@ export const load: PageServerLoad = async (event: RequestEvent) => {
 	}
 };
 
+const updateAssessmentNodeSchema = zfd.formData({
+	nodeType: z.string(),
+	title: z.string().min(8).max(256),
+	description: z.string().optional(),
+	queryType: z.string().optional(),
+	resolutionScore:zfd.numeric(z.number().default(1)),
+	providerAssessmentCode: z.string().optional(),
+	message: z.string().optional(),
+	serveListNodeChildrenAtOnce: zfd.checkbox({ trueValue: 'true' }),
+	scoringApplicable: zfd.checkbox({ trueValue: 'true' }),
+	options: z.array(z.string()),
+});
+
 export const actions = {
 	updateAssessmentNodeAction: async (event: RequestEvent) => {
 		const request = event.request;
@@ -56,28 +71,38 @@ export const actions = {
 		const templateId = event.params.templateId;
 		const assessmentNodeId = event.params.nodeId;
 		const scoreConditionId = event.params.scoreConditionId;
-		const data = await request.formData();
-
-		const nodeType = data.has('nodeType') ? data.get('nodeType') : null;
-		const title = data.has('title') ? data.get('title') : null;
-		const description = data.has('description') ? data.get('description') : null;
-		const queryType = data.has('queryType') ? data.get('queryType') : null;
-		const options = data.has('options') ? data.getAll('options') : [];
-		const message = data.has('message') ? data.get('message') : null;
-		const resolutionScore = data.has('resolutionScore') ? data.get('resolutionScore') : 1;
 		const sessionId = event.cookies.get('sessionId');
+		const data = await request.formData();
+		const options = data.has('options') ? data.getAll('options') : [];
+		const formData = Object.fromEntries(data);
+		const formDataValue = {...formData, options:options};
 
-		console.log('data', data);
+		type AssessmentNodeSchema = z.infer<typeof updateAssessmentNodeSchema>;
+
+		let result: AssessmentNodeSchema = {};
+		try {
+			result = updateAssessmentNodeSchema.parse(formDataValue);
+			console.log('result', result);
+		} catch (err: any) {
+			const { fieldErrors: errors } = err.flatten();
+			console.log(errors);
+			const { ...rest } = formData;
+			return {
+				data: rest,
+				errors
+			};
+		}
+
 		const response = await updateAssessmentNode(
 			sessionId,
 			templateId,
 			assessmentNodeId,
-			nodeType.valueOf() as string,
-			title.valueOf() as string,
-			description?.valueOf() as string,
-			queryType?.valueOf() as string,
-			options?.valueOf() as string[],
-			message?.valueOf() as string
+			result.nodeType,
+		  result.title,
+			result.description,
+			result.queryType,
+			result.options,
+			result.message,
 		);
 		const nodeId = response.Data.AssessmentNode.id;
 
@@ -88,7 +113,7 @@ export const actions = {
 			templateId,
 			nodeId,
 			scoreConditionId,
-			resolutionScore?.valueOf() as number,
+			result.resolutionScore,
 		);
 
 		const scoringConditionId = scoringCondition.Data.ScoringCondition.id;
