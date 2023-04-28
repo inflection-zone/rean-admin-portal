@@ -8,6 +8,7 @@
 	import { showMessage } from '$lib/utils/message.utils';
 	import type { PageServerData } from './$types';
 
+	export let form;
 	export let data: PageServerData;
 	let initiaData = {};
 	let id = data.newsfeedItem.id;
@@ -138,8 +139,13 @@
 						name="title"
 						bind:value={title}
 						placeholder="Enter title here..."
-						class="input w-full "
+						class="input w-full {form?.errors?.title
+							? 'border-error-300 text-error-500'
+							: 'border-primary-200 text-primary-500'}"
 					/>
+					{#if form?.errors?.title}
+						<p class="text-error-500 text-xs">{form?.errors?.title[0]}</p>
+					{/if}
 				</div>
 			</div>
 
@@ -154,9 +160,14 @@
 					<textarea
 						name="description"
 						bind:value={description}
-						class="textarea w-full"
 						placeholder="Enter description here..."
+						class="textarea w-full {form?.errors?.description
+							? 'border-error-300 text-error-500'
+							: 'border-primary-200 text-primary-500'}"
 					/>
+					{#if form?.errors?.description}
+						<p class="text-error-500 text-xs">{form?.errors?.description[0]}</p>
+					{/if}
 				</div>
 			</div>
 
@@ -173,8 +184,13 @@
 						bind:value={link}
 						name="link"
 						placeholder="Enter link here..."
-						class="input w-full "
+						class="input w-full {form?.errors?.link
+							? 'border-error-300 text-error-500'
+							: 'border-primary-200 text-primary-500'}"
 					/>
+					{#if form?.errors?.link}
+						<p class="text-error-500 text-xs">{form?.errors?.link[0]}</p>
+					{/if}
 				</div>
 			</div>
 
@@ -192,8 +208,13 @@
 						name="content"
 						required
 						placeholder="Enter content here..."
-						class="input w-full "
+						class="input w-full {form?.errors?.content
+							? 'border-error-300 text-error-500'
+							: 'border-primary-200 text-primary-500'}"
 					/>
+					{#if form?.errors?.content}
+						<p class="text-error-500 text-xs">{form?.errors?.ticontenttle[0]}</p>
+					{/if}
 				</div>
 			</div>
 
@@ -210,8 +231,13 @@
 						name="authorName"
 						bind:value={authorName}
 						placeholder="Enter author name here..."
-						class="input w-full "
+						class="input w-full {form?.errors?.authorName
+							? 'border-error-300 text-error-500'
+							: 'border-primary-200 text-primary-500'}"
 					/>
+					{#if form?.errors?.authorName}
+						<p class="text-error-500 text-xs">{form?.errors?.authorName[0]}</p>
+					{/if}
 				</div>
 			</div>
 
@@ -228,8 +254,13 @@
 						name="authorEmail"
 						bind:value={authorEmail}
 						placeholder="Enter author email here..."
-						class="input w-full "
+						class="input w-full {form?.errors?.authorEmail
+							? 'border-error-300 text-error-500'
+							: 'border-primary-200 text-primary-500'}"
 					/>
+					{#if form?.errors?.authorEmail}
+						<p class="text-error-500 text-xs">{form?.errors?.authorEmail[0]}</p>
+					{/if}
 				</div>
 			</div>
 
@@ -246,8 +277,13 @@
 						name="authorLink"
 						bind:value={authorLink}
 						placeholder="Enter author link here..."
-						class="input w-full "
+						class="input w-full {form?.errors?.authorLink
+							? 'border-error-300 text-error-500'
+							: 'border-primary-200 text-primary-500'}"
 					/>
+					{#if form?.errors?.authorLink}
+						<p class="text-error-500 text-xs">{form?.errors?.authorLink[0]}</p>
+					{/if}
 				</div>
 			</div>
 
@@ -290,6 +326,9 @@
 						/>
 					{/if}
 					<input type="hidden" name="image" value={image} />
+					{#if form?.errors?.image}
+						<p class="text-error-500 text-xs">{form?.errors?.image[0]}</p>
+					{/if}
 				</div>
 			</div>
 
@@ -299,7 +338,7 @@
 					<button
 						type="button"
 						on:click={handleReset}
-						class="btn variant-ringed-primary lg:w-40 lg:ml-8 md:ml-6 sm:ml-1 mb-10"
+						class="btn variant-ringed-primary text-primary-500 lg:w-40 lg:ml-8 md:ml-6 sm:ml-1 mb-10"
 					>
 						Reset</button
 					>

@@ -5,6 +5,7 @@
 	import { page } from '$app/stores';
 	import { showMessage } from '$lib/utils/message.utils';
 
+	export let form;
 	const userId = $page.params.userId;
 	const newsfeedId = $page.params.newsfeedId;
 	let image = undefined;
@@ -107,8 +108,14 @@
 						name="title"
 						required
 						placeholder="Enter title here..."
-						class="input w-full "
+						class="input w-full {form?.errors?.title
+							? 'border-error-300 text-error-500'
+							: 'border-primary-200 text-primary-500'}"
+						value={form?.data?.title ?? ''}
 					/>
+					{#if form?.errors?.title}
+						<p class="text-error-500 text-xs">{form?.errors?.title[0]}</p>
+					{/if}
 				</div>
 			</div>
 
@@ -122,9 +129,14 @@
 				<div class="w-1/2 md:w-2/3 lg:w-2/3">
 					<textarea
 						name="description"
-						class="textarea w-full"
 						placeholder="Enter description here..."
+						class="textarea w-full {form?.errors?.description
+							? 'border-error-300 text-error-500'
+							: 'border-primary-200 text-primary-500'}"
 					/>
+					{#if form?.errors?.description}
+						<p class="text-error-500 text-xs">{form?.errors?.description[0]}</p>
+					{/if}
 				</div>
 			</div>
 
@@ -136,7 +148,18 @@
 					</label>
 				</div>
 				<div class="w-1/2 md:w-2/3 lg:w-2/3">
-					<input type="url" name="link" placeholder="Enter link here..." class="input w-full " />
+					<input
+						type="url"
+						name="link"
+						placeholder="Enter link here..."
+						class="input w-full {form?.errors?.link
+							? 'border-error-300 text-error-500'
+							: 'border-primary-200 text-primary-500'}"
+						value={form?.data?.link ?? ''}
+					/>
+					{#if form?.errors?.link}
+						<p class="text-error-500 text-xs">{form?.errors?.link[0]}</p>
+					{/if}
 				</div>
 			</div>
 
@@ -153,8 +176,14 @@
 						name="content"
 						required
 						placeholder="Enter content here..."
-						class="input w-full "
+						class="input w-full {form?.errors?.content
+							? 'border-error-300 text-error-500'
+							: 'border-primary-200 text-primary-500'}"
+						value={form?.data?.content ?? ''}
 					/>
+					{#if form?.errors?.content}
+						<p class="text-error-500 text-xs">{form?.errors?.content[0]}</p>
+					{/if}
 				</div>
 			</div>
 
@@ -170,8 +199,14 @@
 						type="text"
 						name="authorName"
 						placeholder="Enter author name here..."
-						class="input w-full "
+						class="input w-full {form?.errors?.authorName
+							? 'border-error-300 text-error-500'
+							: 'border-primary-200 text-primary-500'}"
+						value={form?.data?.authorName ?? ''}
 					/>
+					{#if form?.errors?.authorName}
+						<p class="text-error-500 text-xs">{form?.errors?.authorName[0]}</p>
+					{/if}
 				</div>
 			</div>
 
@@ -187,8 +222,14 @@
 						type="text"
 						name="authorEmail"
 						placeholder="Enter author email here..."
-						class="input w-full "
+						class="input w-full {form?.errors?.authorEmail
+							? 'border-error-300 text-error-500'
+							: 'border-primary-200 text-primary-500'}"
+						value={form?.data?.authorEmail ?? ''}
 					/>
+					{#if form?.errors?.authorEmail}
+						<p class="text-error-500 text-xs">{form?.errors?.authorEmail[0]}</p>
+					{/if}
 				</div>
 			</div>
 
@@ -204,8 +245,14 @@
 						type="url"
 						name="authorLink"
 						placeholder="Enter author link here..."
-						class="input w-full "
+						class="input w-full {form?.errors?.authorLink
+							? 'border-error-300 text-error-500'
+							: 'border-primary-200 text-primary-500'}"
+						value={form?.data?.authorLink ?? ''}
 					/>
+					{#if form?.errors?.authorLink}
+						<p class="text-error-500 text-xs">{form?.errors?.authorLink[0]}</p>
+					{/if}
 				</div>
 			</div>
 
@@ -227,6 +274,9 @@
 						on:change={async (e) => await onFileSelected(e)}
 					/>
 					<input type="hidden" name="image" value={image} />
+					{#if form?.errors?.image}
+						<p class="text-error-500 text-xs">{form?.errors?.image[0]}</p>
+					{/if}
 				</div>
 			</div>
 
