@@ -23,7 +23,6 @@
 	let contactNumber = data.organization.ContactPhone;
 	let email = data.organization.ContactEmail;
 	let about = data.organization.About;
-	// let operationalSinc = data.organization.OperationalSince;
 	let addressType = data.organization.Addresses[0].Type;
 	let addressLine = data.organization.Addresses[0].AddressLine;
 	let city = data.organization.Addresses[0].City;
