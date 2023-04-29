@@ -1,13 +1,13 @@
 import { error, type RequestEvent } from '@sveltejs/kit';
 import { redirect } from 'sveltekit-flash-message/server';
+import { zfd } from 'zod-form-data';
+import { z } from 'zod';
 import { errorMessage, successMessage } from '$lib/utils/message.utils';
 import type { PageServerLoad } from './$types';
 import {
 	getAssessmentTemplateById,
 	updateAssessmentTemplate
 } from '../../../../../api/services/assessment-templates';
-import { zfd } from 'zod-form-data';
-import { z } from 'zod';
 
 /////////////////////////////////////////////////////////////////////////
 
@@ -68,7 +68,7 @@ export const actions = {
 				errors
 			};
 		}
-		
+
 		const response = await updateAssessmentTemplate(
 			sessionId,
 			assessmentTemplateId,
@@ -78,12 +78,17 @@ export const actions = {
 			result.provider,
 			result.providerAssessmentCode,
 			result.serveListNodeChildrenAtOnce,
-			result.scoringApplicable,
+			result.scoringApplicable
 		);
 		const id = response.Data.AssessmentTemplate.id;
 
 		if (response.Status === 'failure' || response.HttpCode !== 200) {
-			throw redirect(303, `/users/${userId}/assessment-templates`, errorMessage(response.Message), event);
+			throw redirect(
+				303,
+				`/users/${userId}/assessment-templates`,
+				errorMessage(response.Message),
+				event
+			);
 		}
 		throw redirect(
 			303,

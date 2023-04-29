@@ -1,7 +1,7 @@
 import { error, type RequestEvent } from '@sveltejs/kit';
+import type { PageServerLoad } from './$types';
 import { searchAssessmentNodes } from '../../../../../api/services/assessment-nodes';
 import { getAssessmentTemplateById } from '../../../../../api/services/assessment-templates';
-import type { PageServerLoad } from './$types';
 
 ////////////////////////////////////////////////////////////////////////////
 
@@ -21,7 +21,9 @@ export const load: PageServerLoad = async (event: RequestEvent) => {
 		}
 		const assessmentTemplate = response.Data.AssessmentTemplate;
 		const assessmentNodes = _assessmentNodes.Data.AssessmentNodeRecords.Items;
-		const assessmentNodesWithoutRootNode = assessmentNodes.filter((assessmentnode) => assessmentnode.Title != 'Assessment root node');
+		const assessmentNodesWithoutRootNode = assessmentNodes.filter(
+			(assessmentnode) => assessmentnode.Title != 'Assessment root node'
+		);
 
 		const id = response.Data.AssessmentTemplate.id;
 		return {

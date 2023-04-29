@@ -24,7 +24,6 @@
 			path: createRoute
 		}
 	];
-
 </script>
 
 <main class="h-screen mb-52">
@@ -62,15 +61,14 @@
 						name="type"
 						required
 						placeholder="Enter type here..."
-						class="input w-full {form
-							?.errors?.type
+						class="input w-full {form?.errors?.type
 							? 'border-error-300 text-error-500'
 							: 'border-primary-200 text-primary-500'}"
-							value={form?.data?.type ?? ""}
+						value={form?.data?.type ?? ''}
 					/>
 					{#if form?.errors?.type}
-					<p class="text-error-500 text-xs">{form?.errors?.type[0]}</p>
-				  {/if}
+						<p class="text-error-500 text-xs">{form?.errors?.type[0]}</p>
+					{/if}
 				</div>
 			</div>
 
@@ -88,12 +86,10 @@
 						placeholder={tagsPlaceholder}
 					/>
 					{#if form?.errors?.tags}
-					<p class="text-error-500 text-xs">{form?.errors?.tags[0]}</p>
-				  {/if}
-					
+						<p class="text-error-500 text-xs">{form?.errors?.tags[0]}</p>
+					{/if}
 				</div>
 			</div>
-
 
 			<div class="flex items-center mt-7 lg:mx-16 md:mx-12 mr-10">
 				<div class="w-3/4" />

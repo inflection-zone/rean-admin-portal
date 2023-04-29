@@ -1,7 +1,7 @@
 import { error, type RequestEvent } from '@sveltejs/kit';
-import type { PageServerLoad } from './$types';
-import { getAssessmentNodeById} from '../../../../../../../api/services/assessment-nodes';
 import { getAssessmentTemplateById } from '$routes/api/services/assessment-templates';
+import type { PageServerLoad } from './$types';
+import { getAssessmentNodeById } from '../../../../../../../api/services/assessment-nodes';
 
 ////////////////////////////////////////////////////////////////////////////
 
@@ -12,7 +12,7 @@ export const load: PageServerLoad = async (event: RequestEvent) => {
 		const assessmentNodeId = event.params.nodeId;
 		const templateId = event.params.templateId;
 		const response = await getAssessmentNodeById(sessionId, templateId, assessmentNodeId);
-		const _templateScoringCondition = await getAssessmentTemplateById(sessionId, templateId) 
+		const _templateScoringCondition = await getAssessmentTemplateById(sessionId, templateId);
 		const templateScoringCondition = _templateScoringCondition.Data.AssessmentTemplate;
 
 		if (response.Status === 'failure' || response.HttpCode !== 200) {

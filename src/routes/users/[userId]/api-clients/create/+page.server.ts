@@ -1,11 +1,11 @@
 import { redirect } from 'sveltekit-flash-message/server';
+import { z } from 'zod';
 import { errorMessage, successMessage } from '$lib/utils/message.utils';
 import { createApiClient } from '../../../../api/services/api-clients';
-import { z } from 'zod';
 
 /////////////////////////////////////////////////////////////////////////
 
-const createApiClientSchema =  z.object({
+const createApiClientSchema = z.object({
 	clientName: z.string().min(3).max(64),
 	phone: z.string().min(10).max(64),
 	email: z.string().email().min(10).max(64),
@@ -18,11 +18,13 @@ export const actions = {
 		const sessionId = event.cookies.get('sessionId');
 		const userId = event.params.userId;
 		const formData = Object.fromEntries(await request.formData());
+
 		type ApiClientSchema = z.infer<typeof createApiClientSchema>;
-    let result : ApiClientSchema = {};
+
+		let result: ApiClientSchema = {};
 		try {
 			result = createApiClientSchema.parse(formData);
-			console.log('result-----------', result);
+			console.log('result', result);
 		} catch (err: any) {
 			const { fieldErrors: errors } = err.flatten();
 			console.log(errors);
@@ -33,7 +35,7 @@ export const actions = {
 			};
 		}
 		const countryCode = '+91';
-		const phone = countryCode + '-'+ result.phone;
+		const phone = countryCode + '-' + result.phone;
 		const response = await createApiClient(
 			sessionId,
 			result.clientName,

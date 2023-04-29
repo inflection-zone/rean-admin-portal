@@ -1,10 +1,10 @@
 import { error, type RequestEvent } from '@sveltejs/kit';
 import { redirect } from 'sveltekit-flash-message/server';
+import { zfd } from 'zod-form-data';
+import { z } from 'zod';
 import { errorMessage, successMessage } from '$lib/utils/message.utils';
 import type { PageServerLoad } from './$types';
 import { getNoticeById, updateNotice } from '../../../../../api/services/notices';
-import { zfd } from 'zod-form-data';
-import { z } from 'zod';
 
 /////////////////////////////////////////////////////////////////////////
 
@@ -44,8 +44,8 @@ export const actions = {
 	updateNoticeAction: async (event: RequestEvent) => {
 		const request = event.request;
 		const userId = event.params.userId;
-		const sessionId = event.cookies.get('sessionId');
 		const linkageId = event.params.id;
+		const sessionId = event.cookies.get('sessionId');
 		const data = await request.formData();
 		const formData = Object.fromEntries(data);
 

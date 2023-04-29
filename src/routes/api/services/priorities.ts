@@ -3,14 +3,10 @@ import { delete_, get_, post_, put_ } from './common';
 
 ////////////////////////////////////////////////////////////////
 
-export const createPriority = async (
-	sessionId: string,
-	type: string,
-	tags: string[]
-) => {
+export const createPriority = async (sessionId: string, type: string, tags: string[]) => {
 	const body = {
 		Type: type,
-		Tags: tags ? tags : null,
+		Tags: tags ? tags : null
 	};
 	const url = BACKEND_API_URL + '/types/priorities';
 	return await post_(sessionId, url, body, true);
@@ -49,7 +45,7 @@ export const updatePriority = async (
 ) => {
 	const body = {
 		Type: type,
-		Tags: tags ? tags : null,
+		Tags: tags ? tags : null
 	};
 	const url = BACKEND_API_URL + `/types/priorities/${priorityId}`;
 	return await put_(sessionId, url, body, true);

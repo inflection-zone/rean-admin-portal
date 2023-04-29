@@ -41,19 +41,11 @@
 	let itemsPerPage = 10;
 	let pageIndex = 0;
 
-	const dataTableStore = createDataTableStore(
-		// Pass your source data here:
-		knowledgeNuggets,
-		{
-			// The current search term.
-			search: '',
-			// The current sort key.
-			sort: '',
-			// Paginator component settings.
-			pagination: { offset: 0, limit: 10, size: 0, amounts: [10, 20, 30, 50] }
-		}
-	);
-	// This automatically handles search, sort, etc when the model updates.
+	const dataTableStore = createDataTableStore(knowledgeNuggets, {
+		search: '',
+		sort: '',
+		pagination: { offset: 0, limit: 10, size: 0, amounts: [10, 20, 30, 50] }
+	});
 
 	const searchParams = async (topicName: string, tags: string) => {
 		await searchKnowledgeNugget({
@@ -206,7 +198,7 @@
 	<div class=" overflow-y-auto h-[600px] bg-tertiary-500">
 		<table class="table w-full">
 			<tbody class="">
-				{#each $dataTableStore.filtered as row, rowIndex}
+				{#each $dataTableStore.filtered as row}
 					<tr>
 						<td role="gridcell" aria-colindex={1} tabindex="0" style="width: 5%;">{row.index}</td>
 						<td role="gridcell" aria-colindex={2} tabindex="0" style="width: 21%;"

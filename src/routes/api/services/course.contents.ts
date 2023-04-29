@@ -22,7 +22,7 @@ export const createCourseContent = async (
 		Sequence: sequence ? sequence : null,
 		ImageUrl: imageUrl ? imageUrl : null,
 		ContentType: contentType ? contentType : null,
-		ResourceLink: resourceLink,
+		ResourceLink: resourceLink
 	};
 	const url = BACKEND_API_URL + '/educational/course-contents';
 	return await post_(sessionId, url, body, true);
@@ -73,7 +73,7 @@ export const updateCourseContent = async (
 		Sequence: sequence ? sequence : null,
 		ImageUrl: imageUrl ? imageUrl : null,
 		ContentType: contentType ? contentType : null,
-		ResourceLink: resourceLink,
+		ResourceLink: resourceLink
 	};
 	const url = BACKEND_API_URL + `/educational/course-contents/${contentId}`;
 	return await put_(sessionId, url, body, true);

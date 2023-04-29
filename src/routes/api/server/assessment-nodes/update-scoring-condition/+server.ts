@@ -7,7 +7,13 @@ export const POST = async (event: RequestEvent) => {
 	const request = event.request;
 	const data = await request.json();
 	try {
-		const response = await updateScoringCondition(data.sessionId ,data.templateId, data.nodeId, data.scoringConditionId, data.resolutionScore);
+		const response = await updateScoringCondition(
+			data.sessionId,
+			data.templateId,
+			data.nodeId,
+			data.scoringConditionId,
+			data.resolutionScore
+		);
 		const scoringCondition = response.Data.ScoringCondition;
 		return new Response(JSON.stringify(scoringCondition));
 	} catch (err) {
@@ -15,4 +21,3 @@ export const POST = async (event: RequestEvent) => {
 		return new Response(err.message);
 	}
 };
-

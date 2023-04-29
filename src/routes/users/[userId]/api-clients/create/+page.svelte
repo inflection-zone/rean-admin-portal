@@ -5,7 +5,7 @@
 	import { page } from '$app/stores';
 
 	/////////////////////////////////////////////////////////////////////////////////////////////////////////////
-  
+
 	export let form;
 	const userId = $page.params.userId;
 	const createRoute = `/users/${userId}/api-clients/create`;
@@ -44,7 +44,7 @@
 					</a>
 				</div>
 			</div>
-			<!-- <div class="hidden">{id}</div> -->
+
 			<div class="flex items-center mb-4 mt-10 lg:mx-16 md:mx-12 mx-10">
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
 					<!-- svelte-ignore a11y-label-has-associated-control -->
@@ -58,15 +58,14 @@
 						name="clientName"
 						required
 						placeholder="Enter client name here..."
-						class="input w-full {form
-							?.errors?.clientName
+						class="input w-full {form?.errors?.clientName
 							? 'border-error-300 text-error-500'
 							: 'border-primary-200 text-primary-500'}"
-							value={form?.data?.clientName ?? ""}
+						value={form?.data?.clientName ?? ''}
 					/>
 					{#if form?.errors?.clientName}
-					<p class="text-error-500 text-xs">{form?.errors?.clientName[0]}</p>
-				  {/if}
+						<p class="text-error-500 text-xs">{form?.errors?.clientName[0]}</p>
+					{/if}
 				</div>
 			</div>
 
@@ -83,15 +82,14 @@
 						required
 						name="password"
 						placeholder="Enter password here..."
-						class="input w-full {form
-							?.errors?.password
+						class="input w-full {form?.errors?.password
 							? 'border-error-300'
 							: 'border-primary-200'}"
-						value={form?.data?.password ?? ""}
+						value={form?.data?.password ?? ''}
 					/>
-					 {#if form?.errors?.password}
-              <p class="text-error-500 text-xs">{form?.errors?.password[0]}</p>
-            {/if}
+					{#if form?.errors?.password}
+						<p class="text-error-500 text-xs">{form?.errors?.password[0]}</p>
+					{/if}
 				</div>
 			</div>
 
@@ -108,15 +106,12 @@
 						required
 						name="phone"
 						placeholder="Enter phone here..."
-						value={form?.data?.phone ?? ""}
-						class="input w-full {form
-							?.errors?.phone
-							? 'border-error-300'
-							: 'border-primary-200'}"
+						value={form?.data?.phone ?? ''}
+						class="input w-full {form?.errors?.phone ? 'border-error-300' : 'border-primary-200'}"
 					/>
 					{#if form?.errors?.phone}
-					<p class="text-error-500 text-xs">{form?.errors?.phone[0]}</p>
-				 {/if}
+						<p class="text-error-500 text-xs">{form?.errors?.phone[0]}</p>
+					{/if}
 				</div>
 			</div>
 
@@ -133,15 +128,12 @@
 						name="email"
 						required
 						placeholder="Enter email here..."
-						class="input w-full {form
-							?.errors?.email
-							? 'border-error-300'
-							: 'border-primary-200'}"
-						value={form?.data?.email ?? ""}
+						class="input w-full {form?.errors?.email ? 'border-error-300' : 'border-primary-200'}"
+						value={form?.data?.email ?? ''}
 					/>
 					{#if form?.errors?.email}
-					<p class="text-error-500 text-xs">{form?.errors?.email[0]}</p>
-				{/if}
+						<p class="text-error-500 text-xs">{form?.errors?.email[0]}</p>
+					{/if}
 				</div>
 			</div>
 

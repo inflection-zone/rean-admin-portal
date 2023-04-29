@@ -55,7 +55,7 @@
 						type="text"
 						name="drugName"
 						placeholder="Enter name here..."
-						class="input {form?.errors?.drugName
+						class="input w-full {form?.errors?.drugName
 							? 'border-error-300 text-error-500'
 							: 'border-primary-200 text-primary-500'}"
 						value={form?.data?.drugName ?? ''}

@@ -8,6 +8,7 @@
 	export let form;
 	const userId = $page.params.userId;
 	const newsfeedId = $page.params.newsfeedId;
+
 	let image = undefined;
 	let fileinput;
 

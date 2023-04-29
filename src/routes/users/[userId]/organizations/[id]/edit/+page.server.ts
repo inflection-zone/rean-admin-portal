@@ -4,11 +4,11 @@ import { errorMessage, successMessage } from '$lib/utils/message.utils';
 import type { PageServerLoad } from './$types';
 import type { OrganizationTypes } from '$lib/types/domain.models';
 import { BACKEND_API_URL } from '$env/static/private';
+import { zfd } from 'zod-form-data';
+import { z } from 'zod';
 import { getOrganizationById, updateOrganization } from '../../../../../api/services/organizations';
 import { getOrganizationTypes } from '../../../../../api/services/types';
 import { updateAddress } from '../../../../../api/services/addresses';
-import { zfd } from 'zod-form-data';
-import { z } from 'zod';
 
 /////////////////////////////////////////////////////////////////////////
 
@@ -55,8 +55,8 @@ const updateOrganizationSchema = zfd.formData({
 	country: z.string().optional(),
 	postalCode: zfd.numeric(z.number().optional()),
 	imageResourceId: z.string().optional(),
-	isHealthFacility:zfd.checkbox({ trueValue: "true" }),
-	addressId: z.string().uuid(),
+	isHealthFacility: zfd.checkbox({ trueValue: 'true' }),
+	addressId: z.string().uuid()
 });
 
 export const actions = {
@@ -69,7 +69,7 @@ export const actions = {
 
 		type OrganizationSchema = z.infer<typeof updateOrganizationSchema>;
 
-    let result : OrganizationSchema = {};
+		let result: OrganizationSchema = {};
 		try {
 			result = updateOrganizationSchema.parse(formData);
 			console.log('result', result);
@@ -82,7 +82,7 @@ export const actions = {
 				errors
 			};
 		}
-		
+
 		const addressResponse = await updateAddress(
 			sessionId,
 			result.addressId,
@@ -92,13 +92,18 @@ export const actions = {
 			result.district,
 			result.state,
 			result.country,
-			result.postalCode,
+			result.postalCode
 		);
 		const addressesId_ = addressResponse.Data.Address.id;
 		const addressesId = addressesId_.split(',');
 
 		if (addressResponse.Status === 'failure' || addressResponse.HttpCode !== 200) {
-			throw redirect(303, `/users/${userId}/organizations`, errorMessage(addressResponse.Message), event);
+			throw redirect(
+				303,
+				`/users/${userId}/organizations`,
+				errorMessage(addressResponse.Message),
+				event
+			);
 		}
 
 		const response = await updateOrganization(
@@ -112,7 +117,7 @@ export const actions = {
 			result.operationalSince,
 			addressesId,
 			result.imageResourceId,
-			result.isHealthFacility,
+			result.isHealthFacility
 		);
 		console.log('response', response);
 		const id = response.Data.Organization.id;

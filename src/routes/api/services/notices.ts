@@ -20,7 +20,7 @@ export const createNotice = async (
 		DaysActive: daysActive ? daysActive : null,
 		Tags: tags ? tags : null,
 		Action: action ? action : null,
-		ImageUrl: imageUrl ? imageUrl : null,
+		ImageUrl: imageUrl ? imageUrl : null
 	};
 	const url = BACKEND_API_URL + '/general/notices';
 	return await post_(sessionId, url, body, true);
@@ -70,7 +70,7 @@ export const updateNotice = async (
 		DaysActive: daysActive ? daysActive : null,
 		Tags: tags ? tags : null,
 		Action: action ? action : null,
-		ImageUrl: imageUrl ? imageUrl : null,
+		ImageUrl: imageUrl ? imageUrl : null
 	};
 	const url = BACKEND_API_URL + `/general/notices/${noticeId}`;
 	return await put_(sessionId, url, body, true);

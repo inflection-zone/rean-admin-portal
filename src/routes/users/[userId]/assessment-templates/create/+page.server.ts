@@ -1,9 +1,9 @@
 import { redirect } from 'sveltekit-flash-message/server';
 import type { RequestEvent } from '@sveltejs/kit';
-import { errorMessage, successMessage } from '$lib/utils/message.utils';
-import { createAssessmentTemplate } from '../../../../api/services/assessment-templates';
 import { zfd } from 'zod-form-data';
 import { z } from 'zod';
+import { errorMessage, successMessage } from '$lib/utils/message.utils';
+import { createAssessmentTemplate } from '../../../../api/services/assessment-templates';
 
 /////////////////////////////////////////////////////////////////////////
 
@@ -48,7 +48,7 @@ export const actions = {
 			result.provider,
 			result.providerAssessmentCode,
 			result.serveListNodeChildrenAtOnce,
-			result.scoringApplicable,
+			result.scoringApplicable
 		);
 
 		const id = response.Data.AssessmentTemplate.id;
