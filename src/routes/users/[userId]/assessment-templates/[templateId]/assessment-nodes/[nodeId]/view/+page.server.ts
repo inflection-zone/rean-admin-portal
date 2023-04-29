@@ -1,11 +1,7 @@
-import { redirect } from 'sveltekit-flash-message/server';
 import { error, type RequestEvent } from '@sveltejs/kit';
-import { errorMessage, successMessage } from '$lib/utils/message.utils';
 import type { PageServerLoad } from './$types';
-import { getAssessmentNodeById, getScoringCondition, updateScoringCondition } from '../../../../../../../api/services/assessment-nodes';
+import { getAssessmentNodeById} from '../../../../../../../api/services/assessment-nodes';
 import { getAssessmentTemplateById } from '$routes/api/services/assessment-templates';
-import { z } from 'zod';
-import { zfd } from 'zod-form-data';
 
 ////////////////////////////////////////////////////////////////////////////
 

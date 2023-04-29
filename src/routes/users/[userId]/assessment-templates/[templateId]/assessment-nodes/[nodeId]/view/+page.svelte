@@ -208,12 +208,12 @@
 						</label>
 					</div>
 					<div class="flex  items-center gap-12 w-1/2 md:2/3 lg:2/3">
-						<span class="span " id="description">{resolutionScore}</span>
+						<span class="span" id="description">{resolutionScore}</span>
 						<button
 						class="btn variant-ringed-primary text-primary-500 btn-md"
 						on:click|capture={() => showScoringConditionModal.set(true)}
 					>
-						Update score
+						Update Score
 					</button>
 					</div>
 				
