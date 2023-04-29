@@ -10,8 +10,10 @@
 	export let form;
 	const userId = $page.params.userId;
 	const courseId = $page.params.courseId;
+
 	let imageUrl = undefined;
 	let fileinput;
+
 	const createRoute = `/users/${userId}/courses/${courseId}/modules/create`;
 	const courseRoute = `/users/${userId}/courses`;
 	const moduleRoute = `/users/${userId}/courses/${courseId}/modules`;

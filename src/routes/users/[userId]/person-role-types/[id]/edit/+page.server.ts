@@ -1,13 +1,13 @@
 import type { PageServerLoad } from './$types';
 import { error, type RequestEvent } from '@sveltejs/kit';
 import { redirect } from 'sveltekit-flash-message/server';
+import { z } from 'zod';
+import { zfd } from 'zod-form-data';
 import { errorMessage, successMessage } from '$lib/utils/message.utils';
 import {
 	getPersonRoleTypeById,
 	updatePersonRoleType
 } from '../../../../../api/services/person-role-types';
-import { z } from 'zod';
-import { zfd } from 'zod-form-data';
 
 /////////////////////////////////////////////////////////////////////////
 
@@ -51,7 +51,7 @@ export const actions = {
 		let result: PersonRoleTypeSchema = {};
 		try {
 			result = updatePersonRoleSchema.parse(formData);
-			console.log('result-----------', result);
+			console.log('result', result);
 		} catch (err: any) {
 			const { fieldErrors: errors } = err.flatten();
 			console.log(errors);

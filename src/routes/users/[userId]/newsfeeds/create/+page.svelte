@@ -149,7 +149,7 @@
 						name="title"
 						required
 						placeholder="Enter title here..."
-						class="input {form?.errors?.title
+						class="input w-full {form?.errors?.title
 							? 'border-error-300 text-error-500'
 							: 'border-primary-200 text-primary-500'}"
 						value={form?.data?.title ?? ''}
@@ -193,7 +193,7 @@
 						type="text"
 						name="category"
 						placeholder="Enter category here..."
-						class="input {form?.errors?.category
+						class="input w-full {form?.errors?.category
 							? 'border-error-300 text-error-500'
 							: 'border-primary-200 text-primary-500'}"
 						value={form?.data?.category ?? ''}
@@ -212,15 +212,18 @@
 					</label>
 				</div>
 				<div class="w-1/2 md:w-2/3 lg:w-2/3">
-					<input type="url" name="link" placeholder="Enter link here..." 
-					class="input {form?.errors?.link
-						? 'border-error-300 text-error-500'
-						: 'border-primary-200 text-primary-500'}"
-					value={form?.data?.link ?? ''}
-				/>
-				{#if form?.errors?.link}
-					<p class="text-error-500 text-xs">{form?.errors?.link[0]}</p>
-				{/if}
+					<input
+						type="url"
+						name="link"
+						placeholder="Enter link here..."
+						class="input w-full {form?.errors?.link
+							? 'border-error-300 text-error-500'
+							: 'border-primary-200 text-primary-500'}"
+						value={form?.data?.link ?? ''}
+					/>
+					{#if form?.errors?.link}
+						<p class="text-error-500 text-xs">{form?.errors?.link[0]}</p>
+					{/if}
 				</div>
 			</div>
 
@@ -237,7 +240,7 @@
 						name="language"
 						required
 						placeholder="Enter language here..."
-						class="input {form?.errors?.language
+						class="input w-full {form?.errors?.language
 							? 'border-error-300 text-error-500'
 							: 'border-primary-200 text-primary-500'}"
 						value={form?.data?.language ?? ''}
@@ -260,7 +263,7 @@
 						type="text"
 						name="copyright"
 						placeholder="Enter copyright here..."
-						class="input {form?.errors?.copyright
+						class="input w-full {form?.errors?.copyright
 							? 'border-error-300 text-error-500'
 							: 'border-primary-200 text-primary-500'}"
 						value={form?.data?.copyright ?? ''}

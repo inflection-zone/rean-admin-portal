@@ -4,10 +4,10 @@ import { errorMessage, successMessage } from '$lib/utils/message.utils';
 import { createOrganization } from '../../../../api/services/organizations';
 import { createAddress } from '../../../../api/services/addresses';
 import type { OrganizationTypes } from '$lib/types/domain.models';
+import { z } from 'zod';
+import { zfd } from 'zod-form-data';
 import type { PageServerLoad } from './$types';
 import { getOrganizationTypes } from '../../../../api/services/types';
-import { z } from 'zod';
-import { zfd } from "zod-form-data";
 
 /////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -40,7 +40,7 @@ const createOrganizationSchema = zfd.formData({
 	country: z.string().optional(),
 	postalCode: zfd.numeric(z.number().optional()),
 	imageResourceId: z.string().optional(),
-	isHealthFacility: zfd.checkbox({ trueValue: "true" }),
+	isHealthFacility: zfd.checkbox({ trueValue: 'true' })
 });
 
 export const actions = {
@@ -52,7 +52,7 @@ export const actions = {
 
 		type OrganizationSchema = z.infer<typeof createOrganizationSchema>;
 
-    let result : OrganizationSchema = {};
+		let result: OrganizationSchema = {};
 		try {
 			result = createOrganizationSchema.parse(formData);
 			console.log('result', result);
@@ -65,7 +65,7 @@ export const actions = {
 				errors
 			};
 		}
-		
+
 		const phone = result.countryCode + '-' + result.contactPhone;
 		const addressResponse = await createAddress(
 			sessionId,
@@ -75,7 +75,7 @@ export const actions = {
 			result.district,
 			result.state,
 			result.country,
-			result.postalCode,
+			result.postalCode
 		);
 
 		const addressesId_ = addressResponse.Data.Address.id;
@@ -95,7 +95,7 @@ export const actions = {
 			result.operationalSince,
 			addressesId,
 			result.imageResourceId,
-			result.isHealthFacility,
+			result.isHealthFacility
 		);
 
 		const id = response.Data.Organization.id;

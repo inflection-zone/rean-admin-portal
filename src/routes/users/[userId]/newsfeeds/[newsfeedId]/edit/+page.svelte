@@ -4,7 +4,6 @@
 	import type { PageServerData } from './$types';
 	import BreadCrumbs from '$lib/components/breadcrumbs/breadcrums.svelte';
 	import Image from '$lib/components/image.svelte';
-	import Confirm from '$lib/components/modal/confirmModal.svelte';
 	import { showMessage } from '$lib/utils/message.utils';
 	import date from 'date-and-time';
 	import { page } from '$app/stores';
@@ -53,28 +52,6 @@
 		tags = _tags;
 	}
 
-	const handleImageDelete = async (e, id) => {
-		const resourceId = id;
-		console.log('imageResourceId', resourceId);
-		await Delete({
-			sessionId: data.sessionId,
-		resourceId: resourceId
-		});
-		// window.location.href = goalRoute;
-	};
-
-	async function Delete(model) {
-		console.log('model--', model);
-		const response = await fetch(`/api/server/file-resources/delete`, {
-			method: 'DELETE',
-			body: JSON.stringify(model),
-			headers: {
-				'content-type': 'application/json'
-			}
-		});
-		console.log('resp--', response);
-	}
-
 	const userId = $page.params.userId;
 	const editRoute = `/users/${userId}/newsfeeds/${id}/edit`;
 	const viewRoute = `/users/${userId}/newsfeeds/${id}/view`;
@@ -93,10 +70,10 @@
 
 	const upload = async (imgBase64, filename) => {
 		const data = {};
-		//console.log(imgBase64);
+		console.log(imgBase64);
 		const imgData = imgBase64.split(',');
 		data['image'] = imgData[1];
-		//console.log(JSON.stringify(data));
+		console.log(JSON.stringify(data));
 		const res = await fetch(`/api/server/file-resources/upload`, {
 			method: 'POST',
 			headers: {
@@ -109,7 +86,6 @@
 		console.log(Date.now().toString());
 		const response = await res.json();
 		if (response.Status === 'success' && response.HttpCode === 201) {
-			// const imageResourceId = response.Data.FileResources[0].id;
 			const image_ = response.Data.FileResources[0].Url;
 			console.log('image_', image_);
 			if (image_) {
@@ -378,8 +354,8 @@
 				<div class="w-1/2 md:w-2/3 lg:w-2/3">
 					<InputChip chips="variant-filled-error rounded-2xl" name="tags" bind:value={tags} />
 					{#if form?.errors?.tags}
-					<p class="text-error-500 text-xs">{form?.errors?.tags[0]}</p>
-				{/if}
+						<p class="text-error-500 text-xs">{form?.errors?.tags[0]}</p>
+					{/if}
 				</div>
 			</div>
 
@@ -389,7 +365,7 @@
 					<button
 						type="button"
 						on:click={handleReset}
-						class="btn variant-ringed-primary lg:w-40 lg:ml-8 md:ml-6 sm:ml-1 mb-10"
+						class="btn variant-ringed-primary text-primary-500 lg:w-40 lg:ml-8 md:ml-6 sm:ml-1 mb-10"
 					>
 						Reset</button
 					>

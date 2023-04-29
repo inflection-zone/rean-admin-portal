@@ -27,14 +27,13 @@
 	let displayCode = data.assessmentNode.DisplayCode;
 	let resolutionScore = data.assessmentNode.ScoringCondition.ResolutionScore;
 	let scoringConditionId = data.assessmentNode.ScoringCondition.id;
-	console.log("templetenode =", data.assessmentNode);
+	console.log('templetenode =', data.assessmentNode);
 
 	scoringApplicableCondition.set(data.templateScoringCondition.ScoringApplicable);
 
 	onMount(() => {
 		show(data);
 		LocalStorageUtils.removeItem('prevUrl');
-		
 	});
 
 	const userId = $page.params.userId;
@@ -89,8 +88,8 @@
 			sessionId,
 			templateId,
 			nodeId,
-		  scoringConditionId,
-		  resolutionScore:resolutionScore ,			
+			scoringConditionId,
+			resolutionScore: resolutionScore
 		});
 	};
 
@@ -111,9 +110,7 @@
 
 <UpdateScoringCondition
 	on:updateScoringCondition={async (e) => {
-		await onUpdateScoringCondition(
-			e.detail.resolutionScore,
-		);
+		await onUpdateScoringCondition(e.detail.resolutionScore);
 	}}
 />
 <main class="h-screen mb-10">
@@ -121,7 +118,7 @@
 	<div>
 		<form
 			method="get"
-			class="w-full  bg-[#ECE4FC] lg:mt-10 md:mt-8 sm:mt-6 mb-10 mt-4 lg:max-w-4xl md:max-w-xl sm:max-w-lg  rounded-lg mx-auto"
+			class="w-full lg:mt-10 md:mt-8 sm:mt-6 lg:max-w-4xl md:max-w-xl sm:max-w-lg bg-[#ECE4FC] mt-6 mb-20  rounded-lg mx-auto"
 		>
 			<div class="w-full  h-14 rounded-t-lg p-3  bg-[#7165E3]">
 				<div class="ml-3 relative flex flex-row text-white lg:text-xl text-lg ">
@@ -200,25 +197,24 @@
 					{/if}
 				</div>
 				{#if $scoringApplicableCondition === true}
-				<div class="flex items-center mb-4 lg:mx-16 md:mx-12 mx-10">
-					<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
-						<!-- svelte-ignore a11y-label-has-associated-control -->
-						<label class="label">
-							<span>Resolution Score</span>
-						</label>
+					<div class="flex items-center mb-4 lg:mx-16 md:mx-12 mx-10">
+						<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
+							<!-- svelte-ignore a11y-label-has-associated-control -->
+							<label class="label">
+								<span>Resolution Score</span>
+							</label>
+						</div>
+						<span class="span w-1/2 md:2/3 lg:2/3" id="description">{resolutionScore}</span>
 					</div>
 					<div class="flex  items-center gap-12 w-1/2 md:2/3 lg:2/3">
 						<span class="span " id="description">{resolutionScore}</span>
 						<button
-						class="btn variant-ringed-primary text-primary-500 btn-md"
-						on:click|capture={() => showScoringConditionModal.set(true)}
-					>
-						Update score
-					</button>
+							class="btn variant-ringed-primary text-primary-500 btn-md"
+							on:click|capture={() => showScoringConditionModal.set(true)}
+						>
+							Update score
+						</button>
 					</div>
-				
-				
-				</div>
 				{/if}
 			{:else if nodeType === 'Message'}
 				<div class="flex items-center my-4 lg:mx-16 md:mx-12 mx-10">
@@ -299,7 +295,6 @@
 									{/each}
 								</tbody>
 							</table>
-							<!-- <li>{node.Title}</li> -->
 						</div>
 					{/if}
 				</div>

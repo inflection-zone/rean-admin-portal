@@ -104,7 +104,7 @@ export const getFileResourceById = async (sessionId, fileResourceId) => {
 
 export const deleteFileResource = async (sessionId: string, resourceId: string) => {
 	const url = BACKEND_API_URL + `/file-resources/${resourceId}`;
-	console.log('uri--',url)
+	console.log('uri--', url);
 	return await delete_(sessionId, url, true);
 };
 

@@ -68,10 +68,10 @@
 
 	const upload = async (imgBase64, filename) => {
 		const data = {};
-		//console.log(imgBase64);
+		console.log(imgBase64);
 		const imgData = imgBase64.split(',');
 		data['image'] = imgData[1];
-		//console.log(JSON.stringify(data));
+		console.log(JSON.stringify(data));
 		const res = await fetch(`/api/server/file-resources/upload`, {
 			method: 'POST',
 			headers: {
@@ -84,7 +84,6 @@
 		console.log(Date.now().toString());
 		const response = await res.json();
 		if (response.Status === 'success' && response.HttpCode === 201) {
-			// const imageResourceId = response.Data.FileResources[0].id;
 			const image_ = response.Data.FileResources[0].Url;
 			console.log('image_', image_);
 			if (image_) {

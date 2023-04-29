@@ -1,5 +1,5 @@
 import { API_CLIENT_INTERNAL_KEY, BACKEND_API_URL } from '$env/static/private';
-import type { PersonRole,OrganizationTypes } from '$lib/types/domain.models';
+import type { PersonRole, OrganizationTypes } from '$lib/types/domain.models';
 
 /////////////////////////////////////////////////////////////////////
 
@@ -20,15 +20,12 @@ export const getUserRoles = async (): Promise<PersonRole[]> => {
 			console.log(`error message: ${response.Message}`);
 			return [];
 		}
-		// const roles = response.Data.PersonRoleTypes;
-		// console.log("roles..............................", roles);
 		return response.Data.PersonRoleTypes;
 	} catch (error) {
 		console.error(`Error retrieving user roles: ${error.message}`);
 		return [];
 	}
 };
-
 
 export const getOrganizationTypes = async (): Promise<OrganizationTypes[]> => {
 	try {
@@ -47,11 +44,7 @@ export const getOrganizationTypes = async (): Promise<OrganizationTypes[]> => {
 			console.log(`error message: ${response.Message}`);
 			return [];
 		}
-		// const roles = response.Data.OrganizationTypes;
-		
-		//  console.log("roles..............................", response);
 		return response.Data.OrganizationTypes;
-		   
 	} catch (error) {
 		console.error(`Error retrieving user roles: ${error.message}`);
 		return [];

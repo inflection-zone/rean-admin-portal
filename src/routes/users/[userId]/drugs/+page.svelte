@@ -41,19 +41,11 @@
 	let itemsPerPage = 10;
 	let pageIndex = 0;
 
-	const dataTableStore = createDataTableStore(
-		// Pass your source data here:
-		drugs,
-		{
-			// The current search term.
-			search: '',
-			// The current sort key.
-			sort: '',
-			// Paginator component settings.
-			pagination: { offset: 0, limit: 10, size: 0, amounts: [10, 20, 30, 50] }
-		}
-	);
-	// This automatically handles search, sort, etc when the model updates.
+	const dataTableStore = createDataTableStore(drugs, {
+		search: '',
+		sort: '',
+		pagination: { offset: 0, limit: 10, size: 0, amounts: [10, 20, 30, 50] }
+	});
 
 	const searchParams = async (drugName: string, genericName: string) => {
 		await searchdrug({

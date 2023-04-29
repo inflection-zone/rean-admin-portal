@@ -1,15 +1,15 @@
 import { redirect } from 'sveltekit-flash-message/server';
 import { error, type RequestEvent } from '@sveltejs/kit';
+import { zfd } from 'zod-form-data';
+import { z } from 'zod';
 import { errorMessage, successMessage } from '$lib/utils/message.utils';
+import type { PageServerLoad } from './$types';
 import {
 	addScoringCondition,
 	createAssessmentNode,
 	getQueryResponseTypes,
 	searchAssessmentNodes
 } from '../../../../../../api/services/assessment-nodes';
-import type { PageServerLoad } from './$types';
-import { zfd } from 'zod-form-data';
-import { z } from 'zod';
 
 /////////////////////////////////////////////////////////////////////////
 
@@ -46,12 +46,12 @@ const createAssessmentNodeSchema = zfd.formData({
 	title: z.string().min(3).max(256),
 	description: z.string().optional(),
 	queryType: z.string().optional(),
-	resolutionScore:zfd.numeric(z.number().default(1)),
+	resolutionScore: zfd.numeric(z.number().default(1)),
 	providerAssessmentCode: z.string().optional(),
 	message: z.string().optional(),
 	serveListNodeChildrenAtOnce: zfd.checkbox({ trueValue: 'true' }),
 	scoringApplicable: zfd.checkbox({ trueValue: 'true' }),
-	options: z.array(z.string()),
+	options: z.array(z.string())
 });
 
 export const actions = {
@@ -63,7 +63,7 @@ export const actions = {
 		const data = await request.formData();
 		const options = data.has('options') ? data.getAll('options') : [];
 		const formData = Object.fromEntries(data);
-		const formDataValue = {...formData, options:options};
+		const formDataValue = { ...formData, options: options };
 
 		type AssessmentNodeSchema = z.infer<typeof createAssessmentNodeSchema>;
 
@@ -86,14 +86,14 @@ export const actions = {
 			templateId,
 			result.parentNodeId,
 			result.nodeType,
-		  result.title,
+			result.title,
 			result.description,
 			result.message,
 			result.serveListNodeChildrenAtOnce,
 			result.queryType,
-			result.options,
+			result.options
 		);
-		
+
 		const nodeId = response.Data.AssessmentNode.id;
 
 		const scoringCondition = await addScoringCondition(

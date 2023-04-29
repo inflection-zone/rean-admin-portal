@@ -20,7 +20,7 @@ export const createDrug = async (
 		Strength: strength ? strength : null,
 		OtherCommercialNames: otherCommercialNames ? otherCommercialNames : null,
 		Manufacturer: manufacturer ? manufacturer : null,
-		OtherInformation: otherInformation ? otherInformation : null,
+		OtherInformation: otherInformation ? otherInformation : null
 	};
 	const url = BACKEND_API_URL + '/clinical/drugs';
 	return await post_(sessionId, url, body, true);
@@ -69,7 +69,7 @@ export const updateDrug = async (
 		Strength: strength ? strength : null,
 		OtherCommercialNames: otherCommercialNames ? otherCommercialNames : null,
 		Manufacturer: manufacturer ? manufacturer : null,
-		OtherInformation: otherInformation ? otherInformation : null,
+		OtherInformation: otherInformation ? otherInformation : null
 	};
 	const url = BACKEND_API_URL + `/clinical/drugs/${drugId}`;
 	return await put_(sessionId, url, body, true);

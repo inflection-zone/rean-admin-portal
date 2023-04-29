@@ -107,7 +107,7 @@
 						name="name"
 						required
 						placeholder="Enter  name here..."
-						class="input {form?.errors?.name
+						class="input w-full {form?.errors?.name
 							? 'border-error-300 text-error-500'
 							: 'border-primary-200 text-primary-500'}"
 						value={form?.data?.name ?? ''}
@@ -204,8 +204,8 @@
 						{/each}
 					</select>
 					{#if form?.errors?.courseIds}
-					<p class="text-error-500 text-xs">{form?.errors?.courseIds[0]}</p>
-				  {/if}
+						<p class="text-error-500 text-xs">{form?.errors?.courseIds[0]}</p>
+					{/if}
 				</div>
 			</div>
 

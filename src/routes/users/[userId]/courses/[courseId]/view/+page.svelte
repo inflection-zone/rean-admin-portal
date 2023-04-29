@@ -102,7 +102,6 @@
 				</div>
 				{#if imageUrl === 'undefined'}
 					<span class="span">Not specified</span>
-					<!-- <img class="flex h-24 w-24 rounded-full" src={avatarSource} alt="d" /> -->
 				{:else}
 					<Image cls="flex h-24 w-24 rounded-lg" source={imageUrl} w="24" h="24" />
 				{/if}
@@ -142,7 +141,7 @@
 			</div>
 
 			<div class="flex items-center mt-10 lg:mx-10 md:mx-16 sm:mr-10 min-[280px]:mr-72">
-				<div class="lg:w-8/12 min-[280px]:w-1/3 sm:w-1/6 md:w-1/2"/>
+				<div class="lg:w-8/12 min-[280px]:w-1/3 sm:w-1/6 md:w-1/2" />
 				<div class="flex lg:w-1/4 min-[280px]:w-1/6 sm:w-5/6 sm:mr-10 gap-3">
 					<a href={moduleRoute}>
 						<button

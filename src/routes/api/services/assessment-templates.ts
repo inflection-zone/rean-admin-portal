@@ -11,7 +11,7 @@ export const createAssessmentTemplate = async (
 	provider: string,
 	providerAssessmentCode: string,
 	serveListNodeChildrenAtOnce: boolean,
-	scoringApplicable:boolean,
+	scoringApplicable: boolean
 ) => {
 	const body = {
 		Title: title,
@@ -20,7 +20,7 @@ export const createAssessmentTemplate = async (
 		Provider: provider ? provider : null,
 		ProviderAssessmentCode: providerAssessmentCode ? providerAssessmentCode : null,
 		ServeListNodeChildrenAtOnce: serveListNodeChildrenAtOnce ? serveListNodeChildrenAtOnce : false,
-		ScoringApplicable:scoringApplicable ? scoringApplicable : false
+		ScoringApplicable: scoringApplicable ? scoringApplicable : false
 	};
 	const url = BACKEND_API_URL + '/clinical/assessment-templates';
 	return await post_(sessionId, url, body, true);
@@ -63,7 +63,7 @@ export const updateAssessmentTemplate = async (
 	provider: string,
 	providerAssessmentCode: string,
 	serveListNodeChildrenAtOnce: boolean,
-	scoringApplicable: boolean,
+	scoringApplicable: boolean
 ) => {
 	const body = {
 		Title: title,
@@ -72,9 +72,9 @@ export const updateAssessmentTemplate = async (
 		Provider: provider ? provider : null,
 		ProviderAssessmentCode: providerAssessmentCode ? providerAssessmentCode : null,
 		ServeListNodeChildrenAtOnce: serveListNodeChildrenAtOnce ? serveListNodeChildrenAtOnce : false,
-		ScoringApplicable:scoringApplicable ? scoringApplicable : false
+		ScoringApplicable: scoringApplicable ? scoringApplicable : false
 	};
-	
+
 	const url = BACKEND_API_URL + `/clinical/assessment-templates/${assessmentTemplateId}`;
 	return await put_(sessionId, url, body, true);
 };

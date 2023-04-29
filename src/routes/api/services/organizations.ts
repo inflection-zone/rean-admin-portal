@@ -24,7 +24,7 @@ export const createOrganization = async (
 		OperationalSince: operationalSince ? operationalSince : null,
 		AddressIds: address,
 		ImageResourceId: imageResourceId ? imageResourceId : null,
-		IsHealthFacility: isHealthFacility ? isHealthFacility : false,
+		IsHealthFacility: isHealthFacility ? isHealthFacility : false
 	};
 	const url = BACKEND_API_URL + '/organizations';
 	return await post_(sessionId, url, body, true);
@@ -77,7 +77,7 @@ export const updateOrganization = async (
 		OperationalSince: operationalSince ? operationalSince : null,
 		AddressIds: address,
 		ImageResourceId: imageResourceId ? imageResourceId : null,
-		IsHealthFacility: isHealthFacility ? isHealthFacility : false,
+		IsHealthFacility: isHealthFacility ? isHealthFacility : false
 	};
 	const url = BACKEND_API_URL + `/organizations/${organizationId}`;
 	return await put_(sessionId, url, body, true);

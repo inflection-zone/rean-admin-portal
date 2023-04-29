@@ -60,7 +60,7 @@
 						name="type"
 						required
 						placeholder="Enter type here..."
-						class="input {form?.errors?.type
+						class="input w-full {form?.errors?.type
 							? 'border-error-300 text-error-500'
 							: 'border-primary-200 text-primary-500'}"
 						value={form?.data?.type ?? ''}

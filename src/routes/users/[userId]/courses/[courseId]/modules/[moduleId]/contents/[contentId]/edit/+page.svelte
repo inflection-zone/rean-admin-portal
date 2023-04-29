@@ -84,7 +84,7 @@
 		console.log(Date.now().toString());
 		const response = await res.json();
 		if (response.Status === 'success' && response.HttpCode === 201) {
-			// const imageResourceId = response.Data.FileResources[0].id;
+			const imageResourceId = response.Data.FileResources[0].id;
 			const imageUrl_ = response.Data.FileResources[0].Url;
 			console.log('imageUrl_', imageUrl_);
 			if (imageUrl_) {
@@ -297,8 +297,8 @@
 					{/if}
 					<input type="hidden" name="imageUrl" value={imageUrl} />
 					{#if form?.errors?.imageUrl}
-					<p class="text-error-500 text-xs">{form?.errors?.imageUrl[0]}</p>
-				{/if}
+						<p class="text-error-500 text-xs">{form?.errors?.imageUrl[0]}</p>
+					{/if}
 				</div>
 			</div>
 
