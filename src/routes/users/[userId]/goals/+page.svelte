@@ -172,7 +172,7 @@
 	<div class=" overflow-y-auto h-[600px] bg-tertiary-500">
 		<table class="table w-full">
 			<tbody class="">
-				{#each $dataTableStore.filtered as row, rowIndex}
+				{#each $dataTableStore.filtered as row}
 					<tr>
 						<td role="gridcell" aria-colindex={1} tabindex="0" style="width: 5%;">{row.index}</td>
 						<td role="gridcell" aria-colindex={2} tabindex="0" style="width: 20%;"

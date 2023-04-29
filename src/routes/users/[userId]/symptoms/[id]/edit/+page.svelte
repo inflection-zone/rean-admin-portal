@@ -95,28 +95,6 @@
 			await upload(e.target.result, filename);
 		};
 	};
-
-	const handleImageDelete = async (e, imageResourceId) => {
-		const resourceId = imageResourceId;
-		console.log('imageResourceId==', resourceId);
-		await Delete({
-			sessionId: data.sessionId,
-			resourceId: resourceId
-		});
-		window.location.href = editRoute;
-	};
-
-	async function Delete(model) {
-		console.log('model--', model);
-		const response = await fetch(`/api/server/file-resources/delete`, {
-			method: 'DELETE',
-			body: JSON.stringify(model),
-			headers: {
-				'content-type': 'application/json'
-			}
-		});
-		console.log('resp--', response);
-	}
 </script>
 
 <main class="h-screen mb-10">
@@ -142,6 +120,7 @@
 			</div>
 
 			<div class="hidden">{id}</div>
+
 			<div class="flex items-center mb-4 mt-10 lg:mx-16 md:mx-12 mx-10">
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
 					<!-- svelte-ignore a11y-label-has-associated-control -->
@@ -245,7 +224,7 @@
 							on:change={async (e) => await onFileSelected(e)}
 						/>
 					{:else}
-						<Image cls="flex h-24 w-24 rounded-lg" source={imageUrl} w="24" h="24"/>
+						<Image cls="flex h-24 w-24 rounded-lg" source={imageUrl} w="24" h="24" />
 						<input
 							name="fileinput"
 							type="file"
@@ -267,7 +246,7 @@
 					<button
 						type="button"
 						on:click={handleReset}
-						class="btn variant-ringed-primary lg:w-40 lg:ml-8 md:ml-6 sm:ml-1 mb-10"
+						class="btn variant-ringed-primary text-primary-500 lg:w-40 lg:ml-8 md:ml-6 sm:ml-1 mb-10"
 					>
 						Reset</button
 					>

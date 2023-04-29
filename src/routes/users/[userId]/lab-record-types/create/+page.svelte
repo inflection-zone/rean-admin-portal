@@ -56,7 +56,7 @@
 						name="typeName"
 						required
 						placeholder="Enter type name here..."
-						class="input {form?.errors?.typeName
+						class="input w-full {form?.errors?.typeName
 							? 'border-error-300 text-error-500'
 							: 'border-primary-200 text-primary-500'}"
 						value={form?.data?.typeName ?? ''}

@@ -1,5 +1,5 @@
 import type { RequestEvent } from '@sveltejs/kit';
-import { getCurrentApiKey} from '../../../services/api-clients';
+import { getCurrentApiKey } from '../../../services/api-clients';
 
 //////////////////////////////////////////////////////////////
 
@@ -8,7 +8,7 @@ export const POST = async (event: RequestEvent) => {
 	const data = await request.json();
 	try {
 		console.log('Inside get api key endpoints');
-		const response = await getCurrentApiKey(data.clientCode ,data.userName, data.password);
+		const response = await getCurrentApiKey(data.clientCode, data.userName, data.password);
 		const apiKeyDetails = response.Data.ApiKeyDetails;
 		return new Response(JSON.stringify(apiKeyDetails));
 	} catch (err) {

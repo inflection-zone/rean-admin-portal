@@ -1,5 +1,5 @@
 import type { RequestEvent } from '@sveltejs/kit';
-import { updateApiKey} from '../../../services/api-clients';
+import { updateApiKey } from '../../../services/api-clients';
 
 //////////////////////////////////////////////////////////////
 
@@ -8,7 +8,13 @@ export const POST = async (event: RequestEvent) => {
 	const data = await request.json();
 	try {
 		console.log('Inside renew api key endpoints');
-		const response = await updateApiKey(data.clientCode ,data.userName, data.password, data.validFrom, data.validTill);
+		const response = await updateApiKey(
+			data.clientCode,
+			data.userName,
+			data.password,
+			data.validFrom,
+			data.validTill
+		);
 		const apiKeyDetails = response.Data.ApiKeyDetails;
 		return new Response(JSON.stringify(apiKeyDetails));
 	} catch (err) {

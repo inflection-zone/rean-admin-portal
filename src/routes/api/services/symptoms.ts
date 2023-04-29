@@ -9,8 +9,7 @@ export const createSymptom = async (
 	description: string,
 	tags: string[],
 	language: string,
-	imageResourceId: string,
-	
+	imageResourceId: string
 ) => {
 	const body = {
 		Symptom: symptom,
@@ -55,7 +54,7 @@ export const updateSymptom = async (
 	description: string,
 	tags: string[],
 	language: string,
-	imageResourceId: string,
+	imageResourceId: string
 ) => {
 	const body = {
 		Symptom: symptom,

@@ -1,7 +1,7 @@
 import type { RequestEvent } from '@sveltejs/kit';
-import type { PageServerLoad } from './$types';
 import { error } from '@sveltejs/kit';
 import { BACKEND_API_URL } from '$env/static/private';
+import type { PageServerLoad } from './$types';
 import { searchSymptoms } from '../../../api/services/symptoms';
 
 ////////////////////////////////////////////////////////////////////////////

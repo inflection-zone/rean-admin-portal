@@ -121,7 +121,6 @@
 	<div class="basis-1/2 justify-center items-center">
 		<div class="relative flex items-center">
 			<a href={createRoute} class="absolute right-1 lg:mr-[-20px]">
-				<!-- <Fa icon={faCirclePlus} style="color: #5832A1" size="4x" /> -->
 				<button
 					class="btn variant-filled-primary w-28 rounded-lg hover:bg-primary bg-primary transition
           ease-in-out
@@ -201,11 +200,11 @@
 	<div class=" overflow-y-auto h-[600px] bg-tertiary-500">
 		<table class="table w-full">
 			<tbody class="">
-				{#each $dataTableStore.filtered as row, rowIndex}
+				{#each $dataTableStore.filtered as row}
 					<tr>
 						<td role="gridcell" aria-colindex={1} tabindex="0" style="width: 5%;">{row.index}</td>
 						<td role="gridcell" aria-colindex={2} tabindex="0" style="width: 19%;"
-							><a href={viewRoute(row.id)}>{Helper.truncateText(row.Title, 20)} </a></td
+							><a href={viewRoute(row.id)}>{Helper.truncateText(row.Title, 20)}</a></td
 						>
 						<td role="gridcell" aria-colindex={3} tabindex="0" style="width: 32%;"
 							>{Helper.truncateText(row.Link, 40)}</td
@@ -218,10 +217,9 @@
 								<span>null</span>
 							{:else}
 								{#each row.FeedItems as items}
-									{#each items.Title as title}
-										{title}
-									{/each}
+									{Helper.truncateText(items.Title, 20)}
 								{/each}
+								<!-- {/each} -->
 							{/if}
 						</td>
 

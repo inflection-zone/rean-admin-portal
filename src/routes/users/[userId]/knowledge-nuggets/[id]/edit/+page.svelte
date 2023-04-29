@@ -29,6 +29,7 @@
 	function handleTags(event) {
 		retrievedTags = event.detail.tags;
 	}
+
 	function handleReset() {
 		topicName = _topicName;
 		briefInformation = _briefInformation;
@@ -76,6 +77,7 @@
 				</div>
 			</div>
 			<div class="hidden">{id}</div>
+
 			<div class="flex items-center mb-4 mt-10 lg:mx-16 md:mx-12 mx-10">
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
 					<!-- svelte-ignore a11y-label-has-associated-control -->
@@ -83,13 +85,14 @@
 						<span>Name *</span>
 					</label>
 				</div>
+
 				<div class="w-1/2 md:w-2/3 lg:w-2/3">
 					<input
 						type="text"
 						name="topicName"
 						required
 						bind:value={topicName}
-						placeholder="Enter  name here..."
+						placeholder="Enter name here..."
 						class="input w-full {form?.errors?.topicName
 							? 'border-error-300 text-error-500'
 							: 'border-primary-200 text-primary-500'}"
@@ -121,6 +124,7 @@
 					{/if}
 				</div>
 			</div>
+
 			<div class="flex items-start mb-2 lg:mx-16 md:mx-12 mx-10">
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
 					<!-- svelte-ignore a11y-label-has-associated-control -->
@@ -142,6 +146,7 @@
 					{/if}
 				</div>
 			</div>
+
 			<div class="flex items-center mb-4 lg:mx-16 md:mx-12 mx-10">
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
 					<!-- svelte-ignore a11y-label-has-associated-control -->
@@ -173,8 +178,8 @@
 				<div class="w-1/2 md:w-2/3 lg:w-2/3">
 					<InputChip chips="variant-filled-error rounded-2xl" name="tags" bind:value={tags} />
 					{#if form?.errors?.tags}
-					<p class="text-error-500 text-xs">{form?.errors?.tags[0]}</p>
-				{/if}
+						<p class="text-error-500 text-xs">{form?.errors?.tags[0]}</p>
+					{/if}
 				</div>
 			</div>
 
@@ -184,7 +189,7 @@
 					<button
 						type="button"
 						on:click={handleReset}
-						class="btn variant-ringed-primary btn-outline lg:w-40 lg:ml-8 md:ml-6 sm:ml-1 mb-10"
+						class="btn variant-ringed-primary text-primary-500 btn-outline lg:w-40 lg:ml-8 md:ml-6 sm:ml-1 mb-10"
 					>
 						Reset</button
 					>

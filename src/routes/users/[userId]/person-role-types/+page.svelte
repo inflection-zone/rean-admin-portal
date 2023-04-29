@@ -126,7 +126,7 @@
 	<div class=" overflow-y-auto h-[600px] bg-tertiary-500">
 		<table class="table w-full">
 			<tbody class="">
-				{#each $dataTableStore.filtered as row, rowIndex}
+				{#each $dataTableStore.filtered as row}
 					<tr>
 						<td style="width: 4%;">{row.index}</td>
 						<td style="width: 20%;"

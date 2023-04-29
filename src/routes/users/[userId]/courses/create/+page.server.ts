@@ -1,9 +1,9 @@
 import { redirect } from 'sveltekit-flash-message/server';
 import type { RequestEvent } from '@sveltejs/kit';
-import { errorMessage, successMessage } from '$lib/utils/message.utils';
-import { createCourse } from '../../../../api/services/courses';
 import { zfd } from 'zod-form-data';
 import { z } from 'zod';
+import { errorMessage, successMessage } from '$lib/utils/message.utils';
+import { createCourse } from '../../../../api/services/courses';
 
 /////////////////////////////////////////////////////////////////////////
 
@@ -11,7 +11,7 @@ const createCourseSchema = zfd.formData({
 	name: z.string().max(256),
 	description: z.string().optional(),
 	durationInDays: zfd.numeric(z.number().optional()),
-	imageUrl: z.string().optional(),
+	imageUrl: z.string().optional()
 });
 
 export const actions = {
@@ -42,7 +42,7 @@ export const actions = {
 			result.name,
 			result.description,
 			result.durationInDays,
-			result.imageUrl,
+			result.imageUrl
 		);
 		const courseId = response.Data.Course.id;
 

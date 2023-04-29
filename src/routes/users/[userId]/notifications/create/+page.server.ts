@@ -1,9 +1,9 @@
 import { redirect } from 'sveltekit-flash-message/server';
 import type { RequestEvent } from '@sveltejs/kit';
+import { z } from 'zod';
+import { zfd } from 'zod-form-data';
 import { errorMessage, successMessage } from '$lib/utils/message.utils';
 import { createNotification } from '../../../../api/services/notifications';
-import { z } from 'zod';
-import { zfd } from "zod-form-data";
 
 /////////////////////////////////////////////////////////////////////////
 
@@ -11,8 +11,8 @@ const createNotificationSchema = zfd.formData({
 	title: z.string().min(8).max(64),
 	body: z.string().optional(),
 	type: z.string().min(3).max(64),
-	broadcastToAll: zfd.checkbox({ trueValue: "true" }),
-	imageUrl: z.string().optional(),
+	broadcastToAll: zfd.checkbox({ trueValue: 'true' }),
+	imageUrl: z.string().optional()
 });
 
 export const actions = {

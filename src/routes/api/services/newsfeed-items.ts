@@ -13,7 +13,7 @@ export const createNewsfeedItem = async (
 	authorName: string,
 	authorEmail: string,
 	authorLink: string,
-	image: string,
+	image: string
 ) => {
 	const body = {
 		FeedId: newsfeedId,
@@ -24,7 +24,7 @@ export const createNewsfeedItem = async (
 		AuthorName: authorName ? authorName : null,
 		AuthorEmail: authorEmail ? authorEmail : null,
 		AuthorLink: authorLink ? authorLink : null,
-		Image: image ? image : null,
+		Image: image ? image : null
 	};
 	const url = BACKEND_API_URL + '/rss-feeds/feed-items';
 	return await post_(sessionId, url, body, true);
@@ -66,7 +66,7 @@ export const updateNewsfeedItem = async (
 	authorName: string,
 	authorEmail: string,
 	authorLink: string,
-	image: string,
+	image: string
 ) => {
 	const body = {
 		FeedId: newsfeedId,
@@ -77,9 +77,9 @@ export const updateNewsfeedItem = async (
 		AuthorName: authorName ? authorName : null,
 		AuthorEmail: authorEmail ? authorEmail : null,
 		AuthorLink: authorLink ? authorLink : null,
-		Image: image ? image : null,
+		Image: image ? image : null
 	};
-	console.log('body--',body)
+	console.log('body--', body);
 	const url = BACKEND_API_URL + `/rss-feeds/feed-items/${newsfeedItemId}`;
 	return await put_(sessionId, url, body, true);
 };

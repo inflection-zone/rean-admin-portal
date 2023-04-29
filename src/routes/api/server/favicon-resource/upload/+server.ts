@@ -29,7 +29,6 @@ export const POST = (async (event: RequestEvent) => {
 		const buffer = fs.readFileSync(filePath);
 
 		console.log('Uploading file resource ...');
-		//const location = path.join(process.cwd(), filePath);
 		const response = await uploadBinary(sessionId, buffer, faviconName, true);
 		console.log(JSON.stringify(response, null, 2));
 
@@ -37,7 +36,6 @@ export const POST = (async (event: RequestEvent) => {
 
 		return new Response(JSON.stringify(response));
 	} catch (err) {
-		//console.error(`Error uploading file: ${err.message}`);
 		console.error(`Error uploading file: ${JSON.stringify(err.stack.split('\n'), null, 2)}`);
 		return new Response(err.message);
 	}

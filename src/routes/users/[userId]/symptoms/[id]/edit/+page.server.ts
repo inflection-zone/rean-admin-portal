@@ -1,11 +1,11 @@
 import { error, type RequestEvent } from '@sveltejs/kit';
 import { redirect } from 'sveltekit-flash-message/server';
 import { errorMessage, successMessage } from '$lib/utils/message.utils';
+import { z } from 'zod';
+import { zfd } from 'zod-form-data';
 import { BACKEND_API_URL } from '$env/static/private';
 import type { PageServerLoad } from './$types';
 import { getSymptomById, updateSymptom } from '../../../../../api/services/symptoms';
-import { z } from 'zod';
-import { zfd } from 'zod-form-data';
 
 /////////////////////////////////////////////////////////////////////////
 
@@ -36,7 +36,7 @@ export const load: PageServerLoad = async (event: RequestEvent) => {
 	}
 };
 
-const updateSymptomSchema =  zfd.formData({
+const updateSymptomSchema = zfd.formData({
 	symptom: z.string().min(3).max(256),
 	description: z.string().optional(),
 	tags: z.array(z.string()).optional(),

@@ -50,10 +50,8 @@
 
 	const upload = async (imgBase64, filename) => {
 		const data = {};
-		//console.log(imgBase64);
 		const imgData = imgBase64.split(',');
 		data['image'] = imgData[1];
-		//console.log(JSON.stringify(data));
 		const res = await fetch(`/api/server/file-resources/upload`, {
 			method: 'POST',
 			headers: {
@@ -66,7 +64,7 @@
 		console.log(Date.now().toString());
 		const response = await res.json();
 		if (response.Status === 'success' && response.HttpCode === 201) {
-			// const imageResourceId = response.Data.FileResources[0].id;
+			const imageResourceId = response.Data.FileResources[0].id;
 			const imageUrl_ = response.Data.FileResources[0].Url;
 			console.log('imageUrl_', imageUrl_);
 			if (imageUrl_) {
@@ -175,30 +173,6 @@
 					{/if}
 				</div>
 			</div>
-
-			<!-- <div class="flex items-start mt-2 mb-4 hidden lg:mx-16 md:mx-12 mx-10">
-				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
-					<label class="label">
-						<span>Modules</span>
-					</label>
-				</div>
-				<div class="w-1/2 md:w-2/3 lg:w-2/3">
-					<select
-						name="courseIds"
-						class="select"
-						multiple
-						placeholder="Select modules here..."
-						value={modules}
-					>
-						{#each modules as module}
-							<option value={module.id}>{module.Name}</option>
-						{/each}
-					</select>
-					{#if form?.errors?.courseIds}
-						<p class="text-error-500 text-xs">{form?.errors?.courseIds[0]}</p>
-					{/if}
-				</div>
-			</div> -->
 
 			<div class="flex items-start my-2 lg:mx-16 md:mx-12 mx-10">
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">

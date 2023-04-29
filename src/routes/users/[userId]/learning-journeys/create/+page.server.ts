@@ -1,12 +1,12 @@
 import { redirect } from 'sveltekit-flash-message/server';
 import type { RequestEvent } from '@sveltejs/kit';
+import { zfd } from 'zod-form-data';
+import { z } from 'zod';
 import { errorMessage, successMessage } from '$lib/utils/message.utils';
 import { error } from '@sveltejs/kit';
 import type { PageServerLoad } from '../$types';
 import { createLearningJourney } from '../../../../api/services/learning-journeys';
 import { searchCourses } from '../../../../api/services/courses';
-import { zfd } from 'zod-form-data';
-import { z } from 'zod';
 
 ////////////////////////////////////////////////////////////////////////////
 
@@ -45,27 +45,16 @@ export const actions = {
 		const userId = event.params.userId;
 		const sessionId = event.cookies.get('sessionId');
 		const data = await request.formData();
+		const formData = Object.fromEntries(data);
 
-		const name = data.has('name') ? data.get('name') : null;
-		const preferenceWeight = data.has('preferenceWeight') ? data.get('preferenceWeight') : null;
-		const description = data.has('description') ? data.get('description') : null;
-		const durationInDays = data.has('durationInDays') ? data.get('durationInDays') : null;
-		const imageUrl = data.has('imageUrl') ? data.get('imageUrl') : null;
 		const courseIds = data.has('courseIds') ? data.getAll('courseIds') : [];
-		const formData = {
-			name: name,
-			preferenceWeight: preferenceWeight,
-			description: description,
-			durationInDays: durationInDays,
-			imageUrl: imageUrl,
-			courseIds: courseIds
-		}
+		const formDataValue = { ...formData, courseIds: courseIds };
 
 		type LearningJourneySchema = z.infer<typeof createLearningJourneySchema>;
 
 		let result: LearningJourneySchema = {};
 		try {
-			result = createLearningJourneySchema.parse(formData);
+			result = createLearningJourneySchema.parse(formDataValue);
 			console.log('result', result);
 		} catch (err: any) {
 			const { fieldErrors: errors } = err.flatten();
@@ -76,6 +65,7 @@ export const actions = {
 				errors
 			};
 		}
+
 		const response = await createLearningJourney(
 			sessionId,
 			result.name,

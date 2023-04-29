@@ -11,7 +11,7 @@ export const createAddress = async (
 	district: string,
 	state: string,
 	country: string,
-	postalCode: number,
+	postalCode: number
 ) => {
 	const body = {
 		Type: type ? type : 'Home',
@@ -20,7 +20,7 @@ export const createAddress = async (
 		District: district ? district : null,
 		State: state ? state : null,
 		Country: country ? country : null,
-		PostalCode: postalCode ? postalCode : null,
+		PostalCode: postalCode ? postalCode : null
 	};
 	const url = BACKEND_API_URL + '/addresses';
 	return await post_(sessionId, url, body, true);
@@ -54,7 +54,7 @@ export const searchAddress = async (sessionId: string, searchParams?: any) => {
 
 export const updateAddress = async (
 	sessionId: string,
-	addressId:string,
+	addressId: string,
 	type: string,
 	addressLine: string,
 	city: string,
@@ -70,7 +70,7 @@ export const updateAddress = async (
 		District: district ? district : null,
 		State: state ? state : null,
 		Country: country ? country : null,
-		PostalCode: postalCode ? postalCode : null,
+		PostalCode: postalCode ? postalCode : null
 	};
 	const url = BACKEND_API_URL + `/addresses/${addressId}`;
 	return await put_(sessionId, url, body, true);

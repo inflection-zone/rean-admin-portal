@@ -21,7 +21,7 @@ export const createApiClient = async (
 	};
 	if (Helper.isPhone(phone)) {
 		body.Phone = Helper.sanitizePhone(phone);
-}
+	}
 	const url = BACKEND_API_URL + '/api-clients';
 	return await post_(sessionId, url, body, true);
 };
@@ -74,11 +74,15 @@ export const deleteApiClient = async (sessionId: string, apiClientId: string) =>
 	return await delete_(sessionId, url, true);
 };
 
-export const getCurrentApiKey = async (apiClientCode: string , userName: string, password:string) => {
+export const getCurrentApiKey = async (
+	apiClientCode: string,
+	userName: string,
+	password: string
+) => {
 	const url = BACKEND_API_URL + `/api-clients/${apiClientCode}/current-api-key`;
 	const UserName = userName;
 	const Password = password;
-	return await get( url, true, UserName, Password);
+	return await get(url, true, UserName, Password);
 };
 
 export const updateApiKey = async (
@@ -96,10 +100,10 @@ export const updateApiKey = async (
 	return await put(url, body, true, userName, password);
 };
 
- const get = async (url: string, authorizeUser = false, userName: string, password: string) => {
+const get = async (url: string, authorizeUser = false, userName: string, password: string) => {
 	const headers = {};
 	headers['Content-Type'] = 'application/json';
-	const authorization = userName+':'+ password ;
+	const authorization = userName + ':' + password;
 	const basicAuth = Helper.encodeToBase64(authorization);
 
 	if (authorizeUser) {
@@ -130,12 +134,11 @@ const put = async (
 	bodyObj: unknown,
 	authorizeUser = false,
 	userName: string,
-	password:string
+	password: string
 ) => {
-
 	const headers = {};
 	headers['Content-Type'] = 'application/json';
-	const authorization = userName+':'+ password ;
+	const authorization = userName + ':' + password;
 	const basicAuth = Helper.encodeToBase64(authorization);
 
 	if (authorizeUser) {
