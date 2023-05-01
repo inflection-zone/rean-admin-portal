@@ -79,7 +79,6 @@ export const updateNewsfeedItem = async (
 		AuthorLink: authorLink ? authorLink : null,
 		Image: image ? image : null
 	};
-	console.log('body--', body);
 	const url = BACKEND_API_URL + `/rss-feeds/feed-items/${newsfeedItemId}`;
 	return await put_(sessionId, url, body, true);
 };

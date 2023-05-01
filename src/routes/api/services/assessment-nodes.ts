@@ -37,7 +37,6 @@ export const createAssessmentNode = async (
 			count = count + 1;
 		}
 		body.Options = options;
-		console.log('body', body);
 	}
 	const url = BACKEND_API_URL + `/clinical/assessment-templates/${templateId}/nodes`;
 	return await post_(sessionId, url, body, true);
@@ -114,7 +113,6 @@ export const deleteAssessmentNode = async (
 	nodeId: string
 ) => {
 	const url = BACKEND_API_URL + `/clinical/assessment-templates/${templateId}/nodes/${nodeId}`;
-	console.log('url', url);
 	return await delete_(sessionId, url, true);
 };
 
@@ -134,7 +132,6 @@ export const addScoringCondition = async (
 		ResolutionScore: resolutionScore
 	};
 	const url = BACKEND_API_URL + `/clinical/assessment-templates/${templateId}/scoring-conditions/`;
-	console.log('url', url);
 	return await post_(sessionId, url, body, true);
 };
 
