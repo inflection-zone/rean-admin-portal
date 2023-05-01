@@ -204,17 +204,17 @@
 								<span>Resolution Score</span>
 							</label>
 						</div>
-						<span class="span w-1/2 md:2/3 lg:2/3" id="description">{resolutionScore}</span>
+						<div class="flex  items-center gap-12 w-1/2 md:2/3 lg:2/3">
+							<span class="span" id="description">{resolutionScore}</span>
+							<button
+							class="btn variant-ringed-primary text-primary-500 btn-md"
+							on:click|capture={() => showScoringConditionModal.set(true)}
+						>
+							Update Score
+						</button>
+						</div>
 					</div>
-					<div class="flex  items-center gap-12 w-1/2 md:2/3 lg:2/3">
-						<span class="span" id="description">{resolutionScore}</span>
-						<button
-						class="btn variant-ringed-primary text-primary-500 btn-md"
-						on:click|capture={() => showScoringConditionModal.set(true)}
-					>
-						Update Score
-					</button>
-					</div>
+				
 				{/if}
 			{:else if nodeType === 'Message'}
 				<div class="flex items-center my-4 lg:mx-16 md:mx-12 mx-10">
