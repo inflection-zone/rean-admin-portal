@@ -63,7 +63,6 @@ export const updateKnowledgeNugget = async (
 		AdditionalResources: additionalResources ? additionalResources : null,
 		Tags: tags ? tags : null
 	};
-	console.log('body--', body);
 	const url = BACKEND_API_URL + `/educational/knowledge-nuggets/${knowledgeNuggetId}`;
 	return await put_(sessionId, url, body, true);
 };
