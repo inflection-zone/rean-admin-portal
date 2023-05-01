@@ -16,7 +16,6 @@ export const createCourse = async (
 		DurationInDays: durationInDays ? durationInDays : null,
 		ImageUrl: imageUrl ? imageUrl : null
 	};
-	console.log('body', body);
 	const url = BACKEND_API_URL + '/educational/courses';
 	return await post_(sessionId, url, body, true);
 };
@@ -61,8 +60,6 @@ export const updateCourse = async (
 		DurationInDays: durationInDays ? durationInDays : null,
 		ImageUrl: imageUrl ? imageUrl : null
 	};
-
-	console.log('body', body);
 	const url = BACKEND_API_URL + `/educational/courses/${courseId}`;
 	return await put_(sessionId, url, body, true);
 };
