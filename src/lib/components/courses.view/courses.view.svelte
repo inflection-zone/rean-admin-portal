@@ -74,7 +74,7 @@
 	<div class="flex justify-center flex-col w-full h-14 p-3 bg-secondary-500 min-[280px]:overflow-auto overflow-auto">
 		<div class="ml-3 relative flex flex-row text-white text-xl">Courses</div>
 	</div>
-	<section class="text-base-100">
+	<section class="text-base-100 overflow-y-auto h-[700px] bg-tertiary-500">
 		<div class="my-3">
 			{#each $dataTableStore.filtered as course}
 				<CollapsibleSection
