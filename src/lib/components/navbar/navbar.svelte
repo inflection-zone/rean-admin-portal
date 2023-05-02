@@ -3,14 +3,18 @@
 	import type { DrawerSettings } from '@skeletonlabs/skeleton';
 	import { AppShell, AppBar } from '@skeletonlabs/skeleton';
 	import Fa from 'svelte-fa';
-	import { faBars, faCircleUser, faMugHot } from '@fortawesome/free-solid-svg-icons';
+	import {
+		faCircleUser,
+	} from '@fortawesome/free-solid-svg-icons';
 	import { navbarMenu, sidebarMenu, type TabDefinition } from './navigation.tabs';
 	import SettingMenu from './setting.menus.svelte';
-	import { afterUpdate, onMount } from 'svelte';
 	import { page } from '$app/stores';
+	import { onMount, afterUpdate } from 'svelte';
+	import Sidebar from './sidebar.svelte';
 	export let userId = undefined;
 	const navbarTabs: TabDefinition[] = navbarMenu(userId);
 	const sidebarTabs: TabDefinition[] = sidebarMenu(userId);
+
 	let activeTab = '';
 	onMount(() => {
 		activeTab = $page.url.pathname;
@@ -52,34 +56,37 @@
 	<svelte:fragment slot="header">
 		<AppBar
 			gridColumns="grid-cols-3"
-			background="bg-secondary-500"
+			background="bg-primary-500"
 			class="text-white"
 			slotDefault="place-self-center"
 			slotTrail="place-content-end"
 		>
 			<svelte:fragment slot="lead">
 				<div class="flex justify-start">
-					<button class="hover:bg-secondary-500 mr-4 hover:rounded-md" on:click={drawerLeftOpen}>
-						<Fa icon={faBars} size="lg" class=hover:border-none hover:bg-none />
-					</button>
+					<div>
+						<img class="block h-8 w-8" src="/rean-logo-white.png" alt="REAN" />
+					</div>
+					<!-- <button class="hover:bg-secondary-500 mr-4 hover:rounded-md" on:click={drawerLeftOpen}>
+						<Fa icon={faBars} size="lg"/> -->
+					<!-- </button> -->
 					<div class="flex-1 justify-start hidden lg:block">
-						<ul class="space-x-4">
+						<!-- <ul class="space-x-4">
 							{#each navbarTabs as t}
 								<a
 									href={t.path}
-									class="hover:bg-[#6c3dc2] hover:text-base-100 px-3 py-2 hover:no-underline rounded-md text-md font-medium {activeTab ==
+									class="hover:bg-[#6c3dc2] hover:text-white px-3 py-2 hover:no-underline rounded-md text-md font-medium {activeTab ==
 									t.path
-										? 'active: bg-primary-500 text-base-100'
-										: 'text-base-100'}">{t.name}</a
+										? 'active: bg-primary-500 text-white'
+										: 'text-white'}">{t.name}</a
 								>
 							{/each}
-						</ul>
+						</ul> -->
 					</div>
 				</div>
 			</svelte:fragment>
-			<div>
+			<!-- <div>
 				<img class="block h-8 w-8 " src="/rean-logo-white.png" alt="REAN" />
-			</div>
+			</div> -->
 			<svelte:fragment slot="trail">
 				<button class="hover:bg-secondary-500 p-2 rounded-md" on:click={drawerRightOpen}>
 					<Fa icon={faCircleUser} size="lg" />
@@ -87,6 +94,10 @@
 			</svelte:fragment>
 		</AppBar>
 	</svelte:fragment>
+	<svelte:fragment slot="sidebarLeft">
+		<Sidebar userId = {userId}/>
+		</svelte:fragment
+	>
 	<slot />
 	<svelte:fragment slot="footer">
 		<footer class="text-center w-full fixed bottom-0 h-11 bg-primary-500">
@@ -109,19 +120,19 @@
 			{#each sidebarTabs as t}
 				<a
 					href={t.path}
-					class="hover:bg-surface-700 hover:text-base-100 p-2 hover:no-underline text-start no-underline rounded-md text-md font-medium {activeTab ==
+					class="hover:bg-surface-700 hover:text-white p-2 hover:no-underline text-start no-underline rounded-md text-md font-medium {activeTab ==
 					t.path
 						? 'active: bg-surface-800 '
-						: 'text-base-100'}">{t.name}</a
+						: 'text-white'}">{t.name}</a
 				>
 			{/each}
 			{#each navbarTabs as t}
 				<a
 					href={t.path}
-					class="hover:bg-surface-700 lg:hidden sm:first:hidden hover:text-base-100 p-2 hover:no-underline text-start no-underline rounded-md text-md font-medium {activeTab ==
+					class="hover:bg-surface-700 lg:hidden sm:first:hidden hover:text-white p-2 hover:no-underline text-start no-underline rounded-md text-md font-medium {activeTab ==
 					t.path
 						? 'active: bg-surface-800 '
-						: 'text-base-100'}">{t.name}</a
+						: 'text-white'}">{t.name}</a
 				>
 			{/each}
 		</div>
