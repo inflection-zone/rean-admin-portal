@@ -1,6 +1,13 @@
 <script lang="ts">
 	import Fa from 'svelte-fa';
-	import { faAngleDown, faAngleUp, faClose } from '@fortawesome/free-solid-svg-icons';
+	import {
+		faAngleDown,
+		faAngleUp,
+		faArrowLeft,
+		faArrowRight,
+		faBars,
+		faClose
+	} from '@fortawesome/free-solid-svg-icons';
 
 	import { page } from '$app/stores';
 	import { onMount, afterUpdate } from 'svelte';
@@ -10,6 +17,7 @@
 	let showClinicalMenus = false;
 	let showTypesMemus = false;
 	let showMiscellaneousMenus = false;
+	export let showSidebar = true;
 	let activeTab = '';
 
 	onMount(() => {
@@ -135,230 +143,322 @@
 	const onMiscellaneousTabClick = async () => {
 		showMiscellaneousMenus = !showMiscellaneousMenus;
 	};
+
+	const toggleSidebar = () => {
+		showSidebar = !showSidebar;
+	};
+
 </script>
 
-<div class="w-72 min-h-full bg-secondary-500 item-center justify-center ">
-	<div class=" flex flex-col item-center justify-center">
-		<button>
-			<!-- <Fa icon={faClose} size="md" class="right-0" /> -->
+{#if showSidebar}
+	<div class="w-64 min-h-full bg-secondary-500">
+		<button class=" flex justify-end w-48 text-white pt-5 ml-6" on:click={toggleSidebar}>
+			<Fa icon={faArrowLeft} size="md" />
 		</button>
-		<button class="flex flex-rows w-full" on:click|capture={gotoHome}>
-			<img src="/sidebar/dashboard.png" alt="" class="mt-5 ml-6 mr-4 h-6 w-6" />
-			<span
-				class="w-40 hover:bg-[#6c3dc2] hover:text-white text-start p-2 my-3 hover:no-underline rounded-md text-md font-medium {activeTab ==
-				homeLink
-					? 'active: bg-primary-500 text-white'
-					: 'text-white'}">Dashboard</span
-			>
-		</button>
-		<button class="flex flex-rows w-full" on:click|capture={gotoClients}>
-			<img src="/sidebar/client.png" alt="" class="mt-5 ml-6 mr-4 h-6 w-6" />
-			<span
-				class=" w-40 hover:bg-[#6c3dc2] hover:text-white text-start items-start p-2 my-3 text-white rounded-md text-md font-medium {activeTab ==
-				clientsLink
-					? 'active: bg-primary-500 text-white'
-					: 'text-white'}">Clients</span
-			>
-		</button>
-		<button class="flex flex-rows gap-2 w-full" on:click|capture={onClinicalTabClick}>
-			<img src="/sidebar/clinical.png" alt="" class="mt-5 ml-6 mr-4 h-6 w-6" />
-			<span
-				class="mt-4 p-2 w-40 my-3 relative flex flex-rows text-white text-md hover:bg-[#6c3dc2] hover:text-white px-3 py-2 hover:no-underline rounded-md text-md font-medium "
-				>Clinical
-				<button class="right-0 pr-2 absolute pt-2 ">
-					{#if showClinicalMenus}
-						<Fa icon={faAngleUp} size="md" />
-					{:else}
-						<Fa icon={faAngleDown} size="md " />
-					{/if}
-				</button></span
-			>
-		</button>
-		{#if showClinicalMenus}
-			<div class="flex flex-col items-center bg-secondary-600">
-				<button class="flex flex-rows w-full" on:click|capture={gotoAssessmentTemplates}>
-					<img src="/sidebar/assessment-template.png" alt="" class="mt-5 ml-10 mr-4 h-6 w-6" />
-					<span
-						class="text-start p-2 my-3 text-white rounded-md text-md font-medium hover:bg-[#6c3dc2] hover:text-white {activeTab ==
-						assessmentTemplateLink
-							? 'active: bg-primary-500 text-white'
-							: 'text-white'}">Assessments</span
-					>
-				</button>
-				<button class="flex flex-rows gap-2 w-full" on:click|capture={gotoLabRecordTypes}>
-					<img src="/sidebar/lab-record.png" alt="" class="mt-5 ml-10 mr-4 h-6 w-6" />
-					<span
-						class="text-start my-3 p-2 text-white rounded-md text-md font-medium  hover:bg-[#6c3dc2] hover:text-white {activeTab ==
-						labRecordTypeLink
-							? 'active: bg-primary-500 text-white'
-							: 'text-white'}">Lab-Records</span
-					>
-				</button>
-				<button class="flex flex-rows gap-2 w-full" on:click|capture={gotoSymptoms}>
-					<img src="/sidebar/symptom.png" alt="" class="mt-5 ml-10 mr-4 h-6 w-6" />
-					<span
-						class="text-start my-3 p-2 text-white rounded-md text-md font-medium  hover:bg-[#6c3dc2] hover:text-white {activeTab ==
-						symptomsLink
-							? 'active: bg-primary-500 text-white'
-							: 'text-white'}">Symptoms</span
-					>
-				</button>
-				<button class="flex flex-rows gap-2 w-full" on:click|capture={gotoDrugs}>
-					<img src="/sidebar/drug.png" alt="" class="mt-5 ml-10 mr-4 h-6 w-6" />
-					<span
-						class="text-start my-3 p-2 text-white rounded-md text-md font-medium  hover:bg-[#6c3dc2] hover:text-white {activeTab ==
-						drugsLink
-							? 'active: bg-primary-500 text-white'
-							: 'text-white'}">Drugs</span
-					>
-				</button>
-			</div>
-		{/if}
-		<button class="flex flex-rows gap-2 w-full" on:click|capture={onEducationalTabClick}>
-			<img src="/sidebar/educational.png" alt="" class="mt-5 ml-6 mr-4 h-6 w-6" />
-			<span
-				class="my-3 p-2 w-40 relative flex flex-rows text-white text-md hover:bg-[#6c3dc2] hover:text-white px-3 py-2 hover:no-underline rounded-md text-md font-medium "
-				>Educational
-				<button class="right-0 absolute pr-2 pt-2 ">
-					{#if showEducationalMenus}
-						<Fa icon={faAngleUp} size="md" />
-					{:else}
-						<Fa icon={faAngleDown} size="md " />
-					{/if}
-				</button></span
-			>
-		</button>
-		{#if showEducationalMenus}
-			<div class="flex flex-col bg-secondary-600">
-				<button class="flex flex-rows gap-2 w-full m1-4" on:click|capture={gotoCourses}>
-					<img src="/sidebar/course.png" alt="" class="mt-5 ml-10 mr-4 h-6 w-6" />
-					<span
-						class="text-start p-2 my-3 text-white rounded-md text-md font-medium hover:bg-[#6c3dc2] hover:text-white {activeTab ==
-						coursesLink
-							? 'active: bg-primary-500 text-white'
-							: 'text-white'}">Courses</span
-					>
-				</button>
-				<button class="flex flex-rows gap-2 w-full" on:click|capture={gotoLearningJourney}>
-					<img src="/sidebar/learning.png" alt="" class="mt-5 ml-10 mr-4 h-6 w-6" />
-					<span
-						class="text-start my-3 p-2 text-white rounded-md text-md font-medium  hover:bg-[#6c3dc2] hover:text-white {activeTab ==
-						learningJourneyLink
-							? 'active: bg-primary-500 text-white'
-							: 'text-white'}">Learning-Journeys</span
-					>
-				</button>
-				<button class="flex flex-rows gap-2 w-full" on:click|capture={gotoKnowledgeNuggets}>
-					<img src="/sidebar/knowledge-nugget.png" alt="" class="mt-5 ml-10 mr-4 h-6 w-6" />
-					<span
-						class="text-start my-3 p-2 text-white rounded-md text-md font-medium  hover:bg-[#6c3dc2] hover:text-white {activeTab ==
-						knowledgeNuggetsLink
-							? 'active: bg-primary-500 text-white'
-							: 'text-white'}">Knowledge-Nuggets</span
-					>
-				</button>
-			</div>
-		{/if}
+		<div class=" flex flex-col item-center justify-center">
+			<button class="flex flex-rows w-full" on:click|capture={gotoHome}>
+				<img src="/sidebar/dashboard.png" alt="" class="mt-5 ml-6 mr-4 h-6 w-6" />
+				<span
+					class="w-40 hover:bg-[#6c3dc2] hover:text-white text-start p-2 my-3 ml-2 hover:no-underline rounded-md text-md font-medium {activeTab ==
+					homeLink
+						? 'active: bg-primary-500 text-white'
+						: 'text-white'}">Dashboard</span
+				>
+			</button>
+			<button class="flex flex-rows w-full" on:click|capture={gotoClients}>
+				<img src="/sidebar/client.png" alt="" class="mt-5 ml-6 mr-4 h-6 w-6" />
+				<span
+					class=" w-40 hover:bg-[#6c3dc2] hover:text-white text-start items-start p-2 my-3 ml-2 text-white rounded-md text-md font-medium {activeTab ==
+					clientsLink
+						? 'active: bg-primary-500 text-white'
+						: 'text-white'}">Clients</span
+				>
+			</button>
+			<button class="flex flex-rows gap-2 w-full" on:click|capture={onClinicalTabClick}>
+				<img src="/sidebar/clinical.png" alt="" class="mt-5 ml-6 mr-4 h-6 w-6" />
+				<span
+					class="mt-4 p-2 w-40 my-3 relative flex flex-rows text-white text-md hover:bg-[#6c3dc2] hover:text-white px-3 py-2 hover:no-underline rounded-md text-md font-medium "
+					>Clinical
+					<button class="right-0 pr-2 absolute pt-2 ">
+						{#if showClinicalMenus}
+							<Fa icon={faAngleUp} size="md" />
+						{:else}
+							<Fa icon={faAngleDown} size="md " />
+						{/if}
+					</button></span
+				>
+			</button>
+			{#if showClinicalMenus}
+				<div class="flex flex-col items-center bg-secondary-600">
+					<button class="flex flex-rows w-full" on:click|capture={gotoAssessmentTemplates}>
+						<img src="/sidebar/assessment-template.png" alt="" class="mt-5 ml-10 mr-4 h-6 w-6" />
+						<span
+							class="text-start p-2 my-3 text-white rounded-md text-md font-medium hover:bg-[#6c3dc2] hover:text-white {activeTab ==
+							assessmentTemplateLink
+								? 'active: bg-primary-500 text-white'
+								: 'text-white'}">Assessments</span
+						>
+					</button>
+					<button class="flex flex-rows gap-2 w-full" on:click|capture={gotoLabRecordTypes}>
+						<img src="/sidebar/lab-record.png" alt="" class="mt-5 ml-10 mr-4 h-6 w-6" />
+						<span
+							class="text-start my-3 p-2 text-white rounded-md text-md font-medium  hover:bg-[#6c3dc2] hover:text-white {activeTab ==
+							labRecordTypeLink
+								? 'active: bg-primary-500 text-white'
+								: 'text-white'}">Lab-Records</span
+						>
+					</button>
+					<button class="flex flex-rows gap-2 w-full" on:click|capture={gotoSymptoms}>
+						<img src="/sidebar/symptom.png" alt="" class="mt-5 ml-10 mr-4 h-6 w-6" />
+						<span
+							class="text-start my-3 p-2 text-white rounded-md text-md font-medium  hover:bg-[#6c3dc2] hover:text-white {activeTab ==
+							symptomsLink
+								? 'active: bg-primary-500 text-white'
+								: 'text-white'}">Symptoms</span
+						>
+					</button>
+					<button class="flex flex-rows gap-2 w-full" on:click|capture={gotoDrugs}>
+						<img src="/sidebar/drug.png" alt="" class="mt-5 ml-10 mr-4 h-6 w-6" />
+						<span
+							class="text-start my-3 p-2 text-white rounded-md text-md font-medium  hover:bg-[#6c3dc2] hover:text-white {activeTab ==
+							drugsLink
+								? 'active: bg-primary-500 text-white'
+								: 'text-white'}">Drugs</span
+						>
+					</button>
+				</div>
+			{/if}
+			<button class="flex flex-rows gap-2 w-full" on:click|capture={onEducationalTabClick}>
+				<img src="/sidebar/educational.png" alt="" class="mt-5 ml-6 mr-4 h-6 w-6" />
+				<span
+					class="my-3 p-2 w-40 relative flex flex-rows text-white text-md hover:bg-[#6c3dc2] hover:text-white px-3 py-2 hover:no-underline rounded-md text-md font-medium "
+					>Educational
+					<button class="right-0 absolute pr-2 pt-2 ">
+						{#if showEducationalMenus}
+							<Fa icon={faAngleUp} size="md" />
+						{:else}
+							<Fa icon={faAngleDown} size="md " />
+						{/if}
+					</button></span
+				>
+			</button>
+			{#if showEducationalMenus}
+				<div class="flex flex-col bg-secondary-600">
+					<button class="flex flex-rows gap-2 w-full m1-4" on:click|capture={gotoCourses}>
+						<img src="/sidebar/course.png" alt="" class="mt-5 ml-10 mr-4 h-6 w-6" />
+						<span
+							class="text-start p-2 my-3 text-white rounded-md text-md font-medium hover:bg-[#6c3dc2] hover:text-white {activeTab ==
+							coursesLink
+								? 'active: bg-primary-500 text-white'
+								: 'text-white'}">Courses</span
+						>
+					</button>
+					<button class="flex flex-rows gap-2 w-full" on:click|capture={gotoLearningJourney}>
+						<img src="/sidebar/learning.png" alt="" class="mt-5 ml-10 mr-4 h-6 w-6" />
+						<span
+							class="text-start my-3 p-2 text-white rounded-md text-md font-medium  hover:bg-[#6c3dc2] hover:text-white {activeTab ==
+							learningJourneyLink
+								? 'active: bg-primary-500 text-white'
+								: 'text-white'}">Learning-Journeys</span
+						>
+					</button>
+					<button class="flex flex-rows gap-2 w-full" on:click|capture={gotoKnowledgeNuggets}>
+						<img src="/sidebar/knowledge-nugget.png" alt="" class="mt-5 ml-10 mr-4 h-6 w-6" />
+						<span
+							class="text-start my-3 p-2 text-white rounded-md text-md font-medium  hover:bg-[#6c3dc2] hover:text-white {activeTab ==
+							knowledgeNuggetsLink
+								? 'active: bg-primary-500 text-white'
+								: 'text-white'}">Knowledge-Nuggets</span
+						>
+					</button>
+				</div>
+			{/if}
+			<button class="flex flex-rows gap-2 w-full" on:click|capture={onTypesTabClick}>
+				<img src="/sidebar/types.png" alt="" class="mt-5 ml-6 mr-4 h-6 w-6" />
+				<span
+					class="my-3 p-2 w-40 flex flex-rows relative text-white text-md hover:bg-[#6c3dc2] hover:text-white px-3 py-2 hover:no-underline rounded-md text-md font-medium "
+					>Types
+					<button class="right-0 absolute pr-2 pt-2 ">
+						{#if showTypesMemus}
+							<Fa icon={faAngleUp} size="md" />
+						{:else}
+							<Fa icon={faAngleDown} size="md " />
+						{/if}
+					</button></span
+				>
+			</button>
+			{#if showTypesMemus}
+				<div class="flex flex-col bg-secondary-600">
+					<button class="flex flex-rows gap-2 w-full m1-4" on:click|capture={gotoPersonRoleTypes}>
+						<img src="/sidebar/role.png" alt="" class="mt-5 ml-10 mr-4 h-6 w-6 " />
+						<span
+							class="text-start p-2 my-3 text-white rounded-md text-md font-medium hover:bg-[#6c3dc2] hover:text-white {activeTab ==
+							personRoleTypesLink
+								? 'active: bg-primary-500 text-white'
+								: 'text-white'}">Person-Role</span
+						>
+					</button>
+					<button class="flex flex-rows gap-2 w-full" on:click|capture={gotoPriorityTypes}>
+						<img src="/sidebar/priority.png" alt="" class="mt-5 ml-10 mr-4 h-6 w-6" />
+						<span
+							class="text-start my-3 p-2 text-white rounded-md text-md font-medium  hover:bg-[#6c3dc2] hover:text-white {activeTab ==
+							priorityTypesLink
+								? 'active: bg-primary-500 text-white'
+								: 'text-white'}">Priorities</span
+						>
+					</button>
+					<button class="flex flex-rows gap-2 w-full" on:click|capture={gotoGoalTypes}>
+						<img src="/sidebar/goal.png" alt="" class="mt-5 ml-10 mr-4 h-6 w-6" />
+						<span
+							class="text-start my-3 p-2 text-white rounded-md text-md font-medium  hover:bg-[#6c3dc2] hover:text-white {activeTab ==
+							goalTypesLink
+								? 'active: bg-primary-500 text-white'
+								: 'text-white'}">Goals</span
+						>
+					</button>
+				</div>
+			{/if}
 
-		<button class="flex flex-rows gap-2 w-full" on:click|capture={onTypesTabClick}>
-			<img src="/sidebar/types.png" alt="" class="mt-5 ml-6 mr-4 h-6 w-6" />
-			<span
-				class="my-3 p-2 w-40 flex flex-rows relative text-white text-md hover:bg-[#6c3dc2] hover:text-white px-3 py-2 hover:no-underline rounded-md text-md font-medium "
-				>Types
-				<button class="right-0 absolute pr-2 pt-2 ">
-					{#if showTypesMemus}
-						<Fa icon={faAngleUp} size="md" />
-					{:else}
-						<Fa icon={faAngleDown} size="md " />
-					{/if}
-				</button></span
-			>
-		</button>
-		{#if showTypesMemus}
-			<div class="flex flex-col bg-secondary-600">
-				<button class="flex flex-rows gap-2 w-full m1-4" on:click|capture={gotoPersonRoleTypes}>
-					<img src="/sidebar/role.png" alt="" class="mt-5 ml-10 mr-4 h-6 w-6 " />
-					<span
-						class="text-start p-2 my-3 text-white rounded-md text-md font-medium hover:bg-[#6c3dc2] hover:text-white {activeTab ==
-						personRoleTypesLink
-							? 'active: bg-primary-500 text-white'
-							: 'text-white'}">Person-Role</span
-					>
-				</button>
-				<button class="flex flex-rows gap-2 w-full" on:click|capture={gotoPriorityTypes}>
-					<img src="/sidebar/priority.png" alt="" class="mt-5 ml-10 mr-4 h-6 w-6" />
-					<span
-						class="text-start my-3 p-2 text-white rounded-md text-md font-medium  hover:bg-[#6c3dc2] hover:text-white {activeTab ==
-						priorityTypesLink
-							? 'active: bg-primary-500 text-white'
-							: 'text-white'}">Priorities</span
-					>
-				</button>
-				<button class="flex flex-rows gap-2 w-full" on:click|capture={gotoGoalTypes}>
-					<img src="/sidebar/goal.png" alt="" class="mt-5 ml-10 mr-4 h-6 w-6" />
-					<span
-						class="text-start my-3 p-2 text-white rounded-md text-md font-medium  hover:bg-[#6c3dc2] hover:text-white {activeTab ==
-						goalTypesLink
-							? 'active: bg-primary-500 text-white'
-							: 'text-white'}">Goals</span
-					>
-				</button>
-			</div>
-		{/if}
-
-		<button class="flex flex-rows gap-2 w-full" on:click|capture={onMiscellaneousTabClick}>
-			<img src="/sidebar/miscellaneous.png" alt="" class="mt-5 ml-6 mr-4 h-6 w-6" />
-			<span
-				class="my-3 p-2 w-40 relative flex flex-rows text-white text-md hover:bg-[#6c3dc2] hover:text-white px-3 py-2 hover:no-underline rounded-md text-md font-medium "
-				>Miscellaneous
-				<button class="right-0 pr-2 absolute pt-2 ">
-					{#if showMiscellaneousMenus}
-						<Fa icon={faAngleUp} size="md" />
-					{:else}
-						<Fa icon={faAngleDown} size="md " />
-					{/if}
-				</button></span
-			>
-		</button>
-		{#if showMiscellaneousMenus}
-			<div class="flex flex-col bg-secondary-600">
-				<button class="flex flex-rows gap-2 w-full m1-4" on:click|capture={gotoOrganizations}>
-					<img src="/sidebar/organization.png" alt="" class="mt-3 ml-10 mr-4 h-6 w-6" />
-					<span
-						class="text-start p-2 mb-3 text-white rounded-md text-md font-medium hover:bg-[#6c3dc2] hover:text-white {activeTab ==
-						organizationsLink
-							? 'active: bg-primary-500 text-white'
-							: 'text-white'}">Organizations</span
-					>
-				</button>
-				<button class="flex flex-rows gap-2 w-full" on:click|capture={gotoNotifications}>
-					<img src="/sidebar/notification.png" alt="" class="mt-5 ml-10 mr-4 h-6 w-6" />
-					<span
-						class="text-start my-3 p-2 text-white rounded-md text-md font-medium  hover:bg-[#6c3dc2] hover:text-white {activeTab ==
-						notificationsLink
-							? 'active: bg-primary-500 text-white'
-							: 'text-white'}">Notifications</span
-					>
-				</button>
-				<button class="flex flex-rows gap-2 w-full" on:click|capture={gotoNewsFeed}>
-					<img src="/sidebar/newsfeed.png" alt="" class="mt-5 ml-10 mr-4 h-6 w-6" />
-					<span
-						class="text-start my-3 p-2 text-white rounded-md text-md font-medium  hover:bg-[#6c3dc2] hover:text-white {activeTab ==
-						newsFeedLink
-							? 'active: bg-primary-500 text-white'
-							: 'text-white'}">Newsfeeds</span
-					>
-				</button>
-				<button class="flex flex-rows gap-2 w-full" on:click|capture={gotoNotices}>
-					<img src="/sidebar/notice.png" alt="" class="mt-5 ml-10 mr-4 h-6 w-6" />
-					<span
-						class="text-start my-3 p-2 text-white rounded-md text-md font-medium  hover:bg-[#6c3dc2] hover:text-white {activeTab ==
-						noticesLink
-							? 'active: bg-primary-500 text-white'
-							: 'text-white'}">Notices</span
-					>
-				</button>
-			</div>
-		{/if}
+			<button class="flex flex-rows gap-2 w-full" on:click|capture={onMiscellaneousTabClick}>
+				<img src="/sidebar/miscellaneous.png" alt="" class="mt-5 ml-6 mr-4 h-6 w-6" />
+				<span
+					class="my-3 p-2 w-40 relative flex flex-rows text-white text-md hover:bg-[#6c3dc2] hover:text-white px-3 py-2 hover:no-underline rounded-md text-md font-medium "
+					>Miscellaneous
+					<button class="right-0 pr-2 absolute pt-2 ">
+						{#if showMiscellaneousMenus}
+							<Fa icon={faAngleUp} size="md" />
+						{:else}
+							<Fa icon={faAngleDown} size="md " />
+						{/if}
+					</button></span
+				>
+			</button>
+			{#if showMiscellaneousMenus}
+				<div class="flex flex-col bg-secondary-600">
+					<button class="flex flex-rows gap-2 w-full m1-4" on:click|capture={gotoOrganizations}>
+						<img src="/sidebar/organization.png" alt="" class="mt-3 ml-10 mr-4 h-6 w-6" />
+						<span
+							class="text-start p-2 mb-3 text-white rounded-md text-md font-medium hover:bg-[#6c3dc2] hover:text-white {activeTab ==
+							organizationsLink
+								? 'active: bg-primary-500 text-white'
+								: 'text-white'}">Organizations</span
+						>
+					</button>
+					<button class="flex flex-rows gap-2 w-full" on:click|capture={gotoNotifications}>
+						<img src="/sidebar/notification.png" alt="" class="mt-5 ml-10 mr-4 h-6 w-6" />
+						<span
+							class="text-start my-3 p-2 text-white rounded-md text-md font-medium  hover:bg-[#6c3dc2] hover:text-white {activeTab ==
+							notificationsLink
+								? 'active: bg-primary-500 text-white'
+								: 'text-white'}">Notifications</span
+						>
+					</button>
+					<button class="flex flex-rows gap-2 w-full" on:click|capture={gotoNewsFeed}>
+						<img src="/sidebar/newsfeed.png" alt="" class="mt-5 ml-10 mr-4 h-6 w-6" />
+						<span
+							class="text-start my-3 p-2 text-white rounded-md text-md font-medium  hover:bg-[#6c3dc2] hover:text-white {activeTab ==
+							newsFeedLink
+								? 'active: bg-primary-500 text-white'
+								: 'text-white'}">Newsfeeds</span
+						>
+					</button>
+					<button class="flex flex-rows gap-2 w-full" on:click|capture={gotoNotices}>
+						<img src="/sidebar/notice.png" alt="" class="mt-5 ml-10 mr-4 h-6 w-6" />
+						<span
+							class="text-start my-3 p-2 text-white rounded-md text-md font-medium  hover:bg-[#6c3dc2] hover:text-white {activeTab ==
+							noticesLink
+								? 'active: bg-primary-500 text-white'
+								: 'text-white'}">Notices</span
+						>
+					</button>
+				</div>
+			{/if}
+		</div>
 	</div>
-</div>
+{:else}
+	<div class="w-20 min-h-full bg-secondary-500 item-center justify-center ">
+		<button class=" flex justify-end w-6 text-white pt-5 ml-6" on:click={toggleSidebar}>
+			<Fa icon={faArrowRight} size="md" />
+		</button>
+		<div class=" flex flex-col item-center justify-center">
+			<button class="flex flex-rows w-full" on:click|capture={gotoHome}>
+				<img src="/sidebar/dashboard.png" alt="" class="mt-5 ml-6 mr-4 h-6 w-6" />
+			</button>
+			<button class="flex flex-rows w-full" on:click|capture={gotoClients}>
+				<img src="/sidebar/client.png" alt="" class="mt-5 ml-6 mr-4 h-6 w-6" />
+			</button>
+			<button class="flex flex-rows gap-2 w-full" on:click|capture={onClinicalTabClick}>
+				<img src="/sidebar/clinical.png" alt="" class="mt-5 ml-6 mr-4 h-6 w-6 relative"/>
+			</button>
+			{#if showClinicalMenus}
+				<div class="flex flex-col items-center bg-secondary-600">
+					<button class="flex flex-rows w-full" on:click|capture={gotoAssessmentTemplates}>
+						<img src="/sidebar/assessment-template.png" alt="" class="mt-5 ml-10 mr-4 h-6 w-6" />
+					</button>
+					<button class="flex flex-rows gap-2 w-full" on:click|capture={gotoLabRecordTypes}>
+						<img src="/sidebar/lab-record.png" alt="" class="mt-5 ml-10 mr-4 h-6 w-6" />
+					</button>
+					<button class="flex flex-rows gap-2 w-full" on:click|capture={gotoSymptoms}>
+						<img src="/sidebar/symptom.png" alt="" class="mt-5 ml-10 mr-4 h-6 w-6" />
+					</button>
+					<button class="flex flex-rows gap-2 w-full" on:click|capture={gotoDrugs}>
+						<img src="/sidebar/drug.png" alt="" class="mt-5 ml-10 mr-4 h-6 w-6" />
+					</button>
+				</div>
+			{/if}
+			<button class="flex flex-rows gap-2 w-full" on:click|capture={onEducationalTabClick}>
+				<img src="/sidebar/educational.png" alt="" class="mt-5 ml-6 mr-4 h-6 w-6" />
+			</button>
+			{#if showEducationalMenus}
+				<div class="flex flex-col bg-secondary-600">
+					<button class="flex flex-rows gap-2 w-full m1-4" on:click|capture={gotoCourses}>
+						<img src="/sidebar/course.png" alt="" class="mt-5 ml-10 mr-4 h-6 w-6" />
+					</button>
+					<button class="flex flex-rows gap-2 w-full" on:click|capture={gotoLearningJourney}>
+						<img src="/sidebar/learning.png" alt="" class="mt-5 ml-10 mr-4 h-6 w-6" />
+					</button>
+					<button class="flex flex-rows gap-2 w-full" on:click|capture={gotoKnowledgeNuggets}>
+						<img src="/sidebar/knowledge-nugget.png" alt="" class="mt-5 ml-10 mr-4 h-6 w-6" />
+					</button>
+				</div>
+			{/if}
+
+			<button class="flex flex-rows gap-2 w-full" on:click|capture={onTypesTabClick}>
+				<img src="/sidebar/types.png" alt="" class="mt-5 ml-6 mr-4 h-6 w-6" />
+			</button>
+			{#if showTypesMemus}
+				<div class="flex flex-col bg-secondary-600">
+					<button class="flex flex-rows gap-2 w-full m1-4" on:click|capture={gotoPersonRoleTypes}>
+						<img src="/sidebar/role.png" alt="" class="mt-5 ml-10 mr-4 h-6 w-6 " />
+					</button>
+					<button class="flex flex-rows gap-2 w-full" on:click|capture={gotoPriorityTypes}>
+						<img src="/sidebar/priority.png" alt="" class="mt-5 ml-10 mr-4 h-6 w-6" />
+					</button>
+					<button class="flex flex-rows gap-2 w-full" on:click|capture={gotoGoalTypes}>
+						<img src="/sidebar/goal.png" alt="" class="mt-5 ml-10 mr-4 h-6 w-6" />
+					</button>
+				</div>
+			{/if}
+
+			<button class="flex flex-rows gap-2 w-full" on:click|capture={onMiscellaneousTabClick}>
+				<img src="/sidebar/miscellaneous.png" alt="" class="mt-5 ml-6 mr-4 h-6 w-6" />
+			</button>
+			{#if showMiscellaneousMenus}
+				<div class="flex flex-col bg-secondary-600">
+					<button class="flex flex-rows gap-2 w-full m1-4" on:click|capture={gotoOrganizations}>
+						<img src="/sidebar/organization.png" alt="" class="mt-3 ml-10 mr-4 h-6 w-6" />
+					</button>
+					<button class="flex flex-rows gap-2 w-full" on:click|capture={gotoNotifications}>
+						<img src="/sidebar/notification.png" alt="" class="mt-5 ml-10 mr-4 h-6 w-6" />
+					</button>
+					<button class="flex flex-rows gap-2 w-full" on:click|capture={gotoNewsFeed}>
+						<img src="/sidebar/newsfeed.png" alt="" class="mt-5 ml-10 mr-4 h-6 w-6" />
+					</button>
+					<button class="flex flex-rows gap-2 w-full" on:click|capture={gotoNotices}>
+						<img src="/sidebar/notice.png" alt="" class="mt-5 ml-10 mr-4 h-6 w-6" />
+					</button>
+				</div>
+			{/if}
+		</div>
+	</div>
+{/if}
