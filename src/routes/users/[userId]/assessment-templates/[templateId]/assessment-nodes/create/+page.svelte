@@ -35,7 +35,7 @@
 
 	const breadCrumbs = [
 		{
-			name: 'Assessment-Templates',
+			name: 'Assessments',
 			path: assessmentsRoutes
 		},
 		{
