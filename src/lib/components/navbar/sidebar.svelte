@@ -496,7 +496,7 @@
 					>
 						<img src="/sidebar/learning.png" alt="" class="mx-auto mb-1 h-6 w-6" />
 						<span class="mx-auto text-start hover:no-underline rounded-md text-md font-medium "
-							>Learning<br>Journeys
+							>Learning<br />Journeys
 						</span>
 					</button>
 					<button
@@ -508,7 +508,7 @@
 					>
 						<img src="/sidebar/knowledge-nugget.png" alt="" class="mx-auto mb-1 h-6 w-6" />
 						<span class="mx-auto text-start hover:no-underline rounded-md text-md font-medium "
-							>Knowledge <br>Nuggets
+							>Knowledge <br />Nuggets
 						</span>
 					</button>
 				</div>

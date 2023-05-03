@@ -3,9 +3,7 @@
 	import type { DrawerSettings } from '@skeletonlabs/skeleton';
 	import { AppShell, AppBar } from '@skeletonlabs/skeleton';
 	import Fa from 'svelte-fa';
-	import {
-		faCircleUser,
-	} from '@fortawesome/free-solid-svg-icons';
+	import { faCircleUser, faSearch } from '@fortawesome/free-solid-svg-icons';
 	import { navbarMenu, sidebarMenu, type TabDefinition } from './navigation.tabs';
 	import SettingMenu from './setting.menus.svelte';
 	import { page } from '$app/stores';
@@ -69,6 +67,17 @@
 					<!-- <button class="hover:bg-secondary-500 mr-4 hover:rounded-md" on:click={drawerLeftOpen}>
 						<Fa icon={faBars} size="lg"/> -->
 					<!-- </button> -->
+					<div class="relative ml-10 w-96">
+						<div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+							<Fa icon={faSearch} class="text-primary-300" size="md" />
+						</div>
+						<input
+							type="text"
+							class="input block w-full pl-10 p-2.5"
+							placeholder="Search here..."
+						/>
+					</div>
+
 					<div class="flex-1 justify-start hidden lg:block">
 						<!-- <ul class="space-x-4">
 							{#each navbarTabs as t}
@@ -95,9 +104,8 @@
 		</AppBar>
 	</svelte:fragment>
 	<svelte:fragment slot="sidebarLeft">
-		<Sidebar userId = {userId}/>
-		</svelte:fragment
-	>
+		<Sidebar {userId} />
+	</svelte:fragment>
 	<slot />
 	<svelte:fragment slot="footer">
 		<footer class="text-center w-full fixed bottom-0 h-11 bg-primary-500">
