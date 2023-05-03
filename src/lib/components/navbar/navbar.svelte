@@ -67,17 +67,12 @@
 					<!-- <button class="hover:bg-secondary-500 mr-4 hover:rounded-md" on:click={drawerLeftOpen}>
 						<Fa icon={faBars} size="lg"/> -->
 					<!-- </button> -->
-					<div class="relative ml-10 w-96">
-						<div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
-							<Fa icon={faSearch} class="text-primary-300" size="md" />
+						<div class="relative ml-10 w-96">
+								<div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+									<Fa icon={faSearch} class="text-primary-300" size="md" />
+								</div>
+								<input type="text" class="border border-primary-300 text-md text-primary-500 rounded-lg focus:ring-primary-300 focus:border-primary-300 placeholder:text-primary-300 block w-full pl-10 p-2.5 " placeholder="Search" >
 						</div>
-						<input
-							type="text"
-							class="input block w-full pl-10 p-2.5"
-							placeholder="Search here..."
-						/>
-					</div>
-
 					<div class="flex-1 justify-start hidden lg:block">
 						<!-- <ul class="space-x-4">
 							{#each navbarTabs as t}
