@@ -10,6 +10,7 @@
 	import Confirm from '$lib/components/modal/confirmModal.svelte';
 	import UpdateScoringCondition from '$lib/components/modal/update.scoring.condition.modal.svelte';
 	import { scoringApplicableCondition, showScoringConditionModal } from '$lib/store/general.store';
+	import { Helper } from '$lib/utils/helper';
 
 	////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -25,10 +26,8 @@
 	let options = data.assessmentNode.Options ?? [];
 	let childrenNodes = data.assessmentNode.Children ?? [];
 	let displayCode = data.assessmentNode.DisplayCode;
-	let resolutionScore = data.assessmentNode.ScoringCondition.ResolutionScore;
-	let scoringConditionId = data.assessmentNode.ScoringCondition.id;
-	console.log('templetenode =', data.assessmentNode);
-
+	let resolutionScore;
+	
 	scoringApplicableCondition.set(data.templateScoringCondition.ScoringApplicable);
 
 	onMount(() => {
@@ -49,7 +48,7 @@
 
 	const breadCrumbs = [
 		{
-			name: 'Assessment-Templates',
+			name: 'Assessments',
 			path: assessmentsRoutes
 		},
 		{
@@ -88,7 +87,7 @@
 			sessionId,
 			templateId,
 			nodeId,
-			scoringConditionId,
+			scoringConditionId : data.assessmentNode.ScoringCondition.id,
 			resolutionScore: resolutionScore
 		});
 	};
@@ -204,17 +203,17 @@
 								<span>Resolution Score</span>
 							</label>
 						</div>
-						<span class="span w-1/2 md:2/3 lg:2/3" id="description">{resolutionScore}</span>
-					</div>
-					<div class="flex  items-center gap-12 w-1/2 md:2/3 lg:2/3">
-						<span class="span " id="description">{resolutionScore}</span>
-						<button
+						<div class="flex  items-center gap-12 w-1/2 md:2/3 lg:2/3">
+							<span class="span" id="description">{data.assessmentNode.ScoringCondition.ResolutionScore}</span>
+							<button
 							class="btn variant-ringed-primary text-primary-500 btn-md"
 							on:click|capture={() => showScoringConditionModal.set(true)}
 						>
-							Update score
+							Update Score
 						</button>
+						</div>
 					</div>
+				
 				{/if}
 			{:else if nodeType === 'Message'}
 				<div class="flex items-center my-4 lg:mx-16 md:mx-12 mx-10">
@@ -265,13 +264,13 @@
 										<tr>
 											<td style="width: 10%;">{node.Sequence}</td>
 											<td style="width: 20%;">{node.NodeType}</td>
-											<td style="width: 60%;">{node.Title}</td>
-											<td style="width: 5%;">
+											<td style="width: 40%;">{Helper.truncateText(node.Title, 30)}</td>
+											<td style="width: 10%;">
 												<a href={editNodeRoute(node.id)}
 													><Fa icon={faPencil} style="color-text-primary" size="md" /></a
 												>
 											</td>
-											<td style="width: 5%;">
+											<td style="width: 10%;">
 												<Confirm
 													confirmTitle="Delete"
 													cancelTitle="Cancel"

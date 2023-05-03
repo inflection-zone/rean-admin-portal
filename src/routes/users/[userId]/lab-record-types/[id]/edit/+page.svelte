@@ -43,7 +43,7 @@
 
 	const breadCrumbs = [
 		{
-			name: 'Lab-Record-Types',
+			name: 'Lab-Records',
 			path: labRecordTypesRoute
 		},
 		{

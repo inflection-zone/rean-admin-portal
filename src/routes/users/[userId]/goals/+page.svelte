@@ -35,7 +35,7 @@
 
 	const breadCrumbs = [
 		{
-			name: 'Goal-Types',
+			name: 'Goals',
 			path: goalRoute
 		}
 	];
