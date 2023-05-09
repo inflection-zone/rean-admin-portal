@@ -1,11 +1,10 @@
 <script lang="ts">
-	import { Table, tableMapperValues, type TableSource } from '@skeletonlabs/skeleton';
 	import { page } from '$app/stores';
 	import BreadCrumbs from '$lib/components/breadcrumbs/breadcrums.svelte';
 	import GenderWiseDivision from '$lib/components/users-stats/charts/gender-wise-division.svelte';
 	import AgeWiseDivision from '$lib/components/users-stats/charts/age-wise-division.svelte';
 	import { createEventDispatcher } from 'svelte';
-	import { ageWiseUsersData } from '$lib/store/general.store';
+	import PieChart from './charts/pie-chart.svelte';
 
 	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -13,8 +12,9 @@
 	export let activeUsers;
 	export let genderWiseUsers;
 	export let ageWiseUsers;
-	$:ageWiseUsers;
-  $:genderWiseUsers;
+
+	$: ageWiseUsers;
+	$: genderWiseUsers;
 
 	let totalUsersCount = totalUsers.Count;
 	let activeUsersCount = activeUsers.ActiveUsers.Count;
@@ -35,6 +35,10 @@
 	let usersAboveSeventyRatio = ageWiseUsers.UsersAboveSeventy.Ratio;
 	let ageNotSpecifiedUsersCount = ageWiseUsers.AgeNotSpecifiedUsers.Count;
 	let ageNotSpecifiedUsersRatio = ageWiseUsers.AgeNotSpecifiedUsers.Ratio;
+
+	let labels = ['Male', 'Female', 'Intersex', 'Gender not specified'];
+	// let data = [maleUsersRatio, femaleUsersRatio, intersexUsersRatio, genderNotSpecifiedUsersRatio];
+	let data:number[] = [genderWiseUsers.MaleUsers.Ratio, genderWiseUsers.FemaleUsers.Ratio, genderWiseUsers.IntersexUsers.Ratio, genderWiseUsers.GenderNotSpecifiedUsers.Ratio];
 
 	const usersData = [
 		{ usersDetail: 'Total users', count: totalUsersCount, ratio: '-' },
@@ -69,6 +73,7 @@
 		}
 	];
 
+
 	const userId = $page.params.userId;
 	const homeRoute = `/users/${userId}/home`;
 
@@ -79,20 +84,24 @@
 		}
 	];
 
-const dispatch = createEventDispatcher();
+	const dispatch = createEventDispatcher();
 
-const handlelSelectYearForAge = (year) => {
-	dispatch('selectAgeWiseUsersDividionYearly',{
-		year : year,
-	});
-}
+	const handlelSelectYearForAge = (year) => {
+		dispatch('selectAgeWiseUsersDividionYearly', {
+			year: year
+		});
+	};
 
-const handlelSelectYearForGender = (year) => {
-	dispatch('selectGenderWiseUsersDividionYearly',{
-		year : year,
-	});
-}
+	const handlelSelectYearForGender = (year) => {
+		dispatch('selectGenderWiseUsersDividionYearly', {
+			year: year,
+		});
+	};
 </script>
+
+<div>
+	Male ratio = {genderWiseUsers.MaleUsers.Ratio}
+</div>
 
 <BreadCrumbs crumbs={breadCrumbs} />
 <div class="flex justify-center flex-col lg:mx-14 md:mx-10 sm:mx-6 mx-4 mt-4 mb-10 overflow-y-auto">
@@ -118,7 +127,7 @@ const handlelSelectYearForGender = (year) => {
 				<option value="2023">2023</option>
 			</select>
 			<div class="mx-10 w-1/2">
-				<GenderWiseDivision {genderWiseUsers}/>
+				<GenderWiseDivision lablesList={labels} dataSource={data} />
 			</div>
 			<h3 class="mt-3 text-primary-500">Gender wise division of users</h3>
 		</div>
@@ -137,3 +146,15 @@ const handlelSelectYearForGender = (year) => {
 	</div>
 </div>
 
+<div class="w-1/2 flex flex-col items-center mb-12">
+	<select name="year" id="" class="select w-2/3 mb-2" on:change={handlelSelectYearForGender}>
+		<option>Select year</option>
+		<option value="2021">2021</option>
+		<option value="2022">2022</option>
+		<option value="2023">2023</option>
+	</select>
+	<div class="mx-10 w-1/2">
+		<PieChart lables={labels} {data} />
+	</div>
+	<!-- <h3 class="mt-3 text-primary-500">Gender wise division of users</h3> -->
+</div>

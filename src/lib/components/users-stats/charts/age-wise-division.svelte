@@ -8,18 +8,10 @@
     ArcElement,
     CategoryScale,
   } from 'chart.js';
-	import { ageWiseUsersData } from '$lib/store/general.store';
 
   export let ageWiseUsers;
 
-// let dataSource
-
-//   $: if (dataSource){
-//     dataSource.data.datasets[0].data = ageWiseUsers;
-//     dataSource.update()
-// 		}
   $:ageWiseUsers;
-  // ageWiseUsers = $ageWiseUsersData;
 
   let usersBelowThirtyfiveRatio = ageWiseUsers.UsersBelowThirtyfive.Ratio;
   let usersBetweenThirtysixToSeventyRatio = ageWiseUsers.UsersBetweenThirtysixToSeventy.Ratio;
@@ -48,20 +40,8 @@
   ],
 };
 
-// const options = {
-// 		responsive: true,
-// 		plugins: {
-// 			legend: {
-// 				position: "top"
-// 			},
-// 			title: {
-// 				display: true,
-// 				text: "Gender wise division of users"
-// 			},
-// 		}
-// 	};
  ChartJS.register(Title, Tooltip, Legend, ArcElement, CategoryScale);
+ 
 </script>
-<!-- <div class="w-72 h-full"> -->
+
 <Pie id="dataSource" bind:this={ageWiseUsers} {data} options = {{ responsive: true }} />
-<!-- </div> -->
