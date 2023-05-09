@@ -25,6 +25,7 @@ export const load: PageServerLoad = async (event: RequestEvent) => {
     console.log("genderWiseUsers",genderWiseUsers);
 
 		return {
+      sessionId,
 			totalUsers,
       activeUsers,
       ageWiseUsers,
