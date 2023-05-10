@@ -25,12 +25,9 @@
 				plugins: {
 					legend: {
 						display: true,
-						position: 'top'
+						position: 'right'
 					},
-					title: {
-						display: true,
-						text: 'Gender wise division of users'
-					}
+					
 				}
 			}
 		});
@@ -38,5 +35,5 @@
 
 </script>
 
-	<canvas id="pieChart" bind:this={pieChart} />
+<canvas id="pieChart" bind:this={pieChart} />
 

@@ -18,11 +18,14 @@
   let usersAboveSeventyRatio = ageWiseUsers.UsersAboveSeventy.Ratio;
   let ageNotSpecifiedUsersRatio = ageWiseUsers.AgeNotSpecifiedUsers.Ratio;
 
+  let sourceData = [usersBelowThirtyfiveRatio, usersBetweenThirtysixToSeventyRatio, usersAboveSeventyRatio, ageNotSpecifiedUsersRatio];
+  $ : sourceData = [usersBelowThirtyfiveRatio, usersBetweenThirtysixToSeventyRatio, usersAboveSeventyRatio, ageNotSpecifiedUsersRatio];
+
   let data = {
   labels: ['Users below 35', 'Users between 36 to 70', 'Users above 70', 'Age not specified'],
   datasets: [
     {
-      data: [usersBelowThirtyfiveRatio, usersBetweenThirtysixToSeventyRatio, usersAboveSeventyRatio, ageNotSpecifiedUsersRatio],
+      data:sourceData,
       backgroundColor: [
         '#351e61',
         '#5832A1',
@@ -45,3 +48,4 @@
 </script>
 
 <Pie id="dataSource" bind:this={ageWiseUsers} {data} options = {{ responsive: true }} />
+

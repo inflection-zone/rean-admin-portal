@@ -39,6 +39,8 @@
 	let labels = ['Male', 'Female', 'Intersex', 'Gender not specified'];
 	// let data = [maleUsersRatio, femaleUsersRatio, intersexUsersRatio, genderNotSpecifiedUsersRatio];
 	let data:number[] = [genderWiseUsers.MaleUsers.Ratio, genderWiseUsers.FemaleUsers.Ratio, genderWiseUsers.IntersexUsers.Ratio, genderWiseUsers.GenderNotSpecifiedUsers.Ratio];
+	 
+	$ : data = [genderWiseUsers.MaleUsers.Ratio, genderWiseUsers.FemaleUsers.Ratio, genderWiseUsers.IntersexUsers.Ratio, genderWiseUsers.GenderNotSpecifiedUsers.Ratio];
 
 	const usersData = [
 		{ usersDetail: 'Total users', count: totalUsersCount, ratio: '-' },
@@ -99,10 +101,6 @@
 	};
 </script>
 
-<div>
-	Male ratio = {genderWiseUsers.MaleUsers.Ratio}
-</div>
-
 <BreadCrumbs crumbs={breadCrumbs} />
 <div class="flex justify-center flex-col lg:mx-14 md:mx-10 sm:mx-6 mx-4 mt-4 mb-10 overflow-y-auto">
 	<!-- <Table source={tableSimple} /> -->
@@ -121,7 +119,7 @@
 	<div class="flex items-start mx-auto gap-10 mt-10 mb-12 w-full">
 		<div class="w-1/2 flex flex-col items-center">
 			<select name="year" id="" class="select w-2/3 mb-2" on:change={handlelSelectYearForGender}>
-				<option>Select year</option>
+				<option>All the years</option>
 				<option value="2021">2021</option>
 				<option value="2022">2022</option>
 				<option value="2023">2023</option>
@@ -133,7 +131,7 @@
 		</div>
 		<div class="w-1/2 flex flex-col items-center">
 			<select name="year" id="" class="select w-2/3 mb-2" on:change={handlelSelectYearForAge}>
-				<option>Select year</option>
+				<option>All the years</option>
 				<option value="2021">2021</option>
 				<option value="2022">2022</option>
 				<option value="2023">2023</option>
@@ -154,7 +152,7 @@
 		<option value="2023">2023</option>
 	</select>
 	<div class="mx-10 w-1/2">
-		<PieChart lables={labels} {data} />
+		<PieChart lables={labels} data = {data} />
 	</div>
-	<!-- <h3 class="mt-3 text-primary-500">Gender wise division of users</h3> -->
+	<h3 class="mt-3 items-start text-primary-500">Gender wise division of users</h3>
 </div>

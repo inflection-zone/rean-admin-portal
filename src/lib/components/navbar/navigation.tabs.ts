@@ -99,6 +99,31 @@ const courses: TabDefinition = {
     path: `/users/userId/courses`,
     default: false,
 };
+
+const general: TabDefinition = {
+    name: 'General',
+    path: `/users/userId/home`,
+    default: true,
+};
+
+const users: TabDefinition = {
+    name: 'Users',
+    path: `/users/userId/home/users-stats`,
+    default: false,
+};
+
+const rhg: TabDefinition = {
+    name: 'RHG',
+    path: `/users/userId/home/users-stats`,
+    default: false,
+};
+
+const bot: TabDefinition = {
+    name: 'Bot',
+    path: `/users/userId/home`,
+    default: false,
+};
+
 export const navbarMenu = (userId) => {
     const menus = [
             home,
@@ -127,6 +152,17 @@ export const sidebarMenu = (userId) => {
     ];
     return replaceUserId(menus, userId);
 };
+
+export const dashboardMenu = (userId) => {
+    const menus = [
+        general,
+        users,
+        rhg,
+        bot
+    ];
+    return replaceUserId(menus, userId);
+};
+
 
 const replaceUserId = (menus, userId) => {
     return menus.map(x => {

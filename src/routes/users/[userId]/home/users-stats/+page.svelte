@@ -1,14 +1,11 @@
 <script lang="ts">
-	import { Tab, TabGroup } from '@skeletonlabs/skeleton';
 	import type { PageServerData } from './$types';
 	import UsersStats from '$lib/components/users-stats/users-stats.svelte';
-	import {tabSet} from '$lib/store/general.store';
 
 	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 	export let data: PageServerData;
 
-	// let tabSet: number = 0;
 	let totalUsers = data.totalUsers;
 	let activeUsers = data.activeUsers;
 	let genderWiseUsers;
@@ -69,45 +66,12 @@
 	}
 </script>
 
-<!-- <TabGroup
-justify="justify-center"
-	active="variant-filled-primary"
-	hover="hover:variant-soft-primary"
-	flex="flex-1 lg:flex-none"
-	rounded="md"
-	border=""
-	class="bg-surface-100-800-token w-full">
-	<Tab bind:group={$tabSet} name="tab1" value={0}>General</Tab>
-	<Tab bind:group={$tabSet} name="tab2" value={1}>Users</Tab>
-	<Tab bind:group={$tabSet} name="tab3" value={2}>Bot</Tab>
-
-	<svelte:fragment slot="panel">
-		{#if $tabSet === 0}
-			Hello
-		{:else if $tabSet === 1}
-		<UsersStats
-		{totalUsers}
-		{activeUsers}
-		{ageWiseUsers}
-		{genderWiseUsers}
-		bind:this = {genderWiseUsers}
-		on:selectAgeWiseUsersDividionYearly={async (e) => {
-			await selectAgeWiseUsersDividionYearly(e.detail.year);
-		}}
-		on:selectGenderWiseUsersDividionYearly={async (e) => {
-			await selectGenderWiseUsersDividionYearly(e.detail.year);
-		}}/>
-		{:else if $tabSet === 2}
-			Hi
-		{/if}
-	</svelte:fragment>
-</TabGroup> -->
-
 <UsersStats
 	{totalUsers}
 	{activeUsers}
 	{ageWiseUsers}
 	{genderWiseUsers}
+	bind:this = {genderWiseUsers}
 	on:selectAgeWiseUsersDividionYearly={async (e) => {
 		await selectAgeWiseUsersDividionYearly(e.detail.year);
 	}}
