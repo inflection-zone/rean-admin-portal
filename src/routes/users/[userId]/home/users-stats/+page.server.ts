@@ -35,7 +35,7 @@ export const load: PageServerLoad = async (event: RequestEvent) => {
       genderWiseUsers,
       maritalStatusWiseUsers
 		};
-
+    
 	} catch (error) {
 		console.error(`Error retriving users data: ${error.message}`);
 	}

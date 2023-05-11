@@ -104,3 +104,43 @@ export const getMaritalStatusWiseUsers = async (sessionId: string, searchParams?
 	return await get_(sessionId, url, true);
 };
 
+export const getDeviceDetailWiseUsers = async (sessionId: string, searchParams?: any) => {
+	let searchString = '';
+	if (searchParams) {
+		const keys = Object.keys(searchParams);
+		if (keys.length > 0) {
+			searchString = '?';
+			const params = [];
+			for (const key of keys) {
+				if (searchParams[key]) {
+					const param = `${key}=${searchParams[key]}`;
+					params.push(param);
+				}
+			}
+			searchString  += params.join('&');
+		}
+	}
+	const url = BACKEND_API_URL + `/statistics/device-detail-wise-users${searchString}`;
+	return await get_(sessionId, url, true);
+};
+
+export const getDeletdUsers = async (sessionId: string, searchParams?: any) => {
+	let searchString = '';
+	if (searchParams) {
+		const keys = Object.keys(searchParams);
+		if (keys.length > 0) {
+			searchString = '?';
+			const params = [];
+			for (const key of keys) {
+				if (searchParams[key]) {
+					const param = `${key}=${searchParams[key]}`;
+					params.push(param);
+				}
+			}
+			searchString  += params.join('&');
+		}
+	}
+	const url = BACKEND_API_URL + `/statistics/deleted-users${searchString}`;
+	return await get_(sessionId, url, true);
+};
+

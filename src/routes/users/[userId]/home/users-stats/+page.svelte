@@ -13,7 +13,7 @@
 
 	$: genderWiseUsers;
 	$: ageWiseUsers;
-	genderWiseUsers = data.genderWiseUsers ?? undefined;
+	genderWiseUsers = data.genderWiseUsers;
 	ageWiseUsers = data.ageWiseUsers;
 
 	let selectedYear;
@@ -71,7 +71,6 @@
 	{activeUsers}
 	{ageWiseUsers}
 	{genderWiseUsers}
-	bind:this = {genderWiseUsers}
 	on:selectAgeWiseUsersDividionYearly={async (e) => {
 		await selectAgeWiseUsersDividionYearly(e.detail.year);
 	}}

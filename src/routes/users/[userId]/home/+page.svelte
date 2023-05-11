@@ -1,8 +1,6 @@
 <script lang="ts">
-	import { Tab, TabGroup } from '@skeletonlabs/skeleton';
 	import type { PageServerData } from './$types';
-	import UsersStats from '$lib/components/users-stats/users-stats.svelte';
-	import {tabSet} from '$lib/store/general.store';
+	import PlatformBasedChart from '$lib/components/users-stats/charts/platform-based-chart.svelte';
 
 	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -10,108 +8,54 @@
 
 	// let tabSet: number = 0;
 	let totalUsers = data.totalUsers;
-	let activeUsers = data.activeUsers;
+	let activeUsers = data.activeUsers.ActiveUsers;
+	let deletedUsers = data.deletedUsers;
+	let androidUsers = data.deviceDetailWiseUsers.AndroidUsers;
+	let iOSUsers = data.deviceDetailWiseUsers.IOSUsers;
 	let genderWiseUsers;
 	let ageWiseUsers;
+	let totalUsersData = data.totalUsersArray;
+	let androidUsersData = data.androidUsersArray;
+	let iOSUsersData = data.iOSUsersArray;
+	let lables = data.years;
 
 	$: genderWiseUsers;
 	$: ageWiseUsers;
 	genderWiseUsers = data.genderWiseUsers ?? undefined;
 	ageWiseUsers = data.ageWiseUsers;
 
-	let selectedYear;
-
-	const selectAgeWiseUsersDividionYearly = async (e) => {
-		selectedYear = e.currentTarget.value;
-		console.log('selected year', selectedYear);
-		await searchAgeWiseDivisionOfUsers({
-			sessionId: data.sessionId,
-			year: selectedYear
-		});
-	};
-
-	async function searchAgeWiseDivisionOfUsers(model) {
-		let url = `/api/server/users-stats/search-users-by-age?year=${model.year}`;
-		console.log(url);
-		const res = await fetch(url, {
-			method: 'GET',
-			headers: {
-				'content-type': 'application/json'
-			}
-		});
-		const response = await res.json();
-		ageWiseUsers = response;
-		console.log('ageWiseUsers------------', ageWiseUsers);
-	}
-
-	const selectGenderWiseUsersDividionYearly = async (e) => {
-		selectedYear = e.currentTarget.value;
-		console.log('selected year', selectedYear);
-		await searchGenderWiseDivisionOfUsers({
-			sessionId: data.sessionId,
-			year: selectedYear
-		});
-		// window.location.href = `/users/${userId}/home`;
-	};
-
-	async function searchGenderWiseDivisionOfUsers(model) {
-		let url = `/api/server/users-stats/search-users-by-gender?year=${model.year}`;
-		console.log(url);
-		const res = await fetch(url, {
-			method: 'GET',
-			headers: {
-				'content-type': 'application/json'
-			}
-		});
-		const response = await res.json();
-		genderWiseUsers = response;
-		console.log('genderWiseUsers------------', genderWiseUsers);
-	}
 </script>
 
-<!-- <TabGroup
-justify="justify-center"
-	active="variant-filled-primary"
-	hover="hover:variant-soft-primary"
-	flex="flex-1 lg:flex-none"
-	rounded="md"
-	border=""
-	class="bg-surface-100-800-token w-full">
-	<Tab bind:group={$tabSet} name="tab1" value={0}>General</Tab>
-	<Tab bind:group={$tabSet} name="tab2" value={1}>Users</Tab>
-	<Tab bind:group={$tabSet} name="tab3" value={2}>Bot</Tab>
-
-	<svelte:fragment slot="panel">
-		{#if $tabSet === 0}
-			Hello
-		{:else if $tabSet === 1}
-		<UsersStats
-		{totalUsers}
-		{activeUsers}
-		{ageWiseUsers}
-		{genderWiseUsers}
-		bind:this = {genderWiseUsers}
-		on:selectAgeWiseUsersDividionYearly={async (e) => {
-			await selectAgeWiseUsersDividionYearly(e.detail.year);
-		}}
-		on:selectGenderWiseUsersDividionYearly={async (e) => {
-			await selectGenderWiseUsersDividionYearly(e.detail.year);
-		}}/>
-		{:else if $tabSet === 2}
-			Hi
-		{/if}
-	</svelte:fragment>
-</TabGroup> -->
-
-<UsersStats
-	{totalUsers}
-	{activeUsers}
-	{ageWiseUsers}
-	{genderWiseUsers}
-	on:selectAgeWiseUsersDividionYearly={async (e) => {
-		await selectAgeWiseUsersDividionYearly(e.detail.year);
-	}}
-	on:selectGenderWiseUsersDividionYearly={async (e) => {
-		await selectGenderWiseUsersDividionYearly(e.detail.year);
-	}}
-/>
+<div class = 'mx-10'>
+  <!-- <h3 class="text-base font-semibold leading-6 text-gray-900">Last 30 days</h3> -->
+  <dl class="mt-5 grid grid-cols-1 gap-5 sm:grid-cols-3">
+		<div class="overflow-hidden rounded-lg bg-tertiary-200 px-4 py-5 shadow sm:p-6">
+      <dt class="truncate text-md font-medium text-primary-500">App Downloads</dt>
+      <dd class="mt-1 text-3xl font-semibold tracking-tight text-primary-500">{totalUsers.Count}</dd>
+    </div>
+    <div class="overflow-hidden rounded-lg bg-tertiary-200 px-4 py-5 shadow sm:p-6">
+      <dt class="truncate text-md font-medium text-primary-500">Total Users</dt>
+      <dd class="mt-1 text-3xl font-semibold tracking-tight text-primary-500">{totalUsers.Count}</dd>
+    </div>
+    <div class="overflow-hidden rounded-lg bg-tertiary-200 px-4 py-5 shadow sm:p-6">
+      <dt class="truncate text-md font-medium text-primary-500">Active Users</dt>
+      <dd class="mt-1 text-3xl font-semibold tracking-tight text-primary-500">{activeUsers.Count} ({activeUsers.Ratio}%)</dd>
+    </div>
+		<div class="overflow-hidden rounded-lg bg-tertiary-200 px-4 py-5 shadow sm:p-6">
+      <dt class="truncate text-md font-medium text-primary-500">Android Users</dt>
+      <dd class="mt-1 text-3xl font-semibold tracking-tight text-primary-500">{androidUsers.Count} ({androidUsers.Ratio}%)</dd>
+    </div>
+		<div class="overflow-hidden rounded-lg bg-tertiary-200 px-4 py-5 shadow sm:p-6">
+      <dt class="truncate text-md font-medium text-primary-500">IOS Users</dt>
+      <dd class="mt-1 text-3xl font-semibold tracking-tight text-primary-500">{iOSUsers.Count} ({iOSUsers.Ratio}%)</dd>
+    </div>
+    <div class="overflow-hidden rounded-lg bg-tertiary-200 px-4 py-5 shadow sm:p-6">
+      <dt class="truncate text-md font-medium text-primary-500">Deleted Users</dt>
+      <dd class="mt-1 text-3xl font-semibold tracking-tight text-primary-500">{deletedUsers.Count} ({deletedUsers.Ratio}%)</dd>
+    </div>
+  </dl>
+</div>
+<div class="h-1/3 w-1/3 flex flex-col items-center justify-center ml-10 mt-16">
+<PlatformBasedChart {totalUsersData} {androidUsersData} {iOSUsersData} {lables}/>
+<h3 class="text-primary-500 mt-3">Platform based users</h3>
+</div>

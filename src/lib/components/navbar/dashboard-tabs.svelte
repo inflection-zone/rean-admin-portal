@@ -12,12 +12,10 @@
 	let activeTab = '';
 	onMount(() => {
 		activeTab = $page.url.pathname;
-console.log("active tabs" ,activeTab)
 	});
 
 	afterUpdate(() => {
 		activeTab = $page.url.pathname;
-    console.log("active tabs aftre" ,activeTab)
 	});
 
   let homeLink;
@@ -28,8 +26,8 @@ console.log("active tabs" ,activeTab)
 	onMount(() => {
 		homeLink = `/users/${userId}/home`;
     usersLink = `/users/${userId}/home/users-stats`;
-		rhgLink = `/users/${userId}/home`;
-		botLink = `/users/${userId}/home`;
+		rhgLink = `/users/${userId}/`;
+		botLink = `/users/${userId}/`;
 	});
 
 	const gotoHome = async () => {
@@ -50,42 +48,42 @@ console.log("active tabs" ,activeTab)
 </script>
 
 <!-- <div> -->
-	<div class=" flex flex-row justify-start mt-4">
-		<!-- <ul class="space-x-6"> -->
-			<!-- {#each dashboardTabs as t}
+	<div class=" flex flex-row justify-start mt-2 space-x-6 ml-10">
+		<!-- <ul class="space-x-6">
+			{#each dashboardTabs as t}
 				<a
 					href={t.path}
 					class="hover:bg-[#6c3dc2] hover:text-surface-500 px-3 py-2 hover:no-underline rounded-md text-md font-medium {activeTab ==
 					t.path
 						? 'active: bg-primary-500 text-white'
 						: 'text-white bg-secondary-500'}">{t.name}</a
-				> -->
-			<!-- {/each} -->
-      <!-- </ul> -->
+				> 
+			 {/each}
+      </ul> -->
 
-      <button class="w-40 hover:bg-[#6c3dc2] hover:text-white text-center p-2 my-3 ml-2 hover:no-underline rounded-md text-md font-medium {activeTab ==
+      <button class="w-28 h-16 hover:bg-[#6c3dc2] hover:text-white text-center p-2 my-3 ml-2 hover:no-underline rounded-md text-md font-medium {activeTab ==
         homeLink
           ? 'active: bg-primary-500 text-white'
-          : 'text-white bg-secondary-500'}" on:click|capture={gotoHome}>
+          : 'text-primary-500'}" on:click|capture={gotoHome}>
 				General
 			</button>
 
-      <button class="w-40 hover:bg-[#6c3dc2] hover:text-white text-center p-2 my-3 ml-2 hover:no-underline rounded-md text-md font-medium {activeTab ==
+      <button class="w-28 h-16 hover:bg-[#6c3dc2] hover:text-white text-center p-2 my-3 ml-2 hover:no-underline rounded-md text-md font-medium {activeTab ==
         usersLink
           ? 'active: bg-primary-500 text-white'
-          : 'text-white bg-secondary-500'}" on:click|capture={gotoUsers}>
+          : 'text-primary-500'}" on:click|capture={gotoUsers}>
 				Users
 			</button>
-      <button class="w-40 hover:bg-[#6c3dc2] hover:text-white text-center p-2 my-3 ml-2 hover:no-underline rounded-md text-md font-medium {activeTab ==
+      <button class="w-28 h-16 hover:bg-[#6c3dc2] hover:text-white text-center p-2 my-3 ml-2 hover:no-underline rounded-md text-md font-medium {activeTab ==
         rhgLink
           ? 'active: bg-primary-500 text-white'
-          : 'text-white bg-secondary-500'}" on:click|capture={gotoRhg}>
+          : 'text-primary-500'}" on:click|capture={gotoRhg}>
 				RHG
 			</button>
-      <button class="w-40 hover:bg-[#6c3dc2] hover:text-white text-center p-2 my-3 ml-2 hover:no-underline rounded-md text-md font-medium {activeTab ==
+      <button class="w-28 h-16 hover:bg-[#6c3dc2] hover:text-white text-center p-2 my-3 ml-2 hover:no-underline rounded-md text-md font-medium {activeTab ==
         botLink
           ? 'active: bg-primary-500 text-white'
-          : 'text-white bg-secondary-500'}" on:click|capture={gotoBot}>
+          : 'text-primary-500'}" on:click|capture={gotoBot}>
 				Bot
 			</button>
 

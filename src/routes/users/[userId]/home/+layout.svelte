@@ -8,5 +8,5 @@
 
 </script>
 
-<DashboardTabs userId = {userId} />
+<DashboardTabs userId={userId} />
  <slot/>

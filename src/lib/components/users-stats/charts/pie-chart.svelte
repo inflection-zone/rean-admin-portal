@@ -1,8 +1,9 @@
 <script lang="ts">
-	import { afterUpdate, createEventDispatcher, onMount } from 'svelte';
+	import { onMount } from 'svelte';
 	import Chart from 'chart.js/auto';
 	export let lables: string[] = [];
 	export let data: number[] = [];
+	export let title: string;
 	let pieChart;
 	let ctx;
 
@@ -22,18 +23,41 @@
 			},
 			options: {
 				responsive: true,
+				layout: {
+					padding: {
+						left: 0,
+						right:0, 
+						top: -150,
+						bottom: 0
+					}
+				},
 				plugins: {
 					legend: {
 						display: true,
-						position: 'right'
+						position: 'right',
+						align: 'center',
+						labels: {
+							color: '#5832A1'
+						}
 					},
-					
+					// title: {
+					//     display: true,
+					//     text: title,
+					//     position: "bottom",
+					// 		color: '#5832A1',
+					// 		align:'start',
+					// 		font:{
+					//   size: 22,
+					//   weight: 'normal',
+					//   lineHeight: 1.2,
+					// 		},
+					// },
 				}
 			}
 		});
 	});
-
 </script>
 
-<canvas id="pieChart" bind:this={pieChart} />
-
+<div class="">
+	<canvas id="pieChart" bind:this={pieChart} />
+</div>

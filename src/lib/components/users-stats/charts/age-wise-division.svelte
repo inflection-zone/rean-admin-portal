@@ -47,5 +47,5 @@
  
 </script>
 
-<Pie id="dataSource" bind:this={ageWiseUsers} {data} options = {{ responsive: true }} />
+<Pie id="dataSource" bind:this={ageWiseUsers} {data} options={{ responsive: true }} />
 

@@ -34,9 +34,8 @@
   ],
 
 }
-
  ChartJS.register(Title, Tooltip, Legend, ArcElement, CategoryScale);
 </script>
 <div>
-<Pie {data} options = {{ responsive: true }} />
+<Pie {data} options={{ responsive: true }} />
 </div>
