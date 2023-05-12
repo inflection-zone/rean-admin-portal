@@ -5,6 +5,7 @@
 	import AgeWiseDivision from '$lib/components/users-stats/charts/age-wise-division.svelte';
 	import { createEventDispatcher } from 'svelte';
 	import PieChart from './charts/pie-chart.svelte';
+	import BarChart from './charts/bar-chart.svelte';
 
 	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -12,11 +13,14 @@
 	export let activeUsers;
 	export let genderWiseUsers;
 	export let ageWiseUsers;
+	export let maritalStatusWiseUsers;
+	
+	console.log("labelsForMaritalStatusWiseDivision-----",maritalStatusWiseUsers)
 
 	$: ageWiseUsers;
 	$: genderWiseUsers;
 
-	let totalUsersCount = totalUsers.Count;
+	let totalUsersCount = totalUsers.count;
 	let activeUsersCount = activeUsers.ActiveUsers.Count;
 	let activeUsersRatio = activeUsers.ActiveUsers.Ratio;
 	let maleUsersRatio = genderWiseUsers.MaleUsers.Ratio;
@@ -36,13 +40,26 @@
 	let ageNotSpecifiedUsersCount = ageWiseUsers.AgeNotSpecifiedUsers.Count;
 	let ageNotSpecifiedUsersRatio = ageWiseUsers.AgeNotSpecifiedUsers.Ratio;
 
-	let title = 'Gender wise division of users'
-	let labels = ['Male', 'Female', 'Intersex', 'Gender not specified'];
-	// let data = [maleUsersRatio, femaleUsersRatio, intersexUsersRatio, genderNotSpecifiedUsersRatio];
-	let data:number[] = [genderWiseUsers.MaleUsers.Ratio, genderWiseUsers.FemaleUsers.Ratio, genderWiseUsers.IntersexUsers.Ratio, genderWiseUsers.GenderNotSpecifiedUsers.Ratio];
-	 
-	$ : data = [genderWiseUsers.MaleUsers.Ratio, genderWiseUsers.FemaleUsers.Ratio, genderWiseUsers.IntersexUsers.Ratio, genderWiseUsers.GenderNotSpecifiedUsers.Ratio];
+	let title = 'Gender wise division of users';
+	let labelsForGenderWiseDivision = ['Male', 'Female', 'Intersex', 'Gender not specified'];
 
+	let data: number[] = [
+		genderWiseUsers.MaleUsers.Ratio,
+		genderWiseUsers.FemaleUsers.Ratio,
+		genderWiseUsers.IntersexUsers.Ratio,
+		genderWiseUsers.GenderNotSpecifiedUsers.Ratio
+	];
+
+	$: data = [
+		genderWiseUsers.MaleUsers.Ratio,
+		genderWiseUsers.FemaleUsers.Ratio,
+		genderWiseUsers.IntersexUsers.Ratio,
+		genderWiseUsers.GenderNotSpecifiedUsers.Ratio
+	];
+
+	let labelsForMaritalStatusWiseDivision = 
+	maritalStatusWiseUsers.map(x => x.status);
+	let dataForMaritalStatusWiseDivision = maritalStatusWiseUsers.map(x => x.count);
 	const usersData = [
 		{ usersDetail: 'Total users', count: totalUsersCount, ratio: '-' },
 		{ usersDetail: 'Active users', count: activeUsersCount, ratio: `${activeUsersRatio} %` },
@@ -76,7 +93,6 @@
 		}
 	];
 
-
 	const userId = $page.params.userId;
 	const homeRoute = `/users/${userId}/home`;
 
@@ -97,13 +113,14 @@
 
 	const handlelSelectYearForGender = (year) => {
 		dispatch('selectGenderWiseUsersDividionYearly', {
-			year: year,
+			year: year
 		});
 	};
 </script>
 
 <BreadCrumbs crumbs={breadCrumbs} />
-<div class="flex justify-center flex-col lg:mx-14 md:mx-10 sm:mx-6 mx-4 mt-4 mb-10 overflow-y-auto">
+
+<div class="flex justify-center flex-col lg:mx-14 md:mx-10 sm:mx-6 mx-4 mt-4 mb-14">
 	<!-- <Table source={tableSimple} /> -->
 	<div class="flex flex-col gap-3">
 		{#each usersData as data}
@@ -138,7 +155,7 @@
 				<option value="2023">2023</option>
 			</select>
 			<div class="w-2/3">
-				<PieChart lables={labels} data={data} {title} />
+				<PieChart lables={labelsForGenderWiseDivision} {data} {title} />
 			</div>
 			<h3 class="items-start text-primary-500">Gender wise division of users</h3>
 		</div>
@@ -167,6 +184,8 @@
 		</div>
 		<h3 class="items-start text-primary-500">Gender wise division of users</h3>
 	</div> -->
+	<div class="w-1/2 h-96 flex flex-col items-center mt-10 mb-10">
+		<BarChart dataSource={dataForMaritalStatusWiseDivision} lables={labelsForMaritalStatusWiseDivision} />
+		<h3 class="mt-3 text-primary-500">Marital status wise user division</h3>
+	</div>
 </div>
-
-

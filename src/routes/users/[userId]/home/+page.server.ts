@@ -14,7 +14,7 @@ export const load: PageServerLoad = async (event: RequestEvent) => {
         year: y,
       }
       const _totalUsers = await getTolalUsers(sessionId,searchParams);
-      const totalUsers = _totalUsers.Data.TotalUsers.Count;
+      const totalUsers = _totalUsers.Data.TotalUsers.count;
       totalUsersArray.push(totalUsers);
     }
 

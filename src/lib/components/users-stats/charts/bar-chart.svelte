@@ -2,36 +2,22 @@
 	import { onMount } from 'svelte';
 	import Chart from 'chart.js/auto';
 	export let lables: string[] = [];
-	export let totalUsersData: number[] = [];
-	export let androidUsersData: number[] = [];
-	export let iOSUsersData: number[] = [];
+	export let dataSource: number[] = [];
 	let barChart;
 	let ctx;
 
 	onMount(() => {
 		ctx = barChart.getContext('2d');
 		barChart = new Chart(ctx, {
-			type: 'line',
+			type: 'bar',
 			data: {
 				labels: lables,
 				datasets: [
 					{
-						label: 'Total users',
-						data: totalUsersData,
-						borderColor: 'green',
-						fill: false
-					},
-					{
-						label: 'Android users',
-						data: androidUsersData,
-						borderColor: 'blue',
-						fill: false
-					},
-					{
-						label: 'IOS users',
-						data: iOSUsersData,
-						borderColor: 'purple',
-						fill: false
+						data: dataSource,
+						backgroundColor: ['#351e61', '#5832A1', '#7165E3', '#ECE4FC'],
+						borderColor: ['#351e61', '#5832A1', '#7165E3', '#ECE4FC'],
+						borderWidth: 1
 					}
 				]
 			},
@@ -44,10 +30,11 @@
 							display: false
 						},
 						ticks: {
-							color: '#5832A1' // set x-axis label color here
-						}
+							color: '#5832A1'
+						},
 					},
 					y: {
+						beginAtZero: true,
 						grid: {
 							display: false
 						},
@@ -58,7 +45,7 @@
 				},
 				plugins: {
 					legend: {
-						display: true,
+						display: false,
 						position: 'top',
 						align: 'center',
 						labels: {
@@ -71,4 +58,4 @@
 	});
 </script>
 
-<canvas id="three-line-chart" bind:this={barChart} />
+<canvas id="myChart" bind:this={barChart} />

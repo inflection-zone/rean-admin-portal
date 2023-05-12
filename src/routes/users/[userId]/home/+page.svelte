@@ -1,11 +1,12 @@
 <script lang="ts">
 	import type { PageServerData } from './$types';
 	import PlatformBasedChart from '$lib/components/users-stats/charts/platform-based-chart.svelte';
+	import NewChart from '$lib/components/users-stats/charts/new-chart.svelte';
+	// import Funnel from '$lib/components/users-stats/charts/funnel.svelte';
 
 	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 	export let data: PageServerData;
-
 	// let tabSet: number = 0;
 	let totalUsers = data.totalUsers;
 	let activeUsers = data.activeUsers.ActiveUsers;
@@ -31,11 +32,11 @@
   <dl class="mt-5 grid grid-cols-1 gap-5 sm:grid-cols-3">
 		<div class="overflow-hidden rounded-lg bg-tertiary-200 px-4 py-5 shadow sm:p-6">
       <dt class="truncate text-md font-medium text-primary-500">App Downloads</dt>
-      <dd class="mt-1 text-3xl font-semibold tracking-tight text-primary-500">{totalUsers.Count}</dd>
+      <dd class="mt-1 text-3xl font-semibold tracking-tight text-primary-500">{totalUsers.count}</dd>
     </div>
     <div class="overflow-hidden rounded-lg bg-tertiary-200 px-4 py-5 shadow sm:p-6">
       <dt class="truncate text-md font-medium text-primary-500">Total Users</dt>
-      <dd class="mt-1 text-3xl font-semibold tracking-tight text-primary-500">{totalUsers.Count}</dd>
+      <dd class="mt-1 text-3xl font-semibold tracking-tight text-primary-500">{totalUsers.count}</dd>
     </div>
     <div class="overflow-hidden rounded-lg bg-tertiary-200 px-4 py-5 shadow sm:p-6">
       <dt class="truncate text-md font-medium text-primary-500">Active Users</dt>
@@ -55,7 +56,10 @@
     </div>
   </dl>
 </div>
-<div class="h-1/3 w-1/3 flex flex-col items-center justify-center ml-10 mt-16">
+<div class="h-96 w-1/3 flex flex-col items-center justify-center ml-10 mt-16">
 <PlatformBasedChart {totalUsersData} {androidUsersData} {iOSUsersData} {lables}/>
 <h3 class="text-primary-500 mt-3">Platform based users</h3>
+</div>
+<div>
+
 </div>

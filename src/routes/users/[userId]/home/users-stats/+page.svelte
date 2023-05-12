@@ -8,9 +8,10 @@
 
 	let totalUsers = data.totalUsers;
 	let activeUsers = data.activeUsers;
+	let maritalStatusWiseUsers = data.maritalStatusWiseUsers;
 	let genderWiseUsers;
 	let ageWiseUsers;
-
+	
 	$: genderWiseUsers;
 	$: ageWiseUsers;
 	genderWiseUsers = data.genderWiseUsers;
@@ -71,6 +72,7 @@
 	{activeUsers}
 	{ageWiseUsers}
 	{genderWiseUsers}
+	{maritalStatusWiseUsers}
 	on:selectAgeWiseUsersDividionYearly={async (e) => {
 		await selectAgeWiseUsersDividionYearly(e.detail.year);
 	}}
