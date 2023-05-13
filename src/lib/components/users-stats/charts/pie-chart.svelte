@@ -25,37 +25,40 @@
 				responsive: true,
 				layout: {
 					padding: {
-						left: 0,
-						right:0, 
-						top: -150,
-						bottom: 0
+						left: 10,
+						right:10, 
+						top: 10,
+						bottom:10
 					}
 				},
 				plugins: {
 					legend: {
 						display: true,
-						position: 'right',
-						align: 'center',
+						position: 'top',
 						labels: {
-							color: '#5832A1'
+							boxWidth:10,
+							boxHeight:10,
+							color: '#5832A1',
 						}
 					},
-					// title: {
-					//     display: true,
-					//     text: title,
-					//     position: "bottom",
-					// 		color: '#5832A1',
-					// 		align:'start',
-					// 		font:{
-					//   size: 22,
-					//   weight: 'normal',
-					//   lineHeight: 1.2,
-					// 		},
-					// },
+					title: {
+					    display: true,
+					    text: title,
+					    position: "bottom",
+							color: '#5832A1',
+							align:'center',
+							padding:20,
+							font:{
+					  size: 22,
+					  weight: 'normal',
+					  lineHeight: 1.2,
+							},
+					},
 				}
 			}
 		});
 	});
+
 </script>
 
 <div class="">

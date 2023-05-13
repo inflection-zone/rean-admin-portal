@@ -1,6 +1,6 @@
 import type {  RequestEvent } from '@sveltejs/kit';
 import type { PageServerLoad } from './$types';
-import { getActiveUsers, getAgeWiseUsers, getDeletdUsers, getDeviceDetailWiseUsers, getGenderWiseUsers, getMaritalStatusWiseUsers, getTolalUsers } from '$routes/api/services/statistics';
+import { getActiveUsers, getDeletdUsers, getDeviceDetailWiseUsers, getEnrollmetUsers, getGenderWiseUsers, getMaritalStatusWiseUsers, getTolalUsers } from '$routes/api/services/statistics';
 
 ////////////////////////////////////////////////////////////////////////////
 
@@ -45,23 +45,16 @@ export const load: PageServerLoad = async (event: RequestEvent) => {
     const _activeUsers = await getActiveUsers(sessionId);
     const _deletedUsers = await getDeletdUsers(sessionId);
     const _deviceDetailWiseUsers = await getDeviceDetailWiseUsers(sessionId);
-    const _ageWiseUsers = await getAgeWiseUsers(sessionId);
-    const _genderWiseUsers = await getGenderWiseUsers(sessionId);
-    const _maritalStatusWiseUsers = await getMaritalStatusWiseUsers(sessionId);
+    const _enrollmentUsers = await getEnrollmetUsers(sessionId);
 
     const totalUsers = _totalUsers.Data.TotalUsers;
     const activeUsers = _activeUsers.Data.ActiveUsers;
-    const ageWiseUsers = _ageWiseUsers.Data.AgeWiseUsers;
     const deletedUsers = _deletedUsers.Data.DeletedUsers;
     const deviceDetailWiseUsers = _deviceDetailWiseUsers.Data.DeviceDetailWiseUsers;
-    const genderWiseUsers  = _genderWiseUsers.Data.GenderWiseUsers;
-    const maritalStatusWiseUsers  = _maritalStatusWiseUsers.Data.MaritalStatusWiseUsers;
+    const enrollmentUsers = _enrollmentUsers.Data.EnrollmentUsers;
 
     console.log("totalUsers",totalUsers);
     console.log("activeUsers",activeUsers);
-    console.log("ageWiseUsers",ageWiseUsers);
-    console.log("genderWiseUsers",genderWiseUsers);
-    console.log("maritalStatusWiseUsers",maritalStatusWiseUsers);
     console.log("deletedUsers",deletedUsers);
     console.log("ageWisedeviceDetailWiseUsersUsers",deviceDetailWiseUsers);
 
@@ -71,13 +64,11 @@ export const load: PageServerLoad = async (event: RequestEvent) => {
       activeUsers,
       deletedUsers,
       deviceDetailWiseUsers,
-      ageWiseUsers,
-      genderWiseUsers,
-      maritalStatusWiseUsers,
       androidUsersArray,
       totalUsersArray,
       iOSUsersArray,
-      years
+      years,
+      enrollmentUsers
 		};
 
 	} catch (error) {

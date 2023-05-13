@@ -6,8 +6,20 @@ import { getActiveUsers, getAgeWiseUsers, getGenderWiseUsers, getMaritalStatusWi
 
 export const load: PageServerLoad = async (event: RequestEvent) => {
 	const sessionId = event.cookies.get('sessionId');
-
 	try {
+    const years = ["2020", "2021", "2022", "2023"];
+    const ageWiseUsersArray = []
+    for(const y of years){
+     const searchParams = {
+        year: y,
+      }
+      const _ageWiseUsers = await getAgeWiseUsers(sessionId,searchParams);
+      const genderWiseUsers = _ageWiseUsers.Data.AgeWiseUsers;
+      ageWiseUsersArray.push(genderWiseUsers);
+    }
+
+    console.log("ageWiseUsersArray", ageWiseUsersArray);
+
     const searchParams ={}
 		const _totalUsers = await getTolalUsers(sessionId,searchParams);
     const _activeUsers = await getActiveUsers(sessionId);

@@ -13,17 +13,10 @@
 	let deletedUsers = data.deletedUsers;
 	let androidUsers = data.deviceDetailWiseUsers.AndroidUsers;
 	let iOSUsers = data.deviceDetailWiseUsers.IOSUsers;
-	let genderWiseUsers;
-	let ageWiseUsers;
 	let totalUsersData = data.totalUsersArray;
 	let androidUsersData = data.androidUsersArray;
 	let iOSUsersData = data.iOSUsersArray;
 	let lables = data.years;
-
-	$: genderWiseUsers;
-	$: ageWiseUsers;
-	genderWiseUsers = data.genderWiseUsers ?? undefined;
-	ageWiseUsers = data.ageWiseUsers;
 
 </script>
 
@@ -62,4 +55,5 @@
 </div>
 <div>
 
+  <!-- <Funnel/> -->
 </div>

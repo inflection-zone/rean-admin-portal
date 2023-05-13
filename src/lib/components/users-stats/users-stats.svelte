@@ -1,8 +1,6 @@
 <script lang="ts">
 	import { page } from '$app/stores';
 	import BreadCrumbs from '$lib/components/breadcrumbs/breadcrums.svelte';
-	import GenderWiseDivision from '$lib/components/users-stats/charts/gender-wise-division.svelte';
-	import AgeWiseDivision from '$lib/components/users-stats/charts/age-wise-division.svelte';
 	import { createEventDispatcher } from 'svelte';
 	import PieChart from './charts/pie-chart.svelte';
 	import BarChart from './charts/bar-chart.svelte';
@@ -40,22 +38,25 @@
 	let ageNotSpecifiedUsersCount = ageWiseUsers.AgeNotSpecifiedUsers.Count;
 	let ageNotSpecifiedUsersRatio = ageWiseUsers.AgeNotSpecifiedUsers.Ratio;
 
-	let title = 'Gender wise division of users';
 	let labelsForGenderWiseDivision = ['Male', 'Female', 'Intersex', 'Gender not specified'];
+	let labelsForAgeWiseDivision = ['Users below 35', 'Users between 36 to 70', 'Users above 70', 'Age not specified'];
 
-	let data: number[] = [
+	let genderWiseDistributionOfUsers: number[] = [
 		genderWiseUsers.MaleUsers.Ratio,
 		genderWiseUsers.FemaleUsers.Ratio,
 		genderWiseUsers.IntersexUsers.Ratio,
 		genderWiseUsers.GenderNotSpecifiedUsers.Ratio
 	];
 
-	$: data = [
+	$: genderWiseDistributionOfUsers = [
 		genderWiseUsers.MaleUsers.Ratio,
 		genderWiseUsers.FemaleUsers.Ratio,
 		genderWiseUsers.IntersexUsers.Ratio,
 		genderWiseUsers.GenderNotSpecifiedUsers.Ratio
 	];
+
+	let ageWiseDistributionOfUsers = [usersBelowThirtyfiveRatio, usersBetweenThirtysixToSeventyRatio, usersAboveSeventyRatio, ageNotSpecifiedUsersRatio];
+  $ : ageWiseDistributionOfUsers = [usersBelowThirtyfiveRatio, usersBetweenThirtysixToSeventyRatio, usersAboveSeventyRatio, ageNotSpecifiedUsersRatio];
 
 	let labelsForMaritalStatusWiseDivision = 
 	maritalStatusWiseUsers.map(x => x.status);
@@ -121,7 +122,6 @@
 <BreadCrumbs crumbs={breadCrumbs} />
 
 <div class="flex justify-center flex-col lg:mx-14 md:mx-10 sm:mx-6 mx-4 mt-4 mb-14">
-	<!-- <Table source={tableSimple} /> -->
 	<div class="flex flex-col gap-3">
 		{#each usersData as data}
 			<div
@@ -135,57 +135,33 @@
 	</div>
 
 	<div class="flex items-start mx-auto mt-10 w-full">
-		<!-- <div class="w-1/2 flex flex-col items-center">
-			<select name="year" id="" class="select w-2/3 mb-2" on:change={handlelSelectYearForGender}>
-				<option>All the years</option>
-				<option value="2021">2021</option>
-				<option value="2022">2022</option>
-				<option value="2023">2023</option>
-			</select>
-			<div class="mx-10 w-1/2">
-				<GenderWiseDivision lablesList={labels} dataSource={data} />
-			</div>
-			<h3 class="mt-3 text-primary-500">Gender wise division of users</h3>
-		</div> -->
 		<div class="w-1/2 flex flex-col items-start">
-			<select name="year" id="" class="select w-2/3" on:change={handlelSelectYearForGender}>
+			<select name="year" id="" class="select w-2/3" on:change={handlelSelectYearForAge}>
 				<option>All the years</option>
 				<option value="2021">2021</option>
 				<option value="2022">2022</option>
 				<option value="2023">2023</option>
 			</select>
 			<div class="w-2/3">
-				<PieChart lables={labelsForGenderWiseDivision} {data} {title} />
-			</div>
-			<h3 class="items-start text-primary-500">Gender wise division of users</h3>
+				<PieChart lables={labelsForGenderWiseDivision} data={genderWiseDistributionOfUsers}  title = 'Gender distribution of users'/>
+			</div>	
 		</div>
-		<div class="w-1/2 flex flex-col items-center">
-			<select name="year" id="" class="select w-2/3 mb-2" on:change={handlelSelectYearForAge}>
+
+		<div class="w-1/2 flex flex-col items-center ">
+			<select name="year" id="" class="select w-2/3 " on:change={handlelSelectYearForGender}>
 				<option>All the years</option>
 				<option value="2021">2021</option>
 				<option value="2022">2022</option>
 				<option value="2023">2023</option>
 			</select>
-			<div class="mx-10 w-1/2 ">
-				<AgeWiseDivision {ageWiseUsers} />
+			<div class="mx-10 w-2/3 ">
+				<PieChart lables={labelsForAgeWiseDivision} data={ageWiseDistributionOfUsers} title='Age distribution of users'/>
 			</div>
-			<h3 class="mt-3 text-primary-500">Age wise division of users</h3>
 		</div>
 	</div>
-	<!-- <div class="w-1/2 flex flex-col items-center ">
-		<select name="year" id="" class="select w-2/3 " on:change={handlelSelectYearForGender}>
-			<option>Select year</option>
-			<option value="2021">2021</option>
-			<option value="2022">2022</option>
-			<option value="2023">2023</option>
-		</select>
-		<div class="mx-10 w-1/2 ">
-			<PieChart lables={labels} data = {data} />
-		</div>
-		<h3 class="items-start text-primary-500">Gender wise division of users</h3>
-	</div> -->
+	
 	<div class="w-1/2 h-96 flex flex-col items-center mt-10 mb-10">
 		<BarChart dataSource={dataForMaritalStatusWiseDivision} lables={labelsForMaritalStatusWiseDivision} />
-		<h3 class="mt-3 text-primary-500">Marital status wise user division</h3>
+		<h3 class="mt-3 text-primary-500">Marital status distribution of users</h3>
 	</div>
 </div>

@@ -53,7 +53,7 @@
 			{#each dashboardTabs as t}
 				<a
 					href={t.path}
-					class="hover:bg-[#6c3dc2] hover:text-surface-500 px-3 py-2 hover:no-underline rounded-md text-md font-medium {activeTab ==
+					class="hover:bg-[#6c3dc2] hover:text-surface-500 px-3 py-2 hover:no-underline rounded-md text-lg font-medium {activeTab ==
 					t.path
 						? 'active: bg-primary-500 text-white'
 						: 'text-white bg-secondary-500'}">{t.name}</a
@@ -61,26 +61,26 @@
 			 {/each}
       </ul> -->
 
-      <button class="w-28 h-16 hover:bg-[#6c3dc2] hover:text-white text-center p-2 my-3 ml-2 hover:no-underline rounded-md text-md font-medium {activeTab ==
+      <button class="w-28 h-16 hover:bg-[#6c3dc2] hover:text-white text-center p-2 my-3 ml-2 hover:no-underline rounded-md text-lg font-medium {activeTab ==
         homeLink
           ? 'active: bg-primary-500 text-white'
           : 'text-primary-500'}" on:click|capture={gotoHome}>
 				General
 			</button>
 
-      <button class="w-28 h-16 hover:bg-[#6c3dc2] hover:text-white text-center p-2 my-3 ml-2 hover:no-underline rounded-md text-md font-medium {activeTab ==
+      <button class="w-28 h-16 hover:bg-[#6c3dc2] hover:text-white text-center p-2 my-3 ml-2 hover:no-underline rounded-md text-lg font-medium {activeTab ==
         usersLink
           ? 'active: bg-primary-500 text-white'
           : 'text-primary-500'}" on:click|capture={gotoUsers}>
 				Users
 			</button>
-      <button class="w-28 h-16 hover:bg-[#6c3dc2] hover:text-white text-center p-2 my-3 ml-2 hover:no-underline rounded-md text-md font-medium {activeTab ==
+      <button class="w-28 h-16 hover:bg-[#6c3dc2] hover:text-white text-center p-2 my-3 ml-2 hover:no-underline rounded-md text-lg font-medium {activeTab ==
         rhgLink
           ? 'active: bg-primary-500 text-white'
           : 'text-primary-500'}" on:click|capture={gotoRhg}>
 				RHG
 			</button>
-      <button class="w-28 h-16 hover:bg-[#6c3dc2] hover:text-white text-center p-2 my-3 ml-2 hover:no-underline rounded-md text-md font-medium {activeTab ==
+      <button class="w-28 h-16 hover:bg-[#6c3dc2] hover:text-white text-center p-2 my-3 ml-2 hover:no-underline rounded-md text-lg font-medium {activeTab ==
         botLink
           ? 'active: bg-primary-500 text-white'
           : 'text-primary-500'}" on:click|capture={gotoBot}>
