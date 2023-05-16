@@ -1,8 +1,7 @@
 <script lang="ts">
 	import type { PageServerData } from './$types';
 	import PlatformBasedChart from '$lib/components/users-stats/charts/platform-based-chart.svelte';
-	import NewChart from '$lib/components/users-stats/charts/new-chart.svelte';
-	// import Funnel from '$lib/components/users-stats/charts/funnel.svelte';
+	import Funnel from '$lib/components/users-stats/charts/funnel.svelte';
 
 	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -18,6 +17,8 @@
 	let iOSUsersData = data.iOSUsersArray;
 	let lables = data.years;
 
+ let labels = ['Downloads', 'Registration', 'Enrollment', 'Active Users'];
+ let funnelChartData = [30, totalUsers.count, 20, activeUsers.Count];
 </script>
 
 <div class = 'mx-10'>
@@ -49,11 +50,16 @@
     </div>
   </dl>
 </div>
-<div class="h-96 w-1/3 flex flex-col items-center justify-center ml-10 mt-16">
+
+<div class="flex ">
+<div class="h-96 w-1/2 gap-x-10 items-center justify-center mx-10 mt-16">
+  <Funnel labels={labels} dataSource={funnelChartData}/>
+</div>
+<div class="h-96 w-1/2 flex flex-col items-center justify-center mx-10 mt-16">
 <PlatformBasedChart {totalUsersData} {androidUsersData} {iOSUsersData} {lables}/>
 <h3 class="text-primary-500 mt-3">Platform based users</h3>
 </div>
 <div>
+</div>
 
-  <!-- <Funnel/> -->
 </div>
