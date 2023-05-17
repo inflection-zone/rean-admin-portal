@@ -12,11 +12,11 @@
 	export let genderWiseUsers;
 	export let ageWiseUsers;
 	export let maritalStatusWiseUsers;
-	
-	console.log("labelsForMaritalStatusWiseDivision-----",maritalStatusWiseUsers)
+	export let countryWiseUsers;
 
 	$: ageWiseUsers;
 	$: genderWiseUsers;
+	$: countryWiseUsers;
 
 	let totalUsersCount = totalUsers.count;
 	let activeUsersCount = activeUsers.ActiveUsers.Count;
@@ -38,29 +38,60 @@
 	let ageNotSpecifiedUsersCount = ageWiseUsers.AgeNotSpecifiedUsers.Count;
 	let ageNotSpecifiedUsersRatio = ageWiseUsers.AgeNotSpecifiedUsers.Ratio;
 
-	let labelsForGenderWiseDivision = ['Male', 'Female', 'Intersex', 'Gender not specified'];
-	let labelsForAgeWiseDivision = ['Users below 35', 'Users between 36 to 70', 'Users above 70', 'Age not specified'];
+	let genderDistributionLabels = ['Male', 'Female', 'Intersex', 'Gender not specified'];
+	let ageDistributionLabels = [
+		'Users below 35',
+		'Users between 36 to 70',
+		'Users above 70',
+		'Age not specified'
+	];
 
-	let genderWiseDistributionOfUsers: number[] = [
+	let genderDistributionData: number[] = [
 		genderWiseUsers.MaleUsers.Ratio,
 		genderWiseUsers.FemaleUsers.Ratio,
 		genderWiseUsers.IntersexUsers.Ratio,
 		genderWiseUsers.GenderNotSpecifiedUsers.Ratio
 	];
 
-	$: genderWiseDistributionOfUsers = [
+	$: genderDistributionData = [
 		genderWiseUsers.MaleUsers.Ratio,
 		genderWiseUsers.FemaleUsers.Ratio,
 		genderWiseUsers.IntersexUsers.Ratio,
 		genderWiseUsers.GenderNotSpecifiedUsers.Ratio
 	];
 
-	let ageWiseDistributionOfUsers = [usersBelowThirtyfiveRatio, usersBetweenThirtysixToSeventyRatio, usersAboveSeventyRatio, ageNotSpecifiedUsersRatio];
-  $ : ageWiseDistributionOfUsers = [usersBelowThirtyfiveRatio, usersBetweenThirtysixToSeventyRatio, usersAboveSeventyRatio, ageNotSpecifiedUsersRatio];
+	let ageDistributionData = [
+		usersBelowThirtyfiveRatio,
+		usersBetweenThirtysixToSeventyRatio,
+		usersAboveSeventyRatio,
+		ageNotSpecifiedUsersRatio
+	];
+	$: ageDistributionData = [
+		usersBelowThirtyfiveRatio,
+		usersBetweenThirtysixToSeventyRatio,
+		usersAboveSeventyRatio,
+		ageNotSpecifiedUsersRatio
+	];
 
-	let labelsForMaritalStatusWiseDivision = 
-	maritalStatusWiseUsers.map(x => x.status);
-	let dataForMaritalStatusWiseDivision = maritalStatusWiseUsers.map(x => x.count);
+	let maritalStatusDistributionLabels = maritalStatusWiseUsers.map((x) => x.status);
+	let maritalStatusDistributionData = maritalStatusWiseUsers.map((x) => x.count);
+
+	let cuntryDistributionData = countryWiseUsers.map((x) => x.Count);
+	let cuntryDistributionLables = countryWiseUsers.map((x) => x.Country);
+
+	$:cuntryDistributionData;
+	$:cuntryDistributionLables;
+
+	// let cuntryDistributionData = [];
+	// let cuntryDistributionLables = [];
+
+	// for (const c of countryWiseUsers) {
+	// 	const data = c.Ratio + '%';
+	// 	const labels = c.Country;
+	// 	cuntryDistributionData.push(data);
+	// 	cuntryDistributionLables.push(labels);
+	// }
+
 	const usersData = [
 		{ usersDetail: 'Total users', count: totalUsersCount, ratio: '-' },
 		{ usersDetail: 'Active users', count: activeUsersCount, ratio: `${activeUsersRatio} %` },
@@ -117,6 +148,12 @@
 			year: year
 		});
 	};
+
+	const handlelSelectYearForCountry = (year) => {
+		dispatch('selectCountryDistributionYearly', {
+			year: year
+		});
+	};
 </script>
 
 <BreadCrumbs crumbs={breadCrumbs} />
@@ -143,8 +180,12 @@
 				<option value="2023">2023</option>
 			</select>
 			<div class="w-2/3">
-				<PieChart lables={labelsForGenderWiseDivision} data={genderWiseDistributionOfUsers}  title = 'Gender distribution of users'/>
-			</div>	
+				<PieChart
+					labels={genderDistributionLabels}
+					data={genderDistributionData}
+					title="Gender distribution of users"
+				/>
+			</div>
 		</div>
 
 		<div class="w-1/2 flex flex-col items-center ">
@@ -155,13 +196,39 @@
 				<option value="2023">2023</option>
 			</select>
 			<div class="mx-10 w-2/3 ">
-				<PieChart lables={labelsForAgeWiseDivision} data={ageWiseDistributionOfUsers} title='Age distribution of users'/>
+				<PieChart
+					labels={ageDistributionLabels}
+					data={ageDistributionData}
+					title="Age distribution of users"
+				/>
 			</div>
 		</div>
 	</div>
-	
-	<div class="w-1/2 h-96 flex flex-col items-center mt-10 mb-10">
-		<BarChart dataSource={dataForMaritalStatusWiseDivision} lables={labelsForMaritalStatusWiseDivision} />
-		<h3 class="mt-3 text-primary-500">Marital status distribution of users</h3>
+
+	<div class="flex items-start mx-auto mt-10 w-full">
+		<div class="w-1/2 h-96 flex flex-col items-center mt-10 mb-10">
+			<BarChart
+				dataSource={maritalStatusDistributionData}
+				labels={maritalStatusDistributionLabels}
+			/>
+			<h3 class="mt-3 text-primary-500">Marital status distribution of users</h3>
+		</div>
+
+		<div class="w-1/2 flex flex-col items-center ">
+			<!-- <select name="year" id="" class="select w-2/3 " on:change={handlelSelectYearForCountry}>
+				<option>All the years</option>
+				<option value="2021">2021</option>
+				<option value="2022">2022</option>
+				<option value="2023">2023</option>
+			</select>
+			 -->
+			<div class="mx-10 w-2/3 ">
+				<PieChart
+					labels={cuntryDistributionLables}
+					data={cuntryDistributionData}
+					title="Country distribution of users"
+				/>
+			</div>
+		</div>
 	</div>
 </div>

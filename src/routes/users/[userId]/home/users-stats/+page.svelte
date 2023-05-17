@@ -11,12 +11,15 @@
 	let maritalStatusWiseUsers = data.maritalStatusWiseUsers;
 	let genderWiseUsers;
 	let ageWiseUsers;
+	let countryWiseUsers;
 	
 	$: genderWiseUsers;
 	$: ageWiseUsers;
 	genderWiseUsers = data.genderWiseUsers;
 	ageWiseUsers = data.ageWiseUsers;
+	countryWiseUsers = data.countryWiseUsers;
 
+	$:countryWiseUsers;
 	let selectedYear;
 
 	const selectAgeWiseUsersDividionYearly = async (e) => {
@@ -65,6 +68,30 @@
 		genderWiseUsers = response;
 		console.log('genderWiseUsers------------', genderWiseUsers);
 	}
+
+	const selectCounrtyDistributionYearly = async (e) => {
+		selectedYear = e.currentTarget.value;
+		console.log('selected year', selectedYear);
+		await searchCounrtyDistributionOfUsers({
+			sessionId: data.sessionId,
+			year: selectedYear
+		});
+		// window.location.href = `/users/${userId}/home`;
+	};
+
+	async function searchCounrtyDistributionOfUsers(model) {
+		let url = `/api/server/users-stats/search-country-users-yearly?year=${model.year}`;
+		console.log(url);
+		const res = await fetch(url, {
+			method: 'GET',
+			headers: {
+				'content-type': 'application/json'
+			}
+		});
+		const response = await res.json();
+		countryWiseUsers = response;
+		console.log('countryWiseUsers------------', countryWiseUsers);
+	}
 </script>
 
 <UsersStats
@@ -73,10 +100,16 @@
 	{ageWiseUsers}
 	{genderWiseUsers}
 	{maritalStatusWiseUsers}
+	countryWiseUsers = {countryWiseUsers}
 	on:selectAgeWiseUsersDividionYearly={async (e) => {
 		await selectAgeWiseUsersDividionYearly(e.detail.year);
 	}}
 	on:selectGenderWiseUsersDividionYearly={async (e) => {
 		await selectGenderWiseUsersDividionYearly(e.detail.year);
 	}}
+	on:selectCountryDistributionYearly={async (e) => {
+		await selectCounrtyDistributionYearly(e.detail.year);
+	}}
 />
+
+

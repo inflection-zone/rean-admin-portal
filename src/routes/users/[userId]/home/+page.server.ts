@@ -1,6 +1,6 @@
 import type {  RequestEvent } from '@sveltejs/kit';
 import type { PageServerLoad } from './$types';
-import { getActiveUsers, getDeletdUsers, getDeviceDetailWiseUsers, getEnrollmetUsers, getGenderWiseUsers, getMaritalStatusWiseUsers, getTolalUsers } from '$routes/api/services/statistics';
+import { getActiveUsers, getAppDownloadsData, getDeletdUsers, getDeviceDetailWiseUsers, getEnrollmetUsers, getGenderWiseUsers, getMaritalStatusWiseUsers, getTolalUsers } from '$routes/api/services/statistics';
 
 ////////////////////////////////////////////////////////////////////////////
 
@@ -46,12 +46,14 @@ export const load: PageServerLoad = async (event: RequestEvent) => {
     const _deletedUsers = await getDeletdUsers(sessionId);
     const _deviceDetailWiseUsers = await getDeviceDetailWiseUsers(sessionId);
     const _enrollmentUsers = await getEnrollmetUsers(sessionId);
+    const _appDownloadsData = await getAppDownloadsData(sessionId);
 
     const totalUsers = _totalUsers.Data.TotalUsers;
     const activeUsers = _activeUsers.Data.ActiveUsers;
     const deletedUsers = _deletedUsers.Data.DeletedUsers;
     const deviceDetailWiseUsers = _deviceDetailWiseUsers.Data.DeviceDetailWiseUsers;
     const enrollmentUsers = _enrollmentUsers.Data.EnrollmentUsers;
+    const appDownloadsData = _appDownloadsData.Data.AppDownload;
 
     console.log("totalUsers",totalUsers);
     console.log("activeUsers",activeUsers);
@@ -68,7 +70,8 @@ export const load: PageServerLoad = async (event: RequestEvent) => {
       totalUsersArray,
       iOSUsersArray,
       years,
-      enrollmentUsers
+      enrollmentUsers,
+      appDownloadsData
 		};
 
 	} catch (error) {

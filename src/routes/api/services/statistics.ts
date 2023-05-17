@@ -163,3 +163,43 @@ export const getEnrollmetUsers = async (sessionId: string, searchParams?: any) =
 	const url = BACKEND_API_URL + `/statistics/enrollment-users${searchString}`;
 	return await get_(sessionId, url, true);
 };
+
+export const getAppDownloadsData = async (sessionId: string, searchParams?: any) => {
+	let searchString = '';
+	if (searchParams) {
+		const keys = Object.keys(searchParams);
+		if (keys.length > 0) {
+			searchString = '?';
+			const params = [];
+			for (const key of keys) {
+				if (searchParams[key]) {
+					const param = `${key}=${searchParams[key]}`;
+					params.push(param);
+				}
+			}
+			searchString  += params.join('&');
+		}
+	}
+	const url = BACKEND_API_URL + `/statistics/app-downloads${searchString}`;
+	return await get_(sessionId, url, true);
+};
+
+export const getCountryWiseUsers = async (sessionId: string, searchParams?: any) => {
+	let searchString = '';
+	if (searchParams) {
+		const keys = Object.keys(searchParams);
+		if (keys.length > 0) {
+			searchString = '?';
+			const params = [];
+			for (const key of keys) {
+				if (searchParams[key]) {
+					const param = `${key}=${searchParams[key]}`;
+					params.push(param);
+				}
+			}
+			searchString  += params.join('&');
+		}
+	}
+	const url = BACKEND_API_URL + `/statistics/country-wise-users${searchString}`;
+	return await get_(sessionId, url, true);
+};

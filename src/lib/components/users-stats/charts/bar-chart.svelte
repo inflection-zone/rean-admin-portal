@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
 	import Chart from 'chart.js/auto';
-	export let lables: string[] = [];
+	export let labels: string[] = [];
 	export let dataSource: number[] = [];
 	let barChart;
 	let ctx;
@@ -11,7 +11,7 @@
 		barChart = new Chart(ctx, {
 			type: 'bar',
 			data: {
-				labels: lables,
+				labels: labels,
 				datasets: [
 					{
 						data: dataSource,

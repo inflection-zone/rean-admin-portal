@@ -1,9 +1,12 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
 	import Chart from 'chart.js/auto';
-	export let lables: string[] = [];
-	export let data: number[] = [];
+	export let labels: string[];
+	export let data: number[];
 	export let title: string;
+
+	$:data;
+
 	let pieChart;
 	let ctx;
 
@@ -12,7 +15,7 @@
 		pieChart = new Chart(ctx, {
 			type: 'pie',
 			data: {
-				labels: lables,
+				labels: labels,
 				datasets: [
 					{
 						data: data,
