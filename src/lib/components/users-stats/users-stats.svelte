@@ -183,7 +183,7 @@
 				<PieChart
 					labels={genderDistributionLabels}
 					data={genderDistributionData}
-					title="Gender distribution of users"
+					title="Gender"
 				/>
 			</div>
 		</div>
@@ -199,7 +199,7 @@
 				<PieChart
 					labels={ageDistributionLabels}
 					data={ageDistributionData}
-					title="Age distribution of users"
+					title="Age"
 				/>
 			</div>
 		</div>
@@ -211,7 +211,7 @@
 				dataSource={maritalStatusDistributionData}
 				labels={maritalStatusDistributionLabels}
 			/>
-			<h3 class="mt-3 text-primary-500">Marital status distribution of users</h3>
+			<h3 class="mt-3 text-primary-500">Marital status</h3>
 		</div>
 
 		<div class="w-1/2 flex flex-col items-center ">
@@ -226,7 +226,7 @@
 				<PieChart
 					labels={cuntryDistributionLables}
 					data={cuntryDistributionData}
-					title="Country distribution of users"
+					title="Country"
 				/>
 			</div>
 		</div>

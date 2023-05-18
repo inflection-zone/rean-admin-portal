@@ -6,7 +6,6 @@
 	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 	export let data: PageServerData;
-	// let tabSet: number = 0;
 	let totalUsers = data.totalUsers;
 	let activeUsers = data.activeUsers.ActiveUsers;
 	let deletedUsers = data.deletedUsers;
@@ -16,50 +15,105 @@
 	let androidUsersData = data.androidUsersArray;
 	let iOSUsersData = data.iOSUsersArray;
 	let lables = data.years;
+	let totalEnrollment = data.enrollmentUsers.TotalEnrollnemtUsers.Count;
 
- let labels = ['Downloads', 'Registration', 'Enrollment', 'Active Users'];
- let funnelChartData = [30, totalUsers.count, 20, activeUsers.Count];
+	let labels = ['Downloads', 'Registration', 'Active Users', 'Enrollment'];
+	let funnelChartData = [totalUsers.count, totalUsers.count, activeUsers.Count, totalEnrollment];
 </script>
 
-<div class = 'mx-10'>
-  <!-- <h3 class="text-base font-semibold leading-6 text-gray-900">Last 30 days</h3> -->
-  <dl class="mt-5 grid grid-cols-1 gap-5 sm:grid-cols-3">
+<div class="mx-10">
+	<dl class="mt-5 grid grid-cols-1 gap-5 sm:grid-cols-3">
 		<div class="overflow-hidden rounded-lg bg-tertiary-200 px-4 py-5 shadow sm:p-6">
-      <dt class="truncate text-md font-medium text-primary-500">App Downloads</dt>
-      <dd class="mt-1 text-3xl font-semibold tracking-tight text-primary-500">{totalUsers.count}</dd>
-    </div>
-    <div class="overflow-hidden rounded-lg bg-tertiary-200 px-4 py-5 shadow sm:p-6">
-      <dt class="truncate text-md font-medium text-primary-500">Total Users</dt>
-      <dd class="mt-1 text-3xl font-semibold tracking-tight text-primary-500">{totalUsers.count}</dd>
-    </div>
-    <div class="overflow-hidden rounded-lg bg-tertiary-200 px-4 py-5 shadow sm:p-6">
-      <dt class="truncate text-md font-medium text-primary-500">Active Users</dt>
-      <dd class="mt-1 text-3xl font-semibold tracking-tight text-primary-500">{activeUsers.Count} ({activeUsers.Ratio}%)</dd>
-    </div>
+			<dt class="truncate text-md font-normal text-primary-500">App Downloads</dt>
+			<dd class="mt-1 text-3xl font-semibold tracking-tight text-primary-500">
+				{totalUsers.count}
+			</dd>
+		</div>
 		<div class="overflow-hidden rounded-lg bg-tertiary-200 px-4 py-5 shadow sm:p-6">
-      <dt class="truncate text-md font-medium text-primary-500">Android Users</dt>
-      <dd class="mt-1 text-3xl font-semibold tracking-tight text-primary-500">{androidUsers.Count} ({androidUsers.Ratio}%)</dd>
-    </div>
+			<dt class="truncate text-md font-normal text-primary-500">Total Users</dt>
+			<dd class="mt-1 text-3xl font-semibold tracking-tight text-primary-500">
+				{totalUsers.count}
+			</dd>
+		</div>
 		<div class="overflow-hidden rounded-lg bg-tertiary-200 px-4 py-5 shadow sm:p-6">
-      <dt class="truncate text-md font-medium text-primary-500">IOS Users</dt>
-      <dd class="mt-1 text-3xl font-semibold tracking-tight text-primary-500">{iOSUsers.Count} ({iOSUsers.Ratio}%)</dd>
-    </div>
-    <div class="overflow-hidden rounded-lg bg-tertiary-200 px-4 py-5 shadow sm:p-6">
-      <dt class="truncate text-md font-medium text-primary-500">Deleted Users</dt>
-      <dd class="mt-1 text-3xl font-semibold tracking-tight text-primary-500">{deletedUsers.Count} ({deletedUsers.Ratio}%)</dd>
-    </div>
-  </dl>
-</div>
+			<dt class="truncate text-md font-normal text-primary-500">Active Users</dt>
+			<dd class="mt-1 flex items-baseline pb-6 sm:pb-7">
+				<div class="text-3xl  font-semibold text-primary-500">{activeUsers.Count}</div>
+				<div class="ml-2 flex items-baseline text-sm font-normal text-primary-500">
+					{activeUsers.Ratio} %
+				</div>
+			</dd>
+		</div>
 
-<div class="flex ">
-<div class="h-96 w-1/2 gap-x-10 items-center justify-center mx-10 mt-16">
-  <Funnel labels={labels} dataSource={funnelChartData}/>
-</div>
-<div class="h-96 w-1/2 flex flex-col items-center justify-center mx-10 mt-16">
-<PlatformBasedChart {totalUsersData} {androidUsersData} {iOSUsersData} {lables}/>
-<h3 class="text-primary-500 mt-3">Platform based users</h3>
-</div>
-<div>
-</div>
+		<div class="overflow-hidden rounded-lg bg-tertiary-200 px-4 py-5 shadow sm:p-6">
+			<dt class="truncate text-md font-normal text-primary-500">Android Users</dt>
+			<dd class="mt-1 flex items-baseline pb-6 sm:pb-7">
+				<div class="text-3xl  font-semibold text-primary-500">{androidUsers.Count}</div>
+				<div class="ml-2 flex items-baseline text-sm font-normal text-primary-500">
+					{androidUsers.Ratio} %
+				</div>
+			</dd>
+		</div>
 
+		<div class="overflow-hidden rounded-lg bg-tertiary-200 px-4 py-5 shadow sm:p-6">
+			<dt class="truncate text-md font-normal text-primary-500">IOS Users</dt>
+			<dd class="mt-1 flex items-baseline pb-6 sm:pb-7">
+				<div class="text-3xl  font-semibold text-primary-500">{iOSUsers.Count}</div>
+				<div class="ml-2 flex items-baseline text-sm font-normal text-primary-500">
+					{iOSUsers.Ratio} %
+				</div>
+			</dd>
+		</div>
+
+		<div class="overflow-hidden rounded-lg bg-tertiary-200 px-4 py-5 shadow sm:p-6">
+			<dt class="truncate text-md font-normal text-primary-500">Deleted Users</dt>
+			<dd class="mt-1 flex items-baseline pb-6 sm:pb-7">
+				<div class="text-3xl  font-semibold text-primary-500">{deletedUsers.Count}</div>
+				<div class="ml-2 flex items-baseline text-sm font-normal text-primary-500">
+					{deletedUsers.Ratio} %
+				</div>
+			</dd>
+		</div>
+	</dl>
+
+	<div class="flex h-72 gap-10 w-full">
+		<div class="mt-5 flex overflow-x-auto rounded-lg bg-tertiary-200 shadow sm:p-6 w-1/2 h-auto">
+			<div class="pb-4">
+				<h4 class="text-center mb-2 justify-center text-primary-500">App Users</h4>
+				<div class="w-full h-full">
+					<Funnel {labels} dataSource={funnelChartData} />
+				</div>
+			</div>
+			<div class="mt-10">
+				<div class="flex justify-start items-center gap-4 ">
+					<div class="h-4 w-10 mt-1 border bg-primary-700" />
+					<div class="text-md font-normal text-primary-500">Downloads</div>
+					<div class="text-md font-normal text-primary-500">{totalUsers.count}</div>
+				</div>
+				<div class="flex justify-start gap-4">
+					<div class="h-4 w-10 mt-1 border bg-primary-500" />
+					<div class="text-md font-normal text-primary-500">Registration</div>
+					<div class="text-md font-normal text-primary-500">{totalUsers.count}</div>
+				</div>
+				<div class="flex justify-start gap-4">
+					<div class="h-4 w-10 mt-1 border bg-secondary-500" />
+					<div class="text-md font-normal text-primary-500">Active Users</div>
+					<div class="text-md font-normal text-primary-500">{activeUsers.Count}</div>
+				</div>
+				<div class="flex justify-start gap-4">
+					<div class="h-4 w-10 mt-1 border bg-tertiary-500" />
+					<div class="text-md  font-normal text-primary-500">Enrollments</div>
+					<div class="text-md font-normal text-primary-500">{totalEnrollment}</div>
+				</div>
+			</div>
+		</div>
+		<div class="mt-5 flex overflow-x-auto rounded-lg bg-tertiary-200 shadow sm:p-6 w-1/2 h-auto">
+			<div class="pb-8 w-full">
+				<h4 class="text-center mb-2 justify-center text-primary-500">Platform based users</h4>
+				<div class="w-full h-full">
+					<PlatformBasedChart {totalUsersData} {androidUsersData} {iOSUsersData} {lables} />
+				</div>
+			</div>
+		</div>
+	</div>
 </div>

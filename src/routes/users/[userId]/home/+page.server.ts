@@ -55,10 +55,10 @@ export const load: PageServerLoad = async (event: RequestEvent) => {
     const enrollmentUsers = _enrollmentUsers.Data.EnrollmentUsers;
     const appDownloadsData = _appDownloadsData.Data.AppDownload;
 
-    console.log("totalUsers",totalUsers);
-    console.log("activeUsers",activeUsers);
-    console.log("deletedUsers",deletedUsers);
-    console.log("ageWisedeviceDetailWiseUsersUsers",deviceDetailWiseUsers);
+    // console.log("totalUsers",totalUsers);
+    // console.log("activeUsers",activeUsers);
+    // console.log("deletedUsers",deletedUsers);
+    // console.log("ageWisedeviceDetailWiseUsersUsers",deviceDetailWiseUsers);
 
 		return {
       sessionId,
