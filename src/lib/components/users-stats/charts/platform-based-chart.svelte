@@ -62,7 +62,9 @@
 						position: 'top',
 						align: 'center',
 						labels: {
-							color: '#5832A1'
+							color: '#5832A1',
+							boxWidth:10,
+							boxHeight:10,
 						}
 					}
 				}

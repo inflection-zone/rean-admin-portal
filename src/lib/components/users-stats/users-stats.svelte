@@ -4,6 +4,7 @@
 	import { createEventDispatcher } from 'svelte';
 	import PieChart from './charts/pie-chart.svelte';
 	import BarChart from './charts/bar-chart.svelte';
+	import { ProgressBar } from '@skeletonlabs/skeleton';
 
 	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -13,6 +14,7 @@
 	export let ageWiseUsers;
 	export let maritalStatusWiseUsers;
 	export let countryWiseUsers;
+	export let majorAilment;
 
 	$: ageWiseUsers;
 	$: genderWiseUsers;
@@ -39,12 +41,7 @@
 	let ageNotSpecifiedUsersRatio = ageWiseUsers.AgeNotSpecifiedUsers.Ratio;
 
 	let genderDistributionLabels = ['Male', 'Female', 'Intersex', 'Gender not specified'];
-	let ageDistributionLabels = [
-		'Users below 35',
-		'Users between 36 to 70',
-		'Users above 70',
-		'Age not specified'
-	];
+	let ageDistributionLabels = ['Below 35', '36-70', 'Above 70', 'Age not specified'];
 
 	let genderDistributionData: number[] = [
 		genderWiseUsers.MaleUsers.Ratio,
@@ -76,11 +73,11 @@
 	let maritalStatusDistributionLabels = maritalStatusWiseUsers.map((x) => x.status);
 	let maritalStatusDistributionData = maritalStatusWiseUsers.map((x) => x.count);
 
-	let cuntryDistributionData = countryWiseUsers.map((x) => x.Count);
-	let cuntryDistributionLables = countryWiseUsers.map((x) => x.Country);
+	let cuntryDistributionData = countryWiseUsers.map((x) => x.Ratio);
+	let cuntryDistributionLabels = countryWiseUsers.map((x) => x.Country);
 
-	$:cuntryDistributionData;
-	$:cuntryDistributionLables;
+	$: cuntryDistributionData;
+	$: cuntryDistributionLabels;
 
 	// let cuntryDistributionData = [];
 	// let cuntryDistributionLables = [];
@@ -92,36 +89,39 @@
 	// 	cuntryDistributionLables.push(labels);
 	// }
 
+	let majorAilmentDistributionData = majorAilment.map((x) => x.Count);
+	let majorAilmentDistributionLabels = majorAilment.map((x) => x.MajorAilment);
+
 	const usersData = [
-		{ usersDetail: 'Total users', count: totalUsersCount, ratio: '-' },
-		{ usersDetail: 'Active users', count: activeUsersCount, ratio: `${activeUsersRatio} %` },
+		// { usersDetail: 'Total users', count: totalUsersCount, ratio: '100' },
+		{ usersDetail: 'Active users', count: activeUsersCount, ratio: `${activeUsersRatio}` },
 		{
 			usersDetail: 'Users below age of 35',
 			count: usersBelowThirtyfiveCount,
-			ratio: `${usersBelowThirtyfiveRatio} %`
+			ratio: `${usersBelowThirtyfiveRatio}`
 		},
 		{
 			usersDetail: 'Users age between 36 to 70',
 			count: usersBetweenThirtysixToSeventyCount,
-			ratio: `${usersBetweenThirtysixToSeventyRatio} %`
+			ratio: `${usersBetweenThirtysixToSeventyRatio} `
 		},
 		{
 			usersDetail: 'Users above age of 70',
 			count: usersAboveSeventyCount,
-			ratio: `${usersAboveSeventyRatio} %`
+			ratio: `${usersAboveSeventyRatio}`
 		},
 		{
 			usersDetail: 'Age not specified users',
 			count: ageNotSpecifiedUsersCount,
-			ratio: `${ageNotSpecifiedUsersRatio} %`
+			ratio: `${ageNotSpecifiedUsersRatio}`
 		},
-		{ usersDetail: 'Male users', count: maleUsersCount, ratio: `${maleUsersRatio} %` },
-		{ usersDetail: 'Female users', count: femaleUsersCount, ratio: `${femaleUsersRatio} %` },
-		{ usersDetail: 'Intersex users', count: intersexUsersCount, ratio: `${intersexUsersRatio} %` },
+		{ usersDetail: 'Male users', count: maleUsersCount, ratio: `${maleUsersRatio}` },
+		{ usersDetail: 'Female users', count: femaleUsersCount, ratio: `${femaleUsersRatio} ` },
+		{ usersDetail: 'Intersex users', count: intersexUsersCount, ratio: `${intersexUsersRatio}` },
 		{
-			usersDetail: 'Gender Not specified users',
+			usersDetail: 'Gender not specified users',
 			count: genderNotSpecifiedUsersCount,
-			ratio: `${genderNotSpecifiedUsersRatio} %`
+			ratio: `${genderNotSpecifiedUsersRatio}`
 		}
 	];
 
@@ -158,75 +158,91 @@
 
 <BreadCrumbs crumbs={breadCrumbs} />
 
-<div class="flex justify-center flex-col lg:mx-14 md:mx-10 sm:mx-6 mx-4 mt-4 mb-14">
-	<div class="flex flex-col gap-3">
+<div class="flex justify-center flex-col lg:mx-14 md:mx-10 sm:mx-6 mx-4 mt-4 mb-20">
+	<!-- <div class="flex flex-col gap-3"> -->
+	<div
+		class="flex flex-col overflow-x-auto justify-center rounded-lg bg-tertiary-200 shadow-xl sm:px-4 py-4 gap-4"
+	>
 		{#each usersData as data}
 			<div
 				class="flex flex-row lg:gap-16 md:gap-12 sm:gap-10 gap-6 w-full items-start justify-start"
 			>
 				<span class="w-80 text-primary-500">{data.usersDetail}</span>
 				<span class="w-20 text-primary-500">{data.count}</span>
-				<span class="w-20 text-primary-500">{data.ratio}</span>
+				<div class="flex flex-col ">
+					<span class="w-40 text-primary-500 mb-1">{data.ratio} %</span>
+					<!-- <ProgressBar label="Progress Bar" value={data.ratio} max={100} /> -->
+					<div class="h-2 w-full rounded-full bg-primary-200">
+						<div class="h-2 rounded-full bg-primary-500" style="width:{data.ratio}%" />
+					</div>
+				</div>
 			</div>
 		{/each}
 	</div>
 
-	<div class="flex items-start mx-auto mt-10 w-full">
-		<div class="w-1/2 flex flex-col items-start">
-			<select name="year" id="" class="select w-2/3" on:change={handlelSelectYearForAge}>
-				<option>All the years</option>
-				<option value="2021">2021</option>
-				<option value="2022">2022</option>
-				<option value="2023">2023</option>
-			</select>
-			<div class="w-2/3">
-				<PieChart
-					labels={genderDistributionLabels}
-					data={genderDistributionData}
-					title="Gender"
-				/>
+	<div class="flex justify-center items-center h-96 gap-10 w-full mt-5">
+		<div
+			class="flex overflow-x-auto justify-center rounded-lg bg-tertiary-200 shadow-xl sm:px-4 pb-4 w-1/3 h-auto"
+		>
+			<div class="">
+				<PieChart labels={genderDistributionLabels} data={genderDistributionData} title="Gender" />
+				<!-- <select name="year" id="" class="select w-2/3" on:change={handlelSelectYearForGender}>
+					<option>All the years</option>
+					<option value="2021">2021</option>
+					<option value="2022">2022</option>
+					<option value="2023">2023</option>
+				</select> -->
 			</div>
 		</div>
-
-		<div class="w-1/2 flex flex-col items-center ">
-			<select name="year" id="" class="select w-2/3 " on:change={handlelSelectYearForGender}>
-				<option>All the years</option>
-				<option value="2021">2021</option>
-				<option value="2022">2022</option>
-				<option value="2023">2023</option>
-			</select>
-			<div class="mx-10 w-2/3 ">
-				<PieChart
-					labels={ageDistributionLabels}
-					data={ageDistributionData}
-					title="Age"
-				/>
+		<div
+			class="flex overflow-x-auto justify-center rounded-lg bg-tertiary-200 shadow-xl sm:px-4 pb-4 w-1/3"
+		>
+			<div class=" ">
+				<PieChart labels={ageDistributionLabels} data={ageDistributionData} title="Age" />
+				<!-- <select name="year" id="" class="select w-2/3" on:change={handlelSelectYearForAge}>
+					<option>All the years</option>
+					<option value="2021">2021</option>
+					<option value="2022">2022</option>
+					<option value="2023">2023</option>
+				</select> -->
 			</div>
 		</div>
-	</div>
-
-	<div class="flex items-start mx-auto mt-10 w-full">
-		<div class="w-1/2 h-96 flex flex-col items-center mt-10 mb-10">
-			<BarChart
-				dataSource={maritalStatusDistributionData}
-				labels={maritalStatusDistributionLabels}
-			/>
-			<h3 class="mt-3 text-primary-500">Marital status</h3>
-		</div>
-
-		<div class="w-1/2 flex flex-col items-center ">
-			<!-- <select name="year" id="" class="select w-2/3 " on:change={handlelSelectYearForCountry}>
+		<div
+			class="flex overflow-x-auto justify-center rounded-lg bg-tertiary-200 sm:px-4 shadow-xl pb-4 w-1/3"
+		>
+			<div class=" ">
+				<PieChart labels={cuntryDistributionLabels} data={cuntryDistributionData} title="Country" />
+				<!-- <select name="year" id="" class="select w-2/3 " on:change={handlelSelectYearForCountry}>
 				<option>All the years</option>
 				<option value="2021">2021</option>
 				<option value="2022">2022</option>
 				<option value="2023">2023</option>
 			</select>
 			 -->
-			<div class="mx-10 w-2/3 ">
-				<PieChart
-					labels={cuntryDistributionLables}
-					data={cuntryDistributionData}
-					title="Country"
+			</div>
+		</div>
+	</div>
+
+	<div class="flex justify-center items-center h-96 gap-10 w-full mt-5">
+		<div
+			class="flex overflow-x-auto justify-center items-center rounded-lg bg-tertiary-200 shadow-xl sm:px-4 pb-4 w-1/2"
+		>
+			<div class="h-96 w-full ">
+				<BarChart
+					dataSource={maritalStatusDistributionData}
+					labels={maritalStatusDistributionLabels}
+					title="Marital Status"
+				/>
+			</div>
+		</div>
+		<div
+			class="flex overflow-x-auto justify-center items-center rounded-lg bg-tertiary-200 shadow-xl sm:px-4 pb-4 w-1/2"
+		>
+			<div class="h-96 w-full">
+				<BarChart
+					dataSource={majorAilmentDistributionData}
+					labels={majorAilmentDistributionLabels}
+					title="Major Ailments"
 				/>
 			</div>
 		</div>

@@ -37,7 +37,7 @@
 				plugins: {
 					legend: {
 						display: true,
-						position: 'top',
+						position: 'bottom',
 						labels: {
 							boxWidth:10,
 							boxHeight:10,
@@ -47,7 +47,7 @@
 					title: {
 					    display: true,
 					    text: title,
-					    position: "bottom",
+					    position: "top",
 							color: '#5832A1',
 							align:'center',
 							padding:20,

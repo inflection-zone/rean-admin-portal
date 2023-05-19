@@ -1,6 +1,6 @@
 import type {  RequestEvent } from '@sveltejs/kit';
 import type { PageServerLoad } from './$types';
-import { getActiveUsers, getAgeWiseUsers, getCountryWiseUsers, getGenderWiseUsers, getMaritalStatusWiseUsers, getTolalUsers } from '$routes/api/services/statistics';
+import { getActiveUsers, getAgeWiseUsers, getCountryWiseUsers, getGenderWiseUsers, getMajorAilment, getMaritalStatusWiseUsers, getTolalUsers } from '$routes/api/services/statistics';
 
 ////////////////////////////////////////////////////////////////////////////
 
@@ -27,6 +27,7 @@ export const load: PageServerLoad = async (event: RequestEvent) => {
     const _genderWiseUsers = await getGenderWiseUsers(sessionId);
     const _maritalStatusWiseUsers = await getMaritalStatusWiseUsers(sessionId);
     const _countryWiseUsers = await getCountryWiseUsers(sessionId);
+    const _majorAilment = await getMajorAilment(sessionId);
 
     const totalUsers = _totalUsers.Data.TotalUsers;
     const activeUsers = _activeUsers.Data.ActiveUsers;
@@ -34,6 +35,7 @@ export const load: PageServerLoad = async (event: RequestEvent) => {
     const genderWiseUsers  = _genderWiseUsers.Data.GenderWiseUsers;
     const maritalStatusWiseUsers  = _maritalStatusWiseUsers.Data.MaritalStatusWiseUsers;
     const countryWiseUsers  = _countryWiseUsers.Data.CountryWiseUsers;
+    const majorAilment  = _majorAilment.Data.MajorAilmentDistribution;
 
     console.log("totalUsers",totalUsers);
     console.log("activeUsers",activeUsers);
@@ -48,7 +50,8 @@ export const load: PageServerLoad = async (event: RequestEvent) => {
       ageWiseUsers,
       genderWiseUsers,
       maritalStatusWiseUsers,
-      countryWiseUsers
+      countryWiseUsers,
+      majorAilment
 		};
     
 	} catch (error) {
