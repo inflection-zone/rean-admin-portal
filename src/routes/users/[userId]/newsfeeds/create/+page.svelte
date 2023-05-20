@@ -311,7 +311,7 @@
 						type="file"
 						id="fileUpload"
 						class="input"
-						name="fileinput"
+						name="fileInput"
 						placeholder="Image"
 						on:change={async (e) => await onFileSelected(e)}
 					/>

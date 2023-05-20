@@ -321,7 +321,7 @@
 				<div class="flex flex-row gap-4 w-1/2 md:w-2/3 lg:w-2/3 ">
 					{#if image === 'undefined'}
 						<input
-							name="fileinput"
+							name="fileInput"
 							type="file"
 							class="true input w-full"
 							placeholder="Image"
