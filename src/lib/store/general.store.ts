@@ -1,4 +1,4 @@
-import { writable, derived, get } from 'svelte/store';
+import { writable, derived, get, type Writable } from 'svelte/store';
 
 ///////////////////////////////////////////////////////////////////
 
@@ -33,3 +33,5 @@ export const showGetApiKeyModal = writable(false);
 export const showRenewApiKeyModal = writable(false);
 export const scoringApplicableCondition = writable(false);
 export const showScoringConditionModal = writable(false);
+export const ageWiseUsersData = writable();
+export const tabSet = writable(0);
