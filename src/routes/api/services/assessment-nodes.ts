@@ -13,7 +13,8 @@ export const createAssessmentNode = async (
 	message?: string,
 	serveListNodeChildrenAtOnce?: boolean,
 	queryType?: string,
-	options?: string[]
+	options?: string[],
+	sequence?: number,
 ) => {
 	const body = {
 		ParentNodeId: parentNodeId,
@@ -23,7 +24,8 @@ export const createAssessmentNode = async (
 		Message: message ? message : null,
 		ServeListNodeChildrenAtOnce: serveListNodeChildrenAtOnce,
 		QueryResponseType: queryType,
-		Options: options
+		Options: options,
+		Sequence:sequence
 	};
 	if (options && options.length > 0) {
 		let count = 1;
@@ -80,7 +82,8 @@ export const updateAssessmentNode = async (
 	description: string,
 	queryType?: string,
 	options?: string[],
-	message?: string
+	message?: string,
+	sequence?: number,
 ) => {
 	const body = {
 		NodeType: nodeType,
@@ -88,7 +91,8 @@ export const updateAssessmentNode = async (
 		Description: description ? description : null,
 		Message: message ? message : null,
 		QueryResponseType: queryType,
-		Options: options
+		Options: options,
+		Sequence: sequence,
 	};
 	if (options && options.length > 0) {
 		let count = 1;

@@ -22,18 +22,21 @@
 	let optionValueStore = options;
 	let message = data.assessmentNode.Message ?? null;
 	let parentNodeId = data.assessmentNode.ParentNodeId;
+	let sequence = data.assessmentNode.Sequence;
 
 	//Original data
 	let _nodeType = nodeType;
 	let _title = title;
 	let _description = description;
 	let _queryType = queryType;
+	let _sequence = sequence;
 
 	function handleReset() {
 		nodeType = _nodeType;
 		title = _title;
 		description = _description;
 		queryType = _queryType;
+		sequence = _sequence
 	}
 
 	const userId = $page.params.userId;
@@ -43,11 +46,16 @@
 	const editRoute = `/users/${userId}/assessment-templates/${templateId}/assessment-nodes/${nodeId}/edit`;
 	const viewRoute = `/users/${userId}/assessment-templates/${templateId}/assessment-nodes/${nodeId}/view`;
 	const assessmentNodeRoutes = `/users/${userId}/assessment-templates/${templateId}/assessment-nodes`;
+	const assessmentTemplateView =`/users/${userId}/assessment-templates/${templateId}/view`
 
 	const breadCrumbs = [
 		{
 			name: 'Assessments',
 			path: assessmentsRoutes
+		},
+		{
+			name: 'Assessment-View',
+			path: assessmentTemplateView
 		},
 		{
 			name: 'Assessment-Nodes',
@@ -157,6 +165,29 @@
 				/>
 				{#if form?.errors?.description}
 					<p class="text-error-500 text-xs">{form?.errors?.description[0]}</p>
+				{/if}
+			</div>
+		</div>
+
+		<div class="flex items-center my-4 lg:mx-16 md:mx-12 mx-10">
+			<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
+				<!-- svelte-ignore a11y-label-has-associated-control -->
+				<label class="label">
+					<span>Sequence</span>
+				</label>
+			</div>
+			<div class="w-1/2 md:w-2/3 lg:w-2/3">
+				<input
+					type="number"
+					name="sequence"
+					placeholder="Enter sequence here..."
+					class="input w-full {form?.errors?.sequence
+						? 'border-error-300 text-error-500'
+						: 'border-primary-200 text-primary-500'}"
+					bind:value={sequence}
+				/>
+				{#if form?.errors?.sequence}
+					<p class="text-error-500 text-xs">{form?.errors?.sequence[0]}</p>
 				{/if}
 			</div>
 		</div>

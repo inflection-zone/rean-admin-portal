@@ -27,7 +27,8 @@
 	let childrenNodes = data.assessmentNode.Children ?? [];
 	let displayCode = data.assessmentNode.DisplayCode;
 	let resolutionScore;
-	
+	let sequence = data.assessmentNode.Sequence;
+
 	scoringApplicableCondition.set(data.templateScoringCondition.ScoringApplicable);
 
 	onMount(() => {
@@ -43,6 +44,7 @@
 	const viewRoute = `/users/${userId}/assessment-templates/${templateId}/assessment-nodes/${nodeId}/view`;
 	const assessmentNodeRoutes = `/users/${userId}/assessment-templates/${templateId}/assessment-nodes`;
 	const createNodeRoute = `/users/${userId}/assessment-templates/${templateId}/assessment-nodes/create`;
+	const assessmentTemplateView =`/users/${userId}/assessment-templates/${templateId}/view`
 	const editNodeRoute = (id) =>
 		`/users/${userId}/assessment-templates/${templateId}/assessment-nodes/${id}/edit`;
 
@@ -50,6 +52,10 @@
 		{
 			name: 'Assessments',
 			path: assessmentsRoutes
+		},
+		{
+			name: 'Assessment-View',
+			path: assessmentTemplateView
 		},
 		{
 			name: 'Assessment-Nodes',
@@ -167,6 +173,15 @@
 					</label>
 				</div>
 				<span class="span w-1/2 md:2/3 lg:2/3" id="description">{description}</span>
+			</div>
+			<div class="flex items-center my-4 lg:mx-16 md:mx-12 mx-10">
+				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
+					<!-- svelte-ignore a11y-label-has-associated-control -->
+					<label class="label">
+						<span>Sequence</span>
+					</label>
+				</div>
+				<span class="span w-1/2 md:2/3 lg:2/3" id="sequence">{sequence}</span>
 			</div>
 
 			{#if nodeType === 'Question'}

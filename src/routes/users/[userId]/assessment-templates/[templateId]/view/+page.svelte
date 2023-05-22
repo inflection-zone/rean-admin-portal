@@ -32,6 +32,8 @@
 		return a.Sequence - b.Sequence;
 	});
 
+	console.log("assessmentNodes",assessmentNodes)
+
 	onMount(() => {
 		show(data);
 		LocalStorageUtils.removeItem('prevUrl');
@@ -45,6 +47,7 @@
 	const viewRoute = `/users/${userId}/assessment-templates/${templateId}/view`;
 	const assessmentsRoutes = `/users/${userId}/assessment-templates`;
 	const nodeRoute = `/users/${userId}/assessment-templates/${templateId}/assessment-nodes/create`;
+	const assessmentNodeView = (nodeId) => `/users/${userId}/assessment-templates/${templateId}/assessment-nodes/${nodeId}/view`;
 
 	const breadCrumbs = [
 		{
@@ -183,14 +186,18 @@
 										<TreeBranch defaultClosed>
 											<div slot="root" class="flex">
 												<Fa icon={faShareNodes} size="lg" class="mr-2" />
-												{node.Sequence}-{node.NodeType}-{node.Title}
+												<a href={assessmentNodeView(node.id)}>
+													{node.Sequence}-{node.NodeType}-{node.Title}
+												</a>
 											</div>
 											{#each node.Children as child}
 												{#if child.NodeType === 'Node list'}
 													<TreeBranch defaultClosed>
 														<div slot="root" class="flex">
 															<Fa icon={faShareNodes} size="lg" class="mr-2" />
+															<a href={assessmentNodeView(child.id)}>
 															{child.Sequence}-{child.NodeType}-{child.Title}
+															</a>
 														</div>
 													</TreeBranch>
 												{:else if child.NodeType === 'Question'}
@@ -200,7 +207,10 @@
 																icon={faQuestionCircle}
 																size="lg"
 																class="mr-2"
-															/>{child.Sequence}-{child.NodeType}-{child.Title}
+															/>
+															<a href={assessmentNodeView(child.id)}>
+																{child.Sequence}-{child.NodeType}-{child.Title}
+															</a>
 														</div></TreeLeaf
 													>
 												{:else}
@@ -210,7 +220,10 @@
 																icon={faMessage}
 																size="lg"
 																class="mr-2"
-															/>{node.Sequence}-{node.NodeType}-{node.Title}
+															/>
+															<a href={assessmentNodeView(child.id)}>
+															 {node.Sequence}-{node.NodeType}-{node.Title}
+														 </a>
 														</div></TreeLeaf
 													>
 												{/if}
@@ -223,7 +236,10 @@
 													icon={faQuestionCircle}
 													size="lg"
 													class="mr-2"
-												/>{node.Sequence}-{node.NodeType}-{node.Title}
+												/>
+												<a href={assessmentNodeView(node.id)}>
+												 {node.Sequence}-{node.NodeType}-{node.Title}
+												</a>
 											</div></TreeLeaf
 										>
 									{:else}
@@ -233,7 +249,10 @@
 													icon={faMessage}
 													size="lg"
 													class="mr-2"
-												/>{node.Sequence}-{node.NodeType}-{node.Title}
+												/>
+												<a href={assessmentNodeView(node.id)}>
+													{node.Sequence}-{node.NodeType}-{node.Title}
+												</a>
 											</div></TreeLeaf
 										>
 									{/if}
