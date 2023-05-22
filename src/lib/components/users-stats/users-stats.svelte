@@ -4,7 +4,6 @@
 	import { createEventDispatcher } from 'svelte';
 	import PieChart from './charts/pie-chart.svelte';
 	import BarChart from './charts/bar-chart.svelte';
-	import { ProgressBar } from '@skeletonlabs/skeleton';
 
 	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -79,16 +78,6 @@
 	$: cuntryDistributionData;
 	$: cuntryDistributionLabels;
 
-	// let cuntryDistributionData = [];
-	// let cuntryDistributionLables = [];
-
-	// for (const c of countryWiseUsers) {
-	// 	const data = c.Ratio + '%';
-	// 	const labels = c.Country;
-	// 	cuntryDistributionData.push(data);
-	// 	cuntryDistributionLables.push(labels);
-	// }
-
 	let majorAilmentDistributionData = majorAilment.map((x) => x.Count);
 	let majorAilmentDistributionLabels = majorAilment.map((x) => x.MajorAilment);
 
@@ -156,22 +145,34 @@
 	};
 </script>
 
-<BreadCrumbs crumbs={breadCrumbs} />
+<!-- <BreadCrumbs crumbs={breadCrumbs} /> -->
 
 <div class="flex justify-center flex-col lg:mx-14 md:mx-10 sm:mx-6 mx-4 mt-4 mb-20">
 	<!-- <div class="flex flex-col gap-3"> -->
 	<div
 		class="flex flex-col overflow-x-auto justify-center rounded-lg bg-tertiary-200 shadow-xl sm:px-4 py-4 gap-4"
 	>
+	<div
+				class="flex flex-row lg:gap-16 md:gap-12 sm:gap-10 gap-6 w-full items-start justify-start"
+			>
+				<span class="w-80 text-primary-500 font-semibold px-4">Users</span>
+				<span class="w-20 text-primary-500 font-semibold px-4">Count</span>
+				<div class="flex flex-col ">
+					<span class="w-40 text-primary-500 mb-1 font-semibold px-4"> Percentage</span>
+					<!-- <ProgressBar label="Progress Bar" value={data.ratio} max={100} /> -->
+					<!-- <div class="h-2 w-full rounded-full bg-primary-200">
+						<div class="h-2 rounded-full bg-primary-500" style="width:{data.ratio}%" />
+					</div> -->
+				</div>
+			</div>
 		{#each usersData as data}
 			<div
-				class="flex flex-row lg:gap-16 md:gap-12 sm:gap-10 gap-6 w-full items-start justify-start"
+				class="flex flex-row lg:gap-16 md:gap-12 sm:gap-10 gap-6 px-4 last:pb-4 w-full items-start justify-start"
 			>
 				<span class="w-80 text-primary-500">{data.usersDetail}</span>
 				<span class="w-20 text-primary-500">{data.count}</span>
 				<div class="flex flex-col ">
 					<span class="w-40 text-primary-500 mb-1">{data.ratio} %</span>
-					<!-- <ProgressBar label="Progress Bar" value={data.ratio} max={100} /> -->
 					<div class="h-2 w-full rounded-full bg-primary-200">
 						<div class="h-2 rounded-full bg-primary-500" style="width:{data.ratio}%" />
 					</div>
