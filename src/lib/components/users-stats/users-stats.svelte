@@ -14,6 +14,7 @@
 	export let maritalStatusWiseUsers;
 	export let countryWiseUsers;
 	export let majorAilment;
+	export let obesityDistribution;
 
 	$: ageWiseUsers;
 	$: genderWiseUsers;
@@ -38,49 +39,7 @@
 	let usersAboveSeventyRatio = ageWiseUsers.UsersAboveSeventy.Ratio;
 	let ageNotSpecifiedUsersCount = ageWiseUsers.AgeNotSpecifiedUsers.Count;
 	let ageNotSpecifiedUsersRatio = ageWiseUsers.AgeNotSpecifiedUsers.Ratio;
-
-	let genderDistributionLabels = ['Male', 'Female', 'Intersex', 'Gender not specified'];
-	let ageDistributionLabels = ['Below 35', '36-70', 'Above 70', 'Age not specified'];
-
-	let genderDistributionData: number[] = [
-		genderWiseUsers.MaleUsers.Ratio,
-		genderWiseUsers.FemaleUsers.Ratio,
-		genderWiseUsers.IntersexUsers.Ratio,
-		genderWiseUsers.GenderNotSpecifiedUsers.Ratio
-	];
-
-	$: genderDistributionData = [
-		genderWiseUsers.MaleUsers.Ratio,
-		genderWiseUsers.FemaleUsers.Ratio,
-		genderWiseUsers.IntersexUsers.Ratio,
-		genderWiseUsers.GenderNotSpecifiedUsers.Ratio
-	];
-
-	let ageDistributionData = [
-		usersBelowThirtyfiveRatio,
-		usersBetweenThirtysixToSeventyRatio,
-		usersAboveSeventyRatio,
-		ageNotSpecifiedUsersRatio
-	];
-	$: ageDistributionData = [
-		usersBelowThirtyfiveRatio,
-		usersBetweenThirtysixToSeventyRatio,
-		usersAboveSeventyRatio,
-		ageNotSpecifiedUsersRatio
-	];
-
-	let maritalStatusDistributionLabels = maritalStatusWiseUsers.map((x) => x.status);
-	let maritalStatusDistributionData = maritalStatusWiseUsers.map((x) => x.count);
-
-	let cuntryDistributionData = countryWiseUsers.map((x) => x.Ratio);
-	let cuntryDistributionLabels = countryWiseUsers.map((x) => x.Country);
-
-	$: cuntryDistributionData;
-	$: cuntryDistributionLabels;
-
-	let majorAilmentDistributionData = majorAilment.map((x) => x.Count);
-	let majorAilmentDistributionLabels = majorAilment.map((x) => x.MajorAilment);
-
+	
 	const usersData = [
 		{
 			usersDetail: 'Active users',
@@ -134,6 +93,52 @@
 			path: homeRoute
 		}
 	];
+
+
+	let genderDistributionLabels = ['Male', 'Female', 'Intersex', 'Gender not specified'];
+	let ageDistributionLabels = ['Below 35', '36-70', 'Above 70', 'Age not specified'];
+
+	let genderDistributionData: number[] = [
+		genderWiseUsers.MaleUsers.Ratio,
+		genderWiseUsers.FemaleUsers.Ratio,
+		genderWiseUsers.IntersexUsers.Ratio,
+		genderWiseUsers.GenderNotSpecifiedUsers.Ratio
+	];
+
+	$: genderDistributionData = [
+		genderWiseUsers.MaleUsers.Ratio,
+		genderWiseUsers.FemaleUsers.Ratio,
+		genderWiseUsers.IntersexUsers.Ratio,
+		genderWiseUsers.GenderNotSpecifiedUsers.Ratio
+	];
+
+	let ageDistributionData = [
+		usersBelowThirtyfiveRatio,
+		usersBetweenThirtysixToSeventyRatio,
+		usersAboveSeventyRatio,
+		ageNotSpecifiedUsersRatio
+	];
+	$: ageDistributionData = [
+		usersBelowThirtyfiveRatio,
+		usersBetweenThirtysixToSeventyRatio,
+		usersAboveSeventyRatio,
+		ageNotSpecifiedUsersRatio
+	];
+
+	let maritalStatusDistributionLabels = maritalStatusWiseUsers.map((x) => x.status);
+	let maritalStatusDistributionData = maritalStatusWiseUsers.map((x) => x.count);
+
+	let cuntryDistributionData = countryWiseUsers.map((x) => x.Ratio);
+	let cuntryDistributionLabels = countryWiseUsers.map((x) => x.Country);
+
+	$: cuntryDistributionData;
+	$: cuntryDistributionLabels;
+
+	let majorAilmentDistributionData = majorAilment.map((x) => x.Count);
+	let majorAilmentDistributionLabels = majorAilment.map((x) => x.MajorAilment);
+
+	let obesityDistributionData = obesityDistribution.map((x) => x.Count);
+	let obesityDistributionLabels = obesityDistribution.map((x) => x.Status);
 
 	const dispatch = createEventDispatcher();
 
@@ -201,7 +206,7 @@
 		<div class="mt-8 flow-root">
 			<div class="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
 				<div class="inline-block min-w-full py-2 align-middle sm:px-6 lg:px-8">
-					<table class="min-w-full divide-y divide-gray-300">
+					<table class="min-w-full">
 						<thead>
 							<tr>
 								<th scope="col" class="py-3.5 pl-4 pr-3 text-left font-semibold text-primary-500 sm:pl-3">Users</th>
@@ -210,8 +215,14 @@
 							</tr>
 						</thead>
 						<tbody class="">
+							<tr class="hover:bg-tertiary-600">
+								<td style="width:10%;" class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-primary-500 sm:pl-3">Total Users</td>
+								<td style="width:10%;" class="whitespace-nowrap px-3 py-4 text-sm text-primary-500">{totalUsersCount}</td>
+								 <td style="width:15%;" class="whitespace-nowrap px-3 py-4 text-sm text-primary-500">-
+								</td>
+							</tr>
 							{#each usersData as data}
-							<tr class="hover:bg-tertiary-700">
+							<tr class="hover:bg-tertiary-600">
 								<td style="width:10%;" class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-primary-500 sm:pl-3">{data.usersDetail}</td>
 								<td style="width:10%;" class="whitespace-nowrap px-3 py-4 text-sm text-primary-500">{data.count}</td>
 								<td style="width:15%;" class="whitespace-nowrap px-3 py-4 text-sm text-primary-500">
@@ -301,5 +312,31 @@
 				/>
 			</div>
 		</div>
+	</div>
+
+	<div class="flex justify-center items-center h-96 gap-10 w-full mt-10">
+		<div
+			class="flex overflow-x-auto justify-center items-center rounded-lg bg-tertiary-200 shadow-xl sm:px-4 pb-4 w-1/2"
+		>
+			<div class="h-96 w-full ">
+				<BarChart
+					dataSource={obesityDistributionData}
+					labels={obesityDistributionLabels}
+					title="Obesity"
+				/>
+			</div>
+
+		</div>
+		<div
+		class="flex overflow-x-auto justify-center items-center rounded-lg bg-tertiary-200 shadow-xl sm:px-4 pb-4 w-1/2"
+	>
+		<div class="h-96 w-full">
+			<BarChart
+				dataSource={majorAilmentDistributionData}
+				labels={majorAilmentDistributionLabels}
+				title="Major Ailments"
+			/>
+		</div>
+	</div>
 	</div>
 </div>
