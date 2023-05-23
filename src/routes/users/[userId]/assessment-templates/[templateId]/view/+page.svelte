@@ -17,7 +17,7 @@
 	import { scoringApplicableCondition } from '$lib/store/general.store';
 
 	export let data: PageServerData;
-	let assessmentNodes = data.assessmentNodesWithoutRootNode;
+	let assessmentNodes = data.assessmentNodes;
 	let id = data.assessmentTemplate.id;
 	let title = data.assessmentTemplate.Title;
 	let description = data.assessmentTemplate.Description;
@@ -32,7 +32,7 @@
 		return a.Sequence - b.Sequence;
 	});
 
-	console.log("assessmentNodes",assessmentNodes)
+	console.log('assessmentNodes', assessmentNodes);
 
 	onMount(() => {
 		show(data);
@@ -47,7 +47,8 @@
 	const viewRoute = `/users/${userId}/assessment-templates/${templateId}/view`;
 	const assessmentsRoutes = `/users/${userId}/assessment-templates`;
 	const nodeRoute = `/users/${userId}/assessment-templates/${templateId}/assessment-nodes/create`;
-	const assessmentNodeView = (nodeId) => `/users/${userId}/assessment-templates/${templateId}/assessment-nodes/${nodeId}/view`;
+	const assessmentNodeView = (nodeId) =>
+		`/users/${userId}/assessment-templates/${templateId}/assessment-nodes/${nodeId}/view`;
 
 	const breadCrumbs = [
 		{
@@ -180,84 +181,93 @@
 						<div>Nodes are not available</div>
 					{:else}
 						<TreeView lineColor="#5832A1" iconBackgroundColor="#5832A1" branchHoverColor="#5832A1">
-							<TreeBranch rootContent="Root node">
-								{#each assessmentNodes as node}
-									{#if node.NodeType === 'Node list'}
-										<TreeBranch defaultClosed>
-											<div slot="root" class="flex">
-												<Fa icon={faShareNodes} size="lg" class="mr-2" />
-												<a href={assessmentNodeView(node.id)}>
-													{node.Sequence}-{node.NodeType}-{node.Title}
-												</a>
-											</div>
-											{#each node.Children as child}
-												{#if child.NodeType === 'Node list'}
-													<TreeBranch defaultClosed>
-														<div slot="root" class="flex">
-															<Fa icon={faShareNodes} size="lg" class="mr-2" />
-															<a href={assessmentNodeView(child.id)}>
+							{#each assessmentNodes as node}
+								{#if node.ParentNodeId === null}
+									<TreeBranch rootContent={node.Title}>
+										{#each node.Children as child}
+											{#if child.NodeType === 'Node list' && child.ParentNodeId !== null}
+												<TreeBranch defaultClosed>
+													<div slot="root" class="flex">
+														<Fa icon={faShareNodes} size="lg" class="mr-2" />
+														<a href={assessmentNodeView(child.id)}>
 															{child.Sequence}-{child.NodeType}-{child.Title}
-															</a>
-														</div>
-													</TreeBranch>
-												{:else if child.NodeType === 'Question'}
-													<TreeLeaf
-														><div class="flex">
-															<Fa
-																icon={faQuestionCircle}
-																size="lg"
-																class="mr-2"
-															/>
-															<a href={assessmentNodeView(child.id)}>
-																{child.Sequence}-{child.NodeType}-{child.Title}
-															</a>
-														</div></TreeLeaf
-													>
-												{:else}
-													<TreeLeaf
-														><div class="flex">
-															<Fa
-																icon={faMessage}
-																size="lg"
-																class="mr-2"
-															/>
-															<a href={assessmentNodeView(child.id)}>
-															 {node.Sequence}-{node.NodeType}-{node.Title}
-														 </a>
-														</div></TreeLeaf
-													>
-												{/if}
-											{/each}
-										</TreeBranch>
-									{:else if node.NodeType === 'Question'}
-										<TreeLeaf
-											><div class="flex">
-												<Fa
-													icon={faQuestionCircle}
-													size="lg"
-													class="mr-2"
-												/>
-												<a href={assessmentNodeView(node.id)}>
-												 {node.Sequence}-{node.NodeType}-{node.Title}
-												</a>
-											</div></TreeLeaf
-										>
-									{:else}
-										<TreeLeaf
-											><div class="flex">
-												<Fa
-													icon={faMessage}
-													size="lg"
-													class="mr-2"
-												/>
-												<a href={assessmentNodeView(node.id)}>
-													{node.Sequence}-{node.NodeType}-{node.Title}
-												</a>
-											</div></TreeLeaf
-										>
-									{/if}
-								{/each}
-							</TreeBranch>
+														</a>
+													</div>
+													{#each child.Children as kid}
+														{#if kid.NodeType === 'Node list' && kid.ParentNodeId !== null}
+															<TreeBranch defaultClosed>
+																<div slot="root" class="flex">
+																	<Fa icon={faShareNodes} size="lg" class="mr-2" />
+																	<a href={assessmentNodeView(kid.id)}>
+																		{kid.Sequence}-{kid.NodeType}-{kid.Title}
+																	</a>
+																</div>
+																{#each kid.Children as child}
+																	{#if child.NodeType === 'Question'}
+																		<TreeLeaf
+																			><div class="flex">
+																				<Fa icon={faQuestionCircle} size="lg" class="mr-2" />
+																				<a href={assessmentNodeView(child.id)}>
+																					{child.Sequence}-{child.NodeType}-{child.Title}
+																				</a>
+																			</div></TreeLeaf
+																		>
+																	{:else if child.NodeType === 'Message'}
+																		<TreeLeaf
+																			><div class="flex">
+																				<Fa icon={faMessage} size="lg" class="mr-2" />
+																				<a href={assessmentNodeView(child.id)}>
+																					{child.Sequence}-{child.NodeType}-{child.Title}
+																				</a>
+																			</div></TreeLeaf
+																		>
+																	{/if}
+																{/each}
+															</TreeBranch>
+														{:else if kid.NodeType === 'Question'}
+															<TreeLeaf
+																><div class="flex">
+																	<Fa icon={faQuestionCircle} size="lg" class="mr-2" />
+																	<a href={assessmentNodeView(kid.id)}>
+																		{kid.Sequence}-{kid.NodeType}-{kid.Title}
+																	</a>
+																</div></TreeLeaf
+															>
+														{:else}
+															<TreeLeaf
+																><div class="flex">
+																	<Fa icon={faMessage} size="lg" class="mr-2" />
+																	<a href={assessmentNodeView(kid.id)}>
+																		{kid.Sequence}-{kid.NodeType}-{kid.Title}
+																	</a>
+																</div></TreeLeaf
+															>
+														{/if}
+													{/each}
+												</TreeBranch>
+											{:else if child.NodeType === 'Question'}
+												<TreeLeaf
+													><div class="flex">
+														<Fa icon={faQuestionCircle} size="lg" class="mr-2" />
+														<a href={assessmentNodeView(child.id)}>
+															{child.Sequence}-{child.NodeType}-{child.Title}
+														</a>
+													</div></TreeLeaf
+												>
+											{:else if child.NodeType === 'Message'}
+												<TreeLeaf
+													><div class="flex">
+														<Fa icon={faMessage} size="lg" class="mr-2" />
+														<a href={assessmentNodeView(child.id)}>
+															{child.Sequence}-{child.NodeType}-{child.Title}
+														</a>
+													</div></TreeLeaf
+												>
+											{/if}
+										{/each}
+									</TreeBranch>
+								{/if}
+							{/each}
 						</TreeView>
 					{/if}
 				</span>
