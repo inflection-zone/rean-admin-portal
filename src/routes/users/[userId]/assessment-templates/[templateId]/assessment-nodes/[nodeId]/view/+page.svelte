@@ -26,10 +26,16 @@
 	let options = data.assessmentNode.Options ?? [];
 	let childrenNodes = data.assessmentNode.Children ?? [];
 	let displayCode = data.assessmentNode.DisplayCode;
-	let resolutionScore;
+	let resolutionScore = undefined;
 	let sequence = data.assessmentNode.Sequence;
 
+	$:resolutionScore;
+
+	// resolutionScore = data.assessmentNode.ScoringCondition.ResolutionScore;
+	
 	scoringApplicableCondition.set(data.templateScoringCondition.ScoringApplicable);
+
+	console.log("assessmentNode", data.assessmentNode)
 
 	onMount(() => {
 		show(data);
@@ -89,6 +95,8 @@
 	}
 
 	const onUpdateScoringCondition = async (resolutionScore: number) => {
+		const scoringId = data.assessmentNode.ScoringCondition.id;
+		console.log(scoringId)
 		await updateApiKey({
 			sessionId,
 			templateId,
@@ -222,7 +230,7 @@
 							<span class="span" id="description">{data.assessmentNode.ScoringCondition.ResolutionScore}</span>
 							<button
 							class="btn variant-ringed-primary text-primary-500 btn-md"
-							on:click|capture={() => showScoringConditionModal.set(true)}
+							on:click|preventDefault={async () => showScoringConditionModal.set(true)}
 						>
 							Update Score
 						</button>
