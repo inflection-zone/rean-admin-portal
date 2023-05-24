@@ -6,71 +6,102 @@
 	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 	export let data: PageServerData;
-	let totalUsers = data.totalUsers;
-	let activeUsers = data.activeUsers;
-	let deletedUsers = data.deletedUsers;
+	let overallUsersData = data.overallUsersData;
+	let totalUsers = overallUsersData.TotalUsers;
+	let activeUsers = overallUsersData.ActiveUsers;
+	let deletedUsers = overallUsersData.DeletedUsers;
+	let nonDeletedUsers = overallUsersData.NonDeletedUsers;
 	let androidUsers = data.deviceDetailWiseUsers.AndroidUsers;
 	let iOSUsers = data.deviceDetailWiseUsers.IOSUsers;
 	let totalUsersData = data.totalUsersArray;
 	let androidUsersData = data.androidUsersArray;
 	let iOSUsersData = data.iOSUsersArray;
 	let lables = data.years;
-	let totalEnrollment = data.enrollmentUsers.TotalEnrollnemtUsers.Count;
+	let totalEnrollment = overallUsersData.EnrollmentUsers;
 
-	let labels = ['Downloads', 'Registration', 'Active Users', 'Enrollment'];
-	let funnelChartData = [totalUsers.count, totalUsers.count, activeUsers.Count, totalEnrollment];
+	let labels = ['Downloads', 'Onboarded','Non-Deleted ', 'Active Users', 'Enrollment'];
+	let funnelChartData = [totalUsers.Count, totalUsers.Count, nonDeletedUsers.Count, activeUsers.Count, totalEnrollment.Count];
+
 </script>
 
 <div class="mx-10">
 	<dl class="mt-5 grid grid-cols-1 gap-5 sm:grid-cols-3">
-		<div class="overflow-hidden rounded-lg bg-tertiary-200 px-4 pt-4 shadow-xl h-32 sm:p-6">
+		<div class="overflow-hidden rounded-lg bg-tertiary-200 px-4 shadow-xl h-28 sm:p-4">
 			<dt class="truncate text-md font-normal text-primary-500">App Downloads</dt>
 			<dd class="mt-2 text-5xl font-semibold tracking-tight text-primary-500">
-				{totalUsers.count}
+				{totalUsers.Count}
 			</dd>
 		</div>
-		<div class="overflow-hidden rounded-lg bg-tertiary-200 pt-4 shadow-xl h-32 sm:p-6">
-			<dt class="truncate text-md font-normal text-primary-500">Total Users</dt>
+		<div class="overflow-hidden rounded-lg bg-tertiary-200 px-4 shadow-xl h-28 sm:p-4">
+			<dt class="truncate text-md font-normal text-primary-500">Onboarded Users</dt>
 			<dd class="mt-1 text-5xl font-semibold tracking-tight text-primary-500">
-				{totalUsers.count}
+				{totalUsers.Count}
 			</dd>
 		</div>
-		<div class="overflow-hidden rounded-lg bg-tertiary-200 pt-4 shadow-xl h-32 sm:p-6">
+		<div class="overflow-hidden rounded-lg bg-tertiary-200 px-4 shadow-xl h-28 sm:p-4">
+			<dt class="truncate text-md font-normal text-primary-500">Non Deleted Users</dt>
+			<dd class="mt-1 flex items-baseline pb-6 sm:pb-7">
+				<div class="text-5xl  font-semibold text-primary-500">{nonDeletedUsers.Count}</div>
+				<div class="ml-2 flex items-baseline text-sm font-normal text-primary-500">
+						{nonDeletedUsers.Ratio}
+					<div class="text-xs">
+						%
+					</div>
+				</div>
+			</dd>
+		</div>
+		<div class="overflow-hidden rounded-lg bg-tertiary-200 px-4 shadow-xl h-28 sm:p-4">
 			<dt class="truncate text-md font-normal text-primary-500">Active Users</dt>
 			<dd class="mt-1 flex items-baseline pb-6 sm:pb-7">
 				<div class="text-5xl  font-semibold text-primary-500">{activeUsers.Count}</div>
 				<div class="ml-2 flex items-baseline text-sm font-normal text-primary-500">
-					{activeUsers.Ratio} %
+					{activeUsers.Ratio} 
+					<div class="text-xs">%</div>
 				</div>
 			</dd>
 		</div>
-		<div class="overflow-hidden rounded-lg bg-tertiary-200 pt-4 shadow-xl h-32 sm:p-6">
-			<dt class="truncate text-md font-normal text-primary-500">Android Users</dt>
-			<dd class="mt-1 flex items-baseline pb-6 sm:pb-7">
-				<div class="text-5xl  font-semibold text-primary-500">{androidUsers.Count}</div>
-				<div class="ml-2 flex items-baseline text-sm font-normal text-primary-500">
-					{androidUsers.Ratio} %
-				</div>
-			</dd>
-		</div>
-		<div class="overflow-hidden rounded-lg bg-tertiary-200 pt-4 shadow-xl h-32 sm:p-6">
-			<dt class="truncate text-md font-normal text-primary-500">IOS Users</dt>
-			<dd class="mt-1 flex items-baseline pb-6 sm:pb-7">
-				<div class="text-5xl  font-semibold text-primary-500">{iOSUsers.Count}</div>
-				<div class="ml-2 flex items-baseline text-sm font-normal text-primary-500">
-					{iOSUsers.Ratio} %
-				</div>
-			</dd>
-		</div>
-		<div class="overflow-hidden rounded-lg bg-tertiary-200 pt-4 shadow-xl h-32 sm:p-6">
+		<div class="overflow-hidden rounded-lg bg-tertiary-200 px-4 shadow-xl h-28 sm:p-4">
 			<dt class="truncate text-md font-normal text-primary-500">Deleted Users</dt>
 			<dd class="mt-1 flex items-baseline pb-6 sm:pb-7">
 				<div class="text-5xl  font-semibold text-primary-500">{deletedUsers.Count}</div>
 				<div class="ml-2 flex items-baseline text-sm font-normal text-primary-500">
-					{deletedUsers.Ratio} %
+					{deletedUsers.Ratio} 
+					<div class="text-xs">%</div>
 				</div>
 			</dd>
 		</div>
+
+		<div class="overflow-hidden rounded-lg bg-tertiary-200 px-4 shadow-xl h-28 sm:p-4">
+			<dt class="truncate text-md font-normal text-primary-500">Enrollments</dt>
+			<dd class="mt-1 flex items-baseline pb-6 sm:pb-7">
+				<div class="text-5xl  font-semibold text-primary-500">{totalEnrollment.Count}</div>
+				<div class="ml-2 flex items-baseline text-sm font-normal text-primary-500">
+					{totalEnrollment.Ratio}
+					<div class="text-xs">%</div>
+				</div>
+			</dd>
+		</div>
+
+		<div class="overflow-hidden rounded-lg bg-tertiary-200 px-4 shadow-xl h-28 sm:p-4">
+			<dt class="truncate text-md font-normal text-primary-500">Android Users</dt>
+			<dd class="mt-1 flex items-baseline pb-6 sm:pb-7">
+				<div class="text-5xl  font-semibold text-primary-500">{androidUsers.Count}</div>
+				<div class="ml-2 flex items-baseline text-sm font-normal text-primary-500">
+					{androidUsers.Ratio}
+					<div class="text-xs">%</div>
+				</div>
+			</dd>
+		</div>
+		<div class="overflow-hidden rounded-lg bg-tertiary-200 px-4 shadow-xl h-28 sm:p-4">
+			<dt class="truncate text-md font-normal text-primary-500">IOS Users</dt>
+			<dd class="mt-1 flex items-baseline pb-6 sm:pb-7">
+				<div class="text-5xl  font-semibold text-primary-500">{iOSUsers.Count}</div>
+				<div class="ml-2 flex items-baseline text-sm font-normal text-primary-500">
+					{iOSUsers.Ratio}
+					<div class="text-xs">%</div>
+				</div>
+			</dd>
+		</div>	
 	</dl>
 
 	<div class="flex h-80 gap-10 w-full mt-5">
@@ -85,22 +116,27 @@
 				<div class="flex justify-start items-center gap-4 ">
 					<div class="h-3 w-3 mt-1 border bg-primary-700" />
 					<div class="text-md font-normal text-primary-500">Downloads</div>
-					<div class="text-md font-normal text-primary-500">{totalUsers.count}</div>
+					<div class="text-md font-normal text-primary-500">{totalUsers.Count}</div>
 				</div>
 				<div class="flex justify-start gap-4">
 					<div class="h-3 w-3 mt-1 border bg-primary-500" />
-					<div class="text-md font-normal text-primary-500">Registration</div>
-					<div class="text-md font-normal text-primary-500">{totalUsers.count}</div>
+					<div class="text-md font-normal text-primary-500">Onboarded Users</div>
+					<div class="text-md font-normal text-primary-500">{totalUsers.Count}</div>
 				</div>
 				<div class="flex justify-start gap-4">
 					<div class="h-3 w-3 mt-1 border bg-secondary-500" />
+					<div class="text-md font-normal text-primary-500">Non Deleted Users</div>
+					<div class="text-md font-normal text-primary-500">{nonDeletedUsers.Count}</div>
+				</div>
+				<div class="flex justify-start gap-4">
+					<div class="h-3 w-3 mt-1 border bg-tertiary-500" />
 					<div class="text-md font-normal text-primary-500">Active Users</div>
 					<div class="text-md font-normal text-primary-500">{activeUsers.Count}</div>
 				</div>
 				<div class="flex justify-start gap-4">
-					<div class="h-3 w-3 mt-1 border bg-tertiary-500" />
+					<div class="h-3 w-3 mt-1 border bg-primary-700" />
 					<div class="text-md  font-normal text-primary-500">Enrollments</div>
-					<div class="text-md font-normal text-primary-500">{totalEnrollment}</div>
+					<div class="text-md font-normal text-primary-500">{totalEnrollment.Count}</div>
 				</div>
 			</div>
 		</div>
