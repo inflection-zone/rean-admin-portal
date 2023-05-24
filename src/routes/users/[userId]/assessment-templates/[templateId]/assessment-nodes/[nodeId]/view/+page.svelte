@@ -26,9 +26,18 @@
 	let options = data.assessmentNode.Options ?? [];
 	let childrenNodes = data.assessmentNode.Children ?? [];
 	let displayCode = data.assessmentNode.DisplayCode;
-	let resolutionScore;
-	
+	let resolutionScore = undefined;
+	let sequence = data.assessmentNode.Sequence;
+
+	$:resolutionScore;
+
+	if ($scoringApplicableCondition === true && nodeType === 'Question') {
+		resolutionScore = data.assessmentNode.ScoringCondition.ResolutionScore;
+	}
+
 	scoringApplicableCondition.set(data.templateScoringCondition.ScoringApplicable);
+
+	console.log("assessmentNode", data.assessmentNode)
 
 	onMount(() => {
 		show(data);
@@ -43,6 +52,7 @@
 	const viewRoute = `/users/${userId}/assessment-templates/${templateId}/assessment-nodes/${nodeId}/view`;
 	const assessmentNodeRoutes = `/users/${userId}/assessment-templates/${templateId}/assessment-nodes`;
 	const createNodeRoute = `/users/${userId}/assessment-templates/${templateId}/assessment-nodes/create`;
+	const assessmentTemplateView =`/users/${userId}/assessment-templates/${templateId}/view`
 	const editNodeRoute = (id) =>
 		`/users/${userId}/assessment-templates/${templateId}/assessment-nodes/${id}/edit`;
 
@@ -50,6 +60,10 @@
 		{
 			name: 'Assessments',
 			path: assessmentsRoutes
+		},
+		{
+			name: 'Assessment-View',
+			path: assessmentTemplateView
 		},
 		{
 			name: 'Assessment-Nodes',
@@ -83,6 +97,8 @@
 	}
 
 	const onUpdateScoringCondition = async (resolutionScore: number) => {
+		const scoringId = data.assessmentNode.ScoringCondition.id;
+		console.log(scoringId)
 		await updateApiKey({
 			sessionId,
 			templateId,
@@ -168,6 +184,15 @@
 				</div>
 				<span class="span w-1/2 md:2/3 lg:2/3" id="description">{description}</span>
 			</div>
+			<div class="flex items-center my-4 lg:mx-16 md:mx-12 mx-10">
+				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
+					<!-- svelte-ignore a11y-label-has-associated-control -->
+					<label class="label">
+						<span>Sequence</span>
+					</label>
+				</div>
+				<span class="span w-1/2 md:2/3 lg:2/3" id="sequence">{sequence}</span>
+			</div>
 
 			{#if nodeType === 'Question'}
 				<div class="flex items-center mb-4 lg:mx-16 md:mx-12 mx-10">
@@ -204,16 +229,15 @@
 							</label>
 						</div>
 						<div class="flex  items-center gap-12 w-1/2 md:2/3 lg:2/3">
-							<span class="span" id="description">{data.assessmentNode.ScoringCondition.ResolutionScore}</span>
+							<span class="span" id="description">{resolutionScore}</span>
 							<button
 							class="btn variant-ringed-primary text-primary-500 btn-md"
-							on:click|capture={() => showScoringConditionModal.set(true)}
+							on:click|preventDefault={async () => showScoringConditionModal.set(true)}
 						>
 							Update Score
 						</button>
 						</div>
 					</div>
-				
 				{/if}
 			{:else if nodeType === 'Message'}
 				<div class="flex items-center my-4 lg:mx-16 md:mx-12 mx-10">

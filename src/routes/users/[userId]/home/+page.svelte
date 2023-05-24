@@ -7,7 +7,7 @@
 
 	export let data: PageServerData;
 	let totalUsers = data.totalUsers;
-	let activeUsers = data.activeUsers.ActiveUsers;
+	let activeUsers = data.activeUsers;
 	let deletedUsers = data.deletedUsers;
 	let androidUsers = data.deviceDetailWiseUsers.AndroidUsers;
 	let iOSUsers = data.deviceDetailWiseUsers.IOSUsers;
