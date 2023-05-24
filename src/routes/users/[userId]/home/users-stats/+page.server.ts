@@ -1,6 +1,6 @@
 import type {  RequestEvent } from '@sveltejs/kit';
 import type { PageServerLoad } from './$types';
-import { getActiveUsers, getAgeWiseUsers, getCountryWiseUsers, getGenderWiseUsers, getMajorAilment, getMaritalStatusWiseUsers, getTolalUsers } from '$routes/api/services/statistics';
+import { getActiveUsers, getAgeWiseUsers, getCountryWiseUsers, getGenderWiseUsers, getMajorAilment, getMaritalStatusWiseUsers, getObesityDistribution, getTolalUsers } from '$routes/api/services/statistics';
 
 ////////////////////////////////////////////////////////////////////////////
 
@@ -28,6 +28,7 @@ export const load: PageServerLoad = async (event: RequestEvent) => {
     const _maritalStatusWiseUsers = await getMaritalStatusWiseUsers(sessionId);
     const _countryWiseUsers = await getCountryWiseUsers(sessionId);
     const _majorAilment = await getMajorAilment(sessionId);
+    const _obesityDistribution = await getObesityDistribution(sessionId);
 
     const totalUsers = _totalUsers.Data.TotalUsers;
     const activeUsers = _activeUsers.Data.ActiveUsers;
@@ -36,12 +37,14 @@ export const load: PageServerLoad = async (event: RequestEvent) => {
     const maritalStatusWiseUsers  = _maritalStatusWiseUsers.Data.MaritalStatusWiseUsers;
     const countryWiseUsers  = _countryWiseUsers.Data.CountryWiseUsers;
     const majorAilment  = _majorAilment.Data.MajorAilmentDistribution;
+    const obesityDistribution  = _obesityDistribution.Data.ObesityDistribution;
 
     console.log("totalUsers",totalUsers);
     console.log("activeUsers",activeUsers);
     console.log("ageWiseUsers",ageWiseUsers);
     console.log("genderWiseUsers",genderWiseUsers);
     console.log("maritalStatusWiseUsers",maritalStatusWiseUsers);
+    console.log("obesityDistribution",obesityDistribution);
 
 		return {
       sessionId,
@@ -51,7 +54,8 @@ export const load: PageServerLoad = async (event: RequestEvent) => {
       genderWiseUsers,
       maritalStatusWiseUsers,
       countryWiseUsers,
-      majorAilment
+      majorAilment,
+      obesityDistribution
 		};
     
 	} catch (error) {

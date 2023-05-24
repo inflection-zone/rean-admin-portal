@@ -55,7 +55,8 @@ const updateAssessmentNodeSchema = zfd.formData({
 	message: z.string().optional(),
 	serveListNodeChildrenAtOnce: zfd.checkbox({ trueValue: 'true' }),
 	scoringApplicable: zfd.checkbox({ trueValue: 'true' }),
-	options: z.array(z.string())
+	options: z.array(z.string()),
+	sequence: zfd.numeric(z.number().optional()),
 });
 
 export const actions = {
@@ -96,7 +97,8 @@ export const actions = {
 			result.description,
 			result.queryType,
 			result.options,
-			result.message
+			result.message,
+			result.sequence,
 		);
 		const nodeId = response.Data.AssessmentNode.id;
 

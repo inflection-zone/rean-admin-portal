@@ -13,6 +13,7 @@
 	let ageWiseUsers;
 	let countryWiseUsers;
 	let majorAilment = data.majorAilment;
+	let obesityDistribution = data.obesityDistribution;
 	
 	$: genderWiseUsers;
 	$: ageWiseUsers;
@@ -103,6 +104,7 @@
 	{maritalStatusWiseUsers}
 	countryWiseUsers = {countryWiseUsers}
 	majorAilment = {majorAilment}
+	obesityDistribution = {obesityDistribution}
 	on:selectAgeWiseUsersDividionYearly={async (e) => {
 		await selectAgeWiseUsersDividionYearly(e.detail.year);
 	}}

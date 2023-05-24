@@ -53,7 +53,7 @@
 				<div class="flex justify-start pl-10 mb-2">
 					{#if show}
 						<button
-							class="btn variant-ringed-primary btn-sm"
+							class="btn variant-ringed-primary text-primary-500 btn-sm"
 							type="button"
 							on:click|preventDefault={addOptionField}>Add Option</button
 						>

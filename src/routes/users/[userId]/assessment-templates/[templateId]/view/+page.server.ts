@@ -21,15 +21,11 @@ export const load: PageServerLoad = async (event: RequestEvent) => {
 		}
 		const assessmentTemplate = response.Data.AssessmentTemplate;
 		const assessmentNodes = _assessmentNodes.Data.AssessmentNodeRecords.Items;
-		const assessmentNodesWithoutRootNode = assessmentNodes.filter(
-			(assessmentnode) => assessmentnode.Title != 'Assessment root node'
-		);
-
 		const id = response.Data.AssessmentTemplate.id;
 		return {
 			location: `${id}/edit`,
 			assessmentTemplate,
-			assessmentNodesWithoutRootNode,
+			assessmentNodes,
 			message: response.Message
 		};
 	} catch (error) {
