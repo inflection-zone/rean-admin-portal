@@ -45,6 +45,7 @@ const createAssessmentNodeSchema = zfd.formData({
 	parentNodeId: z.string().uuid(),
 	title: z.string().min(3).max(256),
 	description: z.string().optional(),
+	sequence: zfd.numeric(z.number().optional()),
 	queryType: z.string().optional(),
 	resolutionScore: zfd.numeric(z.number().default(1)),
 	providerAssessmentCode: z.string().optional(),
@@ -91,7 +92,8 @@ export const actions = {
 			result.message,
 			result.serveListNodeChildrenAtOnce,
 			result.queryType,
-			result.options
+			result.options,
+			result.sequence,
 		);
 
 		const nodeId = response.Data.AssessmentNode.id;

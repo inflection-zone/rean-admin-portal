@@ -14,14 +14,15 @@
 	export let maritalStatusWiseUsers;
 	export let countryWiseUsers;
 	export let majorAilment;
+	export let obesityDistribution;
 
 	$: ageWiseUsers;
 	$: genderWiseUsers;
 	$: countryWiseUsers;
 
 	let totalUsersCount = totalUsers.count;
-	let activeUsersCount = activeUsers.ActiveUsers.Count;
-	let activeUsersRatio = activeUsers.ActiveUsers.Ratio;
+	let activeUsersCount = activeUsers.Count;
+	let activeUsersRatio = activeUsers.Ratio;
 	let maleUsersRatio = genderWiseUsers.MaleUsers.Ratio;
 	let maleUsersCount = genderWiseUsers.MaleUsers.Count;
 	let femaleUsersRatio = genderWiseUsers.FemaleUsers.Ratio;
@@ -38,6 +39,61 @@
 	let usersAboveSeventyRatio = ageWiseUsers.UsersAboveSeventy.Ratio;
 	let ageNotSpecifiedUsersCount = ageWiseUsers.AgeNotSpecifiedUsers.Count;
 	let ageNotSpecifiedUsersRatio = ageWiseUsers.AgeNotSpecifiedUsers.Ratio;
+	
+	const usersData = [
+		{
+			usersDetail: 'Active users',
+			count: activeUsersCount,
+			ratio: `${Math.ceil(activeUsersRatio)}`
+		},
+		{
+			usersDetail: 'Users below age of 35',
+			count: usersBelowThirtyfiveCount,
+			ratio: `${Math.ceil(usersBelowThirtyfiveRatio)}`
+		},
+		{
+			usersDetail: 'Users age between 36 to 70',
+			count: usersBetweenThirtysixToSeventyCount,
+			ratio: `${Math.ceil(usersBetweenThirtysixToSeventyRatio)} `
+		},
+		{
+			usersDetail: 'Users above age of 70',
+			count: usersAboveSeventyCount,
+			ratio: `${Math.ceil(usersAboveSeventyRatio)}`
+		},
+		{
+			usersDetail: 'Age not specified users',
+			count: ageNotSpecifiedUsersCount,
+			ratio: `${Math.ceil(ageNotSpecifiedUsersRatio)}`
+		},
+		{ usersDetail: 'Male users', count: maleUsersCount, ratio: `${Math.ceil(maleUsersRatio)}` },
+		{
+			usersDetail: 'Female users',
+			count: femaleUsersCount,
+			ratio: `${Math.ceil(femaleUsersRatio)}`
+		},
+		{
+			usersDetail: 'Intersex users',
+			count: intersexUsersCount,
+			ratio: `${Math.ceil(intersexUsersRatio)}`
+		},
+		{
+			usersDetail: 'Gender not specified users',
+			count: genderNotSpecifiedUsersCount,
+			ratio: `${Math.ceil(genderNotSpecifiedUsersRatio)}`
+		}
+	];
+
+	const userId = $page.params.userId;
+	const homeRoute = `/users/${userId}/home`;
+
+	const breadCrumbs = [
+		{
+			name: 'Users',
+			path: homeRoute
+		}
+	];
+
 
 	let genderDistributionLabels = ['Male', 'Female', 'Intersex', 'Gender not specified'];
 	let ageDistributionLabels = ['Below 35', '36-70', 'Above 70', 'Age not specified'];
@@ -81,48 +137,8 @@
 	let majorAilmentDistributionData = majorAilment.map((x) => x.Count);
 	let majorAilmentDistributionLabels = majorAilment.map((x) => x.MajorAilment);
 
-	const usersData = [
-		// { usersDetail: 'Total users', count: totalUsersCount, ratio: '100' },
-		{ usersDetail: 'Active users', count: activeUsersCount, ratio: `${activeUsersRatio}` },
-		{
-			usersDetail: 'Users below age of 35',
-			count: usersBelowThirtyfiveCount,
-			ratio: `${usersBelowThirtyfiveRatio}`
-		},
-		{
-			usersDetail: 'Users age between 36 to 70',
-			count: usersBetweenThirtysixToSeventyCount,
-			ratio: `${usersBetweenThirtysixToSeventyRatio} `
-		},
-		{
-			usersDetail: 'Users above age of 70',
-			count: usersAboveSeventyCount,
-			ratio: `${usersAboveSeventyRatio}`
-		},
-		{
-			usersDetail: 'Age not specified users',
-			count: ageNotSpecifiedUsersCount,
-			ratio: `${ageNotSpecifiedUsersRatio}`
-		},
-		{ usersDetail: 'Male users', count: maleUsersCount, ratio: `${maleUsersRatio}` },
-		{ usersDetail: 'Female users', count: femaleUsersCount, ratio: `${femaleUsersRatio} ` },
-		{ usersDetail: 'Intersex users', count: intersexUsersCount, ratio: `${intersexUsersRatio}` },
-		{
-			usersDetail: 'Gender not specified users',
-			count: genderNotSpecifiedUsersCount,
-			ratio: `${genderNotSpecifiedUsersRatio}`
-		}
-	];
-
-	const userId = $page.params.userId;
-	const homeRoute = `/users/${userId}/home`;
-
-	const breadCrumbs = [
-		{
-			name: 'Users',
-			path: homeRoute
-		}
-	];
+	let obesityDistributionData = obesityDistribution.map((x) => x.Count);
+	let obesityDistributionLabels = obesityDistribution.map((x) => x.Status);
 
 	const dispatch = createEventDispatcher();
 
@@ -149,37 +165,85 @@
 
 <div class="flex justify-center flex-col lg:mx-14 md:mx-10 sm:mx-6 mx-4 mt-4 mb-20">
 	<!-- <div class="flex flex-col gap-3"> -->
-	<div
+	<!-- <div
 		class="flex flex-col overflow-x-auto justify-center rounded-lg bg-tertiary-200 shadow-xl sm:px-4 py-4 gap-4"
 	>
-	<div
-				class="flex flex-row lg:gap-16 md:gap-12 sm:gap-10 gap-6 w-full items-start justify-start"
-			>
-				<span class="w-80 text-primary-500 font-semibold px-4">Users</span>
-				<span class="w-20 text-primary-500 font-semibold px-4">Count</span>
-				<div class="flex flex-col ">
-					<span class="w-40 text-primary-500 mb-1 font-semibold px-4"> Percentage</span>
-					<!-- <ProgressBar label="Progress Bar" value={data.ratio} max={100} /> -->
-					<!-- <div class="h-2 w-full rounded-full bg-primary-200">
-						<div class="h-2 rounded-full bg-primary-500" style="width:{data.ratio}%" />
-					</div> -->
-				</div>
+		<div class="flex flex-row lg:gap-16 md:gap-12 sm:gap-10 gap-6 w-full items-start justify-start">
+			<span class="w-80 text-primary-500 font-semibold px-4">Users</span>
+			<span class="w-20 text-primary-500 font-semibold px-4">Count</span>
+			<div class="flex flex-col ">
+				<span class="w-40 text-primary-500 mb-1 font-semibold px-4"> Percentage</span>
 			</div>
+		</div>
+
+		<div class="flex flex-row lg:gap-16 md:gap-12 sm:gap-10 gap-6 w-full items-start justify-start">
+			<span class="w-80 text-primary-500 px-4">Total Users</span>
+			<span class="w-20 text-primary-500 px-4">{totalUsersCount}</span>
+		</div>
 		{#each usersData as data}
 			<div
 				class="flex flex-row lg:gap-16 md:gap-12 sm:gap-10 gap-6 px-4 last:pb-4 w-full items-start justify-start"
 			>
-				<span class="w-80 text-primary-500">{data.usersDetail}</span>
-				<span class="w-20 text-primary-500">{data.count}</span>
-				<div class="flex flex-col ">
-					<span class="w-40 text-primary-500 mb-1">{data.ratio} %</span>
-					<div class="h-2 w-full rounded-full bg-primary-200">
+				<span class="w-80 text-primary-500 items-center">{data.usersDetail}</span>
+				<span class="w-20 text-primary-500 items-center">{data.count}</span>
+				<div class="flex flex-col items-center">
+					<div class="h-2 w-full rounded-full bg-primary-200 mr-2">
 						<div class="h-2 rounded-full bg-primary-500" style="width:{data.ratio}%" />
+					</div>
+					<div class="flex">
+						<span class="text-primary-500">{data.ratio}</span>
+						<span class="text-primary-500 text-xs mt-1">%</span>
 					</div>
 				</div>
 			</div>
 		{/each}
+	</div> -->
+<div
+	class="flex flex-col overflow-x-auto justify-center rounded-lg bg-tertiary-200 shadow-xl sm:px-4 py-4 gap-4"
+>
+	<div class="px-4 sm:px-6 lg:px-8">
+		<div class="flow-root">
+			<div class="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
+				<div class="inline-block min-w-full py-2 align-middle sm:px-6 lg:px-8">
+					<table class="min-w-full">
+						<thead>
+							<tr>
+								<th scope="col" class="py-3.5 pl-4 pr-3 text-left text-lg font-semibold text-primary-500 sm:pl-3">Users</th>
+								<th scope="col" class="px-3 py-3.5 text-left text-lg font-semibold text-primary-500">Count</th>
+								<th scope="col" class="px-3 py-3.5 text-left text-lg font-semibold text-primary-500">Percentage</th>
+							</tr>
+						</thead>
+						<tbody class="">
+							<tr class="hover:bg-tertiary-600">
+								<td style="width:10%;" class="whitespace-nowrap py-4 pl-4 pr-3 font-medium text-primary-500 sm:pl-3">Total Users</td>
+								<td style="width:10%;" class="whitespace-nowrap px-3 py-4  text-primary-500">{totalUsersCount}</td>
+								 <td style="width:15%;" class="whitespace-nowrap px-3 py-4 text-primary-500">-
+								</td>
+							</tr>
+							{#each usersData as data}
+							<tr class="hover:bg-tertiary-600">
+								<td style="width:10%;" class="whitespace-nowrap py-4 pl-4 pr-3 font-medium text-primary-500 sm:pl-3">{data.usersDetail}</td>
+								<td style="width:10%;" class="whitespace-nowrap px-3 py-4 text-primary-500">{data.count}</td>
+								<td style="width:15%;" class="whitespace-nowrap px-3 py-4 text-primary-500">
+										
+									<div class="flex items-center">
+										<div class="h-2 w-1/4 rounded-full bg-primary-200 mr-2">
+											<div class="h-2 rounded-full bg-primary-500" style="width:{data.ratio}%" />
+										</div>
+											<span class="text-primary-500 ">{data.ratio}</span>
+											<span class="text-primary-500 text-xs">%</span>
+									</div>
+								</td>
+							</tr>
+							{/each}
+					
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
 	</div>
+</div>
 
 	<div class="flex justify-center items-center h-96 gap-10 w-full mt-5">
 		<div
@@ -247,5 +311,30 @@
 				/>
 			</div>
 		</div>
+	</div>
+
+	<div class="flex justify-center items-center h-96 gap-10 w-full mt-10">
+		<div
+			class="flex overflow-x-auto justify-center items-center rounded-lg bg-tertiary-200 shadow-xl sm:px-4 pb-4 w-1/2"
+		>
+			<div class="h-96 w-full ">
+				<BarChart
+					dataSource={obesityDistributionData}
+					labels={obesityDistributionLabels}
+					title="Obesity"
+				/>
+			</div>
+		</div>
+		<div
+		class="flex overflow-x-auto justify-center items-center rounded-lg bg-tertiary-200 shadow-xl sm:px-4 pb-4 w-1/2"
+	>
+		<div class="h-96 w-full">
+			<BarChart
+				dataSource={majorAilmentDistributionData}
+				labels={majorAilmentDistributionLabels}
+				title="Major Ailments"
+			/>
+		</div>
+	</div>
 	</div>
 </div>
