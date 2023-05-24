@@ -202,30 +202,29 @@
 	class="flex flex-col overflow-x-auto justify-center rounded-lg bg-tertiary-200 shadow-xl sm:px-4 py-4 gap-4"
 >
 	<div class="px-4 sm:px-6 lg:px-8">
-	
-		<div class="mt-8 flow-root">
+		<div class="flow-root">
 			<div class="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
 				<div class="inline-block min-w-full py-2 align-middle sm:px-6 lg:px-8">
 					<table class="min-w-full">
 						<thead>
 							<tr>
-								<th scope="col" class="py-3.5 pl-4 pr-3 text-left font-semibold text-primary-500 sm:pl-3">Users</th>
-								<th scope="col" class="px-3 py-3.5 text-left font-semibold text-primary-500">Count</th>
-								<th scope="col" class="px-3 py-3.5 text-left font-semibold text-primary-500">Percentage</th>
+								<th scope="col" class="py-3.5 pl-4 pr-3 text-left text-lg font-semibold text-primary-500 sm:pl-3">Users</th>
+								<th scope="col" class="px-3 py-3.5 text-left text-lg font-semibold text-primary-500">Count</th>
+								<th scope="col" class="px-3 py-3.5 text-left text-lg font-semibold text-primary-500">Percentage</th>
 							</tr>
 						</thead>
 						<tbody class="">
 							<tr class="hover:bg-tertiary-600">
-								<td style="width:10%;" class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-primary-500 sm:pl-3">Total Users</td>
-								<td style="width:10%;" class="whitespace-nowrap px-3 py-4 text-sm text-primary-500">{totalUsersCount}</td>
-								 <td style="width:15%;" class="whitespace-nowrap px-3 py-4 text-sm text-primary-500">-
+								<td style="width:10%;" class="whitespace-nowrap py-4 pl-4 pr-3 font-medium text-primary-500 sm:pl-3">Total Users</td>
+								<td style="width:10%;" class="whitespace-nowrap px-3 py-4  text-primary-500">{totalUsersCount}</td>
+								 <td style="width:15%;" class="whitespace-nowrap px-3 py-4 text-primary-500">-
 								</td>
 							</tr>
 							{#each usersData as data}
 							<tr class="hover:bg-tertiary-600">
-								<td style="width:10%;" class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-primary-500 sm:pl-3">{data.usersDetail}</td>
-								<td style="width:10%;" class="whitespace-nowrap px-3 py-4 text-sm text-primary-500">{data.count}</td>
-								<td style="width:15%;" class="whitespace-nowrap px-3 py-4 text-sm text-primary-500">
+								<td style="width:10%;" class="whitespace-nowrap py-4 pl-4 pr-3 font-medium text-primary-500 sm:pl-3">{data.usersDetail}</td>
+								<td style="width:10%;" class="whitespace-nowrap px-3 py-4 text-primary-500">{data.count}</td>
+								<td style="width:15%;" class="whitespace-nowrap px-3 py-4 text-primary-500">
 										
 									<div class="flex items-center">
 										<div class="h-2 w-1/4 rounded-full bg-primary-200 mr-2">
@@ -325,7 +324,6 @@
 					title="Obesity"
 				/>
 			</div>
-
 		</div>
 		<div
 		class="flex overflow-x-auto justify-center items-center rounded-lg bg-tertiary-200 shadow-xl sm:px-4 pb-4 w-1/2"
