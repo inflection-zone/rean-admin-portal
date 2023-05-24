@@ -54,6 +54,7 @@
 					<input
 						type="text"
 						name="drugName"
+						required
 						placeholder="Enter name here..."
 						class="input w-full {form?.errors?.drugName
 							? 'border-error-300 text-error-500'
