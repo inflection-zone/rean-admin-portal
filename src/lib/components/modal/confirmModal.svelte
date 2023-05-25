@@ -44,11 +44,11 @@
     }}
   >
     <div class="message-section">
-      <span class="message-title">
-        <slot name="title">Are you sure you want to perform this action?</slot>
+      <span class="message-title text-primary-500" >
+        <slot name="title" >Are you sure you want to perform this action?</slot>
       </span>
       <span class="message-description">
-        <slot name="description">This action can't be undone!</slot>
+        <slot name="description" class="text-primary-500">This action can't be undone!</slot>
       </span>
     </div>
     <div class="actions bg-White">
@@ -68,7 +68,7 @@
          await callFunction();
         }}
       >
-        <slot name="confirm">
+        <slot name="confirm" class="text-primary-500">
           {confirmTitle}
         </slot>
       </button>
@@ -81,14 +81,14 @@
     font-size: 22px;
     font-weight: 500;
     display: block;
-    color: hsl(0, 0%, 20%);
+    /* color: hsl(0, 0%, 20%); */
     line-height: 1.2;
   }
   .message-description {
     display: block;
     margin-top: 20px;
     font-size: 16px;
-    color: hsl(0, 0%, 30%);
+    /* color: hsl(0, 0%, 30%); */
     line-height: 1.4;
   }
   .actions {
