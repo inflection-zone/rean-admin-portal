@@ -1,6 +1,6 @@
 import type {  RequestEvent } from '@sveltejs/kit';
 import type { PageServerLoad } from './$types';
-import { getActiveUsers, getAgeWiseUsers, getCountryWiseUsers, getGenderWiseUsers, getMajorAilment, getMaritalStatusWiseUsers, getObesityDistribution, getTolalUsers } from '$routes/api/services/statistics';
+import { getActiveUsers, getAddictioDistribution, getAgeWiseUsers, getCountryWiseUsers, getGenderWiseUsers, getMajorAilment, getMaritalStatusWiseUsers, getObesityDistribution, getTolalUsers } from '$routes/api/services/statistics';
 
 ////////////////////////////////////////////////////////////////////////////
 
@@ -29,6 +29,7 @@ export const load: PageServerLoad = async (event: RequestEvent) => {
     const _countryWiseUsers = await getCountryWiseUsers(sessionId);
     const _majorAilment = await getMajorAilment(sessionId);
     const _obesityDistribution = await getObesityDistribution(sessionId);
+    const _addictionDistribution = await getAddictioDistribution(sessionId);
 
     const totalUsers = _totalUsers.Data.TotalUsers;
     const activeUsers = _activeUsers.Data.ActiveUsers;
@@ -38,6 +39,7 @@ export const load: PageServerLoad = async (event: RequestEvent) => {
     const countryWiseUsers  = _countryWiseUsers.Data.CountryWiseUsers;
     const majorAilment  = _majorAilment.Data.MajorAilmentDistribution;
     const obesityDistribution  = _obesityDistribution.Data.ObesityDistribution;
+    const addictionDistribution  = _addictionDistribution.Data.AddictionDistribution;
 
     console.log("totalUsers",totalUsers);
     console.log("activeUsers",activeUsers);
@@ -45,6 +47,7 @@ export const load: PageServerLoad = async (event: RequestEvent) => {
     console.log("genderWiseUsers",genderWiseUsers);
     console.log("maritalStatusWiseUsers",maritalStatusWiseUsers);
     console.log("obesityDistribution",obesityDistribution);
+    console.log("addictionDistribution",addictionDistribution);
 
 		return {
       sessionId,
@@ -55,7 +58,8 @@ export const load: PageServerLoad = async (event: RequestEvent) => {
       maritalStatusWiseUsers,
       countryWiseUsers,
       majorAilment,
-      obesityDistribution
+      obesityDistribution,
+      addictionDistribution
 		};
     
 	} catch (error) {

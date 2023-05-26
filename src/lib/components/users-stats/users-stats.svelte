@@ -15,6 +15,7 @@
 	export let countryWiseUsers;
 	export let majorAilment;
 	export let obesityDistribution;
+	export let addictionDistribution;
 
 	$: ageWiseUsers;
 	$: genderWiseUsers;
@@ -139,6 +140,9 @@
 
 	let obesityDistributionData = obesityDistribution.map((x) => x.Count);
 	let obesityDistributionLabels = obesityDistribution.map((x) => x.Status);
+
+	let addictionDistributionData = addictionDistribution.map((x) => x.Count);
+	let addictionDistributionLabels = addictionDistribution.map((x) => x.Status);
 
 	const dispatch = createEventDispatcher();
 
@@ -330,9 +334,9 @@
 	>
 		<div class="h-96 w-full">
 			<BarChart
-				dataSource={majorAilmentDistributionData}
-				labels={majorAilmentDistributionLabels}
-				title="Major Ailments"
+				dataSource={addictionDistributionData}
+				labels={addictionDistributionLabels}
+				title="Addiction"
 			/>
 		</div>
 	</div>
