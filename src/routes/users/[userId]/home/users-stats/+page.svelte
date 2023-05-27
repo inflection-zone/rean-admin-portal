@@ -15,6 +15,10 @@
 	let majorAilment = data.majorAilment;
 	let obesityDistribution = data.obesityDistribution;
 	let addictionDistribution = data.addictionDistribution;
+	let healthPillarDistribution = data.healthPillarDistribution;
+	let healthPillarDistributionMonthly = data.healthPillarDistributionMonthly;
+
+	console.log("healthPillarDistributionMonthly",healthPillarDistributionMonthly);
 	
 	$: genderWiseUsers;
 	$: ageWiseUsers;
@@ -107,6 +111,8 @@
 	majorAilment = {majorAilment}
 	obesityDistribution = {obesityDistribution}
 	addictionDistribution = {addictionDistribution}
+	healthPillarDistribution = {healthPillarDistribution}
+	healthPillarDistributionMonthly = {healthPillarDistributionMonthly}
 	on:selectAgeWiseUsersDividionYearly={async (e) => {
 		await selectAgeWiseUsersDividionYearly(e.detail.year);
 	}}

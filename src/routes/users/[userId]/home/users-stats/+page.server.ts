@@ -1,6 +1,6 @@
 import type {  RequestEvent } from '@sveltejs/kit';
 import type { PageServerLoad } from './$types';
-import { getActiveUsers, getAddictioDistribution, getAgeWiseUsers, getCountryWiseUsers, getGenderWiseUsers, getMajorAilment, getMaritalStatusWiseUsers, getObesityDistribution, getTolalUsers } from '$routes/api/services/statistics';
+import { getActiveUsers, getAddictioDistribution, getAgeWiseUsers, getCountryWiseUsers, getGenderWiseUsers, getHealthPillarDistribution, getMajorAilment, getMaritalStatusWiseUsers, getObesityDistribution, getTolalUsers } from '$routes/api/services/statistics';
 
 ////////////////////////////////////////////////////////////////////////////
 
@@ -18,10 +18,11 @@ export const load: PageServerLoad = async (event: RequestEvent) => {
       ageWiseUsersArray.push(genderWiseUsers);
     }
 
-    console.log("ageWiseUsersArray", ageWiseUsersArray);
 
-    const searchParams ={}
-		const _totalUsers = await getTolalUsers(sessionId,searchParams);
+    const searchParams = {
+      year : '2023'
+    }
+		const _totalUsers = await getTolalUsers(sessionId);
     const _activeUsers = await getActiveUsers(sessionId);
     const _ageWiseUsers = await getAgeWiseUsers(sessionId);
     const _genderWiseUsers = await getGenderWiseUsers(sessionId);
@@ -30,6 +31,8 @@ export const load: PageServerLoad = async (event: RequestEvent) => {
     const _majorAilment = await getMajorAilment(sessionId);
     const _obesityDistribution = await getObesityDistribution(sessionId);
     const _addictionDistribution = await getAddictioDistribution(sessionId);
+    const _healthPillarDistribution = await getHealthPillarDistribution(sessionId);
+    const _healthPillarDistributionMonthly = await getHealthPillarDistribution(sessionId, searchParams);
 
     const totalUsers = _totalUsers.Data.TotalUsers;
     const activeUsers = _activeUsers.Data.ActiveUsers;
@@ -40,6 +43,8 @@ export const load: PageServerLoad = async (event: RequestEvent) => {
     const majorAilment  = _majorAilment.Data.MajorAilmentDistribution;
     const obesityDistribution  = _obesityDistribution.Data.ObesityDistribution;
     const addictionDistribution  = _addictionDistribution.Data.AddictionDistribution;
+    const healthPillarDistribution  = _healthPillarDistribution.Data.HealthPillarDistribution;
+    const healthPillarDistributionMonthly  = _healthPillarDistributionMonthly.Data.HealthPillarDistribution;
 
     console.log("totalUsers",totalUsers);
     console.log("activeUsers",activeUsers);
@@ -48,6 +53,7 @@ export const load: PageServerLoad = async (event: RequestEvent) => {
     console.log("maritalStatusWiseUsers",maritalStatusWiseUsers);
     console.log("obesityDistribution",obesityDistribution);
     console.log("addictionDistribution",addictionDistribution);
+    console.log("healthPillarDistributionMonthly",healthPillarDistributionMonthly.PhysicalActivityUser);
 
 		return {
       sessionId,
@@ -59,7 +65,9 @@ export const load: PageServerLoad = async (event: RequestEvent) => {
       countryWiseUsers,
       majorAilment,
       obesityDistribution,
-      addictionDistribution
+      addictionDistribution,
+      healthPillarDistribution,
+      healthPillarDistributionMonthly
 		};
     
 	} catch (error) {

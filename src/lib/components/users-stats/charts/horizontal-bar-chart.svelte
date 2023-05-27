@@ -25,7 +25,7 @@
 			options: {
 				responsive: true,
 				maintainAspectRatio: false,
-				indexAxis: "x",
+				indexAxis: "y",
 				scales: {
 					x: {
 						grid: {
