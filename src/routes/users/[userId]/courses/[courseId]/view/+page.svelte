@@ -19,6 +19,9 @@
 	let durationInDays = data.course.DurationInDays;
 	let imageUrl = data.course.ImageUrl;
 	let modules = data.course.Modules;
+	let sequence = data.course.Sequence;
+
+	modules = modules.sort((a, b) => { return a.Sequence - b.Sequence; });
 	console.log(data.course);
 
 	onMount(() => {
@@ -93,6 +96,16 @@
 				<span class="span w-1/2 md:2/3 lg:2/3" id="durationInDays">{durationInDays}</span>
 			</div>
 
+			<div class="flex items-center my-4 lg:mx-16 md:mx-12 mx-10">
+				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
+					<!-- svelte-ignore a11y-label-has-associated-control -->
+					<label class="label">
+						<span>Sequence</span>
+					</label>
+				</div>
+				<span class="span w-1/2 md:2/3 lg:2/3" id="sequence">{sequence}</span>
+			</div>
+
 			<div class="flex items-start my-4 lg:mx-16 md:mx-12 mx-10">
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
 					<!-- svelte-ignore a11y-label-has-associated-control -->
@@ -123,7 +136,7 @@
 								<TreeBranch defaultClosed>
 									<div slot="root" class="flex">
 										<img class="w-6 mr-2 mb-4" alt="logo" src="/module.png" />
-										{i + 1}-{module.Name}
+										{module.Sequence}-{module.Name}
 									</div>
 									{#each module.Contents as content, i}
 										<TreeLeaf>

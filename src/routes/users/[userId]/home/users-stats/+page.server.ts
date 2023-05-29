@@ -1,6 +1,6 @@
 import type {  RequestEvent } from '@sveltejs/kit';
 import type { PageServerLoad } from './$types';
-import { getActiveUsers, getAddictioDistribution, getAgeWiseUsers, getCountryWiseUsers, getGenderWiseUsers, getHealthPillarDistribution, getMajorAilment, getMaritalStatusWiseUsers, getObesityDistribution, getTolalUsers } from '$routes/api/services/statistics';
+import { getActiveUsers, getAddictioDistribution, getAgeWiseUsers, getCountryWiseUsers, getGenderWiseUsers, getHealthPillarDistribution, getMajorAilment, getMaritalStatusWiseUsers, getObesityDistribution, getRoleDistribution, getTolalUsers } from '$routes/api/services/statistics';
 
 ////////////////////////////////////////////////////////////////////////////
 
@@ -33,6 +33,7 @@ export const load: PageServerLoad = async (event: RequestEvent) => {
     const _addictionDistribution = await getAddictioDistribution(sessionId);
     const _healthPillarDistribution = await getHealthPillarDistribution(sessionId);
     const _healthPillarDistributionMonthly = await getHealthPillarDistribution(sessionId, searchParams);
+    const _roleDistribution = await getRoleDistribution(sessionId);
 
     const totalUsers = _totalUsers.Data.TotalUsers;
     const activeUsers = _activeUsers.Data.ActiveUsers;
@@ -45,6 +46,7 @@ export const load: PageServerLoad = async (event: RequestEvent) => {
     const addictionDistribution  = _addictionDistribution.Data.AddictionDistribution;
     const healthPillarDistribution  = _healthPillarDistribution.Data.HealthPillarDistribution;
     const healthPillarDistributionMonthly  = _healthPillarDistributionMonthly.Data.HealthPillarDistribution;
+    const roleDistribution  = _roleDistribution.Data.RoleDistribution;
 
     console.log("totalUsers",totalUsers);
     console.log("activeUsers",activeUsers);
@@ -53,7 +55,8 @@ export const load: PageServerLoad = async (event: RequestEvent) => {
     console.log("maritalStatusWiseUsers",maritalStatusWiseUsers);
     console.log("obesityDistribution",obesityDistribution);
     console.log("addictionDistribution",addictionDistribution);
-    console.log("healthPillarDistributionMonthly",healthPillarDistributionMonthly.PhysicalActivityUser);
+    console.log("healthPillarDistributionMonthly",healthPillarDistributionMonthly);
+    console.log("roleDistribution",roleDistribution);
 
 		return {
       sessionId,
@@ -67,7 +70,8 @@ export const load: PageServerLoad = async (event: RequestEvent) => {
       obesityDistribution,
       addictionDistribution,
       healthPillarDistribution,
-      healthPillarDistributionMonthly
+      healthPillarDistributionMonthly,
+      roleDistribution
 		};
     
 	} catch (error) {

@@ -19,6 +19,7 @@
 	export let addictionDistribution;
 	export let healthPillarDistribution;
 	export let healthPillarDistributionMonthly;
+	export let roleDistribution;
 
 	$: ageWiseUsers;
 	$: genderWiseUsers;
@@ -148,6 +149,9 @@
 
 	let healthPillarDistributionData = healthPillarDistribution.map((x) => x.Count);
 	let healthPillarDistributionLabels = healthPillarDistribution.map((x) => x.Status);
+
+	let roleDistributionData = roleDistribution.map((x) => x.Ratio);
+	let roleDistributionLabels = roleDistribution.map((x) => x.Role);
 
 	const dispatch = createEventDispatcher();
 
@@ -318,6 +322,14 @@
 				<option value="2023">2023</option>
 			</select>
 			 -->
+			</div>
+		</div>
+
+		<div
+			class="flex overflow-x-auto justify-center rounded-lg bg-tertiary-200 sm:px-4 shadow-xl pb-4 w-1/3"
+		>
+			<div class=" ">
+				<PieChart labels={roleDistributionLabels} data={roleDistributionData} title="Role" />
 			</div>
 		</div>
 	</div>

@@ -8,13 +8,15 @@ export const createCourse = async (
 	name: string,
 	description: string,
 	durationInDays: number,
-	imageUrl: string
+	imageUrl: string,
+	sequence: number
 ) => {
 	const body = {
 		Name: name,
 		Description: description ? description : null,
 		DurationInDays: durationInDays ? durationInDays : null,
-		ImageUrl: imageUrl ? imageUrl : null
+		ImageUrl: imageUrl ? imageUrl : null,
+		Sequence: sequence ? sequence : null
 	};
 	const url = BACKEND_API_URL + '/educational/courses';
 	return await post_(sessionId, url, body, true);
@@ -51,14 +53,16 @@ export const updateCourse = async (
 	name: string,
 	description: string,
 	durationInDays: number,
-	imageUrl: string
+	imageUrl: string,
+	sequence: number
 ) => {
 	const body = {
 		courseId,
 		Name: name,
 		Description: description ? description : null,
 		DurationInDays: durationInDays ? durationInDays : null,
-		ImageUrl: imageUrl ? imageUrl : null
+		ImageUrl: imageUrl ? imageUrl : null,
+		Sequence: sequence ? sequence : null
 	};
 	const url = BACKEND_API_URL + `/educational/courses/${courseId}`;
 	return await put_(sessionId, url, body, true);

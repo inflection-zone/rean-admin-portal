@@ -10,7 +10,8 @@ export const createLearningJourney = async (
 	description: string,
 	durationInDays: number,
 	imageUrl: string,
-	courseIds: string[]
+	courseIds: string[],
+	sequence: number
 ) => {
 	const body = {
 		Name: name,
@@ -18,7 +19,8 @@ export const createLearningJourney = async (
 		Description: description ? description : null,
 		DurationInDays: durationInDays ? durationInDays : null,
 		ImageUrl: imageUrl ? imageUrl : null,
-		CourseIds: courseIds
+		CourseIds: courseIds,
+		Sequence: sequence ? sequence : null
 	};
 	const url = BACKEND_API_URL + '/educational/learning-paths';
 	return await post_(sessionId, url, body, true);
@@ -57,7 +59,9 @@ export const updateLearningJourney = async (
 	description: string,
 	durationInDays: number,
 	imageUrl: string,
-	courseIds: string[]
+	courseIds: string[],
+	sequence: number
+	
 ) => {
 	const body = {
 		Name: name,
@@ -65,7 +69,8 @@ export const updateLearningJourney = async (
 		Description: description ? description : null,
 		DurationInDays: durationInDays ? durationInDays : null,
 		ImageUrl: imageUrl ? imageUrl : null,
-		CourseIds: courseIds
+		CourseIds: courseIds,
+		Sequence: sequence ? sequence : null
 	};
 	console.log(body);
 	const url = BACKEND_API_URL + `/educational/learning-paths/${learningJourneyId}`;
