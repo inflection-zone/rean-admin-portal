@@ -27,7 +27,6 @@
 	let description = data.learningJourney.Description;
 	let durationInDays = data.learningJourney.DurationInDays;
 	let imageUrl = data.learningJourney.ImageUrl;
-	let sequence = data.learningJourney.Sequence;
 
 	courses = courses.sort((a, b) => {
 		return a.Sequence - b.Sequence;
@@ -113,16 +112,6 @@
 					</label>
 				</div>
 				<span class="span w-1/2 md:2/3 lg:2/3" id="durationInDays">{durationInDays}</span>
-			</div>
-
-			<div class="flex items-center my-4 lg:mx-16 md:mx-12 mx-10">
-				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
-					<!-- svelte-ignore a11y-label-has-associated-control -->
-					<label class="label">
-						<span>Sequence</span>
-					</label>
-				</div>
-				<span class="span w-1/2 md:2/3 lg:2/3" id="sequence">{sequence}</span>
 			</div>
 
 			<div class="flex items-start my-4 lg:mx-16 md:mx-12 mx-10">

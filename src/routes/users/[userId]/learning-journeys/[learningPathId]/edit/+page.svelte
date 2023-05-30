@@ -19,7 +19,6 @@
 	let description = data.learningJourney.Description;
 	let durationInDays = data.learningJourney.DurationInDays;
 	let courses = data.learningJourney.Courses;
-	let sequence = data.learningJourney.Sequence;
 	let imageUrl = data.learningJourney.ImageUrl;
 	$: avatarSource = imageUrl;
 	let courseIds: string[] = courses.map((item) => item.id);
@@ -30,7 +29,6 @@
 	let _description = description;
 	let _durationInDays = durationInDays;
 	let _imageUrl = imageUrl;
-	let _sequence = sequence;
 
 	function handleReset() {
 		name = _name;
@@ -38,7 +36,6 @@
 		description = _description;
 		durationInDays = _durationInDays;
 		imageUrl = _imageUrl;
-		sequence = _sequence;
 	}
 
 	const userId = $page.params.userId;
@@ -206,29 +203,6 @@
 				</div>
 			</div>
 
-			<div class="flex items-start my-4 lg:mx-16 md:mx-12 mx-10">
-				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
-					<!-- svelte-ignore a11y-label-has-associated-control -->
-					<label class="label mt-2">
-						<span>Sequence</span>
-					</label>
-				</div>
-				<div class="w-1/2 md:w-2/3 lg:w-2/3">
-					<input
-						bind:value={sequence}
-						type="number"
-						name="sequence"
-						placeholder="Enter sequence here..."
-						class="input w-full {form?.errors?.sequence
-							? 'border-error-300 text-error-500'
-							: 'border-primary-200 text-primary-500'}"
-					/>
-					{#if form?.errors?.sequence}
-						<p class="text-error-500 text-xs">{form?.errors?.sequence[0]}</p>
-					{/if}
-				</div>
-			</div>
-
 			<div class="flex items-start mt-2 mb-4  lg:mx-16 md:mx-12 mx-10">
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
 					<!-- svelte-ignore a11y-label-has-associated-control -->
@@ -245,7 +219,7 @@
 						value={courseIds}
 					>
 						{#each allCources as course}
-							<option value={course.id}>{course.Sequence}. {course.Name}</option>
+							<option value={course.id}>{course.Name}</option>
 						{/each}
 					</select>
 					{#if form?.errors?.courseIds}

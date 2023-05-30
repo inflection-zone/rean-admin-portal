@@ -12,7 +12,6 @@ const createCourseSchema = zfd.formData({
 	description: z.string().optional(),
 	durationInDays: zfd.numeric(z.number().optional()),
 	imageUrl: z.string().optional(),
-	sequence: zfd.numeric(z.number().optional()),
 });
 
 export const actions = {
@@ -44,7 +43,6 @@ export const actions = {
 			result.description,
 			result.durationInDays,
 			result.imageUrl,
-			result.sequence
 		);
 		const courseId = response.Data.Course.id;
 

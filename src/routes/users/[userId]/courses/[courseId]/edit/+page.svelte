@@ -15,8 +15,7 @@
 	let name = data.course.Name;
 	let description = data.course.Description;
 	let durationInDays = data.course.DurationInDays;
-	let imageUrl = data.course.ImageUrl;
-	let sequence = data.course.Sequence;
+	let imageUrl = data.course.ImageUrl;	
 	$: avatarSource = imageUrl;
 
 	//Original data
@@ -24,14 +23,12 @@
 	let _description = description;
 	let _imageUrl = imageUrl;
 	let _durationInDays = durationInDays;
-	let _sequence = sequence;
 
 	function handleReset() {
 		name = _name;
 		description = _description;
 		imageUrl = _imageUrl;
 		durationInDays = _durationInDays;
-		sequence = _sequence;
 	}
 
 	const userId = $page.params.userId;
@@ -173,29 +170,6 @@
 					/>
 					{#if form?.errors?.durationInDays}
 						<p class="text-error-500 text-xs">{form?.errors?.durationInDays[0]}</p>
-					{/if}
-				</div>
-			</div>
-
-			<div class="flex items-start my-4 lg:mx-16 md:mx-12 mx-10">
-				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
-					<!-- svelte-ignore a11y-label-has-associated-control -->
-					<label class="label mt-2">
-						<span>Sequence</span>
-					</label>
-				</div>
-				<div class="w-1/2 md:w-2/3 lg:w-2/3">
-					<input
-						bind:value={sequence}
-						type="number"
-						name="sequence"
-						placeholder="Enter sequence here..."
-						class="input w-full {form?.errors?.sequence
-							? 'border-error-300 text-error-500'
-							: 'border-primary-200 text-primary-500'}"
-					/>
-					{#if form?.errors?.sequence}
-						<p class="text-error-500 text-xs">{form?.errors?.sequence[0]}</p>
 					{/if}
 				</div>
 			</div>

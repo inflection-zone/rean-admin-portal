@@ -14,7 +14,6 @@
 
 	export let userId = undefined;
 	export let courses = [];
-	courses = courses.sort((a, b) => { return a.Sequence - b.Sequence; });
 
 	courses = courses.map((item, index) => ({ ...item, index: index + 1 }));
 	let addModuleRoute = (courseId) => `/users/${userId}/courses/${courseId}/modules/create`;
@@ -73,7 +72,7 @@
 					paddingTop="12px"
 					paddingLeft="20px"
 					marginBottom="12px"
-					headerText="{course.Sequence}. {course.Name}"
+					headerText="{course.index}. {course.Name}"
 					itemsCount="Modules ({course.Modules.length})"
 					addRoute={addModuleRoute(course.id)}
 					editRoute={editCourseRoute(course.id)}
@@ -93,7 +92,7 @@
 									paddingLeft="20px"
 									paddingRight="20px"
 									marginBottom="10px"
-									headerText="{module.Sequence}. {module.Name}"
+									headerText="{i + 1}. {module.Name}"
 									itemsCount="Contents ({module.CourseContents.length})"
 									addRoute={addContentRoute(course.id, module.id)}
 									editRoute={editModuleRoute(course.id, module.id)}

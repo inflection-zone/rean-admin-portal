@@ -41,7 +41,6 @@ const updateLearningJourneySchema = zfd.formData({
 	durationInDays: zfd.numeric(z.number().optional()),
 	imageUrl: z.string().optional(),
 	courseIds: z.array(z.string()).optional(),
-	sequence: zfd.numeric(z.number().optional()),
 });
 
 export const actions = {
@@ -81,7 +80,6 @@ export const actions = {
 			result.durationInDays,
 			result.imageUrl,
 			result.courseIds,
-			result.sequence
 		);
 		const learningPathId = response.Data.LearningPath.id;
 
