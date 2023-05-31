@@ -1,6 +1,6 @@
 import type {  RequestEvent } from '@sveltejs/kit';
 import type { PageServerLoad } from './$types';
-import { getActiveUsers, getAddictioDistribution, getAgeWiseUsers, getCountryWiseUsers, getGenderWiseUsers, getHealthPillarDistribution, getMajorAilment, getMaritalStatusWiseUsers, getObesityDistribution, getRoleDistribution, getTolalUsers } from '$routes/api/services/statistics';
+import { getActiveUsers, getAddictioDistribution, getAgeWiseUsers, getBiometricsDistribution, getCountryWiseUsers, getGenderWiseUsers, getHealthPillarDistribution, getMajorAilment, getMaritalStatusWiseUsers, getObesityDistribution, getRoleDistribution, getTolalUsers } from '$routes/api/services/statistics';
 
 ////////////////////////////////////////////////////////////////////////////
 
@@ -34,6 +34,8 @@ export const load: PageServerLoad = async (event: RequestEvent) => {
     const _healthPillarDistribution = await getHealthPillarDistribution(sessionId);
     const _healthPillarDistributionMonthly = await getHealthPillarDistribution(sessionId, searchParams);
     const _roleDistribution = await getRoleDistribution(sessionId);
+    const _biometricsDistribution = await getBiometricsDistribution(sessionId);
+    const _biometricsDistributionMonthly = await getBiometricsDistribution(sessionId, searchParams);
 
     const totalUsers = _totalUsers.Data.TotalUsers;
     const activeUsers = _activeUsers.Data.ActiveUsers;
@@ -47,6 +49,8 @@ export const load: PageServerLoad = async (event: RequestEvent) => {
     const healthPillarDistribution  = _healthPillarDistribution.Data.HealthPillarDistribution;
     const healthPillarDistributionMonthly  = _healthPillarDistributionMonthly.Data.HealthPillarDistribution;
     const roleDistribution  = _roleDistribution.Data.RoleDistribution;
+    const biometricsDistribution  = _biometricsDistribution.Data.Biometrics;
+    const biometricsDistributionMonthly  = _biometricsDistributionMonthly.Data.Biometrics;
 
     console.log("totalUsers",totalUsers);
     console.log("activeUsers",activeUsers);
@@ -71,7 +75,9 @@ export const load: PageServerLoad = async (event: RequestEvent) => {
       addictionDistribution,
       healthPillarDistribution,
       healthPillarDistributionMonthly,
-      roleDistribution
+      roleDistribution,
+      biometricsDistribution,
+      biometricsDistributionMonthly
 		};
     
 	} catch (error) {

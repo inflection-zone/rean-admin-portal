@@ -10,7 +10,7 @@
   let symptomUsers = healthPillarDistributionMonthly.SymptomUsers;
   let labRecordUsers = healthPillarDistributionMonthly.LabRecordUsers;
   let nutritionUsers = healthPillarDistributionMonthly.NutritionUsers;
-  let vitalUsers = healthPillarDistributionMonthly.VitalUsers;
+  // let vitalUsers = healthPillarDistributionMonthly.VitalUsers;
 
   let labels = physicalActivityUsers.map((x) => x.Month);
   let physicalActivityUsersData = physicalActivityUsers.map((x) => x.Count);
@@ -19,14 +19,14 @@
   let symptomUsersData = symptomUsers.map((x) => x.Count);
   let labRecordUsersData = labRecordUsers.map((x) => x.Count);
   let nutritionUsersData = nutritionUsers.map((x) => x.Count);
-  let vitalUsersData = vitalUsers.map((x) => x.Count);
+  // let vitalUsersData = vitalUsers.map((x) => x.Count);
 
-	let barChart;
+	let lineChart;
 	let ctx;
 
 	onMount(() => {
-		ctx = barChart.getContext('2d');
-		barChart = new Chart(ctx, {
+		ctx = lineChart.getContext('2d');
+		lineChart = new Chart(ctx, {
 			type: 'line',
 			data: {
 				labels: labels,
@@ -50,7 +50,7 @@
 						fill: false
 					},
           {
-						label: 'Symptom',
+						label: 'Symptoms',
 						data: symptomUsersData,
 						borderColor: 'red',
 						fill: false
@@ -64,15 +64,15 @@
           {
 						label: 'Nutrition',
 						data: nutritionUsersData,
-						borderColor: 'green',
-						fill: false
-					},
-          {
-						label: 'Vitals',
-						data: vitalUsersData,
 						borderColor: 'pink',
 						fill: false
-					}
+					},
+          // {
+					// 	label: 'Vitals',
+					// 	data: vitalUsersData,
+					// 	borderColor: 'pink',
+					// 	fill: false
+					// }
 				]
 			},
 			options: {
@@ -113,4 +113,4 @@
 	});
 </script>
 
-<canvas id="line chart" bind:this={barChart} />
+<canvas id="line chart" bind:this={lineChart} />

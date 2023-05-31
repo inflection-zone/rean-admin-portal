@@ -18,8 +18,8 @@
 	let healthPillarDistribution = data.healthPillarDistribution;
 	let healthPillarDistributionMonthly = data.healthPillarDistributionMonthly;
 	let roleDistribution = data.roleDistribution;
-
-	console.log("healthPillarDistributionMonthly",healthPillarDistributionMonthly);
+	let biometricsDistribution = data.biometricsDistribution;
+	let biometricsDistributionMonthly = data.biometricsDistributionMonthly;
 	
 	$: genderWiseUsers;
 	$: ageWiseUsers;
@@ -115,6 +115,8 @@
 	healthPillarDistribution = {healthPillarDistribution}
 	healthPillarDistributionMonthly = {healthPillarDistributionMonthly}
 	roleDistribution = {roleDistribution}
+	biometricsDistribution = {biometricsDistribution}
+	biometricsDistributionMonthly = {biometricsDistributionMonthly}
 	on:selectAgeWiseUsersDividionYearly={async (e) => {
 		await selectAgeWiseUsersDividionYearly(e.detail.year);
 	}}

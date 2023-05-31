@@ -5,6 +5,7 @@
 	import BarChart from './charts/bar-chart.svelte';
 	import HorizontalBarChart from './charts/horizontal-bar-chart.svelte';
 	import HealthPillarChart from './charts/health-pillar-chart.svelte';
+	import BiometricsChart from './charts/biometrics-chart.svelte';
 
 	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -20,6 +21,8 @@
 	export let healthPillarDistribution;
 	export let healthPillarDistributionMonthly;
 	export let roleDistribution;
+	export let biometricsDistribution;
+	export let biometricsDistributionMonthly;
 
 	$: ageWiseUsers;
 	$: genderWiseUsers;
@@ -152,6 +155,9 @@
 
 	let roleDistributionData = roleDistribution.map((x) => x.Ratio);
 	let roleDistributionLabels = roleDistribution.map((x) => x.Role);
+
+	let biometricsDistributionData = biometricsDistribution.map((x) => x.Count);
+	let biometricsDistributionLabels = biometricsDistribution.map((x) => x.Biometrics);
 
 	const dispatch = createEventDispatcher();
 
@@ -325,13 +331,13 @@
 			</div>
 		</div>
 
-		<div
+		<!-- <div
 			class="flex overflow-x-auto justify-center rounded-lg bg-tertiary-200 sm:px-4 shadow-xl pb-4 w-1/3"
 		>
 			<div class=" ">
 				<PieChart labels={roleDistributionLabels} data={roleDistributionData} title="Role" />
 			</div>
-		</div>
+		</div> -->
 	</div>
 
 	<div class="flex justify-center items-center h-96 gap-10 w-full mt-5">
@@ -402,6 +408,29 @@
 			<div class="h-96 w-full">
 				<HealthPillarChart
 					{healthPillarDistributionMonthly}
+				/>
+			</div>
+		</div>
+	</div>
+
+	<div class="flex justify-center items-center h-96 gap-10 w-full mt-10">
+		<div
+			class="flex overflow-x-auto justify-center items-center rounded-lg bg-tertiary-200 shadow-xl sm:px-4 pb-4 w-1/2"
+		>
+			<div class="h-96 w-full ">
+				<HorizontalBarChart
+					dataSource={biometricsDistributionData}
+					labels={biometricsDistributionLabels}
+					title="Biometrics"
+				/>
+			</div>
+		</div>
+		<div
+			class="flex overflow-x-auto justify-center items-center rounded-lg bg-tertiary-200 shadow-xl sm:px-4 pb-4 w-1/2"
+		>
+			<div class="h-96 w-full">
+				<BiometricsChart
+					{biometricsDistributionMonthly}
 				/>
 			</div>
 		</div>
