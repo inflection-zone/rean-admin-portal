@@ -4,7 +4,6 @@ import login from '../pageObjects/login/login-test';
 
 describe('test', () => {
 	it.only('LoginTest', function () {
-    const filePath = 'image.jpg';
 		cy.visit('http://localhost:5173/');
 
 		cy.fixture('login').then((data) => {
@@ -17,36 +16,38 @@ describe('test', () => {
     cy.wait(3000)
       cy.get('.app-bar-slot-lead > .flex').click()
       cy.wait(2000)
+      cy.contains('Clinical').click()
+      cy.wait(2000)
       // eslint-disable-next-line no-useless-escape
-      cy.contains('Educational').click()
-      cy.wait(2000)
-      cy.contains('Courses').click()
-      cy.wait(2000)
+      cy.contains('Assessments').click()
+      cy.wait(2000)  
       cy.get('.absolute > .btn').click()
       cy.wait(2000)
-      cy.get('input[name=name]').type('cname')
+      cy.get('input[name=title]').type('rbgfb')
+      cy.wait(2000)
+      cy.get('select[name=type]').select('Survey')
       cy.wait(2000)
       cy.get('button[type=submit]').click()
       cy.wait(2000)
-      cy.contains('Add Module').click()
+      cy.contains('Assessment Nodes').click()
       cy.wait(2000)
-      cy.get('input[name=name]').type('English')
+      cy.get('select[name=nodeType]').select('Question')
       cy.wait(2000)
-      cy.get('textarea[name=description]').type('Learning course')
+      cy.get('select[name=parentNodeId]').type('Node list - Assessment root node - RNode#8dvxjgjedzyzbugcgrgikoda')
       cy.wait(2000)
-      cy.get('input[name=durationInMins]').type('90')
+      cy.get('input[name=title]').type('dggfbtdscb')
       cy.wait(2000)
-      cy.get('input[name=fileInput]').attachFile(filePath)
-      cy.wait(2000)
-      cy.get('button[type=submit]').click()
-      cy.wait(2000)
-      cy.contains('Edit').click()
+      cy.get('select[name=queryType]').select('File')
       cy.wait(2000)
       cy.get('button[type=submit]').click()
       cy.wait(2000)
-      cy.contains('Courses').click()
+      cy.get('button[type=submit]').click()
       cy.wait(2000)
-      cy.get(':nth-child(1) > .text-primary-primary-500').click()
+      cy.get('button[type=submit]').click()
+      cy.wait(2000)
+      cy.get(':nth-child(5) > .text-primary-primary-500').click()
+      cy.wait(5000)
+      cy.get(':nth-child(1) > .text-primary-primary-500').click()   
     })
 	});
  

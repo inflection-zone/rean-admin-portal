@@ -217,7 +217,7 @@
 								<span>null</span>
 							{:else}
 								{#each row.FeedItems as items}
-									{Helper.truncateText(items.Title, 20)}
+									{Helper.truncateText(items.Title, 10)}
 								{/each}
 								<!-- {/each} -->
 							{/if}
