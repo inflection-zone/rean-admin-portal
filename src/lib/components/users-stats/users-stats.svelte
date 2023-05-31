@@ -179,7 +179,7 @@
 <div class="flex justify-center flex-col lg:mx-14 md:mx-10 sm:mx-6 mx-4 mt-4 mb-20">
 	<!-- <div class="flex flex-col gap-3"> -->
 	<!-- <div
-		class="flex flex-col overflow-x-auto justify-center rounded-lg bg-tertiary-200 shadow-xl sm:px-4 py-4 gap-4"
+		class="flex flex-col overflow-x-auto justify-center rounded-lg bg-tertiary-200 shadow-xl sm:px-4 py-2 gap-4"
 	>
 		<div class="flex flex-row lg:gap-16 md:gap-12 sm:gap-10 gap-6 w-full items-start justify-start">
 			<span class="w-80 text-primary-500 font-semibold px-4">Users</span>
@@ -212,7 +212,7 @@
 		{/each}
 	</div> -->
 	<div
-		class="flex flex-col overflow-x-auto justify-center rounded-lg bg-tertiary-200 shadow-xl sm:px-4 py-4 gap-4"
+		class="flex flex-col overflow-x-auto justify-center rounded-lg bg-tertiary-200 shadow-xl sm:px-4 py-2 gap-3"
 	>
 		<div class="px-4 sm:px-6 lg:px-8">
 			<div class="flow-root">
@@ -223,16 +223,16 @@
 								<tr>
 									<th
 										scope="col"
-										class="py-3.5 pl-4 pr-3 text-left text-lg font-semibold text-primary-500 sm:pl-3"
+										class="py-3 pl-4 pr-3 text-left text-lg font-semibold text-primary-500 sm:pl-3"
 										>Users</th
 									>
 									<th
 										scope="col"
-										class="px-3 py-3.5 text-left text-lg font-semibold text-primary-500">Count</th
+										class="px-3 py-3 text-left text-lg font-semibold text-primary-500">Count</th
 									>
 									<th
 										scope="col"
-										class="px-3 py-3.5 text-left text-lg font-semibold text-primary-500"
+										class="px-3 py-3 text-left text-lg font-semibold text-primary-500"
 										>Percentage</th
 									>
 								</tr>
@@ -241,13 +241,13 @@
 								<tr class="hover:bg-tertiary-600">
 									<td
 										style="width:10%;"
-										class="whitespace-nowrap py-4 pl-4 pr-3 font-medium text-primary-500 sm:pl-3"
+										class="whitespace-nowrap text-sm py-2 pl-4 pr-3 text-primary-500 sm:pl-3"
 										>Total Users</td
 									>
-									<td style="width:10%;" class="whitespace-nowrap px-3 py-4  text-primary-500"
+									<td style="width:10%;" class="whitespace-nowrap px-3 py-2 text-sm  text-primary-500"
 										>{totalUsersCount}</td
 									>
-									<td style="width:15%;" class="whitespace-nowrap px-3 py-4 text-primary-500"
+									<td style="width:15%;" class="whitespace-nowrap px-3 py-2 text-sm  text-primary-500"
 										>-
 									</td>
 								</tr>
@@ -255,13 +255,13 @@
 									<tr class="hover:bg-tertiary-600">
 										<td
 											style="width:10%;"
-											class="whitespace-nowrap py-4 pl-4 pr-3 font-medium text-primary-500 sm:pl-3"
+											class="whitespace-nowrap py-2 pl-4 pr-3 text-primary-500 text-sm  sm:pl-3 "
 											>{data.usersDetail}</td
 										>
-										<td style="width:10%;" class="whitespace-nowrap px-3 py-4 text-primary-500"
+										<td style="width:10%;" class="whitespace-nowrap text-sm px-3 py-2 text-primary-500"
 											>{data.count}</td
 										>
-										<td style="width:15%;" class="whitespace-nowrap px-3 py-4 text-primary-500">
+										<td style="width:15%;" class="whitespace-nowrap px-3 py-2 text-sm text-primary-500">
 											<div class="flex items-center">
 												<div class="h-2 w-1/4 rounded-full bg-primary-200 mr-2">
 													<div
