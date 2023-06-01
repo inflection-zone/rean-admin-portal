@@ -31,6 +31,7 @@
 	const contentRoute = `/users/${userId}/courses/${courseId}/modules/${moduleId}/contents/create`;
 	const courseRoute = `/users/${userId}/courses/${courseId}/view`;
 	const moduleRoute = `/users/${userId}/courses/${courseId}/modules`;
+	const contentViewRoute = (courseId, moduleId, contentId) => `/users/${userId}/courses/${courseId}/modules/${moduleId}/contents/${contentId}/view`;
 
 	const breadCrumbs = [
 		{
@@ -131,7 +132,9 @@
 				{:else}
 					<ol class="span w-1/2 md:w-2/3 lg:w-2/3 list-decimal" id="contents">
 						{#each contents as content}
+						<a href={contentViewRoute(courseId, moduleId, content.id)}>
 							<li>{content.Title}</li>
+						</a>
 						{/each}
 					</ol>
 				{/if}

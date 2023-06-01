@@ -24,7 +24,7 @@
 
 </script>
 
-<div class="mx-10">
+<div class="mx-10 mb-20">
 	<dl class="mt-5 grid grid-cols-1 gap-5 sm:grid-cols-3">
 		<div class="overflow-hidden rounded-lg bg-tertiary-200 px-4 shadow-xl h-28 sm:p-4">
 			<dt class="truncate text-md font-normal text-primary-500">App Downloads</dt>
