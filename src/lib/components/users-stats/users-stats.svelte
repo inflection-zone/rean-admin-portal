@@ -201,7 +201,7 @@
 		</div>
 		{#each usersData as data}
 			<div
-				class="flex flex-row lg:gap-16 md:gap-12 sm:gap-10 gap-6 px-4 last:pb-4 w-full items-start justify-start"
+				class="flex flex-row lg:gap-16 md:gap-12 sm:gap-10 gap-6 px-4 last w-full items-start justify-start"
 			>
 				<span class="w-80 text-primary-500 items-center">{data.usersDetail}</span>
 				<span class="w-20 text-primary-500 items-center">{data.count}</span>
@@ -289,22 +289,24 @@
 		</div>
 	</div>
 
-	<div class="flex justify-center items-center h-96 gap-10 w-full mt-5">
+	<div class="flex justify-center items-center h-96 gap-10 w-full">
 		<div
-			class="flex overflow-x-auto justify-center rounded-lg bg-tertiary-200 shadow-xl sm:px-4 pb-4 w-1/3 h-auto"
-		>
-			<div class="">
-				<PieChart labels={genderDistributionLabels} data={genderDistributionData} title="Gender" />
-				<!-- <select name="year" id="" class="select w-2/3" on:change={handlelSelectYearForGender}>
-					<option>All the years</option>
-					<option value="2021">2021</option>
-					<option value="2022">2022</option>
-					<option value="2023">2023</option>
-				</select> -->
-			</div>
+		class="flex overflow-x-auto justify-center rounded-lg bg-tertiary-200 sm:px-4 shadow-xl w-1/3"
+	>
+		<div class=" ">
+			<PieChart labels={cuntryDistributionLabels} data={cuntryDistributionData} title="Country" />
+			<!-- <select name="year" id="" class="select w-2/3 " on:change={handlelSelectYearForCountry}>
+			<option>All the years</option>
+			<option value="2021">2021</option>
+			<option value="2022">2022</option>
+			<option value="2023">2023</option>
+		</select>
+		 -->
 		</div>
-		<div
-			class="flex overflow-x-auto justify-center rounded-lg bg-tertiary-200 shadow-xl sm:px-4 pb-4 w-1/3"
+	</div>
+
+	<div
+			class="flex overflow-x-auto justify-center rounded-lg bg-tertiary-200 shadow-xl sm:px-4 w-1/3"
 		>
 			<div class=" ">
 				<PieChart labels={ageDistributionLabels} data={ageDistributionData} title="Age" />
@@ -316,23 +318,23 @@
 				</select> -->
 			</div>
 		</div>
+
 		<div
-			class="flex overflow-x-auto justify-center rounded-lg bg-tertiary-200 sm:px-4 shadow-xl pb-4 w-1/3"
+			class="flex overflow-x-auto justify-center rounded-lg bg-tertiary-200 shadow-xl sm:px-4 w-1/3 h-auto"
 		>
-			<div class=" ">
-				<PieChart labels={cuntryDistributionLabels} data={cuntryDistributionData} title="Country" />
-				<!-- <select name="year" id="" class="select w-2/3 " on:change={handlelSelectYearForCountry}>
-				<option>All the years</option>
-				<option value="2021">2021</option>
-				<option value="2022">2022</option>
-				<option value="2023">2023</option>
-			</select>
-			 -->
+			<div class="">
+				<PieChart labels={genderDistributionLabels} data={genderDistributionData} title="Gender" />
+				<!-- <select name="year" id="" class="select w-2/3" on:change={handlelSelectYearForGender}>
+					<option>All the years</option>
+					<option value="2021">2021</option>
+					<option value="2022">2022</option>
+					<option value="2023">2023</option>
+				</select> -->
 			</div>
 		</div>
-
+		
 		<!-- <div
-			class="flex overflow-x-auto justify-center rounded-lg bg-tertiary-200 sm:px-4 shadow-xl pb-4 w-1/3"
+			class="flex overflow-x-auto justify-center rounded-lg bg-tertiary-200 sm:px-4 shadow-xl w-1/3"
 		>
 			<div class=" ">
 				<PieChart labels={roleDistributionLabels} data={roleDistributionData} title="Role" />
@@ -340,9 +342,9 @@
 		</div> -->
 	</div>
 
-	<div class="flex justify-center items-center h-96 gap-10 w-full mt-5">
+	<div class="flex justify-center items-center h-96 gap-10 w-full">
 		<div
-			class="flex overflow-x-auto justify-center items-center rounded-lg bg-tertiary-200 shadow-xl sm:px-4 pb-4 w-1/2"
+			class="flex overflow-x-auto justify-center items-center rounded-lg bg-tertiary-200 shadow-xl sm:px-4 w-1/2"
 		>
 			<div class="h-96 w-full ">
 				<BarChart
@@ -353,7 +355,7 @@
 			</div>
 		</div>
 		<div
-			class="flex overflow-x-auto justify-center items-center rounded-lg bg-tertiary-200 shadow-xl sm:px-4 pb-4 w-1/2"
+			class="flex overflow-x-auto justify-center items-center rounded-lg bg-tertiary-200 shadow-xl sm:px-4 w-1/2"
 		>
 			<div class="h-96 w-full">
 				<BarChart
@@ -367,7 +369,7 @@
 
 	<div class="flex justify-center items-center h-96 gap-10 w-full mt-10">
 		<div
-			class="flex overflow-x-auto justify-center items-center rounded-lg bg-tertiary-200 shadow-xl sm:px-4 pb-4 w-1/2"
+			class="flex overflow-x-auto justify-center items-center rounded-lg bg-tertiary-200 shadow-xl sm:px-4 w-1/2"
 		>
 			<div class="h-96 w-full ">
 				<BarChart
@@ -378,7 +380,7 @@
 			</div>
 		</div>
 		<div
-			class="flex overflow-x-auto justify-center items-center rounded-lg bg-tertiary-200 shadow-xl sm:px-4 pb-4 w-1/2"
+			class="flex overflow-x-auto justify-center items-center rounded-lg bg-tertiary-200 shadow-xl sm:px-4 w-1/2"
 		>
 			<div class="h-96 w-full">
 				<BarChart
@@ -392,7 +394,7 @@
 
 	<div class="flex justify-center items-center h-96 gap-10 w-full mt-10">
 		<div
-			class="flex overflow-x-auto justify-center items-center rounded-lg bg-tertiary-200 shadow-xl sm:px-4 pb-4 w-1/2"
+			class="flex overflow-x-auto justify-center items-center rounded-lg bg-tertiary-200 shadow-xl sm:px-4 w-1/2"
 		>
 			<div class="h-96 w-full ">
 				<HorizontalBarChart
@@ -403,7 +405,7 @@
 			</div>
 		</div>
 		<div
-			class="flex overflow-x-auto justify-center items-center rounded-lg bg-tertiary-200 shadow-xl sm:px-4 pb-4 w-1/2"
+			class="flex overflow-x-auto justify-center items-center rounded-lg bg-tertiary-200 shadow-xl sm:px-4 w-1/2"
 		>
 			<div class="h-96 w-full">
 				<HealthPillarChart
@@ -415,7 +417,7 @@
 
 	<div class="flex justify-center items-center h-96 gap-10 w-full mt-10">
 		<div
-			class="flex overflow-x-auto justify-center items-center rounded-lg bg-tertiary-200 shadow-xl sm:px-4 pb-4 w-1/2"
+			class="flex overflow-x-auto justify-center items-center rounded-lg bg-tertiary-200 shadow-xl sm:px-4 w-1/2"
 		>
 			<div class="h-96 w-full ">
 				<HorizontalBarChart
@@ -426,7 +428,7 @@
 			</div>
 		</div>
 		<div
-			class="flex overflow-x-auto justify-center items-center rounded-lg bg-tertiary-200 shadow-xl sm:px-4 pb-4 w-1/2"
+			class="flex overflow-x-auto justify-center items-center rounded-lg bg-tertiary-200 shadow-xl sm:px-4 w-1/2"
 		>
 			<div class="h-96 w-full">
 				<BiometricsChart

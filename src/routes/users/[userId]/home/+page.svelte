@@ -27,22 +27,22 @@
 <div class="mx-10 mb-20">
 	<dl class="mt-5 grid grid-cols-1 gap-5 sm:grid-cols-3">
 		<div class="overflow-hidden rounded-lg bg-tertiary-200 px-4 shadow-xl h-28 sm:p-4">
-			<dt class="truncate text-sm font-normal text-primary-500">App Downloads</dt>
+			<dt class="truncate text-md font-normal text-primary-500">App Downloads</dt>
 			<dd class="mt-2 text-5xl font-semibold tracking-tight text-primary-500">
 				{totalUsers.Count}
 			</dd>
 		</div>
 		<div class="overflow-hidden rounded-lg bg-tertiary-200 px-4 shadow-xl h-28 sm:p-4">
-			<dt class="truncate text-sm font-normal text-primary-500">Onboarded Users</dt>
+			<dt class="truncate text-md font-normal text-primary-500">Onboarded Users</dt>
 			<dd class="mt-1 text-5xl font-semibold tracking-tight text-primary-500">
 				{totalUsers.Count}
 			</dd>
 		</div>
 		<div class="overflow-hidden rounded-lg bg-tertiary-200 px-4 shadow-xl h-28 sm:p-4">
-			<dt class="truncate text-sm font-normal text-primary-500">Non Deleted Users</dt>
+			<dt class="truncate text-md font-normal text-primary-500">Non Deleted Users</dt>
 			<dd class="mt-1 flex items-baseline pb-6 sm:pb-7">
 				<div class="text-5xl  font-semibold text-primary-500">{nonDeletedUsers.Count}</div>
-				<div class="ml-2 flex items-baseline text-sm font-normal text-primary-500">
+				<div class="ml-2 flex items-baseline text-md font-normal text-primary-500">
 						{nonDeletedUsers.Ratio}
 					<div class="text-xs">
 						%
@@ -51,20 +51,20 @@
 			</dd>
 		</div>
 		<div class="overflow-hidden rounded-lg bg-tertiary-200 px-4 shadow-xl h-28 sm:p-4">
-			<dt class="truncate text-sm font-normal text-primary-500">Active Users</dt>
+			<dt class="truncate text-md font-normal text-primary-500">Active Users</dt>
 			<dd class="mt-1 flex items-baseline pb-6 sm:pb-7">
 				<div class="text-5xl  font-semibold text-primary-500">{activeUsers.Count}</div>
-				<div class="ml-2 flex items-baseline text-sm font-normal text-primary-500">
+				<div class="ml-2 flex items-baseline text-md font-normal text-primary-500">
 					{activeUsers.Ratio} 
 					<div class="text-xs">%</div>
 				</div>
 			</dd>
 		</div>
 		<div class="overflow-hidden rounded-lg bg-tertiary-200 px-4 shadow-xl h-28 sm:p-4">
-			<dt class="truncate text-sm font-normal text-primary-500">Deleted Users</dt>
+			<dt class="truncate text-md font-normal text-primary-500">Deleted Users</dt>
 			<dd class="mt-1 flex items-baseline pb-6 sm:pb-7">
 				<div class="text-5xl  font-semibold text-primary-500">{deletedUsers.Count}</div>
-				<div class="ml-2 flex items-baseline text-sm font-normal text-primary-500">
+				<div class="ml-2 flex items-baseline text-md font-normal text-primary-500">
 					{deletedUsers.Ratio} 
 					<div class="text-xs">%</div>
 				</div>
@@ -72,10 +72,10 @@
 		</div>
 
 		<div class="overflow-hidden rounded-lg bg-tertiary-200 px-4 shadow-xl h-28 sm:p-4">
-			<dt class="truncate text-sm font-normal text-primary-500">Enrollments</dt>
+			<dt class="truncate text-md font-normal text-primary-500">Enrollments</dt>
 			<dd class="mt-1 flex items-baseline pb-6 sm:pb-7">
 				<div class="text-5xl  font-semibold text-primary-500">{totalEnrollment.Count}</div>
-				<div class="ml-2 flex items-baseline text-sm font-normal text-primary-500">
+				<div class="ml-2 flex items-baseline text-md font-normal text-primary-500">
 					{totalEnrollment.Ratio}
 					<div class="text-xs">%</div>
 				</div>
@@ -83,20 +83,20 @@
 		</div>
 
 		<div class="overflow-hidden rounded-lg bg-tertiary-200 px-4 shadow-xl h-28 sm:p-4">
-			<dt class="truncate text-sm font-normal text-primary-500">Android Users</dt>
+			<dt class="truncate text-md font-normal text-primary-500">Android Users</dt>
 			<dd class="mt-1 flex items-baseline pb-6 sm:pb-7">
 				<div class="text-5xl  font-semibold text-primary-500">{androidUsers.Count}</div>
-				<div class="ml-2 flex items-baseline text-sm font-normal text-primary-500">
+				<div class="ml-2 flex items-baseline text-md font-normal text-primary-500">
 					{androidUsers.Ratio}
 					<div class="text-xs">%</div>
 				</div>
 			</dd>
 		</div>
 		<div class="overflow-hidden rounded-lg bg-tertiary-200 px-4 shadow-xl h-28 sm:p-4">
-			<dt class="truncate text-sm font-normal text-primary-500">IOS Users</dt>
+			<dt class="truncate text-md font-normal text-primary-500">IOS Users</dt>
 			<dd class="mt-1 flex items-baseline pb-6 sm:pb-7">
 				<div class="text-5xl  font-semibold text-primary-500">{iOSUsers.Count}</div>
-				<div class="ml-2 flex items-baseline text-sm font-normal text-primary-500">
+				<div class="ml-2 flex items-baseline text-md font-normal text-primary-500">
 					{iOSUsers.Ratio}
 					<div class="text-xs">%</div>
 				</div>

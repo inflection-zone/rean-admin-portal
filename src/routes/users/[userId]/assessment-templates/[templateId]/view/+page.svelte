@@ -177,7 +177,7 @@
 				</div>
 				<span class="span w-1/2 md:2/3 lg:2/3">
 					<!-- svelte-ignore empty-block -->
-					{#if assessmentNodes.length <= 0}
+					{#if assessmentNodes.length <= 1}
 						<div>Nodes are not available</div>
 					{:else}
 						<TreeView lineColor="#5832A1" iconBackgroundColor="#5832A1" branchHoverColor="#5832A1">
