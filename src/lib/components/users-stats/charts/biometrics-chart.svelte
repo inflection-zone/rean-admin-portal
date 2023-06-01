@@ -114,7 +114,20 @@
 							boxWidth:10,
 							boxHeight:10,
 						}
-					}
+					},
+					title: {
+					    display: true,
+					    text: 'Biometrics Monthly',
+					    position: "top",
+							color: '#5832A1',
+							align:'center',
+							padding:20,
+							font:{
+					  size: 22,
+					  weight: 'normal',
+					  lineHeight: 1.2,
+							},
+					},
 				}
 			}
 		});

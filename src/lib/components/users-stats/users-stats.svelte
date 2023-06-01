@@ -261,7 +261,7 @@
 									<tr class="hover:bg-tertiary-600">
 										<td
 											style="width:10%;"
-											class="whitespace-nowrap py-2 pl-4 pr-3 text-primary-500 text-sm  sm:pl-3 "
+											class="whitespace-nowrap py-2 pl-4 pr-3 text-primary-500 text-sm  sm:pl-3"
 											>{data.usersDetail}</td
 										>
 										<td style="width:10%;" class="whitespace-nowrap text-sm px-3 py-2 text-primary-500"
@@ -433,6 +433,7 @@
 					{biometricsDistributionMonthly}
 				/>
 			</div>
+		
 		</div>
 	</div>
 </div>
