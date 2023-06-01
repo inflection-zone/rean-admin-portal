@@ -192,10 +192,10 @@
 				<th data-sort="index" style="width: 5%;">Id</th>
 				<th data-sort="Name" style="width: 19%;">Name</th>
 				<th style="width: 34%;">Description</th>
-				<th data-sort="PreferenceWeight" style="width: 18%;">Preference Weight</th>
-				<th style="width: 35%;">Created Date</th>
-				<th style="width: 8%;" />
-				<th style="width: 8%;" />
+				<th data-sort="PreferenceWeight" style="width: 15%;">Preference Weight</th>
+				<th style="width: 20%;">Created Date</th>
+				<th style="width: 5%;" />
+				<th style="width: 5%;" />
 			</tr>
 		</thead>
 	</table>
@@ -209,20 +209,20 @@
 							><a href={viewRoute(row.id)}>{Helper.truncateText(row.Name, 20)}</a></td
 						>
 						<td role="gridcell" aria-colindex={3} tabindex="0" style="width: 34%;"
-							>{Helper.truncateText(row.Description, 40)}</td
+							>{Helper.truncateText(row.Description, 30)}</td
 						>
-						<td role="gridcell" aria-colindex={4} tabindex="0" style="width: 20%;"
+						<td role="gridcell" aria-colindex={4} tabindex="0" style="width: 15%;"
 							>{row.PreferenceWeight}</td
 						>
-						<td role="gridcell" aria-colindex={5} tabindex="0" style="width: 35%;"
+						<td role="gridcell" aria-colindex={5} tabindex="0" style="width: 20%;"
 							>{date.format(new Date(row.CreatedAt), 'DD-MMM-YYYY')}</td
 						>
-						<td style="width: 8%;">
+						<td style="width: 5%;">
 							<a href={editRoute(row.id)}
 								><Fa icon={faPencil} style="color-text-primary" size="md" /></a
 							>
 						</td>
-						<td style="width: 8%;">
+						<td style="width: 5%;">
 							<Confirm
 								confirmTitle="Delete"
 								cancelTitle="Cancel"
