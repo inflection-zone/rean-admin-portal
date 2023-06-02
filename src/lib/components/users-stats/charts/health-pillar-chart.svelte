@@ -96,6 +96,11 @@
 						}
 					}
 				},
+				layout: {
+          padding: {
+            bottom: 20, // Adjust the bottom padding value as needed
+          },
+        },
 				plugins: {
 					legend: {
 						display: true,

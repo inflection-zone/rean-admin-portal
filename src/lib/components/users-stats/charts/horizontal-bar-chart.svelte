@@ -43,8 +43,13 @@
 						ticks: {
 							color: '#5832A1' // set y-axis label color here
 						}
-					}
+					},
 				},
+				layout: {
+          padding: {
+            bottom: 20, // Adjust the bottom padding value as needed
+          },
+        },
 				plugins: {
 					legend: {
 						display: false,
