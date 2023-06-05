@@ -4,7 +4,6 @@ import login from '../pageObjects/login/login-test';
 
 describe('test', () => {
 	it.only('LoginTest', function () {
-    const filePath = 'image.jpg';
 		cy.visit('http://localhost:5173/');
 
 		cy.fixture('login').then((data) => {
@@ -17,26 +16,32 @@ describe('test', () => {
     cy.wait(3000)
       cy.get('.app-bar-slot-lead > .flex').click()
       cy.wait(2000)
-      cy.get('.justify-end > .svelte-fa').click()
-      cy.wait(2000)
-      cy.contains('Miscellaneous').click()
+      cy.contains('Clinical').click()
       cy.wait(2000)
       // eslint-disable-next-line no-useless-escape
-      cy.contains('Notices').click()
-      cy.wait(2000)
+      cy.contains('Assessments').click()
+      cy.wait(2000)  
       cy.get('.absolute > .btn').click()
       cy.wait(2000)
-      cy.get('input[name=title]').type('Associate-Finance Processes and Operation')
+      cy.get('input[name=title]').type('rbgfb')
       cy.wait(2000)
-      cy.get('textarea[name=description]').type('abcs')
+      cy.get('select[name=type]').select('Survey')
       cy.wait(2000)
-      cy.get('input[name=link]').type('https://github.com/REAN-Foundation/reancare-service/pull/290')
+      cy.get('button[type=submit]').click()
       cy.wait(2000)
-      cy.get('input[name=daysActive]').type('7')
+      cy.contains('Assessment Nodes').click()
       cy.wait(2000)
-      cy.get('input[name=action]').type('Apply for job')
+      cy.get('select[name=nodeType]').select('Question')
       cy.wait(2000)
-      cy.get('input[name=fileinput]').attachFile(filePath)
+      cy.get('select[name=parentNodeId]').type('Node list - Assessment root node - RNode#8dvxjgjedzyzbugcgrgikoda')
+      cy.wait(2000)
+      cy.get('input[name=title]').type('dssd')
+      cy.wait(2000)
+      cy.get('textarea[name=description]').type('gbtbybgrv')
+      cy.wait(2000)
+      cy.get('input[name=sequence]').type('5')
+      cy.wait(2000)
+      cy.get('select[name=queryType]').select('Files')
       cy.wait(2000)
       cy.get('button[type=submit]').click()
       cy.wait(2000)
@@ -44,7 +49,9 @@ describe('test', () => {
       cy.wait(2000)
       cy.get('button[type=submit]').click()
       cy.wait(2000)
-      cy.get(':nth-child(1) > .text-primary-primary-500').click()
+      cy.get(':nth-child(5) > .text-primary-primary-500').click()
+      cy.wait(5000)
+      cy.get(':nth-child(1) > .text-primary-primary-500').click()   
     })
 	});
  

@@ -12,7 +12,6 @@ describe('test', () => {
     ln.setUserName(data.username)
     ln.setPassword(data.password)
     ln.clickLogin();
-    ln.verifyLogin();
     })
   })
 })

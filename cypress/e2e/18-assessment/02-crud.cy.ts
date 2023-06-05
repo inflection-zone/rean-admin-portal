@@ -23,7 +23,7 @@ describe('test', () => {
       cy.wait(2000)  
       cy.get('.absolute > .btn').click()
       cy.wait(2000)
-      cy.get('input[name=title]').type('rbgfb')
+      cy.get('input[name=title]').type('AHA Cardiac Rehab Assessment')
       cy.wait(2000)
       cy.get('textarea[name=description]').type('rgrtg')
       cy.wait(2000)
