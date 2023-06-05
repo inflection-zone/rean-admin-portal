@@ -5,6 +5,7 @@
 	import { page } from '$app/stores';
 	import type { PageServerData } from './$types';
 
+	export let form;
 	export let data: PageServerData;
 	let initiaData = {};
 	let id = data.drug.id;
@@ -55,11 +56,11 @@
 <main class="h-screen mb-32">
 	<BreadCrumbs crumbs={breadCrumbs} />
 
-	<div class=" flex justify-center mt-5 px-3 mb-10 flex-col items-center">
+	<div class="">
 		<form
 			method="post"
 			action="?/updateDrugAction"
-			class="w-full lg:max-w-4xl md:max-w-xl sm:max-w-lg bg-[#ECE4FC] rounded-lg mx-auto"
+			class="w-full  bg-[#ECE4FC] lg:mt-10 md:mt-8 sm:mt-6 mb-10 mt-4 lg:max-w-4xl md:max-w-xl sm:max-w-lg  rounded-lg mx-auto"
 		>
 			<div class="w-full  h-14 rounded-t-lg p-3  bg-[#7165E3]">
 				<div class="ml-3 relative flex flex-row text-white text-xl">
@@ -74,17 +75,23 @@
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
 					<!-- svelte-ignore a11y-label-has-associated-control -->
 					<label class="label">
-						<span>Name</span>
+						<span>Name *</span>
 					</label>
 				</div>
 				<div class="w-1/2 md:w-2/3 lg:w-2/3">
 					<input
 						type="text"
 						name="drugName"
+						required
 						bind:value={drugName}
 						placeholder="Enter name here..."
-						class="input w-full "
+						class="input w-full {form?.errors?.drugName
+							? 'border-error-300 text-error-500'
+							: 'border-primary-200 text-primary-500'}"
 					/>
+					{#if form?.errors?.drugName}
+						<p class="text-error-500 text-xs">{form?.errors?.drugName[0]}</p>
+					{/if}
 				</div>
 			</div>
 
@@ -107,6 +114,9 @@
 						<option>Dark mode</option>
 						<option>Light mode</option>
 					</select>
+					{#if form?.errors?.genericName}
+						<p class="text-error-500 text-xs">{form?.errors?.genericName[0]}</p>
+					{/if}
 				</div>
 			</div>
 
@@ -123,8 +133,13 @@
 						name="ingredients"
 						bind:value={ingredients}
 						placeholder="Enter ingredients here..."
-						class="input w-full "
+						class="input w-full  {form?.errors?.ingredients
+							? 'border-error-300 text-error-500'
+							: 'border-primary-200 text-primary-500'}"
 					/>
+					{#if form?.errors?.ingredients}
+						<p class="text-error-500 text-xs">{form?.errors?.ingredients[0]}</p>
+					{/if}
 				</div>
 			</div>
 
@@ -144,9 +159,12 @@
 					>
 						<option value="High">High</option>
 						<option value="Auto">Auto</option>
-						<option>medium</option>
-						<option>low</option>
+						<option>Medium</option>
+						<option>Low</option>
 					</select>
+					{#if form?.errors?.strength}
+						<p class="text-error-500 text-xs">{form?.errors?.strength[0]}</p>
+					{/if}
 				</div>
 			</div>
 
@@ -163,8 +181,13 @@
 						name="otherCommercialNames"
 						bind:value={otherCommercialNames}
 						placeholder="Enter commercial name here..."
-						class="input w-full "
+						class="input w-full  {form?.errors?.otherCommercialNames
+							? 'border-error-300 text-error-500'
+							: 'border-primary-200 text-primary-500'}"
 					/>
+					{#if form?.errors?.otherCommercialNames}
+						<p class="text-error-500 text-xs">{form?.errors?.otherCommercialNames[0]}</p>
+					{/if}
 				</div>
 			</div>
 
@@ -181,8 +204,13 @@
 						name="manufacturer"
 						bind:value={manufacturer}
 						placeholder="Enter manufacture here..."
-						class="input w-full "
+						class="input w-full  {form?.errors?.manufacturer
+							? 'border-error-300 text-error-500'
+							: 'border-primary-200 text-primary-500'}"
 					/>
+					{#if form?.errors?.manufacturer}
+						<p class="text-error-500 text-xs">{form?.errors?.manufacturer[0]}</p>
+					{/if}
 				</div>
 			</div>
 
@@ -199,8 +227,13 @@
 						name="otherInformation"
 						bind:value={otherInformation}
 						placeholder="Enter other information here..."
-						class="input w-full "
+						class="input w-full  {form?.errors?.otherInformation
+							? 'border-error-300 text-error-500'
+							: 'border-primary-200 text-primary-500'}"
 					/>
+					{#if form?.errors?.otherInformation}
+						<p class="text-error-500 text-xs">{form?.errors?.otherInformation[0]}</p>
+					{/if}
 				</div>
 			</div>
 
@@ -210,7 +243,7 @@
 					<button
 						type="button"
 						on:click={handleReset}
-						class="btn variant-ringed-primary lg:w-40 lg:ml-8 md:ml-6 sm:ml-1 mb-10"
+						class="btn variant-ringed-primary text-primary-500 lg:w-40 lg:ml-8 md:ml-6 sm:ml-1 mb-10"
 					>
 						Reset</button
 					>

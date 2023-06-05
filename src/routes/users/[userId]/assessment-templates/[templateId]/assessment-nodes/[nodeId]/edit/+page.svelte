@@ -9,6 +9,7 @@
 
 	//////////////////////////////////////////////////////////////////////////////////////
 
+	export let form;
 	export let data: PageServerData;
 	const queryResponseTypes = data.queryResponseTypes;
 	const assessmentNodes = data.assessmentNodes;
@@ -20,30 +21,42 @@
 	let options = data.assessmentNode.Options ?? [];
 	let optionValueStore = options;
 	let message = data.assessmentNode.Message ?? null;
-	let parentNodeId = data.assessmentNode.ParentNodeId
-
-	console.log("assessmentNode",data.assessmentNode)
+	let parentNodeId = data.assessmentNode.ParentNodeId;
+	let sequence = data.assessmentNode.Sequence;
 
 	//Original data
 	let _nodeType = nodeType;
 	let _title = title;
 	let _description = description;
 	let _queryType = queryType;
+	let _sequence = sequence;
 
 	function handleReset() {
 		nodeType = _nodeType;
 		title = _title;
 		description = _description;
 		queryType = _queryType;
+		sequence = _sequence
 	}
 
 	const userId = $page.params.userId;
 	const templateId = $page.params.templateId;
-	const editRoute = `/users/${userId}/assessment-templates/${templateId}/assessment-nodes/${id}/edit`;
-	const viewRoute = `/users/${userId}/assessment-templates/${templateId}/assessment-nodes/${id}/view`;
+	const nodeId = $page.params.nodeId;
+	const assessmentsRoutes = `/users/${userId}/assessment-templates`;
+	const editRoute = `/users/${userId}/assessment-templates/${templateId}/assessment-nodes/${nodeId}/edit`;
+	const viewRoute = `/users/${userId}/assessment-templates/${templateId}/assessment-nodes/${nodeId}/view`;
 	const assessmentNodeRoutes = `/users/${userId}/assessment-templates/${templateId}/assessment-nodes`;
+	const assessmentTemplateView =`/users/${userId}/assessment-templates/${templateId}/view`
 
 	const breadCrumbs = [
+		{
+			name: 'Assessments',
+			path: assessmentsRoutes
+		},
+		{
+			name: 'Assessment-View',
+			path: assessmentTemplateView
+		},
 		{
 			name: 'Assessment-Nodes',
 			path: assessmentNodeRoutes
@@ -71,7 +84,7 @@
 	<form
 		method="post"
 		action="?/updateAssessmentNodeAction"
-		class="w-full lg:mt-10 md:mt-8 sm:mt-6 mb-10 mt-4 lg:max-w-4xl md:max-w-xl sm:max-w-lg bg-[#ECE4FC] mt-6 mb-20  rounded-lg mx-auto"
+		class="w-full lg:mt-10 md:mt-8 sm:mt-6 lg:max-w-4xl md:max-w-xl sm:max-w-lg bg-[#ECE4FC] mt-6 mb-20  rounded-lg mx-auto"
 	>
 		<div class="w-full  h-14 rounded-t-lg p-3  bg-[#7165E3]">
 			<div class="ml-3 relative flex flex-row text-white text-xl">
@@ -87,7 +100,7 @@
 		</div>
 
 		<div class="flex items-center mb-4 mt-10 mx-16">
-			<div class="w-1/2 md:w-2/3 lg:w-2/3">
+			<div class="w-1/2 md:w-1/3 lg:w-1/3">
 				<!-- svelte-ignore a11y-label-has-associated-control -->
 				<label class="label">
 					<span>Node Type *</span>
@@ -107,10 +120,10 @@
 					<option>Node List</option>
 				</select>
 			</div>
-		</div> 
+		</div>
 
 		<div class="flex items-center my-4 mx-16">
-			<div class="w-1/2 md:w-2/3 lg:w-2/3">
+			<div class="w-1/2 md:w-1/3 lg:w-1/3">
 				<!-- svelte-ignore a11y-label-has-associated-control -->
 				<label class="label">
 					<span>Title *</span>
@@ -121,15 +134,20 @@
 					type="text"
 					name="title"
 					bind:value={title}
-					class="input w-full"
 					placeholder="Enter title here..."
 					required
+					class="input w-full {form?.errors?.title
+						? 'border-error-300 text-error-500'
+						: 'border-primary-200 text-primary-500'}"
 				/>
+				{#if form?.errors?.title}
+					<p class="text-error-500 text-xs">{form?.errors?.title[0]}</p>
+				{/if}
 			</div>
 		</div>
 
 		<div class="flex items-start mt-4 mx-16">
-			<div class="w-1/2 md:w-2/3 lg:w-2/3">
+			<div class="w-1/2 md:w-1/3 lg:w-1/3">
 				<!-- svelte-ignore a11y-label-has-associated-control -->
 				<label class="label mt-2">
 					<span>Description</span>
@@ -139,15 +157,44 @@
 				<textarea
 					name="description"
 					bind:value={description}
-					class="textarea w-full"
 					placeholder="Enter description here..."
+					class="textarea w-full
+					{form?.errors?.description
+						? 'border-error-300 text-error-500'
+						: 'border-primary-200 text-primary-500'}"
 				/>
+				{#if form?.errors?.description}
+					<p class="text-error-500 text-xs">{form?.errors?.description[0]}</p>
+				{/if}
+			</div>
+		</div>
+
+		<div class="flex items-center my-4 lg:mx-16 md:mx-12 mx-10">
+			<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
+				<!-- svelte-ignore a11y-label-has-associated-control -->
+				<label class="label">
+					<span>Sequence</span>
+				</label>
+			</div>
+			<div class="w-1/2 md:w-2/3 lg:w-2/3">
+				<input
+					type="number"
+					name="sequence"
+					placeholder="Enter sequence here..."
+					class="input w-full {form?.errors?.sequence
+						? 'border-error-300 text-error-500'
+						: 'border-primary-200 text-primary-500'}"
+					bind:value={sequence}
+				/>
+				{#if form?.errors?.sequence}
+					<p class="text-error-500 text-xs">{form?.errors?.sequence[0]}</p>
+				{/if}
 			</div>
 		</div>
 
 		{#if selectedNodeType === 'Question'}
 			<div class="flex items-center mb-4 mt-2 mx-16">
-				<div class="w-1/2 md:w-2/3 lg:w-2/3">
+				<div class="w-1/2 md:w-1/3 lg:w-1/3">
 					<!-- svelte-ignore a11y-label-has-associated-control -->
 					<label class="label">
 						<span>Query Response Type *</span>
@@ -168,38 +215,41 @@
 					</select>
 				</div>
 			</div>
-
-			{#if selectedQueryType === 'Single Choice Selection'}
-				<SingleChoice {optionValueStore} />
-			{:else if selectedQueryType === 'Multi Choice Selection'}
-				<MultipleChoice {optionValueStore} />
-			{:else}
-				<div />
-			{/if}
+			<div>
+				{#if selectedQueryType === 'Single Choice Selection'}
+					<SingleChoice {optionValueStore} />
+				{:else if selectedQueryType === 'Multi Choice Selection'}
+					<MultipleChoice {optionValueStore} />
+				{/if}
+			</div>
 		{:else if selectedNodeType === 'Message'}
 			<div class="flex items-start mb-4 mt-2 mx-16">
-				<div class="w-1/2 md:w-2/3 lg:w-2/3">
+				<div class="w-1/2 md:w-1/3 lg:w-1/3">
 					<!-- svelte-ignore a11y-label-has-associated-control -->
 					<label class="label mt-2">
-						<span>Message</span>
+						<span>Message *</span>
 					</label>
 				</div>
 				<div class="w-1/2 md:w-2/3 lg:w-2/3">
 					<textarea
 						name="message"
 						required
-						class="textarea w-full"
 						placeholder="Enter message here..."
 						bind:value={message}
+						class="textarea w-full
+						{form?.errors?.message ? 'border-error-300 text-error-500' : 'border-primary-200 text-primary-500'}"
 					/>
+					{#if form?.errors?.message}
+						<p class="text-error-500 text-xs">{form?.errors?.message[0]}</p>
+					{/if}
 				</div>
 			</div>
 		{:else}
 			<div />
 		{/if}
 		<div class="flex items-center my-8 lg:mx-16 md:mx-12 mx-4 ">
-			<div class="lg:w-1/2 md:w-1/2 sm:w-1/2  w-1/2 md:w-2/3 lg:w-2/3" />
-			<div class="lg:w-1/4 md:w-1/4 sm:w-1/4  w-1/2 md:w-2/3 lg:w-2/3 ">
+			<div class="lg:w-1/2 md:w-1/2 sm:w-1/2 " />
+			<div class="lg:w-1/4 md:w-1/4 sm:w-1/4 ">
 				<button
 					type="button"
 					on:click={handleReset}
@@ -208,7 +258,7 @@
 					Reset</button
 				>
 			</div>
-			<div class="lg:w-1/4 md:w-1/4 sm:w-1/4 w-1/2 md:w-2/3 lg:w-2/3">
+			<div class="lg:w-1/4 md:w-1/4 sm:w-1/4 ">
 				<button
 					type="submit"
 					class="btn variant-filled-primary lg:w-40 lg:ml-8 md:ml-6 sm:ml-2 mb-10"

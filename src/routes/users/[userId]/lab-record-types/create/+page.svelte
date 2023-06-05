@@ -4,13 +4,14 @@
 	import BreadCrumbs from '$lib/components/breadcrumbs/breadcrums.svelte';
 	import { page } from '$app/stores';
 
+	export let form;
 	const userId = $page.params.userId;
 	const createRoute = `/users/${userId}/lab-record-types/create`;
 	const labRecordTypesRoute = `/users/${userId}/lab-record-types`;
 
 	const breadCrumbs = [
 		{
-			name: 'Lab-Record-Types',
+			name: 'Lab-Records',
 			path: labRecordTypesRoute
 		},
 		{
@@ -23,7 +24,7 @@
 <main class="h-screen mb-44">
 	<BreadCrumbs crumbs={breadCrumbs} />
 
-	<div class="px-5 mb-5 ">
+	<div class="">
 		<form
 			method="post"
 			action="?/createLabRecordTypeAction"
@@ -46,16 +47,23 @@
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
 					<!-- svelte-ignore a11y-label-has-associated-control -->
 					<label class="label">
-						<span>Type Name</span>
+						<span>Type Name *</span>
 					</label>
 				</div>
 				<div class="w-1/2 md:w-2/3 lg:w-2/3">
 					<input
 						type="text"
 						name="typeName"
+						required
 						placeholder="Enter type name here..."
-						class="input w-full "
+						class="input w-full {form?.errors?.typeName
+							? 'border-error-300 text-error-500'
+							: 'border-primary-200 text-primary-500'}"
+						value={form?.data?.typeName ?? ''}
 					/>
+					{#if form?.errors?.typeName}
+						<p class="text-error-500 text-xs">{form?.errors?.typeName[0]}</p>
+					{/if}
 				</div>
 			</div>
 
@@ -70,9 +78,15 @@
 					<input
 						type="text"
 						name="displayName"
-						class="input w-full"
 						placeholder="Enter display name here..."
+						class="input w-full {form?.errors?.displayName
+							? 'border-error-300 text-error-500'
+							: 'border-primary-200 text-primary-500'}"
+						value={form?.data?.displayName ?? ''}
 					/>
+					{#if form?.errors?.displayName}
+						<p class="text-error-500 text-xs">{form?.errors?.displayName[0]}</p>
+					{/if}
 				</div>
 			</div>
 
@@ -87,9 +101,15 @@
 					<input
 						type="text"
 						name="snowmedCode"
-						class="input w-full"
-						placeholder="Enter snowmed code here..."
+						placeholder="Enter snomed code here..."
+						class="input w-full {form?.errors?.snowmedCode
+							? 'border-error-300 text-error-500'
+							: 'border-primary-200 text-primary-500'}"
+						value={form?.data?.snowmedCode ?? ''}
 					/>
+					{#if form?.errors?.snowmedCode}
+						<p class="text-error-500 text-xs">{form?.errors?.snowmedCode[0]}</p>
+					{/if}
 				</div>
 			</div>
 
@@ -104,9 +124,15 @@
 					<input
 						type="text"
 						name="loincCode"
-						class="input w-full"
 						placeholder="Enter loinc code here..."
+						class="input w-full {form?.errors?.loincCode
+							? 'border-error-300 text-error-500'
+							: 'border-primary-200 text-primary-500'}"
+						value={form?.data?.loincCode ?? ''}
 					/>
+					{#if form?.errors?.loincCode}
+						<p class="text-error-500 text-xs">{form?.errors?.loincCode[0]}</p>
+					{/if}
 				</div>
 			</div>
 
@@ -114,16 +140,22 @@
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
 					<!-- svelte-ignore a11y-label-has-associated-control -->
 					<label class="label">
-						<span>Normal Range Min</span>
+						<span>Minimum Normal Range</span>
 					</label>
 				</div>
 				<div class="w-1/2 md:w-2/3 lg:w-2/3">
 					<input
-						type="text"
+						type="number"
 						name="normalRangeMin"
-						class="input w-full"
-						placeholder="Enter normal range min here..."
+						placeholder="Enter minimum normal range here..."
+						class="input w-full {form?.errors?.normalRangeMin
+							? 'border-error-300 text-error-500'
+							: 'border-primary-200 text-primary-500'}"
+						value={form?.data?.normalRangeMin ?? ''}
 					/>
+					{#if form?.errors?.normalRangeMin}
+						<p class="text-error-500 text-xs">{form?.errors?.normalRangeMin[0]}</p>
+					{/if}
 				</div>
 			</div>
 
@@ -131,16 +163,22 @@
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
 					<!-- svelte-ignore a11y-label-has-associated-control -->
 					<label class="label">
-						<span>Normal Range Max</span>
+						<span>Maximum Normal Range</span>
 					</label>
 				</div>
 				<div class="w-1/2 md:w-2/3 lg:w-2/3">
 					<input
-						type="text"
+						type="number"
 						name="normalRangeMax"
-						class="input w-full"
-						placeholder="Enter normal range max here..."
+						placeholder="Enter maximum normal range here..."
+						class="input w-full {form?.errors?.normalRangeMax
+							? 'border-error-300 text-error-500'
+							: 'border-primary-200 text-primary-500'}"
+						value={form?.data?.normalRangeMax ?? ''}
 					/>
+					{#if form?.errors?.normalRangeMax}
+						<p class="text-error-500 text-xs">{form?.errors?.normalRangeMax[0]}</p>
+					{/if}
 				</div>
 			</div>
 
@@ -152,7 +190,18 @@
 					</label>
 				</div>
 				<div class="w-1/2 md:w-2/3 lg:w-2/3">
-					<input type="text" name="unit" class="input w-full" placeholder="Enter unit here..." />
+					<input
+						type="text"
+						name="unit"
+						placeholder="Enter unit here..."
+						class="input w-full {form?.errors?.unit
+							? 'border-error-300 text-error-500'
+							: 'border-primary-200 text-primary-500'}"
+						value={form?.data?.unit ?? ''}
+					/>
+					{#if form?.errors?.unit}
+						<p class="text-error-500 text-xs">{form?.errors?.unit[0]}</p>
+					{/if}
 				</div>
 			</div>
 

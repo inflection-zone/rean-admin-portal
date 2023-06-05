@@ -14,7 +14,7 @@ export const load: PageServerLoad = async (event: RequestEvent) => {
 		if (response.Status === 'failure' || response.HttpCode !== 200) {
 			throw error(response.HttpCode, response.Message);
 		}
-		
+
 		return {
 			apiClient,
 			message: response.Message

@@ -1,5 +1,10 @@
 <script lang="ts">
-	import { createDataTableStore, dataTableHandler } from '@skeletonlabs/skeleton';
+	import {
+		createDataTableStore,
+		dataTableHandler,
+		tableA11y,
+		tableInteraction
+	} from '@skeletonlabs/skeleton';
 	import { Paginator } from '@skeletonlabs/skeleton';
 	import Fa from 'svelte-fa';
 	import { faPencil, faTrash, faSearch } from '@fortawesome/free-solid-svg-icons';
@@ -7,6 +12,7 @@
 	import Confirm from '$lib/components/modal/confirmModal.svelte';
 	import BreadCrumbs from '$lib/components/breadcrumbs/breadcrums.svelte';
 	import type { PageServerData } from './$types';
+	import { Helper } from '$lib/utils/helper';
 
 	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -28,7 +34,7 @@
 
 	const breadCrumbs = [
 		{
-			name: 'Lab-Record-Types',
+			name: 'Lab-Records',
 			path: labRecordTypesRoute
 		}
 	];
@@ -96,14 +102,21 @@
 	</a>
 </div>
 <div class="flex justify-center flex-col mt-4 mx-10 mb-10 overflow-y-auto ">
-	<table class="table rounded-b-none">
-		<thead class="sticky top-0">
+	<table class="table rounded-b-none" role="grid" use:tableInteraction use:tableA11y>
+		<thead
+			on:click={(e) => {
+				dataTableStore.sort(e);
+			}}
+			on:keypress
+			class="sticky top-0"
+		>
 			<tr>
-				<th style="width: 5%;">Id</th>
-				<th style="width: 19%;">Type Name</th>
-				<th style="width: 30%;">Display Name</th>
-				<th style="width: 15%;">Normal Range Min</th>
-				<th style="width: 15%;">Normal Range Max</th>
+				<th data-sort="index" style="width: 4%;">Id</th>
+				<th data-sort="TypeName" style="width: 15%;">Type Name</th>
+				<th data-sort="DisplayName" style="width: 15%;">Display Name</th>
+				<th style="width: 12%;">Minimum</th>
+				<th style="width: 12%;">Maximum</th>
+				<th style="width: 8%;">Unit</th>
 				<th style="width: 8%;" />
 				<th style="width: 8%;" />
 			</tr>
@@ -112,13 +125,22 @@
 	<div class=" overflow-y-auto h-[600px] bg-tertiary-500">
 		<table class="table w-full">
 			<tbody class="">
-				{#each $dataTableStore.filtered as row, rowIndex}
+				{#each $dataTableStore.filtered as row}
 					<tr>
-						<td style="width: 5%;">{row.index}</td>
-						<td style="width: 19%;"><a href={viewRoute(row.id)}>{row.TypeName}</a></td>
-						<td style="width: 29;">{row.DisplayName}</td>
-						<td style="width: 15%;">{row.NormalRangeMin}</td>
-						<td style="width: 15%;">{row.NormalRangeMax}</td>
+						<td role="gridcell" aria-colindex={1} tabindex="0" style="width: 5%;">{row.index}</td>
+						<td role="gridcell" aria-colindex={2} tabindex="0" style="width: 18%;"
+							><a href={viewRoute(row.id)}>{Helper.truncateText(row.TypeName, 20)} </a></td
+						>
+						<td role="gridcell" aria-colindex={3} tabindex="0" style="width: 14;"
+							>{Helper.truncateText(row.DisplayName, 20)}
+						</td>
+						<td role="gridcell" aria-colindex={4} tabindex="0" style="width: 14%;"
+							>{row.NormalRangeMin}</td
+						>
+						<td role="gridcell" aria-colindex={5} tabindex="0" style="width: 15%;"
+							>{row.NormalRangeMax}</td
+						>
+						<td role="gridcell" aria-colindex={6} tabindex="0" style="width: 13%;">{row.Unit}</td>
 						<td style="width: 8%;">
 							<a href={editRoute(row.id)}
 								><Fa icon={faPencil} style="color-text-primary" size="md" /></a

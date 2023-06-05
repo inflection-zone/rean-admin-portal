@@ -5,6 +5,7 @@
 	import { page } from '$app/stores';
 	import type { PageServerData } from './$types';
 
+	export let form;
 	export let data: PageServerData;
 	let initiaData = {};
 	let id = data.personRoleType.id;
@@ -27,7 +28,7 @@
 
 	const breadCrumbs = [
 		{
-			name: 'Person-Role-Types',
+			name: 'Person-Roles',
 			path: personRoleTypesRoute
 		},
 		{
@@ -40,11 +41,11 @@
 <main class="h-screen mb-40">
 	<BreadCrumbs crumbs={breadCrumbs} />
 
-	<div class=" flex justify-center mt-5 px-3 mb-10 flex-col items-center">
+	<div class="">
 		<form
 			method="post"
 			action="?/updatePersonRoleTypeAction"
-			class="w-full lg:max-w-4xl md:max-w-xl sm:max-w-lg bg-[#ECE4FC] rounded-lg mx-auto"
+			class="w-full  bg-[#ECE4FC] lg:mt-10 md:mt-8 sm:mt-6 mb-10 mt-4 lg:max-w-4xl md:max-w-xl sm:max-w-lg  rounded-lg mx-auto"
 		>
 			<div class="w-full  h-14 rounded-t-lg p-3  bg-[#7165E3]">
 				<div class="ml-3 relative flex flex-row text-white text-xl">
@@ -61,21 +62,27 @@
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
 					<!-- svelte-ignore a11y-label-has-associated-control -->
 					<label class="label">
-						<span>Role Name</span>
+						<span>Role Name *</span>
 					</label>
 				</div>
 				<div class="w-1/2 md:w-2/3 lg:w-2/3">
 					<input
 						type="text"
 						name="roleName"
+						required
 						bind:value={roleName}
 						placeholder="Enter role name here..."
-						class="input w-full "
+						class="input w-full {form?.errors?.roleName
+							? 'border-error-300 text-error-500'
+							: 'border-primary-200 text-primary-500'}"
 					/>
+					{#if form?.errors?.roleName}
+						<p class="text-error-500 text-xs">{form?.errors?.roleName[0]}</p>
+					{/if}
 				</div>
 			</div>
 
-			<div class="flex items-center mb-2 lg:mx-16 md:mx-12 mx-10">
+			<div class="flex items-start mb-2 lg:mx-16 md:mx-12 mx-10">
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
 					<!-- svelte-ignore a11y-label-has-associated-control -->
 					<label class="label">
@@ -86,9 +93,14 @@
 					<textarea
 						name="description"
 						bind:value={description}
-						class="textarea w-full"
 						placeholder="Enter description here..."
+						class="textarea w-full {form?.errors?.description
+							? 'border-error-300 text-error-500'
+							: 'border-primary-200 text-primary-500'}"
 					/>
+					{#if form?.errors?.description}
+						<p class="text-error-500 text-xs">{form?.errors?.description[0]}</p>
+					{/if}
 				</div>
 			</div>
 
@@ -98,7 +110,7 @@
 					<button
 						type="button"
 						on:click={handleReset}
-						class="btn variant-ringed-primary lg:w-40 lg:ml-8 md:ml-6 sm:ml-1 mb-10"
+						class="btn variant-ringed-primary text-primary-500 lg:w-40 lg:ml-8 md:ml-6 sm:ml-1 mb-10"
 					>
 						Reset</button
 					>

@@ -1,9 +1,10 @@
-import * as cookie from 'cookie';
 import { error, type RequestEvent } from '@sveltejs/kit';
 import { redirect } from 'sveltekit-flash-message/server';
 import { errorMessage, successMessage } from '$lib/utils/message.utils';
+import { z } from 'zod';
+import { zfd } from 'zod-form-data';
 import { BACKEND_API_URL } from '$env/static/private';
-import type { PageServerLoad, Action } from './$types';
+import type { PageServerLoad } from './$types';
 import { getSymptomById, updateSymptom } from '../../../../../api/services/symptoms';
 
 /////////////////////////////////////////////////////////////////////////
@@ -27,6 +28,7 @@ export const load: PageServerLoad = async (event: RequestEvent) => {
 			symptom['ImageUrl'] = null;
 		}
 		return {
+			sessionId,
 			symptom
 		};
 	} catch (error) {
@@ -34,39 +36,61 @@ export const load: PageServerLoad = async (event: RequestEvent) => {
 	}
 };
 
+const updateSymptomSchema = zfd.formData({
+	symptom: z.string().min(3).max(256),
+	description: z.string().optional(),
+	tags: z.array(z.string()).optional(),
+	language: z.string().optional(),
+	imageResourceId: z.string().optional()
+});
+
 export const actions = {
 	updateSymptomAction: async (event: RequestEvent) => {
 		const request = event.request;
 		const userId = event.params.userId;
-		const data = await request.formData();
-
-		const symptom = data.has('symptom') ? data.get('symptom') : null;
-		const description = data.has('description') ? data.get('description') : null;
-		const tags = data.has('tags') ? data.getAll('tags') : null;
-		const language = data.has('language') ? data.get('language') : null;
-		const imageResourceId = data.has('imageResourceId') ? data.get('imageResourceId') : null;
 		const sessionId = event.cookies.get('sessionId');
 		const symptomId = event.params.id;
+		const data = await request.formData();
+		const formData = Object.fromEntries(data);
+
+		const tags = data.has('tags') ? data.getAll('tags') : [];
+		const formDataValue = { ...formData, tags: tags };
+
+		type SymptomSchema = z.infer<typeof updateSymptomSchema>;
+
+		let result: SymptomSchema = {};
+		try {
+			result = updateSymptomSchema.parse(formDataValue);
+			console.log('result', result);
+		} catch (err: any) {
+			const { fieldErrors: errors } = err.flatten();
+			console.log(errors);
+			const { ...rest } = formData;
+			return {
+				data: rest,
+				errors
+			};
+		}
 
 		const response = await updateSymptom(
 			sessionId,
 			symptomId,
-			symptom.valueOf() as string,
-			description.valueOf() as string,
-			tags.valueOf() as string[],
-			language.valueOf() as string,
-			imageResourceId.valueOf() as string
+			result.symptom,
+			result.description,
+			result.tags,
+			result.language,
+			result.imageResourceId
 		);
 
 		const id = response.Data.SymptomType.id;
 
 		if (response.Status === 'failure' || response.HttpCode !== 200) {
-			throw redirect(303, '/symptoms', errorMessage(response.Message), event);
+			throw redirect(303, `/users/${userId}/symptoms`, errorMessage(response.Message), event);
 		}
 		throw redirect(
 			303,
 			`/users/${userId}/symptoms/${id}/view`,
-			successMessage(`symptom updated successful!`),
+			successMessage(`Symptom updated successfully !`),
 			event
 		);
 	}

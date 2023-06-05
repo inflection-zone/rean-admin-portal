@@ -1,46 +1,64 @@
 import { redirect } from 'sveltekit-flash-message/server';
 import type { RequestEvent } from '@sveltejs/kit';
+import { z } from 'zod';
+import { zfd } from 'zod-form-data';
 import { errorMessage, successMessage } from '$lib/utils/message.utils';
 import { createDrug } from '../../../../api/services/drugs';
 
 /////////////////////////////////////////////////////////////////////////
 
+const createDrugSchema = zfd.formData({
+	drugName: z.string().max(128),
+	genericName: z.string().optional(),
+	ingredients: z.string().optional(),
+	strength: z.string().optional(),
+	otherCommercialNames: z.string().optional(),
+	manufacturer: z.string().optional(),
+	otherInformation: z.string().optional()
+});
+
 export const actions = {
 	createDrugAction: async (event: RequestEvent) => {
 		const request = event.request;
 		const userId = event.params.userId;
-		const data = await request.formData();
-
-		const drugName = data.has('drugName') ? data.get('drugName') : null;
-		const genericName = data.has('genericName') ? data.get('genericName') : null;
-		const ingredients = data.has('ingredients') ? data.get('ingredients') : null;
-		const strength = data.has('strength') ? data.get('strength') : null;
-		const otherCommercialNames = data.has('otherCommercialNames')
-			? data.get('otherCommercialNames')
-			: null;
-		const manufacturer = data.has('manufacturer') ? data.get('manufacturer') : null;
-		const otherInformation = data.has('otherInformation') ? data.get('otherInformation') : null;
 		const sessionId = event.cookies.get('sessionId');
+		const formData = Object.fromEntries(await request.formData());
+
+		type DrugSchema = z.infer<typeof createDrugSchema>;
+
+		let result: DrugSchema = {};
+		try {
+			result = createDrugSchema.parse(formData);
+			console.log('result', result);
+		} catch (err: any) {
+			const { fieldErrors: errors } = err.flatten();
+			console.log(errors);
+			const { ...rest } = formData;
+			return {
+				data: rest,
+				errors
+			};
+		}
 
 		const response = await createDrug(
 			sessionId,
-			drugName.valueOf() as string,
-			genericName.valueOf() as string,
-			ingredients.valueOf() as string,
-			strength.valueOf() as string,
-			otherCommercialNames.valueOf() as string,
-			manufacturer.valueOf() as string,
-			otherInformation.valueOf() as string
+			result.drugName,
+			result.genericName,
+			result.ingredients,
+			result.strength,
+			result.otherCommercialNames,
+			result.manufacturer,
+			result.otherInformation
 		);
 		const id = response.Data.Drug.id;
 
 		if (response.Status === 'failure' || response.HttpCode !== 201) {
-			throw redirect(303, '/drugs', errorMessage(response.Message), event);
+			throw redirect(303, `/users/${userId}/drugs`, errorMessage(response.Message), event);
 		}
 		throw redirect(
 			303,
 			`/users/${userId}/drugs/${id}/view`,
-			successMessage(`drug created successful!`),
+			successMessage(`Drug created successfully !`),
 			event
 		);
 	}

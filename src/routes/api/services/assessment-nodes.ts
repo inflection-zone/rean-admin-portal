@@ -13,17 +13,19 @@ export const createAssessmentNode = async (
 	message?: string,
 	serveListNodeChildrenAtOnce?: boolean,
 	queryType?: string,
-	options?: string[]
+	options?: string[],
+	sequence?: number,
 ) => {
 	const body = {
 		ParentNodeId: parentNodeId,
 		NodeType: nodeType,
 		Title: title,
-		Description: description,
-		Message: message,
+		Description: description ? description : null,
+		Message: message ? message : null,
 		ServeListNodeChildrenAtOnce: serveListNodeChildrenAtOnce,
 		QueryResponseType: queryType,
-		Options: options
+		Options: options,
+		Sequence:sequence
 	};
 	if (options && options.length > 0) {
 		let count = 1;
@@ -37,7 +39,6 @@ export const createAssessmentNode = async (
 			count = count + 1;
 		}
 		body.Options = options;
-		console.log('body', body);
 	}
 	const url = BACKEND_API_URL + `/clinical/assessment-templates/${templateId}/nodes`;
 	return await post_(sessionId, url, body, true);
@@ -81,15 +82,17 @@ export const updateAssessmentNode = async (
 	description: string,
 	queryType?: string,
 	options?: string[],
-	message?: string
+	message?: string,
+	sequence?: number,
 ) => {
 	const body = {
 		NodeType: nodeType,
 		Title: title,
-		Description: description,
-		Message: message,
+		Description: description ? description : null,
+		Message: message ? message : null,
 		QueryResponseType: queryType,
-		Options: options
+		Options: options,
+		Sequence: sequence,
 	};
 	if (options && options.length > 0) {
 		let count = 1;
@@ -114,7 +117,6 @@ export const deleteAssessmentNode = async (
 	nodeId: string
 ) => {
 	const url = BACKEND_API_URL + `/clinical/assessment-templates/${templateId}/nodes/${nodeId}`;
-	console.log('url', url);
 	return await delete_(sessionId, url, true);
 };
 
@@ -127,13 +129,40 @@ export const addScoringCondition = async (
 	sessionId: string,
 	templateId: string,
 	nodeId: string,
-	resolutionScore: number,
+	resolutionScore: number
 ) => {
 	const body = {
 		NodeId: nodeId,
 		ResolutionScore: resolutionScore
 	};
 	const url = BACKEND_API_URL + `/clinical/assessment-templates/${templateId}/scoring-conditions/`;
-	console.log("url",url)
 	return await post_(sessionId, url, body, true);
+};
+
+export const getScoringCondition = async (
+	sessionId: string,
+	templateId: string,
+	scoringConditionId: string
+) => {
+	const url =
+		BACKEND_API_URL +
+		`/clinical/assessment-templates/${templateId}/scoring-conditions/${scoringConditionId}`;
+	return await get_(sessionId, url, true);
+};
+
+export const updateScoringCondition = async (
+	sessionId: string,
+	templateId: string,
+	nodeId: string,
+	scoringConditionId: string,
+	resolutionScore: number
+) => {
+	const body = {
+		NodeId: nodeId,
+		ResolutionScore: resolutionScore
+	};
+	const url =
+		BACKEND_API_URL +
+		`/clinical/assessment-templates/${templateId}/scoring-conditions/${scoringConditionId}`;
+	return await put_(sessionId, url, body, true);
 };

@@ -3,9 +3,11 @@
 	import { faMultiply } from '@fortawesome/free-solid-svg-icons';
 	import BreadCrumbs from '$lib/components/breadcrumbs/breadcrums.svelte';
 	import { page } from '$app/stores';
-	import { FileButton } from '@skeletonlabs/skeleton';
 	import { showMessage } from '$lib/utils/message.utils';
 
+	////////////////////////////////////////////////////////////////////////////////////
+
+	export let form;
 	const userId = $page.params.userId;
 	let imageUrl = undefined;
 	let fileinput;
@@ -71,11 +73,11 @@
 <main class="h-screen mb-10">
 	<BreadCrumbs crumbs={breadCrumbs} />
 
-	<div class="px-5 mb-5 ">
+	<div class="">
 		<form
 			method="post"
 			action="?/createNotificationAction"
-			class="w-full  bg-[#ECE4FC] lg:mt-16 md:mt-8 sm:mt-6 mb-10 mt-4 lg:max-w-4xl md:max-w-xl sm:max-w-lg  rounded-lg mx-auto"
+			class="w-full  bg-[#ECE4FC] lg:mt-10 md:mt-8 sm:mt-6 mb-10 mt-4 lg:max-w-4xl md:max-w-xl sm:max-w-lg  rounded-lg mx-auto"
 		>
 			<div class="w-full  h-14 rounded-t-lg p-3  bg-[#7165E3]">
 				<div class="ml-3 relative flex flex-row text-white text-xl">
@@ -94,11 +96,23 @@
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
 					<!-- svelte-ignore a11y-label-has-associated-control -->
 					<label class="label">
-						<span>Title</span>
+						<span>Title *</span>
 					</label>
 				</div>
 				<div class="w-1/2 md:w-2/3 lg:w-2/3">
-					<input type="text" name="title" placeholder="Enter title here..." class="input" />
+					<input
+						type="text"
+						name="title"
+						required
+						placeholder="Enter title here..."
+						class="input {form?.errors?.title
+							? 'border-error-300 text-error-500'
+							: 'border-primary-200 text-primary-500'}"
+						value={form?.data?.title ?? ''}
+					/>
+					{#if form?.errors?.title}
+						<p class="text-error-500 text-xs">{form?.errors?.title[0]}</p>
+					{/if}
 				</div>
 			</div>
 
@@ -110,7 +124,18 @@
 					</label>
 				</div>
 				<div class="w-1/2 md:w-2/3 lg:w-2/3">
-					<input type="text" name="Body" placeholder="Enter body here..." class="input w-full " />
+					<input
+						type="text"
+						name="body"
+						placeholder="Enter body here..."
+						class="input w-full {form?.errors?.body
+							? 'border-error-300 text-error-500'
+							: 'border-primary-200 text-primary-500'}"
+						value={form?.data?.body ?? ''}
+					/>
+					{#if form?.errors?.body}
+						<p class="text-error-500 text-xs">{form?.errors?.body[0]}</p>
+					{/if}
 				</div>
 			</div>
 
@@ -128,6 +153,9 @@
 						<option>Dark mode</option>
 						<option>Light mode</option>
 					</select>
+					{#if form?.errors?.type}
+						<p class="text-error-500 text-xs">{form?.errors?.type[0]}</p>
+					{/if}
 				</div>
 			</div>
 
@@ -146,6 +174,9 @@
 							value="true"
 							class="checkbox checkbox-primary border-primary-200 hover:border-primary-400 checkbox-md ml-2"
 						/>
+						{#if form?.errors?.broadcastToAll}
+							<p class="text-error-500 text-xs">{form?.errors?.broadcastToAll[0]}</p>
+						{/if}
 					</label>
 				</div>
 			</div>
@@ -167,11 +198,10 @@
 						placeholder="Image"
 						on:change={async (e) => await onFileSelected(e)}
 					/>
-					<!-- <button 
-						class="capitalize btn variant-filled-primary lg:w-[19%] md:w-[22%] md:text-[13px] sm:w-[30%] sm:text-[12px] min-[320px]:w-[40%] min-[320px]:text-[10px]"
-						>Upload</button
-					> -->
 					<input type="hidden" name="imageUrl" value={imageUrl} />
+					{#if form?.errors?.imageUrl}
+						<p class="text-error-500 text-xs">{form?.errors?.imageUrl[0]}</p>
+					{/if}
 				</div>
 			</div>
 

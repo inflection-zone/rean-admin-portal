@@ -16,9 +16,11 @@
 	let id = data.course.id;
 	let name = data.course.Name;
 	let description = data.course.Description;
+	let durationInDays = data.course.DurationInDays;
 	let imageUrl = data.course.ImageUrl;
 	let modules = data.course.Modules;
-	let durationInDays = data.course.DurationInDays;
+
+	modules = modules.sort((a, b) => { return a.Sequence - b.Sequence; });
 	console.log(data.course);
 
 	onMount(() => {
@@ -32,6 +34,8 @@
 	const viewRoute = `/users/${userId}/courses/${courseId}/view`;
 	const courseRoute = `/users/${userId}/courses`;
 	const moduleRoute = `/users/${userId}/courses/${courseId}/modules/create`;
+	const moduleViewRoute = (courseId, moduleId) => `/users/${userId}/courses/${courseId}/modules/${moduleId}/view`;
+	const contentViewRoute = (courseId, moduleId, contentId) => `/users/${userId}/courses/${courseId}/modules/${moduleId}/contents/${contentId}/view`;
 
 	const breadCrumbs = [
 		{
@@ -51,7 +55,7 @@
 	<div>
 		<form
 			method="get"
-			class="w-full lg:max-w-4xl md:max-w-xl sm:max-w-lg mb-10 bg-[#ECE4FC] mt-6 rounded-lg mx-auto"
+			class="w-full  bg-[#ECE4FC] lg:mt-10 md:mt-8 sm:mt-6 mb-10 mt-4 lg:max-w-4xl md:max-w-xl sm:max-w-lg  rounded-lg mx-auto"
 		>
 			<div class="w-full  h-14 rounded-t-lg p-3  bg-[#7165E3]">
 				<div class="ml-3 relative flex flex-row text-white lg:text-xl text-lg ">
@@ -102,7 +106,6 @@
 				</div>
 				{#if imageUrl === 'undefined'}
 					<span class="span">Not specified</span>
-					<!-- <img class="flex h-24 w-24 rounded-full" src={avatarSource} alt="d" /> -->
 				{:else}
 					<Image cls="flex h-24 w-24 rounded-lg" source={imageUrl} w="24" h="24" />
 				{/if}
@@ -123,14 +126,20 @@
 							{#each modules as module, i}
 								<TreeBranch defaultClosed>
 									<div slot="root" class="flex">
-										<img class="w-6 mr-2 mb-4" alt="logo" src="/module.png" />
-										{i + 1}-{module.Name}
+										<a href={moduleViewRoute(courseId, module.id)}>
+											<div class="flex">
+												<img class="w-6 mr-2 mb-4" alt="logo" src="/module.png" />
+												{module.Sequence}-{module.Name}
+											</div>
+										</a>
 									</div>
 									{#each module.Contents as content, i}
 										<TreeLeaf>
 											<div class="flex">
+												<a href={contentViewRoute(courseId, module.id, content.id)}>
+													<div class="flex">
 												<img class="w-6 mr-2 mb-4" alt="logo" src="/content.png" />
-												{content.Sequence}-{content.Title}
+												{content.Sequence}-{content.Title}</div></a>
 											</div>
 										</TreeLeaf>
 									{/each}
@@ -141,7 +150,7 @@
 				</span>
 			</div>
 
-			<div class="flex items-center mt-10 lg:mx-10 md:mx-16 min-[280px]:mr-72">
+			<div class="flex items-center mt-10 lg:mx-10 md:mx-16 sm:mr-10 min-[280px]:mr-72">
 				<div class="lg:w-8/12 min-[280px]:w-1/3 sm:w-1/6 md:w-1/2" />
 				<div class="flex lg:w-1/4 min-[280px]:w-1/6 sm:w-5/6 sm:mr-10 gap-3">
 					<a href={moduleRoute}>

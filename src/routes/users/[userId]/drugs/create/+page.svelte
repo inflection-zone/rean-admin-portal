@@ -4,6 +4,7 @@
 	import BreadCrumbs from '$lib/components/breadcrumbs/breadcrums.svelte';
 	import { page } from '$app/stores';
 
+	export let form;
 	const userId = $page.params.userId;
 	const createRoute = `/users/${userId}/drugs/create`;
 	const drugsRoute = `/users/${userId}/drugs`;
@@ -23,7 +24,7 @@
 <main class="h-screen mb-32">
 	<BreadCrumbs crumbs={breadCrumbs} />
 
-	<div class="px-5 mb-5 ">
+	<div class="">
 		<form
 			method="post"
 			action="?/createDrugAction"
@@ -46,16 +47,23 @@
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
 					<!-- svelte-ignore a11y-label-has-associated-control -->
 					<label class="label">
-						<span>Name</span>
+						<span>Name *</span>
 					</label>
 				</div>
 				<div class="w-1/2 md:w-2/3 lg:w-2/3">
 					<input
 						type="text"
 						name="drugName"
+						required
 						placeholder="Enter name here..."
-						class="input w-full "
+						class="input w-full {form?.errors?.drugName
+							? 'border-error-300 text-error-500'
+							: 'border-primary-200 text-primary-500'}"
+						value={form?.data?.drugName ?? ''}
 					/>
+					{#if form?.errors?.drugName}
+						<p class="text-error-500 text-xs">{form?.errors?.drugName[0]}</p>
+					{/if}
 				</div>
 			</div>
 
@@ -77,6 +85,9 @@
 						<option>Dark mode</option>
 						<option>Light mode</option>
 					</select>
+					{#if form?.errors?.genericName}
+						<p class="text-error-500 text-xs">{form?.errors?.genericName[0]}</p>
+					{/if}
 				</div>
 			</div>
 
@@ -92,8 +103,14 @@
 						type="text"
 						name="ingredients"
 						placeholder="Enter ingredients here..."
-						class="input w-full "
+						class="input w-full {form?.errors?.ingredients
+							? 'border-error-300 text-error-500'
+							: 'border-primary-200 text-primary-500'}"
+						value={form?.data?.ingredients ?? ''}
 					/>
+					{#if form?.errors?.ingredients}
+						<p class="text-error-500 text-xs">{form?.errors?.ingredients[0]}</p>
+					{/if}
 				</div>
 			</div>
 
@@ -108,9 +125,12 @@
 					<select class="select w-full" name="strength" placeholder="Select strength here...">
 						<option selected>High</option>
 						<option>Auto</option>
-						<option>low</option>
-						<option>medium</option>
+						<option>Low</option>
+						<option>Medium</option>
 					</select>
+					{#if form?.errors?.strength}
+						<p class="text-error-500 text-xs">{form?.errors?.strength[0]}</p>
+					{/if}
 				</div>
 			</div>
 
@@ -126,8 +146,14 @@
 						type="text"
 						name="otherCommercialNames"
 						placeholder="Enter commercial name here..."
-						class="input w-full "
+						class="input w-full {form?.errors?.otherCommercialNames
+							? 'border-error-300 text-error-500'
+							: 'border-primary-200 text-primary-500'}"
+						value={form?.data?.otherCommercialNames ?? ''}
 					/>
+					{#if form?.errors?.otherCommercialNames}
+						<p class="text-error-500 text-xs">{form?.errors?.otherCommercialNames[0]}</p>
+					{/if}
 				</div>
 			</div>
 
@@ -143,8 +169,14 @@
 						type="text"
 						name="manufacturer"
 						placeholder="Enter manufacture here..."
-						class="input w-full "
+						class="input w-full {form?.errors?.manufacturer
+							? 'border-error-300 text-error-500'
+							: 'border-primary-200 text-primary-500'}"
+						value={form?.data?.manufacturer ?? ''}
 					/>
+					{#if form?.errors?.manufacturer}
+						<p class="text-error-500 text-xs">{form?.errors?.manufacturer[0]}</p>
+					{/if}
 				</div>
 			</div>
 
@@ -160,8 +192,14 @@
 						type="text"
 						name="otherInformation"
 						placeholder="Enter other information here..."
-						class="input w-full "
+						class="input w-full {form?.errors?.otherInformation
+							? 'border-error-300 text-error-500'
+							: 'border-primary-200 text-primary-500'}"
+						value={form?.data?.otherInformation ?? ''}
 					/>
+					{#if form?.errors?.manufacturer}
+						<p class="text-error-500 text-xs">{form?.errors?.otherInformation[0]}</p>
+					{/if}
 				</div>
 			</div>
 

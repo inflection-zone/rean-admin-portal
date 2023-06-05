@@ -2,15 +2,20 @@
 	import Fa from 'svelte-fa';
 	import { faMultiply, faPen, faPencil, faTrash } from '@fortawesome/free-solid-svg-icons';
 	import { onMount } from 'svelte';
-	import { show } from '$lib/utils/message.utils';
+	import { show, showMessage } from '$lib/utils/message.utils';
 	import { LocalStorageUtils } from '$lib/utils/local.storage.utils';
 	import BreadCrumbs from '$lib/components/breadcrumbs/breadcrums.svelte';
 	import { page } from '$app/stores';
 	import type { PageServerData } from './$types';
 	import Confirm from '$lib/components/modal/confirmModal.svelte';
+	import UpdateScoringCondition from '$lib/components/modal/update.scoring.condition.modal.svelte';
+	import { scoringApplicableCondition, showScoringConditionModal } from '$lib/store/general.store';
+	import { Helper } from '$lib/utils/helper';
+
 	////////////////////////////////////////////////////////////////////////////////////////////
 
 	export let data: PageServerData;
+	let sessionId = data.sessionId;
 	let id = data.assessmentNode.id;
 	let nodeType = data.assessmentNode.NodeType;
 	let title = data.assessmentNode.Title;
@@ -21,6 +26,18 @@
 	let options = data.assessmentNode.Options ?? [];
 	let childrenNodes = data.assessmentNode.Children ?? [];
 	let displayCode = data.assessmentNode.DisplayCode;
+	let resolutionScore;
+	let sequence = data.assessmentNode.Sequence;
+
+	$:resolutionScore;
+
+	if (nodeType === 'Question') {
+		resolutionScore = data.assessmentNode.ScoringCondition.ResolutionScore;
+	}
+
+	scoringApplicableCondition.set(data.templateScoringCondition.ScoringApplicable);
+
+	console.log("assessmentNode", data.assessmentNode)
 
 	onMount(() => {
 		show(data);
@@ -30,14 +47,24 @@
 	const userId = $page.params.userId;
 	const templateId = $page.params.templateId;
 	const nodeId = $page.params.nodeId;
+	const assessmentsRoutes = `/users/${userId}/assessment-templates`;
 	const editRoute = `/users/${userId}/assessment-templates/${templateId}/assessment-nodes/${nodeId}/edit`;
 	const viewRoute = `/users/${userId}/assessment-templates/${templateId}/assessment-nodes/${nodeId}/view`;
 	const assessmentNodeRoutes = `/users/${userId}/assessment-templates/${templateId}/assessment-nodes`;
 	const createNodeRoute = `/users/${userId}/assessment-templates/${templateId}/assessment-nodes/create`;
+	const assessmentTemplateView =`/users/${userId}/assessment-templates/${templateId}/view`
 	const editNodeRoute = (id) =>
 		`/users/${userId}/assessment-templates/${templateId}/assessment-nodes/${id}/edit`;
 
 	const breadCrumbs = [
+		{
+			name: 'Assessments',
+			path: assessmentsRoutes
+		},
+		{
+			name: 'Assessment-View',
+			path: assessmentTemplateView
+		},
 		{
 			name: 'Assessment-Nodes',
 			path: assessmentNodeRoutes
@@ -47,7 +74,6 @@
 			path: viewRoute
 		}
 	];
-
 	const handleAssessmentNodeDelete = async (e, id) => {
 		const assessmentNodeId = id;
 		console.log('assessmentNodeId', assessmentNodeId);
@@ -69,15 +95,45 @@
 		});
 		console.log();
 	}
+
+	const onUpdateScoringCondition = async (resolutionScore: number) => {
+		const scoringId = data.assessmentNode.ScoringCondition.id;
+		console.log(scoringId)
+		await updateApiKey({
+			sessionId,
+			templateId,
+			nodeId,
+			scoringConditionId : data.assessmentNode.ScoringCondition.id,
+			resolutionScore: resolutionScore
+		});
+	};
+
+	async function updateApiKey(model) {
+		const response = await fetch(`/api/server/assessment-nodes/update-scoring-condition`, {
+			method: 'POST',
+			body: JSON.stringify(model),
+			headers: {
+				'content-type': 'application/json'
+			}
+		});
+		const resp = await response.text();
+		const scoringCondition = JSON.parse(resp);
+		resolutionScore = scoringCondition.ResolutionScore;
+		console.log(response);
+	}
 </script>
 
+<UpdateScoringCondition
+	on:updateScoringCondition={async (e) => {
+		await onUpdateScoringCondition(e.detail.resolutionScore);
+	}}
+/>
 <main class="h-screen mb-10">
 	<BreadCrumbs crumbs={breadCrumbs} />
-
 	<div>
 		<form
 			method="get"
-			class="w-full  bg-[#ECE4FC] lg:mt-10 md:mt-8 sm:mt-6 mb-10 mt-4 lg:max-w-4xl md:max-w-xl sm:max-w-lg  rounded-lg mx-auto"
+			class="w-full lg:mt-10 md:mt-8 sm:mt-6 lg:max-w-4xl md:max-w-xl sm:max-w-lg bg-[#ECE4FC] mt-6 mb-20  rounded-lg mx-auto"
 		>
 			<div class="w-full  h-14 rounded-t-lg p-3  bg-[#7165E3]">
 				<div class="ml-3 relative flex flex-row text-white lg:text-xl text-lg ">
@@ -128,8 +184,17 @@
 				</div>
 				<span class="span w-1/2 md:2/3 lg:2/3" id="description">{description}</span>
 			</div>
+			<div class="flex items-center my-4 lg:mx-16 md:mx-12 mx-10">
+				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
+					<!-- svelte-ignore a11y-label-has-associated-control -->
+					<label class="label">
+						<span>Sequence</span>
+					</label>
+				</div>
+				<span class="span w-1/2 md:2/3 lg:2/3" id="sequence">{sequence}</span>
+			</div>
 
-			{#if nodeType === 'Questin'}
+			{#if nodeType === 'Question'}
 				<div class="flex items-center mb-4 lg:mx-16 md:mx-12 mx-10">
 					<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
 						<!-- svelte-ignore a11y-label-has-associated-control -->
@@ -137,10 +202,10 @@
 							<span>Query Response Type</span>
 						</label>
 					</div>
-					<span class="span w-1/2 md:2/3 lg:2/3" id="queryType"> {queryType} </span>
+					<span class="span w-1/2 md:2/3 lg:2/3" id="queryType">{queryType}</span>
 				</div>
 
-				<div class="flex items-start my-4 lg:mx-16 md:mx-12 mx-10">
+				<div class="flex items-start mt-4 lg:mx-16 md:mx-12 mx-10">
 					{#if options.length > 0}
 						<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
 							<!-- svelte-ignore a11y-label-has-associated-control -->
@@ -148,13 +213,32 @@
 								<span>Options</span>
 							</label>
 						</div>
-						<ol class="span w-1/2 md:w-2/3 lg:w-2/3 list-decimal ml-3" id="modules">
+						<ol class="span w-1/2 md:w-2/3 lg:w-2/3 list-decimal ml-6" id="modules">
 							{#each options as option}
 								<li>{option.Text}</li>
 							{/each}
 						</ol>
 					{/if}
 				</div>
+				{#if $scoringApplicableCondition === true}
+					<div class="flex items-center mb-4 lg:mx-16 md:mx-12 mx-10">
+						<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
+							<!-- svelte-ignore a11y-label-has-associated-control -->
+							<label class="label">
+								<span>Resolution Score</span>
+							</label>
+						</div>
+						<div class="flex  items-center gap-12 w-1/2 md:2/3 lg:2/3">
+							<span class="span" id="description">{resolutionScore}</span>
+							<button
+							class="btn variant-ringed-primary text-primary-500 btn-md"
+							on:click|preventDefault={async () => showScoringConditionModal.set(true)}
+						>
+							Update Score
+						</button>
+						</div>
+					</div>
+				{/if}
 			{:else if nodeType === 'Message'}
 				<div class="flex items-center my-4 lg:mx-16 md:mx-12 mx-10">
 					<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
@@ -204,13 +288,13 @@
 										<tr>
 											<td style="width: 10%;">{node.Sequence}</td>
 											<td style="width: 20%;">{node.NodeType}</td>
-											<td style="width: 60%;">{node.Title}</td>
-											<td style="width: 5%;">
+											<td style="width: 40%;">{Helper.truncateText(node.Title, 30)}</td>
+											<td style="width: 10%;">
 												<a href={editNodeRoute(node.id)}
 													><Fa icon={faPencil} style="color-text-primary" size="md" /></a
 												>
 											</td>
-											<td style="width: 5%;">
+											<td style="width: 10%;">
 												<Confirm
 													confirmTitle="Delete"
 													cancelTitle="Cancel"
@@ -234,7 +318,6 @@
 									{/each}
 								</tbody>
 							</table>
-							<!-- <li>{node.Title}</li> -->
 						</div>
 					{/if}
 				</div>

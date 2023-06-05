@@ -35,12 +35,12 @@
 
 </script>
 
-<div class="collapsible pb-1 ml-3 first:pt-4 ">
+<div class="collapsible pb-1 lg:ml-4 md:mr-4 sm:mr-4 min-[280px]:mr-5 first:pt-4 min-[280px]:flex-col overflow-auto">
 
 	<!-- svelte-ignore a11y-click-events-have-key-events -->
 	<span 
 		style="--color:{color}; --paddingBottom:{paddingBottom}; --paddingTop:{paddingTop}; --paddingLeft:{paddingLeft}; paddingRight:{paddingRight};--marginBottom:{marginBottom};"
-		class="text-lg text-white pr-6 justify-start "
+		class="text-lg text-white pr-6 justify-start min-[280px]:w-full overflow-auto"
 	>
 			<div class=" flex gap-2">
 			<!-- svelte-ignore a11y-missing-attribute -->
@@ -50,7 +50,7 @@
 			
 		</div>
 		<!-- </div> -->
-		<div class="flex gap-6 justify-end">
+		<div class="flex gap-3 lg:gap-6 md:gap-4 justify-end">
 			<div class="text-white text-center pr-0 mr-5">
 				{itemsCount}
 			</div>
@@ -86,7 +86,7 @@
 				on:click={() => (expanded = !expanded)}
 				viewBox="0 0 20 20"
 				fill="none"
-				class="pt-1 pr-3 h-4 w-2"
+				class="pt-1 pr-3 h-4 w-4"
 			>
 				{#if expanded == false}
 					<Fa class="vert" icon={faAngleDown} />

@@ -13,10 +13,10 @@ export const createNotification = async (
 ) => {
 	const body = {
 		Title: title,
-		Body: Body,
-		Type: type,
-		BroadcastToAll: broadcastToAll,
-		ImageUrl: imageUrl
+		Body: Body ? Body : null,
+		Type: type ? type : null,
+		BroadcastToAll: broadcastToAll ? broadcastToAll : false,
+		ImageUrl: imageUrl ? imageUrl : null
 	};
 	const url = BACKEND_API_URL + '/general/notifications';
 	return await post_(sessionId, url, body, true);
@@ -58,10 +58,10 @@ export const updateNotification = async (
 ) => {
 	const body = {
 		Title: title,
-		Body: Body,
-		Type: type,
-		BroadcastToAll: broadcastToAll,
-		ImageUrl: imageUrl
+		Body: Body ? Body : null,
+		Type: type ? type : null,
+		BroadcastToAll: broadcastToAll ? broadcastToAll : false,
+		ImageUrl: imageUrl ? imageUrl : null
 	};
 	const url = BACKEND_API_URL + `/general/notifications/${notificationId}`;
 	return await put_(sessionId, url, body, true);

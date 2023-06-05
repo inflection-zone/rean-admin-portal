@@ -7,10 +7,13 @@
 
 	/////////////////////////////////////////////////////////////////////////////////////////
 
+	export let form;
 	const userId = $page.params.userId;
 	const courseId = $page.params.courseId;
+
 	let imageUrl = undefined;
 	let fileinput;
+
 	const createRoute = `/users/${userId}/courses/${courseId}/modules/create`;
 	const courseRoute = `/users/${userId}/courses`;
 	const moduleRoute = `/users/${userId}/courses/${courseId}/modules`;
@@ -22,7 +25,7 @@
 		},
 		{
 			name: 'Modules',
-			path: moduleRoute
+			path: createRoute
 		},
 		{
 			name: 'Create',
@@ -103,7 +106,19 @@
 					</label>
 				</div>
 				<div class="w-1/2 md:w-2/3 lg:w-2/3">
-					<input type="text" name="name" required placeholder="Enter name here..." class="input w-full " />
+					<input
+						type="text"
+						name="name"
+						required
+						placeholder="Enter name here..."
+						class="input w-full {form?.errors?.name
+							? 'border-error-300 text-error-500'
+							: 'border-primary-200 text-primary-500'}"
+						value={form?.data?.name ?? ''}
+					/>
+					{#if form?.errors?.name}
+						<p class="text-error-500 text-xs">{form?.errors?.name[0]}</p>
+					{/if}
 				</div>
 			</div>
 			<div class="flex items-center mb-2 lg:mx-16 md:mx-12 mx-10">
@@ -116,23 +131,16 @@
 				<div class="w-1/2 md:w-2/3 lg:w-2/3">
 					<textarea
 						name="description"
-						class="textarea w-full"
 						placeholder="Enter  description here..."
+						class="textarea w-full {form?.errors?.description
+							? 'border-error-300 text-error-500'
+							: 'border-primary-200 text-primary-500'}"
 					/>
+					{#if form?.errors?.description}
+						<p class="text-error-500 text-xs">{form?.errors?.description[0]}</p>
+					{/if}
 				</div>
 			</div>
-
-			<!-- <div class="flex items-center my-2 lg:mx-16 md:mx-12 mx-10">
-				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
-		
-					<label class="label">
-						<span>Sequence</span>
-					</label>
-				</div>
-				<div class="w-1/2 md:w-2/3 lg:w-2/3">
-					<input type="number" name="sequence" placeholder="Enter sequence here..." class="input w-full " />
-				</div>
-			</div> -->
 
 			<div class="flex items-center mb-4 mt-2 lg:mx-16 md:mx-12 mx-10">
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
@@ -146,13 +154,43 @@
 						type="number"
 						name="durationInMins"
 						placeholder="Enter duration here..."
-						class="input w-full "
+						class="input w-full {form?.errors?.durationInMins
+							? 'border-error-300 text-error-500'
+							: 'border-primary-200 text-primary-500'}"
+						value={form?.data?.durationInMins ?? ''}
 					/>
+					{#if form?.errors?.durationInMins}
+						<p class="text-error-500 text-xs">{form?.errors?.durationInMins[0]}</p>
+					{/if}
 				</div>
 			</div>
 
-			<!-- <div class="flex items-center my-4 lg:mx-16 md:mx-12 mx-10">
+			<div class="flex items-center my-4 lg:mx-16 md:mx-12 mx-10">
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
+					<!-- svelte-ignore a11y-label-has-associated-control -->
+					<label class="label">
+						<span>Sequence</span>
+					</label>
+				</div>
+				<div class="w-1/2 md:w-2/3 lg:w-2/3">
+					<input
+						type="number"
+						name="sequence"
+						placeholder="Enter sequence here..."
+						class="input w-full {form?.errors?.sequence
+							? 'border-error-300 text-error-500'
+							: 'border-primary-200 text-primary-500'}"
+						value={form?.data?.sequence ?? ''}
+					/>
+					{#if form?.errors?.sequence}
+						<p class="text-error-500 text-xs">{form?.errors?.sequence[0]}</p>
+					{/if}
+				</div>
+			</div>
+
+			<div class="flex items-center my-4 lg:mx-16 md:mx-12 mx-10">
+				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
+					<!-- svelte-ignore a11y-label-has-associated-control -->
 					<label class="label">
 						<span>Image</span>
 					</label>
@@ -167,8 +205,11 @@
 						on:change={async (e) => await onFileSelected(e)}
 					/>
 					<input type="hidden" name="imageUrl" value={imageUrl} />
+					{#if form?.errors?.imageUrl}
+						<p class="text-error-500 text-xs">{form?.errors?.imageUrl[0]}</p>
+					{/if}
 				</div>
-			</div> -->
+			</div>
 
 			<div class="flex items-center mt-7 lg:mx-16 md:mx-12 mr-10">
 				<div class="w-3/4" />

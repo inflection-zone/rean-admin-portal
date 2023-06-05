@@ -15,6 +15,7 @@
 	let title = data.newsfeedItem.Title;
 	let description = data.newsfeedItem.Description;
 	let link = data.newsfeedItem.Link;
+	let content = data.newsfeedItem.Content;
 	let authorName = data.newsfeedItem.AuthorName;
 	let authorEmail = data.newsfeedItem.AuthorEmail;
 	let authorLink = data.newsfeedItem.AuthorLink;
@@ -49,13 +50,13 @@
 	];
 </script>
 
-<main class="h-screen mb-10">
+<main class="h-screen mb-20">
 	<BreadCrumbs crumbs={breadCrumbs} />
 
-	<div class="px-3 mb-5">
+	<div class="">
 		<form
 			method="get"
-			class="w-full lg:max-w-4xl md:max-w-xl sm:max-w-lg mb-10 bg-[#ECE4FC] mt-6 rounded-lg mx-auto"
+			class="w-full  bg-[#ECE4FC] lg:mt-10 md:mt-8 sm:mt-6 mb-10 mt-4 lg:max-w-4xl md:max-w-xl sm:max-w-lg  rounded-lg mx-auto"
 		>
 			<div class="w-full  h-14 rounded-t-lg p-3  bg-[#7165E3]">
 				<div class="ml-3 relative flex flex-row text-white lg:text-xl text-lg ">
@@ -95,6 +96,16 @@
 					</label>
 				</div>
 				<span class="span w-1/2 md:2/3 lg:2/3" id="link"> {link} </span>
+			</div>
+
+			<div class="flex items-center my-4 lg:mx-16 md:mx-12 mx-10">
+				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
+					<!-- svelte-ignore a11y-label-has-associated-control -->
+					<label class="label">
+						<span>Content</span>
+					</label>
+				</div>
+				<span class="span w-1/2 md:2/3 lg:2/3" id="content"> {content} </span>
 			</div>
 
 			<div class="flex items-center my-4 lg:mx-16 md:mx-12 mx-10">

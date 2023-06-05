@@ -1,6 +1,5 @@
-import * as cookie from 'cookie';
-import { error, redirect, type RequestEvent } from '@sveltejs/kit';
-import type { PageServerLoad, Action } from './$types';
+import { error, type RequestEvent } from '@sveltejs/kit';
+import type { PageServerLoad } from './$types';
 import { getPersonRoleTypeById } from '../../../../../api/services/person-role-types';
 
 ////////////////////////////////////////////////////////////////////////////

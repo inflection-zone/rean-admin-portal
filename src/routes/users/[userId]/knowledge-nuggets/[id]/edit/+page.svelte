@@ -6,13 +6,13 @@
 	import { page } from '$app/stores';
 	import { InputChip } from '@skeletonlabs/skeleton';
 
+	export let form;
 	export let data: PageServerData;
 	let initiaData = {};
 	let id = data.KnowledgeNugget.id;
 	let topicName = data.KnowledgeNugget.TopicName;
 	let briefInformation = data.KnowledgeNugget.BriefInformation;
 	let detailedInformation = data.KnowledgeNugget.DetailedInformation;
-	// let additionalResources = data.KnowledgeNugget.AdditionalResources;
 	let additionalResources_ = data.KnowledgeNugget.AdditionalResources;
 	let additionalResources = additionalResources_.join(', ');
 	let tags = data.KnowledgeNugget.Tags;
@@ -29,6 +29,7 @@
 	function handleTags(event) {
 		retrievedTags = event.detail.tags;
 	}
+
 	function handleReset() {
 		topicName = _topicName;
 		briefInformation = _briefInformation;
@@ -57,7 +58,7 @@
 <main class="h-screen mb-10">
 	<BreadCrumbs crumbs={breadCrumbs} />
 
-	<div class="h-screen mb-10 ">
+	<div class="">
 		<form
 			method="post"
 			action="?/updateKnowledgeNuggetAction"
@@ -76,25 +77,33 @@
 				</div>
 			</div>
 			<div class="hidden">{id}</div>
+
 			<div class="flex items-center mb-4 mt-10 lg:mx-16 md:mx-12 mx-10">
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
 					<!-- svelte-ignore a11y-label-has-associated-control -->
 					<label class="label">
-						<span>Name</span>
+						<span>Name *</span>
 					</label>
 				</div>
+
 				<div class="w-1/2 md:w-2/3 lg:w-2/3">
 					<input
 						type="text"
 						name="topicName"
+						required
 						bind:value={topicName}
-						placeholder="Enter  name here..."
-						class="input w-full "
+						placeholder="Enter name here..."
+						class="input w-full {form?.errors?.topicName
+							? 'border-error-300 text-error-500'
+							: 'border-primary-200 text-primary-500'}"
 					/>
+					{#if form?.errors?.topicName}
+						<p class="text-error-500 text-xs">{form?.errors?.topicName[0]}</p>
+					{/if}
 				</div>
 			</div>
 
-			<div class="flex items-center mb-4 lg:mx-16 md:mx-12 mx-10">
+			<div class="flex items-start mb-2 lg:mx-16 md:mx-12 mx-10">
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
 					<!-- svelte-ignore a11y-label-has-associated-control -->
 					<label class="label">
@@ -105,12 +114,18 @@
 					<textarea
 						name="briefInformation"
 						bind:value={briefInformation}
-						class="textarea w-full"
 						placeholder="Enter  brief information here..."
+						class="textarea w-full {form?.errors?.briefInformation
+							? 'border-error-300 text-error-500'
+							: 'border-primary-200 text-primary-500'}"
 					/>
+					{#if form?.errors?.briefInformation}
+						<p class="text-error-500 text-xs">{form?.errors?.briefInformation[0]}</p>
+					{/if}
 				</div>
 			</div>
-			<div class="flex items-center mb-4 lg:mx-16 md:mx-12 mx-10">
+
+			<div class="flex items-start mb-2 lg:mx-16 md:mx-12 mx-10">
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
 					<!-- svelte-ignore a11y-label-has-associated-control -->
 					<label class="label">
@@ -121,11 +136,17 @@
 					<textarea
 						name="detailedInformation"
 						bind:value={detailedInformation}
-						class="textarea w-full"
 						placeholder="Enter detailed information here..."
+						class="textarea w-full {form?.errors?.detailedInformation
+							? 'border-error-300 text-error-500'
+							: 'border-primary-200 text-primary-500'}"
 					/>
+					{#if form?.errors?.detailedInformation}
+						<p class="text-error-500 text-xs">{form?.errors?.detailedInformation[0]}</p>
+					{/if}
 				</div>
 			</div>
+
 			<div class="flex items-center mb-4 lg:mx-16 md:mx-12 mx-10">
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
 					<!-- svelte-ignore a11y-label-has-associated-control -->
@@ -134,16 +155,20 @@
 					</label>
 				</div>
 				<div class="w-1/2 md:w-2/3 lg:w-2/3">
-					<textarea
+					<input
+						type="text"
 						name="additionalResources"
 						bind:value={additionalResources}
 						class="input w-full"
 						placeholder="Enter additional resource here..."
 					/>
+					{#if form?.errors?.additionalResources}
+						<p class="text-error-500 text-xs">{form?.errors?.additionalResources[0]}</p>
+					{/if}
 				</div>
 			</div>
 
-			<div class="flex items-center mb-4 lg:mx-16 md:mx-12 mx-10">
+			<div class="flex items-start mb-4 lg:mx-16 md:mx-12 mx-10">
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
 					<!-- svelte-ignore a11y-label-has-associated-control -->
 					<label class="label">
@@ -152,6 +177,9 @@
 				</div>
 				<div class="w-1/2 md:w-2/3 lg:w-2/3">
 					<InputChip chips="variant-filled-error rounded-2xl" name="tags" bind:value={tags} />
+					{#if form?.errors?.tags}
+						<p class="text-error-500 text-xs">{form?.errors?.tags[0]}</p>
+					{/if}
 				</div>
 			</div>
 
@@ -161,7 +189,7 @@
 					<button
 						type="button"
 						on:click={handleReset}
-						class="btn variant-ringed-primary btn-outline lg:w-40 lg:ml-8 md:ml-6 sm:ml-1 mb-10"
+						class="btn variant-ringed-primary text-primary-500 btn-outline lg:w-40 lg:ml-8 md:ml-6 sm:ml-1 mb-10"
 					>
 						Reset</button
 					>

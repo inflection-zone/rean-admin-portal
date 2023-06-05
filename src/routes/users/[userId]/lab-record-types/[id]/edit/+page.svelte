@@ -5,6 +5,7 @@
 	import { page } from '$app/stores';
 	import type { PageServerData } from './$types';
 
+	export let form;
 	export let data: PageServerData;
 	let initiaData = {};
 	let id = data.labRecordType.id;
@@ -42,7 +43,7 @@
 
 	const breadCrumbs = [
 		{
-			name: 'Lab-Record-Types',
+			name: 'Lab-Records',
 			path: labRecordTypesRoute
 		},
 		{
@@ -55,11 +56,11 @@
 <main class="h-screen mb-32">
 	<BreadCrumbs crumbs={breadCrumbs} />
 
-	<div class=" flex justify-center mt-5 px-3 mb-10 flex-col items-center">
+	<div class="">
 		<form
 			method="post"
 			action="?/updateLabRecordTypeAction"
-			class="w-full lg:max-w-4xl md:max-w-xl sm:max-w-lg bg-[#ECE4FC] rounded-lg mx-auto"
+			class="w-full  bg-[#ECE4FC] lg:mt-10 md:mt-8 sm:mt-6 mb-10 mt-4 lg:max-w-4xl md:max-w-xl sm:max-w-lg  rounded-lg mx-auto"
 		>
 			<div class="w-full  h-14 rounded-t-lg p-3  bg-[#7165E3]">
 				<div class="ml-3 relative flex flex-row text-white text-xl">
@@ -70,21 +71,28 @@
 				</div>
 			</div>
 			<div class="hidden">{id}</div>
+
 			<div class="flex items-center mb-4 mt-10 lg:mx-16 md:mx-12 mx-10">
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
 					<!-- svelte-ignore a11y-label-has-associated-control -->
 					<label class="label">
-						<span>Type Name</span>
+						<span>Type Name *</span>
 					</label>
 				</div>
 				<div class="w-1/2 md:w-2/3 lg:w-2/3">
 					<input
 						type="text"
 						name="typeName"
+						required
 						bind:value={typeName}
 						placeholder="Enter type name here..."
-						class="input w-full "
+						class="input w-full {form?.errors?.typeName
+							? 'border-error-300 text-error-500'
+							: 'border-primary-200 text-primary-500'}"
 					/>
+					{#if form?.errors?.typeName}
+						<p class="text-error-500 text-xs">{form?.errors?.typeName[0]}</p>
+					{/if}
 				</div>
 			</div>
 
@@ -100,9 +108,14 @@
 						type="text"
 						name="displayName"
 						bind:value={displayName}
-						class="input w-full"
 						placeholder="Enter display name here..."
+						class="input w-full {form?.errors?.displayName
+							? 'border-error-300 text-error-500'
+							: 'border-primary-200 text-primary-500'}"
 					/>
+					{#if form?.errors?.displayName}
+						<p class="text-error-500 text-xs">{form?.errors?.displayName[0]}</p>
+					{/if}
 				</div>
 			</div>
 
@@ -118,9 +131,14 @@
 						type="text"
 						name="snowmedCode"
 						bind:value={snowmedCode}
-						class="input w-full"
-						placeholder="Enter snowmed code here..."
+						placeholder="Enter snomed code here..."
+						class="input w-full {form?.errors?.snowmedCode
+							? 'border-error-300 text-error-500'
+							: 'border-primary-200 text-primary-500'}"
 					/>
+					{#if form?.errors?.snowmedCode}
+						<p class="text-error-500 text-xs">{form?.errors?.snowmedCode[0]}</p>
+					{/if}
 				</div>
 			</div>
 
@@ -136,9 +154,14 @@
 						type="text"
 						name="loincCode"
 						bind:value={loincCode}
-						class="input w-full"
 						placeholder="Enter loinc code here..."
+						class="input w-full {form?.errors?.loincCode
+							? 'border-error-300 text-error-500'
+							: 'border-primary-200 text-primary-500'}"
 					/>
+					{#if form?.errors?.loincCode}
+						<p class="text-error-500 text-xs">{form?.errors?.loincCode[0]}</p>
+					{/if}
 				</div>
 			</div>
 
@@ -146,17 +169,22 @@
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
 					<!-- svelte-ignore a11y-label-has-associated-control -->
 					<label class="label">
-						<span>Normal Range Min</span>
+						<span>Minimum Normal Range</span>
 					</label>
 				</div>
 				<div class="w-1/2 md:w-2/3 lg:w-2/3">
 					<input
-						type="text"
+						type="number"
 						name="normalRangeMin"
 						bind:value={normalRangeMin}
-						class="input w-full"
-						placeholder="Enter normal range min here..."
+						placeholder="Enter minimum normal range here..."
+						class="input w-full {form?.errors?.normalRangeMin
+							? 'border-error-300 text-error-500'
+							: 'border-primary-200 text-primary-500'}"
 					/>
+					{#if form?.errors?.normalRangeMin}
+						<p class="text-error-500 text-xs">{form?.errors?.normalRangeMin[0]}</p>
+					{/if}
 				</div>
 			</div>
 
@@ -164,17 +192,22 @@
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
 					<!-- svelte-ignore a11y-label-has-associated-control -->
 					<label class="label">
-						<span>Normal Range Max</span>
+						<span>Maximum Normal Range</span>
 					</label>
 				</div>
 				<div class="w-1/2 md:w-2/3 lg:w-2/3">
 					<input
-						type="text"
+						type="number"
 						name="normalRangeMax"
 						bind:value={normalRangeMax}
-						class="input w-full"
-						placeholder="Enter normal range max here..."
+						placeholder="Enter maximum normal range here..."
+						class="input w-full {form?.errors?.normalRangeMax
+							? 'border-error-300 text-error-500'
+							: 'border-primary-200 text-primary-500'}"
 					/>
+					{#if form?.errors?.normalRangeMax}
+						<p class="text-error-500 text-xs">{form?.errors?.normalRangeMax[0]}</p>
+					{/if}
 				</div>
 			</div>
 
@@ -190,9 +223,14 @@
 						type="text"
 						name="unit"
 						bind:value={unit}
-						class="input w-full"
 						placeholder="Enter unit here..."
+						class="input w-full {form?.errors?.unit
+							? 'border-error-300 text-error-500'
+							: 'border-primary-200 text-primary-500'}"
 					/>
+					{#if form?.errors?.unit}
+						<p class="text-error-500 text-xs">{form?.errors?.unit[0]}</p>
+					{/if}
 				</div>
 			</div>
 
@@ -202,7 +240,7 @@
 					<button
 						type="button"
 						on:click={handleReset}
-						class="btn variant-ringed-primary lg:w-40 lg:ml-8 md:ml-6 sm:ml-1 mb-10"
+						class="btn variant-ringed-primary text-primary-500 lg:w-40 lg:ml-8 md:ml-6 sm:ml-1 mb-10"
 					>
 						Reset</button
 					>

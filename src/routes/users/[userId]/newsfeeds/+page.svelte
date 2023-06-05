@@ -1,5 +1,10 @@
 <script lang="ts">
-	import { createDataTableStore, dataTableHandler } from '@skeletonlabs/skeleton';
+	import {
+		createDataTableStore,
+		dataTableHandler,
+		tableA11y,
+		tableInteraction
+	} from '@skeletonlabs/skeleton';
 	import { Paginator } from '@skeletonlabs/skeleton';
 	import { page } from '$app/stores';
 	import date from 'date-and-time';
@@ -8,6 +13,7 @@
 	import Confirm from '$lib/components/modal/confirmModal.svelte';
 	import { faPencil, faTrash, faSearch } from '@fortawesome/free-solid-svg-icons';
 	import type { PageServerData } from './$types';
+	import { Helper } from '$lib/utils/helper';
 
 	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -87,7 +93,6 @@
 
 	const handleNewsfeedDelete = async (e, id) => {
 		const newsfeedId = id;
-		console.log('organizationId', newsfeedId);
 		await Delete({
 			sessionId: data.sessionId,
 			newsfeedId
@@ -96,7 +101,7 @@
 	};
 
 	async function Delete(model) {
-		const response = await fetch(`/api/server/newsfeeds/delete`, {
+		const response = await fetch(`/api/server/newsfeeds`, {
 			method: 'DELETE',
 			body: JSON.stringify(model),
 			headers: {
@@ -115,8 +120,7 @@
 	</div>
 	<div class="basis-1/2 justify-center items-center">
 		<div class="relative flex items-center">
-			<a href={createRoute} class="absolute right-1 lg:mr-[-20px] ">
-				<!-- <Fa icon={faCirclePlus} style="color: #5832A1" size="4x" /> -->
+			<a href={createRoute} class="absolute right-1 lg:mr-[-20px]">
 				<button
 					class="btn variant-filled-primary w-28 rounded-lg hover:bg-primary bg-primary transition
           ease-in-out
@@ -174,14 +178,20 @@
 	</div>
 </div>
 <div class="flex justify-center flex-col mx-10 mt-4 mb-10 overflow-y-auto ">
-	<table class="table rounded-b-none">
-		<thead class="sticky top-0">
+	<table class="table rounded-b-none" role="grid" use:tableInteraction use:tableA11y>
+		<thead
+			on:click={(e) => {
+				dataTableStore.sort(e);
+			}}
+			on:keypress
+			class="sticky top-0"
+		>
 			<tr>
-				<th style="width: 5%;">Id</th>
-				<th style="width: 19%;">Title</th>
+				<th data-sort="index" style="width: 5%;">Id</th>
+				<th data-sort="Title" style="width: 19%;">Title</th>
 				<th style="width: 33%;">Link</th>
-				<th style="width: 19%;">Category</th>
-				<th style="width: 35%;">Created Date</th>
+				<th data-sort="Category" style="width: 18%;">Category</th>
+				<th style="width: 35%;">Newsfeed Items</th>
 				<th style="width: 8%;" />
 				<th style="width: 8%;" />
 			</tr>
@@ -190,13 +200,29 @@
 	<div class=" overflow-y-auto h-[600px] bg-tertiary-500">
 		<table class="table w-full">
 			<tbody class="">
-				{#each $dataTableStore.filtered as row, rowIndex}
+				{#each $dataTableStore.filtered as row}
 					<tr>
-						<td style="width: 5%;">{row.index}</td>
-						<td style="width: 19%;"><a href={viewRoute(row.id)}>{row.Title}</a></td>
-						<td style="width: 32%;">{row.Link}</td>
-						<td style="width: 19%;">{row.Category}</td>
-						<td style="width: 20%;">{date.format(new Date(row.CreatedAt), 'DD-MMM-YYYY')}</td>
+						<td role="gridcell" aria-colindex={1} tabindex="0" style="width: 5%;">{row.index}</td>
+						<td role="gridcell" aria-colindex={2} tabindex="0" style="width: 19%;"
+							><a href={viewRoute(row.id)}>{Helper.truncateText(row.Title, 20)}</a></td
+						>
+						<td role="gridcell" aria-colindex={3} tabindex="0" style="width: 32%;"
+							>{Helper.truncateText(row.Link, 40)}</td
+						>
+						<td role="gridcell" aria-colindex={4} tabindex="0" style="width: 19%;"
+							>{row.Category}</td
+						>
+						<td role="gridcell" aria-colindex={5} tabindex="0" style="width: 20%;"
+							>{#if newsfeeds.length <= 0}
+								<span>null</span>
+							{:else}
+								{#each row.FeedItems as items}
+									{Helper.truncateText(items.Title, 10)}
+								{/each}
+								<!-- {/each} -->
+							{/if}
+						</td>
+
 						<td style="width: 8%;">
 							<a href={editRoute(row.id)}
 								><Fa icon={faPencil} style="color-text-primary" size="md" /></a

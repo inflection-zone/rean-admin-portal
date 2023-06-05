@@ -1,5 +1,7 @@
 import { redirect } from 'sveltekit-flash-message/server';
 import type { RequestEvent } from '@sveltejs/kit';
+import { zfd } from 'zod-form-data';
+import { z } from 'zod';
 import { errorMessage, successMessage } from '$lib/utils/message.utils';
 import { error } from '@sveltejs/kit';
 import type { PageServerLoad } from '../$types';
@@ -28,39 +30,70 @@ export const load: PageServerLoad = async (event: RequestEvent) => {
 	}
 };
 
+const createLearningJourneySchema = zfd.formData({
+	name: z.string().max(256),
+	preferenceWeight: zfd.numeric(z.number().optional()),
+	description: z.string().optional(),
+	durationInDays: zfd.numeric(z.number().optional()),
+	imageUrl: z.string().optional(),
+	courseIds: z.array(z.string()).optional(),
+});
+
 export const actions = {
 	createLearningJourneyAction: async (event: RequestEvent) => {
 		const request = event.request;
 		const userId = event.params.userId;
-		const data = await request.formData();
-		console.log('data', data);
-		const name = data.has('name') ? data.get('name') : null;
-		const preferenceWeight = data.has('preferenceWeight') ? data.get('preferenceWeight') : null;
-		const description = data.has('description') ? data.get('description') : null;
-		const durationInDays = data.has('durationInDays') ? data.get('durationInDays') : null;
-		const imageUrl = data.has('imageUrl') ? data.get('imageUrl') : null;
-		const courseIds = data.has('courseIds') ? data.getAll('courseIds') : null;
-		console.log('courses', courseIds);
 		const sessionId = event.cookies.get('sessionId');
+		const data = await request.formData();
+		const formData = Object.fromEntries(data);
+		
+		const courseIds = data.has('courseIds') ? data.getAll('courseIds'): [];
+	
+		const formDataValue = { ...formData, courseIds: courseIds };
+
+		type LearningJourneySchema = z.infer<typeof createLearningJourneySchema>;
+
+		let result: LearningJourneySchema = {};
+		try {
+			result = createLearningJourneySchema.parse(formDataValue);
+			console.log('result', result);
+		} catch (err: any) {
+			const { fieldErrors: errors } = err.flatten();
+			console.log(errors);
+			const { ...rest } = formData;
+			return {
+				data: rest,
+				errors
+			};
+		}
+
+		const courses = result.courseIds.map(x => x.split(','));
+		const flattenedArray = courses.flat();
+		const updatedData = { "CourseIds": flattenedArray }
 
 		const response = await createLearningJourney(
 			sessionId,
-			name.valueOf() as string,
-			preferenceWeight.valueOf() as number,
-			description.valueOf() as string,
-			durationInDays.valueOf() as number,
-			imageUrl.valueOf() as string,
-			courseIds.valueOf() as string[]
+			result.name,
+			result.preferenceWeight,
+			result.description,
+			result.durationInDays,
+			result.imageUrl,
+			updatedData.CourseIds,
 		);
 		console.log('response', response.Data);
 		const learningPathId = response.Data.LearningPath.id;
 		if (response.Status === 'failure' || response.HttpCode !== 201) {
-			throw redirect(303, '/learning-journeys', errorMessage(response.Message), event);
+			throw redirect(
+				303,
+				`/users/${userId}/learning-journeys`,
+				errorMessage(response.Message),
+				event
+			);
 		}
 		throw redirect(
 			303,
 			`/users/${userId}/learning-journeys/${learningPathId}/view`,
-			successMessage(`learning journey created successful!`),
+			successMessage(`Learning journey created successfully !`),
 			event
 		);
 	}

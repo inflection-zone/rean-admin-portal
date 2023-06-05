@@ -9,8 +9,10 @@
 
 	///////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+	export let form;
 	export let data: PageServerData;
 	let allCources = data.courses;
+	allCources = allCources.sort((a, b) => { return a.Sequence - b.Sequence; });
 	let id = data.learningJourney.id;
 	let name = data.learningJourney.Name;
 	let preferenceWeight = data.learningJourney.PreferenceWeight;
@@ -19,7 +21,7 @@
 	let courses = data.learningJourney.Courses;
 	let imageUrl = data.learningJourney.ImageUrl;
 	$: avatarSource = imageUrl;
-	let courseIds:string[] = courses.map((item) => item.id);
+	let courseIds: string[] = courses.map((item) => item.id);
 
 	//Original data
 	let _name = name;
@@ -55,10 +57,8 @@
 
 	const upload = async (imgBase64, filename) => {
 		const data = {};
-		//console.log(imgBase64);
 		const imgData = imgBase64.split(',');
 		data['image'] = imgData[1];
-		//console.log(JSON.stringify(data));
 		const res = await fetch(`/api/server/file-resources/upload`, {
 			method: 'POST',
 			headers: {
@@ -71,7 +71,6 @@
 		console.log(Date.now().toString());
 		const response = await res.json();
 		if (response.Status === 'success' && response.HttpCode === 201) {
-			// const imageResourceId = response.Data.FileResources[0].id;
 			const imageUrl_ = response.Data.FileResources[0].Url;
 			console.log('imageUrl_', imageUrl_);
 			if (imageUrl_) {
@@ -93,16 +92,19 @@
 			await upload(e.target.result, filename);
 		};
 	};
+
+	
 </script>
+
 
 <main class="h-screen mb-44">
 	<BreadCrumbs crumbs={breadCrumbs} />
 
-	<div class=" flex justify-center mt-5 px-3 mb-10 flex-col items-center">
+	<div class="">
 		<form
 			method="post"
 			action="?/updateLearningJourneyAction"
-			class="w-full lg:max-w-4xl md:max-w-xl sm:max-w-lg bg-[#ECE4FC] rounded-lg mx-auto"
+			class="w-full  bg-[#ECE4FC] lg:mt-10 md:mt-8 sm:mt-6 mb-10 mt-4 lg:max-w-4xl md:max-w-xl sm:max-w-lg  rounded-lg mx-auto"
 		>
 			<div class="w-full  h-14 rounded-t-lg p-3  bg-[#7165E3]">
 				<div class="ml-3 relative flex flex-row text-white text-xl">
@@ -118,7 +120,7 @@
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
 					<!-- svelte-ignore a11y-label-has-associated-control -->
 					<label class="label">
-						<span>Name</span>
+						<span>Name *</span>
 					</label>
 				</div>
 				<div class="w-1/2 md:w-2/3 lg:w-2/3">
@@ -127,12 +129,16 @@
 						name="name"
 						required
 						bind:value={name}
-						placeholder="xxxxxxxxxxxxxx"
-						class="input w-full "
+						class="input w-full {form?.errors?.name
+							? 'border-error-300 text-error-500'
+							: 'border-primary-200 text-primary-500'}"
 					/>
+					{#if form?.errors?.name}
+						<p class="text-error-500 text-xs">{form?.errors?.name[0]}</p>
+					{/if}
 				</div>
 			</div>
-			<div class="flex items-start my-4 lg:mx-16 md:mx-12 mx-10">
+			<div class="flex items-center my-4 lg:mx-16 md:mx-12 mx-10">
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
 					<!-- svelte-ignore a11y-label-has-associated-control -->
 					<label class="label">
@@ -141,12 +147,17 @@
 				</div>
 				<div class="w-1/2 md:w-2/3 lg:w-2/3">
 					<input
-						type="text"
+						type="number"
 						name="preferenceWeight"
 						bind:value={preferenceWeight}
 						placeholder="Enter prefrence weight here..."
-						class="input w-full "
+						class="input w-full {form?.errors?.preferenceWeight
+							? 'border-error-300 text-error-500'
+							: 'border-primary-200 text-primary-500'}"
 					/>
+					{#if form?.errors?.preferenceWeight}
+						<p class="text-error-500 text-xs">{form?.errors?.preferenceWeight[0]}</p>
+					{/if}
 				</div>
 			</div>
 
@@ -159,11 +170,16 @@
 				</div>
 				<div class="w-1/2 md:w-2/3 lg:w-2/3">
 					<textarea
-						class="textarea w-full"
 						bind:value={description}
 						name="description"
 						placeholder="Enter description here..."
+						class="textarea w-full {form?.errors?.description
+							? 'border-error-300 text-error-500'
+							: 'border-primary-200 text-primary-500'}"
 					/>
+					{#if form?.errors?.description}
+						<p class="text-error-500 text-xs">{form?.errors?.description[0]}</p>
+					{/if}
 				</div>
 			</div>
 
@@ -179,9 +195,14 @@
 						type="number"
 						name="durationInDays"
 						placeholder="Enter duration here..."
-						class="input w-full "
 						bind:value={durationInDays}
+						class="input w-full {form?.errors?.durationInDays
+							? 'border-error-300 text-error-500'
+							: 'border-primary-200 text-primary-500'}"
 					/>
+					{#if form?.errors?.durationInDays}
+						<p class="text-error-500 text-xs">{form?.errors?.durationInDays[0]}</p>
+					{/if}
 				</div>
 			</div>
 
@@ -198,12 +219,15 @@
 						class="select"
 						multiple
 						placeholder="Select course here..."
-						value = {courseIds}
+						value={courseIds}
 					>
 						{#each allCources as course}
 							<option value={course.id}>{course.Name}</option>
 						{/each}
 					</select>
+					{#if form?.errors?.courseIds}
+						<p class="text-error-500 text-xs">{form?.errors?.courseIds[0]}</p>
+					{/if}
 				</div>
 			</div>
 
@@ -234,6 +258,9 @@
 						/>
 					{/if}
 					<input type="hidden" name="imageUrl" value={imageUrl} />
+					{#if form?.errors?.imageUrl}
+						<p class="text-error-500 text-xs">{form?.errors?.imageUrl[0]}</p>
+					{/if}
 				</div>
 			</div>
 
@@ -243,7 +270,7 @@
 					<button
 						type="button"
 						on:click={handleReset}
-						class="btn variant-ringed-primary lg:w-40 lg:ml-8 md:ml-6 sm:ml-1 mb-10"
+						class="btn variant-ringed-primary text-primary-500 lg:w-40 lg:ml-8 md:ml-6 sm:ml-1 mb-10"
 					>
 						Reset</button
 					>

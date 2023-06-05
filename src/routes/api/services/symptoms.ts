@@ -13,8 +13,8 @@ export const createSymptom = async (
 ) => {
 	const body = {
 		Symptom: symptom,
-		Description: description,
-		Tags: tags,
+		Description: description ? description : null,
+		Tags: tags ? tags : null,
 		Language: language,
 		ImageResourceId: imageResourceId
 	};
@@ -58,8 +58,8 @@ export const updateSymptom = async (
 ) => {
 	const body = {
 		Symptom: symptom,
-		Description: description,
-		Tags: tags,
+		Description: description ? description : null,
+		Tags: tags ? tags : null,
 		Language: language,
 		ImageResourceId: imageResourceId
 	};

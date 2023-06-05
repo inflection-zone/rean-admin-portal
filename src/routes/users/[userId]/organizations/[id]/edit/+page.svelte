@@ -1,5 +1,6 @@
 <script lang="ts">
 	import Fa from 'svelte-fa';
+	import date from 'date-and-time';
 	import { faMultiply } from '@fortawesome/free-solid-svg-icons';
 	import BreadCrumbs from '$lib/components/breadcrumbs/breadcrums.svelte';
 	import { page } from '$app/stores';
@@ -9,6 +10,9 @@
 	import { showMessage } from '$lib/utils/message.utils';
 	import type { PageServerData } from './$types';
 
+	//////////////////////////////////////////////////////////////////
+
+	export let form;
 	export let data: PageServerData;
 	oragnizationTypesStore.set(data.types);
 	LocalStorageUtils.setItem('personRoles', JSON.stringify(data.types));
@@ -19,7 +23,6 @@
 	let contactNumber = data.organization.ContactPhone;
 	let email = data.organization.ContactEmail;
 	let about = data.organization.About;
-	let operationalSince = data.organization.OperationalSince;
 	let addressType = data.organization.Addresses[0].Type;
 	let addressLine = data.organization.Addresses[0].AddressLine;
 	let city = data.organization.Addresses[0].City;
@@ -29,15 +32,10 @@
 	let postalCode = data.organization.Addresses[0].PostalCode;
 	let imageUrl = data.organization.ImageUrl ?? undefined;
 	let imageResourceId = data.organization.ImageResourceId;
-
+	let addresses = data.organization.Addresses;
 	let isHealthFacility = data.organization.IsHealthFacility;
 	let fileinput;
-	console.log('data', imageResourceId);
-
-	let checkboxValue = false;
-	const handleClick = () => {
-		checkboxValue = !checkboxValue;
-	};
+	let operationalSince = date.format(new Date(data.organization.OperationalSince), 'DD-MMM-YYYY');
 
 	//Original data
 	let _type = type;
@@ -54,8 +52,6 @@
 	let _country = country;
 	let _postalCode = postalCode;
 	let _imageResourceId = imageResourceId;
-
-	//let _imageResource = imageResource;
 	let _isHealthFacility = isHealthFacility;
 
 	function handleReset() {
@@ -72,7 +68,6 @@
 		state = _state;
 		country = _country;
 		postalCode = _postalCode;
-
 		imageResourceId = _imageResourceId;
 		isHealthFacility = _isHealthFacility;
 	}
@@ -112,14 +107,11 @@
 		console.log(Date.now().toString());
 		const response = await res.json();
 		if (response.Status === 'success' && response.HttpCode === 201) {
-			const imageUrl_ = response.Data.FileResources[0].Url;
-			console.log('imageUrl', imageUrl);
 			const imageResourceId_ = response.Data.FileResources[0].id;
 			console.log('imageResourceId_', imageUrl);
 			if (imageResourceId_) {
 				imageResourceId = imageResourceId_;
 			}
-			console.log('======', imageResourceId_);
 		} else {
 			showMessage(response.Message, 'error');
 		}
@@ -144,7 +136,7 @@
 		<form
 			method="post"
 			action="?/updateOrganizationAction"
-			class="w-full lg:max-w-4xl md:max-w-xl sm:max-w-lg bg-[#ECE4FC] rounded-lg mx-auto"
+			class="w-full  bg-[#ECE4FC] lg:mt-10 md:mt-8 sm:mt-6 mt-4 lg:max-w-4xl md:max-w-xl sm:max-w-lg  rounded-lg mx-auto"
 		>
 			<div class="w-full  h-14 rounded-t-lg p-3  bg-[#7165E3]">
 				<div class="ml-3 relative flex flex-row text-white text-xl">
@@ -155,6 +147,7 @@
 				</div>
 			</div>
 			<div class="hidden">{id}</div>
+
 			<div class="flex items-center mb-4 mt-10 lg:mx-16 md:mx-12 mx-10">
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
 					<!-- svelte-ignore a11y-label-has-associated-control -->
@@ -189,8 +182,13 @@
 						name="name"
 						bind:value={name}
 						placeholder="Enter name here..."
-						class="input w-full "
+						class="input w-full {form?.errors?.name
+							? 'border-error-300 text-error-500'
+							: 'border-primary-200 text-primary-500'}"
 					/>
+					{#if form?.errors?.name}
+						<p class="text-error-500 text-xs">{form?.errors?.name[0]}</p>
+					{/if}
 				</div>
 			</div>
 
@@ -204,11 +202,16 @@
 				<div class="w-1/2 md:w-2/3 lg:w-2/3">
 					<input
 						type="text"
-						name="contactNumber"
+						name="contactPhone"
 						bind:value={contactNumber}
 						placeholder="Enter contact number here..."
-						class="input w-full "
+						class="input w-full max-w-md {form?.errors?.contactPhone
+							? 'border-error-300 text-error-500'
+							: 'border-primary-200 text-primary-500'}"
 					/>
+					{#if form?.errors?.contactPhone}
+						<p class="text-error-500 text-xs">{form?.errors?.contactPhone[0]}</p>
+					{/if}
 				</div>
 			</div>
 
@@ -222,11 +225,16 @@
 				<div class="w-1/2 md:w-2/3 lg:w-2/3">
 					<input
 						type="text"
-						name="email"
+						name="contactEmail"
 						bind:value={email}
 						placeholder="Enter email here..."
-						class="input w-full "
+						class="input w-full {form?.errors?.contactEmail
+							? 'border-error-300 text-error-500'
+							: 'border-primary-200 text-primary-500'}"
 					/>
+					{#if form?.errors?.contactEmail}
+						<p class="text-error-500 text-xs">{form?.errors?.contactEmail[0]}</p>
+					{/if}
 				</div>
 			</div>
 
@@ -239,11 +247,16 @@
 				</div>
 				<div class="w-1/2 md:w-2/3 lg:w-2/3">
 					<textarea
-						class="textarea w-full"
 						name="about"
 						bind:value={about}
 						placeholder="Enter about here..."
+						class="textarea w-full	{form?.errors?.about
+							? 'border-error-300 text-error-500'
+							: 'border-primary-200 text-primary-500'}"
 					/>
+					{#if form?.errors?.about}
+						<p class="text-error-500 text-xs">{form?.errors?.about[0]}</p>
+					{/if}
 				</div>
 			</div>
 
@@ -256,14 +269,23 @@
 				</div>
 				<div class="w-1/2 md:w-2/3 lg:w-2/3">
 					<input
-						type="date"
+						type="text"
 						name="operationalSince"
 						bind:value={operationalSince}
 						placeholder="Enter operational since here..."
-						class="input w-full "
+						class="input w-full {form?.errors?.operationalSince
+							? 'border-error-300 text-error-500'
+							: 'border-primary-200 text-primary-500'}"
 					/>
+					{#if form?.errors?.operationalSince}
+						<p class="text-error-500 text-xs">{form?.errors?.operationalSince[0]}</p>
+					{/if}
 				</div>
 			</div>
+
+			{#each addresses as address}
+				<input hidden type="text" name="addressId" value={address.id} />
+			{/each}
 
 			<div class="flex items-center mb-4 lg:mx-16 md:mx-12 mx-10">
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
@@ -289,17 +311,22 @@
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
 					<!-- svelte-ignore a11y-label-has-associated-control -->
 					<label class="label">
-						<span>Address</span>
+						<span>Address Line</span>
 					</label>
 				</div>
 				<div class="w-1/2 md:w-2/3 lg:w-2/3">
 					<input
 						type="text"
-						name="AddressLine"
+						name="addressLine"
 						placeholder="Enter address here..."
-						class="input w-full "
 						bind:value={addressLine}
+						class="input w-full {form?.errors?.addressLine
+							? 'border-error-300 text-error-500'
+							: 'border-primary-200 text-primary-500'}"
 					/>
+					{#if form?.errors?.addressLine}
+						<p class="text-error-500 text-xs">{form?.errors?.addressLine[0]}</p>
+					{/if}
 				</div>
 			</div>
 
@@ -315,9 +342,14 @@
 						type="text"
 						name="city"
 						placeholder="Enter city here..."
-						class="input w-1/3 "
 						bind:value={city}
+						class="input w-1/3 {form?.errors?.contactEmail
+							? 'border-error-300 text-error-500'
+							: 'border-primary-200 text-primary-500'}"
 					/>
+					{#if form?.errors?.city}
+						<p class="text-error-500 text-xs">{form?.errors?.city[0]}</p>
+					{/if}
 				</div>
 			</div>
 			<div class="flex items-center mb-4 lg:mx-16 md:mx-12 mx-10">
@@ -332,9 +364,14 @@
 						type="text"
 						name="district"
 						placeholder="Enter district here..."
-						class="input w-1/3 "
 						bind:value={district}
+						class="input w-1/3 {form?.errors?.district
+							? 'border-error-300 text-error-500'
+							: 'border-primary-200 text-primary-500'}"
 					/>
+					{#if form?.errors?.district}
+						<p class="text-error-500 text-xs">{form?.errors?.district[0]}</p>
+					{/if}
 				</div>
 			</div>
 			<div class="flex items-center mb-4 lg:mx-16 md:mx-12 mx-10">
@@ -384,9 +421,14 @@
 						type="text"
 						name="postalCode"
 						placeholder="Enter postal code or zip code here..."
-						class="input w-1/3 "
 						bind:value={postalCode}
+						class="input w-1/3 {form?.errors?.postalCode
+							? 'border-error-300 text-error-500'
+							: 'border-primary-200 text-primary-500'}"
 					/>
+					{#if form?.errors?.postalCode}
+						<p class="text-error-500 text-xs">{form?.errors?.postalCode[0]}</p>
+					{/if}
 				</div>
 			</div>
 
@@ -432,9 +474,8 @@
 						<input
 							type="checkbox"
 							name="isHealthFacility"
+							bind:value={isHealthFacility}
 							bind:checked={isHealthFacility}
-							value="true"
-							on:click={handleClick}
 							class="checkbox checkbox-primary border-primary-200 hover:border-primary-400 checkbox-md ml-2"
 						/>
 					</label>
@@ -447,7 +488,7 @@
 					<button
 						type="button"
 						on:click={handleReset}
-						class="btn variant-ringed-primary lg:w-40 lg:ml-8 md:ml-6 sm:ml-1 mb-10"
+						class="btn variant-ringed-primary text-primary-500 lg:w-40 lg:ml-8 md:ml-6 sm:ml-1 mb-10"
 					>
 						Reset</button
 					>

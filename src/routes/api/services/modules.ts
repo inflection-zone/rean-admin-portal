@@ -8,15 +8,17 @@ export const createModule = async (
 	courseId: string,
 	name: string,
 	description: string,
-	// sequence: number,
-	durationInMins: number
+	durationInMins: number,
+	imageUrl: string,
+	sequence: number
 ) => {
 	const body = {
 		CourseId: courseId,
 		Name: name,
-		Description: description,
-		// Sequence: sequence,
-		DurationInMins: Number(durationInMins)
+		Description: description ? description : null,
+		DurationInMins: durationInMins ? durationInMins : null,
+		ImageUrl: imageUrl ? imageUrl : null,
+		Sequence: sequence ? sequence : null
 	};
 	const url = BACKEND_API_URL + '/educational/course-modules';
 	return await post_(sessionId, url, body, true);
@@ -53,17 +55,18 @@ export const updateModule = async (
 	courseId: string,
 	name: string,
 	description: string,
-	// sequence: number,
-	durationInMins: number
+	durationInMins: number,
+	imageUrl: string,
+	sequence: number
 ) => {
 	const body = {
 		CourseId: courseId,
-		name: name,
-		Description: description,
-		// Sequence: sequence,
-		DurationInMins: durationInMins
+		Name: name,
+		Description: description ? description : null,
+		DurationInMins: durationInMins ? durationInMins : null,
+		ImageUrl: imageUrl ? imageUrl : null,
+		Sequence: sequence ? sequence : null
 	};
-	console.log("body",body)
 	const url = BACKEND_API_URL + `/educational/course-modules/${moduleId}`;
 	return await put_(sessionId, url, body, true);
 };

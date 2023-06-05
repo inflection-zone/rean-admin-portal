@@ -31,7 +31,6 @@
 	courses = courses.sort((a, b) => {
 		return a.Sequence - b.Sequence;
 	});
-	console.log('courses===', courses);
 
 	onMount(() => {
 		show(data);
@@ -43,6 +42,11 @@
 	const viewRoute = `/users/${userId}/learning-journeys/${learningPathId}/view`;
 	const courseRoute = `/users/${userId}/courses`;
 	const learningJourneyRoute = `/users/${userId}/learning-journeys`;
+	const courseViewRoute = (courseId) => `/users/${userId}/courses/${courseId}/view`;
+	const moduleViewRoute = (courseId, moduleId) =>
+		`/users/${userId}/courses/${courseId}/modules/${moduleId}/view`;
+	const contentViewRoute = (courseId, moduleId, contentId) =>
+		`/users/${userId}/courses/${courseId}/modules/${moduleId}/contents/${contentId}/view`;
 
 	const breadCrumbs = [
 		{
@@ -59,10 +63,10 @@
 <main class="h-screen mb-10">
 	<BreadCrumbs crumbs={breadCrumbs} />
 
-	<div class="px-3 pb-10 mb-5">
+	<div class="">
 		<form
 			method="get"
-			class="w-full lg:max-w-2xl md:max-w-xl sm:max-w-lg mb-10 bg-[#ECE4FC] mt-6 rounded-lg mx-auto"
+			class="w-full  bg-[#ECE4FC] lg:mt-10 md:mt-8 sm:mt-6 mb-10 mt-4 lg:max-w-4xl md:max-w-xl sm:max-w-lg  rounded-lg mx-auto"
 		>
 			<div class="w-full  h-14 rounded-t-lg p-3  bg-[#7165E3]">
 				<div class="ml-3 relative flex flex-row text-white lg:text-xl text-lg ">
@@ -74,6 +78,7 @@
 				</div>
 			</div>
 			<div class="hidden">{id}</div>
+
 			<div class="flex items-center mb-4 mt-10 lg:mx-16 md:mx-12 mx-10">
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
 					<!-- svelte-ignore a11y-label-has-associated-control -->
@@ -121,10 +126,8 @@
 						<span>Image</span>
 					</label>
 				</div>
-				<!-- <span class="span w-1/2 md:w-2/3 lg:w-2/3">{image}</span> -->
 				{#if imageUrl === 'undefined'}
 					<span class="span">Not Specified</span>
-					<!-- <img class="flex h-24 w-24 rounded-full" src={avatarSource} alt="d" /> -->
 				{:else}
 					<Image cls="flex h-24 w-24 rounded-md" source={imageUrl} w="24" h="24" />
 				{/if}
@@ -146,24 +149,36 @@
 							{#each courses as course, i}
 								<TreeBranch defaultClosed>
 									<div slot="root" class="flex">
-										<img class="w-6 mr-2 " alt="logo" src="/course.png" />
-										{i + 1}-{course.Name}
+										<a href={courseViewRoute(course.id)}>
+											<div class="flex">
+												<img class="w-6 mr-2 " alt="logo" src="/course.png" />
+												{i + 1}-{course.Name}
+											</div>
+										</a>
 									</div>
 									{#if course.Modules.length <= 0}
 										<div />
 									{:else}
 										{#each course.Modules as module, i}
 											<TreeBranch defaultClosed>
-												<div slot="root" class="flex">
-													<img class="w-6 mr-2 mb-4" alt="logo" src="/module.png" />
-													{i + 1}-{module.Name}
+												<div slot="root" class="flex flex-col">
+													<a href={moduleViewRoute(course.id, module.id)}>
+														<div class="flex">
+															<img class="w-6 mr-2 mb-4" alt="logo" src="/module.png" />
+															{i + 1}-{module.Name}
+														</div>
+													</a>
 												</div>
 												{#if module.Contents.length <= 0}{:else}
 													{#each module.Contents as content, i}
 														<TreeLeaf>
 															<div class="flex">
-																<img class="w-6 mr-2 mb-4" alt="logo" src="/content.png" />
-																{content.Sequence}-{content.Title}
+																<a href={contentViewRoute(course.id, module.id, content.id)}>
+																	<div class="flex">
+																		<img class="w-6 mr-2 mb-4" alt="logo" src="/content.png" />
+																		{content.Sequence}-{content.Title}
+																	</div></a
+																>
 															</div>
 														</TreeLeaf>
 													{/each}

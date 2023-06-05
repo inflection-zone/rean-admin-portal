@@ -12,6 +12,7 @@
 	let retrievedTags = '';
 	let tagsPlaceholder = 'Enter a tags here...';
 
+	export let form;
 	export let data: PageServerData;
 	let initiaData = {};
 	let id = data.newsfeed.id;
@@ -69,10 +70,10 @@
 
 	const upload = async (imgBase64, filename) => {
 		const data = {};
-		//console.log(imgBase64);
+		console.log(imgBase64);
 		const imgData = imgBase64.split(',');
 		data['image'] = imgData[1];
-		//console.log(JSON.stringify(data));
+		console.log(JSON.stringify(data));
 		const res = await fetch(`/api/server/file-resources/upload`, {
 			method: 'POST',
 			headers: {
@@ -85,7 +86,6 @@
 		console.log(Date.now().toString());
 		const response = await res.json();
 		if (response.Status === 'success' && response.HttpCode === 201) {
-			// const imageResourceId = response.Data.FileResources[0].id;
 			const image_ = response.Data.FileResources[0].Url;
 			console.log('image_', image_);
 			if (image_) {
@@ -109,14 +109,14 @@
 	};
 </script>
 
-<main class="h-screen mb-60">
+<main class="h-screen mb-96">
 	<BreadCrumbs crumbs={breadCrumbs} />
 
-	<div class=" px-5 mb-5">
+	<div class="">
 		<form
 			method="post"
 			action="?/updateNewsfeedAction"
-			class="w-full lg:max-w-4xl md:max-w-xl sm:max-w-lg bg-[#ECE4FC] rounded-lg mx-auto"
+			class="w-full  bg-[#ECE4FC] lg:mt-10 md:mt-8 sm:mt-6 mb-10 mt-4 lg:max-w-4xl md:max-w-xl sm:max-w-lg  rounded-lg mx-auto"
 		>
 			<div class="w-full  h-14 rounded-t-lg p-3  bg-[#7165E3]">
 				<div class="ml-3 relative flex flex-row text-white text-xl">
@@ -131,21 +131,27 @@
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
 					<!-- svelte-ignore a11y-label-has-associated-control -->
 					<label class="label">
-						<span>Title</span>
+						<span>Title *</span>
 					</label>
 				</div>
 				<div class="w-1/2 md:w-2/3 lg:w-2/3">
 					<input
 						type="text"
 						name="title"
+						required
 						bind:value={title}
 						placeholder="Enter title here..."
-						class="input w-full "
+						class="input w-full {form?.errors?.title
+							? 'border-error-300 text-error-500'
+							: 'border-primary-200 text-primary-500'}"
 					/>
+					{#if form?.errors?.title}
+						<p class="text-error-500 text-xs">{form?.errors?.title[0]}</p>
+					{/if}
 				</div>
 			</div>
 
-			<div class="flex items-center mb-4 lg:mx-16 md:mx-12 mx-10">
+			<div class="flex items-start mb-2 lg:mx-16 md:mx-12 mx-10">
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
 					<!-- svelte-ignore a11y-label-has-associated-control -->
 					<label class="label">
@@ -156,9 +162,14 @@
 					<textarea
 						name="description"
 						bind:value={description}
-						class="textarea w-full"
 						placeholder="Enter description here..."
+						class="textarea w-full {form?.errors?.description
+							? 'border-error-300 text-error-500'
+							: 'border-primary-200 text-primary-500'}"
 					/>
+					{#if form?.errors?.description}
+						<p class="text-error-500 text-xs">{form?.errors?.description[0]}</p>
+					{/if}
 				</div>
 			</div>
 
@@ -175,8 +186,13 @@
 						name="category"
 						bind:value={category}
 						placeholder="Enter category here..."
-						class="input w-full "
+						class="input w-full {form?.errors?.category
+							? 'border-error-300 text-error-500'
+							: 'border-primary-200 text-primary-500'}"
 					/>
+					{#if form?.errors?.category}
+						<p class="text-error-500 text-xs">{form?.errors?.category[0]}</p>
+					{/if}
 				</div>
 			</div>
 
@@ -189,12 +205,17 @@
 				</div>
 				<div class="w-1/2 md:w-2/3 lg:w-2/3">
 					<input
-						type="text"
+						type="url"
 						name="link"
 						bind:value={link}
 						placeholder="Enter link here..."
-						class="input w-full "
+						class="input w-full {form?.errors?.link
+							? 'border-error-300 text-error-500'
+							: 'border-primary-200 text-primary-500'}"
 					/>
+					{#if form?.errors?.link}
+						<p class="text-error-500 text-xs">{form?.errors?.link[0]}</p>
+					{/if}
 				</div>
 			</div>
 
@@ -202,17 +223,23 @@
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
 					<!-- svelte-ignore a11y-label-has-associated-control -->
 					<label class="label">
-						<span>Language</span>
+						<span>Language *</span>
 					</label>
 				</div>
 				<div class="w-1/2 md:w-2/3 lg:w-2/3">
 					<input
 						type="text"
 						name="language"
+						required
 						bind:value={language}
 						placeholder="Enter language here..."
-						class="input w-full "
+						class="input w-full {form?.errors?.language
+							? 'border-error-300 text-error-500'
+							: 'border-primary-200 text-primary-500'}"
 					/>
+					{#if form?.errors?.language}
+						<p class="text-error-500 text-xs">{form?.errors?.language[0]}</p>
+					{/if}
 				</div>
 			</div>
 
@@ -229,26 +256,46 @@
 						name="copyright"
 						bind:value={copyright}
 						placeholder="Enter copyright here..."
-						class="input w-full "
+						class="input w-full {form?.errors?.copyright
+							? 'border-error-300 text-error-500'
+							: 'border-primary-200 text-primary-500'}"
 					/>
+					{#if form?.errors?.copyright}
+						<p class="text-error-500 text-xs">{form?.errors?.copyright[0]}</p>
+					{/if}
 				</div>
 			</div>
 
-			<div class="flex items-center mb-4 lg:mx-16 md:mx-12 mx-10">
+			<div class="flex items-start mb-4 lg:mx-16 md:mx-12 mx-10">
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
 					<!-- svelte-ignore a11y-label-has-associated-control -->
 					<label class="label">
 						<span>Favicon</span>
 					</label>
 				</div>
-				<div class="w-1/2 md:w-2/3 lg:w-2/3">
-					<input
-						type="text"
-						name="favicon"
-						bind:value={favicon}
-						placeholder="Enter favicon here..."
-						class="input w-full "
-					/>
+				<div class="flex flex-row gap-4 w-1/2 md:w-2/3 lg:w-2/3 ">
+					{#if image === 'undefined'}
+						<input
+							name="fileinput"
+							type="file"
+							class="true input w-full"
+							placeholder="Image"
+							on:change={async (e) => await onFileSelected(e)}
+						/>
+					{:else}
+						<Image cls="flex h-24 w-24 rounded-lg" source={favicon} w="24" h="24" />
+						<input
+							name="fileinput"
+							type="file"
+							class="true input w-full"
+							placeholder="Image"
+							on:change={async (e) => await onFileSelected(e)}
+						/>
+					{/if}
+					<input type="hidden" name="favicon" value={favicon} />
+					{#if form?.errors?.favicon}
+						<p class="text-error-500 text-xs">{form?.errors?.favicon[0]}</p>
+					{/if}
 				</div>
 			</div>
 
@@ -268,13 +315,13 @@
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
 					<!-- svelte-ignore a11y-label-has-associated-control -->
 					<label class="label">
-						<span>Image</span>
+						<span>Image *</span>
 					</label>
 				</div>
 				<div class="flex flex-row gap-4 w-1/2 md:w-2/3 lg:w-2/3 ">
 					{#if image === 'undefined'}
 						<input
-							name="fileinput"
+							name="fileInput"
 							type="file"
 							class="true input w-full"
 							placeholder="Image"
@@ -290,15 +337,14 @@
 							on:change={async (e) => await onFileSelected(e)}
 						/>
 					{/if}
-					<input type="hidden" name="image" value={image} />
-					<!-- <button
-						class="capitalize btn variant-filled-primary lg:w-[19%] md:w-[22%] md:text-[13px] sm:w-[30%] sm:text-[12px] min-[320px]:w-[40%] min-[320px]:text-[10px]"
-						>Upload</button
-					> -->
+					<input type="hidden" required name="image" value={image} />
+					{#if form?.errors?.image}
+						<p class="text-error-500 text-xs">{form?.errors?.image[0]}</p>
+					{/if}
 				</div>
 			</div>
 
-			<div class="flex items-center mb-4 lg:mx-16 md:mx-12 mx-10">
+			<div class="flex items-start mb-4 lg:mx-16 md:mx-12 mx-10">
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
 					<!-- svelte-ignore a11y-label-has-associated-control -->
 					<label class="label">
@@ -307,6 +353,9 @@
 				</div>
 				<div class="w-1/2 md:w-2/3 lg:w-2/3">
 					<InputChip chips="variant-filled-error rounded-2xl" name="tags" bind:value={tags} />
+					{#if form?.errors?.tags}
+						<p class="text-error-500 text-xs">{form?.errors?.tags[0]}</p>
+					{/if}
 				</div>
 			</div>
 
@@ -316,7 +365,7 @@
 					<button
 						type="button"
 						on:click={handleReset}
-						class="btn variant-ringed-primary lg:w-40 lg:ml-8 md:ml-6 sm:ml-1 mb-10"
+						class="btn variant-ringed-primary text-primary-500 lg:w-40 lg:ml-8 md:ml-6 sm:ml-1 mb-10"
 					>
 						Reset</button
 					>

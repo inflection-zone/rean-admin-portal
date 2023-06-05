@@ -11,18 +11,17 @@ export const createAssessmentTemplate = async (
 	provider: string,
 	providerAssessmentCode: string,
 	serveListNodeChildrenAtOnce: boolean,
-	scoringApplicable:boolean,
+	scoringApplicable: boolean
 ) => {
 	const body = {
 		Title: title,
-		Description: description,
+		Description: description ? description : null,
 		Type: type,
-		Provider: provider,
-		ProviderAssessmentCode: providerAssessmentCode,
-		ServeListNodeChildrenAtOnce: serveListNodeChildrenAtOnce,
-		ScoringApplicable:scoringApplicable
+		Provider: provider ? provider : null,
+		ProviderAssessmentCode: providerAssessmentCode ? providerAssessmentCode : null,
+		ServeListNodeChildrenAtOnce: serveListNodeChildrenAtOnce ? serveListNodeChildrenAtOnce : false,
+		ScoringApplicable: scoringApplicable ? scoringApplicable : false
 	};
-	console.log('Bodety=========', body);
 	const url = BACKEND_API_URL + '/clinical/assessment-templates';
 	return await post_(sessionId, url, body, true);
 };
@@ -62,18 +61,20 @@ export const updateAssessmentTemplate = async (
 	description: string,
 	type: string,
 	provider: string,
-	providerAssessmentCode: string
-	// serveListNodeChildrenAtOnce: string
+	providerAssessmentCode: string,
+	serveListNodeChildrenAtOnce: boolean,
+	scoringApplicable: boolean
 ) => {
 	const body = {
 		Title: title,
-		Description: description,
+		Description: description ? description : null,
 		Type: type,
-		Provider: provider,
-		ProviderAssessmentCode: providerAssessmentCode
-		// ServeListNodeChildrenAtOnce: serveListNodeChildrenAtOnce
+		Provider: provider ? provider : null,
+		ProviderAssessmentCode: providerAssessmentCode ? providerAssessmentCode : null,
+		ServeListNodeChildrenAtOnce: serveListNodeChildrenAtOnce ? serveListNodeChildrenAtOnce : false,
+		ScoringApplicable: scoringApplicable ? scoringApplicable : false
 	};
-	console.log('Bodety=========', body);
+
 	const url = BACKEND_API_URL + `/clinical/assessment-templates/${assessmentTemplateId}`;
 	return await put_(sessionId, url, body, true);
 };

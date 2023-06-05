@@ -49,13 +49,13 @@
 	];
 </script>
 
-<main class="h-screen mb-44">
+<main class="h-screen mb-56">
 	<BreadCrumbs crumbs={breadCrumbs} />
 
-	<div class="px-3 mb-5">
+	<div class="">
 		<form
 			method="get"
-			class="w-full lg:max-w-4xl md:max-w-xl sm:max-w-lg mb-10 bg-[#ECE4FC] mt-6 rounded-lg mx-auto"
+			class="w-full  bg-[#ECE4FC] lg:mt-10 md:mt-8 sm:mt-6 mb-10 mt-4 lg:max-w-4xl md:max-w-xl sm:max-w-lg  rounded-lg mx-auto"
 		>
 			<div class="w-full  h-14 rounded-t-lg p-3  bg-[#7165E3]">
 				<div class="ml-3 relative flex flex-row text-white lg:text-xl text-lg ">
@@ -129,14 +129,18 @@
 				<span class="span w-1/2 md:2/3 lg:2/3" id="copyright"> {copyright} </span>
 			</div>
 
-			<div class="flex items-center mb-4 lg:mx-16 md:mx-12 mx-10">
+			<div class="flex items-start mb-4 lg:mx-16 md:mx-12 mx-10">
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
 					<!-- svelte-ignore a11y-label-has-associated-control -->
 					<label class="label">
 						<span>Favicon</span>
 					</label>
 				</div>
-				<span class="span w-1/2 md:2/3 lg:2/3" id="favicon"> {favicon} </span>
+				{#if favicon === 'undefined'}
+					<span class="span">Image not specified</span>
+				{:else}
+					<Image cls="flex h-24 w-24 rounded-lg" source={favicon} w="24" h="24" />
+				{/if}
 			</div>
 
 			<div class="flex items-center mb-4 lg:mx-16 md:mx-12 mx-10">
@@ -172,7 +176,11 @@
 						<span>Tags</span>
 					</label>
 				</div>
-				<span class="span w-1/2 md:2/3 lg:2/3">{tags} </span>
+				{#if tags.length <= 0}
+					<span class="span">Tags not specified</span>
+				{:else}
+					<span class="span w-1/2 md:2/3 lg:2/3">{tags} </span>
+				{/if}
 			</div>
 
 			<div class="flex items-start my-4 lg:mx-16 md:mx-12 mx-10">
@@ -186,7 +194,6 @@
 					<span class="span">Newsfeed Items are not available!</span>
 				{:else}
 					<ol class="span w-1/2 md:w-2/3 lg:w-2/3 list-decimal" id="newsfeedItems">
-						<!-- {newsfeedItemTitle} -->
 						{#each newsfeedItems as newsfeedItem}
 							<li>{newsfeedItem.Title}</li>
 						{/each}

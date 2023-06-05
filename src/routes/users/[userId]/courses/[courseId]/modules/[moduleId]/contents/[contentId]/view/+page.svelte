@@ -19,6 +19,7 @@
 	let contentType = data.content.ContentType;
 	let resourceLink = data.content.ResourceLink;
 	let imageUrl = data.content.ImageUrl;
+	let durationInMins = data.content.DurationInMins;
 
 	onMount(() => {
 		show(data);
@@ -28,10 +29,12 @@
 	const userId = $page.params.userId;
 	const courseId = $page.params.courseId;
 	const moduleId = $page.params.moduleId;
+	const contentId = $page.params.contentId;
 	const courseRoute = `/users/${userId}/courses`;
-	const editRoute = `/users/${userId}/courses/${courseId}/modules/${moduleId}/contents/${id}/edit`;
-	const viewRoute = `/users/${userId}/courses/${courseId}/modules/${moduleId}/contents/${id}/view`;
-	const contentRoute = `/users/${userId}/courses/${courseId}/modules/${moduleId}/contents/create`;
+	const editRoute = `/users/${userId}/courses/${courseId}/modules/${moduleId}/contents/${contentId}/edit`;
+	const viewRoute = `/users/${userId}/courses/${courseId}/modules/${moduleId}/contents/${contentId}/view`;
+	const contentRoute = `/users/${userId}/courses/${courseId}/modules/${moduleId}/contents/view`;
+	const moduleRoute = `/users/${userId}/courses/${courseId}/modules/${moduleId}/view`;
 
 	const breadCrumbs = [
 		{
@@ -39,7 +42,11 @@
 			path: courseRoute
 		},
 		{
-			name: 'Contents',
+			name: 'Modules',
+			path: moduleRoute
+		},
+		{
+			name: 'Content',
 			path: contentRoute
 		},
 		{
@@ -55,13 +62,13 @@
 	<div class="px-3 mb-5">
 		<form
 			method="get"
-			class="w-full lg:max-w-4xl md:max-w-xl sm:max-w-lg mb-10 bg-[#ECE4FC] mt-6 rounded-lg mx-auto"
+			class="w-full  bg-[#ECE4FC] lg:mt-10 md:mt-8 sm:mt-6 mb-10 mt-4 lg:max-w-4xl md:max-w-xl sm:max-w-lg  rounded-lg mx-auto"
 		>
 			<div class="w-full  h-14 rounded-t-lg p-3  bg-[#7165E3]">
 				<div class="ml-3 relative flex flex-row text-white lg:text-xl text-lg ">
 					<div class="lg:hidden md:hidden block">View content</div>
 					<div class="lg:block md:block hidden">View content</div>
-					<a href={contentRoute}>
+					<a href={moduleRoute}>
 						<Fa icon={faMultiply} size="lg" class="absolute right-0 lg:pr-3 pr-0 text-white" />
 					</a>
 				</div>
@@ -83,7 +90,17 @@
 						<span>Description</span>
 					</label>
 				</div>
-				<span class="span w-1/2 md:2/3 lg:2/3" id="description"> {description} </span>
+				<span class="span w-1/2 md:2/3 lg:2/3" id="description">{description}</span>
+			</div>
+
+			<div class="flex items-center my-4 lg:mx-16 md:mx-12 mx-10">
+				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
+					<!-- svelte-ignore a11y-label-has-associated-control -->
+					<label class="label">
+						<span>Duration In Mins</span>
+					</label>
+				</div>
+				<span class="span w-1/2 md:2/3 lg:2/3" id="durationInMins">{durationInMins}</span>
 			</div>
 
 			<div class="flex items-center my-4 lg:mx-16 md:mx-12 mx-10">

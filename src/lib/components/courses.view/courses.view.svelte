@@ -1,19 +1,19 @@
 <script lang="ts">
 	import CollapsibleSection from '$lib/components/courses.view/collapsible.section.svelte';
 	import { createEventDispatcher } from 'svelte';
-	import { createDataTableStore, dataTableHandler } from '@skeletonlabs/skeleton';
+	import {
+		createDataTableStore,
+		dataTableHandler,
+	} from '@skeletonlabs/skeleton';
 	import Fa from 'svelte-fa';
 	import { Paginator } from '@skeletonlabs/skeleton';
-	import { faBook, faPencil, faTrash } from '@fortawesome/free-solid-svg-icons';
+	import { faPencil, faTrash } from '@fortawesome/free-solid-svg-icons';
 	import Confirm from '$lib/components/modal/confirmModal.svelte';
 
 	/////////////////////////////////////////////////////////////////////////////////////////////////
 
 	export let userId = undefined;
 	export let courses = [];
-	let name = undefined;
-	let durationInDays = undefined;
-	let expanded = false;
 
 	courses = courses.map((item, index) => ({ ...item, index: index + 1 }));
 	let addModuleRoute = (courseId) => `/users/${userId}/courses/${courseId}/modules/create`;
@@ -27,22 +27,16 @@
 	let viewCourseRoute = (courseId) => `/users/${userId}/courses/${courseId}/view`;
 	let viewModuleRoute = (courseId, moduleId) =>
 		`/users/${userId}/courses/${courseId}/modules/${moduleId}/view`;
-	let viewContentRoute = (courseId, moduleId, contentId)	=> 
-	`/users/${userId}/courses/${courseId}/modules/${moduleId}/contents/${contentId}/edit`;
-	
+	let viewContentRoute = (courseId, moduleId, contentId) =>
+		`/users/${userId}/courses/${courseId}/modules/${moduleId}/contents/${contentId}/edit`;
+
 	const dataTableStore = createDataTableStore(courses, {
 		search: '',
+		sort: '',
 		pagination: { offset: 0, limit: 10, size: 0, amounts: [10, 20, 30, 50] }
 	});
 	dataTableStore.subscribe((model) => dataTableHandler(model));
 	const dispatch = createEventDispatcher();
-
-	const onSearchClick = async (name, durationIndays) => {
-		dispatch('searchCourse', {
-			name: name,
-			durationIndays: durationIndays
-		});
-	};
 
 	const handleContentDelete = async (id) => {
 		dispatch('onContentDeleteClick', {
@@ -53,23 +47,23 @@
 	const handlelCourseDelete = async (courseId, modules) => {
 		dispatch('onCourseDeleteClick', {
 			courseId: courseId,
-			modules:modules,
+			modules: modules
 		});
 	};
 
 	const handlelModuleDelete = async (moduleId, contents) => {
 		dispatch('onModuleDeleteClick', {
 			moduleId: moduleId,
-			contents:contents
+			contents: contents
 		});
 	};
 </script>
 
-<div class="justify-center w-sceen mx-14 bg-tertiary-500 rounded-lg">
-	<div class="w-full h-14 rounded-t-lg p-3  bg-secondary-500">
+	<div class="flex justify-center flex-col mx-10 mb-10 overflow-y-auto  bg-tertiary-500 rounded-lg">
+	<div class="flex justify-center flex-col w-full h-14 p-3 bg-secondary-500 min-[280px]:overflow-auto overflow-auto">
 		<div class="ml-3 relative flex flex-row text-white text-xl">Courses</div>
 	</div>
-	<section class="text-base-100 ">
+	<section class="text-base-100 overflow-y-auto h-[700px] bg-tertiary-500">
 		<div class="my-3">
 			{#each $dataTableStore.filtered as course}
 				<CollapsibleSection
@@ -79,17 +73,17 @@
 					paddingLeft="20px"
 					marginBottom="12px"
 					headerText="{course.index}. {course.Name}"
-					itemsCount="Moules ({course.Modules.length})"
+					itemsCount="Modules ({course.Modules.length})"
 					addRoute={addModuleRoute(course.id)}
 					editRoute={editCourseRoute(course.id)}
-					viewRoute = {viewCourseRoute(course.id)}
+					viewRoute={viewCourseRoute(course.id)}
 					src="/courses.png"
 					on:onDeleteClick|once={async () => {
-						await handlelCourseDelete(course.id,course.Modules);
+						await handlelCourseDelete(course.id, course.Modules);
 					}}
 				>
-					<!-- {#if course.Modules.length >= 0} -->
-						<div class="content">
+					<div class="content mx-3">
+						{#if course.Modules.length > 0}
 							{#each course.Modules as module, i}
 								<CollapsibleSection
 									color="#5832A1"
@@ -98,20 +92,21 @@
 									paddingLeft="20px"
 									paddingRight="20px"
 									marginBottom="10px"
-									headerText="{`${i + 1}`}. {module.Name}"
+									headerText="{i + 1}. {module.Name}"
 									itemsCount="Contents ({module.CourseContents.length})"
 									addRoute={addContentRoute(course.id, module.id)}
 									editRoute={editModuleRoute(course.id, module.id)}
-									viewRoute = {viewModuleRoute(course.id, module.id)}
-									
-									src = "/modules.png"
+									viewRoute={viewModuleRoute(course.id, module.id)}
+									src="/modules.png"
 									on:onDeleteClick|once={async () => {
 										await handlelModuleDelete(module.id, module.CourseContents);
 									}}
 								>
-									<!-- {#if module.CourseContents.length >= 0}
-										<div /> -->
-									<!-- {:else} -->
+									{#if module.CourseContents.length <= 0}
+										<span class="items-center text-primary-500 ml-10 mb-4"
+											>Contents are not available</span
+										>
+									{:else}
 										<div class="content justify-center place-items-center grid">
 											<table class="table-auto overflow-x-auto text-left ">
 												<thead class="font-semibold text-primary-500">
@@ -127,10 +122,14 @@
 												<tbody class="text-primary-500">
 													{#each module.CourseContents as content, i}
 														<tr>
-															<td style="width: 5%;">{i + 1}</td>
+															<td style="width: 5%;" role="gridcell" aria-colindex={1} tabindex="0"
+																>{content.Sequence}</td
+															>
 															<td style="width: 40%;">
 																<a href={viewContentRoute(course.id, module.id, content.id)}
-																	>{content.Title}</a></td>
+																	>{content.Title}</a
+																></td
+															>
 															<td style="width: 20%;">{content.ContentType}</td>
 															<td style="width: 20%;">{content.DurationInMins}</td>
 															<td style="width: 5%;">
@@ -163,18 +162,18 @@
 												</tbody>
 											</table>
 										</div>
-									<!-- {/if} -->
+									{/if}
 								</CollapsibleSection>
 							{/each}
-						</div>
-					<!-- {:else}
-						<div class="content">Hello</div>
-					{/if} -->
+						{:else}
+							<span class="items-center text-primary-500 mb-4">Modules are not available</span>
+						{/if}
+					</div>
 				</CollapsibleSection>
 			{/each}
 		</div>
 	</section>
-	<div class=" w-full bg-secondary-500 h-36 lg:h-16 md:h-16 sm:h-36 mb-10 pt-1 rounded-b-lg ">
+	<div class=" w-full bg-secondary-500 h-36 lg:h-16 md:h-16 sm:h-36 pt-1 rounded-b-lg ">
 		{#if $dataTableStore.pagination}<Paginator
 				class="mt-2 mr-3 ml-3 "
 				buttonClasses="btn-icon bg-surface-500 w-5 h-8"
@@ -183,20 +182,16 @@
 			/>{/if}
 	</div>
 </div>
-
 <style>
 	section {
 		width: 100%;
 	}
 	.content {
-		/* position:justify-center; */
 		margin-top: 2px;
 		display: block;
 		margin-left: auto;
 		margin-right: auto;
 		width: 93%;
 		display: flex-col;
-
-		/* justify-items: center; */
 	}
 </style>

@@ -1,5 +1,10 @@
 <script lang="ts">
-	import { createDataTableStore, dataTableHandler } from '@skeletonlabs/skeleton';
+	import {
+		createDataTableStore,
+		dataTableHandler,
+		tableA11y,
+		tableInteraction
+	} from '@skeletonlabs/skeleton';
 	import { Paginator } from '@skeletonlabs/skeleton';
 	import Fa from 'svelte-fa';
 	import { faPencil, faTrash, faSearch } from '@fortawesome/free-solid-svg-icons';
@@ -8,6 +13,7 @@
 	import Confirm from '$lib/components/modal/confirmModal.svelte';
 	import BreadCrumbs from '$lib/components/breadcrumbs/breadcrums.svelte';
 	import type { PageServerData } from './$types';
+	import { Helper } from '$lib/utils/helper';
 
 	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -29,7 +35,7 @@
 
 	const breadCrumbs = [
 		{
-			name: 'Person-Role-Types',
+			name: 'Person-Roles',
 			path: personRoleTypesRoute
 		}
 	];
@@ -99,13 +105,19 @@
 	</a>
 </div>
 <div class="flex justify-center flex-col mt-4 mx-10 mb-10 overflow-y-auto ">
-	<table class="table rounded-b-none">
-		<thead class="sticky top-0">
+	<table class="table rounded-b-none" use:tableInteraction use:tableA11y>
+		<thead
+			on:click={(e) => {
+				dataTableStore.sort(e);
+			}}
+			on:keypress
+			class="sticky top-0"
+		>
 			<tr>
-				<th style="width: 4%;">Id</th>
-				<th style="width: 10;">Role Name</th>
+				<th data-sort="index" style="width: 4%;">Id</th>
+				<th data-sort="RoleName" style="width: 10;">Role Name</th>
 				<th style="width: 40%;">Description</th>
-				<th style="width: 20%;">Created Date</th>
+				<th data-sort="CreatedAt" style="width: 20%;">Created Date</th>
 				<th style="width: 8%;" />
 				<th style="width: 8%;" />
 			</tr>
@@ -114,15 +126,13 @@
 	<div class=" overflow-y-auto h-[600px] bg-tertiary-500">
 		<table class="table w-full">
 			<tbody class="">
-				{#each $dataTableStore.filtered as row, rowIndex}
+				{#each $dataTableStore.filtered as row}
 					<tr>
 						<td style="width: 4%;">{row.index}</td>
-						<td style="width: 20%;"><a href={viewRoute(row.id)}>{row.RoleName}</a></td>
-						<td style="width: 33;"
-							>{row.Description.length > 50
-								? row.Description.substring(0, 47) + '...'
-								: row.Description}</td
+						<td style="width: 20%;"
+							><a href={viewRoute(row.id)}>{Helper.truncateText(row.RoleName, 20)} </a></td
 						>
+						<td style="width: 33;">{Helper.truncateText(row.Description, 40)} </td>
 						<td style="width: 20%;">{date.format(new Date(row.CreatedAt), 'DD-MMM-YYYY')}</td>
 						<td style="width: 8%;">
 							<a href={editRoute(row.id)}

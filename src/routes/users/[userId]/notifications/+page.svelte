@@ -1,6 +1,11 @@
 <script lang="ts">
 	import Fa from 'svelte-fa';
-	import { createDataTableStore, dataTableHandler } from '@skeletonlabs/skeleton';
+	import {
+		createDataTableStore,
+		dataTableHandler,
+		tableA11y,
+		tableInteraction
+	} from '@skeletonlabs/skeleton';
 	import { Paginator } from '@skeletonlabs/skeleton';
 	import { page } from '$app/stores';
 	import date from 'date-and-time';
@@ -8,6 +13,7 @@
 	import Confirm from '$lib/components/modal/confirmModal.svelte';
 	import { faPencil, faSearch, faTrash } from '@fortawesome/free-solid-svg-icons';
 	import type { PageServerData } from './$types';
+	import { Helper } from '$lib/utils/helper';
 
 	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -113,7 +119,7 @@
 	</div>
 	<div class="basis-1/2 justify-center items-center">
 		<div class="relative flex items-center">
-			<a href={createRoute} class="absolute right-4 lg:mr-[-18px] ">
+			<a href={createRoute} class="absolute right-1 lg:mr-[-20px]">
 				<button
 					class="btn variant-filled-primary w-28 rounded-lg hover:bg-primary bg-primary transition 
 				ease-in-out 
@@ -129,7 +135,7 @@
 </div>
 
 <div
-	class="flex flex-row mx-14 lg:mt-10 md:mt-10 sm:mt-4 mt-4 lg:gap-7 md:gap-8 sm:gap-4 gap-4 lg:flex-row md:flex-row sm:flex-col min-[280px]:flex-col"
+	class="flex flex-row mx-10 lg:mt-10 md:mt-10 sm:mt-4 mt-4 lg:gap-7 md:gap-8 sm:gap-4 gap-4 lg:flex-row md:flex-row sm:flex-col min-[280px]:flex-col"
 >
 	<div class="basis-1/2 justify-center items-center ">
 		<div class="relative flex items-center">
@@ -164,13 +170,19 @@
 </div>
 
 <div class="flex justify-center flex-col mt-4 mx-10 mb-10 overflow-y-auto ">
-	<table class="table rounded-b-none">
-		<thead class="sticky top-0">
+	<table class="table rounded-b-none" role="grid" use:tableInteraction use:tableA11y>
+		<thead
+			on:click={(e) => {
+				dataTableStore.sort(e);
+			}}
+			on:keypress
+			class="sticky top-0"
+		>
 			<tr>
-				<th style="width: 5%;">Id</th>
-				<th style="width: 18%;">Title</th>
-				<th style="width: 30%;">Body</th>
-				<th style="width: 18%;">Type</th>
+				<th data-sort="index" style="width: 5%;">Id</th>
+				<th data-sort="index" style="width: 19%;">Title</th>
+				<th data-sort="index" style="width: 30%;">Body</th>
+				<th style="width: 17%;">Type</th>
 				<th style="width: 35%;">Created Date</th>
 				<th style="width: 8%;" />
 				<th style="width: 8%;" />
@@ -180,13 +192,19 @@
 	<div class=" overflow-y-auto h-[600px] bg-tertiary-500">
 		<table class="table w-full">
 			<tbody class="">
-				{#each $dataTableStore.filtered as row, rowIndex}
+				{#each $dataTableStore.filtered as row}
 					<tr>
-						<td style="width: 5%;">{row.index}</td>
-						<td style="width: 19%;"><a href={viewRoute(row.id)}>{row.Title}</a></td>
-						<td style="width: 30%;">{row.Body}</td>
-						<td style="width: 18%;">{row.Type}</td>
-						<td style="width: 35%;">{date.format(new Date(row.SentOn), 'DD-MMM-YYYY')}</td>
+						<td role="gridcell" aria-colindex={1} tabindex="0" style="width: 5%;">{row.index}</td>
+						<td role="gridcell" aria-colindex={2} tabindex="0" style="width: 19%;"
+							><a href={viewRoute(row.id)}>{Helper.truncateText(row.Title, 20)}</a></td
+						>
+						<td role="gridcell" aria-colindex={3} tabindex="0" style="width: 30%;"
+							>{Helper.truncateText(row.Body, 40)}</td
+						>
+						<td role="gridcell" aria-colindex={4} tabindex="0" style="width: 18%;">{row.Type}</td>
+						<td role="gridcell" aria-colindex={5} tabindex="0" style="width: 35%;"
+							>{date.format(new Date(row.SentOn), 'DD-MMM-YYYY')}</td
+						>
 						<td style="width: 8%;">
 							<a href={editRoute(row.id)}
 								><Fa icon={faPencil} style="color-text-primary" size="md" /></a
@@ -224,4 +242,3 @@
 			/>{/if}
 	</div>
 </div>
-<!-- </div> -->

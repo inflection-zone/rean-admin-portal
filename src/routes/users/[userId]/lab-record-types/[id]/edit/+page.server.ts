@@ -1,7 +1,8 @@
-import * as cookie from 'cookie';
-import type { PageServerLoad, Action } from './$types';
+import type { PageServerLoad } from './$types';
 import { error, type RequestEvent } from '@sveltejs/kit';
 import { redirect } from 'sveltekit-flash-message/server';
+import { z } from 'zod';
+import { zfd } from 'zod-form-data';
 import { errorMessage, successMessage } from '$lib/utils/message.utils';
 import {
 	getLabRecordTypeById,
@@ -32,42 +33,65 @@ export const load: PageServerLoad = async (event: RequestEvent) => {
 	}
 };
 
+const updateLabRecordSchema = zfd.formData({
+	typeName: z.string().max(128),
+	displayName: z.string().optional(),
+	snowmedCode: z.string().optional(),
+	loincCode: z.string().optional(),
+	normalRangeMin: zfd.numeric(z.number().optional()),
+	normalRangeMax: zfd.numeric(z.number().optional()),
+	unit: z.string().optional()
+});
+
 export const actions = {
 	updateLabRecordTypeAction: async (event: RequestEvent) => {
 		const request = event.request;
 		const userId = event.params.userId;
-		const data = await request.formData();
-
-		const typeName = data.has('typeName') ? data.get('typeName') : null;
-		const displayName = data.has('displayName') ? data.get('displayName') : null;
-		const snowmedCode = data.has('snowmedCode') ? data.get('snowmedCode') : null;
-		const loincCode = data.has('loincCode') ? data.get('loincCode') : null;
-		const normalRangeMin = data.has('normalRangeMin') ? data.get('normalRangeMin') : null;
-		const normalRangeMax = data.has('normalRangeMax') ? data.get('normalRangeMax') : null;
-		const unit = data.has('unit') ? data.get('unit') : null;
-		const sessionId = event.cookies.get('sessionId');
 		const labRecordTypeId = event.params.id;
+		const sessionId = event.cookies.get('sessionId');
+		const formData = Object.fromEntries(await request.formData());
+
+		type LabRecordSchema = z.infer<typeof updateLabRecordSchema>;
+
+		let result: LabRecordSchema = {};
+		try {
+			result = updateLabRecordSchema.parse(formData);
+			console.log('result', result);
+		} catch (err: any) {
+			const { fieldErrors: errors } = err.flatten();
+			console.log(errors);
+			const { ...rest } = formData;
+			return {
+				data: rest,
+				errors
+			};
+		}
 
 		const response = await updateLabRecordType(
 			sessionId,
 			labRecordTypeId,
-			typeName.valueOf() as string,
-			displayName.valueOf() as string,
-			snowmedCode.valueOf() as string,
-			loincCode.valueOf() as string,
-			normalRangeMin.valueOf() as number,
-			normalRangeMax.valueOf() as number,
-			unit.valueOf() as string
+			result.typeName,
+			result.displayName,
+			result.snowmedCode,
+			result.loincCode,
+			result.normalRangeMin,
+			result.normalRangeMax,
+			result.unit
 		);
 		const id = response.Data.LabRecordType.id;
 
 		if (response.Status === 'failure' || response.HttpCode !== 200) {
-			throw redirect(303, '/goals', errorMessage(response.Message), event);
+			throw redirect(
+				303,
+				`/users/${userId}/lab-record-types`,
+				errorMessage(response.Message),
+				event
+			);
 		}
 		throw redirect(
 			303,
 			`/users/${userId}/lab-record-types/${id}/view`,
-			successMessage(`lab record type updated successful!`),
+			successMessage(`Lab record type updated successfully !`),
 			event
 		);
 	}

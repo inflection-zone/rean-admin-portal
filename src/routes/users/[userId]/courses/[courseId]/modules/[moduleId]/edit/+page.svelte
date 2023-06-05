@@ -7,6 +7,7 @@
 	import { showMessage } from '$lib/utils/message.utils';
 	import Image from '$lib/components/image.svelte';
 
+	export let form;
 	export let data: PageServerData;
 	let id = data.module.id;
 	let name = data.module.Name;
@@ -36,7 +37,7 @@
 	const moduleId = $page.params.moduleId;
 	const editRoute = `/users/${userId}/courses/${courseId}/modules/${moduleId}/edit`;
 	const viewRoute = `/users/${userId}/courses/${courseId}/modules/${moduleId}/view`;
-	const moduleRoute = `/users/${userId}/courses/${courseId}/modules`;
+	const moduleRoute = `/users/${userId}/courses/${courseId}/modules/${moduleId}/view`;
 	const courseRoute = `/users/${userId}/courses`;
 
 	const breadCrumbs = [
@@ -46,7 +47,7 @@
 		},
 		{
 			name: 'Modules',
-			path: moduleRoute
+			path: viewRoute
 		},
 		{
 			name: 'Edit',
@@ -56,10 +57,8 @@
 
 	const upload = async (imgBase64, filename) => {
 		const data = {};
-		//console.log(imgBase64);
 		const imgData = imgBase64.split(',');
 		data['image'] = imgData[1];
-		//console.log(JSON.stringify(data));
 		const res = await fetch(`/api/server/file-resources/upload`, {
 			method: 'POST',
 			headers: {
@@ -72,7 +71,6 @@
 		console.log(Date.now().toString());
 		const response = await res.json();
 		if (response.Status === 'success' && response.HttpCode === 201) {
-			// const imageResourceId = response.Data.FileResources[0].id;
 			const imageUrl_ = response.Data.FileResources[0].Url;
 			console.log('imageUrl_', imageUrl_);
 			if (imageUrl_) {
@@ -103,7 +101,7 @@
 		<form
 			method="post"
 			action="?/updateModuleAction"
-			class="w-full  bg-[#ECE4FC] lg:mt-10 md:mt-8 sm:mt-6 mb-10 mt-4 lg:max-w-4xl md:max-w-xl sm:max-w-lg  rounded-lg mx-auto"
+			class="w-full bg-[#ECE4FC] lg:mt-10 md:mt-8 sm:mt-6 mb-10 mt-4 lg:max-w-4xl md:max-w-xl sm:max-w-lg  rounded-lg mx-auto"
 		>
 			<div class="w-full  h-14 rounded-t-lg p-3  bg-[#7165E3]">
 				<div class="ml-3 relative flex flex-row text-white text-xl">
@@ -131,8 +129,13 @@
 						name="name"
 						bind:value={name}
 						placeholder="Enter name here..."
-						class="input w-full "
+						class="input w-full {form?.errors?.name
+							? 'border-error-300 text-error-500'
+							: 'border-primary-200 text-primary-500'}"
 					/>
+					{#if form?.errors?.name}
+						<p class="text-error-500 text-xs">{form?.errors?.name[0]}</p>
+					{/if}
 				</div>
 			</div>
 			<div class="flex items-center mb-2 lg:mx-16 md:mx-12 mx-10">
@@ -146,27 +149,16 @@
 					<textarea
 						name="description"
 						bind:value={description}
-						class="textarea w-full"
 						placeholder="Enter description here..."
+						class="textarea w-full {form?.errors?.description
+							? 'border-error-300 text-error-500'
+							: 'border-primary-200 text-primary-500'}"
 					/>
+					{#if form?.errors?.description}
+						<p class="text-error-500 text-xs">{form?.errors?.description[0]}</p>
+					{/if}
 				</div>
 			</div>
-			<!-- <div class="flex items-center my-2 lg:mx-16 md:mx-12 mx-10">
-				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
-					<label class="label">
-						<span>Sequence</span>
-					</label>
-				</div>
-				<div class="w-1/2 md:w-2/3 lg:w-2/3">
-					<input
-						type="number"
-						name="sequence"
-						placeholder="Enter sequence here..."
-						class="input w-full "
-						bind:value={sequence}
-					/>
-				</div>
-			</div> -->
 
 			<div class="flex items-center mb-4 mt-2 lg:mx-16 md:mx-12 mx-10">
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
@@ -180,13 +172,48 @@
 						type="number"
 						name="durationInMins"
 						placeholder="Enter sequence here..."
-						class="input w-full "
 						bind:value={durationInMins}
+						class="input w-full {form?.errors?.durationInMins
+							? 'border-error-300 text-error-500'
+							: 'border-primary-200 text-primary-500'}"
 					/>
+					{#if form?.errors?.durationInMins}
+						<p class="text-error-500 text-xs">{form?.errors?.durationInMins[0]}</p>
+					{/if}
 				</div>
 			</div>
-			<!-- <div class="flex flex-row gap-8 w-1/2 md:w-2/3 lg:w-2/3 ">
-				<div class="flex flex-row gap-8 w-1/2 md:w-2/3 lg:w-2/3 ">
+
+			<div class="flex items-start my-4 lg:mx-16 md:mx-12 mx-10">
+				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
+					<!-- svelte-ignore a11y-label-has-associated-control -->
+					<label class="label mt-2">
+						<span>Sequence</span>
+					</label>
+				</div>
+				<div class="w-1/2 md:w-2/3 lg:w-2/3">
+					<input
+						bind:value={sequence}
+						type="number"
+						name="sequence"
+						placeholder="Enter sequence here..."
+						class="input w-full {form?.errors?.sequence
+							? 'border-error-300 text-error-500'
+							: 'border-primary-200 text-primary-500'}"
+					/>
+					{#if form?.errors?.sequence}
+						<p class="text-error-500 text-xs">{form?.errors?.sequence[0]}</p>
+					{/if}
+				</div>
+			</div>
+			
+			<div class="flex items-start my-2 lg:mx-16 md:mx-12 mx-10">
+				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
+					<!-- svelte-ignore a11y-label-has-associated-control -->
+					<label class="label">
+						<span>Image</span>
+					</label>
+				</div>
+				<div class="flex flex-row gap-4 w-1/2 md:w-2/3 lg:w-2/3 ">
 					{#if imageUrl === 'undefined'}
 						<input
 							name="fileinput"
@@ -206,16 +233,18 @@
 						/>
 					{/if}
 					<input type="hidden" name="imageUrl" value={imageUrl} />
+					{#if form?.errors?.imageUrl}
+						<p class="text-error-500 text-xs">{form?.errors?.imageUrl[0]}</p>
+					{/if}
 				</div>
 			</div>
-			 -->
 			<div class="flex items-center my-8 lg:mx-16 md:mx-12 mx-4 ">
 				<div class="lg:w-1/2 md:w-1/2 sm:w-1/2  w-1/3" />
 				<div class="lg:w-1/4 md:w-1/4 sm:w-1/4  w-1/3 ">
 					<button
 						type="button"
 						on:click={handleReset}
-						class="btn variant-ringed-primary lg:w-40 lg:ml-8 md:ml-6 sm:ml-1 mb-10"
+						class="btn variant-ringed-primary text-primary-500 lg:w-40 lg:ml-8 md:ml-6 sm:ml-1 mb-10"
 					>
 						Reset</button
 					>

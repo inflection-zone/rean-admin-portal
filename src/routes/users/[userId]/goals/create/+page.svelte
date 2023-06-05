@@ -5,7 +5,9 @@
 	import BreadCrumbs from '$lib/components/breadcrumbs/breadcrums.svelte';
 	import { page } from '$app/stores';
 
-	let retrievedTags = '';
+	////////////////////////////////////////////////////////////////////////////////////////
+
+	export let form;
 	let tagsPlaceholder = 'Enter a tags here...';
 
 	const userId = $page.params.userId;
@@ -14,7 +16,7 @@
 
 	const breadCrumbs = [
 		{
-			name: 'Goal-Types',
+			name: 'Goals',
 			path: goalRoute
 		},
 		{
@@ -27,7 +29,7 @@
 <main class="h-screen mb-52">
 	<BreadCrumbs crumbs={breadCrumbs} />
 
-	<div class="px-5 mb-5 ">
+	<div class="">
 		<form
 			method="post"
 			action="?/createGoalAction"
@@ -50,15 +52,27 @@
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
 					<!-- svelte-ignore a11y-label-has-associated-control -->
 					<label class="label">
-						<span>Type</span>
+						<span>Type *</span>
 					</label>
 				</div>
 				<div class="w-1/2 md:w-2/3 lg:w-2/3">
-					<input type="text" name="type" placeholder="Enter type here..." class="input w-full " />
+					<input
+						type="text"
+						name="type"
+						required
+						placeholder="Enter type here..."
+						class="input w-full {form?.errors?.type
+							? 'border-error-300 text-error-500'
+							: 'border-primary-200 text-primary-500'}"
+						value={form?.data?.type ?? ''}
+					/>
+					{#if form?.errors?.type}
+						<p class="text-error-500 text-xs">{form?.errors?.type[0]}</p>
+					{/if}
 				</div>
 			</div>
 
-			<div class="flex items-center mb-2 lg:mx-16 md:mx-12 mx-10">
+			<div class="flex items-start mb-2 lg:mx-16 md:mx-12 mx-10">
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
 					<!-- svelte-ignore a11y-label-has-associated-control -->
 					<label class="label">
@@ -71,6 +85,9 @@
 						name="tags"
 						placeholder={tagsPlaceholder}
 					/>
+					{#if form?.errors?.tags}
+						<p class="text-error-500 text-xs">{form?.errors?.tags[0]}</p>
+					{/if}
 				</div>
 			</div>
 

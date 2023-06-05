@@ -1,50 +1,70 @@
 import { redirect } from 'sveltekit-flash-message/server';
 import type { RequestEvent } from '@sveltejs/kit';
+import { zfd } from 'zod-form-data';
+import { z } from 'zod';
 import { errorMessage, successMessage } from '$lib/utils/message.utils';
 import { createAssessmentTemplate } from '../../../../api/services/assessment-templates';
 
 /////////////////////////////////////////////////////////////////////////
 
+const createAssessmentTemplateSchema = zfd.formData({
+	title: z.string().min(3).max(256),
+	description: z.string().optional(),
+	type: z.string(),
+	provider: z.string().optional(),
+	providerAssessmentCode: z.string().optional(),
+	serveListNodeChildrenAtOnce: zfd.checkbox({ trueValue: 'true' }),
+	scoringApplicable: zfd.checkbox({ trueValue: 'true' })
+});
+
 export const actions = {
 	createAssessmentAction: async (event: RequestEvent) => {
 		const request = event.request;
 		const userId = event.params.userId;
-		const data = await request.formData();
-
-		const title = data.has('title') ? data.get('title') : null;
-		const description = data.has('description') ? data.get('description') : null;
-		const type = data.has('type') ? data.get('type') : null;
-		const provider = data.has('provider') ? data.get('provider') : null;
-		const providerAssessmentCode = data.has('providerAssessmentCode')
-			? data.get('providerAssessmentCode')
-			: null;
-		const serveListNodeChildrenAtOnce = data.has('serveListNodeChildrenAtOnce')
-			? data.get('serveListNodeChildrenAtOnce')
-			: false;
-			const scoringApplicable = data.has('scoringApplicable') ? data.get('scoringApplicable') : false;
-
 		const sessionId = event.cookies.get('sessionId');
+		const formData = Object.fromEntries(await request.formData());
 
-		console.log(data);
+		type AssessmentTemplateSchema = z.infer<typeof createAssessmentTemplateSchema>;
+
+		let result: AssessmentTemplateSchema = {};
+		try {
+			result = createAssessmentTemplateSchema.parse(formData);
+			console.log('result', result);
+		} catch (err: any) {
+			const { fieldErrors: errors } = err.flatten();
+			console.log(errors);
+			const { ...rest } = formData;
+			return {
+				data: rest,
+				errors
+			};
+		}
+
 		const response = await createAssessmentTemplate(
 			sessionId,
-			title.valueOf() as string,
-			description.valueOf() as string,
-			type.valueOf() as string,
-			provider.valueOf() as string,
-			providerAssessmentCode.valueOf() as string,
-			serveListNodeChildrenAtOnce.valueOf() as boolean,
-			scoringApplicable.valueOf() as boolean
+			result.title,
+			result.description,
+			result.type,
+			result.provider,
+			result.providerAssessmentCode,
+			result.serveListNodeChildrenAtOnce,
+			result.scoringApplicable
 		);
+
 		const id = response.Data.AssessmentTemplate.id;
 
 		if (response.Status === 'failure' || response.HttpCode !== 201) {
-			throw redirect(303, '/assessment-templates', errorMessage(response.Message), event);
+			throw redirect(
+				303,
+				`/users/${userId}/assessment-templates`,
+				errorMessage(response.Message),
+				event
+			);
 		}
 		throw redirect(
 			303,
 			`/users/${userId}/assessment-templates/${id}/view`,
-			successMessage(`Assessment template created successful!`),
+			successMessage(`Assessment template created successfully !`),
 			event
 		);
 	}

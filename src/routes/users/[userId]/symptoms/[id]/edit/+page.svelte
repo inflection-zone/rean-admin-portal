@@ -13,6 +13,7 @@
 	let retrievedTags = '';
 	let tagsPlaceholder = 'Enter a tags here...';
 
+	export let form;
 	export let data: PageServerData;
 	let initiaData = {};
 	let id = data.symptom.id;
@@ -99,7 +100,7 @@
 <main class="h-screen mb-10">
 	<BreadCrumbs crumbs={breadCrumbs} />
 
-	<div class="px-5 mb-5 ">
+	<div class="">
 		<form
 			method="post"
 			action="?/updateSymptomAction"
@@ -119,25 +120,32 @@
 			</div>
 
 			<div class="hidden">{id}</div>
+
 			<div class="flex items-center mb-4 mt-10 lg:mx-16 md:mx-12 mx-10">
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
 					<!-- svelte-ignore a11y-label-has-associated-control -->
 					<label class="label">
-						<span>Symptom</span>
+						<span>Symptom *</span>
 					</label>
 				</div>
 				<div class="w-1/2 md:w-2/3 lg:w-2/3">
 					<input
 						type="text"
 						name="symptom"
+						required
 						bind:value={symptom}
 						placeholder="Enter symptom here..."
-						class="input w-full "
+						class="input w-full {form?.errors?.symptom
+							? 'border-error-300 text-error-500'
+							: 'border-primary-200 text-primary-500'}"
 					/>
+					{#if form?.errors?.symptom}
+						<p class="text-error-500 text-xs">{form?.errors?.symptom[0]}</p>
+					{/if}
 				</div>
 			</div>
 
-			<div class="flex items-center mb-4 lg:mx-16 md:mx-12 mx-10">
+			<div class="flex items-start mb-2 lg:mx-16 md:mx-12 mx-10">
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
 					<!-- svelte-ignore a11y-label-has-associated-control -->
 					<label class="label">
@@ -148,13 +156,18 @@
 					<textarea
 						name="description"
 						bind:value={description}
-						class="textarea w-full"
 						placeholder="Enter description here..."
+						class="textarea w-full  {form?.errors?.description
+							? 'border-error-300 text-error-500'
+							: 'border-primary-200 text-primary-500'}"
 					/>
+					{#if form?.errors?.description}
+						<p class="text-error-500 text-xs">{form?.errors?.description[0]}</p>
+					{/if}
 				</div>
 			</div>
 
-			<div class="flex items-center mb-4 lg:mx-16 md:mx-12 mx-10">
+			<div class="flex items-start mb-4 lg:mx-16 md:mx-12 mx-10">
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
 					<!-- svelte-ignore a11y-label-has-associated-control -->
 					<label class="label">
@@ -163,6 +176,9 @@
 				</div>
 				<div class="w-1/2 md:w-2/3 lg:w-2/3">
 					<InputChip chips="variant-filled-error rounded-2xl" name="tags" bind:value={tags} />
+					{#if form?.errors?.tags}
+						<p class="text-error-500 text-xs">{form?.errors?.tags[0]}</p>
+					{/if}
 				</div>
 			</div>
 
@@ -170,17 +186,23 @@
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
 					<!-- svelte-ignore a11y-label-has-associated-control -->
 					<label class="label">
-						<span>Language</span>
+						<span>Language *</span>
 					</label>
 				</div>
 				<div class="w-1/2 md:w-2/3 lg:w-2/3">
 					<input
 						type="text"
 						name="language"
+						required
 						bind:value={language}
 						placeholder="Enter language here..."
-						class="input w-full "
+						class="input w-full {form?.errors?.language
+							? 'border-error-300 text-error-500'
+							: 'border-primary-200 text-primary-500'}"
 					/>
+					{#if form?.errors?.language}
+						<p class="text-error-500 text-xs">{form?.errors?.language[0]}</p>
+					{/if}
 				</div>
 			</div>
 
@@ -188,7 +210,7 @@
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
 					<!-- svelte-ignore a11y-label-has-associated-control -->
 					<label class="label">
-						<span>Image</span>
+						<span>Image *</span>
 					</label>
 				</div>
 				<div class="flex flex-row gap-4 w-1/2 md:w-2/3 lg:w-2/3 ">
@@ -196,6 +218,7 @@
 						<input
 							name="fileinput"
 							type="file"
+							required
 							class="true input w-full"
 							placeholder="Image"
 							on:change={async (e) => await onFileSelected(e)}
@@ -211,6 +234,9 @@
 						/>
 					{/if}
 					<input type="hidden" name="imageResourceId" value={imageResourceId} />
+					{#if form?.errors?.imageResourceId}
+						<p class="text-error-500 text-xs">{form?.errors?.imageResourceId[0]}</p>
+					{/if}
 				</div>
 			</div>
 
@@ -220,7 +246,7 @@
 					<button
 						type="button"
 						on:click={handleReset}
-						class="btn variant-ringed-primary lg:w-40 lg:ml-8 md:ml-6 sm:ml-1 mb-10"
+						class="btn variant-ringed-primary text-primary-500 lg:w-40 lg:ml-8 md:ml-6 sm:ml-1 mb-10"
 					>
 						Reset</button
 					>

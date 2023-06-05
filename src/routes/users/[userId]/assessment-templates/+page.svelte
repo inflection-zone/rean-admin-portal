@@ -1,12 +1,18 @@
 <script lang="ts">
 	import Fa from 'svelte-fa';
-	import { createDataTableStore, dataTableHandler } from '@skeletonlabs/skeleton';
+	import {
+		createDataTableStore,
+		dataTableHandler,
+		tableA11y,
+		tableInteraction
+	} from '@skeletonlabs/skeleton';
 	import { Paginator } from '@skeletonlabs/skeleton';
 	import { page } from '$app/stores';
 	import BreadCrumbs from '$lib/components/breadcrumbs/breadcrums.svelte';
 	import Confirm from '$lib/components/modal/confirmModal.svelte';
 	import { faPencil, faSearch, faTrash } from '@fortawesome/free-solid-svg-icons';
 	import type { PageServerData } from './$types';
+	import { Helper } from '$lib/utils/helper';
 
 	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -22,7 +28,7 @@
 
 	const breadCrumbs = [
 		{
-			name: 'Assessment-Templates',
+			name: 'Assessments',
 			path: assessmentRoute
 		}
 	];
@@ -34,19 +40,11 @@
 	let itemsPerPage = 10;
 	let pageIndex = 0;
 
-	const dataTableStore = createDataTableStore(
-		// Pass your source data here:
-		assessmentTemplates,
-		{
-			// The current search term.
-			search: '',
-			// The current sort key.
-			sort: '',
-			// Paginator component settings.
-			pagination: { offset: 0, limit: 10, size: 0, amounts: [10, 20, 30, 50] }
-		}
-	);
-	// This automatically handles search, sort, etc when the model updates.
+	const dataTableStore = createDataTableStore(assessmentTemplates, {
+		search: '',
+		sort: '',
+		pagination: { offset: 0, limit: 10, size: 0, amounts: [10, 20, 30, 50] }
+	});
 
 	const searchParams = async (title: string, type: string) => {
 		await searchAssessmentTemplate({
@@ -122,7 +120,7 @@
 	</div>
 	<div class="basis-1/2 justify-center items-center">
 		<div class="relative flex items-center">
-			<a href={createRoute} class="absolute right-4 lg:mr-[-18px] ">
+			<a href={createRoute} class="absolute right-1 lg:mr-[-20px]">
 				<button
 					class="btn variant-filled-primary w-28 rounded-lg hover:bg-primary bg-primary transition 
 				ease-in-out 
@@ -173,12 +171,18 @@
 </div>
 
 <div class="flex justify-center flex-col mt-4 mx-10 mb-10 overflow-y-auto ">
-	<table class="table rounded-b-none">
-		<thead class="sticky top-0">
+	<table class="table rounded-b-none" role="grid" use:tableInteraction use:tableA11y>
+		<thead
+			on:click={(e) => {
+				dataTableStore.sort(e);
+			}}
+			on:keypress
+			class="sticky top-0"
+		>
 			<tr>
-				<th style="width: 5%;">Id</th>
-				<th style="width: 20%;">Title</th>
-				<th style="width: 30%;">Type</th>
+				<th data-sort="index" style="width: 5%;">Id</th>
+				<th data-sort="Title" style="width: 20%;">Title</th>
+				<th data-sort="Type" style="width: 30%;">Type</th>
 				<th style="width: 24%;">Provider</th>
 				<th style="width: 8%;" />
 				<th style="width: 8%;" />
@@ -188,12 +192,18 @@
 	<div class=" overflow-y-auto h-[600px] bg-tertiary-500">
 		<table class="table w-full">
 			<tbody class="">
-				{#each $dataTableStore.filtered as row, rowIndex}
+				{#each $dataTableStore.filtered as row}
 					<tr>
-						<td style="width: 5%;">{row.index}</td>
-						<td style="width: 20%;"><a href={viewRoute(row.id)}> {row.Title}</a></td>
-						<td style="width: 30%;">{row.Type}</td>
-						<td style="width: 24%;">{row.Provider}</td>
+						<td role="gridcell" aria-colindex={1} tabindex="0" style="width: 5%;">{row.index}</td>
+						<td role="gridcell" aria-colindex={2} tabindex="0" style="width: 20%;"
+							><a href={viewRoute(row.id)}>{Helper.truncateText(row.Title, 20)}</a></td
+						>
+						<td role="gridcell" aria-colindex={3} tabindex="0" style="width: 30%;"
+							>{Helper.truncateText(row.Type, 40)}</td
+						>
+						<td role="gridcell" aria-colindex={4} tabindex="0" style="width: 24%;"
+							>{Helper.truncateText(row.Provider, 40)}</td
+						>
 						<td style="width: 8%;">
 							<a href={editRoute(row.id)}
 								><Fa icon={faPencil} style="color-text-primary" size="md" /></a

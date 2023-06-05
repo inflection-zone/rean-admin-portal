@@ -3,7 +3,7 @@
 	import { page } from '$app/stores';
 	import BreadCrumbs from '$lib/components/breadcrumbs/breadcrums.svelte';
 	import type { PageServerData } from './$types';
-	import  CourseView  from '$lib/components/courses.view/courses.view.svelte';
+	import CourseView from '$lib/components/courses.view/courses.view.svelte';
 	import { showMessage } from '$lib/utils/message.utils';
 
 	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -12,7 +12,7 @@
 	let courses = data.courses;
 
 	courses = courses.map((item, index) => ({ ...item, index: index + 1 }));
-	console.log("courses",courses)
+	console.log('courses', courses);
 
 	const dataTableStore = createDataTableStore(courses, {
 		search: '',
@@ -80,15 +80,14 @@
 	}
 	dataTableStore.subscribe((model) => dataTableHandler(model));
 
-
 	const handleCourseDelete = async (id, modules) => {
 		const courseId = id;
-		console.log("courseId",courseId)
-		for (const module of modules){
-			await DeleteModule ({
-			sessionId: data.sessionId,
-			moduleId: module.id,
-		})
+		console.log('courseId', courseId);
+		for (const module of modules) {
+			await DeleteModule({
+				sessionId: data.sessionId,
+				moduleId: module.id
+			});
 		}
 		await DeleteCourse({
 			sessionId: data.sessionId,
@@ -106,17 +105,17 @@
 				'content-type': 'application/json'
 			}
 		});
-		console.log("response",response)
+		console.log('response', response);
 	}
 
 	const handleModuleDelete = async (id, contents) => {
 		const moduleId = id;
-		console.log("moduleId",moduleId)
-		for (const content of contents){
+		console.log('moduleId', moduleId);
+		for (const content of contents) {
 			await DeleteContent({
-			sessionId: data.sessionId,
-			courseContentId: content.id,
-		});
+				sessionId: data.sessionId,
+				courseContentId: content.id
+			});
 		}
 		await DeleteModule({
 			sessionId: data.sessionId,
@@ -137,7 +136,7 @@
 
 	const handleContentDelete = async (id) => {
 		const contentId = id;
-		console.log("contentId",contentId)
+		console.log('contentId', contentId);
 		await DeleteContent({
 			sessionId: data.sessionId,
 			courseContentId: contentId
@@ -159,7 +158,7 @@
 <BreadCrumbs crumbs={breadCrumbs} />
 
 <div
-	class=" mr-14 mt-8 lg:flex-row md:flex-row sm:flex-col flex-col lg:block md:block sm:hidden hidden"
+	class="mr-14 mt-8 lg:flex-row md:flex-row sm:flex-col flex-col lg:block md:block sm:hidden hidden"
 >
 	<div class="basis-1/2 justify-center items-center ">
 		<div class="relative flex items-center  " />
@@ -168,7 +167,7 @@
 		<div class="relative flex items-center">
 			<a href={createRoute} class="absolute right-4 lg:mr-[-32px] ">
 				<button
-					class="btn variant-filled-primary w-28 mr-4 rounded-lg hover:bg-primary bg-primary transition
+					class="btn variant-filled-primary w-28 rounded-lg hover:bg-primary bg-primary transition
           ease-in-out
           delay-150  
           hover:scale-110  
@@ -180,33 +179,38 @@
 		</div>
 	</div>
 </div>
-<a href={createRoute} class=" right-14 ">
-	<button
-		class="btn variant-filled-primary hover:bg-primary lg:hidden md:hidden block sm:w-40 w-24 ml-4 rounded-lg bg-primary transition
+<div
+	class="flex flex-row mx-10 lg:mt-10 md:mt-10 sm:mt-4 mt-4 lg:gap-7 md:gap-8 sm:gap-4 gap-4 lg:flex-row md:flex-row sm:flex-col min-[280px]:flex-col"
+>
+	<a href={createRoute} class=" right-14 ">
+		<button
+			class="btn variant-filled-primary hover:bg-primary lg:hidden md:hidden block sm:w-40 w-24 ml-4 rounded-lg bg-primary transition
 			ease-in-out
 			delay-150  
 			hover:scale-110  
 			duration-300 ...  "
-	>
-		Add new
-	</button>
-</a>
-
-<div class="mt-10 mb-14">
-	<CourseView courses={courses} userId={userId} on:searchCourse = {async (e) => {
-		await searchParams (e.detail.name, e.detail.durationInDays);
-	 }}
-	 on:onContentDeleteClick = {async (e) => {
-		await handleContentDelete(e.detail.contentId);
-	 }}
-	 on:onModuleDeleteClick = {async (e) => {
-		await handleModuleDelete(e.detail.moduleId, e.detail.contents);
-	 }}
-	 on:onCourseDeleteClick = {async (e) => {
-		await handleCourseDelete(e.detail.courseId, e.detail.modules);
-	 }}
-	 />
-	 
+		>
+			Add new
+		</button>
+	</a>
 </div>
-
-
+<div
+	class="flex justify-center rounded-lg w-full lg:ml-2 flex-col mx-10 mb-10 lg:gap-6 md:gap-4 gap-4 md:ml-4 md:flex-col sm:flex-col min-[280px]:flex-col"
+>
+	<CourseView
+		{courses}
+		{userId}
+		on:searchCourse={async (e) => {
+			await searchParams(e.detail.name, e.detail.durationInDays);
+		}}
+		on:onContentDeleteClick={async (e) => {
+			await handleContentDelete(e.detail.contentId);
+		}}
+		on:onModuleDeleteClick={async (e) => {
+			await handleModuleDelete(e.detail.moduleId, e.detail.contents);
+		}}
+		on:onCourseDeleteClick={async (e) => {
+			await handleCourseDelete(e.detail.courseId, e.detail.modules);
+		}}
+	/>
+</div>

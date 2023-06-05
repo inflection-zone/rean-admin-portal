@@ -1,18 +1,25 @@
 <script lang="ts">
-	import { createDataTableStore, dataTableHandler } from '@skeletonlabs/skeleton';
+	import {
+		createDataTableStore,
+		dataTableHandler,
+		tableA11y,
+		tableInteraction
+	} from '@skeletonlabs/skeleton';
 	import { Paginator } from '@skeletonlabs/skeleton';
 	import type { PageServerData } from './$types';
 	import { page } from '$app/stores';
 	import Fa from 'svelte-fa';
 	import BreadCrumbs from '$lib/components/breadcrumbs/breadcrums.svelte';
-	const userId = $page.params.userId;
 	import Confirm from '$lib/components/modal/confirmModal.svelte';
 	import { faPencil, faTrash, faSearch } from '@fortawesome/free-solid-svg-icons';
+	import { Helper } from '$lib/utils/helper';
+
 	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 	export let data: PageServerData;
 	let organizations = data.organization;
 	let index = Number;
+	const userId = $page.params.userId;
 	organizations = organizations.map((item, index) => ({ ...item, index: index + 1 }));
 
 	const dataTableStore = createDataTableStore(organizations, {
@@ -115,7 +122,6 @@
 	<div class="basis-1/2 justify-center items-center">
 		<div class="relative flex items-center">
 			<a href={createRoute} class="absolute right-1 lg:mr-[-20px] ">
-				<!-- <Fa icon={faCirclePlus} style="color: #5832A1" size="4x" /> -->
 				<button
 					class="btn variant-filled-primary w-28 rounded-lg hover:bg-primary bg-primary transition 
           				ease-in-out 
@@ -175,12 +181,18 @@
 </div>
 
 <div class="flex justify-center flex-col mx-10 mt-4 mb-10 overflow-y-auto ">
-	<table class="table rounded-b-none">
-		<thead class="sticky top-0">
+	<table class="table rounded-b-none" role="grid" use:tableInteraction use:tableA11y>
+		<thead
+			on:click={(e) => {
+				dataTableStore.sort(e);
+			}}
+			on:keypress
+			class="sticky top-0"
+		>
 			<tr>
-				<th style="width: 5%;">Id</th>
-				<th style="width: 20%;">Type</th>
-				<th style="width: 20%;">Name</th>
+				<th data-sort="index" style="width: 5%;">Id</th>
+				<th data-sort="Type" style="width: 20%;">Type</th>
+				<th data-sort="Name" style="width: 20%;">Name</th>
 				<th style="width: 20%;">Phone</th>
 				<th style="width: 20%">Email</th>
 				<th style="width: 8%;" />
@@ -191,13 +203,21 @@
 	<div class=" overflow-y-auto h-[600px] bg-tertiary-500">
 		<table class="table w-full">
 			<tbody class="">
-				{#each $dataTableStore.filtered as row, rowIndex}
+				{#each $dataTableStore.filtered as row}
 					<tr>
-						<td style="width: 5%;">{row.index}</td>
-						<td style="width: 20%;"><a href={viewRoute(row.id)}>{row.Type}</a></td>
-						<td style="width: 20%;">{row.Name}</td>
-						<td style="width: 20%;">{row.ContactPhone}</td>
-						<td style="width: 20%;">{row.ContactEmail}</td>
+						<td role="gridcell" aria-colindex={1} tabindex="0" style="width: 5%;">{row.index}</td>
+						<td role="gridcell" aria-colindex={2} tabindex="0" style="width: 20%;"
+							><a href={viewRoute(row.id)}>{Helper.truncateText(row.Type, 20)}</a></td
+						>
+						<td role="gridcell" aria-colindex={3} tabindex="0" style="width: 20%;"
+							>{Helper.truncateText(row.Name, 20)}</td
+						>
+						<td role="gridcell" aria-colindex={4} tabindex="0" style="width: 20%;"
+							>{row.ContactPhone}</td
+						>
+						<td role="gridcell" aria-colindex={5} tabindex="0" style="width: 20%;"
+							>{row.ContactEmail}</td
+						>
 						<td style="width: 8%;">
 							<a class="text-primary" href={editRoute(row.id)}><Fa icon={faPencil} /></a></td
 						>

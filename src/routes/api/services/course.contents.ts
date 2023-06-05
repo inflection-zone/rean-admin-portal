@@ -8,6 +8,7 @@ export const createCourseContent = async (
 	moduleId: string,
 	title: string,
 	description: string,
+	durationInMins: number,
 	sequence: number,
 	contentType: string,
 	resourceLink: string,
@@ -16,10 +17,11 @@ export const createCourseContent = async (
 	const body = {
 		ModuleId: moduleId,
 		Title: title,
-		Description: description,
-		Sequence: sequence,
-		ImageUrl: imageUrl,
-		ContentType: contentType,
+		Description: description ? description : null,
+		DurationInMins: durationInMins ? durationInMins : null,
+		Sequence: sequence ? sequence : null,
+		ImageUrl: imageUrl ? imageUrl : null,
+		ContentType: contentType ? contentType : null,
 		ResourceLink: resourceLink
 	};
 	const url = BACKEND_API_URL + '/educational/course-contents';
@@ -57,6 +59,7 @@ export const updateCourseContent = async (
 	contentId: string,
 	title: string,
 	description: string,
+	durationInMins: number,
 	sequence: number,
 	contentType: string,
 	resourceLink: string,
@@ -65,10 +68,11 @@ export const updateCourseContent = async (
 	const body = {
 		ModuleId: moduleId,
 		Title: title,
-		Description: description,
-		Sequence: sequence,
-		ImageUrl: imageUrl,
-		ContentType: contentType,
+		Description: description ? description : null,
+		DurationInMins: durationInMins ? durationInMins : null,
+		Sequence: sequence ? sequence : null,
+		ImageUrl: imageUrl ? imageUrl : null,
+		ContentType: contentType ? contentType : null,
 		ResourceLink: resourceLink
 	};
 	const url = BACKEND_API_URL + `/educational/course-contents/${contentId}`;

@@ -7,6 +7,7 @@
 
 	let tagsPlaceholder = 'Enter a tags here...';
 
+	export let form;
 	const userId = $page.params.userId;
 	const createRoute = `/users/${userId}/knowledge-nuggets/create`;
 	const knowledgeNuggetsRoute = `/users/${userId}/knowledge-nuggets`;
@@ -27,7 +28,7 @@
 <main class="h-screen mb-10">
 	<BreadCrumbs crumbs={breadCrumbs} />
 
-	<div class="h-screen mb-10 ">
+	<div class="">
 		<form
 			method="post"
 			action="?/createKnowledgeNuggetAction"
@@ -45,25 +46,32 @@
 					</a>
 				</div>
 			</div>
-			<!-- <div class="hidden">id</div> -->
+
 			<div class="flex items-center mb-4 mt-10 lg:mx-16 md:mx-12 mx-10">
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
 					<!-- svelte-ignore a11y-label-has-associated-control -->
 					<label class="label">
-						<span>Name</span>
+						<span>Name *</span>
 					</label>
 				</div>
 				<div class="w-1/2 md:w-2/3 lg:w-2/3">
 					<input
 						type="text"
 						name="topicName"
+						required
 						placeholder="Enter name here..."
-						class="input w-full "
+						class="input w-full {form?.errors?.topicName
+							? 'border-error-300 text-error-500'
+							: 'border-primary-200 text-primary-500'}"
+						value={form?.data?.topicName ?? ''}
 					/>
+					{#if form?.errors?.topicName}
+						<p class="text-error-500 text-xs">{form?.errors?.topicName[0]}</p>
+					{/if}
 				</div>
 			</div>
 
-			<div class="flex items-center mb-4 lg:mx-16 md:mx-12 mx-10">
+			<div class="flex items-start mb-2 lg:mx-16 md:mx-12 mx-10">
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
 					<!-- svelte-ignore a11y-label-has-associated-control -->
 					<label class="label">
@@ -73,13 +81,18 @@
 				<div class="w-1/2 md:w-2/3 lg:w-2/3">
 					<textarea
 						name="briefInformation"
-						required
-						class="textarea textarea-primary w-full"
 						placeholder="Enter brief information here..."
+						class="textarea w-full {form?.errors?.briefInformation
+							? 'border-error-300 text-error-500'
+							: 'border-primary-200 text-primary-500'}"
 					/>
+					{#if form?.errors?.briefInformation}
+						<p class="text-error-500 text-xs">{form?.errors?.briefInformation[0]}</p>
+					{/if}
 				</div>
 			</div>
-			<div class="flex items-center mb-4 lg:mx-16 md:mx-12 mx-10">
+
+			<div class="flex items-start mb-2 lg:mx-16 md:mx-12 mx-10">
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
 					<!-- svelte-ignore a11y-label-has-associated-control -->
 					<label class="label">
@@ -89,12 +102,17 @@
 				<div class="w-1/2 md:w-2/3 lg:w-2/3">
 					<textarea
 						name="detailedInformation"
-						required
-						class="textarea w-full"
 						placeholder="Enter detailed information here..."
+						class="textarea w-full {form?.errors?.detailedInformation
+							? 'border-error-300 text-error-500'
+							: 'border-primary-200 text-primary-500'}"
 					/>
+					{#if form?.errors?.detailedInformation}
+						<p class="text-error-500 text-xs">{form?.errors?.detailedInformation[0]}</p>
+					{/if}
 				</div>
 			</div>
+
 			<div class="flex items-center mb-4 lg:mx-16 md:mx-12 mx-10">
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
 					<!-- svelte-ignore a11y-label-has-associated-control -->
@@ -109,9 +127,13 @@
 						class="input w-full"
 						placeholder="Enter additional resource here..."
 					/>
+					{#if form?.errors?.additionalResources}
+						<p class="text-error-500 text-xs">{form?.errors?.additionalResources[0]}</p>
+					{/if}
 				</div>
 			</div>
-			<div class="flex items-center mb-4 lg:mx-16 md:mx-12 mx-10">
+
+			<div class="flex items-start mb-4 lg:mx-16 md:mx-12 mx-10">
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
 					<!-- svelte-ignore a11y-label-has-associated-control -->
 					<label class="label">
@@ -124,6 +146,9 @@
 						name="tags"
 						placeholder={tagsPlaceholder}
 					/>
+					{#if form?.errors?.tags}
+						<p class="text-error-500 text-xs">{form?.errors?.tags[0]}</p>
+					{/if}
 				</div>
 			</div>
 
