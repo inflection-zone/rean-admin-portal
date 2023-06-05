@@ -400,7 +400,7 @@
 				<HorizontalBarChart
 					dataSource={healthPillarDistributionData}
 					labels={healthPillarDistributionLabels}
-					title="Health Pillars"
+					title="Health Pillar Utilization (Total)"
 				/>
 			</div>
 		</div>
@@ -423,7 +423,7 @@
 				<HorizontalBarChart
 					dataSource={biometricsDistributionData}
 					labels={biometricsDistributionLabels}
-					title="Biometrics"
+					title="Biometrics (Total)"
 				/>
 			</div>
 		</div>

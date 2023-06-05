@@ -13,6 +13,7 @@
 	import { onMount, afterUpdate } from 'svelte';
 	import { goto } from '$app/navigation';
 	export let userId = undefined;
+	let showDashboardMenus = false;
 	let showEducationalMenus = false;
 	let showClinicalMenus = false;
 	let showTypesMemus = false;
@@ -44,6 +45,7 @@
 	let personRoleTypesLink;
 	let priorityTypesLink;
 	let goalTypesLink;
+	let rhgBotLink;
 
 	onMount(() => {
 		homeLink = `/users/${userId}/home`;
@@ -132,6 +134,10 @@
 		showEducationalMenus = !showEducationalMenus;
 	};
 
+	const onDashbodrTabClick = async () => {
+		showDashboardMenus = !showDashboardMenus;
+	};
+
 	const onClinicalTabClick = async () => {
 		showClinicalMenus = !showClinicalMenus;
 	};
@@ -155,7 +161,7 @@
 			<Fa icon={faArrowLeft} size="md" />
 		</button>
 		<div class=" flex flex-col item-center justify-center">
-			<button class="flex flex-rows w-full" on:click|capture={gotoHome}>
+			<!-- <button class="flex flex-rows w-full" on:click|capture={gotoHome}>
 				<img src="/sidebar/dashboard.png" alt="" class="mt-5 ml-6 mr-4 h-6 w-6" />
 				<span
 					class="w-40 hover:bg-[#6c3dc2] hover:text-white text-start p-2 my-3 ml-2 hover:no-underline rounded-md text-md font-medium {activeTab ==
@@ -163,7 +169,45 @@
 						? 'active: bg-primary-500 text-white'
 						: 'text-white'}">Dashboard</span
 				>
+			</button> -->
+			<button class="flex flex-rows gap-2 w-full" on:click|capture={onDashbodrTabClick}>
+				<img src="/sidebar/dashboard.png" alt="" class="mt-5 ml-6 mr-4 h-6 w-6" />
+				<span
+					class="mt-4 p-2 w-40 my-3 relative flex flex-rows text-white text-md hover:bg-[#6c3dc2] hover:text-white px-3 py-2 hover:no-underline rounded-md text-md font-medium "
+					>Dashboard
+					<button class="right-0 pr-2 absolute pt-2 ">
+						{#if showDashboardMenus}
+							<Fa icon={faAngleUp} size="md" />
+						{:else}
+							<Fa icon={faAngleDown} size="md " />
+						{/if}
+					</button></span
+				>
 			</button>
+
+			{#if showDashboardMenus}
+				<div class="flex flex-col items-center bg-secondary-600">
+					<button class="flex flex-rows w-full" on:click|capture={gotoHome}>
+						<img src="/rean-logo-white.png" alt="" class="mt-5 ml-10 mr-4 h-6 w-6" />
+						<span
+							class="text-start p-2 my-3 text-white rounded-md text-md font-medium hover:bg-[#6c3dc2] hover:text-white {activeTab ==
+							homeLink
+								? 'active: bg-primary-500 text-white'
+								: 'text-white'}">RHG App</span
+						>
+					</button>
+					<button class="flex flex-rows gap-2 w-full" on:click|capture={gotoHome}>
+						<img src="/rean-logo-white.png" alt="" class="mt-5 ml-10 mr-4 h-6 w-6" />
+						<span
+							class="text-start my-3 p-2 text-white rounded-md text-md font-medium  hover:bg-[#6c3dc2] hover:text-white {activeTab ==
+							labRecordTypeLink
+								? 'active: bg-primary-500 text-white'
+								: 'text-white'}">RGH Bot</span
+						>
+					</button>
+				</div>
+			{/if}
+			
 			<button class="flex flex-rows w-full" on:click|capture={gotoClients}>
 				<img src="/sidebar/client.png" alt="" class="mt-5 ml-6 mr-4 h-6 w-6" />
 				<span
@@ -379,7 +423,7 @@
 			<Fa icon={faArrowRight} size="md" />
 		</button>
 		<div class=" flex flex-col item-center justify-center">
-			<button
+			<!-- <button
 				class="w-full flex flex-col item-center justify-center p-2 hover:bg-[#6c3dc2] hover:text-white {activeTab ==
 				homeLink
 					? 'active: bg-primary-500 text-white'
@@ -390,7 +434,46 @@
 				<span class="mx-auto text-start hover:no-underline rounded-md text-md font-medium "
 					>Dashboard</span
 				>
-			</button>
+			</button> -->
+			<button
+			class="flex flex-col w-full item-center justify-center p-2 mt-3 text-white hover:bg-[#6c3dc2] hover:text-white"
+			on:click|capture={onDashbodrTabClick}
+		>
+			<img src="/sidebar/dashboard.png" alt="" class="mx-auto mb-1 h-6 w-6 " />
+			<span class="mx-auto text-start hover:no-underline rounded-md text-md font-medium "
+				>Dashboard
+			</span>
+		</button>
+
+		{#if showDashboardMenus}
+				<div class="flex flex-col items-center bg-secondary-600 pb-2">
+					<button
+						class="flex flex-col w-full item-center justify-center p-2 mt-3 ml-6 hover:bg-[#6c3dc2] hover:text-white  {activeTab ==
+						homeLink
+							? 'active: bg-primary-500 text-white'
+							: 'text-white'}"
+						on:click|capture={gotoHome}
+					>
+						<img src="/rean-logo-white.png" alt="" class="mx-auto mb-1 h-6 w-6" />
+						<span class="mx-auto text-start hover:no-underline rounded-md text-md font-medium "
+							>RHG App
+						</span>
+					</button>
+					<button
+						class="flex flex-col w-full item-center justify-center p-2 mt-3 ml-6 hover:bg-[#6c3dc2] hover:text-white  {activeTab ==
+						rhgBotLink
+							? 'active: bg-primary-500 text-white'
+							: 'text-white'}"
+						on:click|capture={gotoHome}
+					>
+						<img src="/rean-logo-white.png" alt="" class="mx-auto mb-1 h-6 w-6" />
+						<span class="mx-auto text-start hover:no-underline rounded-md text-md font-medium "
+							>RHG Bot
+						</span>
+					</button>
+				</div>
+			{/if}
+
 			<button
 				class="flex flex-col w-full item-center justify-center p-2 mt-3 hover:bg-[#6c3dc2] hover:text-white  {activeTab ==
 				clientsLink

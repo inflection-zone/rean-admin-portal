@@ -114,7 +114,7 @@
 					},
 					title: {
 					    display: true,
-					    text: 'Health Pillars Monthly',
+					    text: 'Health Pillars Utilization (Monthly)',
 					    position: "top",
 							color: '#5832A1',
 							align:'center',
