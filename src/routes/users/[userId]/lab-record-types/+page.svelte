@@ -112,7 +112,7 @@
 		>
 			<tr>
 				<th data-sort="index" style="width: 4%;">Id</th>
-				<th data-sort="TypeName" style="width: 15%;">Type Name</th>
+				<th data-sort="TypeName" style="width: 14%;">Type Name</th>
 				<th data-sort="DisplayName" style="width: 15%;">Display Name</th>
 				<th style="width: 12%;">Minimum</th>
 				<th style="width: 12%;">Maximum</th>
@@ -127,8 +127,8 @@
 			<tbody class="">
 				{#each $dataTableStore.filtered as row}
 					<tr>
-						<td role="gridcell" aria-colindex={1} tabindex="0" style="width: 5%;">{row.index}</td>
-						<td role="gridcell" aria-colindex={2} tabindex="0" style="width: 18%;"
+						<td role="gridcell" aria-colindex={1} tabindex="0" style="width: 6%;">{row.index}</td>
+						<td role="gridcell" aria-colindex={2} tabindex="0" style="width: 17%;"
 							><a href={viewRoute(row.id)}>{Helper.truncateText(row.TypeName, 20)} </a></td
 						>
 						<td role="gridcell" aria-colindex={3} tabindex="0" style="width: 14;"
