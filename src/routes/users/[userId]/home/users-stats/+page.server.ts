@@ -1,6 +1,6 @@
 import type {  RequestEvent } from '@sveltejs/kit';
 import type { PageServerLoad } from './$types';
-import { getActiveUsers, getAgeWiseUsers, getCountryWiseUsers, getGenderWiseUsers, getMajorAilment, getMaritalStatusWiseUsers, getObesityDistribution, getTolalUsers } from '$routes/api/services/statistics';
+import { getActiveUsers, getAddictioDistribution, getAgeWiseUsers, getBiometricsDistribution, getCountryWiseUsers, getGenderWiseUsers, getHealthPillarDistribution, getMajorAilment, getMaritalStatusWiseUsers, getObesityDistribution, getRoleDistribution, getTolalUsers } from '$routes/api/services/statistics';
 
 ////////////////////////////////////////////////////////////////////////////
 
@@ -18,10 +18,11 @@ export const load: PageServerLoad = async (event: RequestEvent) => {
       ageWiseUsersArray.push(genderWiseUsers);
     }
 
-    console.log("ageWiseUsersArray", ageWiseUsersArray);
 
-    const searchParams ={}
-		const _totalUsers = await getTolalUsers(sessionId,searchParams);
+    const searchParams = {
+      year : '2023'
+    }
+		const _totalUsers = await getTolalUsers(sessionId);
     const _activeUsers = await getActiveUsers(sessionId);
     const _ageWiseUsers = await getAgeWiseUsers(sessionId);
     const _genderWiseUsers = await getGenderWiseUsers(sessionId);
@@ -29,6 +30,12 @@ export const load: PageServerLoad = async (event: RequestEvent) => {
     const _countryWiseUsers = await getCountryWiseUsers(sessionId);
     const _majorAilment = await getMajorAilment(sessionId);
     const _obesityDistribution = await getObesityDistribution(sessionId);
+    const _addictionDistribution = await getAddictioDistribution(sessionId);
+    const _healthPillarDistribution = await getHealthPillarDistribution(sessionId);
+    const _healthPillarDistributionMonthly = await getHealthPillarDistribution(sessionId, searchParams);
+    const _roleDistribution = await getRoleDistribution(sessionId);
+    const _biometricsDistribution = await getBiometricsDistribution(sessionId);
+    const _biometricsDistributionMonthly = await getBiometricsDistribution(sessionId, searchParams);
 
     const totalUsers = _totalUsers.Data.TotalUsers;
     const activeUsers = _activeUsers.Data.ActiveUsers;
@@ -38,6 +45,12 @@ export const load: PageServerLoad = async (event: RequestEvent) => {
     const countryWiseUsers  = _countryWiseUsers.Data.CountryWiseUsers;
     const majorAilment  = _majorAilment.Data.MajorAilmentDistribution;
     const obesityDistribution  = _obesityDistribution.Data.ObesityDistribution;
+    const addictionDistribution  = _addictionDistribution.Data.AddictionDistribution;
+    const healthPillarDistribution  = _healthPillarDistribution.Data.HealthPillarDistribution;
+    const healthPillarDistributionMonthly  = _healthPillarDistributionMonthly.Data.HealthPillarDistribution;
+    const roleDistribution  = _roleDistribution.Data.RoleDistribution;
+    const biometricsDistribution  = _biometricsDistribution.Data.Biometrics;
+    const biometricsDistributionMonthly  = _biometricsDistributionMonthly.Data.Biometrics;
 
     console.log("totalUsers",totalUsers);
     console.log("activeUsers",activeUsers);
@@ -45,6 +58,9 @@ export const load: PageServerLoad = async (event: RequestEvent) => {
     console.log("genderWiseUsers",genderWiseUsers);
     console.log("maritalStatusWiseUsers",maritalStatusWiseUsers);
     console.log("obesityDistribution",obesityDistribution);
+    console.log("addictionDistribution",addictionDistribution);
+    console.log("healthPillarDistributionMonthly",healthPillarDistributionMonthly);
+    console.log("roleDistribution",roleDistribution);
 
 		return {
       sessionId,
@@ -55,7 +71,13 @@ export const load: PageServerLoad = async (event: RequestEvent) => {
       maritalStatusWiseUsers,
       countryWiseUsers,
       majorAilment,
-      obesityDistribution
+      obesityDistribution,
+      addictionDistribution,
+      healthPillarDistribution,
+      healthPillarDistributionMonthly,
+      roleDistribution,
+      biometricsDistribution,
+      biometricsDistributionMonthly
 		};
     
 	} catch (error) {

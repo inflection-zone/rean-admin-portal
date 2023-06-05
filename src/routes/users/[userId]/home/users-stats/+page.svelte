@@ -14,6 +14,12 @@
 	let countryWiseUsers;
 	let majorAilment = data.majorAilment;
 	let obesityDistribution = data.obesityDistribution;
+	let addictionDistribution = data.addictionDistribution;
+	let healthPillarDistribution = data.healthPillarDistribution;
+	let healthPillarDistributionMonthly = data.healthPillarDistributionMonthly;
+	let roleDistribution = data.roleDistribution;
+	let biometricsDistribution = data.biometricsDistribution;
+	let biometricsDistributionMonthly = data.biometricsDistributionMonthly;
 	
 	$: genderWiseUsers;
 	$: ageWiseUsers;
@@ -105,6 +111,12 @@
 	countryWiseUsers = {countryWiseUsers}
 	majorAilment = {majorAilment}
 	obesityDistribution = {obesityDistribution}
+	addictionDistribution = {addictionDistribution}
+	healthPillarDistribution = {healthPillarDistribution}
+	healthPillarDistributionMonthly = {healthPillarDistributionMonthly}
+	roleDistribution = {roleDistribution}
+	biometricsDistribution = {biometricsDistribution}
+	biometricsDistributionMonthly = {biometricsDistributionMonthly}
 	on:selectAgeWiseUsersDividionYearly={async (e) => {
 		await selectAgeWiseUsersDividionYearly(e.detail.year);
 	}}

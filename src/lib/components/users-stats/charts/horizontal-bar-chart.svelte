@@ -25,7 +25,7 @@
 			options: {
 				responsive: true,
 				maintainAspectRatio: false,
-				indexAxis: "x",
+				indexAxis: "y",
 				scales: {
 					x: {
 						grid: {
@@ -43,7 +43,7 @@
 						ticks: {
 							color: '#5832A1' // set y-axis label color here
 						}
-					}
+					},
 				},
 				layout: {
           padding: {

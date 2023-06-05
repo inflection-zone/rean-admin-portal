@@ -182,6 +182,30 @@
 					{/if}
 				</div>
 			</div>
+
+			<div class="flex items-start my-4 lg:mx-16 md:mx-12 mx-10">
+				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
+					<!-- svelte-ignore a11y-label-has-associated-control -->
+					<label class="label mt-2">
+						<span>Sequence</span>
+					</label>
+				</div>
+				<div class="w-1/2 md:w-2/3 lg:w-2/3">
+					<input
+						bind:value={sequence}
+						type="number"
+						name="sequence"
+						placeholder="Enter sequence here..."
+						class="input w-full {form?.errors?.sequence
+							? 'border-error-300 text-error-500'
+							: 'border-primary-200 text-primary-500'}"
+					/>
+					{#if form?.errors?.sequence}
+						<p class="text-error-500 text-xs">{form?.errors?.sequence[0]}</p>
+					{/if}
+				</div>
+			</div>
+			
 			<div class="flex items-start my-2 lg:mx-16 md:mx-12 mx-10">
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
 					<!-- svelte-ignore a11y-label-has-associated-control -->

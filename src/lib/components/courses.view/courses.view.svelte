@@ -4,8 +4,6 @@
 	import {
 		createDataTableStore,
 		dataTableHandler,
-		tableA11y,
-		tableInteraction
 	} from '@skeletonlabs/skeleton';
 	import Fa from 'svelte-fa';
 	import { Paginator } from '@skeletonlabs/skeleton';
@@ -17,15 +15,6 @@
 	export let userId = undefined;
 	export let courses = [];
 
-	// const sortedCourses = async (courses) => {
-  // for (const course of courses){
-	// 	for (const module of course.Modules){
-	// 	 module.CourseContents.sort((a, b) => { return a.Sequence - b.Sequence; });
-	// 	}
-	// 	}
-	// }
-	// let course = sortedCourses(courses);
-	// console.log("Courses",course);
 	courses = courses.map((item, index) => ({ ...item, index: index + 1 }));
 	let addModuleRoute = (courseId) => `/users/${userId}/courses/${courseId}/modules/create`;
 	let addContentRoute = (courseId, moduleId) =>
@@ -103,7 +92,7 @@
 									paddingLeft="20px"
 									paddingRight="20px"
 									marginBottom="10px"
-									headerText="{`${i + 1}`}. {module.Name}"
+									headerText="{i + 1}. {module.Name}"
 									itemsCount="Contents ({module.CourseContents.length})"
 									addRoute={addContentRoute(course.id, module.id)}
 									editRoute={editModuleRoute(course.id, module.id)}
@@ -134,7 +123,7 @@
 													{#each module.CourseContents as content, i}
 														<tr>
 															<td style="width: 5%;" role="gridcell" aria-colindex={1} tabindex="0"
-																>{i + 1}</td
+																>{content.Sequence}</td
 															>
 															<td style="width: 40%;">
 																<a href={viewContentRoute(course.id, module.id, content.id)}

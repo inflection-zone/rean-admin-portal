@@ -42,6 +42,11 @@
 	const viewRoute = `/users/${userId}/learning-journeys/${learningPathId}/view`;
 	const courseRoute = `/users/${userId}/courses`;
 	const learningJourneyRoute = `/users/${userId}/learning-journeys`;
+	const courseViewRoute = (courseId) => `/users/${userId}/courses/${courseId}/view`;
+	const moduleViewRoute = (courseId, moduleId) =>
+		`/users/${userId}/courses/${courseId}/modules/${moduleId}/view`;
+	const contentViewRoute = (courseId, moduleId, contentId) =>
+		`/users/${userId}/courses/${courseId}/modules/${moduleId}/contents/${contentId}/view`;
 
 	const breadCrumbs = [
 		{
@@ -144,24 +149,36 @@
 							{#each courses as course, i}
 								<TreeBranch defaultClosed>
 									<div slot="root" class="flex">
-										<img class="w-6 mr-2 " alt="logo" src="/course.png" />
-										{i + 1}-{course.Name}
+										<a href={courseViewRoute(course.id)}>
+											<div class="flex">
+												<img class="w-6 mr-2 " alt="logo" src="/course.png" />
+												{i + 1}-{course.Name}
+											</div>
+										</a>
 									</div>
 									{#if course.Modules.length <= 0}
 										<div />
 									{:else}
 										{#each course.Modules as module, i}
 											<TreeBranch defaultClosed>
-												<div slot="root" class="flex">
-													<img class="w-6 mr-2 mb-4" alt="logo" src="/module.png" />
-													{i + 1}-{module.Name}
+												<div slot="root" class="flex flex-col">
+													<a href={moduleViewRoute(course.id, module.id)}>
+														<div class="flex">
+															<img class="w-6 mr-2 mb-4" alt="logo" src="/module.png" />
+															{i + 1}-{module.Name}
+														</div>
+													</a>
 												</div>
 												{#if module.Contents.length <= 0}{:else}
 													{#each module.Contents as content, i}
 														<TreeLeaf>
 															<div class="flex">
-																<img class="w-6 mr-2 mb-4" alt="logo" src="/content.png" />
-																{content.Sequence}-{content.Title}
+																<a href={contentViewRoute(course.id, module.id, content.id)}>
+																	<div class="flex">
+																		<img class="w-6 mr-2 mb-4" alt="logo" src="/content.png" />
+																		{content.Sequence}-{content.Title}
+																	</div></a
+																>
 															</div>
 														</TreeLeaf>
 													{/each}

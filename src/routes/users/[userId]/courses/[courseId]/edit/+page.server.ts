@@ -31,7 +31,7 @@ const updateCourseSchema = zfd.formData({
 	name: z.string().max(256),
 	description: z.string().optional(),
 	durationInDays: zfd.numeric(z.number().optional()),
-	imageUrl: z.string().optional()
+	imageUrl: z.string().optional(),
 });
 
 export const actions = {
@@ -64,7 +64,7 @@ export const actions = {
 			result.name,
 			result.description,
 			result.durationInDays,
-			result.imageUrl
+			result.imageUrl,
 		);
 		const id = response.Data.Course.id;
 

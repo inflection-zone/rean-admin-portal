@@ -15,7 +15,7 @@
 	let name = data.course.Name;
 	let description = data.course.Description;
 	let durationInDays = data.course.DurationInDays;
-	let imageUrl = data.course.ImageUrl;
+	let imageUrl = data.course.ImageUrl;	
 	$: avatarSource = imageUrl;
 
 	//Original data

@@ -243,3 +243,123 @@ export const getObesityDistribution = async (sessionId: string, searchParams?: a
 	const url = BACKEND_API_URL + `/statistics/obesity-distribution${searchString}`;
 	return await get_(sessionId, url, true);
 };
+
+export const getOverallUsers = async (sessionId: string, searchParams?: any) => {
+	let searchString = '';
+	if (searchParams) {
+		const keys = Object.keys(searchParams);
+		if (keys.length > 0) {
+			searchString = '?';
+			const params = [];
+			for (const key of keys) {
+				if (searchParams[key]) {
+					const param = `${key}=${searchParams[key]}`;
+					params.push(param);
+				}
+			}
+			searchString  += params.join('&');
+		}
+	}
+	const url = BACKEND_API_URL + `/statistics/overall-users${searchString}`;
+	return await get_(sessionId, url, true);
+};
+
+export const getAddictioDistribution = async (sessionId: string, searchParams?: any) => {
+	let searchString = '';
+	if (searchParams) {
+		const keys = Object.keys(searchParams);
+		if (keys.length > 0) {
+			searchString = '?';
+			const params = [];
+			for (const key of keys) {
+				if (searchParams[key]) {
+					const param = `${key}=${searchParams[key]}`;
+					params.push(param);
+				}
+			}
+			searchString  += params.join('&');
+		}
+	}
+	const url = BACKEND_API_URL + `/statistics/addiction-distribution${searchString}`;
+	return await get_(sessionId, url, true);
+};
+
+export const getHealthPillarDistribution = async (sessionId: string, searchParams?: any) => {
+	let searchString = '';
+	if (searchParams) {
+		const keys = Object.keys(searchParams);
+		if (keys.length > 0) {
+			searchString = '?';
+			const params = [];
+			for (const key of keys) {
+				if (searchParams[key]) {
+					const param = `${key}=${searchParams[key]}`;
+					params.push(param);
+				}
+			}
+			searchString  += params.join('&');
+		}
+	}
+	const url = BACKEND_API_URL + `/statistics/health-pillar-distribution${searchString}`;
+	return await get_(sessionId, url, true);
+};
+
+export const getRoleDistribution = async (sessionId: string, searchParams?: any) => {
+	let searchString = '';
+	if (searchParams) {
+		const keys = Object.keys(searchParams);
+		if (keys.length > 0) {
+			searchString = '?';
+			const params = [];
+			for (const key of keys) {
+				if (searchParams[key]) {
+					const param = `${key}=${searchParams[key]}`;
+					params.push(param);
+				}
+			}
+			searchString  += params.join('&');
+		}
+	}
+	const url = BACKEND_API_URL + `/statistics/role-wise-users${searchString}`;
+	return await get_(sessionId, url, true);
+};
+
+export const getBiometricsDistribution = async (sessionId: string, searchParams?: any) => {
+	let searchString = '';
+	if (searchParams) {
+		const keys = Object.keys(searchParams);
+		if (keys.length > 0) {
+			searchString = '?';
+			const params = [];
+			for (const key of keys) {
+				if (searchParams[key]) {
+					const param = `${key}=${searchParams[key]}`;
+					params.push(param);
+				}
+			}
+			searchString  += params.join('&');
+		}
+	}
+	const url = BACKEND_API_URL + `/statistics/biometrics-distribution${searchString}`;
+	return await get_(sessionId, url, true);
+};
+
+export const getUsersStats= async (sessionId: string, searchParams?: any) => {
+	let searchString = '';
+	if (searchParams) {
+		const keys = Object.keys(searchParams);
+		if (keys.length > 0) {
+			searchString = '?';
+			const params = [];
+			for (const key of keys) {
+				if (searchParams[key]) {
+					const param = `${key}=${searchParams[key]}`;
+					params.push(param);
+				}
+			}
+			searchString  += params.join('&');
+		}
+	}
+	const url = BACKEND_API_URL + `/statistics/users-stats${searchString}`;
+	return await get_(sessionId, url, true);
+};

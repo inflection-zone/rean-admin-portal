@@ -36,7 +36,7 @@ const createLearningJourneySchema = zfd.formData({
 	description: z.string().optional(),
 	durationInDays: zfd.numeric(z.number().optional()),
 	imageUrl: z.string().optional(),
-	courseIds: z.array(z.string()).optional()
+	courseIds: z.array(z.string()).optional(),
 });
 
 export const actions = {
@@ -46,8 +46,9 @@ export const actions = {
 		const sessionId = event.cookies.get('sessionId');
 		const data = await request.formData();
 		const formData = Object.fromEntries(data);
-
-		const courseIds = data.has('courseIds') ? data.getAll('courseIds') : [];
+		
+		const courseIds = data.has('courseIds') ? data.getAll('courseIds'): [];
+	
 		const formDataValue = { ...formData, courseIds: courseIds };
 
 		type LearningJourneySchema = z.infer<typeof createLearningJourneySchema>;
@@ -66,6 +67,10 @@ export const actions = {
 			};
 		}
 
+		const courses = result.courseIds.map(x => x.split(','));
+		const flattenedArray = courses.flat();
+		const updatedData = { "CourseIds": flattenedArray }
+
 		const response = await createLearningJourney(
 			sessionId,
 			result.name,
@@ -73,7 +78,7 @@ export const actions = {
 			result.description,
 			result.durationInDays,
 			result.imageUrl,
-			result.courseIds
+			updatedData.CourseIds,
 		);
 		console.log('response', response.Data);
 		const learningPathId = response.Data.LearningPath.id;

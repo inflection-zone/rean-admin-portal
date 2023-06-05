@@ -19,6 +19,8 @@
 	let durationInDays = data.course.DurationInDays;
 	let imageUrl = data.course.ImageUrl;
 	let modules = data.course.Modules;
+
+	modules = modules.sort((a, b) => { return a.Sequence - b.Sequence; });
 	console.log(data.course);
 
 	onMount(() => {
@@ -32,6 +34,8 @@
 	const viewRoute = `/users/${userId}/courses/${courseId}/view`;
 	const courseRoute = `/users/${userId}/courses`;
 	const moduleRoute = `/users/${userId}/courses/${courseId}/modules/create`;
+	const moduleViewRoute = (courseId, moduleId) => `/users/${userId}/courses/${courseId}/modules/${moduleId}/view`;
+	const contentViewRoute = (courseId, moduleId, contentId) => `/users/${userId}/courses/${courseId}/modules/${moduleId}/contents/${contentId}/view`;
 
 	const breadCrumbs = [
 		{
@@ -122,14 +126,20 @@
 							{#each modules as module, i}
 								<TreeBranch defaultClosed>
 									<div slot="root" class="flex">
-										<img class="w-6 mr-2 mb-4" alt="logo" src="/module.png" />
-										{i + 1}-{module.Name}
+										<a href={moduleViewRoute(courseId, module.id)}>
+											<div class="flex">
+												<img class="w-6 mr-2 mb-4" alt="logo" src="/module.png" />
+												{module.Sequence}-{module.Name}
+											</div>
+										</a>
 									</div>
 									{#each module.Contents as content, i}
 										<TreeLeaf>
 											<div class="flex">
+												<a href={contentViewRoute(courseId, module.id, content.id)}>
+													<div class="flex">
 												<img class="w-6 mr-2 mb-4" alt="logo" src="/content.png" />
-												{content.Sequence}-{content.Title}
+												{content.Sequence}-{content.Title}</div></a>
 											</div>
 										</TreeLeaf>
 									{/each}

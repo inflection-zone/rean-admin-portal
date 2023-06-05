@@ -12,6 +12,7 @@
 	export let form;
 	export let data: PageServerData;
 	let allCources = data.courses;
+	allCources = allCources.sort((a, b) => { return a.Sequence - b.Sequence; });
 	let id = data.learningJourney.id;
 	let name = data.learningJourney.Name;
 	let preferenceWeight = data.learningJourney.PreferenceWeight;
@@ -91,7 +92,10 @@
 			await upload(e.target.result, filename);
 		};
 	};
+
+	
 </script>
+
 
 <main class="h-screen mb-44">
 	<BreadCrumbs crumbs={breadCrumbs} />

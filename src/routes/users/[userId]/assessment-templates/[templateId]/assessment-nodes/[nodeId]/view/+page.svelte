@@ -26,12 +26,12 @@
 	let options = data.assessmentNode.Options ?? [];
 	let childrenNodes = data.assessmentNode.Children ?? [];
 	let displayCode = data.assessmentNode.DisplayCode;
-	let resolutionScore = undefined;
+	let resolutionScore;
 	let sequence = data.assessmentNode.Sequence;
 
 	$:resolutionScore;
 
-	if ($scoringApplicableCondition === true && nodeType === 'Question') {
+	if (nodeType === 'Question') {
 		resolutionScore = data.assessmentNode.ScoringCondition.ResolutionScore;
 	}
 
