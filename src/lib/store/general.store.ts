@@ -35,3 +35,4 @@ export const scoringApplicableCondition = writable(false);
 export const showScoringConditionModal = writable(false);
 export const ageWiseUsersData = writable();
 export const tabSet = writable(0);
+export const selectedItems = writable([]);

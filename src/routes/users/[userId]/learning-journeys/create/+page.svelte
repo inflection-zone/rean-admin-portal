@@ -5,13 +5,19 @@
 	import { page } from '$app/stores';
 	import { showMessage } from '$lib/utils/message.utils';
 	import type { PageServerData } from './$types';
+	import {
+		createDataTableStore,
+		dataTableHandler,
+	} from '@skeletonlabs/skeleton';
+	import { selectedItems } from '$lib/store/general.store';
+	import CoursesDragDrop from '$lib/components/drag-and-drop/courses-drag-drop.svelte';
+	import SelectedCoursesDragDrop from '$lib/components/drag-and-drop/selected-courses-drag-drop.svelte';
 
 	/////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 	export let form;
 	export let data: PageServerData;
 	let courses = data.courses;
-	courses = courses.sort((a, b) => { return a.Sequence - b.Sequence; });
 	const userId = $page.params.userId;
 	const createRoute = `/users/${userId}/learning-journeys/create`;
 	const learningJourneyRoute = `/users/${userId}/learning-journeys`;
@@ -19,6 +25,7 @@
 	let imageUrl = undefined;
 	let fileinput;
 	let value = [];
+
 	const breadCrumbs = [
 		{
 			name: 'Learning-Journeys',
@@ -71,6 +78,23 @@
 			await upload(e.target.result, filename);
 		};
 	};
+
+	let selectedCourses = [];
+	$:selectedCourses
+
+	let courseIds = $selectedItems;
+	$:courseIds;
+
+	console.log("courseIds", courseIds);
+
+	const dataTableStore = createDataTableStore(
+		courses,
+		{
+			search: '',
+		}
+	);
+	dataTableStore.subscribe((model) => dataTableHandler(model));
+
 </script>
 
 <main class="h-screen mb-32">
@@ -193,17 +217,28 @@
 					</label>
 				</div>
 				<div class="w-1/2 md:w-2/3 lg:w-2/3">
-					<select
-						name="courseIds"
-						class="select"
-						multiple
-						placeholder="Select course here..."
-						bind:value
-					>
-						{#each courses as course}
-							<option value={course.id}>{course.Name}</option>
-						{/each}
-					</select>
+					<input
+					class="input mb-3"
+					bind:value={$dataTableStore.search}
+					type="search"
+					placeholder="Search course here..."
+					/>
+					<!-- <div class="flex gap-4"> -->
+					<div class="mb-4 mt-1">
+						<CoursesDragDrop courses={$dataTableStore.filtered}/>
+				 </div>
+				<div>
+					<SelectedCoursesDragDrop selectedCourses={selectedCourses}/>
+				</div>
+				<!-- </div> -->
+
+				<input
+				name="courseIds"
+				bind:value={$selectedItems}
+				placeholder="Search course here..."
+				hidden
+				/>
+
 					{#if form?.errors?.courseIds}
 						<p class="text-error-500 text-xs">{form?.errors?.courseIds[0]}</p>
 					{/if}
@@ -242,3 +277,12 @@
 		</form>
 	</div>
 </main>
+
+
+<style>
+	:global(*) {
+		box-sizing: border-box;
+		margin: 0;
+		padding: 1;
+	}
+</style>
