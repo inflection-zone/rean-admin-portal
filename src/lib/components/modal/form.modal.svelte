@@ -48,7 +48,7 @@
 			<span class="">Client Code*</span>
 			<input
 				class="input"
-				name="user-Name"
+				name="userName"
 				type="text"
 				bind:value={userName}
 				placeholder="Enter user name here..."
@@ -59,7 +59,7 @@
 			<input
 				class="input"
 				type="password"
-				name="get-password"
+				name="password"
 				bind:value={password}
 				placeholder="Enter password here..."
 			/>
@@ -70,7 +70,6 @@
 				>Close</button
 			>
 			<button type="button"
-			  name="submitApi"
 				class="btn variant-filled-primary w-full mr-5 mt-5 mb-8"
 				on:click = {async () =>{ await handlelSubmitClick(userName, password)
 					await dialog.close();} }
