@@ -30,7 +30,7 @@ describe('test', () => {
       cy.wait(2000)
       cy.get('input[name=durationInDays]').type('7')
       cy.wait(2000)
-      cy.get('select[name=courseIds]').select('sdvd')
+      cy.get('select[name=courseIds]').select('dvd')
       cy.wait(2000)
       cy.get('input[name=fileInput]').attachFile(filePath)
       cy.wait(2000)

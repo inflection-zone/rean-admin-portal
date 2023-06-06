@@ -35,6 +35,7 @@
 	const editRoute = `/users/${userId}/newsfeeds/${id}/edit`;
 	const viewRoute = `/users/${userId}/newsfeeds/${id}/view`;
 	const newsfeedRoute = `/users/${userId}/newsfeeds`;
+	const viewItemRoute = (id) => `/users/${userId}/newsfeeds/${id}/newsfeed-items/${id}/view`;
 	const newsfeedItemRoute = `/users/${userId}/newsfeeds/${newsfeedId}/newsfeed-items/create`;
 
 	const breadCrumbs = [
@@ -195,7 +196,9 @@
 				{:else}
 					<ol class="span w-1/2 md:w-2/3 lg:w-2/3 list-decimal" id="newsfeedItems">
 						{#each newsfeedItems as newsfeedItem}
+						<a href={viewItemRoute(newsfeedItem.id)}>
 							<li>{newsfeedItem.Title}</li>
+							</a>
 						{/each}
 					</ol>
 				{/if}

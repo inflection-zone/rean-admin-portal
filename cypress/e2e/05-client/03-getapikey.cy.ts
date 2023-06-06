@@ -40,6 +40,12 @@ describe('test', () => {
       // cy.get(':nth-child(1) > .text-primary-primary-500').click()
       cy.contains('Get api key').click()
       cy.wait(2000)
+      cy.get('input[name=user-Name]').type('useradmin')
+      cy.wait(2000)
+      cy.get('input[name=get-password]').type('useradmin')
+      cy.wait(2000)
+      cy.contains('Submit').click()
+      cy.wait(2000)
     })
 	});
  

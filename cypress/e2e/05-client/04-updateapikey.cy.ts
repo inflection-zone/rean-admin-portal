@@ -40,6 +40,12 @@ describe('test', () => {
       // cy.get(':nth-child(1) > .text-primary-primary-500').click()
       cy.contains('Update api key').click()
       cy.wait(2000)
+      cy.get('input[name=user-Names]').type('useradmin')
+      cy.wait(2000)
+      cy.get('input[name=user-pass]').type('useradmin')
+      cy.wait(2000)
+      cy.get('button[name=submitUpdate').click()
+      
     })
 	});
  
