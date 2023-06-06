@@ -30,6 +30,7 @@
 	const newsfeedRoute = `/users/${userId}/newsfeeds`;
 	const editRoute = (id) => `/users/${userId}/newsfeeds/${id}/edit`;
 	const viewRoute = (id) => `/users/${userId}/newsfeeds/${id}/view`;
+	const viewItemRoute = (id) => `/users/${userId}/newsfeeds/${id}/newsfeed-items/${id}/view`;
 	const createRoute = `/users/${userId}/newsfeeds/create`;
 
 	const breadCrumbs = [
@@ -190,7 +191,7 @@
 				<th data-sort="index" style="width: 5%;">Id</th>
 				<th data-sort="Title" style="width: 19%;">Title</th>
 				<th style="width: 33%;">Link</th>
-				<th data-sort="Category" style="width: 18%;">Category</th>
+				<th data-sort="Category" style="width: 19%;">Category</th>
 				<th style="width: 35%;">Newsfeed Items</th>
 				<th style="width: 8%;" />
 				<th style="width: 8%;" />
@@ -216,10 +217,10 @@
 							>{#if newsfeeds.length <= 0}
 								<span>null</span>
 							{:else}
-								{#each row.FeedItems as items}
-									{Helper.truncateText(items.Title, 10)}
+								{#each row.FeedItems as items, i}
+								<a href={viewItemRoute(items.id)}>
+									{i + 1}.{Helper.truncateText(items.Title, 10)}</a><br>
 								{/each}
-								<!-- {/each} -->
 							{/if}
 						</td>
 

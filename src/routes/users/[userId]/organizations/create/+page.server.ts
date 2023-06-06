@@ -106,7 +106,7 @@ export const actions = {
 		throw redirect(
 			303,
 			`/users/${userId}/organizations/${id}/view`,
-			successMessage(`Organization created successfully !`),
+			successMessage(`Organization created successfully!`),
 			event
 		);
 	}

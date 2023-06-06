@@ -206,7 +206,7 @@
 							><a href={viewRoute(row.id)}>{Helper.truncateText(row.Title, 20)} </a></td
 						>
 						<td role="gridcell" aria-colindex={3} tabindex="0" style="width: 35%;"
-							>{Helper.truncateText(row.Link, 40)}</td
+							>{Helper.truncateText(row.Link, 12)}</td
 						>
 						<td role="gridcell" aria-colindex={4} tabindex="0" style="width: 20%;"
 							>{row.DaysActive}</td

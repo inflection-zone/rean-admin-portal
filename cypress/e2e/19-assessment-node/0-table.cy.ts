@@ -29,7 +29,7 @@ describe('test', () => {
       cy.wait(2000)
       cy.get(':nth-child(5) > .text-primary-primary-500').click()
       cy.wait(2000)
-      cy.get(':nth-child(2) > :nth-child(5) > a > .svelte-fa').click()
+      cy.get(':nth-child(1) > :nth-child(5) > a > .svelte-fa').click()
       cy.wait(2000)
       cy.get('select[name=nodeType]').select('Node list')
       cy.wait(2000)
