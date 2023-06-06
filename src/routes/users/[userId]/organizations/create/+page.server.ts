@@ -81,6 +81,8 @@ export const actions = {
 		const addressesId_ = addressResponse.Data.Address.id;
 		const addressesId = addressesId_.split(',');
 
+		console.log("Address---",addressResponse.Data.Address);
+
 		if (addressResponse.Status === 'failure' || addressResponse.HttpCode !== 201) {
 			throw redirect(303, '/organizations', errorMessage(addressResponse.Message), event);
 		}
@@ -98,6 +100,7 @@ export const actions = {
 			result.isHealthFacility
 		);
 
+		console.log("Organization",response.Data.Organization);
 		const id = response.Data.Organization.id;
 
 		if (response.Status === 'failure' || response.HttpCode !== 201) {
