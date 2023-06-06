@@ -24,6 +24,11 @@
 	export let biometricsDistribution;
 	export let biometricsDistributionMonthly;
 	export let usersCount;
+	export let deviceDetailWiseUsers;
+
+	let androidUsers = deviceDetailWiseUsers.AndroidUsers;
+	let iOSUsers = deviceDetailWiseUsers.IOSUsers;
+	let missingDeviceDetails = deviceDetailWiseUsers.MissingDeviceDetails;
 
 	$: ageWiseUsers;
 	$: genderWiseUsers;
@@ -52,6 +57,25 @@
 		}
 	];
 
+	console.log("deviceDetailWiseUsers",deviceDetailWiseUsers)
+
+	const deviceDetailData = [
+		{
+			usersDetail: 'Android Users',
+			count: androidUsers.Count,
+			ratio: `${Math.ceil(androidUsers.Ratio)}`
+		},
+		{
+			usersDetail: 'IOS Users',
+			count: iOSUsers.Count,
+			ratio: `${Math.ceil(iOSUsers.Ratio)}`
+		},
+		{
+			usersDetail: 'Missing Device Detail Users',
+			count: missingDeviceDetails.Count,
+			ratio: `${Math.ceil(missingDeviceDetails.Ratio)}`
+		},
+	];
 	const userId = $page.params.userId;
 	const homeRoute = `/users/${userId}/home`;
 
@@ -164,6 +188,34 @@
 									</td>
 								</tr>
 								{#each usersData as data}
+									<tr class="hover:bg-tertiary-600">
+										<td
+											style="width:10%;"
+											class="whitespace-nowrap py-2 pl-4 pr-3 text-primary-500 text-sm  sm:pl-3"
+											>{data.usersDetail}</td
+										>
+										<td
+											style="width:10%;"
+											class="whitespace-nowrap text-sm px-3 py-2 text-primary-500">{data.count}</td
+										>
+										<td
+											style="width:15%;"
+											class="whitespace-nowrap px-3 py-2 text-sm text-primary-500"
+										>
+											<div class="flex items-center">
+												<div class="h-2 w-1/4 rounded-full bg-primary-200 mr-2">
+													<div
+														class="h-2 rounded-full bg-primary-500"
+														style="width:{data.ratio}%"
+													/>
+												</div>
+												<span class="text-primary-500 ">{data.ratio}</span>
+												<span class="text-primary-500 text-xs">%</span>
+											</div>
+										</td>
+									</tr>
+								{/each}
+								{#each deviceDetailData as data}
 									<tr class="hover:bg-tertiary-600">
 										<td
 											style="width:10%;"

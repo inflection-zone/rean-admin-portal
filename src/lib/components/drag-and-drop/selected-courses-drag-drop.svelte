@@ -25,7 +25,7 @@ import { selectedItems } from '$lib/store/general.store';
 	<div class="text-primary-500 mb-2 font-semibold">Add courses to learning journey</div>
 <section class="h-full w-full" use:dndzone={{items: selectedCourses, flipDurationMs}}  on:consider={handleDndConsider} on:finalize={handleDndFinalize}>
 	{#each selectedCourses as item(item.id)}
-		<div class="text-primary-500 p-1" animate:flip="{{duration: flipDurationMs}}">
+		<div class="text-primary-500 px-1 py-0.5" animate:flip="{{duration: flipDurationMs}}">
       {item.Name}
 		</div>
 	{/each}

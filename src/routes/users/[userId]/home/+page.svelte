@@ -11,8 +11,10 @@
 	let activeUsers = overallUsersData.ActiveUsers;
 	let deletedUsers = overallUsersData.DeletedUsers;
 	let nonDeletedUsers = overallUsersData.NonDeletedUsers;
+	// let deviceDetailWiseUsersData = data.deviceDetailWiseUsers;
 	let androidUsers = data.deviceDetailWiseUsers.AndroidUsers;
 	let iOSUsers = data.deviceDetailWiseUsers.IOSUsers;
+	let missingDeviceDetails = data.deviceDetailWiseUsers.MissingDeviceDetails;
 	let totalUsersData = data.totalUsersArray;
 	let androidUsersData = data.androidUsersArray;
 	let iOSUsersData = data.iOSUsersArray;
@@ -82,6 +84,19 @@
 			</dd>
 		</div>
 
+		<!-- {#each deviceDetailWiseUsersData as data }
+		<div class="overflow-hidden rounded-lg px-4 shadow-xl border border-primary-50 h-28 sm:p-4">
+			<dt class="truncate text-md font-normal text-primary-500">{data.Status}</dt>
+			<dd class="mt-1 flex items-baseline pb-6 sm:pb-7">
+				<div class="text-5xl  font-semibold text-primary-500">{data.Count}</div>
+				<div class="ml-2 flex items-baseline text-md font-normal text-primary-500">
+					{data.Ratio}
+					<div class="text-xs">%</div>
+				</div>
+			</dd>
+		</div>
+		{/each} -->
+
 		<div class="overflow-hidden rounded-lg px-4 shadow-xl border border-primary-50 h-28 sm:p-4">
 			<dt class="truncate text-md font-normal text-primary-500">Android Users</dt>
 			<dd class="mt-1 flex items-baseline pb-6 sm:pb-7">
@@ -98,6 +113,16 @@
 				<div class="text-5xl  font-semibold text-primary-500">{iOSUsers.Count}</div>
 				<div class="ml-2 flex items-baseline text-md font-normal text-primary-500">
 					{iOSUsers.Ratio}
+					<div class="text-xs">%</div>
+				</div>
+			</dd>
+		</div>	
+		<div class="overflow-hidden rounded-lg px-4 shadow-xl border border-primary-50 h-28 sm:p-4">
+			<dt class="truncate text-md font-normal text-primary-500">Missing Device Details</dt>
+			<dd class="mt-1 flex items-baseline pb-6 sm:pb-7">
+				<div class="text-5xl  font-semibold text-primary-500">{missingDeviceDetails.Count}</div>
+				<div class="ml-2 flex items-baseline text-md font-normal text-primary-500">
+					{missingDeviceDetails.Ratio}
 					<div class="text-xs">%</div>
 				</div>
 			</dd>
