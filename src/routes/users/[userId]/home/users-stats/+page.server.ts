@@ -1,6 +1,6 @@
 import type {  RequestEvent } from '@sveltejs/kit';
 import type { PageServerLoad } from './$types';
-import { getActiveUsers, getAddictioDistribution, getAgeWiseUsers, getBiometricsDistribution, getCountryWiseUsers, getGenderWiseUsers, getHealthPillarDistribution, getMajorAilment, getMaritalStatusWiseUsers, getObesityDistribution, getRoleDistribution, getTolalUsers } from '$routes/api/services/statistics';
+import { getActiveUsers, getAddictioDistribution, getAgeWiseUsers, getBiometricsDistribution, getCountryWiseUsers, getGenderWiseUsers, getHealthPillarDistribution, getMajorAilment, getMaritalStatusWiseUsers, getObesityDistribution, getOverallUsers, getRoleDistribution, getTolalUsers } from '$routes/api/services/statistics';
 
 ////////////////////////////////////////////////////////////////////////////
 
@@ -36,6 +36,7 @@ export const load: PageServerLoad = async (event: RequestEvent) => {
     const _roleDistribution = await getRoleDistribution(sessionId);
     const _biometricsDistribution = await getBiometricsDistribution(sessionId);
     const _biometricsDistributionMonthly = await getBiometricsDistribution(sessionId, searchParams);
+    const _overallUsersData = await getOverallUsers(sessionId);
 
     const totalUsers = _totalUsers.Data.TotalUsers;
     const activeUsers = _activeUsers.Data.ActiveUsers;
@@ -51,6 +52,7 @@ export const load: PageServerLoad = async (event: RequestEvent) => {
     const roleDistribution  = _roleDistribution.Data.RoleDistribution;
     const biometricsDistribution  = _biometricsDistribution.Data.Biometrics;
     const biometricsDistributionMonthly  = _biometricsDistributionMonthly.Data.Biometrics;
+    const overallUsersData = _overallUsersData.Data.OverallUsers;
 
     console.log("totalUsers",totalUsers);
     console.log("activeUsers",activeUsers);
@@ -77,7 +79,8 @@ export const load: PageServerLoad = async (event: RequestEvent) => {
       healthPillarDistributionMonthly,
       roleDistribution,
       biometricsDistribution,
-      biometricsDistributionMonthly
+      biometricsDistributionMonthly,
+      overallUsersData
 		};
     
 	} catch (error) {

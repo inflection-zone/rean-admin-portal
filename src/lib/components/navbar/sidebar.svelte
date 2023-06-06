@@ -202,7 +202,7 @@
 							class="text-start my-3 p-2 text-white rounded-md text-md font-medium  hover:bg-[#6c3dc2] hover:text-white {activeTab ==
 							labRecordTypeLink
 								? 'active: bg-primary-500 text-white'
-								: 'text-white'}">RGH Bot</span
+								: 'text-white'}">RHG Bot</span
 						>
 					</button>
 				</div>
@@ -377,10 +377,10 @@
 			</button>
 			{#if showMiscellaneousMenus}
 				<div class="flex flex-col bg-secondary-600">
-					<button class="flex flex-rows gap-2 w-full m1-4" on:click|capture={gotoOrganizations}>
+					<button class="flex flex-rows gap-2 w-full" on:click|capture={gotoOrganizations}>
 						<img src="/sidebar/organization.png" alt="" class="mt-5 ml-10 mr-4 h-6 w-6" />
 						<span
-							class="text-start p-2 mb-3 text-white rounded-md text-md font-medium hover:bg-[#6c3dc2] hover:text-white {activeTab ==
+							class="text-start p-2 my-3 text-white rounded-md text-md font-medium hover:bg-[#6c3dc2] hover:text-white {activeTab ==
 							organizationsLink
 								? 'active: bg-primary-500 text-white'
 								: 'text-white'}">Organizations</span
