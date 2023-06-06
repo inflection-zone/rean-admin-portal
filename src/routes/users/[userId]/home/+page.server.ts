@@ -61,6 +61,7 @@ export const load: PageServerLoad = async (event: RequestEvent) => {
     // console.log("activeUsers",activeUsers);
     // console.log("deletedUsers",deletedUsers);
     // console.log("ageWisedeviceDetailWiseUsersUsers",deviceDetailWiseUsers);
+    // console.log("overallUsersData--------",overallUsersData);
 
 		return {
       sessionId,

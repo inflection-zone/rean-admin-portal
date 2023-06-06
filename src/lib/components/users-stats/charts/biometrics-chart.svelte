@@ -122,7 +122,7 @@
 					},
 					title: {
 					    display: true,
-					    text: 'Biometrics Monthly',
+					    text: 'Biometrics (Monthly)',
 					    position: "top",
 							color: '#5832A1',
 							align:'center',

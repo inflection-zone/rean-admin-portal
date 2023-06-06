@@ -20,6 +20,7 @@
 	let roleDistribution = data.roleDistribution;
 	let biometricsDistribution = data.biometricsDistribution;
 	let biometricsDistributionMonthly = data.biometricsDistributionMonthly;
+	let usersCount = data.overallUsersData;
 	
 	$: genderWiseUsers;
 	$: ageWiseUsers;
@@ -117,6 +118,7 @@
 	roleDistribution = {roleDistribution}
 	biometricsDistribution = {biometricsDistribution}
 	biometricsDistributionMonthly = {biometricsDistributionMonthly}
+	usersCount = {usersCount}
 	on:selectAgeWiseUsersDividionYearly={async (e) => {
 		await selectAgeWiseUsersDividionYearly(e.detail.year);
 	}}

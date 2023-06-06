@@ -19,7 +19,7 @@ export const getTolalUsers = async (sessionId: string, searchParams?: any) => {
 			searchString  += params.join('&');
 		}
 	}
-	const url = BACKEND_API_URL + `/statistics/users${searchString}`;
+	const url = BACKEND_API_URL + `/users-statistics/users${searchString}`;
   console.log("url", url)
 	return await get_(sessionId, url, true);
 };
@@ -40,7 +40,7 @@ export const getActiveUsers = async (sessionId: string, searchParams?: any) => {
 			searchString  += params.join('&');
 		}
 	}
-	const url = BACKEND_API_URL + `/statistics/active-users${searchString}`;
+	const url = BACKEND_API_URL + `/users-statistics/active-users${searchString}`;
 	return await get_(sessionId, url, true);
 };
 
@@ -60,7 +60,7 @@ export const getGenderWiseUsers = async (sessionId: string, searchParams?: any) 
 			searchString  += params.join('&');
 		}
 	}
-	const url = BACKEND_API_URL + `/statistics/gender-wise-users${searchString}`;
+	const url = BACKEND_API_URL + `/users-statistics/genders${searchString}`;
 	return await get_(sessionId, url, true);
 };
 
@@ -80,7 +80,7 @@ export const getAgeWiseUsers = async (sessionId: string, searchParams?: any) => 
 			searchString  += params.join('&');
 		}
 	}
-	const url = BACKEND_API_URL + `/statistics/age-wise-users${searchString}`;
+	const url = BACKEND_API_URL + `/users-statistics/ages${searchString}`;
 	return await get_(sessionId, url, true);
 };
 
@@ -100,7 +100,7 @@ export const getMaritalStatusWiseUsers = async (sessionId: string, searchParams?
 			searchString  += params.join('&');
 		}
 	}
-	const url = BACKEND_API_URL + `/statistics/marital-status-wise-users${searchString}`;
+	const url = BACKEND_API_URL + `/users-statistics/marital-statuses${searchString}`;
 	return await get_(sessionId, url, true);
 };
 
@@ -120,7 +120,7 @@ export const getDeviceDetailWiseUsers = async (sessionId: string, searchParams?:
 			searchString  += params.join('&');
 		}
 	}
-	const url = BACKEND_API_URL + `/statistics/device-detail-wise-users${searchString}`;
+	const url = BACKEND_API_URL + `/users-statistics/device-details${searchString}`;
 	return await get_(sessionId, url, true);
 };
 
@@ -140,7 +140,7 @@ export const getDeletdUsers = async (sessionId: string, searchParams?: any) => {
 			searchString  += params.join('&');
 		}
 	}
-	const url = BACKEND_API_URL + `/statistics/deleted-users${searchString}`;
+	const url = BACKEND_API_URL + `/users-statistics/deleted-users${searchString}`;
 	return await get_(sessionId, url, true);
 };
 
@@ -160,7 +160,7 @@ export const getEnrollmetUsers = async (sessionId: string, searchParams?: any) =
 			searchString  += params.join('&');
 		}
 	}
-	const url = BACKEND_API_URL + `/statistics/enrollment-users${searchString}`;
+	const url = BACKEND_API_URL + `/users-statistics/enrollments${searchString}`;
 	return await get_(sessionId, url, true);
 };
 
@@ -180,7 +180,7 @@ export const getAppDownloadsData = async (sessionId: string, searchParams?: any)
 			searchString  += params.join('&');
 		}
 	}
-	const url = BACKEND_API_URL + `/statistics/app-downloads${searchString}`;
+	const url = BACKEND_API_URL + `/users-statistics/app-downloads${searchString}`;
 	return await get_(sessionId, url, true);
 };
 
@@ -200,7 +200,7 @@ export const getCountryWiseUsers = async (sessionId: string, searchParams?: any)
 			searchString  += params.join('&');
 		}
 	}
-	const url = BACKEND_API_URL + `/statistics/country-wise-users${searchString}`;
+	const url = BACKEND_API_URL + `/users-statistics/countries${searchString}`;
 	return await get_(sessionId, url, true);
 };
 
@@ -220,7 +220,7 @@ export const getMajorAilment = async (sessionId: string, searchParams?: any) => 
 			searchString  += params.join('&');
 		}
 	}
-	const url = BACKEND_API_URL + `/statistics/major-ailment-wise-users${searchString}`;
+	const url = BACKEND_API_URL + `/users-statistics/major-ailments${searchString}`;
 	return await get_(sessionId, url, true);
 };
 
@@ -240,7 +240,7 @@ export const getObesityDistribution = async (sessionId: string, searchParams?: a
 			searchString  += params.join('&');
 		}
 	}
-	const url = BACKEND_API_URL + `/statistics/obesity-distribution${searchString}`;
+	const url = BACKEND_API_URL + `/users-statistics/obesities${searchString}`;
 	return await get_(sessionId, url, true);
 };
 
@@ -260,7 +260,7 @@ export const getOverallUsers = async (sessionId: string, searchParams?: any) => 
 			searchString  += params.join('&');
 		}
 	}
-	const url = BACKEND_API_URL + `/statistics/overall-users${searchString}`;
+	const url = BACKEND_API_URL + `/users-statistics/users-count${searchString}`;
 	return await get_(sessionId, url, true);
 };
 
@@ -280,7 +280,7 @@ export const getAddictioDistribution = async (sessionId: string, searchParams?: 
 			searchString  += params.join('&');
 		}
 	}
-	const url = BACKEND_API_URL + `/statistics/addiction-distribution${searchString}`;
+	const url = BACKEND_API_URL + `/users-statistics/addictions${searchString}`;
 	return await get_(sessionId, url, true);
 };
 
@@ -300,7 +300,7 @@ export const getHealthPillarDistribution = async (sessionId: string, searchParam
 			searchString  += params.join('&');
 		}
 	}
-	const url = BACKEND_API_URL + `/statistics/health-pillar-distribution${searchString}`;
+	const url = BACKEND_API_URL + `/users-statistics/health-pillars${searchString}`;
 	return await get_(sessionId, url, true);
 };
 
@@ -320,7 +320,7 @@ export const getRoleDistribution = async (sessionId: string, searchParams?: any)
 			searchString  += params.join('&');
 		}
 	}
-	const url = BACKEND_API_URL + `/statistics/role-wise-users${searchString}`;
+	const url = BACKEND_API_URL + `/users-statistics/roles${searchString}`;
 	return await get_(sessionId, url, true);
 };
 
@@ -340,7 +340,7 @@ export const getBiometricsDistribution = async (sessionId: string, searchParams?
 			searchString  += params.join('&');
 		}
 	}
-	const url = BACKEND_API_URL + `/statistics/biometrics-distribution${searchString}`;
+	const url = BACKEND_API_URL + `/users-statistics/biometrics${searchString}`;
 	return await get_(sessionId, url, true);
 };
 
@@ -360,6 +360,6 @@ export const getUsersStats= async (sessionId: string, searchParams?: any) => {
 			searchString  += params.join('&');
 		}
 	}
-	const url = BACKEND_API_URL + `/statistics/users-stats${searchString}`;
+	const url = BACKEND_API_URL + `/users-statistics/users-stats${searchString}`;
 	return await get_(sessionId, url, true);
 };

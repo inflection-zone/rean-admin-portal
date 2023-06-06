@@ -26,18 +26,18 @@
 			},
 			options: {
 				responsive: true,
-				layout: {
-					padding: {
-						left: 10,
-						right:10, 
-						top: 10,
-						bottom:10
-					}
-				},
+				// layout: {
+				// 	padding: {
+				// 		left: 10,
+				// 		right:10, 
+				// 		top: 10,
+				// 		bottom:10
+				// 	}
+				// },
 				plugins: {
 					legend: {
 						display: true,
-						position: 'bottom',
+						position: 'right',
 						labels: {
 							boxWidth:10,
 							boxHeight:10,
@@ -45,7 +45,7 @@
 						}
 					},
 					title: {
-					    display: true,
+					    display: false,
 					    text: title,
 					    position: "top",
 							color: '#5832A1',

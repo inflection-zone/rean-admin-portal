@@ -24,7 +24,6 @@
 
 	let imageUrl = undefined;
 	let fileinput;
-	let value = [];
 
 	const breadCrumbs = [
 		{
@@ -223,14 +222,12 @@
 					type="search"
 					placeholder="Search course here..."
 					/>
-					<!-- <div class="flex gap-4"> -->
 					<div class="mb-4 mt-1">
 						<CoursesDragDrop courses={$dataTableStore.filtered}/>
 				 </div>
 				<div>
 					<SelectedCoursesDragDrop selectedCourses={selectedCourses}/>
 				</div>
-				<!-- </div> -->
 
 				<input
 				name="courseIds"
@@ -238,7 +235,6 @@
 				placeholder="Search course here..."
 				hidden
 				/>
-
 					{#if form?.errors?.courseIds}
 						<p class="text-error-500 text-xs">{form?.errors?.courseIds[0]}</p>
 					{/if}

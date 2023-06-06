@@ -20,14 +20,14 @@
 
   let homeLink;
 	let usersLink;
-	let rhgLink;
-	let botLink;
+	// let rhgLink;
+	// let botLink;
   
 	onMount(() => {
 		homeLink = `/users/${userId}/home`;
     usersLink = `/users/${userId}/home/users-stats`;
-		rhgLink = `/users/${userId}/`;
-		botLink = `/users/${userId}/`;
+		// rhgLink = `/users/${userId}/`;
+		// botLink = `/users/${userId}/`;
 	});
 
 	const gotoHome = async () => {
@@ -38,13 +38,13 @@
 		await goto(usersLink);
 	};
 
-  const gotoRhg = async () => {
-		await goto(rhgLink);
-	};
+  // const gotoRhg = async () => {
+	// 	await goto(rhgLink);
+	// };
 
-  const gotoBot = async () => {
-		await goto(botLink);
-	};
+  // const gotoBot = async () => {
+	// 	await goto(botLink);
+	// };
 </script>
 
 <!-- <div> -->
@@ -72,19 +72,19 @@
         usersLink
           ? 'active: bg-primary-500 text-white'
           : 'text-primary-500'}" on:click|capture={gotoUsers}>
-				Users Distribution
+			  Distribution
 			</button>
-      <button class="w-auto h-16 hover:bg-[#6c3dc2] hover:text-white text-center px-4 py-3 my-3 ml-2 hover:no-underline rounded-md text-lg font-medium {activeTab ==
+      <!-- <button class="w-auto h-16 hover:bg-[#6c3dc2] hover:text-white text-center px-4 py-3 my-3 ml-2 hover:no-underline rounded-md text-lg font-medium {activeTab ==
         rhgLink
           ? 'active: bg-primary-500 text-white'
           : 'text-primary-500'}" on:click|capture={gotoRhg}>
 				RHG
-			</button>
-      <button class="w-auto h-16 hover:bg-[#6c3dc2] hover:text-white text-center px-4 py-3 my-3 ml-2 hover:no-underline rounded-md text-lg font-medium {activeTab ==
+			</button> -->
+      <!-- <button class="w-auto h-16 hover:bg-[#6c3dc2] hover:text-white text-center px-4 py-3 my-3 ml-2 hover:no-underline rounded-md text-lg font-medium {activeTab ==
         botLink
           ? 'active: bg-primary-500 text-white'
           : 'text-primary-500'}" on:click|capture={gotoBot}>
 				Bot
-			</button>
+			</button> -->
 
 	</div>
