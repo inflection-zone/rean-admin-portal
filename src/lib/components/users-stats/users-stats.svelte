@@ -144,7 +144,7 @@
 
 <div class="flex justify-center flex-col lg:mx-14 md:mx-10 sm:mx-6 mx-4 mt-4 mb-20">
 	<div
-		class="grid grid-cols-1 justify-center rounded-lg shadow-xl border border-primary-50 px-10 py-8 gap-8 mb-8"
+		class="grid grid-cols-1 justify-center rounded-lg py-8 gap-8 "
 	>
 		<div
 			class="grid grid-cols-1 overflow-x-auto justify-center rounded-lg  shadow-xl border border-primary-50 sm:px-4 px-4 py-4 w-full h-full"
@@ -482,7 +482,7 @@
 			</div>
 		</div>
 		<div
-			class="flex overflow-x-auto justify-center items-center rounded-lg  shadow-xl sm:px-4 w-1/2"
+			class="flex overflow-x-auto justify-center items-center rounded-lg shadow-xl border border-primary-50 sm:px-4 w-1/2"
 		>
 			<div class="h-96 w-full">
 				<BarChart

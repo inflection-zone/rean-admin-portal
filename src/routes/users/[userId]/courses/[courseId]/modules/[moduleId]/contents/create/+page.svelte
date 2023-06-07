@@ -91,7 +91,7 @@
 		>
 			<div class="w-full  h-14 rounded-t-lg p-3  bg-[#7165E3]">
 				<div class="ml-3 relative flex flex-row text-white text-xl">
-					Create content
+					Create Content
 					<a href={moduleRoute}>
 						<Fa
 							icon={faMultiply}
