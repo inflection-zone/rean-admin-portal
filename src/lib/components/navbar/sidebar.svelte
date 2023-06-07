@@ -128,14 +128,14 @@
 
 <div class="w-72 bg-primary-50 h-full pt-4">
 	<Accordion width="w-[280px]" autocollapse rounded="rounded-none">
-		{#each navData as navParent}
+		{#each navData as navParent, idx}
 			<AccordionItem>
 				<svelte:fragment slot="lead">
 					<img src={navParent.icon} alt="" class="invert" />
 				</svelte:fragment>
 				<svelte:fragment slot="summary">{navParent.title}</svelte:fragment>
 				<svelte:fragment slot="content">
-					<nav class="list-nav">
+					<nav class="list-nav space-y-1">
 						{#each navParent.childNav as navItem}
 							<a
 								href={navItem.link}

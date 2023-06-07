@@ -54,7 +54,7 @@
 	<svelte:fragment slot="header">
 		<AppBar
 			gridColumns="grid-cols-3"
-			background="bg-primary-500"
+			background="bg-secondary-500"
 			class="text-white"
 			slotDefault="place-self-center"
 			slotTrail="place-content-end"
@@ -65,12 +65,16 @@
 					<!-- <button class="hover:bg-secondary-500 mr-4 hover:rounded-md" on:click={drawerLeftOpen}>
 						<Fa icon={faBars} size="lg"/> -->
 					<!-- </button> -->
-						<div class="relative ml-10 w-96">
-								<div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
-									<Fa icon={faSearch} class="text-primary-300" size="md" />
-								</div>
-								<input type="text" class="border border-primary-300 text-md text-primary-500 rounded-lg focus:ring-primary-300 focus:border-primary-300 placeholder:text-primary-300 block w-full pl-10 p-2.5 " placeholder="Search" >
+					<div class="relative ml-10 w-96">
+						<div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+							<Fa icon={faSearch} class="text-primary-300" size="md" />
 						</div>
+						<input
+							type="text"
+							class="border border-primary-300 text-md text-primary-500 rounded-lg focus:ring-primary-300 focus:border-primary-300 placeholder:text-primary-300 block w-full pl-10 p-2.5 "
+							placeholder="Search"
+						/>
+					</div>
 					<div class="flex-1 justify-start hidden lg:block">
 						<!-- <ul class="space-x-4">
 							{#each navbarTabs as t}
@@ -101,15 +105,9 @@
 	</svelte:fragment>
 	<slot />
 	<svelte:fragment slot="footer">
-		<footer class="text-center w-full fixed bottom-0 h-11 bg-primary-500">
-			<a href="https://reanfoundation.org">
-				<p
-					class="mt-3 text-white text-sm hover:underline-offset-3 hover:underline decoration-indigo-500"
-				>
-					&#xa9; 2022 REAN Foundation
-				</p></a
-			>
-		</footer>
+		<p class="bg-secondary-500  text-center p-2">
+			<a href="https://reanfoundation.org" class="!text-white">&#xa9; 2022 REAN Foundation</a>
+		</p>
 	</svelte:fragment>
 </AppShell>
 
@@ -121,10 +119,8 @@
 			{#each sidebarTabs as t}
 				<a
 					href={t.path}
-					class="hover:bg-surface-700 hover:text-white p-2 hover:no-underline text-start no-underline rounded-md text-md font-medium {activeTab ==
-					t.path
-						? 'active: bg-surface-800 '
-						: 'text-white'}">{t.name}</a
+					class="hover:bg-surface-700 hover:text-white p-2 hover:no-underline text-start no-underline rounded-md text-md font-medium
+					 {activeTab == t.path ? 'active: bg-surface-800 ' : 'text-white'}">{t.name}</a
 				>
 			{/each}
 			{#each navbarTabs as t}
