@@ -22,16 +22,8 @@
 	const createRoute = `/users/${userId}/learning-journeys/create`;
 	const learningJourneyRoute = `/users/${userId}/learning-journeys`;
 
-	const ENTER_KEY_CODE = 13;
 	let imageUrl = undefined;
 	let fileinput;
-	let searchInput;
-	let searchResults = [];
-	let searchPeformed = false;
-
-
-	//Make it reactive
-	$: searchedUsers = searchResults;
 
 	const breadCrumbs = [
 		{
@@ -43,47 +35,6 @@
 			path: createRoute
 		}
 	];
-
-	const onSearchClick = async (e) => {
-		const text = searchInput.value;
-		await searchCourses(text);
-	}
-
-	const onSearchTextEntered = async (e) => {
-		const keyCode = e.keyCode;
-		if (keyCode == ENTER_KEY_CODE) {
-			const text = searchInput.value;
-			await searchCourses(text);
-		}
-	}
-
-	//on:input={onSearchTextEntered}
-
-	const onSearchEnter = async (e) => {
-		const keyCode = e.keyCode;
-		if (keyCode == ENTER_KEY_CODE) {
-			const text = searchInput.value;
-			if (text.length > 2) {
-				await searchCourses(text);
-			}
-		}
-	}
-
-	const searchCourses = async (name) => {
-		searchPeformed = true;
-		const response = await fetch(`/api/server/chat/search-users?name=${name}`, {
-			method: 'GET',
-			headers: {
-				'content-type': 'application/json'
-			}
-		});
-		const users = await response.json();
-		console.log(JSON.stringify(users));
-		//Take only top 5 results
-		searchResults = searchResults.slice(0, 10);
-		console.log(JSON.stringify(searchResults));
-	}
-
 
 	const upload = async (imgBase64, filename) => {
 		const data = {};
@@ -267,19 +218,16 @@
 				<div class="w-1/2 md:w-2/3 lg:w-2/3">
 					<input
 					class="input mb-3"
+					bind:value={$dataTableStore.search}
 					type="search"
-					bind:this={searchInput}
 					placeholder="Search course here..."
-				  on:keyup={onSearchEnter}
 					/>
-					{#if searchPeformed}
 				 <div class="mb-4 mt-1">
-						<CoursesDragDrop courses={searchResults}/>
+						<CoursesDragDrop courses={$dataTableStore.filtered}/>
 				 </div>
 				<div>
 					<SelectedCoursesDragDrop selectedCourses={selectedCourses}/>
 				</div>
-				{/if}
 				<input
 				name="courseIds"
 				bind:value={$selectedItems}
