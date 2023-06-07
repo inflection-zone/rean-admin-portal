@@ -136,7 +136,7 @@
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
 					<!-- svelte-ignore a11y-label-has-associated-control -->
 					<label class="label">
-						<span>Provider assessment code</span>
+						<span>Provider Assessment Code</span>
 					</label>
 				</div>
 				<span class="span w-1/2 md:2/3 lg:2/3" id="providerAssessmentCode">
@@ -148,7 +148,7 @@
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
 					<!-- svelte-ignore a11y-label-has-associated-control -->
 					<label class="label">
-						<span>Serve list node children at once</span>
+						<span>Serve List Node Children At Once</span>
 					</label>
 				</div>
 				<span class="span w-1/2 md:2/3 lg:2/3" id="serveListNodeChildrenAtOnce">

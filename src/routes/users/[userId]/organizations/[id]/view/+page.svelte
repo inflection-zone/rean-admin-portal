@@ -18,15 +18,39 @@
 	let email = data.organization.ContactEmail;
 	let about = data.organization.About ?? null;
 	let operationalSince = data.organization.OperationalSince;
-	let addressType = data.organization.Addresses[0].Type;
-	let addressLine = data.organization.Addresses[0].AddressLine;
-	let city = data.organization.Addresses[0].City;
-	let district = data.organization.Addresses[0].District;
-	let state = data.organization.Addresses[0].State;
-	let country = data.organization.Addresses[0].Country;
-	let postalCode = data.organization.Addresses[0].PostalCode;
+	// let addressType = data.organization.Addresses[0].Type ?? null;
+	// let addressLine = data.organization.Addresses[0].AddressLine ?? null;
+	// let city = data.organization.Addresses[0].City ?? null;
+	// let district = data.organization.Addresses[0].District ?? null;
+	// let state = data.organization.Addresses[0].State ?? null;
+	// let country = data.organization.Addresses[0].Country ?? null;
+	// let postalCode = data.organization.Addresses[0].PostalCode ?? null;
+	let addressType = null;
+	let addressLine = null;
+	let city = null;
+	let district = null;
+	let state = null;
+	let country = null;
+	let postalCode = null;
 	let imageResourceId = data.organization.ImageUrl ?? undefined;
 	let isHealthFacility = data.organization.IsHealthFacility;
+
+	if((data.organization.Addresses).length > 0){
+		
+	}
+
+	if((data.organization.Addresses).length > 0)
+	{
+	 addressType = data.organization.Addresses[0].Type ?? null;
+	 addressLine = data.organization.Addresses[0].AddressLine ?? null;
+	 city = data.organization.Addresses[0].City ?? null;
+   district = data.organization.Addresses[0].District ?? null;
+	 state = data.organization.Addresses[0].State ?? null;
+	 country = data.organization.Addresses[0].Country ?? null;
+	 postalCode = data.organization.Addresses[0].PostalCode ?? null;
+	}
+
+	console.log("organization", data.organization);
 
 	onMount(() => {
 		show(data);
@@ -194,7 +218,7 @@
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
 					<!-- svelte-ignore a11y-label-has-associated-control -->
 					<label class="label">
-						<span>Zip/postal code</span>
+						<span>Zip/Postal Code</span>
 					</label>
 				</div>
 				<span class="span w-1/2 md:2/3 lg:2/3" id="address"> {postalCode} </span>
@@ -218,7 +242,7 @@
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
 					<!-- svelte-ignore a11y-label-has-associated-control -->
 					<label class="label">
-						<span>Is Healthy Facility</span>
+						<span>Is Health Facility Available</span>
 					</label>
 				</div>
 				<span class="span w-1/2 md:2/3 lg:2/3" id="isHealthFacility"> {isHealthFacility} </span>

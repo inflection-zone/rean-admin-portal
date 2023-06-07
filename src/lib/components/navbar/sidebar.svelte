@@ -208,15 +208,6 @@
 				</div>
 			{/if}
 			
-			<button class="flex flex-rows w-full" on:click|capture={gotoClients}>
-				<img src="/sidebar/client.png" alt="" class="mt-5 ml-6 mr-4 h-6 w-6" />
-				<span
-					class=" w-40 hover:bg-[#6c3dc2] hover:text-white text-start items-start p-2 my-3 ml-2 text-white rounded-md text-md font-medium {activeTab ==
-					clientsLink
-						? 'active: bg-primary-500 text-white'
-						: 'text-white'}">Clients</span
-				>
-			</button>
 			<button class="flex flex-rows gap-2 w-full" on:click|capture={onClinicalTabClick}>
 				<img src="/sidebar/clinical.png" alt="" class="mt-5 ml-6 mr-4 h-6 w-6" />
 				<span
@@ -248,7 +239,7 @@
 							class="text-start my-3 p-2 text-white rounded-md text-md font-medium  hover:bg-[#6c3dc2] hover:text-white {activeTab ==
 							labRecordTypeLink
 								? 'active: bg-primary-500 text-white'
-								: 'text-white'}">Lab-Records</span
+								: 'text-white'}">Lab Records</span
 						>
 					</button>
 					<button class="flex flex-rows gap-2 w-full" on:click|capture={gotoSymptoms}>
@@ -302,7 +293,7 @@
 							class="text-start my-3 p-2 text-white rounded-md text-md font-medium  hover:bg-[#6c3dc2] hover:text-white {activeTab ==
 							learningJourneyLink
 								? 'active: bg-primary-500 text-white'
-								: 'text-white'}">Learning-Journeys</span
+								: 'text-white'}">Learning Journey</span
 						>
 					</button>
 					<button class="flex flex-rows gap-2 w-full" on:click|capture={gotoKnowledgeNuggets}>
@@ -311,7 +302,7 @@
 							class="text-start my-3 p-2 text-white rounded-md text-md font-medium  hover:bg-[#6c3dc2] hover:text-white {activeTab ==
 							knowledgeNuggetsLink
 								? 'active: bg-primary-500 text-white'
-								: 'text-white'}">Knowledge-Nuggets</span
+								: 'text-white'}">Knowledge Nuggets</span
 						>
 					</button>
 				</div>
@@ -338,7 +329,7 @@
 							class="text-start p-2 my-3 text-white rounded-md text-md font-medium hover:bg-[#6c3dc2] hover:text-white {activeTab ==
 							personRoleTypesLink
 								? 'active: bg-primary-500 text-white'
-								: 'text-white'}">Person-Role</span
+								: 'text-white'}">Person Role</span
 						>
 					</button>
 					<button class="flex flex-rows gap-2 w-full" on:click|capture={gotoPriorityTypes}>
@@ -377,6 +368,15 @@
 			</button>
 			{#if showMiscellaneousMenus}
 				<div class="flex flex-col bg-secondary-600">
+					<button class="flex flex-rows gap-2 w-full" on:click|capture={gotoClients}>
+						<img src="/sidebar/client.png" alt="" class="mt-5 ml-10 mr-4 h-6 w-6" />
+						<span
+							class="text-start p-2 my-3 text-white rounded-md text-md font-medium hover:bg-[#6c3dc2] hover:text-white {activeTab ==
+							clientsLink
+								? 'active: bg-primary-500 text-white'
+								: 'text-white'}">Clients</span
+						>
+					</button>
 					<button class="flex flex-rows gap-2 w-full" on:click|capture={gotoOrganizations}>
 						<img src="/sidebar/organization.png" alt="" class="mt-5 ml-10 mr-4 h-6 w-6" />
 						<span
@@ -475,18 +475,6 @@
 			{/if}
 
 			<button
-				class="flex flex-col w-full item-center justify-center p-2 mt-3 hover:bg-[#6c3dc2] hover:text-white  {activeTab ==
-				clientsLink
-					? 'active: bg-primary-500 text-white'
-					: 'text-white'}"
-				on:click|capture={gotoClients}
-			>
-				<img src="/sidebar/client.png" alt="" class="mx-auto mb-1 h-6 w-6" />
-				<span class="mx-auto text-start hover:no-underline rounded-md text-md font-medium "
-					>Clients</span
-				>
-			</button>
-			<button
 				class="flex flex-col w-full item-center justify-center p-2 mt-3 text-white hover:bg-[#6c3dc2] hover:text-white"
 				on:click|capture={onClinicalTabClick}
 			>
@@ -518,7 +506,7 @@
 					>
 						<img src="/sidebar/lab-record.png" alt="" class="mx-auto mb-1 h-6 w-6" />
 						<span class="mx-auto text-start hover:no-underline rounded-md text-md font-medium "
-							>Lab-Records
+							>Lab Records
 						</span>
 					</button>
 					<button
@@ -617,7 +605,7 @@
 					>
 						<img src="/sidebar/role.png" alt="" class="mx-auto mb-1 h-6 w-6" />
 						<span class="mx-auto text-start hover:no-underline rounded-md text-md font-medium "
-							>Person-Roles
+							>Person Role
 						</span>
 					</button>
 					<button
@@ -657,6 +645,18 @@
 			</button>
 			{#if showMiscellaneousMenus}
 				<div class="flex flex-col bg-secondary-600">
+				<button
+						class="flex flex-col w-full item-center justify-center p-2 mt-3 ml-4 hover:bg-[#6c3dc2] hover:text-white  {activeTab ==
+						clientsLink
+							? 'active: bg-primary-500 text-white'
+							: 'text-white'}"
+						on:click|capture={gotoClients}
+					>
+						<img src="/sidebar/client.png" alt="" class="mx-auto mb-1 h-6 w-6" />
+						<span class="mx-auto text-start hover:no-underline rounded-md text-md font-medium "
+							>Clients
+						</span>
+					</button>
 					<button
 						class="flex flex-col w-full item-center justify-center p-2 mt-3 ml-4 hover:bg-[#6c3dc2] hover:text-white  {activeTab ==
 						organizationsLink

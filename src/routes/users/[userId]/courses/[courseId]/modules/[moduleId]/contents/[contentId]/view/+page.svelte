@@ -66,8 +66,8 @@
 		>
 			<div class="w-full  h-14 rounded-t-lg p-3  bg-[#7165E3]">
 				<div class="ml-3 relative flex flex-row text-white lg:text-xl text-lg ">
-					<div class="lg:hidden md:hidden block">View content</div>
-					<div class="lg:block md:block hidden">View content</div>
+					<div class="lg:hidden md:hidden block">View Content</div>
+					<div class="lg:block md:block hidden">View Content</div>
 					<a href={moduleRoute}>
 						<Fa icon={faMultiply} size="lg" class="absolute right-0 lg:pr-3 pr-0 text-white" />
 					</a>

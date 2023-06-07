@@ -119,7 +119,7 @@
 		>
 			<div class="w-full  h-14 rounded-t-lg p-3  bg-[#7165E3]">
 				<div class="ml-3 relative flex flex-row text-white text-xl">
-					Edit content
+					Edit Content
 					<a href={viewRoute}>
 						<Fa
 							icon={faMultiply}

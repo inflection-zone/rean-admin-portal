@@ -222,13 +222,12 @@
 					type="search"
 					placeholder="Search course here..."
 					/>
-					<div class="mb-4 mt-1">
+				 <div class="mb-4 mt-1">
 						<CoursesDragDrop courses={$dataTableStore.filtered}/>
 				 </div>
 				<div>
 					<SelectedCoursesDragDrop selectedCourses={selectedCourses}/>
 				</div>
-
 				<input
 				name="courseIds"
 				bind:value={$selectedItems}
