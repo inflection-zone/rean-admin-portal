@@ -60,10 +60,8 @@
 			slotTrail="place-content-end"
 		>
 			<svelte:fragment slot="lead">
-				<div class="flex justify-start">
-					<div>
-						<img class="block h-8 w-8" src="/rean-logo-white.png" alt="REAN" />
-					</div>
+				<div class="flex justify-start items-center">
+					<img class="block h-8 w-8 ml-2" src="/rean-logo-white.png" alt="REAN" />
 					<!-- <button class="hover:bg-secondary-500 mr-4 hover:rounded-md" on:click={drawerLeftOpen}>
 						<Fa icon={faBars} size="lg"/> -->
 					<!-- </button> -->
