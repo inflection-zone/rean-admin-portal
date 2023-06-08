@@ -8,10 +8,10 @@
 	export let data: PageServerData;
 	let overallUsersData = data.overallUsersData;
 	let totalUsers = overallUsersData.TotalUsers;
-	let activeUsers = overallUsersData.ActiveUsers;
+	console.log("TotalUsers",totalUsers)
+	let activeUsers = overallUsersData.UsersWithActiveSession;
 	let deletedUsers = overallUsersData.DeletedUsers;
-	let nonDeletedUsers = overallUsersData.NonDeletedUsers;
-	// let deviceDetailWiseUsersData = data.deviceDetailWiseUsers;
+	let nonDeletedUsers = overallUsersData.NotDeletedUsers;
 	let androidUsers = data.deviceDetailWiseUsers.AndroidUsers;
 	let iOSUsers = data.deviceDetailWiseUsers.IOSUsers;
 	let missingDeviceDetails = data.deviceDetailWiseUsers.MissingDeviceDetails;
@@ -19,7 +19,7 @@
 	let androidUsersData = data.androidUsersArray;
 	let iOSUsersData = data.iOSUsersArray;
 	let lables = data.years;
-	let totalEnrollment = overallUsersData.EnrollmentUsers;
+	let totalEnrollment = overallUsersData.EnrolledUsers;
 
 	let labels = ['Downloads', 'Onboarded','Non-Deleted ', 'Active Users', 'Enrollment'];
 	let funnelChartData = [totalUsers.Count, totalUsers.Count, nonDeletedUsers.Count, activeUsers.Count, totalEnrollment.Count];

@@ -1,5 +1,4 @@
 import type { RequestEvent } from '@sveltejs/kit';
-import { page } from '$app/stores';
 import { searchCourses } from '../../../services/courses';
 
 //////////////////////////////////////////////////////////////

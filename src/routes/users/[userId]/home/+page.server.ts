@@ -21,8 +21,9 @@ export const load: PageServerLoad = async (event: RequestEvent) => {
 			const searchParams = {
 				year: y
 			};
-			const _totalUsers = await getTolalUsers(sessionId, searchParams);
-			const totalUsers = _totalUsers.Data.TotalUsers.count;
+			const _overallUsersData = await getOverallUsers(sessionId, searchParams);
+			console.log
+			const totalUsers = _overallUsersData.Data.UsersCountStats.TotalUsers.Count;
 			totalUsersArray.push(totalUsers);
 		}
 
@@ -49,34 +50,22 @@ export const load: PageServerLoad = async (event: RequestEvent) => {
 		console.log('totalUsersArray', androidUsersArray);
 		console.log('totalUsersArray', iOSUsersArray);
 
-		const _totalUsers = await getTolalUsers(sessionId);
 		const _overallUsersData = await getOverallUsers(sessionId);
-		const _activeUsers = await getActiveUsers(sessionId);
-		const _deletedUsers = await getDeletdUsers(sessionId);
 		const _deviceDetailWiseUsers = await getDeviceDetailWiseUsers(sessionId);
 		const _enrollmentUsers = await getEnrollmetUsers(sessionId);
 		const _appDownloadsData = await getAppDownloadsData(sessionId);
 
-		const totalUsers = _totalUsers.Data.TotalUsers;
-		const overallUsersData = _overallUsersData.Data.OverallUsers;
-		const activeUsers = _activeUsers.Data.ActiveUsers;
-		const deletedUsers = _deletedUsers.Data.DeletedUsers;
+		const overallUsersData = _overallUsersData.Data.UsersCountStats;
 		const deviceDetailWiseUsers = _deviceDetailWiseUsers.Data.DeviceDetailWiseUsers;
 		const enrollmentUsers = _enrollmentUsers.Data.EnrollmentUsers;
 		const appDownloadsData = _appDownloadsData.Data.AppDownload;
 
-		console.log("totalUsers",totalUsers);
-		console.log("activeUsers",activeUsers);
-		console.log("deletedUsers",deletedUsers);
 		console.log('ageWisedeviceDetailWiseUsersUsers', deviceDetailWiseUsers);
 		console.log("overallUsersData--------",overallUsersData);
 		console.log("enrollmentUsers--------",enrollmentUsers);
 
 		return {
 			sessionId,
-			totalUsers,
-			activeUsers,
-			deletedUsers,
 			deviceDetailWiseUsers,
 			androidUsersArray,
 			totalUsersArray,

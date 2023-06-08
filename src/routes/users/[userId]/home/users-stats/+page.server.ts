@@ -1,7 +1,6 @@
 import type { RequestEvent } from '@sveltejs/kit';
 import type { PageServerLoad } from './$types';
 import {
-	getActiveUsers,
 	getAddictioDistribution,
 	getAgeWiseUsers,
 	getBiometricsDistribution,
@@ -13,7 +12,6 @@ import {
 	getObesityDistribution,
 	getOverallUsers,
 	getRoleDistribution,
-	getTolalUsers,
 	getDeviceDetailWiseUsers
 } from '$routes/api/services/statistics';
 
@@ -36,8 +34,7 @@ export const load: PageServerLoad = async (event: RequestEvent) => {
 		const searchParams = {
 			year: '2023'
 		};
-		const _totalUsers = await getTolalUsers(sessionId);
-		const _activeUsers = await getActiveUsers(sessionId);
+	
 		const _ageWiseUsers = await getAgeWiseUsers(sessionId);
 		const _genderWiseUsers = await getGenderWiseUsers(sessionId);
 		const _maritalStatusWiseUsers = await getMaritalStatusWiseUsers(sessionId);
@@ -56,8 +53,6 @@ export const load: PageServerLoad = async (event: RequestEvent) => {
 		const _overallUsersData = await getOverallUsers(sessionId);
 		const _deviceDetailWiseUsers = await getDeviceDetailWiseUsers(sessionId);
 
-		const totalUsers = _totalUsers.Data.TotalUsers;
-		const activeUsers = _activeUsers.Data.ActiveUsers;
 		const ageWiseUsers = _ageWiseUsers.Data.AgeWiseUsers;
 		const genderWiseUsers = _genderWiseUsers.Data.GenderWiseUsers;
 		const maritalStatusWiseUsers = _maritalStatusWiseUsers.Data.MaritalStatusWiseUsers;
@@ -71,11 +66,9 @@ export const load: PageServerLoad = async (event: RequestEvent) => {
 		const roleDistribution = _roleDistribution.Data.RoleDistribution;
 		const biometricsDistribution = _biometricsDistribution.Data.Biometrics;
 		const biometricsDistributionMonthly = _biometricsDistributionMonthly.Data.Biometrics;
-		const overallUsersData = _overallUsersData.Data.OverallUsers;
+		const overallUsersData = _overallUsersData.Data.UsersCountStats;
 		const deviceDetailWiseUsers = _deviceDetailWiseUsers.Data.DeviceDetailWiseUsers;
 
-		console.log('totalUsers', totalUsers);
-		console.log('activeUsers', activeUsers);
 		console.log('ageWiseUsers', ageWiseUsers);
 		console.log('genderWiseUsers', genderWiseUsers);
 		console.log('maritalStatusWiseUsers', maritalStatusWiseUsers);
@@ -87,8 +80,6 @@ export const load: PageServerLoad = async (event: RequestEvent) => {
 
 		return {
 			sessionId,
-			totalUsers,
-			activeUsers,
 			ageWiseUsers,
 			genderWiseUsers,
 			maritalStatusWiseUsers,
