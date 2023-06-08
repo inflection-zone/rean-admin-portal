@@ -32,22 +32,22 @@
 			id: id
 		});
 	};
-
 </script>
 
-<div class="collapsible pb-1 lg:ml-4 md:mr-4 sm:mr-4 min-[280px]:mr-5 first:pt-4 min-[280px]:flex-col overflow-auto">
-
+<div
+	class="collapsible pb-1 lg:ml-4 md:mr-4 sm:mr-4 min-[280px]:mr-5 first:pt-4 min-[280px]:flex-col overflow-auto"
+>
 	<!-- svelte-ignore a11y-click-events-have-key-events -->
-	<span 
+	<span
 		style="--color:{color}; --paddingBottom:{paddingBottom}; --paddingTop:{paddingTop}; --paddingLeft:{paddingLeft}; paddingRight:{paddingRight};--marginBottom:{marginBottom};"
 		class="text-lg text-white pr-6 justify-start min-[280px]:w-full overflow-auto"
 	>
-			<div class=" flex gap-2">
+		<div class=" flex gap-2">
 			<!-- svelte-ignore a11y-missing-attribute -->
-			<img class="w-8 mr-2" src = {src} />
-			<a class="text-white" href= {viewRoute}>
-			<div class="text-white">{headerText}</div></a>
-			
+			<img class="w-8 mr-2" {src} />
+			<a class="text-white" href={viewRoute}>
+				<div class="text-white">{headerText}</div>
+			</a>
 		</div>
 		<!-- </div> -->
 		<div class="flex gap-3 lg:gap-6 md:gap-4 justify-end">
@@ -73,13 +73,12 @@
 						handlelDeleteClick(id);
 					}}
 				>
-					<button on:click|once ={(id) => confirmThis(handlelDeleteClick, id)} class=""
-						><Fa icon={faTrash} /></button
-					>
+					<button on:click|once={(id) => confirmThis(handlelDeleteClick, id)} class="">
+						<Fa icon={faTrash} />
+					</button>
 					<div class="" slot="title">Delete</div>
 					<div slot="description">Are you sure you want to delete a content?</div>
 				</Confirm>
-
 			</div>
 			<svg
 				aria-expanded={expanded}

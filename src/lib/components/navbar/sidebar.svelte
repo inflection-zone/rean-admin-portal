@@ -3,6 +3,7 @@
 	import { page } from '$app/stores';
 	import Fa from 'svelte-fa';
 	import { faBars } from '@fortawesome/free-solid-svg-icons';
+	import { navigating } from '$app/stores';
 
 	export let userId = undefined;
 	export let showSidebar = false;
@@ -124,18 +125,13 @@
 			]
 		}
 	];
+
+	$: if ($navigating) showSidebar = false;
 </script>
 
-<button
-	on:click={() => (showSidebar = !showSidebar)}
-	class="md:hidden btn btn-icon hover:bg-white/10 text-white rounded fixed top-5 right-16 z-10"
->
-	<Fa icon={faBars} size="lg" />
-</button>
-
 <div
-	class="w-72 bg-primary-50 h-full pt-4 
-	{showSidebar ? 'fixed z-10' : 'hidden'} md:block transition-all"
+	class="w-72 bg-secondary-50 h-full pt-4 
+	{showSidebar ? 'max-md:fixed z-10' : 'hidden'} md:block transition-all"
 >
 	<Accordion width="w-[280px]" autocollapse rounded="rounded-none">
 		{#each navData as navParent, idx}
@@ -149,9 +145,11 @@
 						{#each navParent.childNav as navItem}
 							<a
 								href={navItem.link}
-								class:!variant-soft-primary={$page.url.pathname === navItem.link}
+								class:!variant-soft-secondary={$page.url.pathname === navItem.link}
 							>
-								<span><img src={navItem.icon} alt="" class="invert w-6 h-6" /></span>
+								<span>
+									<img src={navItem.icon} alt="" class="invert w-6 h-6" />
+								</span>
 								<span>{navItem.title}</span>
 							</a>
 						{/each}

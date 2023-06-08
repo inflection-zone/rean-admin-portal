@@ -57,7 +57,7 @@
 		}
 	];
 
-	console.log("deviceDetailWiseUsers",deviceDetailWiseUsers)
+	console.log('deviceDetailWiseUsers', deviceDetailWiseUsers);
 
 	const deviceDetailData = [
 		{
@@ -74,7 +74,7 @@
 			usersDetail: 'Missing Device Detail Users',
 			count: missingDeviceDetails.Count,
 			ratio: `${Math.ceil(missingDeviceDetails.Ratio)}`
-		},
+		}
 	];
 	const userId = $page.params.userId;
 	const homeRoute = `/users/${userId}/home`;
@@ -142,10 +142,8 @@
 
 <!-- <BreadCrumbs crumbs={breadCrumbs} /> -->
 
-<div class="flex justify-center flex-col lg:mx-14 md:mx-10 sm:mx-6 mx-4 mt-4 mb-20">
-	<div
-		class="grid grid-cols-1 justify-center rounded-lg py-8 gap-8 "
-	>
+<div class="flex flex-col justify-center ">
+	<div class="grid grid-cols-1 justify-center rounded-lg py-8 gap-8 ">
 		<div
 			class="grid grid-cols-1 overflow-x-auto justify-center rounded-lg  shadow-xl border border-primary-50 sm:px-4 px-4 py-4 w-full h-full"
 		>
@@ -153,98 +151,108 @@
 				<div class="flow-root">
 					<div class="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
 						<div class="inline-block min-w-full py-2 align-middle sm:px-6 lg:px-8">
-						<table class="min-w-full">
-							<thead>
-								<tr>
-									<th
-										scope="col"
-										class="py-3 pl-4 pr-3 text-left text-lg font-semibold text-primary-500 sm:pl-3"
-										>Users</th
-									>
-									<th scope="col" class="px-3 py-3 text-left text-lg font-semibold text-primary-500"
-										>Count</th
-									>
-									<th scope="col" class="px-3 py-3 text-left text-lg font-semibold text-primary-500"
-										>Percentage</th
-									>
-								</tr>
-							</thead>
-							<tbody class="">
-								<tr class="hover:bg-tertiary-600">
-									<td
-										style="width:10%;"
-										class="whitespace-nowrap text-sm py-2 pl-4 pr-3 text-primary-500 sm:pl-3"
-										>Total Users</td
-									>
-									<td
-										style="width:10%;"
-										class="whitespace-nowrap px-3 py-2 text-sm  text-primary-500"
-										>{usersCount.TotalUsers.Count}</td
-									>
-									<td
-										style="width:15%;"
-										class="whitespace-nowrap px-3 py-2 text-sm  text-primary-500"
-										>-
-									</td>
-								</tr>
-								{#each usersData as data}
+							<table class="min-w-full">
+								<thead>
+									<tr>
+										<th
+											scope="col"
+											class="py-3 pl-4 pr-3 text-left text-lg font-semibold text-primary-500 sm:pl-3"
+										>
+											Users
+										</th>
+										<th
+											scope="col"
+											class="px-3 py-3 text-left text-lg font-semibold text-primary-500"
+										>
+											Count
+										</th>
+										<th
+											scope="col"
+											class="px-3 py-3 text-left text-lg font-semibold text-primary-500"
+										>
+											Percentage
+										</th>
+									</tr>
+								</thead>
+								<tbody class="">
 									<tr class="hover:bg-tertiary-600">
 										<td
 											style="width:10%;"
-											class="whitespace-nowrap py-2 pl-4 pr-3 text-primary-500 text-sm  sm:pl-3"
-											>{data.usersDetail}</td
+											class="whitespace-nowrap text-sm py-2 pl-4 pr-3 text-primary-500 sm:pl-3"
+											>Total Users</td
 										>
 										<td
 											style="width:10%;"
-											class="whitespace-nowrap text-sm px-3 py-2 text-primary-500">{data.count}</td
+											class="whitespace-nowrap px-3 py-2 text-sm  text-primary-500"
+											>{usersCount.TotalUsers.Count}</td
 										>
 										<td
 											style="width:15%;"
-											class="whitespace-nowrap px-3 py-2 text-sm text-primary-500"
-										>
-											<div class="flex items-center">
-												<div class="h-2 w-1/4 rounded-full bg-primary-200 mr-2">
-													<div
-														class="h-2 rounded-full bg-primary-500"
-														style="width:{data.ratio}%"
-													/>
-												</div>
-												<span class="text-primary-500 ">{data.ratio}</span>
-												<span class="text-primary-500 text-xs">%</span>
-											</div>
+											class="whitespace-nowrap px-3 py-2 text-sm  text-primary-500"
+											>-
 										</td>
 									</tr>
-								{/each}
-								{#each deviceDetailData as data}
-									<tr class="hover:bg-tertiary-600">
-										<td
-											style="width:10%;"
-											class="whitespace-nowrap py-2 pl-4 pr-3 text-primary-500 text-sm  sm:pl-3"
-											>{data.usersDetail}</td
-										>
-										<td
-											style="width:10%;"
-											class="whitespace-nowrap text-sm px-3 py-2 text-primary-500">{data.count}</td
-										>
-										<td
-											style="width:15%;"
-											class="whitespace-nowrap px-3 py-2 text-sm text-primary-500"
-										>
-											<div class="flex items-center">
-												<div class="h-2 w-1/4 rounded-full bg-primary-200 mr-2">
-													<div
-														class="h-2 rounded-full bg-primary-500"
-														style="width:{data.ratio}%"
-													/>
+									{#each usersData as data}
+										<tr class="hover:bg-tertiary-600">
+											<td
+												style="width:10%;"
+												class="whitespace-nowrap py-2 pl-4 pr-3 text-primary-500 text-sm  sm:pl-3"
+												>{data.usersDetail}</td
+											>
+											<td
+												style="width:10%;"
+												class="whitespace-nowrap text-sm px-3 py-2 text-primary-500"
+											>
+												{data.count}
+											</td>
+											<td
+												style="width:15%;"
+												class="whitespace-nowrap px-3 py-2 text-sm text-primary-500"
+											>
+												<div class="flex items-center">
+													<div class="h-2 w-1/4 rounded-full bg-primary-200 mr-2">
+														<div
+															class="h-2 rounded-full bg-primary-500"
+															style="width:{data.ratio}%"
+														/>
+													</div>
+													<span class="text-primary-500 ">{data.ratio}</span>
+													<span class="text-primary-500 text-xs">%</span>
 												</div>
-												<span class="text-primary-500 ">{data.ratio}</span>
-												<span class="text-primary-500 text-xs">%</span>
-											</div>
-										</td>
-									</tr>
-								{/each}
-							</tbody>
-						</table>
+											</td>
+										</tr>
+									{/each}
+									{#each deviceDetailData as data}
+										<tr class="hover:bg-tertiary-600">
+											<td
+												style="width:10%;"
+												class="whitespace-nowrap py-2 pl-4 pr-3 text-primary-500 text-sm  sm:pl-3"
+												>{data.usersDetail}</td
+											>
+											<td
+												style="width:10%;"
+												class="whitespace-nowrap text-sm px-3 py-2 text-primary-500"
+												>{data.count}</td
+											>
+											<td
+												style="width:15%;"
+												class="whitespace-nowrap px-3 py-2 text-sm text-primary-500"
+											>
+												<div class="flex items-center">
+													<div class="h-2 w-1/4 rounded-full bg-primary-200 mr-2">
+														<div
+															class="h-2 rounded-full bg-primary-500"
+															style="width:{data.ratio}%"
+														/>
+													</div>
+													<span class="text-primary-500 ">{data.ratio}</span>
+													<span class="text-primary-500 text-xs">%</span>
+												</div>
+											</td>
+										</tr>
+									{/each}
+								</tbody>
+							</table>
 						</div>
 					</div>
 				</div>

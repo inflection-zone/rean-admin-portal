@@ -177,8 +177,8 @@
 																	<div class="flex">
 																		<img class="w-6 mr-2 mb-4" alt="logo" src="/content.png" />
 																		{content.Sequence}-{content.Title}
-																	</div></a
-																>
+																	</div>
+																</a>
 															</div>
 														</TreeLeaf>
 													{/each}

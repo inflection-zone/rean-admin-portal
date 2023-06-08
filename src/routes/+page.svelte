@@ -57,14 +57,19 @@
 							<label class="mb-2" for="password">
 								<div class="grid grid-flow-col">
 									<span class="text-left text-primary-500">Password / OTP</span>
-									<span class="text-right text-primary-500 ml-4 sm:ml-12"><b>Generate OTP</b></span>
+									<span class="text-right text-primary-500 ml-4 sm:ml-12">
+										<b>Generate OTP</b>
+									</span>
 								</div>
 							</label>
 							<input type="password" name="password" required class=" input" />
 							<!-- svelte-ignore a11y-label-has-associated-control -->
 							<label class="lable">
-								<span class=" text-primary-500"><b>Forgot Password?</b></span>
-							</label><br />
+								<span class=" text-primary-500">
+									<b>Forgot Password?</b>
+								</span>
+							</label>
+							<br />
 							<button type="submit" class="btn variant-filled-secondary mb-6 w-full">Login</button>
 						</div>
 					</form>
@@ -78,7 +83,7 @@
 				class="mt-3 text-surface-500 text-sm hover:underline-offset-3 hover:underline decoration-indigo-500"
 			>
 				&#xa9; 2022 REAN Foundation
-			</p></a
-		>
+			</p>
+		</a>
 	</footer>
 </body>

@@ -1,10 +1,7 @@
 <script lang="ts">
 	import CollapsibleSection from '$lib/components/courses.view/collapsible.section.svelte';
 	import { createEventDispatcher } from 'svelte';
-	import {
-		createDataTableStore,
-		dataTableHandler,
-	} from '@skeletonlabs/skeleton';
+	import { createDataTableStore, dataTableHandler } from '@skeletonlabs/skeleton';
 	import Fa from 'svelte-fa';
 	import { Paginator } from '@skeletonlabs/skeleton';
 	import { faPencil, faTrash } from '@fortawesome/free-solid-svg-icons';
@@ -59,8 +56,10 @@
 	};
 </script>
 
-	<div class="flex justify-center flex-col mx-10 mb-10 overflow-y-auto  bg-tertiary-500 rounded-lg">
-	<div class="flex justify-center flex-col w-full h-14 p-3 bg-secondary-500 min-[280px]:overflow-auto overflow-auto">
+<div class="flex justify-center flex-col mx-10 mb-10 overflow-y-auto  bg-tertiary-500 rounded-lg">
+	<div
+		class="flex justify-center flex-col w-full h-14 p-3 bg-secondary-500 min-[280px]:overflow-auto overflow-auto"
+	>
 		<div class="ml-3 relative flex flex-row text-white text-xl">Courses</div>
 	</div>
 	<section class="text-base-100 overflow-y-auto h-[700px] bg-tertiary-500">
@@ -128,14 +127,14 @@
 															<td style="width: 40%;">
 																<a href={viewContentRoute(course.id, module.id, content.id)}
 																	>{content.Title}</a
-																></td
-															>
+																>
+															</td>
 															<td style="width: 20%;">{content.ContentType}</td>
 															<td style="width: 20%;">{content.DurationInMins}</td>
 															<td style="width: 5%;">
-																<a href={editContentRoute(course.id, module.id, content.id)}
-																	><Fa icon={faPencil} style="color-text-primary" size="md" /></a
-																>
+																<a href={editContentRoute(course.id, module.id, content.id)}>
+																	<Fa icon={faPencil} style="color-text-primary" size="md" />
+																</a>
 															</td>
 															<td style="width: 5%;">
 																<Confirm
@@ -149,8 +148,10 @@
 																	<button
 																		on:click|preventDefault={() =>
 																			confirmThis(handleContentDelete, content.id)}
-																		class=""><Fa icon={faTrash} /></button
+																		class=""
 																	>
+																		<Fa icon={faTrash} />
+																	</button>
 																	<span slot="title"> Delete </span>
 																	<span slot="description">
 																		Are you sure you want to delete a content?
@@ -182,6 +183,7 @@
 			/>{/if}
 	</div>
 </div>
+
 <style>
 	section {
 		width: 100%;

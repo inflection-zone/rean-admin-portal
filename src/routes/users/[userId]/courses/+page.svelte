@@ -47,31 +47,18 @@
 
 	async function searchCourse(model) {
 		let url = `/api/server/courses/search?`;
-		if (sortOrder) {
-			url += `sortOrder=${sortOrder}`;
-		} else {
-			url += `sortOrder=ascending`;
-		}
-		if (sortBy) {
-			url += `&sortBy=${sortBy}`;
-		}
-		if (itemsPerPage) {
-			url += `&itemsPerPage=${itemsPerPage}`;
-		}
-		if (pageIndex) {
-			url += `&pageIndex=${pageIndex}`;
-		}
-		if (name) {
-			url += `&name=${name}`;
-		}
-		if (durationInDays) {
-			url += `&durationInDays=${durationInDays}`;
-		}
+		if (sortOrder) url += `sortOrder=${sortOrder}`;
+		else url += `sortOrder=ascending`;
+
+		if (sortBy) url += `&sortBy=${sortBy}`;
+		if (itemsPerPage) url += `&itemsPerPage=${itemsPerPage}`;
+		if (pageIndex) url += `&pageIndex=${pageIndex}`;
+		if (name) url += `&name=${name}`;
+		if (durationInDays) url += `&durationInDays=${durationInDays}`;
+
 		const res = await fetch(url, {
 			method: 'GET',
-			headers: {
-				'content-type': 'application/json'
-			}
+			headers: { 'content-type': 'application/json' }
 		});
 		const response = await res.json();
 
@@ -101,9 +88,7 @@
 		const response = await fetch(`/api/server/courses`, {
 			method: 'DELETE',
 			body: JSON.stringify(model),
-			headers: {
-				'content-type': 'application/json'
-			}
+			headers: { 'content-type': 'application/json' }
 		});
 		console.log('response', response);
 	}
@@ -128,9 +113,7 @@
 		const response = await fetch(`/api/server/modules`, {
 			method: 'DELETE',
 			body: JSON.stringify(model),
-			headers: {
-				'content-type': 'application/json'
-			}
+			headers: { 'content-type': 'application/json' }
 		});
 	}
 
@@ -148,9 +131,7 @@
 		const response = await fetch(`/api/server/course-contents`, {
 			method: 'DELETE',
 			body: JSON.stringify(model),
-			headers: {
-				'content-type': 'application/json'
-			}
+			headers: { 'content-type': 'application/json' }
 		});
 	}
 </script>
@@ -170,7 +151,7 @@
 					class="btn variant-filled-primary w-28 rounded-lg hover:bg-primary bg-primary transition
           ease-in-out
           delay-150  
-          hover:scale-110  
+            
           duration-300 ... "
 				>
 					Add new
@@ -187,13 +168,14 @@
 			class="btn variant-filled-primary hover:bg-primary lg:hidden md:hidden block sm:w-40 w-24 ml-4 rounded-lg bg-primary transition
 			ease-in-out
 			delay-150  
-			hover:scale-110  
+			  
 			duration-300 ...  "
 		>
 			Add new
 		</button>
 	</a>
 </div>
+
 <div
 	class="flex justify-center rounded-lg w-full lg:ml-2 flex-col mx-10 mb-10 lg:gap-6 md:gap-4 gap-4 md:ml-4 md:flex-col sm:flex-col min-[280px]:flex-col"
 >

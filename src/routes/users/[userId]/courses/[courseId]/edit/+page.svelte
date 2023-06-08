@@ -15,7 +15,7 @@
 	let name = data.course.Name;
 	let description = data.course.Description;
 	let durationInDays = data.course.DurationInDays;
-	let imageUrl = data.course.ImageUrl;	
+	let imageUrl = data.course.ImageUrl;
 	$: avatarSource = imageUrl;
 
 	//Original data
@@ -101,8 +101,8 @@
 				<div class="ml-3 relative flex flex-row text-white text-xl">
 					Edit Course
 					<a href={viewRoute}>
-						<Fa icon={faMultiply} size="lg" class="absolute right-0 pr-3 mb-16 text-white " /></a
-					>
+						<Fa icon={faMultiply} size="lg" class="absolute right-0 pr-3 mb-16 text-white " />
+					</a>
 				</div>
 			</div>
 			<div class="hidden">{id}</div>

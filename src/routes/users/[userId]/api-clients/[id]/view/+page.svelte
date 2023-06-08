@@ -66,9 +66,7 @@
 		const response = await fetch(`/api/server/api-client/renew-api-key`, {
 			method: 'POST',
 			body: JSON.stringify(model),
-			headers: {
-				'content-type': 'application/json'
-			}
+			headers: { 'content-type': 'application/json' }
 		});
 		const resp = await response.text();
 		const apiKeyDetails = JSON.parse(resp);
@@ -94,9 +92,7 @@
 		const response = await fetch(`/api/server/api-client/get-api-key`, {
 			method: 'POST',
 			body: JSON.stringify(model),
-			headers: {
-				'content-type': 'application/json'
-			}
+			headers: { 'content-type': 'application/json' }
 		});
 		const resp = await response.text();
 		const apiKeyDetails = JSON.parse(resp);
@@ -198,8 +194,10 @@
 							class="btn variant-ringed-primary text-primary-500 "
 							use:clipboard={apiKey}
 							on:click={onClickHandler}
-							disabled={copied}><Fa icon={faCopy} size="lg" class="" /></button
+							disabled={copied}
 						>
+							<Fa icon={faCopy} size="lg" class="" />
+						</button>
 					</div>
 				</div>
 			{/if}

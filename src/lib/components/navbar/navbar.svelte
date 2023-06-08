@@ -3,7 +3,7 @@
 	import type { DrawerSettings } from '@skeletonlabs/skeleton';
 	import { AppShell, AppBar } from '@skeletonlabs/skeleton';
 	import Fa from 'svelte-fa';
-	import { faCircleUser, faSearch } from '@fortawesome/free-solid-svg-icons';
+	import { faCircleUser, faSearch, faBars } from '@fortawesome/free-solid-svg-icons';
 	import { navbarMenu, sidebarMenu, type TabDefinition } from './navigation.tabs';
 	import SettingMenu from './setting.menus.svelte';
 	import { page } from '$app/stores';
@@ -48,6 +48,8 @@
 	function drawerRightClose(): void {
 		drawerStore.close();
 	}
+
+	let showSidebar = false;
 </script>
 
 <AppShell class="w-full">
@@ -61,51 +63,44 @@
 		>
 			<svelte:fragment slot="lead">
 				<div class="flex justify-start items-center">
-					<img class="block h-8 w-8 ml-2" src="/rean-logo-white.png" alt="REAN" />
-					<!-- <button class="hover:bg-secondary-500 mr-4 hover:rounded-md" on:click={drawerLeftOpen}>
-						<Fa icon={faBars} size="lg"/> -->
-					<!-- </button> -->
+					<img class="block w-10 ml-2" src="/rean-logo-white.png" alt="REAN" />
 					<div class="relative ml-10 w-96">
 						<div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
 							<Fa icon={faSearch} class="text-primary-300" size="md" />
 						</div>
 						<input
 							type="text"
-							class="border border-primary-300 text-md text-primary-500 rounded-lg focus:ring-primary-300 focus:border-primary-300 placeholder:text-primary-300 block w-auto sm:w-full max-[450px]:w-28 pl-10 p-2.5 "
+							class="border border-primary-300 text-md text-primary-500 rounded-lg focus:ring-primary-300 focus:border-primary-300 placeholder:text-primary-300 block w-auto sm:w-full max-[450px]:w-36 pl-10 p-2.5 "
 							placeholder="Search"
 						/>
 					</div>
-					<div class="flex-1 justify-start hidden lg:block">
-						<!-- <ul class="space-x-4">
-							{#each navbarTabs as t}
-								<a
-									href={t.path}
-									class="hover:bg-[#6c3dc2] hover:text-white px-3 py-2 hover:no-underline rounded-md text-md font-medium {activeTab ==
-									t.path
-										? 'active: bg-primary-500 text-white'
-										: 'text-white'}">{t.name}</a
-								>
-							{/each}
-						</ul> -->
-					</div>
 				</div>
 			</svelte:fragment>
-			<!-- <div>
-				<img class="block h-8 w-8 " src="/rean-logo-white.png" alt="REAN" />
-			</div> -->
 			<svelte:fragment slot="trail">
-				<button class="hover:bg-secondary-500 p-2 rounded-md" on:click={drawerRightOpen}>
-					<Fa icon={faCircleUser} size="lg" />
+				<button
+					on:click={() => (showSidebar = !showSidebar)}
+					class="md:hidden btn btn-icon rounded hover:bg-white/10 text-white"
+				>
+					<Fa icon={faBars} size="1.5x" />
+				</button>
+
+				<button
+					class="btn btn-icon rounded hover:bg-white/10 text-white mr-6"
+					on:click={drawerRightOpen}
+				>
+					<Fa icon={faCircleUser} size="1.5x" />
 				</button>
 			</svelte:fragment>
 		</AppBar>
 	</svelte:fragment>
 	<svelte:fragment slot="sidebarLeft">
-		<Sidebar {userId} />
+		<Sidebar {userId} bind:showSidebar />
 	</svelte:fragment>
-	<slot />
+	<div class="m-4 md:m-8">
+		<slot />
+	</div>
 	<svelte:fragment slot="footer">
-		<p class="bg-secondary-500  text-center p-2">
+		<p class="bg-secondary-500 text-center p-2">
 			<a href="https://reanfoundation.org" class="!text-white">&#xa9; 2022 REAN Foundation</a>
 		</p>
 	</svelte:fragment>

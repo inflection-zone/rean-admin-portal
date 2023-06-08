@@ -204,65 +204,65 @@
 																</div>
 																{#each kid.Children as child}
 																	{#if child.NodeType === 'Question'}
-																		<TreeLeaf
-																			><div class="flex">
+																		<TreeLeaf>
+																			<div class="flex">
 																				<Fa icon={faQuestionCircle} size="lg" class="mr-2" />
 																				<a href={assessmentNodeView(child.id)}>
 																					{child.Sequence}-{child.NodeType}-{child.Title}
 																				</a>
-																			</div></TreeLeaf
-																		>
+																			</div>
+																		</TreeLeaf>
 																	{:else if child.NodeType === 'Message'}
-																		<TreeLeaf
-																			><div class="flex">
+																		<TreeLeaf>
+																			<div class="flex">
 																				<Fa icon={faMessage} size="lg" class="mr-2" />
 																				<a href={assessmentNodeView(child.id)}>
 																					{child.Sequence}-{child.NodeType}-{child.Title}
 																				</a>
-																			</div></TreeLeaf
-																		>
+																			</div>
+																		</TreeLeaf>
 																	{/if}
 																{/each}
 															</TreeBranch>
 														{:else if kid.NodeType === 'Question'}
-															<TreeLeaf
-																><div class="flex">
+															<TreeLeaf>
+																<div class="flex">
 																	<Fa icon={faQuestionCircle} size="lg" class="mr-2" />
 																	<a href={assessmentNodeView(kid.id)}>
 																		{kid.Sequence}-{kid.NodeType}-{kid.Title}
 																	</a>
-																</div></TreeLeaf
-															>
+																</div>
+															</TreeLeaf>
 														{:else}
-															<TreeLeaf
-																><div class="flex">
+															<TreeLeaf>
+																<div class="flex">
 																	<Fa icon={faMessage} size="lg" class="mr-2" />
 																	<a href={assessmentNodeView(kid.id)}>
 																		{kid.Sequence}-{kid.NodeType}-{kid.Title}
 																	</a>
-																</div></TreeLeaf
-															>
+																</div>
+															</TreeLeaf>
 														{/if}
 													{/each}
 												</TreeBranch>
 											{:else if child.NodeType === 'Question'}
-												<TreeLeaf
-													><div class="flex">
+												<TreeLeaf>
+													<div class="flex">
 														<Fa icon={faQuestionCircle} size="lg" class="mr-2" />
 														<a href={assessmentNodeView(child.id)}>
 															{child.Sequence}-{child.NodeType}-{child.Title}
 														</a>
-													</div></TreeLeaf
-												>
+													</div>
+												</TreeLeaf>
 											{:else if child.NodeType === 'Message'}
-												<TreeLeaf
-													><div class="flex">
+												<TreeLeaf>
+													<div class="flex">
 														<Fa icon={faMessage} size="lg" class="mr-2" />
 														<a href={assessmentNodeView(child.id)}>
 															{child.Sequence}-{child.NodeType}-{child.Title}
 														</a>
-													</div></TreeLeaf
-												>
+													</div>
+												</TreeLeaf>
 											{/if}
 										{/each}
 									</TreeBranch>

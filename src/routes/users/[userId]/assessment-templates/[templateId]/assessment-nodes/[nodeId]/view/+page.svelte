@@ -29,7 +29,7 @@
 	let resolutionScore;
 	let sequence = data.assessmentNode.Sequence;
 
-	$:resolutionScore;
+	$: resolutionScore;
 
 	if (nodeType === 'Question') {
 		resolutionScore = data.assessmentNode.ScoringCondition.ResolutionScore;
@@ -37,7 +37,7 @@
 
 	scoringApplicableCondition.set(data.templateScoringCondition.ScoringApplicable);
 
-	console.log("assessmentNode", data.assessmentNode)
+	console.log('assessmentNode', data.assessmentNode);
 
 	onMount(() => {
 		show(data);
@@ -52,7 +52,7 @@
 	const viewRoute = `/users/${userId}/assessment-templates/${templateId}/assessment-nodes/${nodeId}/view`;
 	const assessmentNodeRoutes = `/users/${userId}/assessment-templates/${templateId}/assessment-nodes`;
 	const createNodeRoute = `/users/${userId}/assessment-templates/${templateId}/assessment-nodes/create`;
-	const assessmentTemplateView =`/users/${userId}/assessment-templates/${templateId}/view`
+	const assessmentTemplateView = `/users/${userId}/assessment-templates/${templateId}/view`;
 	const editNodeRoute = (id) =>
 		`/users/${userId}/assessment-templates/${templateId}/assessment-nodes/${id}/edit`;
 
@@ -89,21 +89,19 @@
 		const response = await fetch(`/api/server/assessment-nodes`, {
 			method: 'DELETE',
 			body: JSON.stringify(model),
-			headers: {
-				'content-type': 'application/json'
-			}
+			headers: { 'content-type': 'application/json' }
 		});
 		console.log();
 	}
 
 	const onUpdateScoringCondition = async (resolutionScore: number) => {
 		const scoringId = data.assessmentNode.ScoringCondition.id;
-		console.log(scoringId)
+		console.log(scoringId);
 		await updateApiKey({
 			sessionId,
 			templateId,
 			nodeId,
-			scoringConditionId : data.assessmentNode.ScoringCondition.id,
+			scoringConditionId: data.assessmentNode.ScoringCondition.id,
 			resolutionScore: resolutionScore
 		});
 	};
@@ -112,9 +110,7 @@
 		const response = await fetch(`/api/server/assessment-nodes/update-scoring-condition`, {
 			method: 'POST',
 			body: JSON.stringify(model),
-			headers: {
-				'content-type': 'application/json'
-			}
+			headers: { 'content-type': 'application/json' }
 		});
 		const resp = await response.text();
 		const scoringCondition = JSON.parse(resp);
@@ -231,11 +227,11 @@
 						<div class="flex  items-center gap-12 w-1/2 md:2/3 lg:2/3">
 							<span class="span" id="description">{resolutionScore}</span>
 							<button
-							class="btn variant-ringed-primary text-primary-500 btn-md"
-							on:click|preventDefault={async () => showScoringConditionModal.set(true)}
-						>
-							Update Score
-						</button>
+								class="btn variant-ringed-primary text-primary-500 btn-md"
+								on:click|preventDefault={async () => showScoringConditionModal.set(true)}
+							>
+								Update Score
+							</button>
 						</div>
 					</div>
 				{/if}
@@ -276,25 +272,25 @@
 							<table class="table-auto overflow-x-auto text-left ">
 								<thead class="font-semibold">
 									<tr class="font-semibold">
-										<th style="width: 15%;">Sequence</th>
-										<th style="width: 15%;">Node type</th>
-										<th style="width: 60%;">Title</th>
-										<th style="width: 5%;" />
-										<th style="width: 5%;" />
+										<th>Sequence</th>
+										<th>Node type</th>
+										<th>Title</th>
+										<th />
+										<th />
 									</tr>
 								</thead>
 								<tbody>
 									{#each childrenNodes as node}
 										<tr>
-											<td style="width: 10%;">{node.Sequence}</td>
-											<td style="width: 20%;">{node.NodeType}</td>
-											<td style="width: 40%;">{Helper.truncateText(node.Title, 30)}</td>
-											<td style="width: 10%;">
-												<a href={editNodeRoute(node.id)}
-													><Fa icon={faPencil} style="color-text-primary" size="md" /></a
-												>
+											<td>{node.Sequence}</td>
+											<td>{node.NodeType}</td>
+											<td>{Helper.truncateText(node.Title, 30)}</td>
+											<td>
+												<a href={editNodeRoute(node.id)}>
+													<Fa icon={faPencil} style="color-text-primary" size="md" />
+												</a>
 											</td>
-											<td style="width: 10%;">
+											<td>
 												<Confirm
 													confirmTitle="Delete"
 													cancelTitle="Cancel"
@@ -306,8 +302,10 @@
 													<button
 														on:click|preventDefault={() =>
 															confirmThis(handleAssessmentNodeDelete, node.id)}
-														class=""><Fa icon={faTrash} /></button
+														class=""
 													>
+														<Fa icon={faTrash} />
+													</button>
 													<span slot="title"> Delete </span>
 													<span slot="description">
 														Are you sure you want to delete a child node?

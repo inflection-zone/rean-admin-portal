@@ -66,8 +66,8 @@
 				<div class="ml-3 relative flex flex-row text-white text-xl">
 					Edit Lab Record Type
 					<a href={viewRoute}>
-						<Fa icon={faMultiply} size="lg" class="absolute right-0 pr-3 mb-16 text-white " /></a
-					>
+						<Fa icon={faMultiply} size="lg" class="absolute right-0 pr-3 mb-16 text-white " />
+					</a>
 				</div>
 			</div>
 			<div class="hidden">{id}</div>

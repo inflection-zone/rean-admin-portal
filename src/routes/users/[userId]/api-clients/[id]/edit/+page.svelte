@@ -34,14 +34,8 @@
 	const apiClientRoute = `/users/${userId}/api-clients`;
 
 	const breadCrumbs = [
-		{
-			name: 'Clients',
-			path: apiClientRoute
-		},
-		{
-			name: 'Edit',
-			path: editRoute
-		}
+		{ name: 'Clients', path: apiClientRoute },
+		{ name: 'Edit', path: editRoute }
 	];
 </script>
 
@@ -58,8 +52,8 @@
 				<div class="ml-3 relative flex flex-row text-white text-xl">
 					Edit Api Client
 					<a href={viewRoute}>
-						<Fa icon={faMultiply} size="lg" class="absolute right-0 pr-3 mb-16 text-white " /></a
-					>
+						<Fa icon={faMultiply} size="lg" class="absolute right-0 pr-3 mb-16 text-white " />
+					</a>
 				</div>
 			</div>
 			<div class="hidden">{id}</div>
