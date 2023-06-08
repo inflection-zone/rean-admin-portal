@@ -71,7 +71,7 @@
 						</div>
 						<input
 							type="text"
-							class="border border-primary-300 text-md text-primary-500 rounded-lg focus:ring-primary-300 focus:border-primary-300 placeholder:text-primary-300 block w-full pl-10 p-2.5 "
+							class="border border-primary-300 text-md text-primary-500 rounded-lg focus:ring-primary-300 focus:border-primary-300 placeholder:text-primary-300 block w-auto sm:w-full max-[450px]:w-28 pl-10 p-2.5 "
 							placeholder="Search"
 						/>
 					</div>

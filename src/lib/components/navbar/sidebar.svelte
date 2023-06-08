@@ -1,9 +1,11 @@
 <script lang="ts">
 	import { Accordion, AccordionItem } from '@skeletonlabs/skeleton';
 	import { page } from '$app/stores';
+	import Fa from 'svelte-fa';
+	import { faBars } from '@fortawesome/free-solid-svg-icons';
 
 	export let userId = undefined;
-	// export let showSidebar = true;
+	export let showSidebar = false;
 
 	const navData = [
 		{
@@ -124,9 +126,17 @@
 	];
 </script>
 
-<!-- <button on:click={() => (showSidebar = !showSidebar)} class="btn">x</button> -->
+<button
+	on:click={() => (showSidebar = !showSidebar)}
+	class="md:hidden btn btn-icon hover:bg-white/10 text-white rounded fixed top-5 right-16 z-10"
+>
+	<Fa icon={faBars} size="lg" />
+</button>
 
-<div class="w-72 bg-primary-50 h-full pt-4">
+<div
+	class="w-72 bg-primary-50 h-full pt-4 
+	{showSidebar ? 'fixed z-10' : 'hidden'} md:block transition-all"
+>
 	<Accordion width="w-[280px]" autocollapse rounded="rounded-none">
 		{#each navData as navParent, idx}
 			<AccordionItem>
