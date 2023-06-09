@@ -137,14 +137,11 @@
 						</a>
 					</td>
 					<td>
-						<!-- svelte-ignore missing-declaration -->
 						<Confirm
 							confirmTitle="Delete"
 							cancelTitle="Cancel"
 							let:confirm={confirmThis}
-							on:delete={(e) => {
-								handleDrugDelete(e, row.id);
-							}}
+							on:delete={(e) => handleDrugDelete(e, row.id)}
 						>
 							<button
 								on:click|preventDefault={() => confirmThis(handleDrugDelete, row.id)}
