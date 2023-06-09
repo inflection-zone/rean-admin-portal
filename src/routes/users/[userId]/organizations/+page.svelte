@@ -32,12 +32,7 @@
 	const createRoute = `/users/${userId}/organizations/create`;
 	const editRoute = (id) => `/users/${userId}/organizations/${id}/edit`;
 	const viewRoute = (id) => `/users/${userId}/organizations/${id}/view`;
-	const breadCrumbs = [
-		{
-			name: 'Organizations',
-			path: organizationRoute
-		}
-	];
+	const breadCrumbs = [{ name: 'Organizations', path: organizationRoute }];
 
 	let type = undefined;
 	let name = undefined;
@@ -99,7 +94,7 @@
 	<a href={createRoute} class="btn variant-filled-secondary">Add New</a>
 </div>
 
-<div class="my-2 table-container">
+<div class="my-2 table-container !border !border-secondary-100">
 	<table class="table" role="grid" use:tableInteraction use:tableA11y>
 		<thead on:click={(e) => dataTableStore.sort(e)} on:keypress class="!variant-soft-secondary">
 			<tr>

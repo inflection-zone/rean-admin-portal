@@ -35,17 +35,13 @@
 	dataTableStore.subscribe((model) => dataTableHandler(model));
 	const dispatch = createEventDispatcher();
 
-	const handleContentDelete = async (id) => {
-		dispatch('onContentDeleteClick', { contentId: id });
-	};
+	const handleContentDelete = async (id) => dispatch('onContentDeleteClick', { contentId: id });
 
-	const handlelCourseDelete = async (courseId, modules) => {
+	const handlelCourseDelete = async (courseId, modules) =>
 		dispatch('onCourseDeleteClick', { courseId: courseId, modules: modules });
-	};
 
-	const handlelModuleDelete = async (moduleId, contents) => {
+	const handlelModuleDelete = async (moduleId, contents) =>
 		dispatch('onModuleDeleteClick', { moduleId: moduleId, contents: contents });
-	};
 </script>
 
 <div class="flex justify-center flex-col mx-10 mb-10 overflow-y-auto  bg-tertiary-500 rounded-lg">
