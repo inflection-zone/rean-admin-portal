@@ -31,7 +31,8 @@
 	const contentRoute = `/users/${userId}/courses/${courseId}/modules/${moduleId}/contents/create`;
 	const courseRoute = `/users/${userId}/courses/${courseId}/view`;
 	const moduleRoute = `/users/${userId}/courses/${courseId}/modules`;
-	const contentViewRoute = (courseId, moduleId, contentId) => `/users/${userId}/courses/${courseId}/modules/${moduleId}/contents/${contentId}/view`;
+	const contentViewRoute = (courseId, moduleId, contentId) =>
+		`/users/${userId}/courses/${courseId}/modules/${moduleId}/contents/${contentId}/view`;
 
 	const breadCrumbs = [
 		{
@@ -106,7 +107,7 @@
 				<span class="span w-1/2 md:2/3 lg:2/3" id="sequence">{sequence}</span>
 			</div>
 
-			<div class="flex items-start my-4 lg:mx-16 md:mx-12 mx-10">
+			<div class="flex  my-4 lg:mx-16 md:mx-12 mx-10">
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
 					<!-- svelte-ignore a11y-label-has-associated-control -->
 					<label class="label">
@@ -120,7 +121,7 @@
 				{/if}
 			</div>
 
-			<div class="flex items-start my-4 lg:mx-16 md:mx-12 mx-10">
+			<div class="flex  my-4 lg:mx-16 md:mx-12 mx-10">
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
 					<!-- svelte-ignore a11y-label-has-associated-control -->
 					<label class="label">
@@ -132,9 +133,9 @@
 				{:else}
 					<ol class="span w-1/2 md:w-2/3 lg:w-2/3 list-decimal" id="contents">
 						{#each contents as content}
-						<a href={contentViewRoute(courseId, moduleId, content.id)}>
-							<li>{content.Title}</li>
-						</a>
+							<a href={contentViewRoute(courseId, moduleId, content.id)}>
+								<li>{content.Title}</li>
+							</a>
 						{/each}
 					</ol>
 				{/if}

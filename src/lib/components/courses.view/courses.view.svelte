@@ -36,23 +36,15 @@
 	const dispatch = createEventDispatcher();
 
 	const handleContentDelete = async (id) => {
-		dispatch('onContentDeleteClick', {
-			contentId: id
-		});
+		dispatch('onContentDeleteClick', { contentId: id });
 	};
 
 	const handlelCourseDelete = async (courseId, modules) => {
-		dispatch('onCourseDeleteClick', {
-			courseId: courseId,
-			modules: modules
-		});
+		dispatch('onCourseDeleteClick', { courseId: courseId, modules: modules });
 	};
 
 	const handlelModuleDelete = async (moduleId, contents) => {
-		dispatch('onModuleDeleteClick', {
-			moduleId: moduleId,
-			contents: contents
-		});
+		dispatch('onModuleDeleteClick', { moduleId: moduleId, contents: contents });
 	};
 </script>
 
@@ -110,45 +102,46 @@
 											<table class="table-auto overflow-x-auto text-left ">
 												<thead class="font-semibold text-primary-500">
 													<tr class="font-semibold">
-														<th style="width: 15%;">Id</th>
-														<th style="width: 30%;">Title</th>
-														<th style="width: 15%;">Content Type</th>
-														<th style="width: 15%;">Duration In Mins</th>
-														<th style="width: 5%;" />
-														<th style="width: 5%;" />
+														<th>Id</th>
+														<th>Title</th>
+														<th>Content Type</th>
+														<th>Duration In Mins</th>
+														<th />
+														<th />
 													</tr>
 												</thead>
 												<tbody class="text-primary-500">
 													{#each module.CourseContents as content, i}
 														<tr>
-															<td style="width: 5%;" role="gridcell" aria-colindex={1} tabindex="0"
-																>{content.Sequence}</td
-															>
-															<td style="width: 40%;">
-																<a href={viewContentRoute(course.id, module.id, content.id)}
-																	>{content.Title}</a
-																>
+															<td role="gridcell" aria-colindex={1} tabindex="0">
+																{content.Sequence}
 															</td>
-															<td style="width: 20%;">{content.ContentType}</td>
-															<td style="width: 20%;">{content.DurationInMins}</td>
-															<td style="width: 5%;">
-																<a href={editContentRoute(course.id, module.id, content.id)}>
+															<td>
+																<a href={viewContentRoute(course.id, module.id, content.id)}>
+																	{content.Title}
+																</a>
+															</td>
+															<td>{content.ContentType}</td>
+															<td>{content.DurationInMins}</td>
+															<td>
+																<a
+																	href={editContentRoute(course.id, module.id, content.id)}
+																	class="btn btn-icon-sm -my-1 hover:variant-soft-primary"
+																>
 																	<Fa icon={faPencil} style="color-text-primary" size="md" />
 																</a>
 															</td>
-															<td style="width: 5%;">
+															<td>
 																<Confirm
 																	confirmTitle="Delete"
 																	cancelTitle="Cancel"
 																	let:confirm={confirmThis}
-																	on:delete={() => {
-																		handleContentDelete(content.id);
-																	}}
+																	on:delete={() => handleContentDelete(content.id)}
 																>
 																	<button
 																		on:click|preventDefault={() =>
 																			confirmThis(handleContentDelete, content.id)}
-																		class=""
+																		class="btn btn-icon-sm -my-1 hover:variant-soft-error"
 																	>
 																		<Fa icon={faTrash} />
 																	</button>
@@ -174,14 +167,12 @@
 			{/each}
 		</div>
 	</section>
-	<div class=" w-full bg-secondary-500 h-36 lg:h-16 md:h-16 sm:h-36 pt-1 rounded-b-lg ">
-		{#if $dataTableStore.pagination}<Paginator
-				class="mt-2 mr-3 ml-3 "
-				buttonClasses="btn-icon bg-surface-500 w-5 h-8"
-				text="text-white"
-				bind:settings={$dataTableStore.pagination}
-			/>{/if}
-	</div>
+</div>
+
+<div class="w-full variant-soft-secondary rounded-lg p-2">
+	{#if $dataTableStore.pagination}
+		<Paginator bind:settings={$dataTableStore.pagination} buttonClasses="btn-icon bg-surface-500" />
+	{/if}
 </div>
 
 <style>

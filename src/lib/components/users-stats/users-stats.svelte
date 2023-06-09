@@ -175,7 +175,7 @@
 									</tr>
 								</thead>
 								<tbody class="">
-									<tr class="hover:bg-tertiary-600">
+									<tr class="hover:bg-tertiary-500 transition">
 										<td
 											style="width:10%;"
 											class="whitespace-nowrap text-sm py-2 pl-4 pr-3 text-primary-500 sm:pl-3"
@@ -193,7 +193,7 @@
 										</td>
 									</tr>
 									{#each usersData as data}
-										<tr class="hover:bg-tertiary-600">
+										<tr class="hover:bg-tertiary-500 transition">
 											<td
 												style="width:10%;"
 												class="whitespace-nowrap py-2 pl-4 pr-3 text-primary-500 text-sm  sm:pl-3"
@@ -223,7 +223,7 @@
 										</tr>
 									{/each}
 									{#each deviceDetailData as data}
-										<tr class="hover:bg-tertiary-600">
+										<tr class="hover:bg-tertiary-500 transition">
 											<td
 												style="width:10%;"
 												class="whitespace-nowrap py-2 pl-4 pr-3 text-primary-500 text-sm  sm:pl-3"
@@ -277,7 +277,7 @@
 								</thead>
 								<tbody class="">
 									{#each ageWiseUsers as data}
-										<tr class="hover:bg-tertiary-600">
+										<tr class="hover:bg-tertiary-500 transition">
 											<td
 												style="width:10%;"
 												class="whitespace-nowrap py-2 pl-4 pr-3 text-primary-500 text-sm  sm:pl-3"
@@ -341,7 +341,7 @@
 								</thead>
 								<tbody class="">
 									{#each genderWiseUsers as data}
-										<tr class="hover:bg-tertiary-600">
+										<tr class="hover:bg-tertiary-500 transition">
 											<td
 												style="width:10%;"
 												class="whitespace-nowrap py-2 pl-4 pr-3 text-primary-500 text-sm  sm:pl-3"
@@ -405,7 +405,7 @@
 								</thead>
 								<tbody class="">
 									{#each countryWiseUsers as data}
-										<tr class="hover:bg-tertiary-600">
+										<tr class="hover:bg-tertiary-500 transition">
 											<td
 												style="width:10%;"
 												class="whitespace-nowrap py-2 pl-4 pr-3 text-primary-500 text-sm  sm:pl-3"

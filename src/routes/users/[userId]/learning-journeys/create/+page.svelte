@@ -5,10 +5,7 @@
 	import { page } from '$app/stores';
 	import { showMessage } from '$lib/utils/message.utils';
 	import type { PageServerData } from './$types';
-	import {
-		createDataTableStore,
-		dataTableHandler,
-	} from '@skeletonlabs/skeleton';
+	import { createDataTableStore, dataTableHandler } from '@skeletonlabs/skeleton';
 	import { selectedItems } from '$lib/store/general.store';
 	import CoursesDragDrop from '$lib/components/drag-and-drop/courses-drag-drop.svelte';
 	import SelectedCoursesDragDrop from '$lib/components/drag-and-drop/selected-courses-drag-drop.svelte';
@@ -79,21 +76,17 @@
 	};
 
 	let selectedCourses = [];
-	$:selectedCourses
+	$: selectedCourses;
 
 	let courseIds = $selectedItems;
-	$:courseIds;
+	$: courseIds;
 
-	console.log("courseIds", courseIds);
+	console.log('courseIds', courseIds);
 
-	const dataTableStore = createDataTableStore(
-		courses,
-		{
-			search: '',
-		}
-	);
+	const dataTableStore = createDataTableStore(courses, {
+		search: ''
+	});
 	dataTableStore.subscribe((model) => dataTableHandler(model));
-
 </script>
 
 <main class="h-screen mb-32">
@@ -118,7 +111,7 @@
 				</div>
 			</div>
 
-			<div class="flex items-start mb-4 mt-10 lg:mx-16 md:mx-12 mx-10">
+			<div class="flex  mb-4 mt-10 lg:mx-16 md:mx-12 mx-10">
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
 					<!-- svelte-ignore a11y-label-has-associated-control -->
 					<label class="label">
@@ -141,7 +134,7 @@
 					{/if}
 				</div>
 			</div>
-			<div class="flex items-start my-4 lg:mx-16 md:mx-12 mx-10">
+			<div class="flex  my-4 lg:mx-16 md:mx-12 mx-10">
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
 					<!-- svelte-ignore a11y-label-has-associated-control -->
 					<label class="label">
@@ -164,7 +157,7 @@
 				</div>
 			</div>
 
-			<div class="flex items-start mb-2 lg:mx-16 md:mx-12 mx-10">
+			<div class="flex  mb-2 lg:mx-16 md:mx-12 mx-10">
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
 					<!-- svelte-ignore a11y-label-has-associated-control -->
 					<label class="label">
@@ -208,7 +201,7 @@
 				</div>
 			</div>
 
-			<div class="flex items-start mb-4 mt-2 lg:mx-16 md:mx-12 mx-10">
+			<div class="flex  mb-4 mt-2 lg:mx-16 md:mx-12 mx-10">
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
 					<!-- svelte-ignore a11y-label-has-associated-control -->
 					<label class="label">
@@ -217,30 +210,30 @@
 				</div>
 				<div class="w-1/2 md:w-2/3 lg:w-2/3">
 					<input
-					class="input mb-3"
-					bind:value={$dataTableStore.search}
-					type="search"
-					placeholder="Search course here..."
+						class="input mb-3"
+						bind:value={$dataTableStore.search}
+						type="search"
+						placeholder="Search course here..."
 					/>
-				 <div class="mb-4 mt-1">
-						<CoursesDragDrop courses={$dataTableStore.filtered}/>
-				 </div>
-				<div>
-					<SelectedCoursesDragDrop selectedCourses={selectedCourses}/>
-				</div>
-				<input
-				name="courseIds"
-				bind:value={$selectedItems}
-				placeholder="Search course here..."
-				hidden
-				/>
+					<div class="mb-4 mt-1">
+						<CoursesDragDrop courses={$dataTableStore.filtered} />
+					</div>
+					<div>
+						<SelectedCoursesDragDrop {selectedCourses} />
+					</div>
+					<input
+						name="courseIds"
+						bind:value={$selectedItems}
+						placeholder="Search course here..."
+						hidden
+					/>
 					{#if form?.errors?.courseIds}
 						<p class="text-error-500 text-xs">{form?.errors?.courseIds[0]}</p>
 					{/if}
 				</div>
 			</div>
 
-			<div class="flex items-start my-2 lg:mx-16 md:mx-12 mx-10">
+			<div class="flex  my-2 lg:mx-16 md:mx-12 mx-10">
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
 					<!-- svelte-ignore a11y-label-has-associated-control -->
 					<label class="label">
@@ -272,7 +265,6 @@
 		</form>
 	</div>
 </main>
-
 
 <style>
 	:global(*) {

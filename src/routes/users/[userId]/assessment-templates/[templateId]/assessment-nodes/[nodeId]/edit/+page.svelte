@@ -36,7 +36,7 @@
 		title = _title;
 		description = _description;
 		queryType = _queryType;
-		sequence = _sequence
+		sequence = _sequence;
 	}
 
 	const userId = $page.params.userId;
@@ -46,7 +46,7 @@
 	const editRoute = `/users/${userId}/assessment-templates/${templateId}/assessment-nodes/${nodeId}/edit`;
 	const viewRoute = `/users/${userId}/assessment-templates/${templateId}/assessment-nodes/${nodeId}/view`;
 	const assessmentNodeRoutes = `/users/${userId}/assessment-templates/${templateId}/assessment-nodes`;
-	const assessmentTemplateView =`/users/${userId}/assessment-templates/${templateId}/view`
+	const assessmentTemplateView = `/users/${userId}/assessment-templates/${templateId}/view`;
 
 	const breadCrumbs = [
 		{
@@ -146,7 +146,7 @@
 			</div>
 		</div>
 
-		<div class="flex items-start mt-4 mx-16">
+		<div class="flex  mt-4 mx-16">
 			<div class="w-1/2 md:w-1/3 lg:w-1/3">
 				<!-- svelte-ignore a11y-label-has-associated-control -->
 				<label class="label mt-2">
@@ -223,7 +223,7 @@
 				{/if}
 			</div>
 		{:else if selectedNodeType === 'Message'}
-			<div class="flex items-start mb-4 mt-4 mx-16">
+			<div class="flex  mb-4 mt-4 mx-16">
 				<div class="w-1/2 md:w-1/3 lg:w-1/3">
 					<!-- svelte-ignore a11y-label-has-associated-control -->
 					<label class="label mt-2">

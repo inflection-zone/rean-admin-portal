@@ -35,22 +35,20 @@
 	let imageResourceId = data.organization.ImageUrl ?? undefined;
 	let isHealthFacility = data.organization.IsHealthFacility;
 
-	if((data.organization.Addresses).length > 0){
-		
+	if (data.organization.Addresses.length > 0) {
 	}
 
-	if((data.organization.Addresses).length > 0)
-	{
-	 addressType = data.organization.Addresses[0].Type ?? null;
-	 addressLine = data.organization.Addresses[0].AddressLine ?? null;
-	 city = data.organization.Addresses[0].City ?? null;
-   district = data.organization.Addresses[0].District ?? null;
-	 state = data.organization.Addresses[0].State ?? null;
-	 country = data.organization.Addresses[0].Country ?? null;
-	 postalCode = data.organization.Addresses[0].PostalCode ?? null;
+	if (data.organization.Addresses.length > 0) {
+		addressType = data.organization.Addresses[0].Type ?? null;
+		addressLine = data.organization.Addresses[0].AddressLine ?? null;
+		city = data.organization.Addresses[0].City ?? null;
+		district = data.organization.Addresses[0].District ?? null;
+		state = data.organization.Addresses[0].State ?? null;
+		country = data.organization.Addresses[0].Country ?? null;
+		postalCode = data.organization.Addresses[0].PostalCode ?? null;
 	}
 
-	console.log("organization", data.organization);
+	console.log('organization', data.organization);
 
 	onMount(() => {
 		show(data);
@@ -224,7 +222,7 @@
 				<span class="span w-1/2 md:2/3 lg:2/3" id="address"> {postalCode} </span>
 			</div>
 
-			<div class="flex items-start my-4 lg:mx-16 md:mx-12 mx-10">
+			<div class="flex  my-4 lg:mx-16 md:mx-12 mx-10">
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
 					<!-- svelte-ignore a11y-label-has-associated-control -->
 					<label class="label">

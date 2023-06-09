@@ -14,7 +14,7 @@
 <div class="flex gap-4">
 	<a
 		class="btn
-		{$page.url.pathname === homeLink ? 'variant-filled-primary' : 'variant-soft-primary'} "
+		{$page.url.pathname === homeLink ? 'variant-filled-secondary' : 'variant-soft-secondary'} "
 		href={homeLink}
 	>
 		Overall
@@ -22,7 +22,7 @@
 
 	<a
 		class="btn
-		{$page.url.pathname === usersLink ? 'variant-filled-primary' : 'variant-soft-primary'} "
+		{$page.url.pathname === usersLink ? 'variant-filled-secondary' : 'variant-soft-secondary'} "
 		href={usersLink}
 	>
 		Distribution

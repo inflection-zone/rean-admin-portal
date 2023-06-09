@@ -130,7 +130,7 @@
 				<span class="span w-1/2 md:2/3 lg:2/3" id="copyright"> {copyright} </span>
 			</div>
 
-			<div class="flex items-start mb-4 lg:mx-16 md:mx-12 mx-10">
+			<div class="flex  mb-4 lg:mx-16 md:mx-12 mx-10">
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
 					<!-- svelte-ignore a11y-label-has-associated-control -->
 					<label class="label">
@@ -156,7 +156,7 @@
 				>
 			</div>
 
-			<div class="flex items-start my-4 lg:mx-16 md:mx-12 mx-10">
+			<div class="flex  my-4 lg:mx-16 md:mx-12 mx-10">
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
 					<!-- svelte-ignore a11y-label-has-associated-control -->
 					<label class="label">
@@ -184,7 +184,7 @@
 				{/if}
 			</div>
 
-			<div class="flex items-start my-4 lg:mx-16 md:mx-12 mx-10">
+			<div class="flex  my-4 lg:mx-16 md:mx-12 mx-10">
 				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
 					<!-- svelte-ignore a11y-label-has-associated-control -->
 					<label class="label">
@@ -196,8 +196,8 @@
 				{:else}
 					<ol class="span w-1/2 md:w-2/3 lg:w-2/3 list-decimal" id="newsfeedItems">
 						{#each newsfeedItems as newsfeedItem}
-						<a href={viewItemRoute(newsfeedItem.id)}>
-							<li>{newsfeedItem.Title}</li>
+							<a href={viewItemRoute(newsfeedItem.id)}>
+								<li>{newsfeedItem.Title}</li>
 							</a>
 						{/each}
 					</ol>

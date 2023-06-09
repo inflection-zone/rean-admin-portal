@@ -22,7 +22,7 @@
 	};
 </script>
 
-<div class="flex items-start mt-4 mx-16">
+<div class="flex  mt-4 mx-16">
 	<div class="w-1/3">
 		<!-- svelte-ignore a11y-label-has-associated-control -->
 		<label class="label mt-2">

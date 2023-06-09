@@ -32,7 +32,7 @@
 	const createRoute = `/users/${userId}/assessment-templates/${templateId}/assessment-nodes/create`;
 	const assessmentNodeRoutes = `/users/${userId}/assessment-templates/${templateId}/assessment-nodes`;
 	const assessmentsRoutes = `/users/${userId}/assessment-templates`;
-	const assessmentTemplateView =`/users/${userId}/assessment-templates/${templateId}/view`
+	const assessmentTemplateView = `/users/${userId}/assessment-templates/${templateId}/view`;
 
 	const breadCrumbs = [
 		{
@@ -137,7 +137,7 @@
 			</div>
 		</div>
 
-		<div class="flex items-start mt-4 mx-16">
+		<div class="flex  mt-4 mx-16">
 			<div class="w-1/2 md:w-1/3 lg:w-1/3">
 				<!-- svelte-ignore a11y-label-has-associated-control -->
 				<label class="label mt-2">
@@ -293,7 +293,7 @@
 				{/if}
 			</div>
 		{:else if selectedNodeType === 'Message'}
-			<div class="flex items-start mb-4 mt-4 mx-16">
+			<div class="flex  mb-4 mt-4 mx-16">
 				<div class="w-1/2 md:w-1/3 lg:w-1/3">
 					<!-- svelte-ignore a11y-label-has-associated-control -->
 					<label class="label mt-2">
