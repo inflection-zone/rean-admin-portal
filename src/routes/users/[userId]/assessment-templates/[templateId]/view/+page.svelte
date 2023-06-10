@@ -62,121 +62,67 @@
 	];
 </script>
 
-<main class="h-screen mb-10">
-	<BreadCrumbs crumbs={breadCrumbs} />
+<BreadCrumbs crumbs={breadCrumbs} />
 
-	<div class="pb-10">
-		<form
-			method="get"
-			class="w-full  bg-[#ECE4FC] lg:mt-10 md:mt-8 sm:mt-6 mb-10 mt-4 lg:max-w-4xl md:max-w-xl sm:max-w-lg  rounded-lg mx-auto"
-		>
-			<div class="w-full  h-14 rounded-t-lg p-3  bg-[#7165E3]">
-				<div class="ml-3 relative flex flex-row text-white lg:text-xl text-lg ">
-					<div class="lg:hidden md:hidden block">View Assessment Template</div>
-					<div class="lg:block md:block hidden">View Assessment Template</div>
-					<a href={assessmentsRoutes}>
-						<Fa icon={faMultiply} size="lg" class="absolute right-0 lg:pr-3 pr-0 text-white" />
+<div class="flex flex-wrap gap-2">
+	<a
+		href={nodeRoute}
+		class="btn variant-filled-secondary ml-auto"> Add Assessment Node</a
+	>
+	<a href={editRoute} class="btn variant-filled-secondary">
+		<span><Fa icon={faPen} size="sm" /></span>
+		<span>Edit</span>
+	</a>
+</div>
+
+<div class="table-container my-2">
+	<table class="table">
+		<thead class="!variant-soft-secondary">
+			<tr>
+				<th>View Assessment</th>
+				<th class="text-end">
+					<a href={assessmentsRoutes} class="btn btn-icon-sm variant-soft-secondary">
+						<Fa icon={faMultiply} size="lg" />
 					</a>
-				</div>
-			</div>
-			<div class="hidden">{id}</div>
-
-			<div class="flex items-center mb-4 mt-10 lg:mx-16 md:mx-12 mx-10">
-				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
-					<!-- svelte-ignore a11y-label-has-associated-control -->
-					<label class="label">
-						<span>Title</span>
-					</label>
-				</div>
-				<span class="span w-1/2 md:2/3 lg:2/3" id="title">{title}</span>
-			</div>
-			<div class="flex items-center my-4 lg:mx-16 md:mx-12 mx-10">
-				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
-					<!-- svelte-ignore a11y-label-has-associated-control -->
-					<label class="label">
-						<span>Description</span>
-					</label>
-				</div>
-				<span class="span w-1/2 md:2/3 lg:2/3" id="description">{description}</span>
-			</div>
-
-			<div class="flex items-center my-4 lg:mx-16 md:mx-12 mx-10">
-				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
-					<!-- svelte-ignore a11y-label-has-associated-control -->
-					<label class="label">
-						<span>Display code</span>
-					</label>
-				</div>
-				<span class="span w-1/2 md:2/3 lg:2/3 uppercase" id="displayCode">{displayCode}</span>
-			</div>
-
-			<div class="flex items-center mb-4 lg:mx-16 md:mx-12 mx-10">
-				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
-					<!-- svelte-ignore a11y-label-has-associated-control -->
-					<label class="label">
-						<span>Type</span>
-					</label>
-				</div>
-				<span class="span w-1/2 md:2/3 lg:2/3" id="type">{type}</span>
-			</div>
-
-			<div class="flex items-center mb-4 lg:mx-16 md:mx-12 mx-10">
-				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
-					<!-- svelte-ignore a11y-label-has-associated-control -->
-					<label class="label">
-						<span>Provider</span>
-					</label>
-				</div>
-				<span class="span w-1/2 md:2/3 lg:2/3" id="providerAssessmentCode">
-					{provider}
-				</span>
-			</div>
-
-			<div class="flex items-center mb-4 lg:mx-16 md:mx-12 mx-10">
-				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
-					<!-- svelte-ignore a11y-label-has-associated-control -->
-					<label class="label">
-						<span>Provider Assessment Code</span>
-					</label>
-				</div>
-				<span class="span w-1/2 md:2/3 lg:2/3" id="providerAssessmentCode">
-					{providerAssessmentCode}
-				</span>
-			</div>
-
-			<div class="flex items-center mb-4 lg:mx-16 md:mx-12 mx-10">
-				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
-					<!-- svelte-ignore a11y-label-has-associated-control -->
-					<label class="label">
-						<span>Serve List Node Children At Once</span>
-					</label>
-				</div>
-				<span class="span w-1/2 md:2/3 lg:2/3" id="serveListNodeChildrenAtOnce">
-					{serveListNodeChildrenAtOnce}
-				</span>
-			</div>
-
-			<div class="flex items-center mb-4 lg:mx-16 md:mx-12 mx-10">
-				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
-					<!-- svelte-ignore a11y-label-has-associated-control -->
-					<label class="label">
-						<span>Scoring Applicable</span>
-					</label>
-				</div>
-				<span class="span w-1/2 md:2/3 lg:2/3" id="serveListNodeChildrenAtOnce">
-					{scoringApplicable}
-				</span>
-			</div>
-
-			<div class="flex  mb-4 lg:mx-16 md:mx-12 mx-10">
-				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
-					<!-- svelte-ignore a11y-label-has-associated-control -->
-					<label class="label mt-2">
-						<span>Nodes</span>
-					</label>
-				</div>
-				<span class="span w-1/2 md:2/3 lg:2/3">
-					<!-- svelte-ignore empty-block -->
+				</th>
+			</tr>
+		</thead>
+		<tbody class="!bg-white">
+			<tr class="!border-b !border-b-secondary-100">
+				<td>Title</td>
+				<td>{title}</td>
+			</tr>
+			<tr class="!border-b !border-b-secondary-100">
+				<td>Description</td>
+				<td>{description}</td>
+			</tr>
+			<tr class="!border-b !border-b-secondary-100">
+				<td>Display code</td>
+				<td>{displayCode}</td>
+			</tr>
+			<tr class="!border-b !border-b-secondary-100">
+				<td>Type</td>
+				<td>{type}</td>
+			</tr>
+			<tr class="!border-b !border-b-secondary-100">
+				<td>Provider</td>
+				<td>{provider}</td>
+			</tr>
+			<tr class="!border-b !border-b-secondary-100">
+				<td>Provider Assessment Code</td>
+				<td>{providerAssessmentCode}</td>
+			</tr>
+			<tr class="!border-b !border-b-secondary-100">
+				<td>Serve List Node Children At Once</td>
+				<td>{serveListNodeChildrenAtOnce}</td>
+			</tr>
+			<tr class="!border-b !border-b-secondary-100">
+				<td>Scoring Applicable</td>
+				<td>{scoringApplicable}</td>
+			</tr>
+			<tr class="!border-b !border-b-secondary-100">
+				<td class="align-top">Nodes</td>
+				<td>
 					{#if assessmentNodes.length <= 1}
 						<div>Nodes are not available</div>
 					{:else}
@@ -270,31 +216,8 @@
 							{/each}
 						</TreeView>
 					{/if}
-				</span>
-			</div>
-
-			<div class="flex items-center mt-10 lg:mx-10 md:mx-16 sm:mr-10 min-[280px]:mr-72">
-				<div class="lg:w-8/12 min-[280px]:w-1/3 sm:w-1/6 md:w-1/2" />
-				<div class="flex lg:w-1/4 min-[280px]:w-1/6 sm:w-5/6 sm:mr-10 gap-3">
-					<a href={nodeRoute}>
-						<button
-							type="submit"
-							class="btn variant-filled-primary lg:w-full md:w-32 md:text-sm lg:text-md sm:text-xs sm:w-32 min-[280px]:w-32 min-[280px]:text-xs w-20 mb-8 h-10"
-						>
-							Assessment Nodes
-						</button>
-					</a>
-					<a href={editRoute}>
-						<button
-							type="submit"
-							class="btn variant-filled-primary lg:w-full md:w-28 sm:w-24 lg:text-md min-[280px]:w-24 w-20 mb-8 lg:mr-4 pr-2 h-10"
-						>
-							Edit
-							<Fa icon={faPen} size="lg" class="lg:ml-4 sm:ml-2 ml-1" />
-						</button>
-					</a>
-				</div>
-			</div>
-		</form>
-	</div>
-</main>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</div>
