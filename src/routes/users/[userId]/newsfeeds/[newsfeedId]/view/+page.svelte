@@ -53,23 +53,20 @@
 <BreadCrumbs crumbs={breadCrumbs} />
 
 <div class="flex flex-wrap gap-2">
-	<a
-		href={newsfeedItemRoute}
-		class="btn variant-filled-secondary ml-auto">Add Items</a
-	>
+	<a href={newsfeedItemRoute} class="btn variant-filled-secondary ml-auto">Add Items</a>
 	<a href={editRoute} class="btn variant-filled-secondary">
 		<span><Fa icon={faPen} size="sm" /></span>
 		<span>Edit</span>
 	</a>
 </div>
 
-<div class="table-container my-2">
+<div class="table-container border border-secondary-100 my-2">
 	<table class="table">
 		<thead class="!variant-soft-secondary">
 			<tr>
 				<th>View Newsfeed</th>
 				<th class="text-end">
-					<a href={newsfeedRoute} class="btn btn-icon-sm variant-soft-secondary">
+					<a href={newsfeedRoute} class="btn btn-icon-sm -my-2 variant-soft-secondary">
 						<Fa icon={faMultiply} size="lg" />
 					</a>
 				</th>
@@ -138,16 +135,16 @@
 				<td class="align-top">Newsfeed Items</td>
 				<td>
 					{#if newsfeedItems.length <= 0}
-					<span class="span">Newsfeed Items are not available!</span>
-				{:else}
-					<ol class="span w-1/2 md:w-2/3 lg:w-2/3 list-decimal" id="newsfeedItems">
-						{#each newsfeedItems as newsfeedItem}
-							<a href={viewItemRoute(newsfeedItem.id)}>
-								<li>{newsfeedItem.Title}</li>
-							</a>
-						{/each}
-					</ol>
-				{/if}
+						<span class="span">Newsfeed Items are not available!</span>
+					{:else}
+						<ol class="span w-1/2 md:w-2/3 lg:w-2/3 list-decimal" id="newsfeedItems">
+							{#each newsfeedItems as newsfeedItem}
+								<a href={viewItemRoute(newsfeedItem.id)}>
+									<li>{newsfeedItem.Title}</li>
+								</a>
+							{/each}
+						</ol>
+					{/if}
 				</td>
 			</tr>
 		</tbody>

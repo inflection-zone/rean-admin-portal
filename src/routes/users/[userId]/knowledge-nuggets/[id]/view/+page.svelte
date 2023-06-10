@@ -29,14 +29,8 @@
 	const knowledgeNuggetsRoute = `/users/${userId}/knowledge-nuggets`;
 
 	const breadCrumbs = [
-		{
-			name: 'Knowledge-Nuggets',
-			path: knowledgeNuggetsRoute
-		},
-		{
-			name: 'View',
-			path: viewRoute
-		}
+		{ name: 'Knowledge-Nuggets', path: knowledgeNuggetsRoute },
+		{ name: 'View', path: viewRoute }
 	];
 </script>
 
@@ -49,13 +43,13 @@
 	</a>
 </div>
 
-<div class="table-container my-2">
+<div class="table-container border border-secondary-100 my-2">
 	<table class="table">
 		<thead class="!variant-soft-secondary">
 			<tr>
-				<th>View Knowledge Nugget</th>
+				<th class="whitespace-nowrap">View Knowledge Nugget</th>
 				<th class="text-end">
-					<a href={knowledgeNuggetsRoute} class="btn btn-icon-sm variant-soft-secondary">
+					<a href={knowledgeNuggetsRoute} class="btn btn-icon-sm -my-2 variant-soft-secondary">
 						<Fa icon={faMultiply} size="lg" />
 					</a>
 				</th>
@@ -67,34 +61,37 @@
 				<td>{topicName}</td>
 			</tr>
 			<tr class="!border-b !border-b-secondary-100">
-				<td>Brief Information</td>
-				<td>{briefInformation}</td>
+				<td class="align-top">Brief Information</td>
+				<td class="!whitespace-normal">{briefInformation}</td>
 			</tr>
 			<tr class="!border-b !border-b-secondary-100">
-				<td>Detailed Information</td>
-				<td>{detailedInformation}</td>
+				<td class="align-top">Detailed Information</td>
+				<td class="!whitespace-normal">{detailedInformation}</td>
 			</tr>
 			<tr class="!border-b !border-b-secondary-100">
-				<td>Additional Resource</td>
+				<td class="align-top">Additional Resource</td>
 				<td>
 					{#if additionalResources.length <= 0}
-					<span class="span">Additional resource not specified</span>
-				{:else}
-					<span class="span">{additionalResources} </span>
-				{/if}
+						Additional resource not specified
+					{:else}
+						<ul>
+							{#each additionalResources.split(',') as a}
+								<li>{a}</li>
+							{/each}
+						</ul>
+					{/if}
 				</td>
 			</tr>
 			<tr class="!border-b !border-b-secondary-100">
 				<td>Tags</td>
 				<td>
 					{#if tags.length <= 0}
-						<span class="span">Tags not specified</span>
+						Tags not specified
 					{:else}
-						<span class="span">{tags}</span>
+						{tags}
 					{/if}
 				</td>
 			</tr>
 		</tbody>
 	</table>
 </div>
-

@@ -81,13 +81,13 @@
 	</a>
 </div>
 
-<div class="table-container my-2">
+<div class="table-container border border-secondary-100 my-2">
 	<table class="table">
 		<thead class="!variant-soft-secondary">
 			<tr>
 				<th>View Organization</th>
 				<th class="text-end">
-					<a href={organizationRoute} class="btn btn-icon-sm variant-soft-secondary">
+					<a href={organizationRoute} class="btn btn-icon-sm -my-2 variant-soft-secondary">
 						<Fa icon={faMultiply} size="lg" />
 					</a>
 				</th>
@@ -116,7 +116,7 @@
 			</tr>
 			<tr class="!border-b !border-b-secondary-100">
 				<td>Operational Since</td>
-				<td>{new Date(operationalSince), 'DD-MMM-YYYY'}</td>
+				<td>{(new Date(operationalSince), 'DD-MMM-YYYY')}</td>
 			</tr>
 			<tr class="!border-b !border-b-secondary-100">
 				<td>Address Type</td>

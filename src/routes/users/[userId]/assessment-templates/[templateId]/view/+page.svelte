@@ -51,37 +51,28 @@
 		`/users/${userId}/assessment-templates/${templateId}/assessment-nodes/${nodeId}/view`;
 
 	const breadCrumbs = [
-		{
-			name: 'Assessments',
-			path: assessmentsRoutes
-		},
-		{
-			name: 'View',
-			path: viewRoute
-		}
+		{ name: 'Assessments', path: assessmentsRoutes },
+		{ name: 'View', path: viewRoute }
 	];
 </script>
 
 <BreadCrumbs crumbs={breadCrumbs} />
 
 <div class="flex flex-wrap gap-2">
-	<a
-		href={nodeRoute}
-		class="btn variant-filled-secondary ml-auto"> Add Assessment Node</a
-	>
+	<a href={nodeRoute} class="btn variant-filled-secondary ml-auto"> Add Assessment Node</a>
 	<a href={editRoute} class="btn variant-filled-secondary">
 		<span><Fa icon={faPen} size="sm" /></span>
 		<span>Edit</span>
 	</a>
 </div>
 
-<div class="table-container my-2">
+<div class="table-container border border-secondary-100 my-2">
 	<table class="table">
 		<thead class="!variant-soft-secondary">
 			<tr>
 				<th>View Assessment</th>
 				<th class="text-end">
-					<a href={assessmentsRoutes} class="btn btn-icon-sm variant-soft-secondary">
+					<a href={assessmentsRoutes} class="btn btn-icon-sm -my-2 variant-soft-secondary">
 						<Fa icon={faMultiply} size="lg" />
 					</a>
 				</th>

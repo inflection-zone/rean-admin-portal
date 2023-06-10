@@ -9,8 +9,8 @@
 	import type { PageServerData } from './$types';
 	import Image from '$lib/components/image.svelte';
 
-  //////////////////////////////////////////////////////////////////////////////////////
-	
+	//////////////////////////////////////////////////////////////////////////////////////
+
 	export let data: PageServerData;
 	let name = data.module.Name;
 	let description = data.module.Description;
@@ -53,23 +53,20 @@
 <BreadCrumbs crumbs={breadCrumbs} />
 
 <div class="flex flex-wrap gap-2">
-	<a
-		href={contentCreateRoute}
-		class="btn variant-filled-secondary ml-auto">Add Content</a
-	>
+	<a href={contentCreateRoute} class="btn variant-filled-secondary ml-auto">Add Content</a>
 	<a href={editRoute} class="btn variant-filled-secondary">
 		<span><Fa icon={faPen} size="sm" /></span>
 		<span>Edit</span>
 	</a>
 </div>
 
-<div class="table-container my-2">
+<div class="table-container border border-secondary-100 my-2">
 	<table class="table">
 		<thead class="!variant-soft-secondary">
 			<tr>
 				<th>View Module</th>
 				<th class="text-end">
-					<a href={courseRoute} class="btn btn-icon-sm variant-soft-secondary">
+					<a href={courseRoute} class="btn btn-icon-sm -my-2 variant-soft-secondary">
 						<Fa icon={faMultiply} size="lg" />
 					</a>
 				</th>
@@ -106,16 +103,16 @@
 				<td class="align-top">Contents</td>
 				<td>
 					{#if contents.length <= 0}
-					<span class="span">Contents are not available!</span>
-				{:else}
-					<ol class="span list-decimal" id="contents">
-						{#each contents as content}
-							<a href={contentViewRoute(courseId, moduleId, content.id)}>
-								<li>{content.Title}</li>
-							</a>
-						{/each}
-					</ol>
-				{/if}
+						<span class="span">Contents are not available!</span>
+					{:else}
+						<ol class="span list-decimal" id="contents">
+							{#each contents as content}
+								<a href={contentViewRoute(courseId, moduleId, content.id)}>
+									<li>{content.Title}</li>
+								</a>
+							{/each}
+						</ol>
+					{/if}
 				</td>
 			</tr>
 		</tbody>

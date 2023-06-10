@@ -62,13 +62,13 @@
 		<span>Edit</span>
 	</a>
 </div>
-<div class="table-container my-2">
+<div class="table-container border border-secondary-100 my-2">
 	<table class="table">
 		<thead class="!variant-soft-secondary">
 			<tr>
 				<th>View Learning Journey</th>
 				<th class="text-end">
-					<a href={learningJourneyRoute} class="btn btn-icon-sm variant-soft-secondary">
+					<a href={learningJourneyRoute} class="btn btn-icon-sm -my-2 variant-soft-secondary">
 						<Fa icon={faMultiply} size="lg" />
 					</a>
 				</th>
@@ -105,54 +105,54 @@
 				<td class="align-top">Courses</td>
 				<td>
 					{#if courses.length <= 0}
-					<div>Courses are not available</div>
-				{:else}
-					<TreeView lineColor="#5832A1" iconBackgroundColor="#5832A1" branchHoverColor="#5832A1">
-						{#each courses as course, i}
-							<TreeBranch defaultClosed>
-								<div slot="root" class="flex">
-									<a href={courseViewRoute(course.id)}>
-										<div class="flex">
-											<img class="w-6 mr-2 " alt="logo" src="/course.png" />
-											{i + 1}-{course.Name}
-										</div>
-									</a>
-								</div>
-								{#if course.Modules.length <= 0}
-									<div />
-								{:else}
-									{#each course.Modules as module, i}
-										<TreeBranch defaultClosed>
-											<div slot="root" class="flex flex-col">
-												<a href={moduleViewRoute(course.id, module.id)}>
-													<div class="flex">
-														<img class="w-6 mr-2 mb-4" alt="logo" src="/module.png" />
-														{i + 1}-{module.Name}
-													</div>
-												</a>
+						<div>Courses are not available</div>
+					{:else}
+						<TreeView lineColor="#5832A1" iconBackgroundColor="#5832A1" branchHoverColor="#5832A1">
+							{#each courses as course, i}
+								<TreeBranch defaultClosed>
+									<div slot="root" class="flex">
+										<a href={courseViewRoute(course.id)}>
+											<div class="flex">
+												<img class="w-6 mr-2 " alt="logo" src="/course.png" />
+												{i + 1}-{course.Name}
 											</div>
-											<!-- svelte-ignore empty-block -->
-											{#if module.Contents.length <= 0}{:else}
-												{#each module.Contents as content, i}
-													<TreeLeaf>
+										</a>
+									</div>
+									{#if course.Modules.length <= 0}
+										<div />
+									{:else}
+										{#each course.Modules as module, i}
+											<TreeBranch defaultClosed>
+												<div slot="root" class="flex flex-col">
+													<a href={moduleViewRoute(course.id, module.id)}>
 														<div class="flex">
-															<a href={contentViewRoute(course.id, module.id, content.id)}>
-																<div class="flex">
-																	<img class="w-6 mr-2 mb-4" alt="logo" src="/content.png" />
-																	{content.Sequence}-{content.Title}
-																</div>
-															</a>
+															<img class="w-6 mr-2 mb-4" alt="logo" src="/module.png" />
+															{i + 1}-{module.Name}
 														</div>
-													</TreeLeaf>
-												{/each}
-											{/if}
-										</TreeBranch>
-									{/each}
-								{/if}
-							</TreeBranch>
-						{/each}
-					</TreeView>
-				{/if}
+													</a>
+												</div>
+												<!-- svelte-ignore empty-block -->
+												{#if module.Contents.length <= 0}{:else}
+													{#each module.Contents as content, i}
+														<TreeLeaf>
+															<div class="flex">
+																<a href={contentViewRoute(course.id, module.id, content.id)}>
+																	<div class="flex">
+																		<img class="w-6 mr-2 mb-4" alt="logo" src="/content.png" />
+																		{content.Sequence}-{content.Title}
+																	</div>
+																</a>
+															</div>
+														</TreeLeaf>
+													{/each}
+												{/if}
+											</TreeBranch>
+										{/each}
+									{/if}
+								</TreeBranch>
+							{/each}
+						</TreeView>
+					{/if}
 				</td>
 			</tr>
 		</tbody>

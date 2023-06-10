@@ -28,9 +28,7 @@
 	let copied = false;
 	function onClickHandler(): void {
 		copied = true;
-		setTimeout(() => {
-			copied = false;
-		}, 1000);
+		setTimeout(() => (copied = false), 1000);
 	}
 
 	const userId = $page.params.userId;
@@ -39,14 +37,8 @@
 	const apiClientRoute = `/users/${userId}/api-clients`;
 
 	const breadCrumbs = [
-		{
-			name: 'Clients',
-			path: apiClientRoute
-		},
-		{
-			name: 'View',
-			path: viewRoute
-		}
+		{ name: 'Clients', path: apiClientRoute },
+		{ name: 'View', path: viewRoute }
 	];
 
 	const onUpdateApiKey = async (userName: string, password: string, validFrom, validTill) => {
@@ -81,11 +73,7 @@
 	const onFormSubmit = async (userName, password) => {
 		console.log('userName', userName);
 		console.log('password', password);
-		await getApiKey({
-			clientCode,
-			userName: userName,
-			password: password
-		});
+		await getApiKey({ clientCode, userName: userName, password: password });
 	};
 
 	async function getApiKey(model) {
@@ -98,18 +86,13 @@
 		const apiKeyDetails = JSON.parse(resp);
 		apiKey = apiKeyDetails.ApiKey;
 		console.log(response);
-		if (response.status !== 200) {
-			showMessage(`Provide valid credentials !`, 'error', true, 3500);
-		}
+		if (response.status !== 200) showMessage(`Provide valid credentials !`, 'error', true, 3500);
+
 		showMessage(`Client api keys retrieved successfully!`, 'success', true, 3500);
 	}
 </script>
 
-<Modalform
-	on:submit={async (e) => {
-		await onFormSubmit(e.detail.userName, e.detail.password);
-	}}
-/>
+<Modalform on:submit={async (e) => await onFormSubmit(e.detail.userName, e.detail.password)} />
 
 <RenewApiKeyModal
 	on:updateApiKey={async (e) => {
@@ -125,17 +108,14 @@
 <BreadCrumbs crumbs={breadCrumbs} />
 
 <div class="flex flex-wrap gap-2">
-		<button
-		class="btn variant-ringed-primary text-primary-500 w-full"
+	<button
+		class="btn variant-soft-secondary ml-auto"
 		on:click|capture={() => showRenewApiKeyModal.set(true)}
 	>
 		Update api key
 	</button>
-	<button
-	class="btn variant-ringed-primary text-primary-500 w-full"
-	on:click|capture={() => showGetApiKeyModal.set(true)}
-	>
-	Get api key
+	<button class="btn variant-soft-secondary" on:click|capture={() => showGetApiKeyModal.set(true)}>
+		Get api key
 	</button>
 	<a href={editRoute} class="btn variant-filled-secondary">
 		<span><Fa icon={faPen} size="sm" /></span>
@@ -143,13 +123,13 @@
 	</a>
 </div>
 
-<div class="table-container my-2">
+<div class="table-container border border-secondary-100 my-2">
 	<table class="table">
 		<thead class="!variant-soft-secondary">
 			<tr>
 				<th>View Client</th>
 				<th class="text-end">
-					<a href={apiClientRoute} class="btn btn-icon-sm variant-soft-secondary">
+					<a href={apiClientRoute} class="btn btn-icon-sm -my-2 variant-soft-secondary">
 						<Fa icon={faMultiply} size="lg" />
 					</a>
 				</th>
@@ -173,12 +153,12 @@
 				<td>{email}</td>
 			</tr>
 			{#if apiKey === undefined}
-				<tr></tr>
+				<tr />
 			{:else}
-			<tr class="!border-b !border-b-secondary-100">
-				<td>Api Key</td>
-				<td>
-					<span class="span" id="email">{apiKey}</span>
+				<tr class="!border-b !border-b-secondary-100">
+					<td>Api Key</td>
+					<td>
+						<span class="span" id="email">{apiKey}</span>
 						<button
 							class="btn variant-ringed-primary text-primary-500 "
 							use:clipboard={apiKey}
@@ -187,10 +167,9 @@
 						>
 							<Fa icon={faCopy} size="lg" class="" />
 						</button>
-				</td>
-			</tr>
+					</td>
+				</tr>
 			{/if}
 		</tbody>
 	</table>
 </div>
-
