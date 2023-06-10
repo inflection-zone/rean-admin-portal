@@ -314,7 +314,7 @@
 				<div class="lg:w-1/4 md:w-1/4 sm:w-1/4 w-1/3">
 					<button
 						type="submit"
-						class="btn variant-filled-primary lg:w-40 lg:ml-8 md:ml-6 sm:ml-2 mb-10"
+						class="btn variant-filled-secondary lg:w-40 lg:ml-8 md:ml-6 sm:ml-2 mb-10"
 						>Submit
 					</button>
 				</div>

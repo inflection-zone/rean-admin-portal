@@ -49,22 +49,10 @@
 	const assessmentTemplateView = `/users/${userId}/assessment-templates/${templateId}/view`;
 
 	const breadCrumbs = [
-		{
-			name: 'Assessments',
-			path: assessmentsRoutes
-		},
-		{
-			name: 'Assessment-View',
-			path: assessmentTemplateView
-		},
-		{
-			name: 'Assessment-Nodes',
-			path: assessmentNodeRoutes
-		},
-		{
-			name: 'Edit',
-			path: editRoute
-		}
+		{ name: 'Assessments', path: assessmentsRoutes },
+		{ name: 'Assessment-View', path: assessmentTemplateView },
+		{ name: 'Assessment-Nodes', path: assessmentNodeRoutes },
+		{ name: 'Edit', path: editRoute }
 	];
 	let selectedNodeType = nodeType;
 	let selectedQueryType = queryType;
@@ -261,7 +249,7 @@
 			<div class="lg:w-1/4 md:w-1/4 sm:w-1/4 ">
 				<button
 					type="submit"
-					class="btn variant-filled-primary lg:w-40 lg:ml-8 md:ml-6 sm:ml-2 mb-10"
+					class="btn variant-filled-secondary lg:w-40 lg:ml-8 md:ml-6 sm:ml-2 mb-10"
 					>Submit
 				</button>
 			</div>

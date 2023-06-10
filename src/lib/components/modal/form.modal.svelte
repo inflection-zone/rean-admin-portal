@@ -1,25 +1,25 @@
 <script lang="ts">
 	import { createEventDispatcher } from 'svelte';
-	import {showGetApiKeyModal } from '../../store/general.store';
+	import { showGetApiKeyModal } from '../../store/general.store';
 	import Fa from 'svelte-fa';
 	import { faMultiply } from '@fortawesome/free-solid-svg-icons';
 	export let userName = undefined;
 	export let password = undefined;
-  let dialog; // HTMLDialogElement
+	let dialog; // HTMLDialogElement
 
 	$: if (dialog && $showGetApiKeyModal) dialog.showModal();
 
-	console.log("$showGetApiKeyModal",$showGetApiKeyModal)
+	console.log('$showGetApiKeyModal', $showGetApiKeyModal);
 
 	const dispatch = createEventDispatcher();
 	const handlelSubmitClick = async (userName: string, password: string) => {
 		dispatch('submit', {
 			userName: userName,
-			password: password,
+			password: password
 		});
 	};
-
 </script>
+
 <!-- svelte-ignore a11y-click-events-have-key-events -->
 <dialog
 	class=""
@@ -27,57 +27,62 @@
 	on:close={() => showGetApiKeyModal.set(false)}
 	on:click|self={() => dialog.close()}
 >
-<div>
-	<form
-		action="?/getApiKey" method="POST"
-		class="w-full  bg-tertiary-500 lg:max-w-4xl md:max-w-xl sm:max-w-lg  rounded-lg mx-auto"
-	>
-		<div class="w-full  h-14 rounded-t-lg p-3  bg-[#7165E3]">
-			<div class="ml-3 relative flex flex-row text-white text-xl">
-				Provide Credentials
-				<div on:click={() => dialog.close()}>
-					<Fa
-					icon={faMultiply}
-					size="lg"
-					class="absolute right-0 lg:pr-3 md:pr-2 pr-0 text-white"
+	<div>
+		<form
+			action="?/getApiKey"
+			method="POST"
+			class="w-full  bg-tertiary-500 lg:max-w-4xl md:max-w-xl sm:max-w-lg  rounded-lg mx-auto"
+		>
+			<div class="w-full  h-14 rounded-t-lg p-3  bg-[#7165E3]">
+				<div class="ml-3 relative flex flex-row text-white text-xl">
+					Provide Credentials
+					<div on:click={() => dialog.close()}>
+						<Fa
+							icon={faMultiply}
+							size="lg"
+							class="absolute right-0 lg:pr-3 md:pr-2 pr-0 text-white"
+						/>
+					</div>
+				</div>
+			</div>
+			<label class="label mb-4 mx-5 mt-5">
+				<span class="">Client Code*</span>
+				<input
+					class="input"
+					name="userName"
+					type="text"
+					bind:value={userName}
+					placeholder="Enter user name here..."
 				/>
-			</div>
-			</div>
-		</div>
-		<label class="label mb-4 mx-5 mt-5">
-			<span class="">Client Code*</span>
-			<input
-				class="input"
-				name="userName"
-				type="text"
-				bind:value={userName}
-				placeholder="Enter user name here..."
-			/>
-		</label>
-		<label class="label mx-5 mt-4">
-			<span>Password *</span>
-			<input
-				class="input"
-				type="password"
-				name="password"
-				bind:value={password}
-				placeholder="Enter password here..."
-			/>
-		</label>
+			</label>
+			<label class="label mx-5 mt-4">
+				<span>Password *</span>
+				<input
+					class="input"
+					type="password"
+					name="password"
+					bind:value={password}
+					placeholder="Enter password here..."
+				/>
+			</label>
 
-		<div class="flex justify-end gap-6">
-			<button type="button" class="btn variant-ringed-primary text-primary-500 ml-5 w-full mt-5 mb-8" on:click={() => dialog.close()}
-				>Close</button
-			>
-			<button type="button"
-				class="btn variant-filled-primary w-full mr-5 mt-5 mb-8"
-				on:click = {async () =>{ await handlelSubmitClick(userName, password)
-					await dialog.close();} }
-      >Submit</button
-			>
-		</div>
-	</form>
-</div>
+			<div class="flex justify-end gap-6">
+				<button
+					type="button"
+					class="btn variant-ringed-primary text-primary-500 ml-5 w-full mt-5 mb-8"
+					on:click={() => dialog.close()}>Close</button
+				>
+				<button
+					type="button"
+					class="btn variant-filled-secondary w-full mr-5 mt-5 mb-8"
+					on:click={async () => {
+						await handlelSubmitClick(userName, password);
+						await dialog.close();
+					}}>Submit</button
+				>
+			</div>
+		</form>
+	</div>
 </dialog>
 
 <style>

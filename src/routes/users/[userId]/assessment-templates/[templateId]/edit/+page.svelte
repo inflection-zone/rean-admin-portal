@@ -9,7 +9,6 @@
 
 	export let form;
 	export let data: PageServerData;
-	let id = data.assessmentTemplate.id;
 	let title = data.assessmentTemplate.Title;
 	let description = data.assessmentTemplate.Description;
 	let displayCode = data.assessmentTemplate.DisplayCode;
@@ -45,14 +44,8 @@
 	const assessmentsRoutes = `/users/${userId}/assessment-templates`;
 
 	const breadCrumbs = [
-		{
-			name: 'Assessments',
-			path: assessmentsRoutes
-		},
-		{
-			name: 'Edit',
-			path: editRoute
-		}
+		{ name: 'Assessments', path: assessmentsRoutes },
+		{ name: 'Edit', path: editRoute }
 	];
 </script>
 
@@ -254,7 +247,7 @@
 				<div class="lg:w-1/4 md:w-1/4 sm:w-1/4 w-1/2">
 					<button
 						type="submit"
-						class="btn variant-filled-primary lg:w-40 lg:ml-8 md:ml-6 sm:ml-2 mb-10"
+						class="btn variant-filled-secondary lg:w-40 lg:ml-8 md:ml-6 sm:ml-2 mb-10"
 						>Submit
 					</button>
 				</div>

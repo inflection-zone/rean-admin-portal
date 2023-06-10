@@ -336,7 +336,7 @@
 		<div class="flex items-center mt-7 lg:mx-16 md:mx-12 mr-10">
 			<div class="w-3/4" />
 			<div class="w-1/4 ">
-				<button type="submit" class="btn variant-filled-primary w-full mb-10 "> Submit </button>
+				<button type="submit" class="btn variant-filled-secondary w-full mb-10 "> Submit </button>
 			</div>
 		</div>
 	</form>
