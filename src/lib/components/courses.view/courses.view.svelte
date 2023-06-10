@@ -45,7 +45,7 @@
 </script>
 
 <div class="flex flex-col my-2 rounded-lg border border-secondary-100 overflow-hidden">
-	<div class="p-4 font-bold text-primary-600 bg-secondary-100">Courses</div>
+	<div class="p-4 font-bold variant-soft-secondary">Courses</div>
 	<section class="bg-white overflow-auto">
 		{#each $dataTableStore.filtered as course}
 			<CollapsibleSection
