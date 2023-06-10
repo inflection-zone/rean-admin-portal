@@ -120,245 +120,159 @@
 </script>
 
 <UpdateScoringCondition
-	on:updateScoringCondition={async (e) => {
-		await onUpdateScoringCondition(e.detail.resolutionScore);
-	}}
+	on:updateScoringCondition={async (e) => await onUpdateScoringCondition(e.detail.resolutionScore)}
 />
-<main class="h-screen mb-10">
-	<BreadCrumbs crumbs={breadCrumbs} />
-	<div>
-		<form
-			method="get"
-			class="w-full lg:mt-10 md:mt-8 sm:mt-6 lg:max-w-4xl md:max-w-xl sm:max-w-lg bg-[#ECE4FC] mt-6 mb-20  rounded-lg mx-auto"
-		>
-			<div class="w-full  h-14 rounded-t-lg p-3  bg-[#7165E3]">
-				<div class="ml-3 relative flex flex-row text-white lg:text-xl text-lg ">
-					<div class="lg:hidden md:hidden block">View Assessment Node</div>
-					<div class="lg:block md:block hidden">View Assessment Node</div>
-					<a href={assessmentNodeRoutes}>
-						<Fa icon={faMultiply} size="lg" class="absolute right-0 lg:pr-3 pr-0 text-white" />
+
+<BreadCrumbs crumbs={breadCrumbs} />
+
+<div class="flex flex-wrap justify-end gap-2">
+	{#if nodeType === 'Node list'}
+		<a href={createNodeRoute} class="btn variant-filled-secondary">Add child</a>
+	{/if}
+	<a href={editRoute} class="btn variant-filled-secondary">
+		<span><Fa icon={faPen} size="sm" /></span>
+		<span>Edit</span>
+	</a>
+</div>
+
+<div class="table-container border border-secondary-100 my-2">
+	<table class="table">
+		<thead class="!variant-soft-secondary">
+			<tr>
+				<th>View Assessment Node</th>
+				<th class="text-end">
+					<a href={assessmentNodeRoutes} class="btn btn-icon-sm -my-2 variant-soft-secondary">
+						<Fa icon={faMultiply} size="lg" />
 					</a>
-				</div>
-			</div>
-			<div class="hidden">{id}</div>
-			<div class="flex items-center mb-4 mt-10 lg:mx-16 md:mx-12 mx-10">
-				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
-					<!-- svelte-ignore a11y-label-has-associated-control -->
-					<label class="label">
-						<span>Node Type</span>
-					</label>
-				</div>
-				<span class="span w-1/2 md:2/3 lg:2/3" id="nodeType">{nodeType}</span>
-			</div>
-
-			<div class="flex items-center my-4 lg:mx-16 md:mx-12 mx-10">
-				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
-					<!-- svelte-ignore a11y-label-has-associated-control -->
-					<label class="label">
-						<span>Parent Node</span>
-					</label>
-				</div>
-				<span class="span w-1/2 md:2/3 lg:2/3" id="title">{displayCode}</span>
-			</div>
-
-			<div class="flex items-center my-4 lg:mx-16 md:mx-12 mx-10">
-				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
-					<!-- svelte-ignore a11y-label-has-associated-control -->
-					<label class="label">
-						<span>Title</span>
-					</label>
-				</div>
-				<span class="span w-1/2 md:2/3 lg:2/3" id="title">{title}</span>
-			</div>
-
-			<div class="flex items-center my-4 lg:mx-16 md:mx-12 mx-10">
-				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
-					<!-- svelte-ignore a11y-label-has-associated-control -->
-					<label class="label">
-						<span>Description</span>
-					</label>
-				</div>
-				<span class="span w-1/2 md:2/3 lg:2/3" id="description">{description}</span>
-			</div>
-			<div class="flex items-center my-4 lg:mx-16 md:mx-12 mx-10">
-				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
-					<!-- svelte-ignore a11y-label-has-associated-control -->
-					<label class="label">
-						<span>Sequence</span>
-					</label>
-				</div>
-				<span class="span w-1/2 md:2/3 lg:2/3" id="sequence">{sequence}</span>
-			</div>
-
+				</th>
+			</tr>
+		</thead>
+		<tbody class="!bg-white">
+			<tr class="!border-b !border-b-secondary-100">
+				<td>Node Type</td>
+				<td>{nodeType}</td>
+			</tr>
+			<tr class="!border-b !border-b-secondary-100">
+				<td>Parent Node</td>
+				<td>{displayCode}</td>
+			</tr>
+			<tr class="!border-b !border-b-secondary-100">
+				<td>Title</td>
+				<td>{title}</td>
+			</tr>
+			<tr class="!border-b !border-b-secondary-100">
+				<td>Description</td>
+				<td>{description}</td>
+			</tr>
+			<tr class="!border-b !border-b-secondary-100">
+				<td>Sequence</td>
+				<td>{sequence}</td>
+			</tr>
 			{#if nodeType === 'Question'}
-				<div class="flex items-center mb-4 lg:mx-16 md:mx-12 mx-10">
-					<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
-						<!-- svelte-ignore a11y-label-has-associated-control -->
-						<label class="label">
-							<span>Query Response Type</span>
-						</label>
-					</div>
-					<span class="span w-1/2 md:2/3 lg:2/3" id="queryType">{queryType}</span>
-				</div>
+				<tr class="!border-b !border-b-secondary-100">
+					<td>Query Response Type</td>
+					<td>{queryType}</td>
+				</tr>
+				{#if options.length > 0}
+					<tr class="!border-b !border-b-secondary-100">
+						<td>Options</td>
+						<td>
+							<ol class="list-decimal">
+								{#each options as option}
+									<li>{option.Text}</li>
+								{/each}
+							</ol>
+						</td>
+					</tr>
+				{/if}
 
-				<div class="flex  mt-4 lg:mx-16 md:mx-12 mx-10">
-					{#if options.length > 0}
-						<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
-							<!-- svelte-ignore a11y-label-has-associated-control -->
-							<label class="label">
-								<span>Options</span>
-							</label>
-						</div>
-						<ol class="span w-1/2 md:w-2/3 lg:w-2/3 list-decimal ml-6" id="modules">
-							{#each options as option}
-								<li>{option.Text}</li>
-							{/each}
-						</ol>
-					{/if}
-				</div>
 				{#if $scoringApplicableCondition === true}
-					<div class="flex items-center mb-4 lg:mx-16 md:mx-12 mx-10">
-						<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
-							<!-- svelte-ignore a11y-label-has-associated-control -->
-							<label class="label">
-								<span>Resolution Score</span>
-							</label>
-						</div>
-						<div class="flex  items-center gap-12 w-1/2 md:2/3 lg:2/3">
-							<span class="span" id="description">{resolutionScore}</span>
-							<button
-								class="btn variant-ringed-primary text-primary-500 btn-md"
-								on:click|preventDefault={async () => showScoringConditionModal.set(true)}
-							>
-								Update Score
-							</button>
-						</div>
-					</div>
+					<tr class="!border-b !border-b-secondary-100">
+						<td>Resolution Score</td>
+						<td>
+							<div class="flex items-center">
+								<span>{resolutionScore}</span>
+
+								<button
+									on:click|preventDefault={async () => showScoringConditionModal.set(true)}
+									class="btn btn-icon-sm -my-1 ml-auto hover:variant-soft-primary"
+								>
+									<Fa icon={faPencil} style="color-text-primary" size="md" />
+								</button>
+							</div>
+						</td>
+					</tr>
 				{/if}
 			{:else if nodeType === 'Message'}
-				<div class="flex items-center my-4 lg:mx-16 md:mx-12 mx-10">
-					<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
-						<!-- svelte-ignore a11y-label-has-associated-control -->
-						<label class="label">
-							<span>Message</span>
-						</label>
-					</div>
-					<span class="span w-1/2 md:2/3 lg:2/3" id="description">{message}</span>
-				</div>
+				<tr class="!border-b !border-b-secondary-100">
+					<td>Message</td>
+					<td>{message}</td>
+				</tr>
 			{:else if nodeType === 'Node list'}
-				<div class="flex items-center mb-4 lg:mx-16 md:mx-12 mx-10">
-					<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
-						<!-- svelte-ignore a11y-label-has-associated-control -->
-						<label class="label">
-							<span>Serve List Node Children At Once</span>
-						</label>
-					</div>
-					<span class="span w-1/2 md:2/3 lg:2/3" id="serveListNodeChildrenAtOnce">
-						{serveListNodeChildrenAtOnce}
-					</span>
-				</div>
-
-				<div class=" lg:flex  my-4 lg:mx-16 md:mx-12 mx-10">
-					<div class="w-1/2 lg:w-1/3 mb-2 ">
-						<!-- svelte-ignore a11y-label-has-associated-control -->
-						<label class="label">
-							<span>Children Nodes</span>
-						</label>
-					</div>
-					{#if childrenNodes.length <= 0}
-						<span class="span">Children nodes not available!</span>
-					{:else}
-						<div class="span w-full lg:w-2/3 " id="modules">
-							<table class="table-auto overflow-x-auto text-left ">
-								<thead class="font-semibold">
-									<tr class="font-semibold">
-										<th>Sequence</th>
-										<th>Node type</th>
-										<th>Title</th>
-										<th />
-										<th />
-									</tr>
-								</thead>
-								<tbody>
-									{#each childrenNodes as node}
+				<tr class="!border-b !border-b-secondary-100">
+					<td>Serve List Node Children At Once</td>
+					<td>{serveListNodeChildrenAtOnce}</td>
+				</tr>
+				<tr class="!border-b !border-b-secondary-100">
+					<td>Children Nodes</td>
+					<td>
+						{#if childrenNodes.length <= 0}
+							<span class="span">Children nodes not available!</span>
+						{:else}
+							<div class="table-container border border-secondary-100" id="modules">
+								<table class="table table-compact">
+									<thead class="!variant-soft-secondary">
 										<tr>
-											<td>{node.Sequence}</td>
-											<td>{node.NodeType}</td>
-											<td>{Helper.truncateText(node.Title, 30)}</td>
-											<td>
-												<a href={editNodeRoute(node.id)}>
-													<Fa icon={faPencil} style="color-text-primary" size="md" />
-												</a>
-											</td>
-											<td>
-												<Confirm
-													confirmTitle="Delete"
-													cancelTitle="Cancel"
-													let:confirm={confirmThis}
-													on:delete={(e) => {
-														handleAssessmentNodeDelete(e, node.id);
-													}}
-												>
-													<button
-														on:click|preventDefault={() =>
-															confirmThis(handleAssessmentNodeDelete, node.id)}
-														class=""
-													>
-														<Fa icon={faTrash} />
-													</button>
-													<span slot="title"> Delete </span>
-													<span slot="description">
-														Are you sure you want to delete a child node?
-													</span>
-												</Confirm>
-											</td>
+											<th>Sequence</th>
+											<th>Node type</th>
+											<th>Title</th>
+											<th />
+											<th />
 										</tr>
-									{/each}
-								</tbody>
-							</table>
-						</div>
-					{/if}
-				</div>
+									</thead>
+									<tbody class="!bg-white">
+										{#each childrenNodes as node}
+											<tr class="!border-b !border-b-secondary-100">
+												<td>{node.Sequence}</td>
+												<td>{node.NodeType}</td>
+												<td>{Helper.truncateText(node.Title, 30)}</td>
+												<td>
+													<a
+														href={editNodeRoute(node.id)}
+														class="btn btn-icon-sm -my-1 hover:variant-soft-primary"
+													>
+														<Fa icon={faPencil} style="color-text-primary" size="md" />
+													</a>
+												</td>
+												<td>
+													<Confirm
+														confirmTitle="Delete"
+														cancelTitle="Cancel"
+														let:confirm={confirmThis}
+														on:delete={(e) => handleAssessmentNodeDelete(e, node.id)}
+													>
+														<button
+															on:click|preventDefault={() =>
+																confirmThis(handleAssessmentNodeDelete, node.id)}
+															class="btn btn-icon-sm -my-1 hover:variant-soft-error"
+														>
+															<Fa icon={faTrash} />
+														</button>
+														<span slot="title"> Delete </span>
+														<span slot="description">
+															Are you sure you want to delete a child node?
+														</span>
+													</Confirm>
+												</td>
+											</tr>
+										{/each}
+									</tbody>
+								</table>
+							</div>
+						{/if}
+					</td>
+				</tr>
 			{/if}
-			{#if nodeType === 'Node list'}
-				<div class="flex items-center mt-10 lg:mx-10 md:mx-16">
-					<div class="lg:w-8/12 w-1/3 sm:w-1/2 md:w-1/2 max-[375px]:w-1/4" />
-					<div class="flex lg:w-1/3 gap-2 w-2/4 max-[375px]:w-full ">
-						<a href={createNodeRoute}>
-							<button
-								type="submit"
-								class="btn variant-filled-primary lg:w-full md:w-28 sm:w-24 min-[280px]:w-24 w-20 mb-8 lg:mr-4 mr-1   "
-							>
-								Add child
-							</button>
-						</a>
-						<a href={editRoute}>
-							<button
-								type="submit"
-								class="btn variant-filled-primary lg:w-full md:w-28 sm:w-24 min-[280px]:w-24 w-20 mb-8 lg:mr-4 mr-1 "
-							>
-								Edit
-								<Fa icon={faPen} size="lg" class="lg:ml-4 sm:ml-2 ml-1" />
-							</button>
-						</a>
-					</div>
-				</div>
-			{:else}
-				<div class="flex items-center mt-7 lg:mx-16 md:mx-12 mr-10">
-					<div class="lg:w-5/6 w-2/3 " />
-					<div class="lg:w-1/6 w-1/3 ">
-						<a href={editRoute}>
-							<button
-								type="submit"
-								class="btn variant-ringed-primary lg:w-full w-24 mb-10 lg:mr-4 mr-1"
-							>
-								Edit
-								<Fa icon={faPen} size="lg" class="lg:ml-4 sm:ml-2 ml-1" />
-							</button>
-						</a>
-					</div>
-				</div>
-			{/if}
-		</form>
-	</div>
-</main>
+		</tbody>
+	</table>
+</div>

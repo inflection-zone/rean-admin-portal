@@ -28,9 +28,7 @@
 	let copied = false;
 	function onClickHandler(): void {
 		copied = true;
-		setTimeout(() => {
-			copied = false;
-		}, 1000);
+		setTimeout(() => (copied = false), 1000);
 	}
 
 	const userId = $page.params.userId;
@@ -39,14 +37,8 @@
 	const apiClientRoute = `/users/${userId}/api-clients`;
 
 	const breadCrumbs = [
-		{
-			name: 'Clients',
-			path: apiClientRoute
-		},
-		{
-			name: 'View',
-			path: viewRoute
-		}
+		{ name: 'Clients', path: apiClientRoute },
+		{ name: 'View', path: viewRoute }
 	];
 
 	const onUpdateApiKey = async (userName: string, password: string, validFrom, validTill) => {
@@ -81,11 +73,7 @@
 	const onFormSubmit = async (userName, password) => {
 		console.log('userName', userName);
 		console.log('password', password);
-		await getApiKey({
-			clientCode,
-			userName: userName,
-			password: password
-		});
+		await getApiKey({ clientCode, userName: userName, password: password });
 	};
 
 	async function getApiKey(model) {
@@ -98,18 +86,13 @@
 		const apiKeyDetails = JSON.parse(resp);
 		apiKey = apiKeyDetails.ApiKey;
 		console.log(response);
-		if (response.status !== 200) {
-			showMessage(`Provide valid credentials !`, 'error', true, 3500);
-		}
+		if (response.status !== 200) showMessage(`Provide valid credentials !`, 'error', true, 3500);
+
 		showMessage(`Client api keys retrieved successfully!`, 'success', true, 3500);
 	}
 </script>
 
-<Modalform
-	on:submit={async (e) => {
-		await onFormSubmit(e.detail.userName, e.detail.password);
-	}}
-/>
+<Modalform on:submit={async (e) => await onFormSubmit(e.detail.userName, e.detail.password)} />
 
 <RenewApiKeyModal
 	on:updateApiKey={async (e) => {
@@ -122,73 +105,59 @@
 	}}
 />
 
-<main class="h-screen mb-10">
-	<BreadCrumbs crumbs={breadCrumbs} />
+<BreadCrumbs crumbs={breadCrumbs} />
 
-	<div class="">
-		<div
-			class="w-full bg-[#ECE4FC] lg:mt-10 md:mt-8 sm:mt-6 mb-10 mt-4 lg:max-w-4xl md:max-w-xl sm:max-w-lg  rounded-lg mx-auto"
-		>
-			<div class="w-full  h-14 rounded-t-lg p-3  bg-[#7165E3]">
-				<div class="ml-3 relative flex flex-row text-white lg:text-xl text-lg ">
-					<div class="lg:hidden md:hidden block">View Api Client</div>
-					<div class="lg:block md:block hidden">View Api Client</div>
-					<a href={apiClientRoute}>
-						<Fa icon={faMultiply} size="lg" class="absolute right-0 lg:pr-3 pr-0 text-white" />
+<div class="flex flex-wrap gap-2">
+	<button
+		class="btn variant-soft-secondary ml-auto"
+		on:click|capture={() => showRenewApiKeyModal.set(true)}
+	>
+		Update api key
+	</button>
+	<button class="btn variant-soft-secondary" on:click|capture={() => showGetApiKeyModal.set(true)}>
+		Get api key
+	</button>
+	<a href={editRoute} class="btn variant-filled-secondary">
+		<span><Fa icon={faPen} size="sm" /></span>
+		<span>Edit</span>
+	</a>
+</div>
+
+<div class="table-container border border-secondary-100 my-2">
+	<table class="table">
+		<thead class="!variant-soft-secondary">
+			<tr>
+				<th>View Client</th>
+				<th class="text-end">
+					<a href={apiClientRoute} class="btn btn-icon-sm -my-2 variant-soft-secondary">
+						<Fa icon={faMultiply} size="lg" />
 					</a>
-				</div>
-			</div>
-			<div class="hidden">{id}</div>
-			<div class="flex items-center mb-4 mt-10 lg:mx-16 md:mx-12 mx-10">
-				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
-					<!-- svelte-ignore a11y-label-has-associated-control -->
-					<label class="label">
-						<span>Client Name</span>
-					</label>
-				</div>
-				<span class="span w-1/2 md:2/3 lg:2/3" id="clientName">{clientName}</span>
-			</div>
-			<div class="flex items-center my-4 lg:mx-16 md:mx-12 mx-10">
-				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
-					<!-- svelte-ignore a11y-label-has-associated-control -->
-					<label class="label">
-						<span>Client Code</span>
-					</label>
-				</div>
-				<span class="span w-1/2 md:2/3 lg:2/3" id="password">{clientCode}</span>
-			</div>
-
-			<div class="flex items-center my-4 lg:mx-16 md:mx-12 mx-10">
-				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
-					<!-- svelte-ignore a11y-label-has-associated-control -->
-					<label class="label">
-						<span>Contact Number</span>
-					</label>
-				</div>
-				<span class="span w-1/2 md:2/3 lg:2/3" id="phone">{phone}</span>
-			</div>
-
-			<div class="flex items-center my-4 lg:mx-16 md:mx-12 mx-10">
-				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
-					<!-- svelte-ignore a11y-label-has-associated-control -->
-					<label class="label">
-						<span>Email</span>
-					</label>
-				</div>
-				<span class="span w-1/2 md:2/3 lg:2/3" id="email">{email}</span>
-			</div>
-
+				</th>
+			</tr>
+		</thead>
+		<tbody class="!bg-white">
+			<tr class="!border-b !border-b-secondary-100">
+				<td>Client Name</td>
+				<td>{clientName}</td>
+			</tr>
+			<tr class="!border-b !border-b-secondary-100">
+				<td>Client Code</td>
+				<td>{clientCode}</td>
+			</tr>
+			<tr class="!border-b !border-b-secondary-100">
+				<td>Contact Number</td>
+				<td>{phone}</td>
+			</tr>
+			<tr class="!border-b !border-b-secondary-100">
+				<td>Email</td>
+				<td>{email}</td>
+			</tr>
 			{#if apiKey === undefined}
-				<div />
+				<tr />
 			{:else}
-				<div class="flex items-center my-4 lg:mx-16 md:mx-12 mx-10">
-					<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
-						<!-- svelte-ignore a11y-label-has-associated-control -->
-						<label class="label">
-							<span>Api Key</span>
-						</label>
-					</div>
-					<div class="flex gap-3 items-center w-1/2 md:2/3 lg:2/3">
+				<tr class="!border-b !border-b-secondary-100">
+					<td>Api Key</td>
+					<td>
 						<span class="span" id="email">{apiKey}</span>
 						<button
 							class="btn variant-ringed-primary text-primary-500 "
@@ -198,34 +167,9 @@
 						>
 							<Fa icon={faCopy} size="lg" class="" />
 						</button>
-					</div>
-				</div>
+					</td>
+				</tr>
 			{/if}
-
-			<div class="flex max-[450px]:flex-col items-center mt-7 lg:mx-16 md:mx-12 max-[450px]:mx-5">
-				<div
-					class="flex max-[450px]:flex-col max-[450px]:mb-2 max-[450px]:last:mb-10 mb-10 w-full gap-4 max-[450px]:gap-2 mx-1 max-[450px]:mx-5"
-				>
-					<button
-						class="btn variant-ringed-primary text-primary-500 w-full"
-						on:click|capture={() => showRenewApiKeyModal.set(true)}
-					>
-						Update api key
-					</button>
-					<button
-						class="btn variant-ringed-primary text-primary-500 w-full"
-						on:click|capture={() => showGetApiKeyModal.set(true)}
-					>
-						Get api key
-					</button>
-					<a href={editRoute}>
-						<button type="submit" class="btn variant-ringed-primary w-full">
-							Edit
-							<Fa icon={faPen} size="lg" class="lg:ml-4 sm:ml-2 ml-1" />
-						</button>
-					</a>
-				</div>
-			</div>
-		</div>
-	</div>
-</main>
+		</tbody>
+	</table>
+</div>
