@@ -57,7 +57,7 @@
 	</a>
 </div>
 
-<div class="table-container my-2">
+<div class="table-container !border !border-secondary-100 my-2">
 	<table class="table">
 		<thead class="!variant-soft-secondary">
 			<tr>

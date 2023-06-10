@@ -68,25 +68,30 @@
 	<a href={createRoute} class="btn variant-filled-secondary">Add New</a>
 </div>
 
-<div class="flex justify-center flex-col mt-4 mx-10 overflow-y-auto ">
-	<table class="table rounded-b-none">
-		<thead class="sticky top-0">
+<div class="my-2 table-container !border !border-secondary-100">
+	<table class="table">
+		<thead class="!variant-soft-secondary">
 			<tr>
 				<th>Id</th>
 				<th>Name</th>
 				<th>Description</th>
 				<th>Duration</th>
+				<th />
+				<th />
 			</tr>
 		</thead>
-		<tbody class="">
+		<tbody class="!bg-white">
 			{#each $dataTableStore.filtered as row, rowIndex}
-				<tr>
+				<tr class="!border-b !border-b-secondary-100">
 					<td>{rowIndex + 1}</td>
 					<td>{row.Name}</td>
 					<td>{row.Description}</td>
 					<td>{row.DurationInMins}</td>
 					<td>
-						<a href="/users/${userId}/courses/${courseId}/modules/{row.id}/edit">
+						<a
+							href="/users/${userId}/courses/${courseId}/modules/{row.id}/edit"
+							class="btn btn-icon-sm -my-1 hover:variant-soft-primary"
+						>
 							<Fa icon={faPencil} style="color-text-primary" size="md" />
 						</a>
 					</td>
@@ -95,9 +100,7 @@
 							confirmTitle="Delete"
 							cancelTitle="Cancel"
 							let:confirm={confirmThis}
-							on:delete={(e) => {
-								handleModuleDelete(e, row.id);
-							}}
+							on:delete={(e) => handleModuleDelete(e, row.id)}
 						>
 							<button
 								on:click|preventDefault={() => confirmThis(handleModuleDelete, row.id)}
@@ -106,8 +109,8 @@
 								<Fa icon={faTrash} />
 							</button>
 
-							<span slot="title"> Delete </span>
-							<span slot="description"> Are you sure you want to delete a module? </span>
+							<span slot="title">Delete</span>
+							<span slot="description">Are you sure you want to delete a module?</span>
 						</Confirm>
 					</td>
 				</tr>

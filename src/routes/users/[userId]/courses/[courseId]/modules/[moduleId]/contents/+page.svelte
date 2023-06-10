@@ -70,7 +70,7 @@
 </div>
 
 <div class="flex justify-center flex-col mt-4 mx-10 overflow-y-auto ">
-	<table class="table rounded-b-none">
+	<table class="table">
 		<thead class="sticky top-0">
 			<tr>
 				<th>Id</th>
@@ -79,7 +79,7 @@
 				<th>Course</th>
 			</tr>
 		</thead>
-		<tbody class="">
+		<tbody class="!bg-white">
 			<!-- {#each $dataTableStore.filtered as row, rowIndex}
 						<tr>
 							<td >{rowIndex + 1}</td>

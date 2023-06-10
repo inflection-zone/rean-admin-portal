@@ -3,7 +3,6 @@
 	import {
 		faAngleDown,
 		faAngleUp,
-		faEdit,
 		faPencil,
 		faPlus,
 		faTrash
@@ -14,12 +13,6 @@
 	///////////////////////////////////////////////////////////////////////////////////////////////
 
 	export let headerText;
-	export let color = '';
-	export let paddingBottom = `${12}px`;
-	export let paddingTop = `${12}px`;
-	export let paddingLeft = `${20}px`;
-	export let paddingRight = `${20}px`;
-	export let marginBottom = `${10}px`;
 	export let itemsCount;
 	export let addRoute = undefined;
 	export let editRoute = undefined;
@@ -27,101 +20,52 @@
 	export let viewRoute = undefined;
 	let expanded = false;
 	const dispatch = createEventDispatcher();
-	const handlelDeleteClick = async (id) => {
-		dispatch('onDeleteClick', {
-			id: id
-		});
-	};
+	const handlelDeleteClick = async (id) => dispatch('onDeleteClick', { id: id });
 </script>
 
-<div
-	class="collapsible pb-1 lg:ml-4 md:mr-4 sm:mr-4 min-[280px]:mr-5 first:pt-4 min-[280px]:flex-col overflow-auto"
->
-	<!-- svelte-ignore a11y-click-events-have-key-events -->
-	<span
-		style="--color:{color}; --paddingBottom:{paddingBottom}; --paddingTop:{paddingTop}; --paddingLeft:{paddingLeft}; paddingRight:{paddingRight};--marginBottom:{marginBottom};"
-		class="text-lg text-white pr-6 justify-start min-[280px]:w-full overflow-auto"
-	>
-		<div class=" flex gap-2">
-			<!-- svelte-ignore a11y-missing-attribute -->
-			<img class="w-8 mr-2" {src} />
-			<a class="text-white" href={viewRoute}>
-				<div class="text-white">{headerText}</div>
-			</a>
+<div class="border border-secondary-100 p-2 min-w-[500px]">
+	<div class="flex gap-4 items-center">
+		<div class="flex gap-2 items-center grow">
+			<img class="w-8" {src} alt="" />
+			<a href={viewRoute}>{headerText}</a>
 		</div>
-		<!-- </div> -->
-		<div class="flex gap-3 lg:gap-6 md:gap-4 justify-end">
-			<div class="text-white text-center pr-0 mr-5">
-				{itemsCount}
-			</div>
-			<div class="w-5 my-2">
-				<a href={addRoute}>
-					<Fa class="text-white" icon={faPlus} />
-				</a>
-			</div>
-			<div class="w-5 my-2">
-				<a href={editRoute}>
-					<Fa class="text-white" icon={faPencil} />
-				</a>
-			</div>
-			<div class="h-4 w-2 my-1">
-				<Confirm
-					confirmTitle="Delete"
-					cancelTitle="Cancel"
-					let:confirm={confirmThis}
-					on:delete={(id) => {
-						handlelDeleteClick(id);
-					}}
-				>
-					<button on:click|once={(id) => confirmThis(handlelDeleteClick, id)} class="">
-						<Fa icon={faTrash} />
-					</button>
-					<div class="" slot="title">Delete</div>
-					<div slot="description">Are you sure you want to delete a content?</div>
-				</Confirm>
-			</div>
-			<svg
-				aria-expanded={expanded}
-				on:click={() => (expanded = !expanded)}
-				viewBox="0 0 20 20"
-				fill="none"
-				class="pt-1 pr-3 h-4 w-4"
+		<p>{itemsCount}</p>
+		<a href={addRoute} class="btn btn-icon-sm -my-1 hover:variant-soft-primary">
+			<Fa icon={faPlus} />
+		</a>
+		<a href={editRoute} class="btn btn-icon-sm -my-1 hover:variant-soft-primary">
+			<Fa icon={faPencil} />
+		</a>
+		<div>
+			<Confirm
+				confirmTitle="Delete"
+				cancelTitle="Cancel"
+				let:confirm={confirmThis}
+				on:delete={(id) => handlelDeleteClick(id)}
 			>
-				{#if expanded == false}
-					<Fa class="vert" icon={faAngleDown} />
-				{:else}
-					<Fa icon={faAngleUp} />
-				{/if}
-			</svg>
+				<button
+					on:click|once={(id) => confirmThis(handlelDeleteClick, id)}
+					class="btn btn-icon-sm -my-1 hover:variant-soft-error"
+				>
+					<Fa icon={faTrash} />
+				</button>
+				<div slot="title">Delete</div>
+				<div slot="description">Are you sure you want to delete a content?</div>
+			</Confirm>
 		</div>
-	</span>
+		<button
+			class="btn btn-icon-sm -my-1 hover:variant-soft-secondary "
+			on:click={() => (expanded = !expanded)}
+		>
+			{#if expanded === false}
+				<Fa icon={faAngleDown} />
+			{:else}
+				<Fa icon={faAngleUp} />
+			{/if}
+		</button>
+	</div>
 
-	<div class="content" hidden={!expanded}>
+	<div class="mt-2 p-2" class:hidden={!expanded}>
 		<slot />
 	</div>
 </div>
-
-<style>
-	.collapsible {
-		border-radius: 20px;
-	}
-
-	span {
-		display: flex;
-		justify-content: space-between;
-		width: 96%;
-		border-radius: 9px;
-		margin-bottom: var(--marginBottom);
-		margin-left: 23px;
-		background: var(--color);
-		padding-bottom: var(--paddingBottom);
-		padding-top: var(--paddingTop);
-		padding-left: var(--paddingLeft);
-		padding-right: var(--paddingRight);
-	}
-	svg {
-		height: 1.4em;
-		width: 1.4em;
-		margin-right: 5px;
-	}
-</style>

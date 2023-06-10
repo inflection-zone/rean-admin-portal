@@ -61,24 +61,23 @@
 <BreadCrumbs crumbs={breadCrumbs} />
 
 <div class="flex flex-wrap gap-2 mt-1">
-	<input type="text" placeholder="Search by title"  class="input w-auto grow" />
-	<input type="text" placeholder="Search by description"  class="input w-auto grow" />
+	<input type="text" placeholder="Search by title" class="input w-auto grow" />
+	<input type="text" placeholder="Search by description" class="input w-auto grow" />
 	<a href={createRoute} class="btn variant-filled-secondary">Add New</a>
 </div>
 
-
 <div class="flex justify-center flex-col mt-4 mx-10 overflow-y-auto ">
-	<table class="table rounded-b-none">
+	<table class="table">
 		<thead class="sticky top-0">
 			<tr>
-				<th >Id</th>
-				<th >Title</th>
-				<th >Description</th>
-				<th >Link</th>
+				<th>Id</th>
+				<th>Title</th>
+				<th>Description</th>
+				<th>Link</th>
 			</tr>
 		</thead>
-			<tbody class="">
-				<!-- {#each $dataTableStore.filtered as row, rowIndex}
+		<tbody class="!bg-white">
+			<!-- {#each $dataTableStore.filtered as row, rowIndex}
 					<tr>
 						<td >{rowIndex + 1}</td>
 						<td >{row.Title}</td>
@@ -98,10 +97,10 @@
 						</td>
 					</tr>
 				{/each} -->
-			</tbody>
-		</table>
-	</div>
-	<!-- <div class=" w-full bg-secondary-500 h-36 lg:h-16 md:h-16 sm:h-36 mb-10 pt-1 rounded-b-lg ">
+		</tbody>
+	</table>
+</div>
+<!-- <div class=" w-full bg-secondary-500 h-36 lg:h-16 md:h-16 sm:h-36 mb-10 pt-1 rounded-b-lg ">
 		{#if $dataTableStore.pagination}<Paginator
 				class="mt-2 mr-3 ml-3 "
 				buttonClasses="btn-icon bg-surface-500 w-5 h-8"
@@ -109,4 +108,4 @@
 				bind:settings={$dataTableStore.pagination}
 			/>{/if}
 	</div> -->
-</div>
+<!-- </div> -->

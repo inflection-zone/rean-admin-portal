@@ -102,7 +102,7 @@
 	<a href={createRoute} class="btn variant-filled-secondary">Add New</a>
 </div>
 
-<div class="my-2 table-container">
+<div class="my-2 table-container !border !border-secondary-100">
 	<table class="table" role="grid" use:tableInteraction use:tableA11y>
 		<thead on:click={(e) => dataTableStore.sort(e)} on:keypress class="!variant-soft-secondary">
 			<tr>
@@ -137,14 +137,11 @@
 						</a>
 					</td>
 					<td>
-						<!-- svelte-ignore missing-declaration -->
 						<Confirm
 							confirmTitle="Delete"
 							cancelTitle="Cancel"
 							let:confirm={confirmThis}
-							on:delete={(e) => {
-								handleDrugDelete(e, row.id);
-							}}
+							on:delete={(e) => handleDrugDelete(e, row.id)}
 						>
 							<button
 								on:click|preventDefault={() => confirmThis(handleDrugDelete, row.id)}
