@@ -85,10 +85,6 @@
 				</td>
 			</tr>
 			<tr class="!border-b !border-b-secondary-100">
-				<td>Language</td>
-				<td>{language}</td>
-			</tr>
-			<tr class="!border-b !border-b-secondary-100">
 				<td>Image</td>
 				<td>
 					{#if imageUrl === 'undefined'}

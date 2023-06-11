@@ -46,8 +46,9 @@
 	}
 
 	const userId = $page.params.userId;
-	const editRoute = `/users/${userId}/newsfeeds/newsfeed-items/${id}/edit`;
-	const viewRoute = `/users/${userId}/newsfeeds/newsfeed-items/${id}/view`;
+	const newsfeedId = $page.params.newsfeedId;
+	const editRoute = `/users/${userId}/newsfeeds/${newsfeedId}/newsfeed-items/${id}/edit`;
+	const viewRoute = `/users/${userId}/newsfeeds/${newsfeedId}/newsfeed-items/${id}/view`;
 	const newsfeedRoute = `/users/${userId}/newsfeeds`;
 	const newsfeedItemRoute = `/users/${userId}/newsfeeds/newsfeed-items`;
 
@@ -107,35 +108,32 @@
 	};
 </script>
 
-<main class="h-screen mb-52">
-	<BreadCrumbs crumbs={breadCrumbs} />
+<BreadCrumbs crumbs={breadCrumbs} />
 
-	<div class="">
-		<form
-			method="post"
-			action="?/updateNewsfeedItemAction"
-			class="w-full  bg-[#ECE4FC] lg:mt-10 md:mt-8 sm:mt-6 mb-10 mt-4 lg:max-w-4xl md:max-w-xl sm:max-w-lg  rounded-lg mx-auto"
-		>
-			<div class="w-full  h-14 rounded-t-lg p-3  bg-[#7165E3]">
-				<div class="ml-3 relative flex flex-row text-white text-xl">
-					Edit Items In Newsfeed
-					<a href={viewRoute}>
-						<Fa icon={faMultiply} size="lg" class="absolute right-0 pr-3 mb-16 text-white " />
+<form
+	method="post"
+	action="?/updateNewsfeedItemAction"
+	class="table-container border border-secondary-100 my-2"
+>
+	<table class="table">
+		<thead class="!variant-soft-secondary">
+			<tr>
+				<th>Edit Newsfeed Item</th>
+				<th class="text-end">
+					<a href={viewRoute} class="btn btn-icon-sm -my-2 variant-soft-secondary">
+						<Fa icon={faMultiply} size="lg" />
 					</a>
-				</div>
-			</div>
-			<div class="hidden">{id}</div>
-			<div class="flex items-center mb-4 mt-10 lg:mx-16 md:mx-12 mx-10">
-				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
-					<!-- svelte-ignore a11y-label-has-associated-control -->
-					<label class="label">
-						<span>Title *</span>
-					</label>
-				</div>
-				<div class="w-1/2 md:w-2/3 lg:w-2/3">
+				</th>
+			</tr>
+		</thead>
+		<tbody class="!bg-white">
+			<tr class="!border-b !border-b-secondary-100">
+				<td>Title *</td>
+				<td>
 					<input
 						type="text"
 						name="title"
+						required
 						bind:value={title}
 						placeholder="Enter title here..."
 						class="input w-full {form?.errors?.title
@@ -145,62 +143,34 @@
 					{#if form?.errors?.title}
 						<p class="text-error-500 text-xs">{form?.errors?.title[0]}</p>
 					{/if}
-				</div>
-			</div>
-
-			<div class="flex  mb-2 lg:mx-16 md:mx-12 mx-10">
-				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
-					<!-- svelte-ignore a11y-label-has-associated-control -->
-					<label class="label">
-						<span>Description</span>
-					</label>
-				</div>
-				<div class="w-1/2 md:w-2/3 lg:w-2/3">
+				</td>
+			</tr>
+			<tr class="!border-b !border-b-secondary-100">
+				<td class="align-top">Description</td>
+				<td>
 					<textarea
 						name="description"
 						bind:value={description}
 						placeholder="Enter description here..."
-						class="textarea w-full {form?.errors?.description
-							? 'border-error-300 text-error-500'
-							: 'border-primary-200 text-primary-500'}"
+						class="textarea"
 					/>
-					{#if form?.errors?.description}
-						<p class="text-error-500 text-xs">{form?.errors?.description[0]}</p>
-					{/if}
-				</div>
-			</div>
-
-			<div class="flex items-center mb-4 lg:mx-16 md:mx-12 mx-10">
-				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
-					<!-- svelte-ignore a11y-label-has-associated-control -->
-					<label class="label">
-						<span>Link</span>
-					</label>
-				</div>
-				<div class="w-1/2 md:w-2/3 lg:w-2/3">
+				</td>
+			</tr>
+			<tr class="!border-b !border-b-secondary-100">
+				<td>Link</td>
+				<td>
 					<input
 						type="url"
-						bind:value={link}
 						name="link"
-						placeholder="Enter link here..."
-						class="input w-full {form?.errors?.link
-							? 'border-error-300 text-error-500'
-							: 'border-primary-200 text-primary-500'}"
+						bind:value={link}
+						placeholder="Enter copyright here..."
+						class="input"
 					/>
-					{#if form?.errors?.link}
-						<p class="text-error-500 text-xs">{form?.errors?.link[0]}</p>
-					{/if}
-				</div>
-			</div>
-
-			<div class="flex items-center mb-4 lg:mx-16 md:mx-12 mx-10">
-				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
-					<!-- svelte-ignore a11y-label-has-associated-control -->
-					<label class="label">
-						<span>Content *</span>
-					</label>
-				</div>
-				<div class="w-1/2 md:w-2/3 lg:w-2/3">
+				</td>
+			</tr>
+			<tr class="!border-b !border-b-secondary-100">
+				<td>Content *</td>
+				<td>
 					<input
 						type="text"
 						bind:value={content}
@@ -214,142 +184,79 @@
 					{#if form?.errors?.content}
 						<p class="text-error-500 text-xs">{form?.errors?.ticontenttle[0]}</p>
 					{/if}
-				</div>
-			</div>
-
-			<div class="flex items-center mb-4 lg:mx-16 md:mx-12 mx-10">
-				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
-					<!-- svelte-ignore a11y-label-has-associated-control -->
-					<label class="label">
-						<span>Author Name</span>
-					</label>
-				</div>
-				<div class="w-1/2 md:w-2/3 lg:w-2/3">
+				</td>
+			</tr>
+			
+			<tr class="!border-b !border-b-secondary-100">
+				<td>Author Name</td>
+				<td>
 					<input
 						type="text"
 						name="authorName"
 						bind:value={authorName}
 						placeholder="Enter author name here..."
-						class="input w-full {form?.errors?.authorName
-							? 'border-error-300 text-error-500'
-							: 'border-primary-200 text-primary-500'}"
+						class="input"
 					/>
-					{#if form?.errors?.authorName}
-						<p class="text-error-500 text-xs">{form?.errors?.authorName[0]}</p>
-					{/if}
-				</div>
-			</div>
-
-			<div class="flex items-center mb-4 lg:mx-16 md:mx-12 mx-10">
-				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
-					<!-- svelte-ignore a11y-label-has-associated-control -->
-					<label class="label">
-						<span>Author Email</span>
-					</label>
-				</div>
-				<div class="w-1/2 md:w-2/3 lg:w-2/3">
+				</td>
+			</tr>
+			<tr class="!border-b !border-b-secondary-100">
+				<td>Author Email</td>
+				<td>
 					<input
 						type="text"
 						name="authorEmail"
 						bind:value={authorEmail}
 						placeholder="Enter author email here..."
-						class="input w-full {form?.errors?.authorEmail
-							? 'border-error-300 text-error-500'
-							: 'border-primary-200 text-primary-500'}"
+						class="input"
 					/>
-					{#if form?.errors?.authorEmail}
-						<p class="text-error-500 text-xs">{form?.errors?.authorEmail[0]}</p>
-					{/if}
-				</div>
-			</div>
-
-			<div class="flex items-center mb-4 lg:mx-16 md:mx-12 mx-10">
-				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
-					<!-- svelte-ignore a11y-label-has-associated-control -->
-					<label class="label">
-						<span>Author Link</span>
-					</label>
-				</div>
-				<div class="w-1/2 md:w-2/3 lg:w-2/3">
+				</td>
+			</tr>
+			<tr class="!border-b !border-b-secondary-100">
+				<td class="align-top">Author Link</td>
+				<td>
 					<input
-						type="url"
-						name="authorLink"
-						bind:value={authorLink}
-						placeholder="Enter author link here..."
-						class="input w-full {form?.errors?.authorLink
-							? 'border-error-300 text-error-500'
-							: 'border-primary-200 text-primary-500'}"
-					/>
-					{#if form?.errors?.authorLink}
-						<p class="text-error-500 text-xs">{form?.errors?.authorLink[0]}</p>
-					{/if}
-				</div>
-			</div>
-
-			<div class="flex items-center mb-4 lg:mx-16 md:mx-12 mx-10">
-				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
-					<!-- svelte-ignore a11y-label-has-associated-control -->
-					<label class="label">
-						<span>Published Date</span>
-					</label>
-				</div>
-				<span class="span w-1/2 md:2/3 lg:2/3" id="publishingDate"
-					>{date.format(publishingDate, 'DD MMM YYYY')}</span
-				>
-			</div>
-
-			<div class="flex  my-2 lg:mx-16 md:mx-12 mx-10">
-				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
-					<!-- svelte-ignore a11y-label-has-associated-control -->
-					<label class="label">
-						<span>Image</span>
-					</label>
-				</div>
-				<div class="flex flex-row gap-4 w-1/2 md:w-2/3 lg:w-2/3 ">
+					type="url"
+					name="authorLink"
+					bind:value={authorLink}
+					placeholder="Enter author link here..."
+					class="input w-full {form?.errors?.authorLink
+						? 'border-error-300 text-error-500'
+						: 'border-primary-200 text-primary-500'}"
+				/>
+				</td>
+			</tr>
+			<tr class="!border-b !border-b-secondary-100">
+				<td>Published Date</td>
+				<td>{date.format(publishingDate, 'DD MMM YYYY')}</td>
+			</tr>
+			<tr class="!border-b !border-b-secondary-100">
+			 <td class="align-top">Image</td>
+				<td>
 					{#if image === 'undefined'}
-						<input
-							name="fileinput"
-							type="file"
-							class="true input w-full"
-							placeholder="Image"
-							on:change={async (e) => await onFileSelected(e)}
-						/>
-					{:else}
-						<Image cls="flex h-24 w-24 rounded-lg" source={image} w="24" h="24" />
-						<input
-							name="fileinput"
-							type="file"
-							class="true input w-full"
-							placeholder="Image"
-							on:change={async (e) => await onFileSelected(e)}
-						/>
-					{/if}
-					<input type="hidden" name="image" value={image} />
-					{#if form?.errors?.image}
-						<p class="text-error-500 text-xs">{form?.errors?.image[0]}</p>
-					{/if}
-				</div>
-			</div>
-
-			<div class="flex items-center my-8 lg:mx-16 md:mx-12 mx-4 ">
-				<div class="lg:w-1/2 md:w-1/2 sm:w-1/2  w-1/3" />
-				<div class="lg:w-1/4 md:w-1/4 sm:w-1/4  w-1/3 ">
-					<button
-						type="button"
-						on:click={handleReset}
-						class="btn variant-ringed-primary text-primary-500 lg:w-40 lg:ml-8 md:ml-6 sm:ml-1 mb-10"
-					>
-						Reset</button
-					>
-				</div>
-				<div class="lg:w-1/4 md:w-1/4 sm:w-1/4 w-1/3">
-					<button
-						type="submit"
-						class="btn variant-filled-secondary lg:w-40 lg:ml-8 md:ml-6 sm:ml-2 mb-10"
-						>Submit
-					</button>
-				</div>
-			</div>
-		</form>
+					<input
+						name="fileinput"
+						type="file"
+						class="true input w-full"
+						placeholder="Image"
+						on:change={async (e) => await onFileSelected(e)}
+					/>
+				{:else}
+					<Image cls="flex h-24 w-24 rounded-lg" source={image} w="24" h="24" />
+					<input
+						name="fileinput"
+						type="file"
+						class="true input w-full"
+						placeholder="Image"
+						on:change={async (e) => await onFileSelected(e)}
+					/>
+				{/if}
+				<input type="hidden" name="image" value={image} />
+				</td>
+			</tr>
+		</tbody>
+	</table>
+	<div class="flex gap-2 p-2 justify-end">
+		<button type="button" on:click={handleReset} class="btn variant-soft-secondary">Reset</button>
+		<button type="submit" class="btn variant-filled-secondary">Submit</button>
 	</div>
-</main>
+</form>

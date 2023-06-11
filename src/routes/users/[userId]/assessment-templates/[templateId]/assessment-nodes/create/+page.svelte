@@ -4,8 +4,7 @@
 	import BreadCrumbs from '$lib/components/breadcrumbs/breadcrums.svelte';
 	import { page } from '$app/stores';
 	import type { PageServerData } from './$types';
-	import SingleChoice from './single.choice.svelte';
-	import MultipleChoice from './multiple.choice.svelte';
+	import Choice from './choice.svelte';
 	import { scoringApplicableCondition } from '$lib/store/general.store';
 
 	/////////////////////////////////////////////////////////////////////////////////////
@@ -63,7 +62,7 @@
 		class="w-full  bg-[#ECE4FC] lg:mt-10 md:mt-8 sm:mt-6 mb-10 mt-4 lg:max-w-4xl md:max-w-xl sm:max-w-lg  rounded-lg mx-auto"
 	>
 		<div class="w-full  h-14 rounded-t-lg p-3  bg-[#7165E3]">
-			<div class="ml-3 relative flex flex-row text-white text-xl">
+			<div class="ml-3 relative flex  text-white text-xl">
 				Create Assessment Node
 				<a href={assessmentNodeRoutes}>
 					<Fa icon={faMultiply} size="lg" class="absolute right-0 lg:pr-3 pr-0 text-white" />
@@ -207,7 +206,7 @@
 			<div>
 				{#if $scoringApplicableCondition === true}
 					{#if selectedQueryType === 'Single Choice Selection'}
-						<SingleChoice />
+						<Choice />
 						<div class="flex items-center my-4 mx-16">
 							<div class="w-1/2 md:w-1/3 lg:w-1/3">
 								<!-- svelte-ignore a11y-label-has-associated-control -->
@@ -231,7 +230,7 @@
 							</div>
 						</div>
 					{:else if selectedQueryType === 'Multi Choice Selection'}
-						<MultipleChoice />
+						<Choice />
 						<div class="flex items-center my-4 mx-16">
 							<div class="w-1/2 md:w-1/3 lg:w-1/3">
 								<!-- svelte-ignore a11y-label-has-associated-control -->
@@ -287,9 +286,9 @@
 						value={$scoringApplicableCondition}
 					/>
 				{:else if selectedQueryType === 'Single Choice Selection'}
-					<SingleChoice />
+					<Choice />
 				{:else if selectedQueryType === 'Multi Choice Selection'}
-					<MultipleChoice />
+					<Choice />
 				{/if}
 			</div>
 		{:else if selectedNodeType === 'Message'}
