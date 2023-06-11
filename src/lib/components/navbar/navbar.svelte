@@ -64,15 +64,11 @@
 			<svelte:fragment slot="lead">
 				<div class="flex justify-start items-center">
 					<img class="block w-10 ml-2" src="/rean-logo-white.png" alt="REAN" />
-					<div class="relative ml-10 w-96">
+					<div class="relative ml-6 w-64 max-[450px]:w-40">
+						<input type="text" class="input pl-10" placeholder="Search" />
 						<div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
 							<Fa icon={faSearch} class="text-primary-300" size="md" />
 						</div>
-						<input
-							type="text"
-							class="border border-primary-300 text-md text-primary-500 rounded-lg focus:ring-primary-300 focus:border-primary-300 placeholder:text-primary-300 block w-auto sm:w-full max-[450px]:w-36 pl-10 p-2.5 "
-							placeholder="Search"
-						/>
 					</div>
 				</div>
 			</svelte:fragment>
@@ -121,10 +117,8 @@
 			{#each navbarTabs as t}
 				<a
 					href={t.path}
-					class="hover:bg-surface-700 lg:hidden sm:first:hidden hover:text-white p-2 hover:no-underline text-start no-underline rounded-md text-md font-medium {activeTab ==
-					t.path
-						? 'active: bg-surface-800 '
-						: 'text-white'}">{t.name}</a
+					class="hover:bg-surface-700 lg:hidden sm:first:hidden hover:text-white p-2 hover:no-underline text-start no-underline rounded-md text-md font-medium
+					{activeTab == t.path ? 'active: bg-surface-800 ' : 'text-white'}">{t.name}</a
 				>
 			{/each}
 		</div>

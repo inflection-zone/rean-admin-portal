@@ -30,11 +30,11 @@
 			<img class="w-8" {src} alt="" />
 			<a href={viewRoute}>{headerText}</a>
 		</div>
-		<p class="text-primary-500">{itemsCount}</p>
-		<a href={addRoute} class="btn btn-icon-sm -my-1 text-primary-500 hover:variant-soft-primary">
+		<p>{itemsCount}</p>
+		<a href={addRoute} class="btn btn-icon-sm -my-1 hover:variant-soft-primary">
 			<Fa icon={faPlus} />
 		</a>
-		<a href={editRoute} class="btn btn-icon-sm -my-1 text-primary-500 hover:variant-soft-primary">
+		<a href={editRoute} class="btn btn-icon-sm -my-1 hover:variant-soft-primary">
 			<Fa icon={faPencil} />
 		</a>
 		<div>
@@ -46,7 +46,7 @@
 			>
 				<button
 					on:click|once={(id) => confirmThis(handlelDeleteClick, id)}
-					class="btn btn-icon-sm -my-1 text-primary-500 hover:variant-soft-error"
+					class="btn btn-icon-sm -my-1 hover:variant-soft-error"
 				>
 					<Fa icon={faTrash} />
 				</button>
@@ -55,7 +55,7 @@
 			</Confirm>
 		</div>
 		<button
-			class="btn btn-icon-sm -my-1 text-primary-500 hover:variant-soft-secondary "
+			class="btn btn-icon-sm -my-1 hover:variant-soft-secondary "
 			on:click={() => (expanded = !expanded)}
 		>
 			{#if expanded === false}

@@ -96,7 +96,7 @@
 				<td class="align-top">Modules</td>
 				<td>
 					{#if modules.length <= 0}
-						<span class="span">Modules are not available!</span>
+						Modules are not available!
 					{:else}
 						<TreeView lineColor="#5832A1" iconBackgroundColor="#5832A1" branchHoverColor="#5832A1">
 							{#each modules as module, i}

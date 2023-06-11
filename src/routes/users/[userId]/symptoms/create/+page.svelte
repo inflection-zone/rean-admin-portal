@@ -128,7 +128,8 @@
 					<textarea
 						name="description"
 						placeholder="Enter description here..."
-						class="textarea w-full {form?.errors?.description
+						class="textarea w-full
+						{form?.errors?.description
 							? 'border-error-300 text-error-500'
 							: 'border-primary-200 text-primary-500'}"
 					/>

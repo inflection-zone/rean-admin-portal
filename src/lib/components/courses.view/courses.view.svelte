@@ -70,9 +70,7 @@
 								await handlelModuleDelete(module.id, module.CourseContents)}
 						>
 							{#if module.CourseContents.length <= 0}
-								<span class="items-center text-primary-500 ml-10 mb-4">
-									Contents are not available
-								</span>
+								<span class="items-center text-primary-500 m-4">Contents are not available</span>
 							{:else}
 								<div class="table-container border !border-secondary-100">
 									<table class="table table-compact">
@@ -136,7 +134,7 @@
 						</CollapsibleSection>
 					{/each}
 				{:else}
-					<span class="items-center text-primary-500 mb-4">Modules are not available</span>
+					<span class="text-sm">Modules are not available</span>
 				{/if}
 			</CollapsibleSection>
 		{/each}
