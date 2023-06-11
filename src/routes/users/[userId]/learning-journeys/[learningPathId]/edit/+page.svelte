@@ -103,55 +103,61 @@
 	dataTableStore.subscribe((model) => dataTableHandler(model));
 </script>
 
-<main class="h-screen mb-44">
-	<BreadCrumbs crumbs={breadCrumbs} />
+<BreadCrumbs crumbs={breadCrumbs} />
 
-	<div class="">
-		<form
-			method="post"
-			action="?/updateLearningJourneyAction"
-			class="w-full  bg-[#ECE4FC] lg:mt-10 md:mt-8 sm:mt-6 mb-10 mt-4 lg:max-w-4xl md:max-w-xl sm:max-w-lg  rounded-lg mx-auto"
-		>
-			<div class="w-full  h-14 rounded-t-lg p-3  bg-[#7165E3]">
-				<div class="ml-3 relative flex flex-row text-white text-xl">
-					Edit Learning Journey
-					<a href={viewRoute}>
-						<Fa icon={faMultiply} size="lg" class="absolute right-0 pr-3 mb-16 text-white " />
+<form
+	method="post"
+	action="?/updateLearningJourneyAction"
+	class="table-container border border-secondary-100 my-2"
+>
+	<table class="table">
+		<thead class="!variant-soft-secondary">
+			<tr>
+				<th>Edit Learning Journey</th>
+				<th class="text-end">
+					<a href={viewRoute} class="btn btn-icon-sm -my-2 variant-soft-secondary">
+						<Fa icon={faMultiply} size="lg" />
 					</a>
-				</div>
-			</div>
-
-			<div class="hidden">{id}</div>
-			<div class="flex  mb-4 mt-10 lg:mx-16 md:mx-12 mx-10">
-				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
-					<!-- svelte-ignore a11y-label-has-associated-control -->
-					<label class="label">
-						<span>Name *</span>
-					</label>
-				</div>
-				<div class="w-1/2 md:w-2/3 lg:w-2/3">
+				</th>
+			</tr>
+		</thead>
+		<tbody class="!bg-white">
+			<tr class="!border-b !border-b-secondary-100">
+				<td>Name *</td>
+				<td>
 					<input
-						type="text"
-						name="name"
-						required
-						bind:value={name}
-						class="input w-full {form?.errors?.name
+					type="text"
+					name="name"
+					bind:value={name}
+					placeholder="Enter name here..."
+					class="input w-full {form?.errors?.name
+						? 'border-error-300 text-error-500'
+						: 'border-primary-200 text-primary-500'}"
+				/>
+				{#if form?.errors?.name}
+					<p class="text-error-500 text-xs">{form?.errors?.name[0]}</p>
+				{/if}
+				</td>
+			</tr>
+			<tr class="!border-b !border-b-secondary-100">
+				<td class="align-top">Description</td>
+				<td>
+					<textarea
+						name="description"
+						bind:value={description}
+						placeholder="Enter description here..."
+						class="textarea w-full  {form?.errors?.description
 							? 'border-error-300 text-error-500'
 							: 'border-primary-200 text-primary-500'}"
 					/>
-					{#if form?.errors?.name}
-						<p class="text-error-500 text-xs">{form?.errors?.name[0]}</p>
+					{#if form?.errors?.description}
+						<p class="text-error-500 text-xs">{form?.errors?.description[0]}</p>
 					{/if}
-				</div>
-			</div>
-			<div class="flex items-center my-4 lg:mx-16 md:mx-12 mx-10">
-				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
-					<!-- svelte-ignore a11y-label-has-associated-control -->
-					<label class="label">
-						<span>Preference Weight</span>
-					</label>
-				</div>
-				<div class="w-1/2 md:w-2/3 lg:w-2/3">
+				</td>
+			</tr>
+			<tr class="!border-b !border-b-secondary-100">
+				<td>Preference Weight</td>
+				<td>
 					<input
 						type="number"
 						name="preferenceWeight"
@@ -164,39 +170,11 @@
 					{#if form?.errors?.preferenceWeight}
 						<p class="text-error-500 text-xs">{form?.errors?.preferenceWeight[0]}</p>
 					{/if}
-				</div>
-			</div>
-
-			<div class="flex  mb-2 lg:mx-16 md:mx-12 mx-10">
-				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
-					<!-- svelte-ignore a11y-label-has-associated-control -->
-					<label class="label">
-						<span>Description</span>
-					</label>
-				</div>
-				<div class="w-1/2 md:w-2/3 lg:w-2/3">
-					<textarea
-						bind:value={description}
-						name="description"
-						placeholder="Enter description here..."
-						class="textarea w-full {form?.errors?.description
-							? 'border-error-300 text-error-500'
-							: 'border-primary-200 text-primary-500'}"
-					/>
-					{#if form?.errors?.description}
-						<p class="text-error-500 text-xs">{form?.errors?.description[0]}</p>
-					{/if}
-				</div>
-			</div>
-
-			<div class="flex items-center mb-4 mt-2 lg:mx-16 md:mx-12 mx-10">
-				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
-					<!-- svelte-ignore a11y-label-has-associated-control -->
-					<label class="label">
-						<span>Duration In Days</span>
-					</label>
-				</div>
-				<div class="w-1/2 md:w-2/3 lg:w-2/3">
+				</td>
+			</tr>
+			<tr class="!border-b !border-b-secondary-100">
+				<td>Duration In Days</td>
+				<td>
 					<input
 						type="number"
 						name="durationInDays"
@@ -209,40 +187,11 @@
 					{#if form?.errors?.durationInDays}
 						<p class="text-error-500 text-xs">{form?.errors?.durationInDays[0]}</p>
 					{/if}
-				</div>
-			</div>
-
-			<!-- <div class="flex  mt-2 mb-4  lg:mx-16 md:mx-12 mx-10">
-				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
-					<label class="label">
-						<span>Courses</span>
-					</label>
-				</div>
-				<div class="w-1/2 md:w-2/3 lg:w-2/3">
-					<select
-						name="courseIds"
-						class="select"
-						multiple
-						placeholder="Select course here..."
-						value={courseIds}
-					>
-						{#each allCources as course}
-							<option value={course.id}>{course.Name}</option>
-						{/each}
-					</select>
-					{#if form?.errors?.courseIds}
-						<p class="text-error-500 text-xs">{form?.errors?.courseIds[0]}</p>
-					{/if}
-				</div>
-			</div> -->
-			<div class="flex  mb-4 mt-2 lg:mx-16 md:mx-12 mx-10">
-				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
-					<!-- svelte-ignore a11y-label-has-associated-control -->
-					<label class="label">
-						<span>Courses</span>
-					</label>
-				</div>
-				<div class="w-1/2 md:w-2/3 lg:w-2/3">
+				</td>
+			</tr>
+			<tr class="!border-b !border-b-secondary-100">
+				<td class="align-top">Courses</td>
+				<td>
 					<input
 						class="input mb-3"
 						bind:value={$dataTableStore.search}
@@ -264,21 +213,16 @@
 					{#if form?.errors?.courseIds}
 						<p class="text-error-500 text-xs">{form?.errors?.courseIds[0]}</p>
 					{/if}
-				</div>
-			</div>
-
-			<div class="flex  my-2 lg:mx-16 md:mx-12 mx-10">
-				<div class="w-1/2 md:w-1/3 lg:w-1/3 ">
-					<!-- svelte-ignore a11y-label-has-associated-control -->
-					<label class="label">
-						<span>Image</span>
-					</label>
-				</div>
-				<div class="flex flex-row gap-4 w-1/2 md:w-2/3 lg:w-2/3 ">
+				</td>
+			</tr>
+			<tr class="!border-b !border-b-secondary-100">
+				<td class="align-top">Image</td>
+				<td>
 					{#if imageUrl === 'undefined'}
 						<input
 							name="fileinput"
 							type="file"
+							required
 							class="true input w-full"
 							placeholder="Image"
 							on:change={async (e) => await onFileSelected(e)}
@@ -297,28 +241,12 @@
 					{#if form?.errors?.imageUrl}
 						<p class="text-error-500 text-xs">{form?.errors?.imageUrl[0]}</p>
 					{/if}
-				</div>
-			</div>
-
-			<div class="flex items-center my-8 lg:mx-16 md:mx-12 mx-4 ">
-				<div class="lg:w-1/2 md:w-1/2 sm:w-1/2  w-1/3" />
-				<div class="lg:w-1/4 md:w-1/4 sm:w-1/4  w-1/3 ">
-					<button
-						type="button"
-						on:click={handleReset}
-						class="btn variant-ringed-primary text-primary-500 lg:w-40 lg:ml-8 md:ml-6 sm:ml-1 mb-10"
-					>
-						Reset</button
-					>
-				</div>
-				<div class="lg:w-1/4 md:w-1/4 sm:w-1/4 w-1/3">
-					<button
-						type="submit"
-						class="btn variant-filled-secondary lg:w-40 lg:ml-8 md:ml-6 sm:ml-2 mb-10"
-						>Submit
-					</button>
-				</div>
-			</div>
-		</form>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+	<div class="flex gap-2 p-2 justify-end">
+		<button type="button" on:click={handleReset} class="btn variant-soft-secondary">Reset</button>
+		<button type="submit" class="btn variant-filled-secondary">Submit</button>
 	</div>
-</main>
+</form>
