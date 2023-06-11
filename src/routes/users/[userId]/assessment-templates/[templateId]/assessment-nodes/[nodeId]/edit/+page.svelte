@@ -4,8 +4,7 @@
 	import BreadCrumbs from '$lib/components/breadcrumbs/breadcrums.svelte';
 	import { page } from '$app/stores';
 	import type { PageServerData } from './$types';
-	import SingleChoice from '../../create/single.choice.svelte';
-	import MultipleChoice from '../../create/multiple.choice.svelte';
+	import Choice from '../../create/choice.svelte';
 
 	//////////////////////////////////////////////////////////////////////////////////////
 
@@ -61,9 +60,7 @@
 		selectedNodeType = val.target.value;
 	};
 
-	const onSelectQueryResponseType = (val) => {
-		selectedQueryType = val.target.value;
-	};
+	const onSelectQueryResponseType = (val) => (selectedQueryType = val.target.value);
 </script>
 
 <BreadCrumbs crumbs={breadCrumbs} />
@@ -87,18 +84,20 @@
 		<tbody class="!bg-white">
 			<tr class="!border-b !border-b-secondary-100">
 				<td>Node Type *</td>
-				<select
-				name="nodeType"
-				bind:value={nodeType}
-				placeholder="Select node type here..."
-				class="select"
-				on:change={(val) => onSelectNodeType(val)}
-			>
-				<option selected>{nodeType}</option>
-				<option>Question</option>
-				<option>Message</option>
-				<option>Node List</option>
-			</select>
+				<td>
+					<select
+						name="nodeType"
+						bind:value={nodeType}
+						placeholder="Select node type here..."
+						class="select select-info"
+						on:change={(val) => onSelectNodeType(val)}
+					>
+						<option selected>{nodeType}</option>
+						<option>Question</option>
+						<option>Message</option>
+						<option>Node List</option>
+					</select>
+				</td>
 			</tr>
 			<tr class="!border-b !border-b-secondary-100">
 				<td>Title *</td>
@@ -109,9 +108,8 @@
 						required
 						bind:value={title}
 						placeholder="Enter title here..."
-						class="input w-full {form?.errors?.title
-							? 'border-error-300 text-error-500'
-							: 'border-primary-200 text-primary-500'}"
+						class="input w-full
+						{form?.errors?.title ? 'border-error-300 text-error-500' : 'border-primary-200 text-primary-500'}"
 					/>
 					{#if form?.errors?.title}
 						<p class="text-error-500 text-xs">{form?.errors?.title[0]}</p>
@@ -133,53 +131,51 @@
 				<td>Sequence</td>
 				<td>
 					<input
-					type="number"
-					name="sequence"
-					placeholder="Enter sequence here..."
-					class="input"
-					bind:value={sequence}
-				/>
-			 </td>
-			</tr>
-			{#if selectedNodeType === 'Question'}
-			<tr class="!border-b !border-b-secondary-100">
-				<td class="align-top">Query Response Type *</td>
-				<td>
-					<select
-						id="mySelect"
-						name="queryType"
-						class="select select-info w-full"
-						placeholder="Select query type here..."
-						on:change={(val) => onSelectQueryResponseType(val)}
-					>
-						<option selected value={queryType}>{queryType}</option>
-						{#each queryResponseTypes as responseType}
-							<option value={responseType}>{responseType}</option>
-						{/each}
-					</select>
-					{#if selectedQueryType === 'Single Choice Selection'}
-					 <SingleChoice {optionValueStore} />
-				  {:else if selectedQueryType === 'Multi Choice Selection'}
-					 <MultipleChoice {optionValueStore} />
-				  {/if}
-				</td>
-			</tr>
-			{:else if selectedNodeType === 'Message'}
-			<tr class="!border-b !border-b-secondary-100">
-				<td>Message *</td>
-				<td>
-					<textarea
-						name="message"
-						required
-						placeholder="Enter message here..."
-						bind:value={message}
-						class="textarea w-full
-						{form?.errors?.message ? 'border-error-300 text-error-500' : 'border-primary-200 text-primary-500'}"
+						type="number"
+						name="sequence"
+						placeholder="Enter sequence here..."
+						class="input"
+						bind:value={sequence}
 					/>
 				</td>
 			</tr>
+			{#if selectedNodeType === 'Question'}
+				<tr class="!border-b !border-b-secondary-100">
+					<td class="align-top">Query Response Type *</td>
+					<td>
+						<select
+							id="mySelect"
+							name="queryType"
+							class="select select-info w-full"
+							placeholder="Select query type here..."
+							on:change={(val) => onSelectQueryResponseType(val)}
+						>
+							<option selected value={queryType}>{queryType}</option>
+							{#each queryResponseTypes as responseType}
+								<option value={responseType}>{responseType}</option>
+							{/each}
+						</select>
+						{#if selectedQueryType === 'Single Choice Selection' || selectedQueryType === 'Multi Choice Selection'}
+							<Choice {optionValueStore} />
+						{/if}
+					</td>
+				</tr>
+			{:else if selectedNodeType === 'Message'}
+				<tr class="!border-b !border-b-secondary-100">
+					<td>Message *</td>
+					<td>
+						<textarea
+							name="message"
+							required
+							placeholder="Enter message here..."
+							bind:value={message}
+							class="textarea w-full
+						{form?.errors?.message ? 'border-error-300 text-error-500' : 'border-primary-200 text-primary-500'}"
+						/>
+					</td>
+				</tr>
 			{:else}
-			<tr></tr>
+				<tr />
 			{/if}
 		</tbody>
 	</table>
@@ -188,4 +184,3 @@
 		<button type="submit" class="btn variant-filled-secondary">Submit</button>
 	</div>
 </form>
-
