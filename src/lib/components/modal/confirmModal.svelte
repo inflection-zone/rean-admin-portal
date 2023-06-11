@@ -10,10 +10,7 @@
 		dispatch('delete');
 	};
 
-	let functionToCall = {
-		func: null,
-		args: null
-	};
+	let functionToCall = { func: null, args: null };
 
 	export async function callFunction() {
 		await functionToCall['func'](...functionToCall['args']);
@@ -32,15 +29,8 @@
 	<div class="overlay" in:fade={{ duration: 200 }} out:fade={{ delay: 200, duration: 200 }} />
 	<div
 		class="confirm-dialog"
-		in:fly={{
-			y: -10,
-			delay: 200,
-			duration: 200
-		}}
-		out:fly={{
-			y: -10,
-			duration: 200
-		}}
+		in:fly={{ y: -10, delay: 200, duration: 200 }}
+		out:fly={{ y: -10, duration: 200 }}
 	>
 		<div class="message-section">
 			<span class="message-title text-primary-500">
@@ -50,7 +40,7 @@
 				<slot name="description" class="text-primary-500">This action can't be undone!</slot>
 			</span>
 		</div>
-		<div class="actions bg-White">
+		<div class="actions bg-white">
 			<button
 				class=" btn variant-soft-secondary leading-none pr-4 mr-4"
 				on:click={() => (showDialog = false)}
@@ -120,36 +110,4 @@
 		z-index: 998;
 		background: hsla(0, 0%, 0%, 80%);
 	}
-	/* .confirm-button {
-    background: hsl(200, 40%, 50%);
-    background: var(--confirm-btn-bg);
-    margin-left: 10px;
-    border: none;
-    outline: none;
-    border-radius: 2px;
-    padding: 10px 15px;
-    cursor: pointer;
-    font-size: 16px;
-    color: hsl(0, 0%, 95%);
-    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
-  } */
-	/* .confirm-button:hover {
-    background: hsl(200, 40%, 55%);
-    background: var(--confirm-btn-bg-hover);
-  } */
-	/* .cancel-button {
-    border: none;
-    outline: none;
-    background: transparent;
-    padding: 5px 10px;
-    cursor: pointer;
-    font-size: 16px;
-    color: hsl(200, 40%, 50%);
-    color: var(--cancel-btn-color);
-    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
-  } */
-	/* .cancel-button:hover {
-    color: hsl(200, 40%, 55%);
-    color: var(--cancel-btn-color-hover);
-  } */
 </style>

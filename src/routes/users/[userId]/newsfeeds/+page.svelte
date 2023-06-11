@@ -118,7 +118,7 @@
 					<td role="gridcell" aria-colindex={2} tabindex="0">
 						<a href={viewRoute(row.id)}>{Helper.truncateText(row.Title, 20)}</a>
 					</td>
-					<td role="gridcell" aria-colindex={3} tabindex="0">{Helper.truncateText(row.Link, 40)}</td
+					<td role="gridcell" aria-colindex={3} tabindex="0">{Helper.truncateText(row.Link, 30)}</td
 					>
 					<td role="gridcell" aria-colindex={4} tabindex="0">{row.Category}</td>
 					<td role="gridcell" aria-colindex={5} tabindex="0"
@@ -127,7 +127,7 @@
 						{:else}
 							{#each row.FeedItems as items, i}
 								<a href={viewItemRoute(items.id)}>
-									{i + 1}.{Helper.truncateText(items.Title, 10)}</a
+									{i + 1}.{Helper.truncateText(items.Title, 20)}</a
 								>
 								<br />
 							{/each}

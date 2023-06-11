@@ -19,71 +19,47 @@
 
 <!-- svelte-ignore a11y-click-events-have-key-events -->
 <dialog
-	class=""
+	class="p-0 rounded-lg shadow-xl backdrop:bg-black/50"
 	bind:this={dialog}
 	on:close={() => showScoringConditionModal.set(false)}
 	on:click|self={() => dialog.close()}
 >
-	<div>
-		<form
-			action="?/getApiKey"
-			method="POST"
-			class="w-full bg-tertiary-500 lg:max-w-4xl md:max-w-xl sm:max-w-lg  rounded-lg mx-auto"
-		>
-			<div class="w-full h-14 rounded-t-lg p-3 bg-[#7165E3]">
-				<div class="ml-3 relative flex flex-row text-white text-xl">
-					Update Scoring Condition
-					<div on:click={() => dialog.close()}>
-						<Fa
-							icon={faMultiply}
-							size="lg"
-							class="absolute right-0 lg:pr-3 md:pr-2 pr-0 text-white"
-						/>
-					</div>
-				</div>
-			</div>
-			<label class="label mb-4 mx-5 mt-5">
-				<span class="">Resolution Score *</span>
-				<input
-					class="input"
-					name="resolutionScore"
-					type="number"
-					bind:value={resolutionScore}
-					placeholder="Enter resolution score here..."
-				/>
-			</label>
-			<div class="flex justify-end gap-6">
-				<button
-					type="button"
-					class="btn variant-ringed-primary text-primary-500 w-full ml-5 mt-5 mb-8 "
-					on:click={() => dialog.close()}>Close</button
-				>
-				<button
-					type="button"
-					class="btn variant-filled-secondary w-full mr-5 mt-5 mb-8"
-					on:click={async () => {
-						await handlelSubmitClick(resolutionScore);
-						await dialog.close();
-					}}>Submit</button
-				>
-			</div>
-		</form>
+	<div class="flex items-center justify-between variant-soft-secondary py-2 px-4">
+		<span class="text-xl">Update Scoring Condition</span>
+		<button class="btn btn-icon-sm variant-soft-secondary" on:click={() => dialog.close()}>
+			<Fa icon={faMultiply} size="lg" />
+		</button>
 	</div>
+
+	<form action="?/getApiKey" method="POST" class="flex flex-col gap-2 p-4 -mt-2">
+		<label>
+			Resolution Score
+			<input
+				class="input"
+				name="resolutionScore"
+				type="number"
+				bind:value={resolutionScore}
+				placeholder="Enter resolution score here..."
+			/>
+		</label>
+
+		<div class="flex justify-end gap-2">
+			<button class="btn variant-soft-secondary" on:click={() => dialog.close()}>Close</button>
+
+			<button
+				class="btn variant-filled-secondary"
+				on:click={async () => {
+					await handlelSubmitClick(resolutionScore);
+					await dialog.close();
+				}}
+			>
+				Submit
+			</button>
+		</div>
+	</form>
 </dialog>
 
 <style>
-	dialog {
-		max-width: 72em;
-		border-radius: 0.2em;
-		border: none;
-		padding: 0;
-	}
-	dialog::backdrop {
-		background: rgba(0, 0, 0, 0.3);
-	}
-	dialog > div {
-		padding: 1em;
-	}
 	dialog[open] {
 		animation: zoom 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
 	}
@@ -95,6 +71,7 @@
 			transform: scale(1);
 		}
 	}
+
 	dialog[open]::backdrop {
 		animation: fade 0.2s ease-out;
 	}
@@ -105,8 +82,5 @@
 		to {
 			opacity: 1;
 		}
-	}
-	button {
-		display: block;
 	}
 </style>

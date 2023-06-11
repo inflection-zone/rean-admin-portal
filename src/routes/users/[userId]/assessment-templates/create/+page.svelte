@@ -12,14 +12,8 @@
 	const assessmentsRoutes = `/users/${userId}/assessment-templates`;
 
 	const breadCrumbs = [
-		{
-			name: 'Assessments',
-			path: assessmentsRoutes
-		},
-		{
-			name: 'Create',
-			path: createRoute
-		}
+		{ name: 'Assessments', path: assessmentsRoutes },
+		{ name: 'Create', path: createRoute }
 	];
 </script>
 
@@ -32,7 +26,7 @@
 		class="w-full  bg-[#ECE4FC] lg:mt-10 md:mt-8 sm:mt-6 mb-10 mt-4 lg:max-w-4xl md:max-w-xl sm:max-w-lg  rounded-lg mx-auto"
 	>
 		<div class="w-full  h-14 rounded-t-lg p-3  bg-[#7165E3]">
-			<div class="ml-3 relative flex flex-row text-white text-xl">
+			<div class="ml-3 relative flex  text-white text-xl">
 				Create Assessment Template
 				<a href={assessmentsRoutes}>
 					<Fa icon={faMultiply} size="lg" class="absolute right-0 lg:pr-3 pr-0 text-white" />
