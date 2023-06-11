@@ -160,7 +160,7 @@
 				<td>Link</td>
 				<td>
 					<input
-						type="text"
+						type="url"
 						name="link"
 						bind:value={link}
 						placeholder="Enter copyright here..."
