@@ -52,7 +52,7 @@
 		</div>
 		<div class="actions bg-White">
 			<button
-				class=" btn variant-filled-secondary leading-none pr-4 mr-4"
+				class=" btn variant-soft-secondary leading-none pr-4 mr-4"
 				on:click={() => (showDialog = false)}
 			>
 				<slot name="cancel">

@@ -1,8 +1,6 @@
 <script lang="ts">
 	import { Accordion, AccordionItem } from '@skeletonlabs/skeleton';
 	import { page } from '$app/stores';
-	import Fa from 'svelte-fa';
-	import { faBars } from '@fortawesome/free-solid-svg-icons';
 	import { navigating } from '$app/stores';
 
 	export let userId = undefined;
@@ -13,16 +11,8 @@
 			title: 'Dashboard',
 			icon: '/sidebar/dashboard.png',
 			childNav: [
-				{
-					icon: '/rean-logo-white.png',
-					title: 'RHG App',
-					link: `/users/${userId}/home`
-				},
-				{
-					icon: '/rean-logo-white.png',
-					title: 'RHG Bot',
-					link: `/users/${userId}/home`
-				}
+				{ icon: '/rean-logo-white.png', title: 'RHG App', link: `/users/${userId}/home` },
+				{ icon: '/rean-logo-white.png', title: 'RHG Bot', link: `/users/${userId}/home` }
 			]
 		},
 		{
@@ -39,27 +29,15 @@
 					title: 'Lab-Records',
 					link: `/users/${userId}/lab-record-types`
 				},
-				{
-					icon: '/sidebar/symptom.png',
-					title: 'Symptoms',
-					link: `/users/${userId}/symptoms`
-				},
-				{
-					icon: '/sidebar/drug.png',
-					title: 'Drug',
-					link: `/users/${userId}/drugs`
-				}
+				{ icon: '/sidebar/symptom.png', title: 'Symptoms', link: `/users/${userId}/symptoms` },
+				{ icon: '/sidebar/drug.png', title: 'Drug', link: `/users/${userId}/drugs` }
 			]
 		},
 		{
 			title: 'Educational',
 			icon: '/sidebar/educational.png',
 			childNav: [
-				{
-					icon: '/sidebar/course.png',
-					title: 'Courses',
-					link: `/users/${userId}/courses`
-				},
+				{ icon: '/sidebar/course.png', title: 'Courses', link: `/users/${userId}/courses` },
 				{
 					icon: '/sidebar/learning.png',
 					title: 'Learning Journey',
@@ -81,27 +59,15 @@
 					title: 'Person Role',
 					link: `/users/${userId}/person-role-types`
 				},
-				{
-					icon: '/sidebar/priority.png',
-					title: 'Priorities',
-					link: `/users/${userId}/priorities`
-				},
-				{
-					icon: '/sidebar/goal.png',
-					title: 'Goals',
-					link: `/users/${userId}/goals`
-				}
+				{ icon: '/sidebar/priority.png', title: 'Priorities', link: `/users/${userId}/priorities` },
+				{ icon: '/sidebar/goal.png', title: 'Goals', link: `/users/${userId}/goals` }
 			]
 		},
 		{
 			title: 'Miscellaneous',
 			icon: '/sidebar/miscellaneous.png',
 			childNav: [
-				{
-					icon: '/sidebar/client.png',
-					title: 'Clients',
-					link: `/users/${userId}/api-clients`
-				},
+				{ icon: '/sidebar/client.png', title: 'Clients', link: `/users/${userId}/api-clients` },
 				{
 					icon: '/sidebar/organization.png',
 					title: 'Organizations',
@@ -112,16 +78,8 @@
 					title: 'Notifications',
 					link: `/users/${userId}/notifications`
 				},
-				{
-					icon: '/sidebar/newsfeed.png',
-					title: 'News Feed',
-					link: `/users/${userId}/newsfeeds`
-				},
-				{
-					icon: '/sidebar/notice.png',
-					title: 'Notices',
-					link: `/users/${userId}/notices`
-				}
+				{ icon: '/sidebar/newsfeed.png', title: 'News Feed', link: `/users/${userId}/newsfeeds` },
+				{ icon: '/sidebar/notice.png', title: 'Notices', link: `/users/${userId}/notices` }
 			]
 		}
 	];
