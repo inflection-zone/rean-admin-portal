@@ -1,19 +1,19 @@
 <script lang="ts">
+	import { browser } from '$app/environment';
+	import { page } from '$app/stores';
+	import BreadCrumbs from '$lib/components/breadcrumbs/breadcrums.svelte';
+	import Confirm from '$lib/components/modal/confirmModal.svelte';
+	import { Helper } from '$lib/utils/helper';
+	import { faPencil, faTrash } from '@fortawesome/free-solid-svg-icons';
 	import {
+		Paginator,
 		createDataTableStore,
 		dataTableHandler,
 		tableA11y,
 		tableInteraction
 	} from '@skeletonlabs/skeleton';
-	import { Paginator } from '@skeletonlabs/skeleton';
-	import { page } from '$app/stores';
-	import date from 'date-and-time';
 	import Fa from 'svelte-fa';
-	import BreadCrumbs from '$lib/components/breadcrumbs/breadcrums.svelte';
-	import Confirm from '$lib/components/modal/confirmModal.svelte';
-	import { faPencil, faTrash, faSearch } from '@fortawesome/free-solid-svg-icons';
 	import type { PageServerData } from './$types';
-	import { Helper } from '$lib/utils/helper';
 
 	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -33,12 +33,7 @@
 	const viewItemRoute = (id) => `/users/${userId}/newsfeeds/${id}/newsfeed-items/${id}/view`;
 	const createRoute = `/users/${userId}/newsfeeds/create`;
 
-	const breadCrumbs = [
-		{
-			name: 'Newsfeeds',
-			path: newsfeedRoute
-		}
-	];
+	const breadCrumbs = [{ name: 'Newsfeeds', path: newsfeedRoute }];
 
 	let title = undefined;
 	let category = undefined;
@@ -68,7 +63,7 @@
 
 		dataTableStore.updateSource(newsfeeds);
 	}
-	$: searchNewsfeed({ title: title, category: category });
+	$: if (browser) searchNewsfeed({ title: title, category: category });
 
 	dataTableStore.subscribe((model) => dataTableHandler(model));
 

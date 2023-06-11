@@ -1,13 +1,12 @@
 <script lang="ts">
-	import Fa from 'svelte-fa';
-	import { createDataTableStore, dataTableHandler } from '@skeletonlabs/skeleton';
-	import { Paginator } from '@skeletonlabs/skeleton';
+	import { browser } from '$app/environment';
 	import { page } from '$app/stores';
 	import BreadCrumbs from '$lib/components/breadcrumbs/breadcrums.svelte';
 	import Confirm from '$lib/components/modal/confirmModal.svelte';
-	import { faPencil, faSearch, faTrash } from '@fortawesome/free-solid-svg-icons';
+	import { faPencil, faTrash } from '@fortawesome/free-solid-svg-icons';
+	import { Paginator, createDataTableStore, dataTableHandler } from '@skeletonlabs/skeleton';
+	import Fa from 'svelte-fa';
 	import type { PageServerData } from './$types';
-
 	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 	export let data: PageServerData;
@@ -25,14 +24,8 @@
 	const createRoute = `/users/${userId}/assessment-templates/${templateId}/assessment-nodes/create`;
 
 	const breadCrumbs = [
-		{
-			name: 'Assessments',
-			path: assessmentRoute
-		},
-		{
-			name: 'Assessment-Nodes',
-			path: assessmentNodeRoute
-		}
+		{ name: 'Assessments', path: assessmentRoute },
+		{ name: 'Assessment-Nodes', path: assessmentNodeRoute }
 	];
 
 	let title = undefined;
@@ -77,7 +70,7 @@
 
 		dataTableStore.updateSource(assessmentNodes);
 	}
-	$: searchNode({ title: title, nodeType: nodeType });
+	$: if (browser) searchNode({ title: title, nodeType: nodeType });
 
 	dataTableStore.subscribe((model) => dataTableHandler(model));
 
@@ -109,9 +102,9 @@
 	<a href={createRoute} class="btn variant-filled-secondary">Add New</a>
 </div>
 
-<div class="flex justify-center flex-col mt-4 mb-10 mx-10 overflow-y-auto ">
-	<table class="table">
-		<thead class="sticky top-0">
+<div class="table-container !border !border-secondary-100 my-2">
+	<table class="table" role="grid">
+		<thead class="!variant-soft-secondary">
 			<tr>
 				<th>Id</th>
 				<th>Title</th>
@@ -140,9 +133,7 @@
 							confirmTitle="Delete"
 							cancelTitle="Cancel"
 							let:confirm={confirmThis}
-							on:delete={(e) => {
-								handleAssessmentNodeDelete(e, row.id);
-							}}
+							on:delete={(e) => handleAssessmentNodeDelete(e, row.id)}
 						>
 							<button
 								on:click|preventDefault={() => confirmThis(handleAssessmentNodeDelete, row.id)}

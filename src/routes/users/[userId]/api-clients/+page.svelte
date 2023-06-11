@@ -1,18 +1,19 @@
 <script lang="ts">
+	import { browser } from '$app/environment';
+	import { page } from '$app/stores';
+	import BreadCrumbs from '$lib/components/breadcrumbs/breadcrums.svelte';
+	import Confirm from '$lib/components/modal/confirmModal.svelte';
+	import { Helper } from '$lib/utils/helper';
+	import { faPencil, faTrash } from '@fortawesome/free-solid-svg-icons';
 	import {
+		Paginator,
 		createDataTableStore,
 		dataTableHandler,
-		tableInteraction,
-		tableA11y
+		tableA11y,
+		tableInteraction
 	} from '@skeletonlabs/skeleton';
-	import { Paginator } from '@skeletonlabs/skeleton';
 	import Fa from 'svelte-fa';
-	import { faPencil, faTrash, faSearch } from '@fortawesome/free-solid-svg-icons';
-	import { page } from '$app/stores';
-	import Confirm from '$lib/components/modal/confirmModal.svelte';
-	import BreadCrumbs from '$lib/components/breadcrumbs/breadcrums.svelte';
 	import type { PageServerData } from './$types';
-	import { Helper } from '$lib/utils/helper';
 
 	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -67,7 +68,7 @@
 		apiClients = response.map((item, index) => ({ ...item, index: index + 1 }));
 		dataTableStore.updateSource(apiClients);
 	}
-	$: searchApiClient({ clientName: clientName, contactEmail: contactEmail });
+	$: if (browser) searchApiClient({ clientName: clientName, contactEmail: contactEmail });
 
 	const handleApiClientDelete = async (e, id) => {
 		const clientId = id;

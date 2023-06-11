@@ -1,19 +1,20 @@
 <script lang="ts">
-	import Fa from 'svelte-fa';
+	import { browser } from '$app/environment';
+	import { page } from '$app/stores';
+	import BreadCrumbs from '$lib/components/breadcrumbs/breadcrums.svelte';
+	import Confirm from '$lib/components/modal/confirmModal.svelte';
+	import { Helper } from '$lib/utils/helper';
+	import { faPencil, faTrash } from '@fortawesome/free-solid-svg-icons';
 	import {
+		Paginator,
 		createDataTableStore,
 		dataTableHandler,
 		tableA11y,
 		tableInteraction
 	} from '@skeletonlabs/skeleton';
-	import { Paginator } from '@skeletonlabs/skeleton';
-	import { page } from '$app/stores';
 	import date from 'date-and-time';
-	import BreadCrumbs from '$lib/components/breadcrumbs/breadcrums.svelte';
-	import Confirm from '$lib/components/modal/confirmModal.svelte';
-	import { faSearch, faTrash, faPencil } from '@fortawesome/free-solid-svg-icons';
+	import Fa from 'svelte-fa';
 	import type { PageServerData } from './$types';
-	import { Helper } from '$lib/utils/helper';
 
 	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -27,12 +28,7 @@
 	const viewRoute = (id) => `/users/${userId}/learning-journeys/${id}/view`;
 	const createRoute = `/users/${userId}/learning-journeys/create`;
 
-	const breadCrumbs = [
-		{
-			name: 'Learning-Journeys',
-			path: learningJourneyRoute
-		}
-	];
+	const breadCrumbs = [{ name: 'Learning-Journeys', path: learningJourneyRoute }];
 
 	let name = undefined;
 	let preferenceWeight = undefined;
@@ -67,7 +63,7 @@
 
 		dataTableStore.updateSource(learningPaths);
 	}
-	$: searchLearningJourney({ name: name, preferenceWeight: preferenceWeight });
+	$: if (browser) searchLearningJourney({ name: name, preferenceWeight: preferenceWeight });
 
 	dataTableStore.subscribe((model) => dataTableHandler(model));
 

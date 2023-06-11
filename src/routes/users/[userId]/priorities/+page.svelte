@@ -1,19 +1,20 @@
 <script lang="ts">
+	import { browser } from '$app/environment';
+	import { page } from '$app/stores';
+	import BreadCrumbs from '$lib/components/breadcrumbs/breadcrums.svelte';
+	import Confirm from '$lib/components/modal/confirmModal.svelte';
+	import { Helper } from '$lib/utils/helper';
+	import { faPencil, faTrash } from '@fortawesome/free-solid-svg-icons';
 	import {
+		Paginator,
 		createDataTableStore,
 		dataTableHandler,
 		tableA11y,
 		tableInteraction
 	} from '@skeletonlabs/skeleton';
-	import { Paginator } from '@skeletonlabs/skeleton';
-	import Fa from 'svelte-fa';
-	import { faPencil, faTrash, faSearch } from '@fortawesome/free-solid-svg-icons';
-	import { page } from '$app/stores';
 	import date from 'date-and-time';
-	import Confirm from '$lib/components/modal/confirmModal.svelte';
-	import BreadCrumbs from '$lib/components/breadcrumbs/breadcrums.svelte';
+	import Fa from 'svelte-fa';
 	import type { PageServerData } from './$types';
-	import { Helper } from '$lib/utils/helper';
 
 	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -62,7 +63,7 @@
 		priorityTypes = response.map((item, index) => ({ ...item, index: index + 1 }));
 		dataTableStore.updateSource(priorityTypes);
 	}
-	$: searchPriority({ type: type, tags: tags });
+	$: if (browser) searchPriority({ type: type, tags: tags });
 
 	dataTableStore.subscribe((model) => dataTableHandler(model));
 
