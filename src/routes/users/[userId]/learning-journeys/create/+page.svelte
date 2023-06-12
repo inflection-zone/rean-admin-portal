@@ -99,7 +99,7 @@
 	<table class="table">
 		<thead class="!variant-soft-secondary">
 			<tr>
-				<th>Create Learning Journey</th>
+				<th class="whitespace-nowrap">Create Learning Journey</th>
 				<th class="text-end">
 					<a href={learningJourneyRoute} class="btn btn-icon-sm -my-2 variant-soft-secondary">
 						<Fa icon={faMultiply} size="lg" />
@@ -112,26 +112,22 @@
 				<td>Name *</td>
 				<td>
 					<input
-					type="text"
-					name="name"
-					placeholder="Enter name here..."
-					class="input w-full {form?.errors?.name
-						? 'border-error-300 text-error-500'
-						: 'border-primary-200 text-primary-500'}"
-				/>
-				{#if form?.errors?.name}
-					<p class="text-error-500 text-xs">{form?.errors?.name[0]}</p>
-				{/if}
+						type="text"
+						name="name"
+						placeholder="Enter name here..."
+						class="input w-full {form?.errors?.name
+							? 'border-error-300 text-error-500'
+							: 'border-primary-200 text-primary-500'}"
+					/>
+					{#if form?.errors?.name}
+						<p class="text-error-500 text-xs">{form?.errors?.name[0]}</p>
+					{/if}
 				</td>
 			</tr>
 			<tr class="!border-b !border-b-secondary-100">
 				<td class="align-top">Description</td>
 				<td>
-					<textarea
-						name="description"
-						placeholder="Enter description here..."
-						class="textarea"
-					/>
+					<textarea name="description" placeholder="Enter description here..." class="textarea" />
 				</td>
 			</tr>
 			<tr class="!border-b !border-b-secondary-100">
@@ -157,26 +153,27 @@
 				</td>
 			</tr>
 			<tr class="!border-b !border-b-secondary-100">
-				<td class="align-top">Courses</td>
-				<td>
+				<td class="align-top w-1/4">Courses</td>
+				<td class="flex flex-col gap-2 w-full">
 					<input
-						class="input mb-3"
+						class="input"
 						bind:value={$dataTableStore.search}
 						type="search"
 						placeholder="Search course here..."
 					/>
-					<div class="mb-4 mt-1">
+
+					<div class="flex flex-col gap-2">
 						<CoursesDragDrop courses={$dataTableStore.filtered} />
-					</div>
-					<div>
 						<SelectedCoursesDragDrop {selectedCourses} />
 					</div>
+
 					<input
 						name="courseIds"
 						bind:value={$selectedItems}
 						placeholder="Search course here..."
 						hidden
 					/>
+
 					{#if form?.errors?.courseIds}
 						<p class="text-error-500 text-xs">{form?.errors?.courseIds[0]}</p>
 					{/if}
@@ -185,14 +182,14 @@
 			<tr class="!border-b !border-b-secondary-100">
 				<td class="align-top">Image</td>
 				<td>
-						<input
-							name="fileinput"
-							type="file"
-							class="true input w-full"
-							placeholder="Image"
-							on:change={async (e) => await onFileSelected(e)}
-						/>
-						<input type="hidden" name="imageUrl" value={imageUrl} />
+					<input
+						name="fileinput"
+						type="file"
+						class="true input w-full"
+						placeholder="Image"
+						on:change={async (e) => await onFileSelected(e)}
+					/>
+					<input type="hidden" name="imageUrl" value={imageUrl} />
 				</td>
 			</tr>
 		</tbody>
