@@ -150,10 +150,10 @@
 				</tr>
 				{#if $scoringApplicableCondition === true}
 					{#if selectedQueryType === 'Single Choice Selection' || selectedQueryType === 'Multi Choice Selection'}
-					<Choice />
 						<tr class="!border-b !border-b-secondary-100">
-							<td>Resolution Score *</td>
+							<td class="align-top">Resolution Score *</td>
 							<td>
+								<Choice />
 								<input
 									type="number"
 									name="resolutionScore"
@@ -173,7 +173,8 @@
 									type="number"
 									name="resolutionScore"
 									placeholder="Enter resolution score here..."
-									class="input w-full {form?.errors?.resolutionScore
+									class="input w-full
+									{form?.errors?.resolutionScore
 										? 'border-error-300 text-error-500'
 										: 'border-primary-200 text-primary-500'}"
 									value={form?.data?.resolutionScore ?? ''}
@@ -182,7 +183,12 @@
 						</tr>
 					{/if}
 				{:else if selectedQueryType === 'Single Choice Selection' || selectedQueryType === 'Multi Choice Selection'}
-					<Choice />
+					<tr>
+						<td />
+						<td>
+							<Choice />
+						</td>
+					</tr>
 				{/if}
 			{:else if selectedNodeType === 'Message'}
 				<tr class="!border-b !border-b-secondary-100">
@@ -200,13 +206,14 @@
 			{:else}
 				<tr class="!border-b !border-b-secondary-100">
 					<td>Serve List Node Children At Once</td>
-					<td>
+					<td class="flex gap-2">
 						<input
 							type="checkbox"
 							name="serveListNodeChildrenAtOnce"
 							value="true"
-							class="checkbox checkbox-primary checkbox-md mr-2"
+							class="checkbox !border !border-secondary-100"
 						/>
+						Check
 					</td>
 				</tr>
 			{/if}
