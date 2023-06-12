@@ -1,19 +1,20 @@
 <script lang="ts">
-	import Fa from 'svelte-fa';
+	import { browser } from '$app/environment';
+	import { page } from '$app/stores';
+	import BreadCrumbs from '$lib/components/breadcrumbs/breadcrums.svelte';
+	import Confirm from '$lib/components/modal/confirmModal.svelte';
+	import { Helper } from '$lib/utils/helper';
+	import { faPencil, faTrash } from '@fortawesome/free-solid-svg-icons';
 	import {
+		Paginator,
 		createDataTableStore,
 		dataTableHandler,
 		tableA11y,
 		tableInteraction
 	} from '@skeletonlabs/skeleton';
-	import { Paginator } from '@skeletonlabs/skeleton';
-	import { page } from '$app/stores';
 	import date from 'date-and-time';
-	import BreadCrumbs from '$lib/components/breadcrumbs/breadcrums.svelte';
-	import Confirm from '$lib/components/modal/confirmModal.svelte';
-	import { faPencil, faSearch, faTrash } from '@fortawesome/free-solid-svg-icons';
+	import Fa from 'svelte-fa';
 	import type { PageServerData } from './$types';
-	import { Helper } from '$lib/utils/helper';
 
 	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -27,12 +28,7 @@
 	const viewRoute = (id) => `/users/${userId}/notices/${id}/view`;
 	const createRoute = `/users/${userId}/notices/create`;
 
-	const breadCrumbs = [
-		{
-			name: 'Notices',
-			path: NoticeRoute
-		}
-	];
+	const breadCrumbs = [{ name: 'Notices', path: NoticeRoute }];
 
 	let title = undefined;
 	let daysActive = undefined;
@@ -67,7 +63,7 @@
 
 		dataTableStore.updateSource(notices);
 	}
-	$: searchLinkage({ title: title, daysActive: daysActive });
+	$: if (browser) searchLinkage({ title: title, daysActive: daysActive });
 
 	dataTableStore.subscribe((model) => dataTableHandler(model));
 

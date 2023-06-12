@@ -14,6 +14,7 @@
 	import { faPencil, faSearch, faTrash } from '@fortawesome/free-solid-svg-icons';
 	import type { PageServerData } from './$types';
 	import { Helper } from '$lib/utils/helper';
+	import { browser } from '$app/environment';
 
 	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -65,7 +66,7 @@
 		notifications = response.map((item, index) => ({ ...item, index: index + 1 }));
 		dataTableStore.updateSource(notifications);
 	}
-	$: searchNotification({ title: title, type: type });
+	$: if (browser) searchNotification({ title: title, type: type });
 
 	dataTableStore.subscribe((model) => dataTableHandler(model));
 

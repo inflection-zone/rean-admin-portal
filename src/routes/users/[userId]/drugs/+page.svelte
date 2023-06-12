@@ -1,19 +1,20 @@
 <script lang="ts">
-	import Fa from 'svelte-fa';
+	import { browser } from '$app/environment';
+	import { page } from '$app/stores';
+	import BreadCrumbs from '$lib/components/breadcrumbs/breadcrums.svelte';
+	import Confirm from '$lib/components/modal/confirmModal.svelte';
+	import { Helper } from '$lib/utils/helper';
+	import { faPencil, faTrash } from '@fortawesome/free-solid-svg-icons';
 	import {
+		Paginator,
 		createDataTableStore,
 		dataTableHandler,
 		tableA11y,
 		tableInteraction
 	} from '@skeletonlabs/skeleton';
-	import { Paginator } from '@skeletonlabs/skeleton';
-	import { faPencil, faSearch, faTrash } from '@fortawesome/free-solid-svg-icons';
 	import date from 'date-and-time';
-	import BreadCrumbs from '$lib/components/breadcrumbs/breadcrums.svelte';
-	import Confirm from '$lib/components/modal/confirmModal.svelte';
-	import { page } from '$app/stores';
+	import Fa from 'svelte-fa';
 	import type { PageServerData } from './$types';
-	import { Helper } from '$lib/utils/helper';
 
 	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -62,7 +63,7 @@
 
 		dataTableStore.updateSource(drugs);
 	}
-	$: searchdrug({ drugName: drugName, genericName: genericName });
+	$: if (browser) searchdrug({ drugName: drugName, genericName: genericName });
 
 	dataTableStore.subscribe((model) => dataTableHandler(model));
 

@@ -124,7 +124,7 @@
 			class="w-full  bg-[#ECE4FC] lg:mt-10 md:mt-8 mb-10 mt-4 lg:max-w-4xl md:max-w-xl sm:max-w-lg  rounded-lg mx-auto"
 		>
 			<div class="w-full  h-14 rounded-t-lg p-3  bg-[#7165E3]">
-				<div class="ml-3 relative flex flex-row text-white text-xl">
+				<div class="ml-3 relative flex  text-white text-xl">
 					Create Newsfeed
 					<a href={newsfeedRoute}>
 						<Fa
@@ -281,7 +281,7 @@
 						<span>Favicon</span>
 					</label>
 				</div>
-				<div class="flex flex-row gap-8 w-1/2 md:w-2/3 lg:w-2/3 ">
+				<div class="flex  gap-8 w-1/2 md:w-2/3 lg:w-2/3 ">
 					<input
 						accept="image/png, image/jpeg"
 						type="file"
@@ -305,7 +305,7 @@
 						<span>Image</span>
 					</label>
 				</div>
-				<div class="flex flex-row gap-8 w-1/2 md:w-2/3 lg:w-2/3 ">
+				<div class="flex  gap-8 w-1/2 md:w-2/3 lg:w-2/3 ">
 					<input
 						accept="image/png, image/jpeg"
 						type="file"

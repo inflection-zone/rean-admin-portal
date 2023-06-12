@@ -12,14 +12,8 @@
 	const assessmentsRoutes = `/users/${userId}/assessment-templates`;
 
 	const breadCrumbs = [
-		{
-			name: 'Assessments',
-			path: assessmentsRoutes
-		},
-		{
-			name: 'Create',
-			path: createRoute
-		}
+		{ name: 'Assessments', path: assessmentsRoutes },
+		{ name: 'Create', path: createRoute }
 	];
 </script>
 

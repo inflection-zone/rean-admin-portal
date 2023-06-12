@@ -1,18 +1,19 @@
 <script lang="ts">
+	import { browser } from '$app/environment';
+	import { page } from '$app/stores';
+	import BreadCrumbs from '$lib/components/breadcrumbs/breadcrums.svelte';
+	import Confirm from '$lib/components/modal/confirmModal.svelte';
+	import { Helper } from '$lib/utils/helper';
+	import { faPencil, faTrash } from '@fortawesome/free-solid-svg-icons';
 	import {
+		Paginator,
 		createDataTableStore,
 		dataTableHandler,
 		tableA11y,
 		tableInteraction
 	} from '@skeletonlabs/skeleton';
-	import { Paginator } from '@skeletonlabs/skeleton';
-	import type { PageServerData } from './$types';
-	import { page } from '$app/stores';
 	import Fa from 'svelte-fa';
-	import BreadCrumbs from '$lib/components/breadcrumbs/breadcrums.svelte';
-	import Confirm from '$lib/components/modal/confirmModal.svelte';
-	import { faPencil, faTrash, faSearch } from '@fortawesome/free-solid-svg-icons';
-	import { Helper } from '$lib/utils/helper';
+	import type { PageServerData } from './$types';
 
 	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -61,7 +62,7 @@
 
 		dataTableStore.updateSource(organizations);
 	}
-	$: searchOrganization({ type: type, name: name });
+	$: if (browser) searchOrganization({ type: type, name: name });
 
 	dataTableStore.subscribe((model) => dataTableHandler(model));
 

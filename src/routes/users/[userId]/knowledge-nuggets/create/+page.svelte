@@ -35,7 +35,7 @@
 			class="w-full  bg-tertiary-500 lg:mt-10 md:mt-8 sm:mt-6 mb-10 mt-4 lg:max-w-4xl md:max-w-xl sm:max-w-lg  rounded-lg mx-auto"
 		>
 			<div class="w-full  h-14 rounded-t-lg p-3  bg-[#7165E3]">
-				<div class="ml-3 relative flex flex-row text-white text-xl">
+				<div class="ml-3 relative flex  text-white text-xl">
 					Create Knowledge Nugget
 					<a href="/">
 						<Fa

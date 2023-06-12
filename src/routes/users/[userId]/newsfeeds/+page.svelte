@@ -1,19 +1,19 @@
 <script lang="ts">
+	import { browser } from '$app/environment';
+	import { page } from '$app/stores';
+	import BreadCrumbs from '$lib/components/breadcrumbs/breadcrums.svelte';
+	import Confirm from '$lib/components/modal/confirmModal.svelte';
+	import { Helper } from '$lib/utils/helper';
+	import { faPencil, faTrash } from '@fortawesome/free-solid-svg-icons';
 	import {
+		Paginator,
 		createDataTableStore,
 		dataTableHandler,
 		tableA11y,
 		tableInteraction
 	} from '@skeletonlabs/skeleton';
-	import { Paginator } from '@skeletonlabs/skeleton';
-	import { page } from '$app/stores';
-	import date from 'date-and-time';
 	import Fa from 'svelte-fa';
-	import BreadCrumbs from '$lib/components/breadcrumbs/breadcrums.svelte';
-	import Confirm from '$lib/components/modal/confirmModal.svelte';
-	import { faPencil, faTrash, faSearch } from '@fortawesome/free-solid-svg-icons';
 	import type { PageServerData } from './$types';
-	import { Helper } from '$lib/utils/helper';
 
 	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -33,12 +33,7 @@
 	const viewItemRoute = (id) => `/users/${userId}/newsfeeds/${id}/newsfeed-items/${id}/view`;
 	const createRoute = `/users/${userId}/newsfeeds/create`;
 
-	const breadCrumbs = [
-		{
-			name: 'Newsfeeds',
-			path: newsfeedRoute
-		}
-	];
+	const breadCrumbs = [{ name: 'Newsfeeds', path: newsfeedRoute }];
 
 	let title = undefined;
 	let category = undefined;
@@ -68,7 +63,7 @@
 
 		dataTableStore.updateSource(newsfeeds);
 	}
-	$: searchNewsfeed({ title: title, category: category });
+	$: if (browser) searchNewsfeed({ title: title, category: category });
 
 	dataTableStore.subscribe((model) => dataTableHandler(model));
 
@@ -123,7 +118,7 @@
 					<td role="gridcell" aria-colindex={2} tabindex="0">
 						<a href={viewRoute(row.id)}>{Helper.truncateText(row.Title, 20)}</a>
 					</td>
-					<td role="gridcell" aria-colindex={3} tabindex="0">{Helper.truncateText(row.Link, 40)}</td
+					<td role="gridcell" aria-colindex={3} tabindex="0">{Helper.truncateText(row.Link, 30)}</td
 					>
 					<td role="gridcell" aria-colindex={4} tabindex="0">{row.Category}</td>
 					<td role="gridcell" aria-colindex={5} tabindex="0"
@@ -132,7 +127,7 @@
 						{:else}
 							{#each row.FeedItems as items, i}
 								<a href={viewItemRoute(items.id)}>
-									{i + 1}.{Helper.truncateText(items.Title, 10)}</a
+									{i + 1}.{Helper.truncateText(items.Title, 20)}</a
 								>
 								<br />
 							{/each}

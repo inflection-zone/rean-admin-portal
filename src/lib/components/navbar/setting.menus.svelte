@@ -11,7 +11,7 @@
 
 <div class="flex flex-col h-screen ">
 	<button on:click={async () => await gotoLogout()}>
-		<div class="flex  flex-row mt-3 gap-1 ml-3">
+		<div class="flex   mt-3 gap-1 ml-3">
 			<svg
 				style="color: rgb(242, 75, 33);"
 				xmlns="http://www.w3.org/2000/svg"
@@ -36,7 +36,7 @@
 	<button style="color: rgb(242, 75, 33);" class="close absolute top-2 right-3" on:click>
 		<Fa icon={faMultiply} size="19" class=" ml-2 mt-2" />
 	</button>
-	<div class="flex h-40 flex-row items-center tertiary justify-start gap-3 pl-6">
+	<div class="flex h-40  items-center tertiary justify-start gap-3 pl-6">
 		<img
 			class="object-cover  rounded-full h-16 w-16"
 			src="https://images.unsplash.com/photo-1531427186611-ecfd6d936c79?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=634&q=80"
