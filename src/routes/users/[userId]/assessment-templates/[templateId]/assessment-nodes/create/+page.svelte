@@ -149,23 +149,7 @@
 					</td>
 				</tr>
 				{#if $scoringApplicableCondition === true}
-					{#if selectedQueryType === 'Single Choice Selection'}
-					<Choice />
-						<tr class="!border-b !border-b-secondary-100">
-							<td>Resolution Score *</td>
-							<td>
-								<input
-									type="number"
-									name="resolutionScore"
-									placeholder="Enter resolution score here..."
-									class="input w-full {form?.errors?.resolutionScore
-										? 'border-error-300 text-error-500'
-										: 'border-primary-200 text-primary-500'}"
-									value={form?.data?.resolutionScore ?? ''}
-								/>
-							</td>
-						</tr>
-					{:else if selectedQueryType === 'Multi Choice Selection'}
+					{#if selectedQueryType === 'Single Choice Selection' || selectedQueryType === 'Multi Choice Selection'}
 					<Choice />
 						<tr class="!border-b !border-b-secondary-100">
 							<td>Resolution Score *</td>
@@ -197,9 +181,7 @@
 							</td>
 						</tr>
 					{/if}
-				{:else if selectedQueryType === 'Single Choice Selection'}
-					<Choice />
-				{:else if selectedQueryType === 'Multi Choice Selection'}
+				{:else if selectedQueryType === 'Single Choice Selection' || selectedQueryType === 'Multi Choice Selection'}
 					<Choice />
 				{/if}
 			{:else if selectedNodeType === 'Message'}

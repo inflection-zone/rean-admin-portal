@@ -222,7 +222,6 @@
 						<input
 							name="fileinput"
 							type="file"
-							required
 							class="true input w-full"
 							placeholder="Image"
 							on:change={async (e) => await onFileSelected(e)}
