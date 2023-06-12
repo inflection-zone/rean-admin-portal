@@ -151,9 +151,14 @@
 				{#if $scoringApplicableCondition === true}
 					{#if selectedQueryType === 'Single Choice Selection' || selectedQueryType === 'Multi Choice Selection'}
 						<tr class="!border-b !border-b-secondary-100">
-							<td class="align-top">Resolution Score *</td>
+							<td class="align-top">Options</td>
 							<td>
 								<Choice />
+							</td>
+						</tr>
+						<tr class="!border-b !border-b-secondary-100">
+							<td>Resolution Score *</td>
+							<td>
 								<input
 									type="number"
 									name="resolutionScore"
@@ -184,7 +189,7 @@
 					{/if}
 				{:else if selectedQueryType === 'Single Choice Selection' || selectedQueryType === 'Multi Choice Selection'}
 					<tr>
-						<td />
+						<td class="align-top">Options</td>
 						<td>
 							<Choice />
 						</td>

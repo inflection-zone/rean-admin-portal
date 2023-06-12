@@ -175,7 +175,7 @@
 				</tr>
 				{#if options.length > 0}
 					<tr class="!border-b !border-b-secondary-100">
-						<td>Options</td>
+						<td class="align-top">Options</td>
 						<td>
 							<ol class="list-decimal">
 								{#each options as option}
@@ -214,7 +214,7 @@
 					<td>{serveListNodeChildrenAtOnce}</td>
 				</tr>
 				<tr class="!border-b !border-b-secondary-100">
-					<td>Children Nodes</td>
+					<td class="align-top">Children Nodes</td>
 					<td>
 						{#if childrenNodes.length <= 0}
 							<span class="span">Children nodes not available!</span>
