@@ -186,7 +186,6 @@
 					{/if}
 				</td>
 			</tr>
-			
 			<tr class="!border-b !border-b-secondary-100">
 				<td>Author Name</td>
 				<td>

@@ -10,7 +10,7 @@ import { createNotification } from '../../../../api/services/notifications';
 const createNotificationSchema = zfd.formData({
 	title: z.string().min(8).max(64),
 	body: z.string().optional(),
-	type: z.string().min(3).max(64),
+	type: z.string().optional(),
 	broadcastToAll: zfd.checkbox({ trueValue: 'true' }),
 	imageUrl: z.string().optional()
 });

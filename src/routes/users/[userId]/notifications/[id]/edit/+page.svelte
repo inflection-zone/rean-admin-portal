@@ -93,8 +93,6 @@
 			await upload(e.target.result, filename);
 		};
 	};
-
-	
 </script>
 
 <BreadCrumbs crumbs={breadCrumbs} />
@@ -137,12 +135,11 @@
 			<tr class="!border-b !border-b-secondary-100">
 				<td class="align-top">Body</td>
 				<td>
-					<input
-						type="text"
+					<textarea
 						name="body"
 						bind:value={Body}
 						placeholder="Enter body here..."
-						class="input"
+						class="textarea"
 					/>
 				</td>
 			</tr>
@@ -160,7 +157,7 @@
 						<option>Dark mode</option>
 						<option>Light mode</option>
 					</select>
-			 </td>
+				</td>
 			</tr>
 			<tr class="!border-b !border-b-secondary-100">
 				<td>Sent On</td>
@@ -170,36 +167,36 @@
 				<td>Broadcast To All</td>
 				<td>
 					<input
-							type="checkbox"
-							name="broadcastToAll"
-							bind:value={broadcastToAll}
-							bind:checked={broadcastToAll}
-							class="checkbox checkbox-primary border-primary-200 hover:border-primary-400 checkbox-md ml-2"
-						/>
+						type="checkbox"
+						name="broadcastToAll"
+						bind:value={broadcastToAll}
+						bind:checked={broadcastToAll}
+						class="checkbox checkbox-primary border-primary-200 hover:border-primary-400 checkbox-md ml-2"
+					/>
 				</td>
 			</tr>
 			<tr class="!border-b !border-b-secondary-100">
 				<td class="align-top">Image</td>
 				<td>
 					{#if imageUrl === 'undefined'}
-					<input
-						name="fileinput"
-						type="file"
-						class="true input w-full"
-						placeholder="Image"
-						on:change={async (e) => await onFileSelected(e)}
-					/>
-				{:else}
-					<Image cls="flex h-24 w-24 rounded-lg mb-2" source={imageUrl} w="24" h="24" />
-					<input
-						name="fileinput"
-						type="file"
-						class="true input w-full"
-						placeholder="Image"
-						on:change={async (e) => await onFileSelected(e)}
-					/>
-				{/if}
-				<input type="hidden" name="imageUrl" value={imageUrl} />
+						<input
+							name="fileinput"
+							type="file"
+							class="true input w-full"
+							placeholder="Image"
+							on:change={async (e) => await onFileSelected(e)}
+						/>
+					{:else}
+						<Image cls="flex h-24 w-24 rounded-lg mb-2" source={imageUrl} w="24" h="24" />
+						<input
+							name="fileinput"
+							type="file"
+							class="true input w-full"
+							placeholder="Image"
+							on:change={async (e) => await onFileSelected(e)}
+						/>
+					{/if}
+					<input type="hidden" name="imageUrl" value={imageUrl} />
 				</td>
 			</tr>
 		</tbody>

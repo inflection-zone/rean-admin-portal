@@ -152,13 +152,13 @@
 				<td>Link</td>
 				<td>
 					<input
-					type="url"
-					name="link"
-					bind:value={link}
-					placeholder="Enter link here..."
-					class="input"
-				/>
-			 </td>
+						type="url"
+						name="link"
+						bind:value={link}
+						placeholder="Enter link here..."
+						class="input"
+					/>
+				</td>
 			</tr>
 			<tr class="!border-b !border-b-secondary-100">
 				<td>Post Date</td>
@@ -194,29 +194,29 @@
 					/>
 				</td>
 			</tr>
-			
+
 			<tr class="!border-b !border-b-secondary-100">
 				<td class="align-top">Image</td>
 				<td>
 					{#if imageUrl === 'undefined'}
-					<input
-						name="fileinput"
-						type="file"
-						class="true input w-full"
-						placeholder="Image"
-						on:change={async (e) => await onFileSelected(e)}
-					/>
-				{:else}
-					<Image cls="flex h-24 w-24 rounded-lg mb-2" source={imageUrl} w="24" h="24" />
-					<input
-						name="fileinput"
-						type="file"
-						class="true input w-full"
-						placeholder="Image"
-						on:change={async (e) => await onFileSelected(e)}
-					/>
-				{/if}
-				<input type="hidden" name="imageUrl" value={imageUrl} />
+						<input
+							name="fileinput"
+							type="file"
+							class="true input w-full"
+							placeholder="Image"
+							on:change={async (e) => await onFileSelected(e)}
+						/>
+					{:else}
+						<Image cls="flex h-24 w-24 rounded-lg mb-2" source={imageUrl} w="24" h="24" />
+						<input
+							name="fileinput"
+							type="file"
+							class="true input w-full"
+							placeholder="Image"
+							on:change={async (e) => await onFileSelected(e)}
+						/>
+					{/if}
+					<input type="hidden" name="imageUrl" value={imageUrl} />
 				</td>
 			</tr>
 		</tbody>
