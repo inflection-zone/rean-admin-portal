@@ -101,7 +101,7 @@
 				<td>{action}</td>
 			</tr>
 			<tr class="!border-b !border-b-secondary-100">
-				<td>Image</td>
+				<td class="align-top">Image</td>
 				<td>
 					{#if imageUrl === 'undefined'}
 						Not specified

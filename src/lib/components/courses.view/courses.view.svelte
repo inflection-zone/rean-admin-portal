@@ -54,7 +54,7 @@
 				addRoute={addModuleRoute(course.id)}
 				editRoute={editCourseRoute(course.id)}
 				viewRoute={viewCourseRoute(course.id)}
-				src="/courses.png"
+				src="/course.png"
 				on:onDeleteClick|once={async () => await handlelCourseDelete(course.id, course.Modules)}
 			>
 				{#if course.Modules.length > 0}
@@ -65,7 +65,7 @@
 							addRoute={addContentRoute(course.id, module.id)}
 							editRoute={editModuleRoute(course.id, module.id)}
 							viewRoute={viewModuleRoute(course.id, module.id)}
-							src="/modules.png"
+							src="/module.png"
 							on:onDeleteClick|once={async () =>
 								await handlelModuleDelete(module.id, module.CourseContents)}
 						>
@@ -88,7 +88,7 @@
 											{#each module.CourseContents as content, i}
 												<tr class="!border-b !border-b-secondary-100">
 													<td role="gridcell" aria-colindex={1} tabindex="0">
-														{content.Sequence}
+														{i + 1}
 													</td>
 													<td>
 														<a href={viewContentRoute(course.id, module.id, content.id)}>
