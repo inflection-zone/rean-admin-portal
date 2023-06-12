@@ -98,7 +98,7 @@
 				<td>{copyright}</td>
 			</tr>
 			<tr class="!border-b !border-b-secondary-100">
-				<td>Favicon</td>
+				<td class="align-top">Favicon</td>
 				<td>
 					{#if favicon === 'undefined'}
 						Not specified
@@ -112,7 +112,7 @@
 				<td>{date.format(updated, 'DD MMM YYYY')}</td>
 			</tr>
 			<tr class="!border-b !border-b-secondary-100">
-				<td>Image</td>
+				<td class="align-top">Image</td>
 				<td>
 					{#if image === 'undefined'}
 						Not specified

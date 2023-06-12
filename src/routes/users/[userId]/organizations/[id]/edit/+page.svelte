@@ -215,7 +215,7 @@
 				</td>
 			</tr>
 			<tr class="!border-b !border-b-secondary-100">
-				<td>About</td>
+				<td class="align-top">About</td>
 				<td>
 					<textarea
 						name="about"

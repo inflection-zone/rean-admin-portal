@@ -82,7 +82,7 @@
 				<td>{title}</td>
 			</tr>
 			<tr class="!border-b !border-b-secondary-100">
-				<td>Description</td>
+				<td class="align-top">Description</td>
 				<td>{description}</td>
 			</tr>
 			<tr class="!border-b !border-b-secondary-100">
@@ -102,7 +102,7 @@
 				<td>{resourceLink}</td>
 			</tr>
 			<tr class="!border-b !border-b-secondary-100">
-				<td>Image</td>
+				<td class="align-top">Image</td>
 				<td>
 					{#if imageUrl === 'undefined'}
 						Not specified
