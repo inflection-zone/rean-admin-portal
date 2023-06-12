@@ -4,8 +4,7 @@
 	import BreadCrumbs from '$lib/components/breadcrumbs/breadcrums.svelte';
 	import { page } from '$app/stores';
 	import type { PageServerData } from './$types';
-	import SingleChoice from './single.choice.svelte';
-	import MultipleChoice from './multiple.choice.svelte';
+	import Choice from './choice.svelte';
 	import { scoringApplicableCondition } from '$lib/store/general.store';
 
 	/////////////////////////////////////////////////////////////////////////////////////
@@ -151,7 +150,7 @@
 				</tr>
 				{#if $scoringApplicableCondition === true}
 					{#if selectedQueryType === 'Single Choice Selection'}
-						<SingleChoice />
+					<Choice />
 						<tr class="!border-b !border-b-secondary-100">
 							<td>Resolution Score *</td>
 							<td>
@@ -167,7 +166,7 @@
 							</td>
 						</tr>
 					{:else if selectedQueryType === 'Multi Choice Selection'}
-						<MultipleChoice />
+					<Choice />
 						<tr class="!border-b !border-b-secondary-100">
 							<td>Resolution Score *</td>
 							<td>
@@ -199,9 +198,9 @@
 						</tr>
 					{/if}
 				{:else if selectedQueryType === 'Single Choice Selection'}
-					<SingleChoice />
+					<Choice />
 				{:else if selectedQueryType === 'Multi Choice Selection'}
-					<MultipleChoice />
+					<Choice />
 				{/if}
 			{:else if selectedNodeType === 'Message'}
 				<tr class="!border-b !border-b-secondary-100">

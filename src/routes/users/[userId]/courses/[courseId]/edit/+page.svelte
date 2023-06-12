@@ -111,17 +111,17 @@
 				<td>Name *</td>
 				<td>
 					<input
-					type="text"
-					name="name"
-					bind:value={name}
-					placeholder="Enter name here..."
-					class="input w-full {form?.errors?.name
-						? 'border-error-300 text-error-500'
-						: 'border-primary-200 text-primary-500'}"
-				/>
-				{#if form?.errors?.name}
-					<p class="text-error-500 text-xs">{form?.errors?.name[0]}</p>
-				{/if}
+						type="text"
+						name="name"
+						bind:value={name}
+						placeholder="Enter name here..."
+						class="input w-full {form?.errors?.name
+							? 'border-error-300 text-error-500'
+							: 'border-primary-200 text-primary-500'}"
+					/>
+					{#if form?.errors?.name}
+						<p class="text-error-500 text-xs">{form?.errors?.name[0]}</p>
+					{/if}
 				</td>
 			</tr>
 			<tr class="!border-b !border-b-secondary-100">
@@ -164,7 +164,6 @@
 						<input
 							name="fileinput"
 							type="file"
-							required
 							class="true input w-full"
 							placeholder="Image"
 							on:change={async (e) => await onFileSelected(e)}

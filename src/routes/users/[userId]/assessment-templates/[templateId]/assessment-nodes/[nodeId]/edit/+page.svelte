@@ -4,8 +4,7 @@
 	import BreadCrumbs from '$lib/components/breadcrumbs/breadcrums.svelte';
 	import { page } from '$app/stores';
 	import type { PageServerData } from './$types';
-	import SingleChoice from '../../create/single.choice.svelte';
-	import MultipleChoice from '../../create/multiple.choice.svelte';
+	import Choice from '../../create/choice.svelte';
 
 	//////////////////////////////////////////////////////////////////////////////////////
 
@@ -61,9 +60,7 @@
 		selectedNodeType = val.target.value;
 	};
 
-	const onSelectQueryResponseType = (val) => {
-		selectedQueryType = val.target.value;
-	};
+	const onSelectQueryResponseType = (val) => (selectedQueryType = val.target.value);
 </script>
 
 <BreadCrumbs crumbs={breadCrumbs} />
@@ -92,7 +89,7 @@
 						name="nodeType"
 						bind:value={nodeType}
 						placeholder="Select node type here..."
-						class="select"
+						class="select select-info"
 						on:change={(val) => onSelectNodeType(val)}
 					>
 						<option selected>{nodeType}</option>
@@ -111,9 +108,8 @@
 						required
 						bind:value={title}
 						placeholder="Enter title here..."
-						class="input w-full {form?.errors?.title
-							? 'border-error-300 text-error-500'
-							: 'border-primary-200 text-primary-500'}"
+						class="input w-full
+						{form?.errors?.title ? 'border-error-300 text-error-500' : 'border-primary-200 text-primary-500'}"
 					/>
 					{#if form?.errors?.title}
 						<p class="text-error-500 text-xs">{form?.errors?.title[0]}</p>
@@ -159,10 +155,8 @@
 								<option value={responseType}>{responseType}</option>
 							{/each}
 						</select>
-						{#if selectedQueryType === 'Single Choice Selection'}
-							<SingleChoice {optionValueStore} />
-						{:else if selectedQueryType === 'Multi Choice Selection'}
-							<MultipleChoice {optionValueStore} />
+						{#if selectedQueryType === 'Single Choice Selection' || selectedQueryType === 'Multi Choice Selection'}
+							<Choice {optionValueStore} />
 						{/if}
 					</td>
 				</tr>
