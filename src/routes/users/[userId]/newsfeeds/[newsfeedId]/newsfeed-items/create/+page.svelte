@@ -1,9 +1,8 @@
 <script lang="ts">
-	import Fa from 'svelte-fa';
-	import { faMultiply } from '@fortawesome/free-solid-svg-icons';
-	import BreadCrumbs from '$lib/components/breadcrumbs/breadcrums.svelte';
 	import { page } from '$app/stores';
+	import BreadCrumbs from '$lib/components/breadcrumbs/breadcrums.svelte';
 	import { showMessage } from '$lib/utils/message.utils';
+	import Icon from '@iconify/svelte';
 
 	export let form;
 	const userId = $page.params.userId;
@@ -17,18 +16,9 @@
 	const newsfeedItemRoute = `/users/${userId}/newsfeeds/${newsfeedId}/newsfeed-items`;
 
 	const breadCrumbs = [
-		{
-			name: 'Newsfeeds',
-			path: newsfeedRoute
-		},
-		{
-			name: 'Newsfeed-Items',
-			path: newsfeedItemRoute
-		},
-		{
-			name: 'Create',
-			path: createRoute
-		}
+		{ name: 'Newsfeeds', path: newsfeedRoute },
+		{ name: 'Newsfeed-Items', path: newsfeedItemRoute },
+		{ name: 'Create', path: createRoute }
 	];
 
 	const upload = async (imgBase64, filename) => {
@@ -86,8 +76,8 @@
 			<tr>
 				<th>Create Newsfeed Item</th>
 				<th class="text-end">
-					<a href={newsfeedItemRoute} class="btn btn-icon-sm -my-2 variant-soft-secondary">
-						<Fa icon={faMultiply} size="lg" />
+					<a href={newsfeedItemRoute} class="btn p-2 -my-2 variant-soft-secondary">
+						<Icon icon="material-symbols:close-rounded" class="text-lg" />
 					</a>
 				</th>
 			</tr>
@@ -113,22 +103,13 @@
 			<tr class="!border-b !border-b-secondary-100">
 				<td class="align-top">Description</td>
 				<td>
-					<textarea
-						name="description"
-						placeholder="Enter description here..."
-						class="textarea"
-					/>
+					<textarea name="description" placeholder="Enter description here..." class="textarea" />
 				</td>
 			</tr>
 			<tr class="!border-b !border-b-secondary-100">
 				<td>Link</td>
 				<td>
-					<input
-						type="url"
-						name="link"
-						placeholder="Enter copyright here..."
-						class="input"
-					/>
+					<input type="url" name="link" placeholder="Enter copyright here..." class="input" />
 				</td>
 			</tr>
 			<tr class="!border-b !border-b-secondary-100">
@@ -174,15 +155,15 @@
 				<td class="align-top">Author Link</td>
 				<td>
 					<input
-					type="url"
-					name="authorLink"
-					placeholder="Enter author link here..."
-					class="input"
-				/>
+						type="url"
+						name="authorLink"
+						placeholder="Enter author link here..."
+						class="input"
+					/>
 				</td>
 			</tr>
 			<tr class="!border-b !border-b-secondary-100">
-			 <td>Image</td>
+				<td>Image</td>
 				<td>
 					<input
 						name="fileinput"
@@ -191,7 +172,7 @@
 						placeholder="Image"
 						on:change={async (e) => await onFileSelected(e)}
 					/>
-				<input type="hidden" name="image" value={image} />
+					<input type="hidden" name="image" value={image} />
 				</td>
 			</tr>
 		</tbody>

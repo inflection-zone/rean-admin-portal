@@ -1,8 +1,7 @@
 <script lang="ts">
-	import Fa from 'svelte-fa';
-	import { faMultiply } from '@fortawesome/free-solid-svg-icons';
-	import BreadCrumbs from '$lib/components/breadcrumbs/breadcrums.svelte';
 	import { page } from '$app/stores';
+	import BreadCrumbs from '$lib/components/breadcrumbs/breadcrums.svelte';
+	import Icon from '@iconify/svelte';
 
 	////////////////////////////////////////////////////////////////////////////////
 
@@ -29,8 +28,8 @@
 			<tr>
 				<th>Create Assessment Template</th>
 				<th class="text-end">
-					<a href={assessmentsRoutes} class="btn btn-icon-sm -my-2 variant-soft-secondary">
-						<Fa icon={faMultiply} size="lg" />
+					<a href={assessmentsRoutes} class="btn p-2 -my-2 variant-soft-secondary">
+						<Icon icon="material-symbols:close-rounded" class="text-lg" />
 					</a>
 				</th>
 			</tr>
@@ -56,38 +55,25 @@
 			<tr class="!border-b !border-b-secondary-100">
 				<td class="align-top">Description</td>
 				<td>
-					<textarea
-						name="description"
-						placeholder="Enter description here..."
-						class="input"
-					/>
+					<textarea name="description" placeholder="Enter description here..." class="input" />
 				</td>
 			</tr>
 			<tr class="!border-b !border-b-secondary-100">
 				<td>Type *</td>
 				<td>
-					<select
-						class="select w-full"
-						name="type"
-						placeholder="Select type here..."
-					>
+					<select class="select w-full" name="type" placeholder="Select type here...">
 						<option>Daily Update</option>
 						<option>Symptom</option>
 						<option>Survey</option>
 						<option>Protocol</option>
 						<option>Custom</option>
 					</select>
-			 </td>
+				</td>
 			</tr>
 			<tr class="!border-b !border-b-secondary-100">
 				<td>Provider</td>
 				<td>
-					<input
-						type="text"
-						name="provider"
-						placeholder="Enter provider here"
-						class="input"
-					/>
+					<input type="text" name="provider" placeholder="Enter provider here" class="input" />
 				</td>
 			</tr>
 			<tr class="!border-b !border-b-secondary-100">
@@ -105,20 +91,20 @@
 				<td>Serve List Node Children At Once</td>
 				<td>
 					<input
-					type="checkbox"
-					name="serveListNodeChildrenAtOnce"
-					class="checkbox checkbox-primary border-primary-200 hover:border-primary-400 checkbox-md ml-2"
-				/>
+						type="checkbox"
+						name="serveListNodeChildrenAtOnce"
+						class="checkbox checkbox-primary border-primary-200 hover:border-primary-400 checkbox-md ml-2"
+					/>
 				</td>
 			</tr>
 			<tr class="!border-b !border-b-secondary-100">
 				<td>Scoring Applicable</td>
 				<td>
 					<input
-					type="checkbox"
-					name="scoringApplicable"
-					class="checkbox checkbox-primary border-primary-200 hover:border-primary-400 checkbox-md ml-2"
-				/>
+						type="checkbox"
+						name="scoringApplicable"
+						class="checkbox checkbox-primary border-primary-200 hover:border-primary-400 checkbox-md ml-2"
+					/>
 				</td>
 			</tr>
 		</tbody>

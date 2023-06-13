@@ -4,7 +4,7 @@
 	import BreadCrumbs from '$lib/components/breadcrumbs/breadcrums.svelte';
 	import Confirm from '$lib/components/modal/confirmModal.svelte';
 	import { Helper } from '$lib/utils/helper';
-	import { faPencil, faTrash } from '@fortawesome/free-solid-svg-icons';
+	import Icon from '@iconify/svelte';
 	import {
 		Paginator,
 		createDataTableStore,
@@ -12,7 +12,6 @@
 		tableA11y,
 		tableInteraction
 	} from '@skeletonlabs/skeleton';
-	import Fa from 'svelte-fa';
 	import type { PageServerData } from './$types';
 
 	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -129,8 +128,8 @@
 					<td role="gridcell" aria-colindex={3} tabindex="0">{row.Email}</td>
 					<td role="gridcell" aria-colindex={4} tabindex="0">{row.Phone}</td>
 					<td>
-						<a class="text-primary" href={editRoute(row.id)}>
-							<Fa icon={faPencil} />
+						<a class="btn p-2 hover:variant-soft-secondary" href={editRoute(row.id)}>
+							<Icon icon="material-symbols:edit-outline" class="text-lg" />
 						</a>
 					</td>
 					<td>
@@ -144,9 +143,9 @@
 						>
 							<button
 								on:click|preventDefault={() => confirmThis(handleApiClientDelete, row.id)}
-								class="btn btn-icon-sm -my-1 hover:variant-soft-error"
+								class="btn p-2 -my-1 hover:variant-soft-error"
 							>
-								<Fa icon={faTrash} />
+								<Icon icon="material-symbols:delete-outline-rounded" class="text-lg" />
 							</button>
 
 							<span slot="title"> Delete </span>

@@ -1,9 +1,8 @@
 <script lang="ts">
-	import Fa from 'svelte-fa';
-	import { faMultiply } from '@fortawesome/free-solid-svg-icons';
-	import BreadCrumbs from '$lib/components/breadcrumbs/breadcrums.svelte';
 	import { page } from '$app/stores';
+	import BreadCrumbs from '$lib/components/breadcrumbs/breadcrums.svelte';
 	import { showMessage } from '$lib/utils/message.utils';
+	import Icon from '@iconify/svelte';
 
 	export let form;
 	const userId = $page.params.userId;
@@ -80,8 +79,8 @@
 			<tr>
 				<th>Create Course</th>
 				<th class="text-end">
-					<a href={courseRoute} class="btn btn-icon-sm -my-2 variant-soft-secondary">
-						<Fa icon={faMultiply} size="lg" />
+					<a href={courseRoute} class="btn p-2 -my-2 variant-soft-secondary">
+						<Icon icon="material-symbols:close-rounded" class="text-lg" />
 					</a>
 				</th>
 			</tr>
@@ -91,26 +90,22 @@
 				<td>Name *</td>
 				<td>
 					<input
-					type="text"
-					name="name"
-					placeholder="Enter name here..."
-					class="input w-full {form?.errors?.name
-						? 'border-error-300 text-error-500'
-						: 'border-primary-200 text-primary-500'}"
-				/>
-				{#if form?.errors?.name}
-					<p class="text-error-500 text-xs">{form?.errors?.name[0]}</p>
-				{/if}
+						type="text"
+						name="name"
+						placeholder="Enter name here..."
+						class="input w-full {form?.errors?.name
+							? 'border-error-300 text-error-500'
+							: 'border-primary-200 text-primary-500'}"
+					/>
+					{#if form?.errors?.name}
+						<p class="text-error-500 text-xs">{form?.errors?.name[0]}</p>
+					{/if}
 				</td>
 			</tr>
 			<tr class="!border-b !border-b-secondary-100">
 				<td class="align-top">Description</td>
 				<td>
-					<textarea
-						name="description"
-						placeholder="Enter description here..."
-						class="textarea"
-					/>
+					<textarea name="description" placeholder="Enter description here..." class="textarea" />
 				</td>
 			</tr>
 			<tr class="!border-b !border-b-secondary-100">
@@ -127,14 +122,14 @@
 			<tr class="!border-b !border-b-secondary-100">
 				<td class="align-top">Image</td>
 				<td>
-						<input
-							name="fileinput"
-							type="file"
-							class="true input w-full"
-							placeholder="Image"
-							on:change={async (e) => await onFileSelected(e)}
-						/>
-						<input type="hidden" name="imageUrl" value={imageUrl} />
+					<input
+						name="fileinput"
+						type="file"
+						class="true input w-full"
+						placeholder="Image"
+						on:change={async (e) => await onFileSelected(e)}
+					/>
+					<input type="hidden" name="imageUrl" value={imageUrl} />
 				</td>
 			</tr>
 		</tbody>

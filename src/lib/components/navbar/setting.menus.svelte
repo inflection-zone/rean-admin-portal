@@ -1,8 +1,7 @@
 <script>
-	import { createEventDispatcher, onMount } from 'svelte';
+	import Icon from '@iconify/svelte';
 	import { LightSwitch } from '@skeletonlabs/skeleton';
-	import Fa from 'svelte-fa';
-	import { faMultiply } from '@fortawesome/free-solid-svg-icons';
+	import { createEventDispatcher } from 'svelte';
 	const dispatch = createEventDispatcher();
 	const gotoLogout = async () => {
 		dispatch('logout');
@@ -10,33 +9,18 @@
 </script>
 
 <div class="flex flex-col h-screen ">
-	<button on:click={async () => await gotoLogout()}>
-		<div class="flex   mt-3 gap-1 ml-3">
-			<svg
-				style="color: rgb(242, 75, 33);"
-				xmlns="http://www.w3.org/2000/svg"
-				width="18"
-				height="18"
-				viewBox="0 0 24 24"
-				fill="none"
-				stroke="currentColor"
-				stroke-width="2"
-				stroke-linecap="round"
-				stroke-linejoin="round"
-				class="mt-1 feather feather-log-out"
-			>
-				<path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" fill="#f24b21" />
-				<polyline points="16 17 21 12 16 7" />
-				<line x1="21" y1="12" x2="9" y2="12" />
-			</svg>
-			<span class="text-[12px] mt-1" style="color: rgb(242, 75, 33);">Sign Out</span>
-		</div>
-	</button>
+	<div class="flex justify-between p-2">
+		<button on:click={async () => await gotoLogout()} class="btn p-2 variant-soft-error">
+			<Icon icon="material-symbols:logout-rounded" />
+			<span class="text-xs">Sign Out</span>
+		</button>
 
-	<button style="color: rgb(242, 75, 33);" class="close absolute top-2 right-3" on:click>
-		<Fa icon={faMultiply} size="19" class=" ml-2 mt-2" />
-	</button>
-	<div class="flex h-40  items-center tertiary justify-start gap-3 pl-6">
+		<button class="btn variant-soft-error p-2" on:click>
+			<Icon icon="material-symbols:close-rounded" class="text-xl" />
+		</button>
+	</div>
+
+	<div class="flex h-40 items-center tertiary justify-start gap-3 pl-6">
 		<img
 			class="object-cover  rounded-full h-16 w-16"
 			src="https://images.unsplash.com/photo-1531427186611-ecfd6d936c79?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=634&q=80"

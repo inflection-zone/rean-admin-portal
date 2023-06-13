@@ -1,14 +1,13 @@
 <script lang="ts">
-	import Fa from 'svelte-fa';
-	import { faMultiply } from '@fortawesome/free-solid-svg-icons';
-	import BreadCrumbs from '$lib/components/breadcrumbs/breadcrums.svelte';
 	import { page } from '$app/stores';
-	import { showMessage } from '$lib/utils/message.utils';
-	import type { PageServerData } from './$types';
-	import { createDataTableStore, dataTableHandler } from '@skeletonlabs/skeleton';
-	import { selectedItems } from '$lib/store/general.store';
+	import BreadCrumbs from '$lib/components/breadcrumbs/breadcrums.svelte';
 	import CoursesDragDrop from '$lib/components/drag-and-drop/courses-drag-drop.svelte';
 	import SelectedCoursesDragDrop from '$lib/components/drag-and-drop/selected-courses-drag-drop.svelte';
+	import { selectedItems } from '$lib/store/general.store';
+	import { showMessage } from '$lib/utils/message.utils';
+	import Icon from '@iconify/svelte';
+	import { createDataTableStore, dataTableHandler } from '@skeletonlabs/skeleton';
+	import type { PageServerData } from './$types';
 
 	/////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -101,8 +100,8 @@
 			<tr>
 				<th class="whitespace-nowrap">Create Learning Journey</th>
 				<th class="text-end">
-					<a href={learningJourneyRoute} class="btn btn-icon-sm -my-2 variant-soft-secondary">
-						<Fa icon={faMultiply} size="lg" />
+					<a href={learningJourneyRoute} class="btn p-2 -my-2 variant-soft-secondary">
+						<Icon icon="material-symbols:close-rounded" class="text-lg" />
 					</a>
 				</th>
 			</tr>

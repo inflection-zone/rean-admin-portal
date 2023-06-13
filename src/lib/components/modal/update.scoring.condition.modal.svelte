@@ -1,8 +1,7 @@
 <script lang="ts">
+	import Icon from '@iconify/svelte';
 	import { createEventDispatcher } from 'svelte';
 	import { showScoringConditionModal } from '../../store/general.store';
-	import Fa from 'svelte-fa';
-	import { faMultiply } from '@fortawesome/free-solid-svg-icons';
 	export let resolutionScore = undefined;
 	let dialog;
 
@@ -26,8 +25,8 @@
 >
 	<div class="flex items-center justify-between variant-soft-secondary py-2 px-4">
 		<span class="text-xl">Update Scoring Condition</span>
-		<button class="btn btn-icon-sm variant-soft-secondary" on:click={() => dialog.close()}>
-			<Fa icon={faMultiply} size="lg" />
+		<button class="btn p-2 variant-soft-secondary" on:click={() => dialog.close()}>
+			<Icon icon="material-symbols:close-rounded" class="text-lg" />
 		</button>
 	</div>
 

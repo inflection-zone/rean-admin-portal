@@ -1,11 +1,10 @@
 <script lang="ts">
-	import Fa from 'svelte-fa';
-	import { faMultiply, faPen } from '@fortawesome/free-solid-svg-icons';
-	import { onMount } from 'svelte';
-	import { show } from '$lib/utils/message.utils';
-	import { LocalStorageUtils } from '$lib/utils/local.storage.utils';
-	import BreadCrumbs from '$lib/components/breadcrumbs/breadcrums.svelte';
 	import { page } from '$app/stores';
+	import BreadCrumbs from '$lib/components/breadcrumbs/breadcrums.svelte';
+	import { LocalStorageUtils } from '$lib/utils/local.storage.utils';
+	import { show } from '$lib/utils/message.utils';
+	import Icon from '@iconify/svelte';
+	import { onMount } from 'svelte';
 	import type { PageServerData } from './$types';
 
 	export let data: PageServerData;
@@ -39,7 +38,7 @@
 
 <div class="flex flex-wrap gap-2">
 	<a href={editRoute} class="btn variant-filled-secondary ml-auto">
-		<span><Fa icon={faPen} size="sm" /></span>
+		<Icon icon="material-symbols:edit-outline" />
 		<span>Edit</span>
 	</a>
 </div>
@@ -50,8 +49,8 @@
 			<tr>
 				<th>View Person Role</th>
 				<th class="text-end">
-					<a href={personRoleTypesRoute} class="btn btn-icon-sm -my-2 variant-soft-secondary">
-						<Fa icon={faMultiply} size="lg" />
+					<a href={personRoleTypesRoute} class="btn p-2 -my-2 variant-soft-secondary">
+						<Icon icon="material-symbols:close-rounded" class="text-lg" />
 					</a>
 				</th>
 			</tr>

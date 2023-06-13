@@ -1,9 +1,8 @@
 <script lang="ts">
-	import Fa from 'svelte-fa';
-	import { faMultiply } from '@fortawesome/free-solid-svg-icons';
-	import BreadCrumbs from '$lib/components/breadcrumbs/breadcrums.svelte';
 	import { page } from '$app/stores';
+	import BreadCrumbs from '$lib/components/breadcrumbs/breadcrums.svelte';
 	import { showMessage } from '$lib/utils/message.utils';
+	import Icon from '@iconify/svelte';
 
 	////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -92,8 +91,8 @@
 			<tr>
 				<th>Create Content</th>
 				<th class="text-end">
-					<a href={moduleRoute} class="btn btn-icon-sm -my-2 variant-soft-secondary">
-						<Fa icon={faMultiply} size="lg" />
+					<a href={moduleRoute} class="btn p-2 -my-2 variant-soft-secondary">
+						<Icon icon="material-symbols:close-rounded" class="text-lg" />
 					</a>
 				</th>
 			</tr>
@@ -119,11 +118,7 @@
 			<tr class="!border-b !border-b-secondary-100">
 				<td class="align-top">Description</td>
 				<td>
-					<textarea
-						name="description"
-						placeholder="Enter description here..."
-						class="textarea"
-					/>
+					<textarea name="description" placeholder="Enter description here..." class="textarea" />
 				</td>
 			</tr>
 			<tr class="!border-b !border-b-secondary-100">
@@ -170,25 +165,20 @@
 			<tr class="!border-b !border-b-secondary-100">
 				<td>Sequence</td>
 				<td>
-					<input
-						type="number"
-						name="sequence"
-						placeholder="Enter sequence here..."
-						class="input"
-					/>
+					<input type="number" name="sequence" placeholder="Enter sequence here..." class="input" />
 				</td>
 			</tr>
 			<tr class="!border-b !border-b-secondary-100">
 				<td class="align-top">Image</td>
 				<td>
-						<input
-							name="fileinput"
-							type="file"
-							class="true input w-full"
-							placeholder="Image"
-							on:change={async (e) => await onFileSelected(e)}
-						/>
-						<input type="hidden" name="imageUrl" value={imageUrl} />
+					<input
+						name="fileinput"
+						type="file"
+						class="true input w-full"
+						placeholder="Image"
+						on:change={async (e) => await onFileSelected(e)}
+					/>
+					<input type="hidden" name="imageUrl" value={imageUrl} />
 				</td>
 			</tr>
 		</tbody>

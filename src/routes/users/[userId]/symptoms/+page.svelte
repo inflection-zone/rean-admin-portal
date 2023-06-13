@@ -5,7 +5,7 @@
 	import Image from '$lib/components/image.svelte';
 	import Confirm from '$lib/components/modal/confirmModal.svelte';
 	import { Helper } from '$lib/utils/helper';
-	import { faPencil, faTrash } from '@fortawesome/free-solid-svg-icons';
+	import Icon from '@iconify/svelte';
 	import {
 		Paginator,
 		createDataTableStore,
@@ -14,7 +14,6 @@
 		tableInteraction
 	} from '@skeletonlabs/skeleton';
 	import date from 'date-and-time';
-	import Fa from 'svelte-fa';
 	import type { PageServerData } from './$types';
 
 	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -127,8 +126,8 @@
 						{date.format(new Date(row.CreatedAt), 'DD-MMM-YYYY')}
 					</td>
 					<td>
-						<a href={editRoute(row.id)} class="btn btn-icon-sm -my-1 hover:variant-soft-primary">
-							<Fa icon={faPencil} style="color-text-primary" size="md" />
+						<a href={editRoute(row.id)} class="btn p-2 -my-1 hover:variant-soft-primary">
+							<Icon icon="material-symbols:edit-outline" class="text-lg" />
 						</a>
 					</td>
 					<td>
@@ -140,9 +139,9 @@
 						>
 							<button
 								on:click|preventDefault={() => confirmThis(handleSymptomDelete, row.id)}
-								class="btn btn-icon-sm -my-1 hover:variant-soft-error"
+								class="btn p-2 -my-1 hover:variant-soft-error"
 							>
-								<Fa icon={faTrash} />
+								<Icon icon="material-symbols:delete-outline-rounded" class="text-lg" />
 							</button>
 							<span slot="title">Delete</span>
 							<span slot="description">Are you sure you want to delete a symptom?</span>

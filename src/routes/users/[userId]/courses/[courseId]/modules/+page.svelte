@@ -1,11 +1,9 @@
 <script lang="ts">
-	import Fa from 'svelte-fa';
-	import { createDataTableStore, dataTableHandler } from '@skeletonlabs/skeleton';
-	import { Paginator } from '@skeletonlabs/skeleton';
 	import { page } from '$app/stores';
 	import BreadCrumbs from '$lib/components/breadcrumbs/breadcrums.svelte';
 	import Confirm from '$lib/components/modal/confirmModal.svelte';
-	import { faSearch, faTrash, faPencil } from '@fortawesome/free-solid-svg-icons';
+	import Icon from '@iconify/svelte';
+	import { Paginator, createDataTableStore, dataTableHandler } from '@skeletonlabs/skeleton';
 	import type { PageServerData } from './$types';
 
 	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -18,12 +16,7 @@
 	const moduleRoute = `/users/${userId}/courses/${courseId}/modules`;
 	const createRoute = `/users/${userId}/courses/${courseId}/modules/create`;
 
-	const breadCrumbs = [
-		{
-			name: 'Modules',
-			path: moduleRoute
-		}
-	];
+	const breadCrumbs = [{ name: 'Modules', path: moduleRoute }];
 
 	const dataTableStore = createDataTableStore(
 		// Pass your source data here:
@@ -90,9 +83,9 @@
 					<td>
 						<a
 							href="/users/${userId}/courses/${courseId}/modules/{row.id}/edit"
-							class="btn btn-icon-sm -my-1 hover:variant-soft-primary"
+							class="btn p-2 -my-1 hover:variant-soft-primary"
 						>
-							<Fa icon={faPencil} style="color-text-primary" size="md" />
+							<Icon icon="material-symbols:edit-outline" class="text-lg" />
 						</a>
 					</td>
 					<td>
@@ -104,9 +97,9 @@
 						>
 							<button
 								on:click|preventDefault={() => confirmThis(handleModuleDelete, row.id)}
-								class="btn btn-icon-sm -my-1 hover:variant-soft-error"
+								class="btn p-2 -my-1 hover:variant-soft-error"
 							>
-								<Fa icon={faTrash} />
+								<Icon icon="material-symbols:delete-outline-rounded" class="text-lg" />
 							</button>
 
 							<span slot="title">Delete</span>

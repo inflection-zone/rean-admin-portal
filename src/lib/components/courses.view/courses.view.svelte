@@ -1,11 +1,9 @@
 <script lang="ts">
 	import CollapsibleSection from '$lib/components/courses.view/collapsible.section.svelte';
-	import { createEventDispatcher } from 'svelte';
-	import { createDataTableStore, dataTableHandler } from '@skeletonlabs/skeleton';
-	import Fa from 'svelte-fa';
-	import { Paginator } from '@skeletonlabs/skeleton';
-	import { faPencil, faTrash } from '@fortawesome/free-solid-svg-icons';
 	import Confirm from '$lib/components/modal/confirmModal.svelte';
+	import Icon from '@iconify/svelte';
+	import { Paginator, createDataTableStore, dataTableHandler } from '@skeletonlabs/skeleton';
+	import { createEventDispatcher } from 'svelte';
 
 	/////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -100,9 +98,9 @@
 													<td>
 														<a
 															href={editContentRoute(course.id, module.id, content.id)}
-															class="btn btn-icon-sm -my-1 hover:variant-soft-primary"
+															class="btn p-2 -my-1 hover:variant-soft-primary"
 														>
-															<Fa icon={faPencil} style="color-text-primary" size="md" />
+															<Icon icon="material-symbols:edit-outline" class="lg" />
 														</a>
 													</td>
 													<td>
@@ -115,9 +113,12 @@
 															<button
 																on:click|preventDefault={() =>
 																	confirmThis(handleContentDelete, content.id)}
-																class="btn btn-icon-sm -my-1 hover:variant-soft-error"
+																class="btn p-2 -my-1 hover:variant-soft-error"
 															>
-																<Fa icon={faTrash} />
+																<Icon
+																	icon="material-symbols:delete-outline-rounded"
+																	class="text-lg"
+																/>
 															</button>
 															<span slot="title"> Delete </span>
 															<span slot="description">

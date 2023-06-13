@@ -1,11 +1,6 @@
 <script lang="ts">
-	import Fa from 'svelte-fa';
-	import { createDataTableStore, dataTableHandler } from '@skeletonlabs/skeleton';
-	import { Paginator } from '@skeletonlabs/skeleton';
 	import { page } from '$app/stores';
 	import BreadCrumbs from '$lib/components/breadcrumbs/breadcrums.svelte';
-	import Confirm from '$lib/components/modal/confirmModal.svelte';
-	import { faSearch, faTrash, faPencil } from '@fortawesome/free-solid-svg-icons';
 	import type { PageServerData } from './$types';
 
 	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -19,12 +14,7 @@
 	const courseContentRoute = `/users/${userId}/courses/${courseId}/modules/${moduleId}/contents`;
 	const createRoute = `/users/${userId}/courses/${courseId}/modules/${moduleId}/contents/create`;
 
-	const breadCrumbs = [
-		{
-			name: 'Course-Contents',
-			path: courseContentRoute
-		}
-	];
+	const breadCrumbs = [{ name: 'Course-Contents', path: courseContentRoute }];
 
 	// const dataTableStore = createDataTableStore(
 	// 	// Pass your source data here:
@@ -89,7 +79,7 @@
               <td ">
                 <a href="/users/${userId}/courses/${courseId}/modules/{row.id}/edit"
                   >
-								<Fa icon={faPencil} style="color-text-primary" size="md" />
+								<Icon icon="material-symbols:edit-outline" class="text-lg" />
 								</a
                 >
               </td>
@@ -103,7 +93,7 @@
                     }}
                   >
                     <button on:click|preventDefault ={() => confirmThis(handleCourseContentDelete, row.id)} class="">
-								<Fa icon={faTrash} />
+								<Icon icon="material-symbols:delete-outline-rounded" class="text-lg" />
 								</button>
 
                     <span slot="title"> Delete </span>

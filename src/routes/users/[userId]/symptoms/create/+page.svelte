@@ -1,9 +1,8 @@
 <script lang="ts">
-	import Fa from 'svelte-fa';
-	import { faMultiply } from '@fortawesome/free-solid-svg-icons';
-	import BreadCrumbs from '$lib/components/breadcrumbs/breadcrums.svelte';
 	import { page } from '$app/stores';
+	import BreadCrumbs from '$lib/components/breadcrumbs/breadcrums.svelte';
 	import { showMessage } from '$lib/utils/message.utils';
+	import Icon from '@iconify/svelte';
 	import { InputChip } from '@skeletonlabs/skeleton';
 
 	let tagsPlaceholder = 'Enter a tags here...';
@@ -17,14 +16,8 @@
 	const symptomRoute = `/users/${userId}/symptoms`;
 
 	const breadCrumbs = [
-		{
-			name: 'Symptoms',
-			path: symptomRoute
-		},
-		{
-			name: 'Create',
-			path: createRoute
-		}
+		{ name: 'Symptoms', path: symptomRoute },
+		{ name: 'Create', path: createRoute }
 	];
 
 	const upload = async (imgBase64, filename) => {
@@ -82,8 +75,8 @@
 			<tr>
 				<th>Create Symptom</th>
 				<th class="text-end">
-					<a href={symptomRoute} class="btn btn-icon-sm -my-2 variant-soft-secondary">
-						<Fa icon={faMultiply} size="lg" />
+					<a href={symptomRoute} class="btn p-2 -my-2 variant-soft-secondary">
+						<Icon icon="material-symbols:close-rounded" class="text-lg" />
 					</a>
 				</th>
 			</tr>
@@ -109,17 +102,13 @@
 			<tr class="!border-b !border-b-secondary-100">
 				<td class="align-top">Description</td>
 				<td>
-					<textarea
-						name="description"
-						placeholder="Enter description here..."
-						class="textarea"
-					/>
+					<textarea name="description" placeholder="Enter description here..." class="textarea" />
 				</td>
 			</tr>
 			<tr class="!border-b !border-b-secondary-100">
 				<td class="align-top">Tags</td>
 				<td>
-					<InputChip chips="variant-filled-error rounded-2xl" name="tags"/>
+					<InputChip chips="variant-filled-error rounded-2xl" name="tags" />
 				</td>
 			</tr>
 			<tr class="!border-b !border-b-secondary-100">
@@ -142,14 +131,14 @@
 			<tr class="!border-b !border-b-secondary-100">
 				<td class="align-top">Image *</td>
 				<td>
-						<input
-							name="fileinput"
-							type="file"
-							required
-							class="true input w-full"
-							placeholder="Image"
-							on:change={async (e) => await onFileSelected(e)}
-						/>
+					<input
+						name="fileinput"
+						type="file"
+						required
+						class="true input w-full"
+						placeholder="Image"
+						on:change={async (e) => await onFileSelected(e)}
+					/>
 					<input type="hidden" name="imageResourceId" value={imageResourceId} />
 				</td>
 			</tr>

@@ -1,7 +1,6 @@
 <script lang="ts">
+	import { navigating, page } from '$app/stores';
 	import { Accordion, AccordionItem } from '@skeletonlabs/skeleton';
-	import { page } from '$app/stores';
-	import { navigating } from '$app/stores';
 
 	export let userId = undefined;
 	export let showSidebar = false;
@@ -93,7 +92,7 @@
 >
 	<Accordion width="w-[280px]" autocollapse rounded="rounded-none">
 		{#each navData as navParent, idx}
-			<AccordionItem>
+			<AccordionItem open={idx === 0}>
 				<svelte:fragment slot="lead">
 					<img src={navParent.icon} alt="" class="invert" />
 				</svelte:fragment>
