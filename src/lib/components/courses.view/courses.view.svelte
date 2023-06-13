@@ -58,9 +58,9 @@
 				on:onDeleteClick|once={async () => await handlelCourseDelete(course.id, course.Modules)}
 			>
 				{#if course.Modules.length > 0}
-					{#each course.Modules as module, i}
+					{#each course.Modules.sort((a, b) => a.Sequence - b.Sequence) as module, i}
 						<CollapsibleSection
-							headerText="{i + 1}. {module.Name}"
+							headerText="{module.Sequence}. {module.Name}"
 							itemsCount="Contents ({module.CourseContents.length})"
 							addRoute={addContentRoute(course.id, module.id)}
 							editRoute={editModuleRoute(course.id, module.id)}
@@ -85,10 +85,10 @@
 											</tr>
 										</thead>
 										<tbody class="!bg-white">
-											{#each module.CourseContents as content, i}
+											{#each module.CourseContents.sort((a, b) => a.Sequence - b.Sequence) as content, i}
 												<tr class="!border-b !border-b-secondary-100">
 													<td role="gridcell" aria-colindex={1} tabindex="0">
-														{i + 1}
+														{content.Sequence}
 													</td>
 													<td>
 														<a href={viewContentRoute(course.id, module.id, content.id)}>

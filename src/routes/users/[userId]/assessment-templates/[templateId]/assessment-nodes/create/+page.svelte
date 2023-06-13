@@ -83,7 +83,7 @@
 					>
 						<option>Question</option>
 						<option>Message</option>
-						<option>Node List</option>
+						<option>Node list</option>
 					</select>
 				</td>
 			</tr>
@@ -197,7 +197,7 @@
 				{/if}
 			{:else if selectedNodeType === 'Message'}
 				<tr class="!border-b !border-b-secondary-100">
-					<td>Message *</td>
+					<td class="align-top">Message *</td>
 					<td>
 						<textarea
 							name="message"
@@ -218,7 +218,6 @@
 							value="true"
 							class="checkbox !border !border-secondary-100"
 						/>
-						Check
 					</td>
 				</tr>
 			{/if}

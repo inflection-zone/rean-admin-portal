@@ -29,6 +29,8 @@
 	let resolutionScore;
 	let sequence = data.assessmentNode.Sequence;
 
+	console.log("nodeType",nodeType);
+
 	$: resolutionScore;
 
 	if (nodeType === 'Question') {
