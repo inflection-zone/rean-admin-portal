@@ -1,15 +1,14 @@
 <script lang="ts">
 	import { page } from '$app/stores';
-	import Fa from 'svelte-fa';
-	import { faMultiply } from '@fortawesome/free-solid-svg-icons';
 	import BreadCrumbs from '$lib/components/breadcrumbs/breadcrums.svelte';
-	import Image from '$lib/components/image.svelte';
-	import { showMessage } from '$lib/utils/message.utils';
-	import type { PageServerData } from './$types';
 	import CoursesDragDrop from '$lib/components/drag-and-drop/courses-drag-drop.svelte';
 	import SelectedCoursesDragDrop from '$lib/components/drag-and-drop/selected-courses-drag-drop.svelte';
-	import { createDataTableStore, dataTableHandler } from '@skeletonlabs/skeleton';
+	import Image from '$lib/components/image.svelte';
 	import { selectedItems } from '$lib/store/general.store';
+	import { showMessage } from '$lib/utils/message.utils';
+	import Icon from '@iconify/svelte';
+	import { createDataTableStore, dataTableHandler } from '@skeletonlabs/skeleton';
+	import type { PageServerData } from './$types';
 	///////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 	export let form;
@@ -115,8 +114,8 @@
 			<tr>
 				<th>Edit Learning Journey</th>
 				<th class="text-end">
-					<a href={viewRoute} class="btn btn-icon-sm -my-2 variant-soft-secondary">
-						<Fa icon={faMultiply} size="lg" />
+					<a href={viewRoute} class="btn p-2 -my-2 variant-soft-secondary">
+						<Icon icon="material-symbols:close-rounded" class="text-lg" />
 					</a>
 				</th>
 			</tr>
@@ -126,17 +125,17 @@
 				<td>Name *</td>
 				<td>
 					<input
-					type="text"
-					name="name"
-					bind:value={name}
-					placeholder="Enter name here..."
-					class="input w-full {form?.errors?.name
-						? 'border-error-300 text-error-500'
-						: 'border-primary-200 text-primary-500'}"
-				/>
-				{#if form?.errors?.name}
-					<p class="text-error-500 text-xs">{form?.errors?.name[0]}</p>
-				{/if}
+						type="text"
+						name="name"
+						bind:value={name}
+						placeholder="Enter name here..."
+						class="input w-full {form?.errors?.name
+							? 'border-error-300 text-error-500'
+							: 'border-primary-200 text-primary-500'}"
+					/>
+					{#if form?.errors?.name}
+						<p class="text-error-500 text-xs">{form?.errors?.name[0]}</p>
+					{/if}
 				</td>
 			</tr>
 			<tr class="!border-b !border-b-secondary-100">

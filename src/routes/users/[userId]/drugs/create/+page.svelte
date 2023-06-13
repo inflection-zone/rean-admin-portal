@@ -1,8 +1,7 @@
 <script lang="ts">
-	import Fa from 'svelte-fa';
-	import { faMultiply } from '@fortawesome/free-solid-svg-icons';
-	import BreadCrumbs from '$lib/components/breadcrumbs/breadcrums.svelte';
 	import { page } from '$app/stores';
+	import BreadCrumbs from '$lib/components/breadcrumbs/breadcrums.svelte';
+	import Icon from '@iconify/svelte';
 
 	export let form;
 	const userId = $page.params.userId;
@@ -10,14 +9,8 @@
 	const drugsRoute = `/users/${userId}/drugs`;
 
 	const breadCrumbs = [
-		{
-			name: 'Drugs',
-			path: drugsRoute
-		},
-		{
-			name: 'Create',
-			path: createRoute
-		}
+		{ name: 'Drugs', path: drugsRoute },
+		{ name: 'Create', path: createRoute }
 	];
 </script>
 
@@ -33,8 +26,8 @@
 			<tr>
 				<th>Create Drug</th>
 				<th class="text-end">
-					<a href={drugsRoute} class="btn btn-icon-sm -my-2 variant-soft-secondary">
-						<Fa icon={faMultiply} size="lg" />
+					<a href={drugsRoute} class="btn p-2 -my-2 variant-soft-secondary">
+						<Icon icon="material-symbols:close-rounded" class="text-lg" />
 					</a>
 				</th>
 			</tr>

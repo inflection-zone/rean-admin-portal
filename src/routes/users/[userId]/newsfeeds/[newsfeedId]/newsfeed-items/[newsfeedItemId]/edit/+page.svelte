@@ -1,11 +1,10 @@
 <script lang="ts">
-	import Fa from 'svelte-fa';
-	import { faMultiply } from '@fortawesome/free-solid-svg-icons';
-	import BreadCrumbs from '$lib/components/breadcrumbs/breadcrums.svelte';
 	import { page } from '$app/stores';
+	import BreadCrumbs from '$lib/components/breadcrumbs/breadcrums.svelte';
 	import Image from '$lib/components/image.svelte';
-	import date from 'date-and-time';
 	import { showMessage } from '$lib/utils/message.utils';
+	import Icon from '@iconify/svelte';
+	import date from 'date-and-time';
 	import type { PageServerData } from './$types';
 
 	export let form;
@@ -120,8 +119,8 @@
 			<tr>
 				<th>Edit Newsfeed Item</th>
 				<th class="text-end">
-					<a href={viewRoute} class="btn btn-icon-sm -my-2 variant-soft-secondary">
-						<Fa icon={faMultiply} size="lg" />
+					<a href={viewRoute} class="btn p-2 -my-2 variant-soft-secondary">
+						<Icon icon="material-symbols:close-rounded" class="text-lg" />
 					</a>
 				</th>
 			</tr>
@@ -214,14 +213,14 @@
 				<td class="align-top">Author Link</td>
 				<td>
 					<input
-					type="url"
-					name="authorLink"
-					bind:value={authorLink}
-					placeholder="Enter author link here..."
-					class="input w-full {form?.errors?.authorLink
-						? 'border-error-300 text-error-500'
-						: 'border-primary-200 text-primary-500'}"
-				/>
+						type="url"
+						name="authorLink"
+						bind:value={authorLink}
+						placeholder="Enter author link here..."
+						class="input w-full {form?.errors?.authorLink
+							? 'border-error-300 text-error-500'
+							: 'border-primary-200 text-primary-500'}"
+					/>
 				</td>
 			</tr>
 			<tr class="!border-b !border-b-secondary-100">
@@ -229,27 +228,27 @@
 				<td>{date.format(publishingDate, 'DD MMM YYYY')}</td>
 			</tr>
 			<tr class="!border-b !border-b-secondary-100">
-			 <td class="align-top">Image</td>
+				<td class="align-top">Image</td>
 				<td>
 					{#if image === 'undefined'}
-					<input
-						name="fileinput"
-						type="file"
-						class="true input w-full"
-						placeholder="Image"
-						on:change={async (e) => await onFileSelected(e)}
-					/>
-				{:else}
-					<Image cls="flex h-24 w-24 rounded-lg" source={image} w="24" h="24" />
-					<input
-						name="fileinput"
-						type="file"
-						class="true input w-full"
-						placeholder="Image"
-						on:change={async (e) => await onFileSelected(e)}
-					/>
-				{/if}
-				<input type="hidden" name="image" value={image} />
+						<input
+							name="fileinput"
+							type="file"
+							class="true input w-full"
+							placeholder="Image"
+							on:change={async (e) => await onFileSelected(e)}
+						/>
+					{:else}
+						<Image cls="flex h-24 w-24 rounded-lg" source={image} w="24" h="24" />
+						<input
+							name="fileinput"
+							type="file"
+							class="true input w-full"
+							placeholder="Image"
+							on:change={async (e) => await onFileSelected(e)}
+						/>
+					{/if}
+					<input type="hidden" name="image" value={image} />
 				</td>
 			</tr>
 		</tbody>

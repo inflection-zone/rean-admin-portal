@@ -1,19 +1,18 @@
 <script lang="ts">
+	import { page } from '$app/stores';
+	import BreadCrumbs from '$lib/components/breadcrumbs/breadcrums.svelte';
+	import Confirm from '$lib/components/modal/confirmModal.svelte';
+	import { Helper } from '$lib/utils/helper';
+	import Icon from '@iconify/svelte';
 	import {
+		Paginator,
 		createDataTableStore,
 		dataTableHandler,
 		tableA11y,
 		tableInteraction
 	} from '@skeletonlabs/skeleton';
-	import { Paginator } from '@skeletonlabs/skeleton';
-	import Fa from 'svelte-fa';
-	import { faPencil, faTrash, faSearch } from '@fortawesome/free-solid-svg-icons';
-	import { page } from '$app/stores';
 	import date from 'date-and-time';
-	import Confirm from '$lib/components/modal/confirmModal.svelte';
-	import BreadCrumbs from '$lib/components/breadcrumbs/breadcrums.svelte';
 	import type { PageServerData } from './$types';
-	import { Helper } from '$lib/utils/helper';
 
 	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -86,8 +85,8 @@
 					<td>{Helper.truncateText(row.Description, 40)} </td>
 					<td>{date.format(new Date(row.CreatedAt), 'DD-MMM-YYYY')}</td>
 					<td>
-						<a href={editRoute(row.id)} class="btn btn-icon-sm -my-1 hover:variant-soft-primary">
-							<Fa icon={faPencil} style="color-text-primary" size="md" />
+						<a href={editRoute(row.id)} class="btn p-2 -my-1 hover:variant-soft-primary">
+							<Icon icon="material-symbols:edit-outline" class="text-lg" />
 						</a>
 					</td>
 					<td>
@@ -101,9 +100,9 @@
 						>
 							<button
 								on:click|preventDefault={() => confirmThis(handlePersonRoleTypeDelete, row.id)}
-								class="btn btn-icon-sm -my-1 hover:variant-soft-error"
+								class="btn p-2 -my-1 hover:variant-soft-error"
 							>
-								<Fa icon={faTrash} />
+								<Icon icon="material-symbols:delete-outline-rounded" class="text-lg" />
 							</button>
 							<span slot="title"> Delete </span>
 							<span slot="description"> Are you sure you want to delete a person role type? </span>

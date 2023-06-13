@@ -1,10 +1,9 @@
 <script lang="ts">
-	import Fa from 'svelte-fa';
-	import { faMultiply } from '@fortawesome/free-solid-svg-icons';
-	import { InputChip } from '@skeletonlabs/skeleton';
+	import { page } from '$app/stores';
 	import BreadCrumbs from '$lib/components/breadcrumbs/breadcrums.svelte';
 	import { showMessage } from '$lib/utils/message.utils';
-	import { page } from '$app/stores';
+	import Icon from '@iconify/svelte';
+	import { InputChip } from '@skeletonlabs/skeleton';
 
 	let tagsPlaceholder = 'Enter a tags here...';
 
@@ -18,14 +17,8 @@
 	const noticeRoute = `/users/${userId}/notices`;
 
 	const breadCrumbs = [
-		{
-			name: 'Notices',
-			path: noticeRoute
-		},
-		{
-			name: 'Create',
-			path: createRoute
-		}
+		{ name: 'Notices', path: noticeRoute },
+		{ name: 'Create', path: createRoute }
 	];
 
 	const upload = async (imgBase64, filename) => {
@@ -83,8 +76,8 @@
 			<tr>
 				<th>Create Notice</th>
 				<th class="text-end">
-					<a href={noticeRoute} class="btn btn-icon-sm -my-2 variant-soft-secondary">
-						<Fa icon={faMultiply} size="lg" />
+					<a href={noticeRoute} class="btn p-2 -my-2 variant-soft-secondary">
+						<Icon icon="material-symbols:close-rounded" class="text-lg" />
 					</a>
 				</th>
 			</tr>
@@ -110,23 +103,14 @@
 			<tr class="!border-b !border-b-secondary-100">
 				<td class="align-top">Description</td>
 				<td>
-					<textarea
-						name="description"
-						placeholder="Enter description here..."
-						class="input"
-					/>
+					<textarea name="description" placeholder="Enter description here..." class="input" />
 				</td>
 			</tr>
 			<tr class="!border-b !border-b-secondary-100">
 				<td>Link</td>
 				<td>
-					<input
-					type="url"
-					name="link"
-					placeholder="Enter link here..."
-					class="input"
-				/>
-			 </td>
+					<input type="url" name="link" placeholder="Enter link here..." class="input" />
+				</td>
 			</tr>
 			<tr class="!border-b !border-b-secondary-100">
 				<td>Active Days *</td>
@@ -148,12 +132,7 @@
 			<tr class="!border-b !border-b-secondary-100">
 				<td>Action</td>
 				<td>
-					<input
-						type="text"
-						name="action"
-						placeholder="Enter action here..."
-						class="input"
-					/>
+					<input type="text" name="action" placeholder="Enter action here..." class="input" />
 				</td>
 			</tr>
 			<tr class="!border-b !border-b-secondary-100">
@@ -166,7 +145,7 @@
 						placeholder="Image"
 						on:change={async (e) => await onFileSelected(e)}
 					/>
-				<input type="hidden" name="imageUrl" value={imageUrl} />
+					<input type="hidden" name="imageUrl" value={imageUrl} />
 				</td>
 			</tr>
 		</tbody>

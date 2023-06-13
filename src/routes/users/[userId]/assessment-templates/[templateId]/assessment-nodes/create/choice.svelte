@@ -1,6 +1,5 @@
 <script lang="ts">
-	import Fa from 'svelte-fa';
-	import { faMultiply } from '@fortawesome/free-solid-svg-icons';
+	import Icon from '@iconify/svelte';
 
 	export let optionValueStore = [{ Text: '' }];
 
@@ -19,8 +18,8 @@
 				bind:value={optionValueStore[i].Text}
 				placeholder="Add option here..."
 			/>
-			<button class="btn btn-icon-sm variant-soft-error" on:click={removeOptionField}>
-				<Fa icon={faMultiply} size="md" class="text-primary-500" />
+			<button class="btn p-2 variant-soft-error" on:click={removeOptionField}>
+				<Icon icon="material-symbols:close-rounded" />
 			</button>
 		</div>
 	{/each}

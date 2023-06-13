@@ -1,10 +1,9 @@
 <script lang="ts">
-	import Fa from 'svelte-fa';
-	import { faMultiply } from '@fortawesome/free-solid-svg-icons';
-	import BreadCrumbs from '$lib/components/breadcrumbs/breadcrums.svelte';
 	import { page } from '$app/stores';
-	import type { PageServerData } from './$types';
+	import BreadCrumbs from '$lib/components/breadcrumbs/breadcrums.svelte';
+	import Icon from '@iconify/svelte';
 	import Choice from '../../create/choice.svelte';
+	import type { PageServerData } from './$types';
 
 	//////////////////////////////////////////////////////////////////////////////////////
 
@@ -75,8 +74,8 @@
 			<tr>
 				<th>Edit Assessment Node</th>
 				<th class="text-end">
-					<a href={viewRoute} class="btn btn-icon-sm -my-2 variant-soft-secondary">
-						<Fa icon={faMultiply} size="lg" />
+					<a href={viewRoute} class="btn p-2 -my-2 variant-soft-secondary">
+						<Icon icon="material-symbols:close-rounded" class="text-lg" />
 					</a>
 				</th>
 			</tr>

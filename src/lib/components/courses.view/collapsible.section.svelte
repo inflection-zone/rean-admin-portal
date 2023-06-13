@@ -1,16 +1,8 @@
 <script lang="ts">
 	import Confirm from '$lib/components/modal/confirmModal.svelte';
-	import {
-		faAngleDown,
-		faAngleUp,
-		faPencil,
-		faPlus,
-		faTrash
-	} from '@fortawesome/free-solid-svg-icons';
+	import Icon from '@iconify/svelte';
 	import { createEventDispatcher } from 'svelte';
-	import Fa from 'svelte-fa';
 	import { slide } from 'svelte/transition';
-
 	///////////////////////////////////////////////////////////////////////////////////////////////
 
 	export let headerText;
@@ -31,11 +23,11 @@
 			<a href={viewRoute}>{headerText}</a>
 		</div>
 		<p>{itemsCount}</p>
-		<a href={addRoute} class="btn btn-icon-sm -my-1 hover:variant-soft-primary">
-			<Fa icon={faPlus} />
+		<a href={addRoute} class="btn p-2 -my-1 hover:variant-soft-primary">
+			<Icon icon="material-symbols:add-rounded" class="text-lg" />
 		</a>
-		<a href={editRoute} class="btn btn-icon-sm -my-1 hover:variant-soft-primary">
-			<Fa icon={faPencil} />
+		<a href={editRoute} class="btn p-2 -my-1 group hover:variant-soft-primary">
+			<Icon icon="material-symbols:edit-outline" class="text-lg" />
 		</a>
 		<div>
 			<Confirm
@@ -46,22 +38,22 @@
 			>
 				<button
 					on:click|once={(id) => confirmThis(handlelDeleteClick, id)}
-					class="btn btn-icon-sm -my-1 hover:variant-soft-error"
+					class="btn p-2 -my-1 hover:variant-soft-error"
 				>
-					<Fa icon={faTrash} />
+					<Icon icon="material-symbols:delete-outline-rounded" class="text-lg" />
 				</button>
 				<div slot="title">Delete</div>
 				<div slot="description">Are you sure you want to delete a content?</div>
 			</Confirm>
 		</div>
 		<button
-			class="btn btn-icon-sm -my-1 hover:variant-soft-secondary "
+			class="btn p-2 -my-1 hover:variant-soft-secondary "
 			on:click={() => (expanded = !expanded)}
 		>
 			{#if expanded === false}
-				<Fa icon={faAngleDown} />
+				<Icon icon="material-symbols:keyboard-arrow-down-rounded" class="text-lg" />
 			{:else}
-				<Fa icon={faAngleUp} />
+				<Icon icon="material-symbols:keyboard-arrow-up-rounded" class="text-lg" />
 			{/if}
 		</button>
 	</div>

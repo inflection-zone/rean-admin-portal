@@ -1,11 +1,9 @@
 <script lang="ts">
-	import Fa from 'svelte-fa';
-	import { faMultiply } from '@fortawesome/free-solid-svg-icons';
-	import BreadCrumbs from '$lib/components/breadcrumbs/breadcrums.svelte';
 	import { page } from '$app/stores';
-	import { InputChip } from '@skeletonlabs/skeleton';
+	import BreadCrumbs from '$lib/components/breadcrumbs/breadcrums.svelte';
 	import { showMessage } from '$lib/utils/message.utils';
-
+	import Icon from '@iconify/svelte';
+	import { InputChip } from '@skeletonlabs/skeleton';
 
 	export let form;
 	const userId = $page.params.userId;
@@ -17,14 +15,8 @@
 	const newsfeedRoute = `/users/${userId}/newsfeeds`;
 
 	const breadCrumbs = [
-		{
-			name: 'Newsfeeds',
-			path: newsfeedRoute
-		},
-		{
-			name: 'Create',
-			path: createRoute
-		}
+		{ name: 'Newsfeeds', path: newsfeedRoute },
+		{ name: 'Create', path: createRoute }
 	];
 
 	const upload = async (imgBase64, filename) => {
@@ -124,8 +116,8 @@
 			<tr>
 				<th>Create Newsfeed</th>
 				<th class="text-end">
-					<a href={newsfeedRoute} class="btn btn-icon-sm -my-2 variant-soft-secondary">
-						<Fa icon={faMultiply} size="lg" />
+					<a href={newsfeedRoute} class="btn p-2 -my-2 variant-soft-secondary">
+						<Icon icon="material-symbols:close-rounded" class="text-lg" />
 					</a>
 				</th>
 			</tr>
@@ -151,33 +143,19 @@
 			<tr class="!border-b !border-b-secondary-100">
 				<td class="align-top">Description</td>
 				<td>
-					<textarea
-						name="description"
-						placeholder="Enter description here..."
-						class="textarea"
-					/>
+					<textarea name="description" placeholder="Enter description here..." class="textarea" />
 				</td>
 			</tr>
 			<tr class="!border-b !border-b-secondary-100">
 				<td>Category</td>
 				<td>
-					<input
-					type="text"
-					name="category"
-					placeholder="Enter category here..."
-					class="input"
-				/>
+					<input type="text" name="category" placeholder="Enter category here..." class="input" />
 				</td>
 			</tr>
 			<tr class="!border-b !border-b-secondary-100">
 				<td>Link</td>
 				<td>
-					<input
-						type="url"
-						name="link"
-						placeholder="Enter copyright here..."
-						class="input"
-					/>
+					<input type="url" name="link" placeholder="Enter copyright here..." class="input" />
 				</td>
 			</tr>
 			<tr class="!border-b !border-b-secondary-100">
@@ -208,33 +186,37 @@
 			<tr class="!border-b !border-b-secondary-100">
 				<td>Favicon</td>
 				<td>
-						<input
-							name="fileinput"
-							type="file"
-							class="true input w-full"
-							placeholder="Image"
-							on:change={async (e) => await onFileSelected(e)}
-						/>
+					<input
+						name="fileinput"
+						type="file"
+						class="true input w-full"
+						placeholder="Image"
+						on:change={async (e) => await onFileSelected(e)}
+					/>
 					<input type="hidden" name="favicon" value={favicon} />
 				</td>
 			</tr>
 			<tr class="!border-b !border-b-secondary-100">
-			 <td>Image</td>
+				<td>Image</td>
 				<td>
-						<input
-							name="fileInput"
-							type="file"
-							class="true input w-full"
-							placeholder="Image"
-							on:change={async (e) => await onFileSelected(e)}
-						/>
+					<input
+						name="fileInput"
+						type="file"
+						class="true input w-full"
+						placeholder="Image"
+						on:change={async (e) => await onFileSelected(e)}
+					/>
 					<input type="hidden" required name="image" value={image} />
 				</td>
 			</tr>
 			<tr class="!border-b !border-b-secondary-100">
 				<td class="align-top">Tags</td>
 				<td>
-					<InputChip chips="variant-filled-error rounded-2xl" name="tags" palceholder ='Enter tags here'/>
+					<InputChip
+						chips="variant-filled-error rounded-2xl"
+						name="tags"
+						palceholder="Enter tags here"
+					/>
 				</td>
 			</tr>
 		</tbody>

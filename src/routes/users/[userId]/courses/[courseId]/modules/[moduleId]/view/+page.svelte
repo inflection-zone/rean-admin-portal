@@ -1,13 +1,12 @@
 <script lang="ts">
-	import Fa from 'svelte-fa';
-	import { faMultiply, faPen } from '@fortawesome/free-solid-svg-icons';
-	import { onMount } from 'svelte';
-	import { show } from '$lib/utils/message.utils';
-	import { LocalStorageUtils } from '$lib/utils/local.storage.utils';
-	import BreadCrumbs from '$lib/components/breadcrumbs/breadcrums.svelte';
 	import { page } from '$app/stores';
-	import type { PageServerData } from './$types';
+	import BreadCrumbs from '$lib/components/breadcrumbs/breadcrums.svelte';
 	import Image from '$lib/components/image.svelte';
+	import { LocalStorageUtils } from '$lib/utils/local.storage.utils';
+	import { show } from '$lib/utils/message.utils';
+	import Icon from '@iconify/svelte';
+	import { onMount } from 'svelte';
+	import type { PageServerData } from './$types';
 
 	//////////////////////////////////////////////////////////////////////////////////////
 
@@ -55,7 +54,7 @@
 <div class="flex flex-wrap gap-2">
 	<a href={contentCreateRoute} class="btn variant-filled-secondary ml-auto">Add Content</a>
 	<a href={editRoute} class="btn variant-filled-secondary">
-		<span><Fa icon={faPen} size="sm" /></span>
+		<Icon icon="material-symbols:edit-outline" />
 		<span>Edit</span>
 	</a>
 </div>
@@ -66,8 +65,8 @@
 			<tr>
 				<th>View Module</th>
 				<th class="text-end">
-					<a href={courseRoute} class="btn btn-icon-sm -my-2 variant-soft-secondary">
-						<Fa icon={faMultiply} size="lg" />
+					<a href={courseRoute} class="btn p-2 -my-2 variant-soft-secondary">
+						<Icon icon="material-symbols:close-rounded" class="text-lg" />
 					</a>
 				</th>
 			</tr>

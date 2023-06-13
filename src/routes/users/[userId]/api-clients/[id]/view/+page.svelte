@@ -1,16 +1,15 @@
 <script lang="ts">
-	import Fa from 'svelte-fa';
-	import { faCopy, faMultiply, faPen } from '@fortawesome/free-solid-svg-icons';
-	import { onMount } from 'svelte';
-	import { show, showMessage } from '$lib/utils/message.utils';
-	import { LocalStorageUtils } from '$lib/utils/local.storage.utils';
-	import type { PageServerData } from './$types';
-	import BreadCrumbs from '$lib/components/breadcrumbs/breadcrums.svelte';
 	import { page } from '$app/stores';
+	import BreadCrumbs from '$lib/components/breadcrumbs/breadcrums.svelte';
 	import Modalform from '$lib/components/modal/form.modal.svelte';
-	import { showGetApiKeyModal, showRenewApiKeyModal } from '$lib/store/general.store';
 	import RenewApiKeyModal from '$lib/components/modal/renew.api.key.modal.svelte';
+	import { showGetApiKeyModal, showRenewApiKeyModal } from '$lib/store/general.store';
+	import { LocalStorageUtils } from '$lib/utils/local.storage.utils';
+	import { show, showMessage } from '$lib/utils/message.utils';
+	import Icon from '@iconify/svelte';
 	import { clipboard } from '@skeletonlabs/skeleton';
+	import { onMount } from 'svelte';
+	import type { PageServerData } from './$types';
 
 	export let data: PageServerData;
 	let id = data.apiClient.id;
@@ -112,13 +111,13 @@
 		class="btn variant-soft-secondary ml-auto"
 		on:click|capture={() => showRenewApiKeyModal.set(true)}
 	>
-		Update api key
+		Update API key
 	</button>
 	<button class="btn variant-soft-secondary" on:click|capture={() => showGetApiKeyModal.set(true)}>
-		Get api key
+		Get API key
 	</button>
 	<a href={editRoute} class="btn variant-filled-secondary">
-		<span><Fa icon={faPen} size="sm" /></span>
+		<Icon icon="material-symbols:edit-outline" />
 		<span>Edit</span>
 	</a>
 </div>
@@ -129,8 +128,8 @@
 			<tr>
 				<th>View Client</th>
 				<th class="text-end">
-					<a href={apiClientRoute} class="btn btn-icon-sm -my-2 variant-soft-secondary">
-						<Fa icon={faMultiply} size="lg" />
+					<a href={apiClientRoute} class="btn p-2 -my-2 variant-soft-secondary">
+						<Icon icon="material-symbols:close-rounded" class="text-lg" />
 					</a>
 				</th>
 			</tr>
@@ -153,19 +152,22 @@
 				<td>{email}</td>
 			</tr>
 			{#if apiKey === undefined}
-				<tr />
+				<tr class="!border-b !border-b-secondary-100">
+					<td>Api Key</td>
+					<td>Not Available</td>
+				</tr>
 			{:else}
 				<tr class="!border-b !border-b-secondary-100">
 					<td>Api Key</td>
-					<td>
+					<td class="flex items-center gap-2">
 						<span class="span" id="email">{apiKey}</span>
 						<button
-							class="btn variant-ringed-primary text-primary-500 "
+							class="btn p-2 variant-soft-secondary"
 							use:clipboard={apiKey}
 							on:click={onClickHandler}
 							disabled={copied}
 						>
-							<Fa icon={faCopy} size="lg" class="" />
+							<Icon icon="material-symbols:content-copy-outline-rounded" class="text-lg" />
 						</button>
 					</td>
 				</tr>

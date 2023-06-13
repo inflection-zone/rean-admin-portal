@@ -1,13 +1,11 @@
 <script lang="ts">
-	import { Drawer, drawerStore } from '@skeletonlabs/skeleton';
+	import { page } from '$app/stores';
+	import Icon from '@iconify/svelte';
 	import type { DrawerSettings } from '@skeletonlabs/skeleton';
-	import { AppShell, AppBar } from '@skeletonlabs/skeleton';
-	import Fa from 'svelte-fa';
-	import { faCircleUser, faSearch, faBars } from '@fortawesome/free-solid-svg-icons';
+	import { AppBar, AppShell, Drawer, drawerStore } from '@skeletonlabs/skeleton';
+	import { afterUpdate, onMount } from 'svelte';
 	import { navbarMenu, sidebarMenu, type TabDefinition } from './navigation.tabs';
 	import SettingMenu from './setting.menus.svelte';
-	import { page } from '$app/stores';
-	import { onMount, afterUpdate } from 'svelte';
 	import Sidebar from './sidebar.svelte';
 	export let userId = undefined;
 	const navbarTabs: TabDefinition[] = navbarMenu(userId);
@@ -67,7 +65,7 @@
 					<div class="relative ml-6 w-64 max-[450px]:w-40">
 						<input type="text" class="input pl-10" placeholder="Search" />
 						<div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
-							<Fa icon={faSearch} class="text-primary-300" size="md" />
+							<Icon icon="material-symbols:search-rounded" class="text-lg text-primary-300" />
 						</div>
 					</div>
 				</div>
@@ -75,16 +73,16 @@
 			<svelte:fragment slot="trail">
 				<button
 					on:click={() => (showSidebar = !showSidebar)}
-					class="md:hidden btn btn-icon rounded hover:bg-white/10 text-white"
+					class="md:hidden btn btn-icon p-1 rounded hover:bg-white/10 text-white"
 				>
-					<Fa icon={faBars} size="1.5x" />
+					<Icon icon="material-symbols:menu-rounded" class="text-3xl" />
 				</button>
 
 				<button
-					class="btn btn-icon rounded hover:bg-white/10 text-white mr-6"
+					class="btn p-1 rounded hover:bg-white/10 text-white mr-6"
 					on:click={drawerRightOpen}
 				>
-					<Fa icon={faCircleUser} size="1.5x" />
+					<Icon icon="material-symbols:person-outline-rounded" class="text-3xl" />
 				</button>
 			</svelte:fragment>
 		</AppBar>

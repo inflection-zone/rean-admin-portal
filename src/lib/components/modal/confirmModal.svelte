@@ -1,6 +1,6 @@
 <script>
-	import { fly, fade } from 'svelte/transition';
 	import { createEventDispatcher } from 'svelte';
+	import { fade, fly } from 'svelte/transition';
 	export let confirmTitle = 'Confirm';
 	export let cancelTitle = 'Cancel';
 	export let showDialog = false;
@@ -87,7 +87,6 @@
 		border-radius: 0 0 3px 3px;
 	}
 	.confirm-dialog {
-		font-family: sans-serif;
 		position: absolute;
 		z-index: 999;
 		top: 50%;

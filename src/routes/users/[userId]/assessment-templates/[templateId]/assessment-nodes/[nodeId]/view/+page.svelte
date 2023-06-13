@@ -1,16 +1,15 @@
 <script lang="ts">
-	import Fa from 'svelte-fa';
-	import { faMultiply, faPen, faPencil, faTrash } from '@fortawesome/free-solid-svg-icons';
-	import { onMount } from 'svelte';
-	import { show, showMessage } from '$lib/utils/message.utils';
-	import { LocalStorageUtils } from '$lib/utils/local.storage.utils';
-	import BreadCrumbs from '$lib/components/breadcrumbs/breadcrums.svelte';
 	import { page } from '$app/stores';
-	import type { PageServerData } from './$types';
+	import BreadCrumbs from '$lib/components/breadcrumbs/breadcrums.svelte';
 	import Confirm from '$lib/components/modal/confirmModal.svelte';
 	import UpdateScoringCondition from '$lib/components/modal/update.scoring.condition.modal.svelte';
 	import { scoringApplicableCondition, showScoringConditionModal } from '$lib/store/general.store';
 	import { Helper } from '$lib/utils/helper';
+	import { LocalStorageUtils } from '$lib/utils/local.storage.utils';
+	import { show } from '$lib/utils/message.utils';
+	import Icon from '@iconify/svelte';
+	import { onMount } from 'svelte';
+	import type { PageServerData } from './$types';
 
 	////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -132,7 +131,7 @@
 		<a href={createNodeRoute} class="btn variant-filled-secondary">Add child</a>
 	{/if}
 	<a href={editRoute} class="btn variant-filled-secondary">
-		<span><Fa icon={faPen} size="sm" /></span>
+		<Icon icon="material-symbols:edit-outline" />
 		<span>Edit</span>
 	</a>
 </div>
@@ -143,8 +142,8 @@
 			<tr>
 				<th>View Assessment Node</th>
 				<th class="text-end">
-					<a href={assessmentNodeRoutes} class="btn btn-icon-sm -my-2 variant-soft-secondary">
-						<Fa icon={faMultiply} size="lg" />
+					<a href={assessmentNodeRoutes} class="btn p-2 -my-2 variant-soft-secondary">
+						<Icon icon="material-symbols:close-rounded" class="text-lg" />
 					</a>
 				</th>
 			</tr>
@@ -197,9 +196,9 @@
 
 								<button
 									on:click|preventDefault={async () => showScoringConditionModal.set(true)}
-									class="btn btn-icon-sm -my-1 ml-auto hover:variant-soft-primary"
+									class="btn p-2 -my-1 ml-auto hover:variant-soft-primary"
 								>
-									<Fa icon={faPencil} style="color-text-primary" size="md" />
+									<Icon icon="material-symbols:edit-outline" class="text-lg" />
 								</button>
 							</div>
 						</td>
@@ -241,9 +240,9 @@
 												<td>
 													<a
 														href={editNodeRoute(node.id)}
-														class="btn btn-icon-sm -my-1 hover:variant-soft-primary"
+														class="btn p-2 -my-1 hover:variant-soft-primary"
 													>
-														<Fa icon={faPencil} style="color-text-primary" size="md" />
+														<Icon icon="material-symbols:edit-outline" class="text-lg" />
 													</a>
 												</td>
 												<td>
@@ -256,9 +255,12 @@
 														<button
 															on:click|preventDefault={() =>
 																confirmThis(handleAssessmentNodeDelete, node.id)}
-															class="btn btn-icon-sm -my-1 hover:variant-soft-error"
+															class="btn p-2 -my-1 hover:variant-soft-error"
 														>
-															<Fa icon={faTrash} />
+															<Icon
+																icon="material-symbols:delete-outline-rounded"
+																class="text-lg"
+															/>
 														</button>
 														<span slot="title"> Delete </span>
 														<span slot="description">

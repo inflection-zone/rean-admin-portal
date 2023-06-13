@@ -1,20 +1,13 @@
 <script lang="ts">
-	import Fa from 'svelte-fa';
-	import {
-		faMessage,
-		faMultiply,
-		faPen,
-		faQuestionCircle,
-		faShareNodes
-	} from '@fortawesome/free-solid-svg-icons';
-	import { onMount } from 'svelte';
-	import { show } from '$lib/utils/message.utils';
-	import { LocalStorageUtils } from '$lib/utils/local.storage.utils';
-	import BreadCrumbs from '$lib/components/breadcrumbs/breadcrums.svelte';
 	import { page } from '$app/stores';
-	import { TreeView, TreeBranch, TreeLeaf } from 'svelte-tree-view-component';
-	import type { PageServerData } from './$types';
+	import BreadCrumbs from '$lib/components/breadcrumbs/breadcrums.svelte';
 	import { scoringApplicableCondition } from '$lib/store/general.store';
+	import { LocalStorageUtils } from '$lib/utils/local.storage.utils';
+	import { show } from '$lib/utils/message.utils';
+	import Icon from '@iconify/svelte';
+	import { onMount } from 'svelte';
+	import { TreeBranch, TreeLeaf, TreeView } from 'svelte-tree-view-component';
+	import type { PageServerData } from './$types';
 
 	export let data: PageServerData;
 	let assessmentNodes = data.assessmentNodes;
@@ -61,7 +54,7 @@
 <div class="flex flex-wrap gap-2">
 	<a href={nodeRoute} class="btn variant-filled-secondary ml-auto"> Add Assessment Node</a>
 	<a href={editRoute} class="btn variant-filled-secondary">
-		<span><Fa icon={faPen} size="sm" /></span>
+		<Icon icon="material-symbols:edit-outline" />
 		<span>Edit</span>
 	</a>
 </div>
@@ -72,8 +65,8 @@
 			<tr>
 				<th>View Assessment</th>
 				<th class="text-end">
-					<a href={assessmentsRoutes} class="btn btn-icon-sm -my-2 variant-soft-secondary">
-						<Fa icon={faMultiply} size="lg" />
+					<a href={assessmentsRoutes} class="btn p-2 -my-2 variant-soft-secondary">
+						<Icon icon="material-symbols:close-rounded" class="text-lg" />
 					</a>
 				</th>
 			</tr>
@@ -124,8 +117,8 @@
 										{#each node.Children as child}
 											{#if child.NodeType === 'Node list' && child.ParentNodeId !== null}
 												<TreeBranch defaultClosed>
-													<div slot="root" class="flex">
-														<Fa icon={faShareNodes} size="lg" class="mr-2" />
+													<div slot="root" class="flex gap-2 items-center">
+														<Icon icon="material-symbols:share" class="text-lg" />
 														<a href={assessmentNodeView(child.id)}>
 															{child.Sequence}-{child.NodeType}-{child.Title}
 														</a>
@@ -133,8 +126,8 @@
 													{#each child.Children as kid}
 														{#if kid.NodeType === 'Node list' && kid.ParentNodeId !== null}
 															<TreeBranch defaultClosed>
-																<div slot="root" class="flex">
-																	<Fa icon={faShareNodes} size="lg" class="mr-2" />
+																<div slot="root" class="flex gap-2 items-center">
+																	<Icon icon="material-symbols:share" class="text-lg" />
 																	<a href={assessmentNodeView(kid.id)}>
 																		{kid.Sequence}-{kid.NodeType}-{kid.Title}
 																	</a>
@@ -142,8 +135,11 @@
 																{#each kid.Children as child}
 																	{#if child.NodeType === 'Question'}
 																		<TreeLeaf>
-																			<div class="flex">
-																				<Fa icon={faQuestionCircle} size="lg" class="mr-2" />
+																			<div class="flex gap-2 items-center">
+																				<Icon
+																					icon="material-symbols:question-exchange-rounded"
+																					class="text-lg"
+																				/>
 																				<a href={assessmentNodeView(child.id)}>
 																					{child.Sequence}-{child.NodeType}-{child.Title}
 																				</a>
@@ -151,8 +147,11 @@
 																		</TreeLeaf>
 																	{:else if child.NodeType === 'Message'}
 																		<TreeLeaf>
-																			<div class="flex">
-																				<Fa icon={faMessage} size="lg" class="mr-2" />
+																			<div class="flex gap-2 items-center">
+																				<Icon
+																					icon="material-symbols:chat-outline-rounded"
+																					class="text-lg"
+																				/>
 																				<a href={assessmentNodeView(child.id)}>
 																					{child.Sequence}-{child.NodeType}-{child.Title}
 																				</a>
@@ -163,8 +162,11 @@
 															</TreeBranch>
 														{:else if kid.NodeType === 'Question'}
 															<TreeLeaf>
-																<div class="flex">
-																	<Fa icon={faQuestionCircle} size="lg" class="mr-2" />
+																<div class="flex gap-2 items-center">
+																	<Icon
+																		icon="material-symbols:question-exchange-rounded"
+																		class="text-lg"
+																	/>
 																	<a href={assessmentNodeView(kid.id)}>
 																		{kid.Sequence}-{kid.NodeType}-{kid.Title}
 																	</a>
@@ -172,8 +174,11 @@
 															</TreeLeaf>
 														{:else}
 															<TreeLeaf>
-																<div class="flex">
-																	<Fa icon={faMessage} size="lg" class="mr-2" />
+																<div class="flex gap-2 items-center">
+																	<Icon
+																		icon="material-symbols:chat-outline-rounded"
+																		class="text-lg"
+																	/>
 																	<a href={assessmentNodeView(kid.id)}>
 																		{kid.Sequence}-{kid.NodeType}-{kid.Title}
 																	</a>
@@ -184,8 +189,11 @@
 												</TreeBranch>
 											{:else if child.NodeType === 'Question'}
 												<TreeLeaf>
-													<div class="flex">
-														<Fa icon={faQuestionCircle} size="lg" class="mr-2" />
+													<div class="flex gap-2 items-center">
+														<Icon
+															icon="material-symbols:question-exchange-rounded"
+															class="text-lg"
+														/>
 														<a href={assessmentNodeView(child.id)}>
 															{child.Sequence}-{child.NodeType}-{child.Title}
 														</a>
@@ -193,8 +201,8 @@
 												</TreeLeaf>
 											{:else if child.NodeType === 'Message'}
 												<TreeLeaf>
-													<div class="flex">
-														<Fa icon={faMessage} size="lg" class="mr-2" />
+													<div class="flex gap-2 items-center">
+														<Icon icon="material-symbols:chat-outline-rounded" class="text-lg" />
 														<a href={assessmentNodeView(child.id)}>
 															{child.Sequence}-{child.NodeType}-{child.Title}
 														</a>

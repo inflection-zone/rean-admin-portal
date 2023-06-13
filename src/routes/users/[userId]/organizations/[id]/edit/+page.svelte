@@ -1,13 +1,12 @@
 <script lang="ts">
-	import Fa from 'svelte-fa';
-	import date from 'date-and-time';
-	import { faMultiply } from '@fortawesome/free-solid-svg-icons';
-	import BreadCrumbs from '$lib/components/breadcrumbs/breadcrums.svelte';
 	import { page } from '$app/stores';
+	import BreadCrumbs from '$lib/components/breadcrumbs/breadcrums.svelte';
+	import Image from '$lib/components/image.svelte';
 	import { oragnizationTypesStore } from '$lib/store/general.store';
 	import { LocalStorageUtils } from '$lib/utils/local.storage.utils';
-	import Image from '$lib/components/image.svelte';
 	import { showMessage } from '$lib/utils/message.utils';
+	import Icon from '@iconify/svelte';
+	import date from 'date-and-time';
 	import type { PageServerData } from './$types';
 
 	//////////////////////////////////////////////////////////////////
@@ -141,8 +140,8 @@
 			<tr>
 				<th>Edit Organization</th>
 				<th class="text-end">
-					<a href={viewRoute} class="btn btn-icon-sm -my-2 variant-soft-secondary">
-						<Fa icon={faMultiply} size="lg" />
+					<a href={viewRoute} class="btn p-2 -my-2 variant-soft-secondary">
+						<Icon icon="material-symbols:close-rounded" class="text-lg" />
 					</a>
 				</th>
 			</tr>
@@ -152,49 +151,49 @@
 				<td>Type</td>
 				<td>
 					<select
-					class="select w-full"
-					bind:value={type}
-					name="type"
-					placeholder="select type here..."
-				>
-					{#each oraganizationTypes as types}
-						<option>{types}</option>
-					{/each}
-				</select>
+						class="select w-full"
+						bind:value={type}
+						name="type"
+						placeholder="select type here..."
+					>
+						{#each oraganizationTypes as types}
+							<option>{types}</option>
+						{/each}
+					</select>
 				</td>
 			</tr>
 			<tr class="!border-b !border-b-secondary-100">
 				<td>Name *</td>
 				<td>
 					<input
-					type="text"
-					name="name"
-					bind:value={name}
-					placeholder="Enter name here..."
-					class="input w-full {form?.errors?.name
-						? 'border-error-300 text-error-500'
-						: 'border-primary-200 text-primary-500'}"
-				/>
-				{#if form?.errors?.name}
-					<p class="text-error-500 text-xs">{form?.errors?.name[0]}</p>
-				{/if}
+						type="text"
+						name="name"
+						bind:value={name}
+						placeholder="Enter name here..."
+						class="input w-full {form?.errors?.name
+							? 'border-error-300 text-error-500'
+							: 'border-primary-200 text-primary-500'}"
+					/>
+					{#if form?.errors?.name}
+						<p class="text-error-500 text-xs">{form?.errors?.name[0]}</p>
+					{/if}
 				</td>
 			</tr>
 			<tr class="!border-b !border-b-secondary-100">
 				<td>Contact Number *</td>
 				<td>
 					<input
-					type="text"
-					name="contactPhone"
-					bind:value={contactNumber}
-					placeholder="Enter contact number here..."
-					class="input w-full max-w-md {form?.errors?.contactPhone
-						? 'border-error-300 text-error-500'
-						: 'border-primary-200 text-primary-500'}"
-				/>
-				{#if form?.errors?.contactPhone}
-					<p class="text-error-500 text-xs">{form?.errors?.contactPhone[0]}</p>
-				{/if}
+						type="text"
+						name="contactPhone"
+						bind:value={contactNumber}
+						placeholder="Enter contact number here..."
+						class="input w-full max-w-md {form?.errors?.contactPhone
+							? 'border-error-300 text-error-500'
+							: 'border-primary-200 text-primary-500'}"
+					/>
+					{#if form?.errors?.contactPhone}
+						<p class="text-error-500 text-xs">{form?.errors?.contactPhone[0]}</p>
+					{/if}
 				</td>
 			</tr>
 			<tr class="!border-b !border-b-secondary-100">
@@ -258,17 +257,17 @@
 				<td>Address Line *</td>
 				<td>
 					<input
-					type="text"
-					name="addressLine"
-					placeholder="Enter address here..."
-					bind:value={addressLine}
-					class="input w-full {form?.errors?.addressLine
-						? 'border-error-300 text-error-500'
-						: 'border-primary-200 text-primary-500'}"
-				/>
-				{#if form?.errors?.addressLine}
-					<p class="text-error-500 text-xs">{form?.errors?.addressLine[0]}</p>
-				{/if}
+						type="text"
+						name="addressLine"
+						placeholder="Enter address here..."
+						bind:value={addressLine}
+						class="input w-full {form?.errors?.addressLine
+							? 'border-error-300 text-error-500'
+							: 'border-primary-200 text-primary-500'}"
+					/>
+					{#if form?.errors?.addressLine}
+						<p class="text-error-500 text-xs">{form?.errors?.addressLine[0]}</p>
+					{/if}
 				</td>
 			</tr>
 			<tr class="!border-b !border-b-secondary-100">
@@ -299,37 +298,37 @@
 				<td>State/Province</td>
 				<td>
 					<select
-					name="state"
-					class="select w-1/2"
-					placeholder="Select state here..."
-					bind:value={state}
-				>
-					<option>Maharashtra</option>
-				</select>
+						name="state"
+						class="select w-1/2"
+						placeholder="Select state here..."
+						bind:value={state}
+					>
+						<option>Maharashtra</option>
+					</select>
 				</td>
 			</tr>
 			<tr class="!border-b !border-b-secondary-100">
 				<td>Country</td>
 				<td>
 					<input
-					type="text"
-					name="country"
-					placeholder="Enter country here..."
-					class="input w-1/3 "
-					bind:value={country}
-				/>
+						type="text"
+						name="country"
+						placeholder="Enter country here..."
+						class="input w-1/3 "
+						bind:value={country}
+					/>
 				</td>
 			</tr>
 			<tr class="!border-b !border-b-secondary-100">
 				<td>Zip/Postal Code</td>
 				<td>
 					<input
-					type="text"
-					name="postalCode"
-					placeholder="Enter postal code or zip code here..."
-					bind:value={postalCode}
-					class="input"
-				/>
+						type="text"
+						name="postalCode"
+						placeholder="Enter postal code or zip code here..."
+						bind:value={postalCode}
+						class="input"
+					/>
 				</td>
 			</tr>
 			<tr class="!border-b !border-b-secondary-100">
@@ -360,12 +359,12 @@
 				<td>Is Health Facility Available</td>
 				<td>
 					<input
-							type="checkbox"
-							name="isHealthFacility"
-							bind:value={isHealthFacility}
-							bind:checked={isHealthFacility}
-							class="checkbox checkbox-primary border-primary-200 hover:border-primary-400 checkbox-md ml-2"
-						/>
+						type="checkbox"
+						name="isHealthFacility"
+						bind:value={isHealthFacility}
+						bind:checked={isHealthFacility}
+						class="checkbox checkbox-primary border-primary-200 hover:border-primary-400 checkbox-md ml-2"
+					/>
 				</td>
 			</tr>
 		</tbody>

@@ -1,12 +1,11 @@
 <script lang="ts">
-	import Fa from 'svelte-fa';
-	import { faMultiply } from '@fortawesome/free-solid-svg-icons';
-	import BreadCrumbs from '$lib/components/breadcrumbs/breadcrums.svelte';
 	import { page } from '$app/stores';
+	import BreadCrumbs from '$lib/components/breadcrumbs/breadcrums.svelte';
 	import { oragnizationTypesStore } from '$lib/store/general.store';
 	import { LocalStorageUtils } from '$lib/utils/local.storage.utils';
 	import { showMessage } from '$lib/utils/message.utils';
-	import { Country, State, City } from 'country-state-city';
+	import Icon from '@iconify/svelte';
+	import { Country } from 'country-state-city';
 	import type { PageServerData } from './$types';
 
 	///////////////////////////////////////////////////////////////////////////////////////
@@ -90,8 +89,8 @@
 			<tr>
 				<th>Create Organization</th>
 				<th class="text-end">
-					<a href={organizationRoute} class="btn btn-icon-sm -my-2 variant-soft-secondary">
-						<Fa icon={faMultiply} size="lg" />
+					<a href={organizationRoute} class="btn p-2 -my-2 variant-soft-secondary">
+						<Icon icon="material-symbols:close-rounded" class="text-lg" />
 					</a>
 				</th>
 			</tr>

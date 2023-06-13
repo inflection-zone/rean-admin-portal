@@ -1,9 +1,8 @@
 <script lang="ts">
-	import Fa from 'svelte-fa';
-	import { faMultiply } from '@fortawesome/free-solid-svg-icons';
-	import BreadCrumbs from '$lib/components/breadcrumbs/breadcrums.svelte';
 	import { page } from '$app/stores';
+	import BreadCrumbs from '$lib/components/breadcrumbs/breadcrums.svelte';
 	import { showMessage } from '$lib/utils/message.utils';
+	import Icon from '@iconify/svelte';
 
 	////////////////////////////////////////////////////////////////////////////////////
 
@@ -16,15 +15,8 @@
 	const notificationRoute = `/users/${userId}/notifications`;
 
 	const breadCrumbs = [
-		{
-			name: 'Notifications',
-			path: notificationRoute,
-			home: true
-		},
-		{
-			name: 'Create',
-			path: createRoute
-		}
+		{ name: 'Notifications', path: notificationRoute, home: true },
+		{ name: 'Create', path: createRoute }
 	];
 
 	const upload = async (imgBase64, filename) => {
@@ -82,8 +74,8 @@
 			<tr>
 				<th>Create Notification</th>
 				<th class="text-end">
-					<a href={notificationRoute} class="btn btn-icon-sm -my-2 variant-soft-secondary">
-						<Fa icon={faMultiply} size="lg" />
+					<a href={notificationRoute} class="btn p-2 -my-2 variant-soft-secondary">
+						<Icon icon="material-symbols:close-rounded" class="text-lg" />
 					</a>
 				</th>
 			</tr>
@@ -109,35 +101,28 @@
 			<tr class="!border-b !border-b-secondary-100">
 				<td class="align-top">Body</td>
 				<td>
-					<textarea
-						name="body"
-						placeholder="Enter body here..."
-						class="textarea"
-					/>
+					<textarea name="body" placeholder="Enter body here..." class="textarea" />
 				</td>
 			</tr>
 			<tr class="!border-b !border-b-secondary-100">
 				<td>Type</td>
 				<td>
-					<select
-						class="select w-full"
-						placeholder="select type here..."
-					>
+					<select class="select w-full" placeholder="select type here...">
 						<option selected>General</option>
 						<option>Auto</option>
 						<option>Dark mode</option>
 						<option>Light mode</option>
 					</select>
-			 </td>
+				</td>
 			</tr>
 			<tr class="!border-b !border-b-secondary-100">
 				<td>Broadcast To All</td>
 				<td>
 					<input
-							type="checkbox"
-							name="broadcastToAll"
-							class="checkbox checkbox-primary border-primary-200 hover:border-primary-400 checkbox-md ml-2"
-						/>
+						type="checkbox"
+						name="broadcastToAll"
+						class="checkbox checkbox-primary border-primary-200 hover:border-primary-400 checkbox-md ml-2"
+					/>
 				</td>
 			</tr>
 			<tr class="!border-b !border-b-secondary-100">
@@ -150,7 +135,7 @@
 						placeholder="Image"
 						on:change={async (e) => await onFileSelected(e)}
 					/>
-				<input type="hidden" name="imageUrl" value={imageUrl} />
+					<input type="hidden" name="imageUrl" value={imageUrl} />
 				</td>
 			</tr>
 		</tbody>
