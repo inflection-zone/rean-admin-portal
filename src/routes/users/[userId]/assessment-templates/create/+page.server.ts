@@ -13,8 +13,8 @@ const createAssessmentTemplateSchema = zfd.formData({
 	type: z.string(),
 	provider: z.string().optional(),
 	providerAssessmentCode: z.string().optional(),
-	serveListNodeChildrenAtOnce: zfd.checkbox({ trueValue: 'true' }),
-	scoringApplicable: zfd.checkbox({ trueValue: 'true' })
+	serveListNodeChildrenAtOnce: zfd.checkbox(),
+	scoringApplicable: zfd.checkbox()
 });
 
 export const actions = {
