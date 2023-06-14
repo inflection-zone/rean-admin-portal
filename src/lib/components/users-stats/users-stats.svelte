@@ -36,12 +36,12 @@
 
 	const usersData = [
 		{
-			usersDetail: 'Non Deleted Users',
+			usersDetail: 'Not Deleted Users',
 			count: usersCount.NonDeletedUsers.Count,
 			ratio: `${Math.ceil(usersCount.NonDeletedUsers.Ratio)}`
 		},
 		{
-			usersDetail: 'Active Users',
+			usersDetail: 'Users With Active Session',
 			count: usersCount.ActiveUsers.Count,
 			ratio: `${Math.ceil(usersCount.ActiveUsers.Ratio)}`
 		},
@@ -51,7 +51,7 @@
 			ratio: `${Math.ceil(usersCount.DeletedUsers.Ratio)}`
 		},
 		{
-			usersDetail: 'Enrollment Users',
+			usersDetail: 'Enrolled Users',
 			count: usersCount.EnrollmentUsers.Count,
 			ratio: `${Math.ceil(usersCount.EnrollmentUsers.Ratio)}`
 		}
