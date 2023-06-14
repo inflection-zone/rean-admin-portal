@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { navigating, page } from '$app/stores';
+	import Icon from '@iconify/svelte';
 	import { Accordion, AccordionItem } from '@skeletonlabs/skeleton';
 
 	export let userId = undefined;
@@ -8,42 +9,62 @@
 	const navData = [
 		{
 			title: 'Dashboard',
-			icon: '/sidebar/dashboard.png',
+			icon: 'material-symbols:dashboard-outline-rounded',
 			childNav: [
-				{ icon: '/rean-logo-white.png', title: 'RHG App', link: `/users/${userId}/home` },
-				{ icon: '/rean-logo-white.png', title: 'RHG Bot', link: `/users/${userId}/home` }
+				{
+					icon: '/rean-logo-white.png',
+					title: 'RHG App',
+					link: `/users/${userId}/home`
+				},
+				{
+					icon: '/rean-logo-white.png',
+					title: 'RHG Bot',
+					link: `/users/${userId}/bot-stats`
+				}
 			]
 		},
 		{
 			title: 'Clinical',
-			icon: '/sidebar/clinical.png',
+			icon: 'material-symbols:medical-services-outline-rounded',
 			childNav: [
 				{
-					icon: '/sidebar/assessment-template.png',
+					icon: 'material-symbols:assignment-outline-rounded',
 					title: 'Assessments',
 					link: `/users/${userId}/assessment-templates`
 				},
 				{
-					icon: '/sidebar/lab-record.png',
+					icon: 'material-symbols:lab-research-outline-rounded',
 					title: 'Lab-Records',
 					link: `/users/${userId}/lab-record-types`
 				},
-				{ icon: '/sidebar/symptom.png', title: 'Symptoms', link: `/users/${userId}/symptoms` },
-				{ icon: '/sidebar/drug.png', title: 'Drug', link: `/users/${userId}/drugs` }
+				{
+					icon: 'material-symbols:symptoms-outline',
+					title: 'Symptoms',
+					link: `/users/${userId}/symptoms`
+				},
+				{
+					icon: 'material-symbols:pill-outline',
+					title: 'Drug',
+					link: `/users/${userId}/drugs`
+				}
 			]
 		},
 		{
 			title: 'Educational',
-			icon: '/sidebar/educational.png',
+			icon: 'material-symbols:school-outline-rounded',
 			childNav: [
-				{ icon: '/sidebar/course.png', title: 'Courses', link: `/users/${userId}/courses` },
 				{
-					icon: '/sidebar/learning.png',
+					icon: 'material-symbols:abc-rounded',
+					title: 'Courses',
+					link: `/users/${userId}/courses`
+				},
+				{
+					icon: 'material-symbols:local-library-outline-rounded',
 					title: 'Learning Journey',
 					link: `/users/${userId}/learning-journeys`
 				},
 				{
-					icon: '/sidebar/knowledge-nugget.png',
+					icon: 'material-symbols:assignment-add-outline-rounded',
 					title: 'Knowledge Nuggets',
 					link: `/users/${userId}/knowledge-nuggets`
 				}
@@ -51,34 +72,54 @@
 		},
 		{
 			title: 'Types',
-			icon: '/sidebar/types.png',
+			icon: 'material-symbols:account-tree-outline-rounded',
 			childNav: [
 				{
-					icon: '/sidebar/role.png',
+					icon: 'material-symbols:person-search-outline-rounded',
 					title: 'Person Role',
 					link: `/users/${userId}/person-role-types`
 				},
-				{ icon: '/sidebar/priority.png', title: 'Priorities', link: `/users/${userId}/priorities` },
-				{ icon: '/sidebar/goal.png', title: 'Goals', link: `/users/${userId}/goals` }
+				{
+					icon: 'material-symbols:priority-outline',
+					title: 'Priorities',
+					link: `/users/${userId}/priorities`
+				},
+				{
+					icon: 'material-symbols:radar',
+					title: 'Goals',
+					link: `/users/${userId}/goals`
+				}
 			]
 		},
 		{
 			title: 'Miscellaneous',
-			icon: '/sidebar/miscellaneous.png',
+			icon: 'material-symbols:home-max-dots-outline',
 			childNav: [
-				{ icon: '/sidebar/client.png', title: 'Clients', link: `/users/${userId}/api-clients` },
 				{
-					icon: '/sidebar/organization.png',
+					icon: 'material-symbols:frame-person-outline-rounded',
+					title: 'Clients',
+					link: `/users/${userId}/api-clients`
+				},
+				{
+					icon: 'material-symbols:corporate-fare-rounded',
 					title: 'Organizations',
 					link: `/users/${userId}/organizations`
 				},
 				{
-					icon: '/sidebar/notification.png',
+					icon: 'material-symbols:notifications-outline-rounded',
 					title: 'Notifications',
 					link: `/users/${userId}/notifications`
 				},
-				{ icon: '/sidebar/newsfeed.png', title: 'News Feed', link: `/users/${userId}/newsfeeds` },
-				{ icon: '/sidebar/notice.png', title: 'Notices', link: `/users/${userId}/notices` }
+				{
+					icon: 'material-symbols:newsmode-outline-rounded',
+					title: 'News Feed',
+					link: `/users/${userId}/newsfeeds`
+				},
+				{
+					icon: 'material-symbols:release-alert-outline-rounded',
+					title: 'Notices',
+					link: `/users/${userId}/notices`
+				}
 			]
 		}
 	];
@@ -94,7 +135,7 @@
 		{#each navData as navParent, idx}
 			<AccordionItem open={idx === 0}>
 				<svelte:fragment slot="lead">
-					<img src={navParent.icon} alt="" class="invert" />
+					<Icon icon={navParent.icon} class="text-2xl" />
 				</svelte:fragment>
 				<svelte:fragment slot="summary">{navParent.title}</svelte:fragment>
 				<svelte:fragment slot="content">
@@ -104,9 +145,17 @@
 								href={navItem.link}
 								class:!variant-soft-secondary={$page.url.pathname === navItem.link}
 							>
-								<span>
+								<!-- if ends with navItem.icon .png  then img else icon-->
+								{#if navItem.icon.endsWith('.png')}
 									<img src={navItem.icon} alt="" class="invert w-6 h-6" />
-								</span>
+								{:else}
+									<!-- if  $page.url.pathname === navItem.link then removed '-outline' from navItem.icon -->
+									{#if $page.url.pathname === navItem.link}
+										<Icon icon={navItem.icon.replace('-outline', '')} class="text-2xl" />
+									{:else}
+										<Icon icon={navItem.icon} class="text-2xl" />
+									{/if}
+								{/if}
 								<span>{navItem.title}</span>
 							</a>
 						{/each}
