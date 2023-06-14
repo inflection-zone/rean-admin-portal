@@ -40,7 +40,7 @@ const createOrganizationSchema = zfd.formData({
 	country: z.string().optional(),
 	postalCode: zfd.numeric(z.number().optional()),
 	imageResourceId: z.string().optional(),
-	isHealthFacility: zfd.checkbox({ trueValue: 'true' })
+	isHealthFacility: zfd.checkbox()
 });
 
 export const actions = {

@@ -1,23 +1,22 @@
-
 :root {
-    /* =~= Theme Properties =~= */
-    --theme-font-family-base: system-ui;
-    --theme-font-family-heading: system-ui;
-    --theme-font-color-base: 0 0 0;
-    --theme-font-color-dark: 255 255 255;
-    --theme-rounded-base: 8px;
-    --theme-rounded-container: 8px;
-    --theme-border-base: 1px;
-    /* =~= Theme On-X Colors =~= */
-    --on-primary: 255 255 255;
-    --on-secondary: 255 255 255;
-    --on-tertiary: 0 0 0;
-    --on-success: 255 255 255;
-    --on-warning: 255 255 255;
-    --on-error: 255 255 255;
-    --on-surface: 255 255 255;
-    /* =~= Theme Colors  =~= */
-    /* primary | #5832A1 */
+	/* =~= Theme Properties =~= */
+	--theme-font-family-base: 'Montserrat', sans-serif;
+	--theme-font-family-heading: 'Montserrat', sans-serif;
+	--theme-font-color-base: 0 0 0;
+	--theme-font-color-dark: 255 255 255;
+	--theme-rounded-base: 6px;
+	--theme-rounded-container: 8px;
+	--theme-border-base: 1px;
+	/* =~= Theme On-X Colors =~= */
+	--on-primary: 255 255 255;
+	--on-secondary: 255 255 255;
+	--on-tertiary: 0 0 0;
+	--on-success: 0 0 0;
+	--on-warning: 0 0 0;
+	--on-error: 0 0 0;
+	--on-surface: 0 0 0;
+	/* =~= Theme Colors  =~= */
+	/* primary | #5832A1 */
 	--color-primary-50: 230 224 241; /* ⬅ #e6e0f1 */
 	--color-primary-100: 222 214 236; /* ⬅ #ded6ec */
 	--color-primary-200: 213 204 232; /* ⬅ #d5cce8 */
@@ -105,5 +104,4 @@
 	/* --color-base-700: 191 191 191; ⬅ #bfbfbf */
 	/* --color-base-800: 153 153 153; ⬅ #999999 */
 	/* --color-base-900: 125 125 125; ⬅ #7d7d7d */
-	 
 }

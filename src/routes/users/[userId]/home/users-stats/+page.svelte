@@ -22,14 +22,14 @@
 	let biometricsDistributionMonthly = data.biometricsDistributionMonthly;
 	let usersCount = data.overallUsersData;
 	let deviceDetailWiseUsers = data.deviceDetailWiseUsers;
-	
+
 	$: genderWiseUsers;
 	$: ageWiseUsers;
 	genderWiseUsers = data.genderWiseUsers;
 	ageWiseUsers = data.ageWiseUsers;
 	countryWiseUsers = data.countryWiseUsers;
 
-	$:countryWiseUsers;
+	$: countryWiseUsers;
 	let selectedYear;
 
 	const selectAgeWiseUsersDividionYearly = async (e) => {
@@ -46,9 +46,7 @@
 		console.log(url);
 		const res = await fetch(url, {
 			method: 'GET',
-			headers: {
-				'content-type': 'application/json'
-			}
+			headers: { 'content-type': 'application/json' }
 		});
 		const response = await res.json();
 		ageWiseUsers = response;
@@ -70,9 +68,7 @@
 		console.log(url);
 		const res = await fetch(url, {
 			method: 'GET',
-			headers: {
-				'content-type': 'application/json'
-			}
+			headers: { 'content-type': 'application/json' }
 		});
 		const response = await res.json();
 		genderWiseUsers = response;
@@ -94,9 +90,7 @@
 		console.log(url);
 		const res = await fetch(url, {
 			method: 'GET',
-			headers: {
-				'content-type': 'application/json'
-			}
+			headers: { 'content-type': 'application/json' }
 		});
 		const response = await res.json();
 		countryWiseUsers = response;
@@ -110,17 +104,17 @@
 	{ageWiseUsers}
 	{genderWiseUsers}
 	{maritalStatusWiseUsers}
-	countryWiseUsers = {countryWiseUsers}
-	majorAilment = {majorAilment}
-	obesityDistribution = {obesityDistribution}
-	addictionDistribution = {addictionDistribution}
-	healthPillarDistribution = {healthPillarDistribution}
-	healthPillarDistributionMonthly = {healthPillarDistributionMonthly}
-	roleDistribution = {roleDistribution}
-	biometricsDistribution = {biometricsDistribution}
-	biometricsDistributionMonthly = {biometricsDistributionMonthly}
-	usersCount = {usersCount}
-	deviceDetailWiseUsers = {deviceDetailWiseUsers}
+	{countryWiseUsers}
+	{majorAilment}
+	{obesityDistribution}
+	{addictionDistribution}
+	{healthPillarDistribution}
+	{healthPillarDistributionMonthly}
+	{roleDistribution}
+	{biometricsDistribution}
+	{biometricsDistributionMonthly}
+	{usersCount}
+	{deviceDetailWiseUsers}
 	on:selectAgeWiseUsersDividionYearly={async (e) => {
 		await selectAgeWiseUsersDividionYearly(e.detail.year);
 	}}
@@ -131,5 +125,3 @@
 		await selectCounrtyDistributionYearly(e.detail.year);
 	}}
 />
-
-
