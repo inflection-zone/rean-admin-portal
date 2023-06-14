@@ -30,7 +30,7 @@
 		</button>
 	</div>
 
-	<form action="?/getApiKey" method="POST" class="flex flex-col gap-2 p-4 -mt-2">
+	<form class="flex flex-col gap-2 p-4 -mt-2">
 		<label>
 			Resolution Score
 			<input

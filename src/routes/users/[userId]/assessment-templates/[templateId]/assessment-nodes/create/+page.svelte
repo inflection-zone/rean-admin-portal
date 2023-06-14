@@ -82,7 +82,7 @@
 					>
 						<option>Question</option>
 						<option>Message</option>
-						<option>Node List</option>
+						<option>Node list</option>
 					</select>
 				</td>
 			</tr>
@@ -150,9 +150,14 @@
 				{#if $scoringApplicableCondition === true}
 					{#if selectedQueryType === 'Single Choice Selection' || selectedQueryType === 'Multi Choice Selection'}
 						<tr class="!border-b !border-b-secondary-100">
-							<td class="align-top">Resolution Score *</td>
+							<td class="align-top">Options</td>
 							<td>
 								<Choice />
+							</td>
+						</tr>
+						<tr class="!border-b !border-b-secondary-100">
+							<td>Resolution Score *</td>
+							<td>
 								<input
 									type="number"
 									name="resolutionScore"
@@ -183,7 +188,7 @@
 					{/if}
 				{:else if selectedQueryType === 'Single Choice Selection' || selectedQueryType === 'Multi Choice Selection'}
 					<tr>
-						<td />
+						<td class="align-top">Options</td>
 						<td>
 							<Choice />
 						</td>
@@ -191,7 +196,7 @@
 				{/if}
 			{:else if selectedNodeType === 'Message'}
 				<tr class="!border-b !border-b-secondary-100">
-					<td>Message *</td>
+					<td class="align-top">Message *</td>
 					<td>
 						<textarea
 							name="message"
@@ -212,7 +217,6 @@
 							value="true"
 							class="checkbox !border !border-secondary-100"
 						/>
-						Check
 					</td>
 				</tr>
 			{/if}

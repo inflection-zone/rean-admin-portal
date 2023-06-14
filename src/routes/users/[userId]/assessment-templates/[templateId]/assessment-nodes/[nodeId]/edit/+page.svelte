@@ -154,11 +154,14 @@
 								<option value={responseType}>{responseType}</option>
 							{/each}
 						</select>
-						{#if selectedQueryType === 'Single Choice Selection' || selectedQueryType === 'Multi Choice Selection'}
-							<Choice {optionValueStore} />
-						{/if}
 					</td>
 				</tr>
+				{#if selectedQueryType === 'Single Choice Selection' || selectedQueryType === 'Multi Choice Selection'}
+				<tr class="!border-b !border-b-secondary-100">
+					<td class="align-top">Options</td>
+					<td><Choice {optionValueStore} /></td>
+				</tr>
+				{/if}
 			{:else if selectedNodeType === 'Message'}
 				<tr class="!border-b !border-b-secondary-100">
 					<td>Message *</td>

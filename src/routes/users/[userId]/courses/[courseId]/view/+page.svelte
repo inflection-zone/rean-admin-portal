@@ -20,7 +20,7 @@
 	let modules = data.course.Modules;
 
 	modules = modules.sort((a, b) => a.Sequence - b.Sequence);
-	console.log(data.course);
+	console.log(modules);
 
 	onMount(() => {
 		show(data);
@@ -108,7 +108,7 @@
 											</div>
 										</a>
 									</div>
-									{#each module.Contents as content, i}
+									{#each module.Contents.sort((a, b) => a.Sequence - b.Sequence) as content, i}
 										<TreeLeaf>
 											<div class="flex">
 												<a href={contentViewRoute(courseId, module.id, content.id)}>

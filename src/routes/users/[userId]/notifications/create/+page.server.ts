@@ -11,7 +11,7 @@ const createNotificationSchema = zfd.formData({
 	title: z.string().min(8).max(64),
 	body: z.string().optional(),
 	type: z.string().optional(),
-	broadcastToAll: zfd.checkbox({ trueValue: 'true' }),
+	broadcastToAll: zfd.checkbox(),
 	imageUrl: z.string().optional()
 });
 
@@ -23,6 +23,7 @@ export const actions = {
 		const formData = Object.fromEntries(await request.formData());
 		type NotificationSchema = z.infer<typeof createNotificationSchema>;
 		let result: NotificationSchema = {};
+		console.log('result', result);
 		try {
 			result = createNotificationSchema.parse(formData);
 			console.log('result', result);

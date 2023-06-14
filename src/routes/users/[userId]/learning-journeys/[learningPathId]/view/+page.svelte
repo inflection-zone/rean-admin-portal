@@ -114,19 +114,19 @@
 									{#if course.Modules.length <= 0}
 										<div />
 									{:else}
-										{#each course.Modules as module, i}
+										{#each course.Modules.sort((a, b) => a.Sequence - b.Sequence) as module, i}
 											<TreeBranch defaultClosed>
 												<div slot="root" class="flex flex-col">
 													<a href={moduleViewRoute(course.id, module.id)}>
 														<div class="flex">
 															<img class="w-6 mr-2 mb-4" alt="logo" src="/module.png" />
-															{i + 1}-{module.Name}
+															{module.Sequence}-{module.Name}
 														</div>
 													</a>
 												</div>
 												<!-- svelte-ignore empty-block -->
 												{#if module.Contents.length <= 0}{:else}
-													{#each module.Contents as content, i}
+													{#each module.Contents.sort((a, b) => a.Sequence - b.Sequence) as content, i}
 														<TreeLeaf>
 															<div class="flex">
 																<a href={contentViewRoute(course.id, module.id, content.id)}>

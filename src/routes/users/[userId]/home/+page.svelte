@@ -21,7 +21,7 @@
 	let lables = data.years;
 	let totalEnrollment = overallUsersData.EnrollmentUsers;
 
-	let labels = ['Downloads', 'Onboarded', 'Non-Deleted ', 'Active Users', 'Enrollment'];
+	let labels = ['Downloads', 'Onboarded', 'Not-Deleted ', 'Users With Active Session', 'Enrolled Users'];
 	let funnelChartData = [
 		totalUsers.Count,
 		totalUsers.Count,
@@ -45,7 +45,7 @@
 		</dd>
 	</div>
 	<div class="overflow-hidden rounded-lg px-4 shadow-xl border border-primary-50 h-28 sm:p-4">
-		<dt class="truncate text-md font-normal text-primary-500">Non Deleted Users</dt>
+		<dt class="truncate text-md font-normal text-primary-500">Not Deleted Users</dt>
 		<dd class="mt-1 flex items-baseline pb-6 sm:pb-7">
 			<div class="text-5xl  font-semibold text-primary-500">{nonDeletedUsers.Count}</div>
 			<div class="ml-2 flex items-baseline text-md font-normal text-primary-500">
@@ -55,7 +55,7 @@
 		</dd>
 	</div>
 	<div class="overflow-hidden rounded-lg px-4 shadow-xl border border-primary-50 h-28 sm:p-4">
-		<dt class="truncate text-md font-normal text-primary-500">Active Users</dt>
+		<dt class="truncate text-md font-normal text-primary-500">Users With Active Session</dt>
 		<dd class="mt-1 flex items-baseline pb-6 sm:pb-7">
 			<div class="text-5xl  font-semibold text-primary-500">{activeUsers.Count}</div>
 			<div class="ml-2 flex items-baseline text-md font-normal text-primary-500">
@@ -76,7 +76,7 @@
 	</div>
 
 	<div class="overflow-hidden rounded-lg px-4 shadow-xl border border-primary-50 h-28 sm:p-4">
-		<dt class="truncate text-md font-normal text-primary-500">Enrollments</dt>
+		<dt class="truncate text-md font-normal text-primary-500">Enrolled Users</dt>
 		<dd class="mt-1 flex items-baseline pb-6 sm:pb-7">
 			<div class="text-5xl  font-semibold text-primary-500">{totalEnrollment.Count}</div>
 			<div class="ml-2 flex items-baseline text-md font-normal text-primary-500">
@@ -154,17 +154,17 @@
 			</div>
 			<div class="flex justify-start gap-4">
 				<div class="h-3 w-3 mt-1 border bg-secondary-500" />
-				<div class="text-sm font-normal text-primary-500">Non Deleted Users</div>
+				<div class="text-sm font-normal text-primary-500">Not Deleted Users</div>
 				<div class="text-sm font-normal text-primary-500">{nonDeletedUsers.Count}</div>
 			</div>
 			<div class="flex justify-start gap-4">
 				<div class="h-3 w-3 mt-1 border bg-tertiary-500" />
-				<div class="text-sm font-normal text-primary-500">Active Users</div>
+				<div class="text-sm font-normal text-primary-500">Users With Active Session</div>
 				<div class="text-sm font-normal text-primary-500">{activeUsers.Count}</div>
 			</div>
 			<div class="flex justify-start gap-4">
 				<div class="h-3 w-3 mt-1 border bg-primary-700" />
-				<div class="text-sm  font-normal text-primary-500">Enrollments</div>
+				<div class="text-sm  font-normal text-primary-500">Enrolled Users</div>
 				<div class="text-sm font-normal text-primary-500">{totalEnrollment.Count}</div>
 			</div>
 		</div>
