@@ -1,7 +1,7 @@
 import type { RequestEvent } from '@sveltejs/kit';
-import type { PageServerLoad } from './$types';
-import {  searchAssets } from '../../../../api/services/careplan/assets/asset';
-import { getAssetsType } from '../../../../api/services/careplan/assets/asset';
+import type { PageServerLoad, Action } from './$types';
+import { searchAssets } from '$routes/api/services/careplan/assets/action-plan';
+import { getAssetsType } from '$routes/api/services/careplan/assets/asset';
 
 ////////////////////////////////////////////////////////////////////////////
 
