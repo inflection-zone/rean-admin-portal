@@ -46,7 +46,29 @@
 					icon: 'material-symbols:pill-outline',
 					title: 'Drug',
 					link: `/users/${userId}/drugs`
-				}
+				},
+				{
+					icon: 'material-symbols:pill-outline',
+					title: 'Careplan',
+					link: `/users/${userId}/careplan/assets`,
+					childNav: [
+						{
+						icon: 'material-symbols:pill-outline',
+						title: 'Assets',
+						link: `/users/${userId}/assets`
+						},
+						{
+							icon: 'material-symbols:pill-outline',
+							title: 'Careplans',
+							link: `/users/${userId}/careplans`
+						},
+						{
+							icon: 'material-symbols:pill-outline',
+							title: 'Enrollments',
+							link: `/users/${userId}/enrollments`
+						},
+					]
+				},
 			]
 		},
 		{
@@ -140,6 +162,8 @@
 				<svelte:fragment slot="summary">{navParent.title}</svelte:fragment>
 				<svelte:fragment slot="content">
 					<nav class="list-nav space-y-1">
+
+
 						{#each navParent.childNav as navItem}
 							<a
 								href={navItem.link}
