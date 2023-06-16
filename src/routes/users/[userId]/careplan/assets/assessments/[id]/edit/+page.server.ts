@@ -1,58 +1,55 @@
-import type { PageServerLoad } from './$types';
 import { error, type RequestEvent } from '@sveltejs/kit';
 import { redirect } from 'sveltekit-flash-message/server';
+import type { PageServerLoad } from './$types';
 import { errorMessage, successMessage } from '$lib/utils/message.utils';
-import { getActionPlanById, updateActionPlan } from '$routes/api/services/careplan/assets/action-plan';
-import { z } from 'zod';
 import { zfd } from 'zod-form-data';
+import { z } from 'zod';
+import { getAssessmentById, updateAssessment } from '$routes/api/services/careplan/assets/assessment';
 
-/////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////
 
 export const load: PageServerLoad = async (event: RequestEvent) => {
   const sessionId = event.cookies.get('sessionId');
-  console.log('sessionId', sessionId);
-
   try {
-    const actionPlanId = event.params.id;
-    console.log(actionPlanId);
-    const response = await getActionPlanById(sessionId, actionPlanId);
+    const assessmentId = event.params.id;
+    const response = await getAssessmentById(sessionId, assessmentId);
 
     if (response.Status === 'failure' || response.HttpCode !== 200) {
       throw error(response.HttpCode, response.Message);
     }
-    const actionPlan = response.Data;
-    console.log('Action plan', actionPlan);
+    const assessment = response.Data;
     return {
-      actionPlan
+      assessment
     };
   } catch (error) {
-    console.error(`Error retriving action plan: ${error.message}`);
+    console.error(`Error retriving assessment: ${error.message}`);
   }
 };
 
-const updateActionPlanSchema = zfd.formData({
+const updateAssessmentSchema = zfd.formData({
 	name: z.string().max(128),
 	description: z.string().optional(),
+  template: z.string().optional(),
 	tags: z.array(z.string()).optional(),
 	version: z.string().optional()
 });
 
 export const actions = {
-	updateActionPlanAction: async (event: RequestEvent) => {
+	updateAssessmentAction: async (event: RequestEvent) => {
 		const request = event.request;
 		const userId = event.params.userId;
-    const actionPlanId = event.params.id;
+    const assessmentId = event.params.id;
 		const sessionId = event.cookies.get('sessionId');
 		const data = await request.formData();
 		const formData = Object.fromEntries(data);
 		const tags = data.has('tags') ? data.getAll('tags') : [];
 		const formDataValue = { ...formData, tags: tags };
 
-		type ActionPlanSchema = z.infer<typeof updateActionPlanSchema>;
+		type AssessmentSchema = z.infer<typeof updateAssessmentSchema>;
 
-		let result: ActionPlanSchema = {};
+		let result: AssessmentSchema = {};
 		try {
-			result = updateActionPlanSchema.parse(formDataValue);
+			result = updateAssessmentSchema.parse(formDataValue);
 			console.log('result', result);
 		} catch (err: any) {
 			const { fieldErrors: errors } = err.flatten();
@@ -64,31 +61,25 @@ export const actions = {
 			};
 		}
 
-		const response = await updateActionPlan(
+		const response = await updateAssessment(
 			sessionId,
-      actionPlanId,
+      assessmentId,
 			result.name,
 			result.description,
+      result.template,
 			result.tags,
 			result.version
 		);
     const id = response.Data.id;
 
     if (response.Status === 'failure' || response.HttpCode !== 200) {
-      throw redirect(303, '/assets', errorMessage(response.Message), event);
+      throw redirect(303, `/users/${userId}/careplan/assets`, errorMessage(response.Message), event);
     }
     throw redirect(
       303,
-      `/users/${userId}/assets/careplan/action-plans/${id}/view`,
-      successMessage(`Action plan updated successfully!`),
+      `/users/${userId}/careplan/assets/assessments/${id}/view`,
+      successMessage(`Assessment updated successfully!`),
       event
     );
   }
 };
-
-
-
-
-
-
-

@@ -1,0 +1,95 @@
+<script lang="ts">
+  import type { PageServerData } from './$types';
+  import { onMount } from 'svelte';
+  import { show } from '$lib/utils/message.utils';
+  import { LocalStorageUtils } from '$lib/utils/local.storage.utils';
+  import { page } from '$app/stores';
+  import BreadCrumbs from '$lib/components/breadcrumbs/breadcrums.svelte';
+	import Icon from '@iconify/svelte';
+
+  ///////////////////////////////////////////////////////////////////////
+
+  const userId = $page.params.userId;
+  const assessmentId = $page.params.userId;
+  const assetRoute = `/users/${userId}/careplan/assets`;
+  const editRoute = `/users/${userId}/careplan/assets/assessments/${assessmentId}/edit`;
+  const viewRoute = `/users/${userId}/careplan/assets/assessments/${assessmentId}/view`;
+  const assessmentRoute = `/users/${userId}/careplan/assets/assessments/create`;
+
+  export let data: PageServerData
+  let assetCode = data.assessment.AssetCode;
+  let name = data.assessment.Name;
+  let description = data.assessment.Description;
+  let template = data.assessment.Template;
+  let tags = data.assessment.Tags;
+  let version = data.assessment.Version;
+
+  onMount(() => {
+    show(data);
+    LocalStorageUtils.removeItem('prevUrl');
+  });
+  const breadCrumbs = [
+    {
+      name: 'Assets',
+      path: assetRoute
+    },
+    {
+      name: 'Assessment',
+      path: assessmentRoute
+    },
+    {
+      name: 'View',
+      path: viewRoute
+    }
+  ];
+</script>
+
+<BreadCrumbs crumbs={breadCrumbs} />
+
+<div class="flex flex-wrap gap-2">
+	<a href={editRoute} class="btn variant-filled-secondary ml-auto">
+		<Icon icon="material-symbols:edit-outline" />
+		<span>Edit</span>
+	</a>
+</div>
+
+<div class="table-container border border-secondary-100 my-2">
+	<table class="table">
+		<thead class="!variant-soft-secondary">
+			<tr>
+				<th>View Assessment</th>
+				<th class="text-end">
+					<a href={assetRoute} class="btn p-2 -my-2 variant-soft-secondary">
+						<Icon icon="material-symbols:close-rounded" class="text-lg" />
+					</a>
+				</th>
+			</tr>
+		</thead>
+		<tbody class="!bg-white">
+      <tr class="!border-b !border-b-secondary-100">
+				<td>Asset Code</td>
+				<td>{assetCode}</td>
+			</tr>
+			<tr class="!border-b !border-b-secondary-100">
+				<td>Name</td>
+				<td>{name}</td>
+			</tr>
+			<tr class="!border-b !border-b-secondary-100">
+				<td class="align-top">Description</td>
+				<td>{description}</td>
+			</tr>
+      <tr class="!border-b !border-b-secondary-100">
+				<td class="align-top">Template</td>
+				<td>{template}</td>
+			</tr>
+			<tr class="!border-b !border-b-secondary-100">
+				<td>Tags</td>
+				<td>{tags}</td>
+			</tr>
+			<tr class="!border-b !border-b-secondary-100">
+				<td>Version</td>
+				<td>{version}</td>
+			</tr>
+		</tbody>
+	</table>
+</div>
