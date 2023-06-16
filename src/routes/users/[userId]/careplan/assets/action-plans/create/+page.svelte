@@ -33,7 +33,7 @@
 
 <form
 	method="post"
-	action="?/createActionPlan"
+	action="?/createActionPlanAction"
 	class="table-container border border-secondary-100 my-2"
 >
 	<table class="table">
@@ -55,7 +55,7 @@
           type="text"
           required
           placeholder="Enter action plan name here..."
-          class="input {form?.errors?.drugName ? 'border-error-300 text-error-500' : ''}"
+          class="input {form?.errors?.name ? 'border-error-300 text-error-500' : ''}"
           name="name"
         />
         {#if form?.errors?.name}

@@ -20,13 +20,16 @@ export const actions = {
 		const request = event.request;
 		const userId = event.params.userId;
 		const sessionId = event.cookies.get('sessionId');
-		const formData = Object.fromEntries(await request.formData());
+		const data = await request.formData();
+		const formData = Object.fromEntries(data);
+		const tags = data.has('tags') ? data.getAll('tags') : [];
+		const formDataValue = { ...formData, tags: tags };
 
 		type AnimationSchema = z.infer<typeof createAnimationSchema>;
 
 		let result: AnimationSchema = {};
 		try {
-			result = createAnimationSchema.parse(formData);
+			result = createAnimationSchema.parse(formDataValue);
 			console.log('result', result);
 		} catch (err: any) {
 			const { fieldErrors: errors } = err.flatten();
