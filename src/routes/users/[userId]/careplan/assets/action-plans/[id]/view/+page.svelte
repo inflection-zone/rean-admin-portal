@@ -17,7 +17,6 @@
   ////////////////////////////////////////////////////////////////////////////////////////////////
   
   export let data: PageServerData;
-  let id = data.actionPlan.id;
   let assetCode = data.actionPlan.AssetCode;
   let name = data.actionPlan.Name;
   let description = data.actionPlan.Description;

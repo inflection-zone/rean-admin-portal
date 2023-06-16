@@ -1,43 +1,38 @@
 <script lang="ts">
-  import Tags from '$lib/components/tags.svelte';
-  import { page } from '$app/stores';
-  import BreadCrumbs from '$lib/components/breadcrumbs/breadcrums.svelte';
+	import { page } from '$app/stores';
+	import BreadCrumbs from '$lib/components/breadcrumbs/breadcrums.svelte';
 	import Icon from '@iconify/svelte';
+	import { InputChip } from '@skeletonlabs/skeleton';
 
-  const userId = $page.params.userId;
-  const assetRoute = `/users/${userId}/assets`;
-  const createRoute = `/users/${userId}/assets/animations/create`;
-  const animationRoute = `/users/${userId}/assets/animations/create`;
-  let retrievedTags = '';
-  let tagsPlaceholder = 'Enter a tags here...';
+	//////////////////////////////////////////////////////////////////////
 
-  function handleTags(event) {
-    retrievedTags = event.detail.tags;
-  }
+	export let form;
+	const userId = $page.params.userId;
+	const assetRoute = `/users/${userId}/assets`;
+	const createRoute = `/users/${userId}/assets/animations/create`;
+	const animationRoute = `/users/${userId}/assets/animations/create`;
 
-  const breadCrumbs= [
-    {
-      name: 'Assets',
-      path: assetRoute
-    },
-    {
-      name: 'Animation',
-      path: animationRoute
-    },
-    {
-      name: 'Create',
-      path: createRoute
-    },
-   
-  ]
-
+	const breadCrumbs = [
+		{
+			name: 'Assets',
+			path: assetRoute
+		},
+		{
+			name: 'Animation',
+			path: animationRoute
+		},
+		{
+			name: 'Create',
+			path: createRoute
+		}
+	];
 </script>
 
-<BreadCrumbs  crumbs={breadCrumbs}  />
+<BreadCrumbs crumbs={breadCrumbs} />
 
 <form
 	method="post"
-	action="?/createAnimation"
+	action="?/createAnimationAction"
 	class="table-container border border-secondary-100 my-2"
 >
 	<table class="table">
@@ -55,52 +50,40 @@
 			<tr class="!border-b !border-b-secondary-100">
 				<td>Name *</td>
 				<td>
-          <input
-          type="text"
-          required
-          placeholder="Enter action plan name here..."
-          class="input"
-          name="name"
-        />
+					<input
+						type="text"
+						required
+						placeholder="Enter action plan name here..."
+						class="input {form?.errors?.name ? 'border-error-300 text-error-500' : ''}"
+						name="name"
+					/>
+					{#if form?.errors?.name}
+						<p class="text-error-500 text-xs">{form?.errors?.name[0]}</p>
+					{/if}
 				</td>
 			</tr>
 			<tr class="!border-b !border-b-secondary-100">
 				<td class="align-top">Transcript</td>
 				<td>
-          <textarea
-          class="textarea"
-          name="transcript"
-          placeholder="Enter transcript here..."
-        />
+					<textarea class="textarea" name="transcript" placeholder="Enter transcript here..." />
 				</td>
 			</tr>
-      <tr class="!border-b !border-b-secondary-100">
+			<tr class="!border-b !border-b-secondary-100">
 				<td class="align-top">Url</td>
 				<td>
-          <input
-            type="url"
-            placeholder="Enter url here..."
-            class="input"
-            name="pathUrl"
-          />
+					<input type="url" placeholder="Enter url here..." class="input" name="pathUrl" />
 				</td>
 			</tr>
 			<tr class="!border-b !border-b-secondary-100">
 				<td>Tags</td>
 				<td>
-          <Tags name="animationTags" placeholder={tagsPlaceholder} on:tags={handleTags} />
-          <input type="hidden" name="tags" value={JSON.stringify(retrievedTags)} />
+					<InputChip chips="variant-filled-error rounded-2xl" name="tags" />
 				</td>
 			</tr>
 			<tr class="!border-b !border-b-secondary-100">
 				<td>Version</td>
 				<td>
-				  <input
-           type="text"
-            name="version"
-            class="input"
-            placeholder="V 1.0"
-          />
+					<input type="text" name="version" class="input" placeholder="V 1.0" />
 				</td>
 			</tr>
 		</tbody>

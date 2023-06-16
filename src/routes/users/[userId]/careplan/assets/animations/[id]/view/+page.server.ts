@@ -10,14 +10,12 @@ export const load: PageServerLoad =  async (event: RequestEvent) => {
     console.log('sessionId', sessionId);
     try {
         const animationId = event.params.id;
-        console.log(animationId);
         const response = await getAnimationById(sessionId, animationId);
 
         if (response.Status === 'failure' || response.HttpCode !== 200) {
             throw error(response.HttpCode, response.Message);
         }
         const animation = response.Data;
-        console.log('Animation',animation);
         const id = response.Data.id;
             return {
                 location :`${id}/edit`,

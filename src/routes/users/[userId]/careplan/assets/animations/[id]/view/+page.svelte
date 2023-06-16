@@ -1,49 +1,48 @@
 <script lang="ts">
-  import type { PageServerData } from './$types';
-  import { onMount } from 'svelte';
-  import { show } from '$lib/utils/message.utils';
-  import { LocalStorageUtils } from '$lib/utils/local.storage.utils';
-  import { page } from '$app/stores';
-  import BreadCrumbs from '$lib/components/breadcrumbs/breadcrums.svelte';
+	import type { PageServerData } from './$types';
+	import { onMount } from 'svelte';
+	import { show } from '$lib/utils/message.utils';
+	import { LocalStorageUtils } from '$lib/utils/local.storage.utils';
+	import { page } from '$app/stores';
+	import BreadCrumbs from '$lib/components/breadcrumbs/breadcrums.svelte';
 	import Icon from '@iconify/svelte';
-  
-  ///////////////////////////////////////////////////////////////////////////
 
-  const userId = $page.params.userId;
-  const animationId = $page.params.id;
-  const assetRoute = `/users/${userId}/assets`;
-  const editRoute = `/users/${userId}/assets/animations/${animationId}/edit`;
-  const viewRoute = `/users/${userId}/assets/animations/${animationId}/view`;
-  const animationRoute = `/users/${userId}/assets/animations/create`;
+	///////////////////////////////////////////////////////////////////////////
 
-  export let data: PageServerData;
-  let id = data.animation.id;
-  let assetCode = data.animation.AssetCode;
-  let name = data.animation.Name;
-  let transcript = data.animation.Transcript;
-  let pathUrl = data.animation.Url;
-  let tags = data.animation.Tags;
-  let version = data.animation.Version;
+	const userId = $page.params.userId;
+	const animationId = $page.params.id;
+	const assetRoute = `/users/${userId}/assets`;
+	const editRoute = `/users/${userId}/assets/animations/${animationId}/edit`;
+	const viewRoute = `/users/${userId}/assets/animations/${animationId}/view`;
+	const animationRoute = `/users/${userId}/assets/animations/create`;
 
-  onMount(() => {
-    show(data);
-    LocalStorageUtils.removeItem('prevUrl');
-  });
+	export let data: PageServerData;
+	let assetCode = data.animation.AssetCode;
+	let name = data.animation.Name;
+	let transcript = data.animation.Transcript;
+	let pathUrl = data.animation.Url;
+	let tags = data.animation.Tags;
+	let version = data.animation.Version;
 
-  const breadCrumbs = [
-    {
-      name: 'Assets',
-      path: assetRoute
-    },
-    {
-      name: 'Animation',
-      path: animationRoute
-    },
-    {
-      name: 'View',
-      path: viewRoute
-    }
-  ];
+	onMount(() => {
+		show(data);
+		LocalStorageUtils.removeItem('prevUrl');
+	});
+
+	const breadCrumbs = [
+		{
+			name: 'Assets',
+			path: assetRoute
+		},
+		{
+			name: 'Animation',
+			path: animationRoute
+		},
+		{
+			name: 'View',
+			path: viewRoute
+		}
+	];
 </script>
 
 <BreadCrumbs crumbs={breadCrumbs} />
@@ -68,7 +67,7 @@
 			</tr>
 		</thead>
 		<tbody class="!bg-white">
-      <tr class="!border-b !border-b-secondary-100">
+			<tr class="!border-b !border-b-secondary-100">
 				<td>Asset Code</td>
 				<td>{assetCode}</td>
 			</tr>
@@ -80,7 +79,7 @@
 				<td class="align-top">Transcript</td>
 				<td>{transcript}</td>
 			</tr>
-      <tr class="!border-b !border-b-secondary-100">
+			<tr class="!border-b !border-b-secondary-100">
 				<td>Url</td>
 				<td>{pathUrl}</td>
 			</tr>
@@ -95,4 +94,3 @@
 		</tbody>
 	</table>
 </div>
-

@@ -4,6 +4,7 @@
   import { page } from '$app/stores';
   import BreadCrumbs from '$lib/components/breadcrumbs/breadcrums.svelte';
 	import Icon from '@iconify/svelte';
+	import { InputChip } from '@skeletonlabs/skeleton';
 
   const userId = $page.params.userId;
   const actionPlanId = $page.params.id;
@@ -14,6 +15,7 @@
 
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////
   
+  export let form;
   export let data: PageServerData;
   let assetCode = data.actionPlan.AssetCode;
   let name = data.actionPlan.Name;
@@ -26,12 +28,6 @@
   let _description = description;
   let _tags = JSON.stringify(tags);
   let _version = version;
-  let retrievedTags = '';
-  let tagsPlaceholder = 'Enter a tags here...';
-
-  function handleTags(event) {
-    retrievedTags = event.detail.tags;
-  }
 
   function handleReset() {
     name = _name;
@@ -60,7 +56,7 @@
 
 <form
 	method="post"
-	action="?/updateActionPlan"
+	action="?/updateActionPlanAction"
 	class="table-container border border-secondary-100 my-2"
 >
 	<table class="table">
@@ -86,10 +82,13 @@
           type="text"
           required
           placeholder="Enter action plan name here..."
-          class="input"
+          class="input {form?.errors?.name ? 'border-error-300 text-error-500' : ''}"
           name="name"
           bind:value={name}
         />
+        {#if form?.errors?.name}
+        <p class="text-error-500 text-xs">{form?.errors?.name[0]}</p>
+        {/if}
 				</td>
 			</tr>
 			<tr class="!border-b !border-b-secondary-100">
@@ -105,10 +104,9 @@
 			</tr>
 			<tr class="!border-b !border-b-secondary-100">
 				<td>Tags</td>
-				<td>
-          <Tags name="Tags" placeholder={tagsPlaceholder} on:tags={handleTags} bind:tags />
-          <input type="hidden" name="tags" value={JSON.stringify(tags)} />
-				</td>
+          <td>
+            <InputChip chips="variant-filled-error rounded-2xl" name="tags" bind:value={tags} />
+          </td>
 			</tr>
 			<tr class="!border-b !border-b-secondary-100">
 				<td>Version</td>

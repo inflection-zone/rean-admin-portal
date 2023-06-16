@@ -1,22 +1,16 @@
 <script lang="ts">
  	import Icon from '@iconify/svelte';
-  import Tags from '$lib/components/tags.svelte';
   import { page } from '$app/stores';
   import BreadCrumbs from '$lib/components/breadcrumbs/breadcrums.svelte';
+	import { InputChip } from '@skeletonlabs/skeleton';
 
 ////////////////////////////////////////////////////////////////////////////
 
+  export let form;
   const userId = $page.params.userId;
   const assetRoute = `/users/${userId}/assets`;
   const createRoute = `/users/${userId}/assets/action-plans/create`;
   const actionPlanRoute =  `/users/${userId}/assets/action-plans/create`;
-  
-  let retrievedTags = '';
-  let tagsPlaceholder = 'Enter a tags here...';
-
-  function handleTags(event) {
-    retrievedTags = event.detail.tags;
-  }
   
   const breadCrumbs= [
     {
@@ -61,9 +55,12 @@
           type="text"
           required
           placeholder="Enter action plan name here..."
-          class="input"
+          class="input {form?.errors?.drugName ? 'border-error-300 text-error-500' : ''}"
           name="name"
         />
+        {#if form?.errors?.name}
+          <p class="text-error-500 text-xs">{form?.errors?.name[0]}</p>
+        {/if}
 				</td>
 			</tr>
 			<tr class="!border-b !border-b-secondary-100">
@@ -79,8 +76,7 @@
 			<tr class="!border-b !border-b-secondary-100">
 				<td>Tags</td>
 				<td>
-          <Tags name="animationTags" placeholder={tagsPlaceholder} on:tags={handleTags} />
-          <input type="hidden" name="tags" value={JSON.stringify(retrievedTags)} />
+          <InputChip chips="variant-filled-error rounded-2xl" name="tags" />
 				</td>
 			</tr>
 			<tr class="!border-b !border-b-secondary-100">
