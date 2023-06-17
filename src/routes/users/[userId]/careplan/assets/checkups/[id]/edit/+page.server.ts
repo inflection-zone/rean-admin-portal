@@ -1,13 +1,28 @@
-import { redirect } from 'sveltekit-flash-message/server';
 import type { RequestEvent } from '@sveltejs/kit';
+import { redirect } from 'sveltekit-flash-message/server';
+import type { PageServerLoad } from './$types';
 import { errorMessage, successMessage } from '$lib/utils/message.utils';
-import { z } from 'zod';
 import { zfd } from 'zod-form-data';
-import { createChallenge } from '$routes/api/services/careplan/assets/challenge';
+import { z } from 'zod';
+import { getCheckupById, updateCheckup } from '$routes/api/services/careplan/assets/checkup';
 
 /////////////////////////////////////////////////////////////////////////
 
-const createChallengeSchema = zfd.formData({
+export const load: PageServerLoad = async (event: RequestEvent) => {
+  const sessionId = event.cookies.get('sessionId');
+  try {
+    const checkupId = event.params.id;
+    const response = await getCheckupById(sessionId, checkupId);
+    const checkup = response.Data;
+    return {
+      checkup
+    };
+  } catch (error) {
+    console.error(`Error retriving checkup: ${error.message}`);
+  }
+};
+
+const updateCheckupSchema = zfd.formData({
 	name: z.string().max(128),
 	description: z.string().optional(),
 	tags: z.array(z.string()).optional(),
@@ -15,20 +30,21 @@ const createChallengeSchema = zfd.formData({
 });
 
 export const actions = {
-	createChallengeAction: async (event: RequestEvent) => {
+	updateCheckupAction: async (event: RequestEvent) => {
 		const request = event.request;
 		const userId = event.params.userId;
+    const actionPlanId = event.params.id;
 		const sessionId = event.cookies.get('sessionId');
 		const data = await request.formData();
 		const formData = Object.fromEntries(data);
 		const tags = data.has('tags') ? data.getAll('tags') : [];
 		const formDataValue = { ...formData, tags: tags };
 
-		type ChallengeSchema = z.infer<typeof createChallengeSchema>;
+		type CheckupSchema = z.infer<typeof updateCheckupSchema>;
 
-		let result: ChallengeSchema = {};
+		let result: CheckupSchema = {};
 		try {
-			result = createChallengeSchema.parse(formDataValue);
+			result = updateCheckupSchema.parse(formDataValue);
 			console.log('result', result);
 		} catch (err: any) {
 			const { fieldErrors: errors } = err.flatten();
@@ -40,22 +56,23 @@ export const actions = {
 			};
 		}
 
-		const response = await createChallenge(
+		const response = await updateCheckup(
 			sessionId,
+      actionPlanId,
 			result.name,
 			result.description,
 			result.tags,
 			result.version
 		);
-		const id = response.Data.id;
-    console.log(response);
-    if (response.Status === 'failure' || response.HttpCode !== 201) {
+    const id = response.Data.id;
+
+    if (response.Status === 'failure' || response.HttpCode !== 200) {
       throw redirect(303, `/users/${userId}/careplan/assets`, errorMessage(response.Message), event);
     }
     throw redirect(
       303,
-      `/users/${userId}/careplan/assets/challenges/${id}/view`,
-      successMessage(`Challenge created successfully!`),
+      `/users/${userId}/careplan/assets/checkups/${id}/view`,
+      successMessage(`Checkup updated successfully!`),
       event
     );
   }

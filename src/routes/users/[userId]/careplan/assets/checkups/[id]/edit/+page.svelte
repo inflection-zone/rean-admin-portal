@@ -2,25 +2,25 @@
   import type { PageServerData } from './$types';
   import { page } from '$app/stores';
   import BreadCrumbs from '$lib/components/breadcrumbs/breadcrums.svelte';
-	import { InputChip } from '@skeletonlabs/skeleton';
 	import Icon from '@iconify/svelte';
+	import { InputChip } from '@skeletonlabs/skeleton';
 
-  /////////////////////////////////////////////////////////////////////
+  ////////////////////////////////////////////////////////////////////////////////
 
   const userId = $page.params.userId;
-  const challengeId = $page.params.id;
-  const assetRoute = `/users/${userId}/careplan/assets`;
-  const editRoute = `/users/${userId}/careplan/assets/challenges/${challengeId}/edit`;
-  const viewRoute = `/users/${userId}/careplan/assets/challenges/${challengeId}/view`;
-  const challengeRoute = `/users/${userId}/careplan/assets/challenges/create`;
+  const checkupId = $page.params.userId;
+  const assetRoute =  `/users/${userId}/careplan/assets`;
+  const editRoute = `/users/${userId}/careplan/assets/checkups/${checkupId}/edit`;
+  const viewRoute = `/users/${userId}/careplan/assets/checkups/${checkupId}/view`;
+  const checkupRoute = `/users/${userId}/careplan/assets/checkups/create`;
 
   export let form;
   export let data: PageServerData;
-  let assetCode = data.challenge.AssetCode;
-  let name = data.challenge.Name;
-  let description = data.challenge.Description;
-  let tags = data.challenge.Tags;
-  let version = data.challenge.Version;
+  let assetCode = data.checkup.AssetCode;
+  let name = data.checkup.Name;
+  let description = data.checkup.Description;
+  let tags = data.checkup.Tags;
+  let version = data.checkup.Version;
 
   //Original data
   let _name = name;
@@ -34,25 +34,23 @@
     tags = JSON.parse(_tags);
     version = _version;
   }
-
   const breadCrumbs = [
     {
       name: 'Assets',
       path: assetRoute
     },
     {
-      name: 'Challenge',
-      path: challengeRoute
+      name: 'Checkup',
+      path: checkupRoute
     },
     {
       name: 'Edit',
       path: editRoute
     }
   ];
-
 </script>
 
- <BreadCrumbs crumbs={breadCrumbs} />
+<BreadCrumbs crumbs={breadCrumbs} />
 
 <form
 	method="post"
