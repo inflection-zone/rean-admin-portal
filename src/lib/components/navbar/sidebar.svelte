@@ -128,7 +128,7 @@
 </script>
 
 <div
-	class="w-72 bg-secondary-50 h-full pt-4 
+	class="w-72 bg-secondary-50 dark:bg-surface-900 border-r border-r-surface-200 dark:border-r-surface-700 h-full pt-4 
 	{showSidebar ? 'max-md:fixed z-10' : 'hidden'} md:block transition-all"
 >
 	<Accordion width="w-[280px]" autocollapse rounded="rounded-none">
@@ -145,16 +145,15 @@
 								href={navItem.link}
 								class:!variant-soft-secondary={$page.url.pathname === navItem.link}
 							>
-								<!-- if ends with navItem.icon .png  then img else icon-->
 								{#if navItem.icon.endsWith('.png')}
-									<img src={navItem.icon} alt="" class="invert w-6 h-6" />
+									<img src={navItem.icon} alt="" class="invert dark:filter-none w-6 h-6" />
 								{:else}
-									<!-- if  $page.url.pathname === navItem.link then removed '-outline' from navItem.icon -->
-									{#if $page.url.pathname === navItem.link}
-										<Icon icon={navItem.icon.replace('-outline', '')} class="text-2xl" />
-									{:else}
-										<Icon icon={navItem.icon} class="text-2xl" />
-									{/if}
+									<Icon
+										icon={$page.url.pathname === navItem.link
+											? navItem.icon.replace('-outline', '')
+											: navItem.icon}
+										class="text-2xl"
+									/>
 								{/if}
 								<span>{navItem.title}</span>
 							</a>

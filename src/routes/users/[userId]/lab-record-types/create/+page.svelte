@@ -19,7 +19,7 @@
 <form
 	method="post"
 	action="?/createLabRecordTypeAction"
-	class="table-container border border-secondary-100 my-2"
+	class="table-container my-2 border border-secondary-100 dark:!border-surface-700"
 >
 	<table class="table">
 		<thead class="!variant-soft-secondary">
@@ -32,8 +32,8 @@
 				</th>
 			</tr>
 		</thead>
-		<tbody class="!bg-white">
-			<tr class="!border-b !border-b-secondary-100">
+		<tbody class="!bg-white dark:!bg-inherit">
+			<tr class="!border-b !border-b-secondary-100 dark:!border-b-surface-700">
 				<td>Type Name *</td>
 				<td>
 					<input
@@ -41,16 +41,14 @@
 						name="typeName"
 						required
 						placeholder="Enter type name here..."
-						class="input w-full {form?.errors?.typeName
-							? 'border-error-300 text-error-500'
-							: 'border-primary-200 text-primary-500'}"
+						class="input w-full {form?.errors?.typeName ? 'border-error-300 text-error-500' : ''}"
 					/>
 					{#if form?.errors?.typeName}
 						<p class="text-error-500 text-xs">{form?.errors?.typeName[0]}</p>
 					{/if}
 				</td>
 			</tr>
-			<tr class="!border-b !border-b-secondary-100">
+			<tr class="!border-b !border-b-secondary-100 dark:!border-b-surface-700">
 				<td>Display Name</td>
 				<td>
 					<input
@@ -61,7 +59,7 @@
 					/>
 				</td>
 			</tr>
-			<tr class="!border-b !border-b-secondary-100">
+			<tr class="!border-b !border-b-secondary-100 dark:!border-b-surface-700">
 				<td>SNOMED CODE</td>
 				<td>
 					<input
@@ -72,7 +70,7 @@
 					/>
 				</td>
 			</tr>
-			<tr class="!border-b !border-b-secondary-100">
+			<tr class="!border-b !border-b-secondary-100 dark:!border-b-surface-700">
 				<td>LOINC CODE</td>
 				<td>
 					<input
@@ -83,7 +81,7 @@
 					/>
 				</td>
 			</tr>
-			<tr class="!border-b !border-b-secondary-100">
+			<tr class="!border-b !border-b-secondary-100 dark:!border-b-surface-700">
 				<td>Minimum Normal Range</td>
 				<td>
 					<input
@@ -94,7 +92,7 @@
 					/>
 				</td>
 			</tr>
-			<tr class="!border-b !border-b-secondary-100">
+			<tr class="!border-b !border-b-secondary-100 dark:!border-b-surface-700">
 				<td class="align-top">Maximum Normal Range</td>
 				<td>
 					<input
@@ -105,7 +103,7 @@
 					/>
 				</td>
 			</tr>
-			<tr class="!border-b !border-b-secondary-100">
+			<tr class="!border-b !border-b-secondary-100 dark:!border-b-surface-700">
 				<td>Unit</td>
 				<td>
 					<input type="text" name="unit" placeholder="Enter unit here..." class="input" />

@@ -21,7 +21,13 @@
 	let lables = data.years;
 	let totalEnrollment = overallUsersData.EnrollmentUsers;
 
-	let labels = ['Downloads', 'Onboarded', 'Not-Deleted ', 'Users With Active Session', 'Enrolled Users'];
+	let labels = [
+		'Downloads',
+		'Onboarded',
+		'Not-Deleted ',
+		'Users With Active Session',
+		'Enrolled Users'
+	];
 	let funnelChartData = [
 		totalUsers.Count,
 		totalUsers.Count,
@@ -32,54 +38,68 @@
 </script>
 
 <dl class="mt-4 grid grid-cols-1 gap-4 sm:grid-cols-3">
-	<div class="overflow-hidden rounded-lg px-4 shadow-xl border border-primary-50 h-28 sm:p-4">
-		<dt class="truncate text-md font-normal text-primary-500">App Downloads</dt>
-		<dd class="mt-2 text-5xl font-semibold tracking-tight text-primary-500">
+	<div
+		class="overflow-hidden rounded-lg px-4 shadow-xl border border-secondary-100 dark:border-surface-700 h-28 sm:p-4"
+	>
+		<dt class="truncate text-md font-normal text-primary-500 dark:text-primary-100">
+			App Downloads
+		</dt>
+		<dd class="mt-2 text-5xl font-semibold tracking-tight text-primary-500 dark:text-primary-100">
 			{totalUsers.Count}
 		</dd>
 	</div>
-	<div class="overflow-hidden rounded-lg px-4 shadow-xl border border-primary-50 h-28 sm:p-4">
-		<dt class="truncate text-md font-normal text-primary-500">Onboarded Users</dt>
-		<dd class="mt-1 text-5xl font-semibold tracking-tight text-primary-500">
+	<div
+		class="overflow-hidden rounded-lg px-4 shadow-xl border border-secondary-100 dark:border-surface-700 h-28 sm:p-4"
+	>
+		<dt class="truncate text-md font-normal text-primary-500 dark:text-primary-100">Onboarded Users</dt>
+		<dd class="mt-1 text-5xl font-semibold tracking-tight text-primary-500 dark:text-primary-100">
 			{totalUsers.Count}
 		</dd>
 	</div>
-	<div class="overflow-hidden rounded-lg px-4 shadow-xl border border-primary-50 h-28 sm:p-4">
-		<dt class="truncate text-md font-normal text-primary-500">Not Deleted Users</dt>
+	<div
+		class="overflow-hidden rounded-lg px-4 shadow-xl border border-secondary-100 dark:border-surface-700 h-28 sm:p-4"
+	>
+		<dt class="truncate text-md font-normal text-primary-500 dark:text-primary-100">Not Deleted Users</dt>
 		<dd class="mt-1 flex items-baseline pb-6 sm:pb-7">
-			<div class="text-5xl  font-semibold text-primary-500">{nonDeletedUsers.Count}</div>
-			<div class="ml-2 flex items-baseline text-md font-normal text-primary-500">
+			<div class="text-5xl  font-semibold text-primary-500 dark:text-primary-100">{nonDeletedUsers.Count}</div>
+			<div class="ml-2 flex items-baseline text-md font-normal text-primary-500 dark:text-primary-100">
 				{nonDeletedUsers.Ratio}
 				<div class="text-xs">%</div>
 			</div>
 		</dd>
 	</div>
-	<div class="overflow-hidden rounded-lg px-4 shadow-xl border border-primary-50 h-28 sm:p-4">
-		<dt class="truncate text-md font-normal text-primary-500">Users With Active Session</dt>
+	<div
+		class="overflow-hidden rounded-lg px-4 shadow-xl border border-secondary-100 dark:border-surface-700 h-28 sm:p-4"
+	>
+		<dt class="truncate text-md font-normal text-primary-500 dark:text-primary-100">Users With Active Session</dt>
 		<dd class="mt-1 flex items-baseline pb-6 sm:pb-7">
-			<div class="text-5xl  font-semibold text-primary-500">{activeUsers.Count}</div>
-			<div class="ml-2 flex items-baseline text-md font-normal text-primary-500">
+			<div class="text-5xl  font-semibold text-primary-500 dark:text-primary-100">{activeUsers.Count}</div>
+			<div class="ml-2 flex items-baseline text-md font-normal text-primary-500 dark:text-primary-100">
 				{activeUsers.Ratio}
 				<div class="text-xs">%</div>
 			</div>
 		</dd>
 	</div>
-	<div class="overflow-hidden rounded-lg px-4 shadow-xl border border-primary-50 h-28 sm:p-4">
-		<dt class="truncate text-md font-normal text-primary-500">Deleted Users</dt>
+	<div
+		class="overflow-hidden rounded-lg px-4 shadow-xl border border-secondary-100 dark:border-surface-700 h-28 sm:p-4"
+	>
+		<dt class="truncate text-md font-normal text-primary-500 dark:text-primary-100">Deleted Users</dt>
 		<dd class="mt-1 flex items-baseline pb-6 sm:pb-7">
-			<div class="text-5xl  font-semibold text-primary-500">{deletedUsers.Count}</div>
-			<div class="ml-2 flex items-baseline text-md font-normal text-primary-500">
+			<div class="text-5xl  font-semibold text-primary-500 dark:text-primary-100">{deletedUsers.Count}</div>
+			<div class="ml-2 flex items-baseline text-md font-normal text-primary-500 dark:text-primary-100">
 				{deletedUsers.Ratio}
 				<div class="text-xs">%</div>
 			</div>
 		</dd>
 	</div>
 
-	<div class="overflow-hidden rounded-lg px-4 shadow-xl border border-primary-50 h-28 sm:p-4">
-		<dt class="truncate text-md font-normal text-primary-500">Enrolled Users</dt>
+	<div
+		class="overflow-hidden rounded-lg px-4 shadow-xl border border-secondary-100 dark:border-surface-700 h-28 sm:p-4"
+	>
+		<dt class="truncate text-md font-normal text-primary-500 dark:text-primary-100">Enrolled Users</dt>
 		<dd class="mt-1 flex items-baseline pb-6 sm:pb-7">
-			<div class="text-5xl  font-semibold text-primary-500">{totalEnrollment.Count}</div>
-			<div class="ml-2 flex items-baseline text-md font-normal text-primary-500">
+			<div class="text-5xl  font-semibold text-primary-500 dark:text-primary-100">{totalEnrollment.Count}</div>
+			<div class="ml-2 flex items-baseline text-md font-normal text-primary-500 dark:text-primary-100">
 				{totalEnrollment.Ratio}
 				<div class="text-xs">%</div>
 			</div>
@@ -87,11 +107,11 @@
 	</div>
 
 	<!-- {#each deviceDetailWiseUsersData as data }
-		<div class="overflow-hidden rounded-lg px-4 shadow-xl border border-primary-50 h-28 sm:p-4">
-			<dt class="truncate text-md font-normal text-primary-500">{data.Status}</dt>
+		<div class="overflow-hidden rounded-lg px-4 shadow-xl border border-secondary-100 dark:border-surface-700 h-28 sm:p-4">
+			<dt class="truncate text-md font-normal text-primary-500 dark:text-primary-100">{data.Status}</dt>
 			<dd class="mt-1 flex items-baseline pb-6 sm:pb-7">
-				<div class="text-5xl  font-semibold text-primary-500">{data.Count}</div>
-				<div class="ml-2 flex items-baseline text-md font-normal text-primary-500">
+				<div class="text-5xl  font-semibold text-primary-500 dark:text-primary-100">{data.Count}</div>
+				<div class="ml-2 flex items-baseline text-md font-normal text-primary-500 dark:text-primary-100">
 					{data.Ratio}
 					<div class="text-xs">%</div>
 				</div>
@@ -99,31 +119,37 @@
 		</div>
 		{/each} -->
 
-	<div class="overflow-hidden rounded-lg px-4 shadow-xl border border-primary-50 h-28 sm:p-4">
-		<dt class="truncate text-md font-normal text-primary-500">Android Users</dt>
+	<div
+		class="overflow-hidden rounded-lg px-4 shadow-xl border border-secondary-100 dark:border-surface-700 h-28 sm:p-4"
+	>
+		<dt class="truncate text-md font-normal text-primary-500 dark:text-primary-100">Android Users</dt>
 		<dd class="mt-1 flex items-baseline pb-6 sm:pb-7">
-			<div class="text-5xl  font-semibold text-primary-500">{androidUsers.Count}</div>
-			<div class="ml-2 flex items-baseline text-md font-normal text-primary-500">
+			<div class="text-5xl  font-semibold text-primary-500 dark:text-primary-100">{androidUsers.Count}</div>
+			<div class="ml-2 flex items-baseline text-md font-normal text-primary-500 dark:text-primary-100">
 				{androidUsers.Ratio}
 				<div class="text-xs">%</div>
 			</div>
 		</dd>
 	</div>
-	<div class="overflow-hidden rounded-lg px-4 shadow-xl border border-primary-50 h-28 sm:p-4">
-		<dt class="truncate text-md font-normal text-primary-500">IOS Users</dt>
+	<div
+		class="overflow-hidden rounded-lg px-4 shadow-xl border border-secondary-100 dark:border-surface-700 h-28 sm:p-4"
+	>
+		<dt class="truncate text-md font-normal text-primary-500 dark:text-primary-100">IOS Users</dt>
 		<dd class="mt-1 flex items-baseline pb-6 sm:pb-7">
-			<div class="text-5xl  font-semibold text-primary-500">{iOSUsers.Count}</div>
-			<div class="ml-2 flex items-baseline text-md font-normal text-primary-500">
+			<div class="text-5xl  font-semibold text-primary-500 dark:text-primary-100">{iOSUsers.Count}</div>
+			<div class="ml-2 flex items-baseline text-md font-normal text-primary-500 dark:text-primary-100">
 				{iOSUsers.Ratio}
 				<div class="text-xs">%</div>
 			</div>
 		</dd>
 	</div>
-	<div class="overflow-hidden rounded-lg px-4 shadow-xl border border-primary-50 h-28 sm:p-4">
-		<dt class="truncate text-md font-normal text-primary-500">Missing Device Details</dt>
+	<div
+		class="overflow-hidden rounded-lg px-4 shadow-xl border border-secondary-100 dark:border-surface-700 h-28 sm:p-4"
+	>
+		<dt class="truncate text-md font-normal text-primary-500 dark:text-primary-100">Missing Device Details</dt>
 		<dd class="mt-1 flex items-baseline pb-6 sm:pb-7">
-			<div class="text-5xl  font-semibold text-primary-500">{missingDeviceDetails.Count}</div>
-			<div class="ml-2 flex items-baseline text-md font-normal text-primary-500">
+			<div class="text-5xl  font-semibold text-primary-500 dark:text-primary-100">{missingDeviceDetails.Count}</div>
+			<div class="ml-2 flex items-baseline text-md font-normal text-primary-500 dark:text-primary-100">
 				{missingDeviceDetails.Ratio}
 				<div class="text-xs">%</div>
 			</div>
@@ -133,47 +159,47 @@
 
 <div class="flex h-80 gap-10 w-full mt-5">
 	<div
-		class="mt-5 flex overflow-x-auto rounded-lg shadow-xl border border-primary-50 sm:p-6 w-1/2 h-auto"
+		class="mt-5 flex overflow-x-auto rounded-lg shadow-xl border border-secondary-100 dark:border-surface-700 sm:p-6 w-1/2 h-auto"
 	>
 		<div class="pb-4 w-2/3 gap-6 justify-center ">
-			<h4 class="text-center mb-2 p-2 font-semibold justify-center text-primary-500">App Users</h4>
-			<div class="">
+			<h4 class="text-center mb-2 p-2 font-semibold justify-center text-primary-500 dark:text-primary-100">App Users</h4>
+			<div>
 				<Funnel {labels} dataSource={funnelChartData} />
 			</div>
 		</div>
 		<div class="mt-10">
-			<div class="flex justify-start items-center gap-4 ">
+			<div class="flex  items-center gap-4 ">
 				<div class="h-3 w-3 mt-1 border bg-primary-700" />
-				<div class="text-sm font-normal text-primary-500">Downloads</div>
-				<div class="text-sm font-normal text-primary-500">{totalUsers.Count}</div>
+				<div class="text-sm font-normal text-primary-500 dark:text-primary-100">Downloads</div>
+				<div class="text-sm font-normal text-primary-500 dark:text-primary-100">{totalUsers.Count}</div>
 			</div>
-			<div class="flex justify-start gap-4">
+			<div class="flex  gap-4">
 				<div class="h-3 w-3 mt-1 border bg-primary-500" />
-				<div class="text-sm font-normal text-primary-500">Onboarded Users</div>
-				<div class="text-sm font-normal text-primary-500">{totalUsers.Count}</div>
+				<div class="text-sm font-normal text-primary-500 dark:text-primary-100">Onboarded Users</div>
+				<div class="text-sm font-normal text-primary-500 dark:text-primary-100">{totalUsers.Count}</div>
 			</div>
-			<div class="flex justify-start gap-4">
+			<div class="flex  gap-4">
 				<div class="h-3 w-3 mt-1 border bg-secondary-500" />
-				<div class="text-sm font-normal text-primary-500">Not Deleted Users</div>
-				<div class="text-sm font-normal text-primary-500">{nonDeletedUsers.Count}</div>
+				<div class="text-sm font-normal text-primary-500 dark:text-primary-100">Not Deleted Users</div>
+				<div class="text-sm font-normal text-primary-500 dark:text-primary-100">{nonDeletedUsers.Count}</div>
 			</div>
-			<div class="flex justify-start gap-4">
+			<div class="flex  gap-4">
 				<div class="h-3 w-3 mt-1 border bg-tertiary-500" />
-				<div class="text-sm font-normal text-primary-500">Users With Active Session</div>
-				<div class="text-sm font-normal text-primary-500">{activeUsers.Count}</div>
+				<div class="text-sm font-normal text-primary-500 dark:text-primary-100">Users With Active Session</div>
+				<div class="text-sm font-normal text-primary-500 dark:text-primary-100">{activeUsers.Count}</div>
 			</div>
-			<div class="flex justify-start gap-4">
+			<div class="flex  gap-4">
 				<div class="h-3 w-3 mt-1 border bg-primary-700" />
-				<div class="text-sm  font-normal text-primary-500">Enrolled Users</div>
-				<div class="text-sm font-normal text-primary-500">{totalEnrollment.Count}</div>
+				<div class="text-sm  font-normal text-primary-500 dark:text-primary-100">Enrolled Users</div>
+				<div class="text-sm font-normal text-primary-500 dark:text-primary-100">{totalEnrollment.Count}</div>
 			</div>
 		</div>
 	</div>
 	<div
-		class="mt-5 flex overflow-x-auto rounded-lg shadow-xl border border-primary-50 sm:p-6 w-1/2 h-auto"
+		class="mt-5 flex overflow-x-auto rounded-lg shadow-xl border border-secondary-100 dark:border-surface-700 sm:p-6 w-1/2 h-auto"
 	>
 		<div class="pb-8 w-full">
-			<h4 class="text-center mb-2 p-2 font-semibold justify-center text-primary-500">
+			<h4 class="text-center mb-2 p-2 font-semibold justify-center text-primary-500 dark:text-primary-100">
 				Platform Based Users
 			</h4>
 			<div class="w-full h-full">

@@ -50,7 +50,7 @@
 	</a>
 </div>
 
-<div class="table-container border border-secondary-100 my-2">
+<div class="table-container my-2 border border-secondary-100 dark:border-surface-700">
 	<table class="table">
 		<thead class="!variant-soft-secondary">
 			<tr>
@@ -62,28 +62,28 @@
 				</th>
 			</tr>
 		</thead>
-		<tbody class="!bg-white">
-			<tr class="!border-b !border-b-secondary-100">
+		<tbody class="!bg-white dark:!bg-inherit">
+			<tr class="!border-b !border-b-secondary-100 dark:!border-b-surface-700">
 				<td>Title</td>
 				<td>{title}</td>
 			</tr>
-			<tr class="!border-b !border-b-secondary-100">
+			<tr class="!border-b !border-b-secondary-100 dark:!border-b-surface-700">
 				<td>Body</td>
 				<td>{Body}</td>
 			</tr>
-			<tr class="!border-b !border-b-secondary-100">
+			<tr class="!border-b !border-b-secondary-100 dark:!border-b-surface-700">
 				<td>Type</td>
 				<td>{type}</td>
 			</tr>
-			<tr class="!border-b !border-b-secondary-100">
+			<tr class="!border-b !border-b-secondary-100 dark:!border-b-surface-700">
 				<td>Sent On</td>
 				<td>{date.format(sentOn, 'DD MMM YYYY')}</td>
 			</tr>
-			<tr class="!border-b !border-b-secondary-100">
+			<tr class="!border-b !border-b-secondary-100 dark:!border-b-surface-700">
 				<td>Broadcast To All</td>
 				<td>{broadcastToAll}</td>
 			</tr>
-			<tr class="!border-b !border-b-secondary-100">
+			<tr class="!border-b !border-b-secondary-100 dark:!border-b-surface-700">
 				<td class="align-top">Image</td>
 				<td>
 					{#if imageUrl === 'undefined'}

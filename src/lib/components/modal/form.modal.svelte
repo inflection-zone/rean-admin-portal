@@ -21,7 +21,7 @@
 
 <!-- svelte-ignore a11y-click-events-have-key-events -->
 <dialog
-	class="p-0 rounded-lg shadow-xl backdrop:bg-black/50"
+	class="p-0 rounded-lg shadow-xl bg-surface-50 dark:bg-surface-900 backdrop:bg-black/50 dark:backdrop:bg-white/50"
 	bind:this={dialog}
 	on:close={() => showGetApiKeyModal.set(false)}
 	on:click|self={() => dialog.close()}
@@ -35,7 +35,8 @@
 
 	<form class="flex flex-col gap-2 p-4 -mt-2">
 		<label>
-			Client Code*
+			<!-- donno why this didn't happen automatically -->
+			<span class="dark:text-white">Client Code *</span>
 			<input
 				class="input"
 				name="userName"
@@ -46,7 +47,7 @@
 		</label>
 
 		<label>
-			Password *
+			<span class="dark:text-white">Password *</span>
 			<input
 				class="input"
 				type="password"
@@ -65,8 +66,10 @@
 				on:click={async () => {
 					await handlelSubmitClick(userName, password);
 					await dialog.close();
-				}}>Submit</button
+				}}
 			>
+				Submit
+			</button>
 		</div>
 	</form>
 </dialog>

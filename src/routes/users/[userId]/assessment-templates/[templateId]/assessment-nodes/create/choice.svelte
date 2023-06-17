@@ -8,7 +8,7 @@
 		(optionValueStore = optionValueStore.slice(0, optionValueStore.length - 1));
 </script>
 
-<div class="border flex flex-col rounded my-2 p-2 gap-2">
+<div class="border dark:border-surface-700 flex flex-col rounded my-2 p-2 gap-2">
 	{#each optionValueStore as v, i}
 		<div class="flex items-center gap-2">
 			<input

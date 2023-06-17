@@ -26,37 +26,39 @@
 <slot {confirm} />
 
 {#if showDialog}
-	<div class="overlay" in:fade={{ duration: 200 }} out:fade={{ delay: 200, duration: 200 }} />
 	<div
-		class="confirm-dialog"
+		class="fixed inset-0 select-none z-[998] bg-black/50 dark:bg-white/50"
+		in:fade={{ duration: 200 }}
+		out:fade={{ delay: 200, duration: 200 }}
+	/>
+	<div
+		class="confirm-dialog p-4 flex flex-col gap-4 rounded-lg shadow-xl bg-surface-50 dark:bg-surface-900"
 		in:fly={{ y: -10, delay: 200, duration: 200 }}
 		out:fly={{ y: -10, duration: 200 }}
 	>
-		<div class="message-section">
-			<span class="message-title text-primary-500">
+		<div>
+			<span class="block !text-xl">
 				<slot name="title">Are you sure you want to perform this action?</slot>
 			</span>
-			<span class="message-description">
-				<slot name="description" class="text-primary-500">This action can't be undone!</slot>
+			<span>
+				<slot name="description">This action can't be undone!</slot>
 			</span>
 		</div>
-		<div class="actions bg-white">
-			<button
-				class=" btn variant-soft-secondary leading-none pr-4 mr-4"
-				on:click={() => (showDialog = false)}
-			>
+
+		<div class="flex gap-2 justify-end">
+			<button class="btn variant-soft-secondary" on:click={() => (showDialog = false)}>
 				<slot name="cancel">
 					{cancelTitle}
 				</slot>
 			</button>
 			<button
-				class="btn variant-filled-error "
+				class="btn variant-filled-error"
 				on:click|preventDefault={async () => {
 					await handlelDeleteClick();
 					await callFunction();
 				}}
 			>
-				<slot name="confirm" class="text-primary-500">
+				<slot name="confirm">
 					{confirmTitle}
 				</slot>
 			</button>
@@ -65,48 +67,11 @@
 {/if}
 
 <style>
-	.message-title {
-		font-size: 22px;
-		font-weight: 500;
-		display: block;
-		/* color: hsl(0, 0%, 20%); */
-		line-height: 1.2;
-	}
-	.message-description {
-		display: block;
-		margin-top: 20px;
-		font-size: 16px;
-		/* color: hsl(0, 0%, 30%); */
-		line-height: 1.4;
-	}
-	.actions {
-		display: flex;
-		justify-content: flex-end;
-		margin: 25px -40px -30px;
-		padding: 15px 20px;
-		border-radius: 0 0 3px 3px;
-	}
 	.confirm-dialog {
 		position: absolute;
 		z-index: 999;
 		top: 50%;
 		left: 50%;
 		transform: translate(-50%, -50%);
-		padding: 30px 40px;
-		border-radius: 6px;
-		background: #fff;
-		max-width: 500px;
-		width: calc(100% - 20px);
-		box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
-	}
-	.overlay {
-		top: 0;
-		left: 0;
-		width: 100%;
-		height: 100%;
-		position: fixed;
-		user-select: none;
-		z-index: 998;
-		background: hsla(0, 0%, 0%, 80%);
 	}
 </style>

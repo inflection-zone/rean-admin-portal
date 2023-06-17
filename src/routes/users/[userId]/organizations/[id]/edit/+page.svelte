@@ -133,7 +133,7 @@
 <form
 	method="post"
 	action="?/updateOrganizationAction"
-	class="table-container border border-secondary-100 my-2"
+	class="table-container my-2 border border-secondary-100 dark:!border-surface-700"
 >
 	<table class="table">
 		<thead class="!variant-soft-secondary">
@@ -146,8 +146,8 @@
 				</th>
 			</tr>
 		</thead>
-		<tbody class="!bg-white">
-			<tr class="!border-b !border-b-secondary-100">
+		<tbody class="!bg-white dark:!bg-inherit">
+			<tr class="!border-b !border-b-secondary-100 dark:!border-b-surface-700">
 				<td>Type</td>
 				<td>
 					<select
@@ -162,7 +162,7 @@
 					</select>
 				</td>
 			</tr>
-			<tr class="!border-b !border-b-secondary-100">
+			<tr class="!border-b !border-b-secondary-100 dark:!border-b-surface-700">
 				<td>Name *</td>
 				<td>
 					<input
@@ -170,16 +170,14 @@
 						name="name"
 						bind:value={name}
 						placeholder="Enter name here..."
-						class="input w-full {form?.errors?.name
-							? 'border-error-300 text-error-500'
-							: 'border-primary-200 text-primary-500'}"
+						class="input w-full {form?.errors?.name ? 'border-error-300 text-error-500' : ''}"
 					/>
 					{#if form?.errors?.name}
 						<p class="text-error-500 text-xs">{form?.errors?.name[0]}</p>
 					{/if}
 				</td>
 			</tr>
-			<tr class="!border-b !border-b-secondary-100">
+			<tr class="!border-b !border-b-secondary-100 dark:!border-b-surface-700">
 				<td>Contact Number *</td>
 				<td>
 					<input
@@ -189,14 +187,14 @@
 						placeholder="Enter contact number here..."
 						class="input w-full max-w-md {form?.errors?.contactPhone
 							? 'border-error-300 text-error-500'
-							: 'border-primary-200 text-primary-500'}"
+							: ''}"
 					/>
 					{#if form?.errors?.contactPhone}
 						<p class="text-error-500 text-xs">{form?.errors?.contactPhone[0]}</p>
 					{/if}
 				</td>
 			</tr>
-			<tr class="!border-b !border-b-secondary-100">
+			<tr class="!border-b !border-b-secondary-100 dark:!border-b-surface-700">
 				<td>Email *</td>
 				<td>
 					<input
@@ -206,14 +204,14 @@
 						placeholder="Enter email here..."
 						class="input w-full {form?.errors?.contactEmail
 							? 'border-error-300 text-error-500'
-							: 'border-primary-200 text-primary-500'}"
+							: ''}"
 					/>
 					{#if form?.errors?.contactEmail}
 						<p class="text-error-500 text-xs">{form?.errors?.contactEmail[0]}</p>
 					{/if}
 				</td>
 			</tr>
-			<tr class="!border-b !border-b-secondary-100">
+			<tr class="!border-b !border-b-secondary-100 dark:!border-b-surface-700">
 				<td class="align-top">About</td>
 				<td>
 					<textarea
@@ -224,7 +222,7 @@
 					/>
 				</td>
 			</tr>
-			<tr class="!border-b !border-b-secondary-100">
+			<tr class="!border-b !border-b-secondary-100 dark:!border-b-surface-700">
 				<td>Operational Since</td>
 				<td>
 					<input
@@ -239,7 +237,7 @@
 			{#each addresses as address}
 				<input hidden type="text" name="addressId" value={address.id} />
 			{/each}
-			<tr class="!border-b !border-b-secondary-100">
+			<tr class="!border-b !border-b-secondary-100 dark:!border-b-surface-700">
 				<td>Address Type *</td>
 				<td>
 					<select
@@ -253,7 +251,7 @@
 					</select>
 				</td>
 			</tr>
-			<tr class="!border-b !border-b-secondary-100">
+			<tr class="!border-b !border-b-secondary-100 dark:!border-b-surface-700">
 				<td>Address Line *</td>
 				<td>
 					<input
@@ -263,14 +261,14 @@
 						bind:value={addressLine}
 						class="input w-full {form?.errors?.addressLine
 							? 'border-error-300 text-error-500'
-							: 'border-primary-200 text-primary-500'}"
+							: ''}"
 					/>
 					{#if form?.errors?.addressLine}
 						<p class="text-error-500 text-xs">{form?.errors?.addressLine[0]}</p>
 					{/if}
 				</td>
 			</tr>
-			<tr class="!border-b !border-b-secondary-100">
+			<tr class="!border-b !border-b-secondary-100 dark:!border-b-surface-700">
 				<td>City</td>
 				<td>
 					<input
@@ -282,7 +280,7 @@
 					/>
 				</td>
 			</tr>
-			<tr class="!border-b !border-b-secondary-100">
+			<tr class="!border-b !border-b-secondary-100 dark:!border-b-surface-700">
 				<td>District</td>
 				<td>
 					<input
@@ -294,7 +292,7 @@
 					/>
 				</td>
 			</tr>
-			<tr class="!border-b !border-b-secondary-100">
+			<tr class="!border-b !border-b-secondary-100 dark:!border-b-surface-700">
 				<td>State/Province</td>
 				<td>
 					<select
@@ -307,7 +305,7 @@
 					</select>
 				</td>
 			</tr>
-			<tr class="!border-b !border-b-secondary-100">
+			<tr class="!border-b !border-b-secondary-100 dark:!border-b-surface-700">
 				<td>Country</td>
 				<td>
 					<input
@@ -319,7 +317,7 @@
 					/>
 				</td>
 			</tr>
-			<tr class="!border-b !border-b-secondary-100">
+			<tr class="!border-b !border-b-secondary-100 dark:!border-b-surface-700">
 				<td>Zip/Postal Code</td>
 				<td>
 					<input
@@ -331,7 +329,7 @@
 					/>
 				</td>
 			</tr>
-			<tr class="!border-b !border-b-secondary-100">
+			<tr class="!border-b !border-b-secondary-100 dark:!border-b-surface-700">
 				<td class="align-top">Image</td>
 				<td>
 					{#if imageUrl === 'undefined'}
@@ -355,7 +353,7 @@
 					<input type="hidden" name="imageResourceId" bind:value={imageResourceId} />
 				</td>
 			</tr>
-			<tr class="!border-b !border-b-secondary-100">
+			<tr class="!border-b !border-b-secondary-100 dark:!border-b-surface-700">
 				<td>Is Health Facility Available</td>
 				<td>
 					<input

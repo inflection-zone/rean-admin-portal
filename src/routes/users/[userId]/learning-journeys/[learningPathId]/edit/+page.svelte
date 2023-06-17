@@ -107,7 +107,7 @@
 <form
 	method="post"
 	action="?/updateLearningJourneyAction"
-	class="table-container border border-secondary-100 my-2"
+	class="table-container my-2 border border-secondary-100 dark:!border-surface-700"
 >
 	<table class="table">
 		<thead class="!variant-soft-secondary">
@@ -120,8 +120,8 @@
 				</th>
 			</tr>
 		</thead>
-		<tbody class="!bg-white">
-			<tr class="!border-b !border-b-secondary-100">
+		<tbody class="!bg-white dark:!bg-inherit">
+			<tr class="!border-b !border-b-secondary-100 dark:!border-b-surface-700">
 				<td>Name *</td>
 				<td>
 					<input
@@ -129,16 +129,14 @@
 						name="name"
 						bind:value={name}
 						placeholder="Enter name here..."
-						class="input w-full {form?.errors?.name
-							? 'border-error-300 text-error-500'
-							: 'border-primary-200 text-primary-500'}"
+						class="input w-full {form?.errors?.name ? 'border-error-300 text-error-500' : ''}"
 					/>
 					{#if form?.errors?.name}
 						<p class="text-error-500 text-xs">{form?.errors?.name[0]}</p>
 					{/if}
 				</td>
 			</tr>
-			<tr class="!border-b !border-b-secondary-100">
+			<tr class="!border-b !border-b-secondary-100 dark:!border-b-surface-700">
 				<td class="align-top">Description</td>
 				<td>
 					<textarea
@@ -147,14 +145,14 @@
 						placeholder="Enter description here..."
 						class="textarea w-full  {form?.errors?.description
 							? 'border-error-300 text-error-500'
-							: 'border-primary-200 text-primary-500'}"
+							: ''}"
 					/>
 					{#if form?.errors?.description}
 						<p class="text-error-500 text-xs">{form?.errors?.description[0]}</p>
 					{/if}
 				</td>
 			</tr>
-			<tr class="!border-b !border-b-secondary-100">
+			<tr class="!border-b !border-b-secondary-100 dark:!border-b-surface-700">
 				<td>Preference Weight</td>
 				<td>
 					<input
@@ -164,14 +162,14 @@
 						placeholder="Enter prefrence weight here..."
 						class="input w-full {form?.errors?.preferenceWeight
 							? 'border-error-300 text-error-500'
-							: 'border-primary-200 text-primary-500'}"
+							: ''}"
 					/>
 					{#if form?.errors?.preferenceWeight}
 						<p class="text-error-500 text-xs">{form?.errors?.preferenceWeight[0]}</p>
 					{/if}
 				</td>
 			</tr>
-			<tr class="!border-b !border-b-secondary-100">
+			<tr class="!border-b !border-b-secondary-100 dark:!border-b-surface-700">
 				<td>Duration In Days</td>
 				<td>
 					<input
@@ -181,14 +179,14 @@
 						bind:value={durationInDays}
 						class="input w-full {form?.errors?.durationInDays
 							? 'border-error-300 text-error-500'
-							: 'border-primary-200 text-primary-500'}"
+							: ''}"
 					/>
 					{#if form?.errors?.durationInDays}
 						<p class="text-error-500 text-xs">{form?.errors?.durationInDays[0]}</p>
 					{/if}
 				</td>
 			</tr>
-			<tr class="!border-b !border-b-secondary-100">
+			<tr class="!border-b !border-b-secondary-100 dark:!border-b-surface-700">
 				<td class="align-top">Courses</td>
 				<td>
 					<input
@@ -214,7 +212,7 @@
 					{/if}
 				</td>
 			</tr>
-			<tr class="!border-b !border-b-secondary-100">
+			<tr class="!border-b !border-b-secondary-100 dark:!border-b-surface-700">
 				<td class="align-top">Image</td>
 				<td>
 					{#if imageUrl === 'undefined'}

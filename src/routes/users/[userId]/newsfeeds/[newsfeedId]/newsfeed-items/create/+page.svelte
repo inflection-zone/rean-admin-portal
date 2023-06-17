@@ -69,7 +69,7 @@
 <form
 	method="post"
 	action="?/createNewsfeedItemAction"
-	class="table-container border border-secondary-100 my-2"
+	class="table-container my-2 border border-secondary-100 dark:!border-surface-700"
 >
 	<table class="table">
 		<thead class="!variant-soft-secondary">
@@ -82,8 +82,8 @@
 				</th>
 			</tr>
 		</thead>
-		<tbody class="!bg-white">
-			<tr class="!border-b !border-b-secondary-100">
+		<tbody class="!bg-white dark:!bg-inherit">
+			<tr class="!border-b !border-b-secondary-100 dark:!border-b-surface-700">
 				<td>Title *</td>
 				<td>
 					<input
@@ -91,28 +91,26 @@
 						name="title"
 						required
 						placeholder="Enter title here..."
-						class="input w-full {form?.errors?.title
-							? 'border-error-300 text-error-500'
-							: 'border-primary-200 text-primary-500'}"
+						class="input w-full {form?.errors?.title ? 'border-error-300 text-error-500' : ''}"
 					/>
 					{#if form?.errors?.title}
 						<p class="text-error-500 text-xs">{form?.errors?.title[0]}</p>
 					{/if}
 				</td>
 			</tr>
-			<tr class="!border-b !border-b-secondary-100">
+			<tr class="!border-b !border-b-secondary-100 dark:!border-b-surface-700">
 				<td class="align-top">Description</td>
 				<td>
 					<textarea name="description" placeholder="Enter description here..." class="textarea" />
 				</td>
 			</tr>
-			<tr class="!border-b !border-b-secondary-100">
+			<tr class="!border-b !border-b-secondary-100 dark:!border-b-surface-700">
 				<td>Link</td>
 				<td>
 					<input type="url" name="link" placeholder="Enter copyright here..." class="input" />
 				</td>
 			</tr>
-			<tr class="!border-b !border-b-secondary-100">
+			<tr class="!border-b !border-b-secondary-100 dark:!border-b-surface-700">
 				<td>Content *</td>
 				<td>
 					<input
@@ -120,16 +118,14 @@
 						name="content"
 						required
 						placeholder="Enter content here..."
-						class="input w-full {form?.errors?.content
-							? 'border-error-300 text-error-500'
-							: 'border-primary-200 text-primary-500'}"
+						class="input w-full {form?.errors?.content ? 'border-error-300 text-error-500' : ''}"
 					/>
 					{#if form?.errors?.content}
 						<p class="text-error-500 text-xs">{form?.errors?.ticontenttle[0]}</p>
 					{/if}
 				</td>
 			</tr>
-			<tr class="!border-b !border-b-secondary-100">
+			<tr class="!border-b !border-b-secondary-100 dark:!border-b-surface-700">
 				<td>Author Name</td>
 				<td>
 					<input
@@ -140,7 +136,7 @@
 					/>
 				</td>
 			</tr>
-			<tr class="!border-b !border-b-secondary-100">
+			<tr class="!border-b !border-b-secondary-100 dark:!border-b-surface-700">
 				<td>Author Email</td>
 				<td>
 					<input
@@ -151,7 +147,7 @@
 					/>
 				</td>
 			</tr>
-			<tr class="!border-b !border-b-secondary-100">
+			<tr class="!border-b !border-b-secondary-100 dark:!border-b-surface-700">
 				<td class="align-top">Author Link</td>
 				<td>
 					<input
@@ -162,7 +158,7 @@
 					/>
 				</td>
 			</tr>
-			<tr class="!border-b !border-b-secondary-100">
+			<tr class="!border-b !border-b-secondary-100 dark:!border-b-surface-700">
 				<td>Image</td>
 				<td>
 					<input

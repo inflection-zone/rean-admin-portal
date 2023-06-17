@@ -26,7 +26,7 @@
 <form
 	method="post"
 	action="?/createPersonRoleTypeAction"
-	class="table-container border border-secondary-100 my-2"
+	class="table-container my-2 border border-secondary-100 dark:!border-surface-700"
 >
 	<table class="table">
 		<thead class="!variant-soft-secondary">
@@ -39,8 +39,8 @@
 				</th>
 			</tr>
 		</thead>
-		<tbody class="!bg-white">
-			<tr class="!border-b !border-b-secondary-100">
+		<tbody class="!bg-white dark:!bg-inherit">
+			<tr class="!border-b !border-b-secondary-100 dark:!border-b-surface-700">
 				<td>Role Name *</td>
 				<td>
 					<input
@@ -48,16 +48,14 @@
 						name="roleName"
 						required
 						placeholder="Enter role name here..."
-						class="input w-full {form?.errors?.roleName
-							? 'border-error-300 text-error-500'
-							: 'border-primary-200 text-primary-500'}"
+						class="input w-full {form?.errors?.roleName ? 'border-error-300 text-error-500' : ''}"
 					/>
 					{#if form?.errors?.roleName}
 						<p class="text-error-500 text-xs">{form?.errors?.roleName[0]}</p>
 					{/if}
 				</td>
 			</tr>
-			<tr class="!border-b !border-b-secondary-100">
+			<tr class="!border-b !border-b-secondary-100 dark:!border-b-surface-700">
 				<td class="align-top">Description</td>
 				<td>
 					<textarea name="description" placeholder="Enter description here..." class="textarea" />

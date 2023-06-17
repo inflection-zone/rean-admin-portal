@@ -69,7 +69,7 @@
 				<th>Course</th>
 			</tr>
 		</thead>
-		<tbody class="!bg-white">
+		<tbody class="!bg-white dark:!bg-inherit">
 			<!-- {#each $dataTableStore.filtered as row, rowIndex}
 						<tr>
 							<td >{rowIndex + 1}</td>
@@ -92,7 +92,7 @@
                       handleCourseContentDelete(e, row.id);
                     }}
                   >
-                    <button on:click|preventDefault ={() => confirmThis(handleCourseContentDelete, row.id)} class="">
+                    <button on:click|preventDefault ={() => confirmThis(handleCourseContentDelete, row.id)} >
 								<Icon icon="material-symbols:delete-outline-rounded" class="text-lg" />
 								</button>
 
@@ -106,12 +106,12 @@
 	</table>
 
 	<!-- <div class=" w-full bg-secondary-500 h-36 lg:h-16 md:h-16 sm:h-36 mb-10 pt-1 rounded-b-lg ">
-			{#if $dataTableStore.pagination}<Paginator
-					class="mt-2 mr-3 ml-3 "
-					buttonClasses="btn-icon bg-surface-500 w-5 h-8"
-					text="text-white"	
-					bind:settings={$dataTableStore.pagination}
-				/>{/if}
+	{#if $dataTableStore.pagination}
+		<Paginator
+			bind:settings={$dataTableStore.pagination}
+			buttonClasses="btn-icon bg-surface-50 dark:bg-surface-900"
+		/>
+	{/if}
 		</div> -->
 </div>
 <!-- </div> -->
