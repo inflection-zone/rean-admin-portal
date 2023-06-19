@@ -1,6 +1,5 @@
 <script lang="ts">
   import type { PageServerData } from './$types';
-  import Tags from '$lib/components/tags.svelte';
   import { page } from '$app/stores';
   import BreadCrumbs from '$lib/components/breadcrumbs/breadcrums.svelte';
 	import Icon from '@iconify/svelte';
