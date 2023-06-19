@@ -1,22 +1,22 @@
 import { redirect } from 'sveltekit-flash-message/server';
 import type { RequestEvent } from '@sveltejs/kit';
 import { errorMessage, successMessage } from '$lib/utils/message.utils';
-import { zfd } from 'zod-form-data';
 import { z } from 'zod';
-import { createAppointment } from '$routes/api/services/careplan/assets/appointment';
+import { zfd } from 'zod-form-data';
+import { createConsultation } from '$routes/api/services/careplan/assets/consultation';
 
 /////////////////////////////////////////////////////////////////////////
 
-const createAppointmentSchema = zfd.formData({
+const createConsultationSchema = zfd.formData({
 	name: z.string().max(128),
 	description: z.string().optional(),
-	appointmentType: z.string().optional(),
+	consultationType: z.string().optional(),
 	tags: z.array(z.string()).optional(),
 	version: z.string().optional()
 });
 
 export const actions = {
-	createAppointmentAction: async (event: RequestEvent) => {
+	createConsultationAction: async (event: RequestEvent) => {
 		const request = event.request;
 		const userId = event.params.userId;
 		const sessionId = event.cookies.get('sessionId');
@@ -25,11 +25,11 @@ export const actions = {
 		const tags = data.has('tags') ? data.getAll('tags') : [];
 		const formDataValue = { ...formData, tags: tags };
 
-		type AppointmentSchema = z.infer<typeof createAppointmentSchema>;
+		type ConsultationSchema = z.infer<typeof createConsultationSchema>;
 
-		let result: AppointmentSchema = {};
+		let result: ConsultationSchema = {};
 		try {
-			result = createAppointmentSchema.parse(formDataValue);
+			result = createConsultationSchema.parse(formDataValue);
 			console.log('result', result);
 		} catch (err: any) {
 			const { fieldErrors: errors } = err.flatten();
@@ -41,11 +41,11 @@ export const actions = {
 			};
 		}
 
-		const response = await createAppointment(
+		const response = await createConsultation(
 			sessionId,
 			result.name,
 			result.description,
-			result.appointmentType,
+			result.consultationType,
 			result.tags,
 			result.version
 		);
@@ -56,8 +56,8 @@ export const actions = {
 		}
 		throw redirect(
 			303,
-			`/users/${userId}/careplan/assets/appointments/${id}/view`,
-			successMessage(`Appointment created successfully!`),
+			`/users/${userId}/careplan/assets/consultations/${id}/view`,
+			successMessage(`Consultation created successfully!`),
 			event
 		);
 	}

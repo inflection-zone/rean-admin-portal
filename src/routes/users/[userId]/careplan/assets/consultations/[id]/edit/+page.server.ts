@@ -1,45 +1,37 @@
-import { error, type RequestEvent } from '@sveltejs/kit';
+import type { RequestEvent } from '@sveltejs/kit';
 import { redirect } from 'sveltekit-flash-message/server';
 import type { PageServerLoad } from './$types';
 import { errorMessage, successMessage } from '$lib/utils/message.utils';
+import { getConsultationById, updateConsultation } from '$routes/api/services/careplan/assets/consultation';
 import { zfd } from 'zod-form-data';
 import { z } from 'zod';
-import {
-	getAppointmentById,
-	updateAppointment
-} from '$routes/api/services/careplan/assets/appointment';
 
-////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////
 
 export const load: PageServerLoad = async (event: RequestEvent) => {
-	const sessionId = event.cookies.get('sessionId');
-	console.log('sessionId', sessionId);
-	try {
-		const appointmentId = event.params.id;
-		const response = await getAppointmentById(sessionId, appointmentId);
-
-		if (response.Status === 'failure' || response.HttpCode !== 200) {
-			throw error(response.HttpCode, response.Message);
-		}
-		const appointment = response.Data;
-		return {
-			appointment
-		};
-	} catch (error) {
-		console.error(`Error retriving appointment: ${error.message}`);
-	}
+  const sessionId = event.cookies.get('sessionId');
+  try {
+    const consultationId = event.params.id;
+    const response = await getConsultationById(sessionId, consultationId);
+    const consultation = response.Data;
+    return {
+      consultation
+    };
+  } catch (error) {
+    console.error(`Error retriving consultation: ${error.message}`);
+  }
 };
 
-const updateAppointmentSchema = zfd.formData({
+const updateConsultationSchema = zfd.formData({
 	name: z.string().max(128),
 	description: z.string().optional(),
-	appointmentType: z.string().optional(),
+	consultationType: z.string().optional(),
 	tags: z.array(z.string()).optional(),
 	version: z.string().optional()
 });
 
 export const actions = {
-	updateAppointmentAction: async (event: RequestEvent) => {
+	updateConsultationAction: async (event: RequestEvent) => {
 		const request = event.request;
 		const userId = event.params.userId;
 		const appointmentId = event.params.id;
@@ -49,11 +41,11 @@ export const actions = {
 		const tags = data.has('tags') ? data.getAll('tags') : [];
 		const formDataValue = { ...formData, tags: tags };
 
-		type AppointmentSchema = z.infer<typeof updateAppointmentSchema>;
+		type ConsultationSchema = z.infer<typeof updateConsultationSchema>;
 
-		let result: AppointmentSchema = {};
+		let result: ConsultationSchema = {};
 		try {
-			result = updateAppointmentSchema.parse(formDataValue);
+			result = updateConsultationSchema.parse(formDataValue);
 			console.log('result', result);
 		} catch (err: any) {
 			const { fieldErrors: errors } = err.flatten();
@@ -65,12 +57,12 @@ export const actions = {
 			};
 		}
 
-		const response = await updateAppointment(
+		const response = await updateConsultation(
 			sessionId,
 			appointmentId,
 			result.name,
 			result.description,
-			result.appointmentType,
+			result.consultationType,
 			result.tags,
 			result.version
 		);
@@ -81,8 +73,8 @@ export const actions = {
 		}
 		throw redirect(
 			303,
-			`/users/${userId}/careplan/assets/appointments/${id}/view`,
-			successMessage(`Appointment updated successfully!`),
+			`/users/${userId}/careplan/assets/consultations/${id}/view`,
+			successMessage(`Consultation updated successfully!`),
 			event
 		);
 	}
