@@ -53,7 +53,7 @@
 	</a>
 </div>
 
-<div class="table-container border border-secondary-100 my-2">
+<div class="table-container my-2 border border-secondary-100 dark:!border-surface-700">
 	<table class="table">
 		<thead class="!variant-soft-secondary">
 			<tr>
@@ -65,28 +65,28 @@
 				</th>
 			</tr>
 		</thead>
-		<tbody class="!bg-white">
-      <tr class="!border-b !border-b-secondary-100">
+		<tbody class="!bg-white dark:!bg-inherit">
+      <tr class="!border-b !border-b-secondary-100 dark:!border-b-surface-700">
 				<td>Asset Code</td>
 				<td>{assetCode}</td>
 			</tr>
-			<tr class="!border-b !border-b-secondary-100">
+			<tr class="!border-b !border-b-secondary-100 dark:!border-b-surface-700">
 				<td>Name</td>
 				<td>{name}</td>
 			</tr>
-			<tr class="!border-b !border-b-secondary-100">
+			<tr class="!border-b !border-b-secondary-100 dark:!border-b-surface-700">
 				<td class="align-top">Description</td>
 				<td>{description}</td>
 			</tr>
-      <tr class="!border-b !border-b-secondary-100">
+      <tr class="!border-b !border-b-secondary-100 dark:!border-b-surface-700">
 				<td class="align-top">Template</td>
 				<td>{template}</td>
 			</tr>
-			<tr class="!border-b !border-b-secondary-100">
+			<tr class="!border-b !border-b-secondary-100 dark:!border-b-surface-700">
 				<td>Tags</td>
 				<td>{tags}</td>
 			</tr>
-			<tr class="!border-b !border-b-secondary-100">
+			<tr class="!border-b !border-b-secondary-100 dark:!border-b-surface-700">
 				<td>Version</td>
 				<td>{version}</td>
 			</tr>

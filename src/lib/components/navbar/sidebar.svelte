@@ -28,27 +28,6 @@
 			icon: 'material-symbols:medical-services-outline-rounded',
 			childNav: [
 				{
-					icon: 'material-symbols:home-health-outline-rounded',
-					title: 'Careplan',
-					children: [
-						{
-							icon: 'material-symbols:health-and-safety-outline-rounded',
-							title: 'Assets',
-							link: ``
-						},
-						{
-							icon: 'material-symbols:home-health-outline-rounded',
-							title: 'Careplan',
-							link: ``
-						},
-						{
-							icon: 'material-symbols:check-box-outline-rounded',
-							title: 'Enrollment',
-							link: ``
-						}
-					]
-				},
-				{
 					icon: 'material-symbols:assignment-outline-rounded',
 					title: 'Assessments',
 					link: `/users/${userId}/assessment-templates`
@@ -69,25 +48,24 @@
 					link: `/users/${userId}/drugs`
 				},
 				{
-					icon: 'material-symbols:pill-outline',
+					icon: 'material-symbols:home-health-outline-rounded',
 					title: 'Careplan',
-					link: `/users/${userId}/careplan/assets`,
-					childNav: [
+					children: [
 						{
-						icon: 'material-symbols:pill-outline',
-						title: 'Assets',
-						link: `/users/${userId}/assets`
+							icon: 'material-symbols:health-and-safety-outline-rounded',
+							title: 'Assets',
+							link: `/users/${userId}/careplan/assets`
 						},
 						{
-							icon: 'material-symbols:pill-outline',
+							icon: 'material-symbols:home-health-outline-rounded',
 							title: 'Careplans',
-							link: `/users/${userId}/careplans`
+							link: `/users/${userId}/careplan/careplans`
 						},
 						{
-							icon: 'material-symbols:pill-outline',
+							icon: 'material-symbols:check-box-outline-rounded',
 							title: 'Enrollments',
-							link: `/users/${userId}/enrollments`
-						},
+							link: `users/${userId}/careplan/enrollments`
+						}
 					]
 				},
 			]

@@ -75,11 +75,11 @@ export const actions = {
     const id = response.Data.id;
 
     if (response.Status === 'failure' || response.HttpCode !== 200) {
-      throw redirect(303, '/assets', errorMessage(response.Message), event);
+      throw redirect(303, `/users/${userId}/careplan/assets`, errorMessage(response.Message), event);
     }
     throw redirect(
       303,
-      `/users/${userId}/assets/careplan/action-plans/${id}/view`,
+      `/users/${userId}/careplan/assets/action-plans/${id}/view`,
       successMessage(`Action plan updated successfully!`),
       event
     );

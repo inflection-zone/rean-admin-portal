@@ -66,7 +66,7 @@
 <form
 	method="post"
 	action="?/updateAnimationAction"
-	class="table-container border border-secondary-100 my-2"
+	class="table-container my-2 border border-secondary-100 dark:!border-surface-700"
 >
 	<table class="table">
 		<thead class="!variant-soft-secondary">
@@ -79,12 +79,12 @@
 				</th>
 			</tr>
 		</thead>
-		<tbody class="!bg-white">
-			<tr class="!border-b !border-b-secondary-100">
+		<tbody class="!bg-white dark:!bg-inherit">
+			<tr class="!border-b !border-b-secondary-100 dark:!border-b-surface-700">
 				<td>Asset Code</td>
 				<td>{assetCode}</td>
 			</tr>
-			<tr class="!border-b !border-b-secondary-100">
+			<tr class="!border-b !border-b-secondary-100 dark:!border-b-surface-700">
 				<td>Name *</td>
 				<td>
 					<input
@@ -100,7 +100,7 @@
         {/if}
 				</td>
 			</tr>
-			<tr class="!border-b !border-b-secondary-100">
+			<tr class="!border-b !border-b-secondary-100 dark:!border-b-surface-700">
 				<td class="align-top">Transcript</td>
 				<td>
 					<textarea
@@ -111,7 +111,7 @@
 					/>
 				</td>
 			</tr>
-			<tr class="!border-b !border-b-secondary-100">
+			<tr class="!border-b !border-b-secondary-100 dark:!border-b-surface-700">
 				<td class="align-top">Url</td>
 				<td>
 					<input
@@ -124,13 +124,13 @@
 					/>
 				</td>
 			</tr>
-			<tr class="!border-b !border-b-secondary-100">
+			<tr class="!border-b !border-b-secondary-100 dark:!border-b-surface-700">
 				<td>Tags</td>
 				<td>
 					<InputChip chips="variant-filled-error rounded-2xl" name="tags" bind:value={tags} />
 				</td>
 			</tr>
-			<tr class="!border-b !border-b-secondary-100">
+			<tr class="!border-b !border-b-secondary-100 dark:!border-b-surface-700">
 				<td>Version</td>
 				<td>
 					<input
