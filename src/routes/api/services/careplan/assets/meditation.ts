@@ -8,8 +8,8 @@ export const createMeditation = async (
   // assetCode: string,
   name: string,
   description: string,
-  meditationtype: string,
-  recommendeddurationmin: number,
+  meditationType: string,
+  recommendedDurationMin: number,
   tags: string[],
   version: string
 ) => {
@@ -17,8 +17,8 @@ export const createMeditation = async (
     // AssetCode: assetCode,
     Name: name,
     Description: description,
-    MeditationType: meditationtype,
-    RecommendedDurationMin: recommendeddurationmin,
+    MeditationType: meditationType,
+    RecommendedDurationMin: recommendedDurationMin,
     Tags: tags,
     Version: !version || version?.length === 0 ? 'V 1.0' : version,
   };
@@ -52,8 +52,8 @@ export const updateMeditation = async (
   // assetCode: string,
   name: string,
   description: string,
-  meditationtype: string,
-  recommendeddurationmin: number,
+  meditationType: string,
+  recommendedDurationMin: number,
   tags: string[],
 
   version: string
@@ -62,8 +62,8 @@ export const updateMeditation = async (
     // AssetCode: assetCode,
     Name: name,
     Description: description,
-    MeditationType: meditationtype,
-    RecommendedDurationMin: recommendeddurationmin,
+    MeditationType: meditationType,
+    RecommendedDurationMin: recommendedDurationMin,
     Tags: tags,
     Version: version
   };
