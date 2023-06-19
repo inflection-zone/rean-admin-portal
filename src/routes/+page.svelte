@@ -40,7 +40,7 @@
 					<form
 						method="post"
 						action="?/login"
-						class=" shadow-bottom-right p-8 pb-1 pt-5 rounded-lg mt-5 bg-tertiary-500"
+						class=" shadow-bottom-right p-8 pb-1 pt-5 rounded-lg mt-5 bg-secondary-50"
 					>
 						<!-- <input class="hidden" type="number" name="loginRoleId" value={loginRoleId}> -->
 						<div class="hidden">
@@ -77,13 +77,7 @@
 			</div>
 		</div>
 	</div>
-	<footer class="text-center w-full fixed bottom-0 h-11 bg-primary-500">
-		<a href="https://reanfoundation.org">
-			<p
-				class="mt-3 text-surface-500 text-sm hover:underline-offset-3 hover:underline decoration-indigo-500"
-			>
-				&#xa9; 2022 REAN Foundation
-			</p>
-		</a>
+	<footer class="w-full fixed bottom-0 bg-primary-500 text-center p-2">
+		<a href="https://reanfoundation.org" class="!text-white">&#xa9; 2022 REAN Foundation</a>
 	</footer>
 </body>

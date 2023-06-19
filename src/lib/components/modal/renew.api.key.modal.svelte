@@ -19,7 +19,7 @@
 
 <!-- svelte-ignore a11y-click-events-have-key-events -->
 <dialog
-	class="p-0 rounded-lg shadow-xl backdrop:bg-black/50"
+	class="p-0 rounded-lg shadow-xl bg-surface-50 dark:bg-surface-900 backdrop:bg-black/50 dark:backdrop:bg-white/50"
 	bind:this={dialog}
 	on:close={() => showRenewApiKeyModal.set(false)}
 	on:click|self={() => dialog.close()}
@@ -33,7 +33,7 @@
 
 	<form class="flex flex-col gap-2 p-4 -mt-2">
 		<label>
-			Client Code *
+			<span class="dark:text-white">Client Code *</span>
 			<input
 				class="input"
 				name="userName"
@@ -44,7 +44,7 @@
 		</label>
 
 		<label>
-			Password *
+			<span class="dark:text-white">Password Code *</span>
 			<input
 				class="input"
 				type="password"
@@ -55,7 +55,7 @@
 		</label>
 
 		<label>
-			Valid From
+			<span class="dark:text-white">Valid From</span>
 			<input
 				class="input"
 				type="date"
@@ -66,7 +66,7 @@
 		</label>
 
 		<label>
-			Valid Till
+			<span class="dark:text-white">Valid Till</span>
 			<input
 				class="input"
 				type="date"

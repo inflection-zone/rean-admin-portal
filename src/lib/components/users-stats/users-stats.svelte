@@ -145,7 +145,7 @@
 <div class="flex flex-col justify-center ">
 	<div class="grid grid-cols-1 justify-center rounded-lg py-8 gap-8 ">
 		<div
-			class="grid grid-cols-1 overflow-x-auto justify-center rounded-lg  shadow-xl border border-primary-50 sm:px-4 px-4 py-4 w-full h-full"
+			class="grid grid-cols-1 overflow-x-auto justify-center rounded-lg  shadow-xl border border-secondary-100 dark:border-surface-700 sm:px-4 px-4 py-4 w-full h-full"
 		>
 			<div class="px-4 sm:px-6 lg:px-8">
 				<div class="flow-root">
@@ -156,58 +156,58 @@
 									<tr>
 										<th
 											scope="col"
-											class="py-3 pl-4 pr-3 text-left text-lg font-semibold text-primary-500 sm:pl-3"
+											class="py-3 pl-4 pr-3 text-left text-lg font-semibold text-primary-500 dark:text-primary-100 sm:pl-3"
 										>
 											Users
 										</th>
 										<th
 											scope="col"
-											class="px-3 py-3 text-left text-lg font-semibold text-primary-500"
+											class="px-3 py-3 text-left text-lg font-semibold text-primary-500 dark:text-primary-100"
 										>
 											Count
 										</th>
 										<th
 											scope="col"
-											class="px-3 py-3 text-left text-lg font-semibold text-primary-500"
+											class="px-3 py-3 text-left text-lg font-semibold text-primary-500 dark:text-primary-100"
 										>
 											Percentage
 										</th>
 									</tr>
 								</thead>
-								<tbody class="">
-									<tr class="hover:bg-tertiary-500 transition">
+								<tbody>
+									<tr class="hover:bg-secondary-50 dark:hover:bg-surface-800 transition">
 										<td
 											style="width:10%;"
-											class="whitespace-nowrap text-sm py-2 pl-4 pr-3 text-primary-500 sm:pl-3"
+											class="whitespace-nowrap text-sm py-2 pl-4 pr-3 text-primary-500 dark:text-primary-100 sm:pl-3"
 											>Total Users</td
 										>
 										<td
 											style="width:10%;"
-											class="whitespace-nowrap px-3 py-2 text-sm  text-primary-500"
+											class="whitespace-nowrap px-3 py-2 text-sm  text-primary-500 dark:text-primary-100"
 											>{usersCount.TotalUsers.Count}</td
 										>
 										<td
 											style="width:15%;"
-											class="whitespace-nowrap px-3 py-2 text-sm  text-primary-500"
+											class="whitespace-nowrap px-3 py-2 text-sm  text-primary-500 dark:text-primary-100"
 											>-
 										</td>
 									</tr>
 									{#each usersData as data}
-										<tr class="hover:bg-tertiary-500 transition">
+										<tr class="hover:bg-secondary-50 dark:hover:bg-surface-800 transition">
 											<td
 												style="width:10%;"
-												class="whitespace-nowrap py-2 pl-4 pr-3 text-primary-500 text-sm  sm:pl-3"
+												class="whitespace-nowrap py-2 pl-4 pr-3 text-primary-500 dark:text-primary-100 text-sm  sm:pl-3"
 												>{data.usersDetail}</td
 											>
 											<td
 												style="width:10%;"
-												class="whitespace-nowrap text-sm px-3 py-2 text-primary-500"
+												class="whitespace-nowrap text-sm px-3 py-2 text-primary-500 dark:text-primary-100"
 											>
 												{data.count}
 											</td>
 											<td
 												style="width:15%;"
-												class="whitespace-nowrap px-3 py-2 text-sm text-primary-500"
+												class="whitespace-nowrap px-3 py-2 text-sm text-primary-500 dark:text-primary-100"
 											>
 												<div class="flex items-center">
 													<div class="h-2 w-1/4 rounded-full bg-primary-200 mr-2">
@@ -216,27 +216,27 @@
 															style="width:{data.ratio}%"
 														/>
 													</div>
-													<span class="text-primary-500 ">{data.ratio}</span>
-													<span class="text-primary-500 text-xs">%</span>
+													<span class="text-primary-500 dark:text-primary-100 ">{data.ratio}</span>
+													<span class="text-primary-500 dark:text-primary-100 text-xs">%</span>
 												</div>
 											</td>
 										</tr>
 									{/each}
 									{#each deviceDetailData as data}
-										<tr class="hover:bg-tertiary-500 transition">
+										<tr class="hover:bg-secondary-50 dark:hover:bg-surface-800 transition">
 											<td
 												style="width:10%;"
-												class="whitespace-nowrap py-2 pl-4 pr-3 text-primary-500 text-sm  sm:pl-3"
+												class="whitespace-nowrap py-2 pl-4 pr-3 text-primary-500 dark:text-primary-100 text-sm  sm:pl-3"
 												>{data.usersDetail}</td
 											>
 											<td
 												style="width:10%;"
-												class="whitespace-nowrap text-sm px-3 py-2 text-primary-500"
+												class="whitespace-nowrap text-sm px-3 py-2 text-primary-500 dark:text-primary-100"
 												>{data.count}</td
 											>
 											<td
 												style="width:15%;"
-												class="whitespace-nowrap px-3 py-2 text-sm text-primary-500"
+												class="whitespace-nowrap px-3 py-2 text-sm text-primary-500 dark:text-primary-100"
 											>
 												<div class="flex items-center">
 													<div class="h-2 w-1/4 rounded-full bg-primary-200 mr-2">
@@ -245,8 +245,8 @@
 															style="width:{data.ratio}%"
 														/>
 													</div>
-													<span class="text-primary-500 ">{data.ratio}</span>
-													<span class="text-primary-500 text-xs">%</span>
+													<span class="text-primary-500 dark:text-primary-100 ">{data.ratio}</span>
+													<span class="text-primary-500 dark:text-primary-100 text-xs">%</span>
 												</div>
 											</td>
 										</tr>
@@ -259,7 +259,7 @@
 			</div>
 		</div>
 		<div
-			class="grid grid-cols-3 overflow-x-auto justify-center rounded-lg shadow-xl border border-primary-50 sm:px-4 w-full h-full gap-3"
+			class="grid grid-cols-3 overflow-x-auto justify-center rounded-lg shadow-xl border border-secondary-100 dark:border-surface-700 sm:px-4 w-full h-full gap-3"
 		>
 			<div class="px-4 sm:px-6 lg:px-8 col-span-2">
 				<div class="flow-root">
@@ -270,27 +270,27 @@
 									<tr>
 										<th
 											scope="col"
-											class="py-3 pl-4 pr-3 text-left text-lg font-semibold text-primary-500 sm:pl-3"
+											class="py-3 pl-4 pr-3 text-left text-lg font-semibold text-primary-500 dark:text-primary-100 sm:pl-3"
 											>Age</th
 										>
 									</tr>
 								</thead>
-								<tbody class="">
+								<tbody>
 									{#each ageWiseUsers as data}
-										<tr class="hover:bg-tertiary-500 transition">
+										<tr class="hover:bg-secondary-50 dark:hover:bg-surface-800 transition">
 											<td
 												style="width:10%;"
-												class="whitespace-nowrap py-2 pl-4 pr-3 text-primary-500 text-sm  sm:pl-3"
+												class="whitespace-nowrap py-2 pl-4 pr-3 text-primary-500 dark:text-primary-100 text-sm  sm:pl-3"
 												>{data.Status}</td
 											>
 											<td
 												style="width:10%;"
-												class="whitespace-nowrap text-sm px-3 py-2 text-primary-500"
+												class="whitespace-nowrap text-sm px-3 py-2 text-primary-500 dark:text-primary-100"
 												>{data.Count}</td
 											>
 											<td
 												style="width:15%;"
-												class="whitespace-nowrap px-3 py-2 text-sm text-primary-500"
+												class="whitespace-nowrap px-3 py-2 text-sm text-primary-500 dark:text-primary-100"
 											>
 												<div class="flex items-center">
 													<div class="h-2 w-1/4 rounded-full bg-primary-200 mr-2">
@@ -299,8 +299,8 @@
 															style="width:{data.Ratio}%"
 														/>
 													</div>
-													<span class="text-primary-500 ">{data.Ratio}</span>
-													<span class="text-primary-500 text-xs">%</span>
+													<span class="text-primary-500 dark:text-primary-100 ">{data.Ratio}</span>
+													<span class="text-primary-500 dark:text-primary-100 text-xs">%</span>
 												</div>
 											</td>
 										</tr>
@@ -323,7 +323,7 @@
 		</div>
 
 		<div
-			class="grid grid-cols-3 overflow-x-auto justify-center rounded-lg  shadow-xl border border-primary-50 sm:px-4 w-full h-full gap-3 "
+			class="grid grid-cols-3 overflow-x-auto justify-center rounded-lg  shadow-xl border border-secondary-100 dark:border-surface-700 sm:px-4 w-full h-full gap-3 "
 		>
 			<div class="px-4 sm:px-6 lg:px-8 col-span-2">
 				<div class="flow-root">
@@ -334,27 +334,27 @@
 									<tr>
 										<th
 											scope="col"
-											class="py-3 pl-4 pr-3 text-left text-lg font-semibold text-primary-500 sm:pl-3"
+											class="py-3 pl-4 pr-3 text-left text-lg font-semibold text-primary-500 dark:text-primary-100 sm:pl-3"
 											>Gender</th
 										>
 									</tr>
 								</thead>
-								<tbody class="">
+								<tbody>
 									{#each genderWiseUsers as data}
-										<tr class="hover:bg-tertiary-500 transition">
+										<tr class="hover:bg-secondary-50 dark:hover:bg-surface-800 transition">
 											<td
 												style="width:10%;"
-												class="whitespace-nowrap py-2 pl-4 pr-3 text-primary-500 text-sm  sm:pl-3"
+												class="whitespace-nowrap py-2 pl-4 pr-3 text-primary-500 dark:text-primary-100 text-sm  sm:pl-3"
 												>{data.Status}</td
 											>
 											<td
 												style="width:10%;"
-												class="whitespace-nowrap text-sm px-3 py-2 text-primary-500"
+												class="whitespace-nowrap text-sm px-3 py-2 text-primary-500 dark:text-primary-100"
 												>{data.Count}</td
 											>
 											<td
 												style="width:15%;"
-												class="whitespace-nowrap px-3 py-2 text-sm text-primary-500"
+												class="whitespace-nowrap px-3 py-2 text-sm text-primary-500 dark:text-primary-100"
 											>
 												<div class="flex items-center">
 													<div class="h-2 w-1/4 rounded-full bg-primary-200 mr-2">
@@ -363,8 +363,8 @@
 															style="width:{data.Ratio}%"
 														/>
 													</div>
-													<span class="text-primary-500 ">{data.Ratio}</span>
-													<span class="text-primary-500 text-xs">%</span>
+													<span class="text-primary-500 dark:text-primary-100 ">{data.Ratio}</span>
+													<span class="text-primary-500 dark:text-primary-100 text-xs">%</span>
 												</div>
 											</td>
 										</tr>
@@ -387,7 +387,7 @@
 		</div>
 
 		<div
-			class="grid grid-cols-3 overflow-x-auto justify-center rounded-lg  shadow-xl border border-primary-50 sm:px-4 w-full h-full gap-3 "
+			class="grid grid-cols-3 overflow-x-auto justify-center rounded-lg  shadow-xl border border-secondary-100 dark:border-surface-700 sm:px-4 w-full h-full gap-3 "
 		>
 			<div class="px-4 sm:px-6 lg:px-8 col-span-2">
 				<div class="flow-root">
@@ -398,27 +398,27 @@
 									<tr>
 										<th
 											scope="col"
-											class="py-3 pl-4 pr-3 text-left text-lg font-semibold text-primary-500 sm:pl-3"
+											class="py-3 pl-4 pr-3 text-left text-lg font-semibold text-primary-500 dark:text-primary-100 sm:pl-3"
 											>Country</th
 										>
 									</tr>
 								</thead>
-								<tbody class="">
+								<tbody>
 									{#each countryWiseUsers as data}
-										<tr class="hover:bg-tertiary-500 transition">
+										<tr class="hover:bg-secondary-50 dark:hover:bg-surface-800 transition">
 											<td
 												style="width:10%;"
-												class="whitespace-nowrap py-2 pl-4 pr-3 text-primary-500 text-sm  sm:pl-3"
+												class="whitespace-nowrap py-2 pl-4 pr-3 text-primary-500 dark:text-primary-100 text-sm  sm:pl-3"
 												>{data.Country}</td
 											>
 											<td
 												style="width:10%;"
-												class="whitespace-nowrap text-sm px-3 py-2 text-primary-500"
+												class="whitespace-nowrap text-sm px-3 py-2 text-primary-500 dark:text-primary-100"
 												>{data.Count}</td
 											>
 											<td
 												style="width:15%;"
-												class="whitespace-nowrap px-3 py-2 text-sm text-primary-500"
+												class="whitespace-nowrap px-3 py-2 text-sm text-primary-500 dark:text-primary-100"
 											>
 												<div class="flex items-center">
 													<div class="h-2 w-1/4 rounded-full bg-primary-200 mr-2">
@@ -427,8 +427,8 @@
 															style="width:{data.Ratio}%"
 														/>
 													</div>
-													<span class="text-primary-500 ">{data.Ratio}</span>
-													<span class="text-primary-500 text-xs">%</span>
+													<span class="text-primary-500 dark:text-primary-100 ">{data.Ratio}</span>
+													<span class="text-primary-500 dark:text-primary-100 text-xs">%</span>
 												</div>
 											</td>
 										</tr>
@@ -454,7 +454,7 @@
 
 	<div class="flex justify-center items-center h-96 gap-10 w-full">
 		<div
-			class="flex overflow-x-auto justify-center items-center rounded-lg  shadow-xl border border-primary-50 sm:px-4 w-1/2"
+			class="flex overflow-x-auto justify-center items-center rounded-lg  shadow-xl border border-secondary-100 dark:border-surface-700 sm:px-4 w-1/2"
 		>
 			<div class="h-96 w-full ">
 				<BarChart
@@ -465,7 +465,7 @@
 			</div>
 		</div>
 		<div
-			class="flex overflow-x-auto justify-center items-center rounded-lg  shadow-xl border border-primary-50 sm:px-4 w-1/2"
+			class="flex overflow-x-auto justify-center items-center rounded-lg  shadow-xl border border-secondary-100 dark:border-surface-700 sm:px-4 w-1/2"
 		>
 			<div class="h-96 w-full">
 				<BarChart
@@ -479,7 +479,7 @@
 
 	<div class="flex justify-center items-center h-96 gap-10 w-full mt-10">
 		<div
-			class="flex overflow-x-auto justify-center items-center rounded-lg  shadow-xl border border-primary-50 sm:px-4 w-1/2"
+			class="flex overflow-x-auto justify-center items-center rounded-lg  shadow-xl border border-secondary-100 dark:border-surface-700 sm:px-4 w-1/2"
 		>
 			<div class="h-96 w-full ">
 				<BarChart
@@ -490,7 +490,7 @@
 			</div>
 		</div>
 		<div
-			class="flex overflow-x-auto justify-center items-center rounded-lg shadow-xl border border-primary-50 sm:px-4 w-1/2"
+			class="flex overflow-x-auto justify-center items-center rounded-lg shadow-xl border border-secondary-100 dark:border-surface-700 sm:px-4 w-1/2"
 		>
 			<div class="h-96 w-full">
 				<BarChart
@@ -504,7 +504,7 @@
 
 	<div class="flex justify-center items-center h-96 gap-10 w-full mt-10">
 		<div
-			class="flex overflow-x-auto justify-center items-center rounded-lg  shadow-xl border border-primary-50 sm:px-4 w-1/2"
+			class="flex overflow-x-auto justify-center items-center rounded-lg  shadow-xl border border-secondary-100 dark:border-surface-700 sm:px-4 w-1/2"
 		>
 			<div class="h-96 w-full ">
 				<HorizontalBarChart
@@ -515,7 +515,7 @@
 			</div>
 		</div>
 		<div
-			class="flex overflow-x-auto justify-center items-center rounded-lg  shadow-xl border border-primary-50 sm:px-4 w-1/2"
+			class="flex overflow-x-auto justify-center items-center rounded-lg  shadow-xl border border-secondary-100 dark:border-surface-700 sm:px-4 w-1/2"
 		>
 			<div class="h-96 w-full">
 				<HealthPillarChart {healthPillarDistributionMonthly} />
@@ -525,7 +525,7 @@
 
 	<div class="flex justify-center items-center h-96 gap-10 w-full mt-10">
 		<div
-			class="flex overflow-x-auto justify-center items-center rounded-lg  shadow-xl border border-primary-50 sm:px-4 w-1/2"
+			class="flex overflow-x-auto justify-center items-center rounded-lg  shadow-xl border border-secondary-100 dark:border-surface-700 sm:px-4 w-1/2"
 		>
 			<div class="h-96 w-full ">
 				<HorizontalBarChart
@@ -536,7 +536,7 @@
 			</div>
 		</div>
 		<div
-			class="flex overflow-x-auto justify-center items-center rounded-lg  shadow-xl border border-primary-50 sm:px-4 w-1/2"
+			class="flex overflow-x-auto justify-center items-center rounded-lg  shadow-xl border border-secondary-100 dark:border-surface-700 sm:px-4 w-1/2"
 		>
 			<div class="h-96 w-full">
 				<BiometricsChart {biometricsDistributionMonthly} />

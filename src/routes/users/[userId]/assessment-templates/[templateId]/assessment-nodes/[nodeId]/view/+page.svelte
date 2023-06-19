@@ -28,7 +28,7 @@
 	let resolutionScore;
 	let sequence = data.assessmentNode.Sequence;
 
-	console.log("nodeType",nodeType);
+	console.log('nodeType', nodeType);
 
 	$: resolutionScore;
 
@@ -136,7 +136,7 @@
 	</a>
 </div>
 
-<div class="table-container border border-secondary-100 my-2">
+<div class="table-container my-2 border border-secondary-100 dark:border-surface-700">
 	<table class="table">
 		<thead class="!variant-soft-secondary">
 			<tr>
@@ -148,34 +148,34 @@
 				</th>
 			</tr>
 		</thead>
-		<tbody class="!bg-white">
-			<tr class="!border-b !border-b-secondary-100">
+		<tbody class="!bg-white dark:!bg-inherit">
+			<tr class="!border-b !border-b-secondary-100 dark:!border-b-surface-700">
 				<td>Node Type</td>
 				<td>{nodeType}</td>
 			</tr>
-			<tr class="!border-b !border-b-secondary-100">
+			<tr class="!border-b !border-b-secondary-100 dark:!border-b-surface-700">
 				<td>Parent Node</td>
 				<td>{displayCode}</td>
 			</tr>
-			<tr class="!border-b !border-b-secondary-100">
+			<tr class="!border-b !border-b-secondary-100 dark:!border-b-surface-700">
 				<td>Title</td>
 				<td>{title}</td>
 			</tr>
-			<tr class="!border-b !border-b-secondary-100">
+			<tr class="!border-b !border-b-secondary-100 dark:!border-b-surface-700">
 				<td>Description</td>
 				<td>{description}</td>
 			</tr>
-			<tr class="!border-b !border-b-secondary-100">
+			<tr class="!border-b !border-b-secondary-100 dark:!border-b-surface-700">
 				<td>Sequence</td>
 				<td>{sequence}</td>
 			</tr>
 			{#if nodeType === 'Question'}
-				<tr class="!border-b !border-b-secondary-100">
+				<tr class="!border-b !border-b-secondary-100 dark:!border-b-surface-700">
 					<td>Query Response Type</td>
 					<td>{queryType}</td>
 				</tr>
 				{#if options.length > 0}
-					<tr class="!border-b !border-b-secondary-100">
+					<tr class="!border-b !border-b-secondary-100 dark:!border-b-surface-700">
 						<td class="align-top">Options</td>
 						<td>
 							<ol class="list-decimal">
@@ -188,7 +188,7 @@
 				{/if}
 
 				{#if $scoringApplicableCondition === true}
-					<tr class="!border-b !border-b-secondary-100">
+					<tr class="!border-b !border-b-secondary-100 dark:!border-b-surface-700">
 						<td>Resolution Score</td>
 						<td>
 							<div class="flex items-center">
@@ -205,22 +205,25 @@
 					</tr>
 				{/if}
 			{:else if nodeType === 'Message'}
-				<tr class="!border-b !border-b-secondary-100">
+				<tr class="!border-b !border-b-secondary-100 dark:!border-b-surface-700">
 					<td>Message</td>
 					<td>{message}</td>
 				</tr>
 			{:else if nodeType === 'Node list'}
-				<tr class="!border-b !border-b-secondary-100">
+				<tr class="!border-b !border-b-secondary-100 dark:!border-b-surface-700">
 					<td>Serve List Node Children At Once</td>
 					<td>{serveListNodeChildrenAtOnce}</td>
 				</tr>
-				<tr class="!border-b !border-b-secondary-100">
+				<tr class="!border-b !border-b-secondary-100 dark:!border-b-surface-700">
 					<td class="align-top">Children Nodes</td>
 					<td>
 						{#if childrenNodes.length <= 0}
 							<span class="span">Children nodes not available!</span>
 						{:else}
-							<div class="table-container border border-secondary-100" id="modules">
+							<div
+								class="table-container border border-secondary-100 dark:!border-surface-700"
+								id="modules"
+							>
 								<table class="table table-compact">
 									<thead class="!variant-soft-secondary">
 										<tr>
@@ -231,9 +234,9 @@
 											<th />
 										</tr>
 									</thead>
-									<tbody class="!bg-white">
+									<tbody class="!bg-white dark:!bg-inherit">
 										{#each childrenNodes as node}
-											<tr class="!border-b !border-b-secondary-100">
+											<tr class="!border-b !border-b-secondary-100 dark:!border-b-surface-700">
 												<td>{node.Sequence}</td>
 												<td>{node.NodeType}</td>
 												<td>{Helper.truncateText(node.Title, 30)}</td>

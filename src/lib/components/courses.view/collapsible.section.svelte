@@ -16,7 +16,7 @@
 	const handlelDeleteClick = async (id) => dispatch('onDeleteClick', { id: id });
 </script>
 
-<div class="border border-secondary-100 p-2 min-w-[500px]">
+<div class="border border-secondary-100 dark:border-surface-700 p-2 min-w-[500px]">
 	<div class="flex gap-4 items-center">
 		<div class="flex gap-2 items-center grow">
 			<img class="w-8" {src} alt="" />

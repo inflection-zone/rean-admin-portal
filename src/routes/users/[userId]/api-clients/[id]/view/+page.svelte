@@ -122,7 +122,7 @@
 	</a>
 </div>
 
-<div class="table-container border border-secondary-100 my-2">
+<div class="table-container my-2 border border-secondary-100 dark:border-surface-700">
 	<table class="table">
 		<thead class="!variant-soft-secondary">
 			<tr>
@@ -134,30 +134,30 @@
 				</th>
 			</tr>
 		</thead>
-		<tbody class="!bg-white">
-			<tr class="!border-b !border-b-secondary-100">
+		<tbody class="!bg-white dark:!bg-inherit">
+			<tr class="!border-b !border-b-secondary-100 dark:!border-b-surface-700">
 				<td>Client Name</td>
 				<td>{clientName}</td>
 			</tr>
-			<tr class="!border-b !border-b-secondary-100">
+			<tr class="!border-b !border-b-secondary-100 dark:!border-b-surface-700">
 				<td>Client Code</td>
 				<td>{clientCode}</td>
 			</tr>
-			<tr class="!border-b !border-b-secondary-100">
+			<tr class="!border-b !border-b-secondary-100 dark:!border-b-surface-700">
 				<td>Contact Number</td>
 				<td>{phone}</td>
 			</tr>
-			<tr class="!border-b !border-b-secondary-100">
+			<tr class="!border-b !border-b-secondary-100 dark:!border-b-surface-700">
 				<td>Email</td>
 				<td>{email}</td>
 			</tr>
 			{#if apiKey === undefined}
-				<tr class="!border-b !border-b-secondary-100">
+				<tr class="!border-b !border-b-secondary-100 dark:!border-b-surface-700">
 					<td>Api Key</td>
 					<td>Not Available</td>
 				</tr>
 			{:else}
-				<tr class="!border-b !border-b-secondary-100">
+				<tr class="!border-b !border-b-secondary-100 dark:!border-b-surface-700">
 					<td>Api Key</td>
 					<td class="flex items-center gap-2">
 						<span class="span" id="email">{apiKey}</span>

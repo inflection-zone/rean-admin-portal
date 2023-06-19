@@ -57,7 +57,7 @@
 <form
 	method="post"
 	action="?/updateLabRecordTypeAction"
-	class="table-container border border-secondary-100 my-2"
+	class="table-container my-2 border border-secondary-100 dark:!border-surface-700"
 >
 	<table class="table">
 		<thead class="!variant-soft-secondary">
@@ -70,8 +70,8 @@
 				</th>
 			</tr>
 		</thead>
-		<tbody class="!bg-white">
-			<tr class="!border-b !border-b-secondary-100">
+		<tbody class="!bg-white dark:!bg-inherit">
+			<tr class="!border-b !border-b-secondary-100 dark:!border-b-surface-700">
 				<td>Type Name *</td>
 				<td>
 					<input
@@ -80,16 +80,14 @@
 						required
 						bind:value={typeName}
 						placeholder="Enter type name here..."
-						class="input w-full {form?.errors?.typeName
-							? 'border-error-300 text-error-500'
-							: 'border-primary-200 text-primary-500'}"
+						class="input w-full {form?.errors?.typeName ? 'border-error-300 text-error-500' : ''}"
 					/>
 					{#if form?.errors?.typeName}
 						<p class="text-error-500 text-xs">{form?.errors?.typeName[0]}</p>
 					{/if}
 				</td>
 			</tr>
-			<tr class="!border-b !border-b-secondary-100">
+			<tr class="!border-b !border-b-secondary-100 dark:!border-b-surface-700">
 				<td>Display Name</td>
 				<td>
 					<input
@@ -99,14 +97,14 @@
 						placeholder="Enter display name here..."
 						class="input w-full {form?.errors?.displayName
 							? 'border-error-300 text-error-500'
-							: 'border-primary-200 text-primary-500'}"
+							: ''}"
 					/>
 					{#if form?.errors?.displayName}
 						<p class="text-error-500 text-xs">{form?.errors?.displayName[0]}</p>
 					{/if}
 				</td>
 			</tr>
-			<tr class="!border-b !border-b-secondary-100">
+			<tr class="!border-b !border-b-secondary-100 dark:!border-b-surface-700">
 				<td>SNOMED CODE</td>
 				<td>
 					<input
@@ -116,14 +114,14 @@
 						placeholder="Enter snomed code here..."
 						class="input w-full {form?.errors?.snowmedCode
 							? 'border-error-300 text-error-500'
-							: 'border-primary-200 text-primary-500'}"
+							: ''}"
 					/>
 					{#if form?.errors?.snowmedCode}
 						<p class="text-error-500 text-xs">{form?.errors?.snowmedCode[0]}</p>
 					{/if}
 				</td>
 			</tr>
-			<tr class="!border-b !border-b-secondary-100">
+			<tr class="!border-b !border-b-secondary-100 dark:!border-b-surface-700">
 				<td>LOINC CODE</td>
 				<td>
 					<input
@@ -131,16 +129,14 @@
 						name="loincCode"
 						bind:value={loincCode}
 						placeholder="Enter loinc code here..."
-						class="input w-full {form?.errors?.loincCode
-							? 'border-error-300 text-error-500'
-							: 'border-primary-200 text-primary-500'}"
+						class="input w-full {form?.errors?.loincCode ? 'border-error-300 text-error-500' : ''}"
 					/>
 					{#if form?.errors?.loincCode}
 						<p class="text-error-500 text-xs">{form?.errors?.loincCode[0]}</p>
 					{/if}
 				</td>
 			</tr>
-			<tr class="!border-b !border-b-secondary-100">
+			<tr class="!border-b !border-b-secondary-100 dark:!border-b-surface-700">
 				<td>Minimum Normal Range</td>
 				<td>
 					<input
@@ -150,14 +146,14 @@
 						placeholder="Enter minimum normal range here..."
 						class="input w-full {form?.errors?.normalRangeMin
 							? 'border-error-300 text-error-500'
-							: 'border-primary-200 text-primary-500'}"
+							: ''}"
 					/>
 					{#if form?.errors?.normalRangeMin}
 						<p class="text-error-500 text-xs">{form?.errors?.normalRangeMin[0]}</p>
 					{/if}
 				</td>
 			</tr>
-			<tr class="!border-b !border-b-secondary-100">
+			<tr class="!border-b !border-b-secondary-100 dark:!border-b-surface-700">
 				<td class="align-top">Maximum Normal Range</td>
 				<td>
 					<input
@@ -167,14 +163,14 @@
 						placeholder="Enter maximum normal range here..."
 						class="input w-full {form?.errors?.normalRangeMax
 							? 'border-error-300 text-error-500'
-							: 'border-primary-200 text-primary-500'}"
+							: ''}"
 					/>
 					{#if form?.errors?.normalRangeMax}
 						<p class="text-error-500 text-xs">{form?.errors?.normalRangeMax[0]}</p>
 					{/if}
 				</td>
 			</tr>
-			<tr class="!border-b !border-b-secondary-100">
+			<tr class="!border-b !border-b-secondary-100 dark:!border-b-surface-700">
 				<td>Unit</td>
 				<td>
 					<input
@@ -182,9 +178,7 @@
 						name="unit"
 						bind:value={unit}
 						placeholder="Enter unit here..."
-						class="input w-full {form?.errors?.unit
-							? 'border-error-300 text-error-500'
-							: 'border-primary-200 text-primary-500'}"
+						class="input w-full {form?.errors?.unit ? 'border-error-300 text-error-500' : ''}"
 					/>
 					{#if form?.errors?.unit}
 						<p class="text-error-500 text-xs">{form?.errors?.unit[0]}</p>

@@ -101,7 +101,7 @@
 <form
 	method="post"
 	action="?/updateSymptomAction"
-	class="table-container border border-secondary-100 my-2"
+	class="table-container my-2 border border-secondary-100 dark:!border-surface-700"
 >
 	<table class="table">
 		<thead class="!variant-soft-secondary">
@@ -114,8 +114,8 @@
 				</th>
 			</tr>
 		</thead>
-		<tbody class="!bg-white">
-			<tr class="!border-b !border-b-secondary-100">
+		<tbody class="!bg-white dark:!bg-inherit">
+			<tr class="!border-b !border-b-secondary-100 dark:!border-b-surface-700">
 				<td>Symptom *</td>
 				<td>
 					<input
@@ -124,16 +124,14 @@
 						required
 						bind:value={symptom}
 						placeholder="Enter symptom here..."
-						class="input w-full {form?.errors?.symptom
-							? 'border-error-300 text-error-500'
-							: 'border-primary-200 text-primary-500'}"
+						class="input w-full {form?.errors?.symptom ? 'border-error-300 text-error-500' : ''}"
 					/>
 					{#if form?.errors?.symptom}
 						<p class="text-error-500 text-xs">{form?.errors?.symptom[0]}</p>
 					{/if}
 				</td>
 			</tr>
-			<tr class="!border-b !border-b-secondary-100">
+			<tr class="!border-b !border-b-secondary-100 dark:!border-b-surface-700">
 				<td class="align-top">Description</td>
 				<td>
 					<textarea
@@ -142,14 +140,14 @@
 						placeholder="Enter description here..."
 						class="textarea w-full  {form?.errors?.description
 							? 'border-error-300 text-error-500'
-							: 'border-primary-200 text-primary-500'}"
+							: ''}"
 					/>
 					{#if form?.errors?.description}
 						<p class="text-error-500 text-xs">{form?.errors?.description[0]}</p>
 					{/if}
 				</td>
 			</tr>
-			<tr class="!border-b !border-b-secondary-100">
+			<tr class="!border-b !border-b-secondary-100 dark:!border-b-surface-700">
 				<td class="align-top">Tags</td>
 				<td>
 					<InputChip chips="variant-filled-error rounded-2xl" name="tags" bind:value={tags} />
@@ -158,7 +156,7 @@
 					{/if}
 				</td>
 			</tr>
-			<tr class="!border-b !border-b-secondary-100">
+			<tr class="!border-b !border-b-secondary-100 dark:!border-b-surface-700">
 				<td>Language *</td>
 				<td>
 					<input
@@ -167,16 +165,14 @@
 						required
 						bind:value={language}
 						placeholder="Enter language here..."
-						class="input w-full {form?.errors?.language
-							? 'border-error-300 text-error-500'
-							: 'border-primary-200 text-primary-500'}"
+						class="input w-full {form?.errors?.language ? 'border-error-300 text-error-500' : ''}"
 					/>
 					{#if form?.errors?.language}
 						<p class="text-error-500 text-xs">{form?.errors?.language[0]}</p>
 					{/if}
 				</td>
 			</tr>
-			<tr class="!border-b !border-b-secondary-100">
+			<tr class="!border-b !border-b-secondary-100 dark:!border-b-surface-700">
 				<td class="align-top">Image *</td>
 				<td>
 					{#if imageUrl === 'undefined'}
