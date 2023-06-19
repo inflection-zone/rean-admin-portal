@@ -28,6 +28,27 @@
 			icon: 'material-symbols:medical-services-outline-rounded',
 			childNav: [
 				{
+					icon: 'material-symbols:home-health-outline-rounded',
+					title: 'Careplan',
+					children: [
+						{
+							icon: 'material-symbols:health-and-safety-outline-rounded',
+							title: 'Assets',
+							link: ``
+						},
+						{
+							icon: 'material-symbols:home-health-outline-rounded',
+							title: 'Careplan',
+							link: ``
+						},
+						{
+							icon: 'material-symbols:check-box-outline-rounded',
+							title: 'Enrollment',
+							link: ``
+						}
+					]
+				},
+				{
 					icon: 'material-symbols:assignment-outline-rounded',
 					title: 'Assessments',
 					link: `/users/${userId}/assessment-templates`
@@ -141,22 +162,54 @@
 				<svelte:fragment slot="content">
 					<nav class="list-nav space-y-1">
 						{#each navParent.childNav as navItem}
-							<a
-								href={navItem.link}
-								class:!variant-soft-secondary={$page.url.pathname === navItem.link}
-							>
-								{#if navItem.icon.endsWith('.png')}
-									<img src={navItem.icon} alt="" class="invert dark:filter-none w-6 h-6" />
-								{:else}
-									<Icon
-										icon={$page.url.pathname === navItem.link
-											? navItem.icon.replace('-outline', '')
-											: navItem.icon}
-										class="text-2xl"
-									/>
-								{/if}
-								<span>{navItem.title}</span>
-							</a>
+							<!-- if no navItem.link but navItem.child -->
+							{#if navItem.link}
+								<a
+									href={navItem.link}
+									class:!variant-soft-secondary={$page.url.pathname === navItem.link}
+								>
+									{#if navItem.icon.endsWith('.png')}
+										<img src={navItem.icon} alt="" class="invert dark:filter-none w-6 h-6" />
+									{:else}
+										<Icon
+											icon={$page.url.pathname === navItem.link
+												? navItem.icon.replace('-outline', '')
+												: navItem.icon}
+											class="text-2xl"
+										/>
+									{/if}
+									<span>{navItem.title}</span>
+								</a>
+							{:else if navItem.children}
+								<Accordion>
+									<AccordionItem>
+										<svelte:fragment slot="lead">
+											<Icon icon={navItem.icon} class="text-2xl" />
+										</svelte:fragment>
+										<svelte:fragment slot="summary">
+											{navItem.title}
+										</svelte:fragment>
+										<svelte:fragment slot="content">
+											<nav class="list-nav space-y-1">
+												{#each navItem.children as childItem}
+													<a
+														href={childItem.link}
+														class:!variant-soft-secondary={$page.url.pathname === childItem.link}
+													>
+														<Icon
+															icon={$page.url.pathname === childItem.link
+																? childItem.icon.replace('-outline', '')
+																: childItem.icon}
+															class="text-2xl"
+														/>
+														<span>{childItem.title}</span>
+													</a>
+												{/each}
+											</nav>
+										</svelte:fragment>
+									</AccordionItem>
+								</Accordion>
+							{/if}
 						{/each}
 					</nav>
 				</svelte:fragment>
