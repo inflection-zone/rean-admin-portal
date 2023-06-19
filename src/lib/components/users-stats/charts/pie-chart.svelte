@@ -41,14 +41,14 @@
 						labels: {
 							boxWidth: 10,
 							boxHeight: 10,
-							color: '#5832A1'
+							color: document.documentElement.classList.contains('dark') ? '#DED6EC' : '#5832A1'
 						}
 					},
 					title: {
 						display: false,
 						text: title,
 						position: 'top',
-						color: '#5832A1',
+						color: document.documentElement.classList.contains('dark') ? '#DED6EC' : '#5832A1',
 						align: 'center',
 						padding: 20,
 						font: {
