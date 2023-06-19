@@ -113,7 +113,7 @@
 <form
 	method="post"
 	action="?/updateNewsfeedAction"
-	class="table-container border border-secondary-100 my-2"
+	class="table-container my-2 border border-secondary-100 dark:!border-surface-700"
 >
 	<table class="table">
 		<thead class="!variant-soft-secondary">
@@ -126,8 +126,8 @@
 				</th>
 			</tr>
 		</thead>
-		<tbody class="!bg-white">
-			<tr class="!border-b !border-b-secondary-100">
+		<tbody class="!bg-white dark:!bg-inherit">
+			<tr class="!border-b !border-b-secondary-100 dark:!border-b-surface-700">
 				<td>Title *</td>
 				<td>
 					<input
@@ -136,16 +136,14 @@
 						required
 						bind:value={title}
 						placeholder="Enter title here..."
-						class="input w-full {form?.errors?.title
-							? 'border-error-300 text-error-500'
-							: 'border-primary-200 text-primary-500'}"
+						class="input w-full {form?.errors?.title ? 'border-error-300 text-error-500' : ''}"
 					/>
 					{#if form?.errors?.title}
 						<p class="text-error-500 text-xs">{form?.errors?.title[0]}</p>
 					{/if}
 				</td>
 			</tr>
-			<tr class="!border-b !border-b-secondary-100">
+			<tr class="!border-b !border-b-secondary-100 dark:!border-b-surface-700">
 				<td class="align-top">Description</td>
 				<td>
 					<textarea
@@ -156,7 +154,7 @@
 					/>
 				</td>
 			</tr>
-			<tr class="!border-b !border-b-secondary-100">
+			<tr class="!border-b !border-b-secondary-100 dark:!border-b-surface-700">
 				<td>Category</td>
 				<td>
 					<input
@@ -168,7 +166,7 @@
 					/>
 				</td>
 			</tr>
-			<tr class="!border-b !border-b-secondary-100">
+			<tr class="!border-b !border-b-secondary-100 dark:!border-b-surface-700">
 				<td>Link</td>
 				<td>
 					<input
@@ -180,7 +178,7 @@
 					/>
 				</td>
 			</tr>
-			<tr class="!border-b !border-b-secondary-100">
+			<tr class="!border-b !border-b-secondary-100 dark:!border-b-surface-700">
 				<td>Language *</td>
 				<td>
 					<input
@@ -193,7 +191,7 @@
 					/>
 				</td>
 			</tr>
-			<tr class="!border-b !border-b-secondary-100">
+			<tr class="!border-b !border-b-secondary-100 dark:!border-b-surface-700">
 				<td>Copyright</td>
 				<td>
 					<input
@@ -201,13 +199,11 @@
 						name="copyright"
 						bind:value={copyright}
 						placeholder="Enter copyright here..."
-						class="input w-full {form?.errors?.copyright
-							? 'border-error-300 text-error-500'
-							: 'border-primary-200 text-primary-500'}"
+						class="input w-full {form?.errors?.copyright ? 'border-error-300 text-error-500' : ''}"
 					/>
 				</td>
 			</tr>
-			<tr class="!border-b !border-b-secondary-100">
+			<tr class="!border-b !border-b-secondary-100 dark:!border-b-surface-700">
 				<td class="align-top">Favicon</td>
 				<td>
 					{#if image === 'undefined'}
@@ -231,11 +227,11 @@
 					<input type="hidden" name="favicon" value={favicon} />
 				</td>
 			</tr>
-			<tr class="!border-b !border-b-secondary-100">
+			<tr class="!border-b !border-b-secondary-100 dark:!border-b-surface-700">
 				<td>Updated</td>
 				<td>{date.format(updated, 'DD MMM YYYY')}</td>
 			</tr>
-			<tr class="!border-b !border-b-secondary-100">
+			<tr class="!border-b !border-b-secondary-100 dark:!border-b-surface-700">
 				<td class="align-top">Image</td>
 				<td>
 					{#if image === 'undefined'}
@@ -259,7 +255,7 @@
 					<input type="hidden" required name="image" value={image} />
 				</td>
 			</tr>
-			<tr class="!border-b !border-b-secondary-100">
+			<tr class="!border-b !border-b-secondary-100 dark:!border-b-surface-700">
 				<td class="align-top">Tags</td>
 				<td>
 					<InputChip chips="variant-filled-error rounded-2xl" name="tags" bind:value={tags} />

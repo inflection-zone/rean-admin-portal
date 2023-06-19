@@ -67,7 +67,7 @@
 <form
 	method="post"
 	action="?/updateAssessmentNodeAction"
-	class="table-container border border-secondary-100 my-2"
+	class="table-container my-2 border border-secondary-100 dark:!border-surface-700"
 >
 	<table class="table">
 		<thead class="!variant-soft-secondary">
@@ -80,8 +80,8 @@
 				</th>
 			</tr>
 		</thead>
-		<tbody class="!bg-white">
-			<tr class="!border-b !border-b-secondary-100">
+		<tbody class="!bg-white dark:!bg-inherit">
+			<tr class="!border-b !border-b-secondary-100 dark:!border-b-surface-700">
 				<td>Node Type *</td>
 				<td>
 					<select
@@ -98,7 +98,7 @@
 					</select>
 				</td>
 			</tr>
-			<tr class="!border-b !border-b-secondary-100">
+			<tr class="!border-b !border-b-secondary-100 dark:!border-b-surface-700">
 				<td>Title *</td>
 				<td>
 					<input
@@ -108,14 +108,14 @@
 						bind:value={title}
 						placeholder="Enter title here..."
 						class="input w-full
-						{form?.errors?.title ? 'border-error-300 text-error-500' : 'border-primary-200 text-primary-500'}"
+						{form?.errors?.title ? 'border-error-300 text-error-500' : ''}"
 					/>
 					{#if form?.errors?.title}
 						<p class="text-error-500 text-xs">{form?.errors?.title[0]}</p>
 					{/if}
 				</td>
 			</tr>
-			<tr class="!border-b !border-b-secondary-100">
+			<tr class="!border-b !border-b-secondary-100 dark:!border-b-surface-700">
 				<td class="align-top">Description</td>
 				<td>
 					<textarea
@@ -126,7 +126,7 @@
 					/>
 				</td>
 			</tr>
-			<tr class="!border-b !border-b-secondary-100">
+			<tr class="!border-b !border-b-secondary-100 dark:!border-b-surface-700">
 				<td>Sequence</td>
 				<td>
 					<input
@@ -139,7 +139,7 @@
 				</td>
 			</tr>
 			{#if selectedNodeType === 'Question'}
-				<tr class="!border-b !border-b-secondary-100">
+				<tr class="!border-b !border-b-secondary-100 dark:!border-b-surface-700">
 					<td class="align-top">Query Response Type *</td>
 					<td>
 						<select
@@ -157,13 +157,13 @@
 					</td>
 				</tr>
 				{#if selectedQueryType === 'Single Choice Selection' || selectedQueryType === 'Multi Choice Selection'}
-				<tr class="!border-b !border-b-secondary-100">
-					<td class="align-top">Options</td>
-					<td><Choice {optionValueStore} /></td>
-				</tr>
+					<tr class="!border-b !border-b-secondary-100 dark:!border-b-surface-700">
+						<td class="align-top">Options</td>
+						<td><Choice {optionValueStore} /></td>
+					</tr>
 				{/if}
 			{:else if selectedNodeType === 'Message'}
-				<tr class="!border-b !border-b-secondary-100">
+				<tr class="!border-b !border-b-secondary-100 dark:!border-b-surface-700">
 					<td>Message *</td>
 					<td>
 						<textarea
@@ -172,7 +172,7 @@
 							placeholder="Enter message here..."
 							bind:value={message}
 							class="textarea w-full
-						{form?.errors?.message ? 'border-error-300 text-error-500' : 'border-primary-200 text-primary-500'}"
+						{form?.errors?.message ? 'border-error-300 text-error-500' : ''}"
 						/>
 					</td>
 				</tr>

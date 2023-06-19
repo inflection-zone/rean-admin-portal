@@ -42,7 +42,7 @@
 	</a>
 </div>
 
-<div class="table-container border border-secondary-100 my-2">
+<div class="table-container my-2 border border-secondary-100 dark:border-surface-700">
 	<table class="table">
 		<thead class="!variant-soft-secondary">
 			<tr>
@@ -54,20 +54,20 @@
 				</th>
 			</tr>
 		</thead>
-		<tbody class="!bg-white">
-			<tr class="!border-b !border-b-secondary-100">
+		<tbody class="!bg-white dark:!bg-inherit">
+			<tr class="!border-b !border-b-secondary-100 dark:!border-b-surface-700">
 				<td>Name</td>
 				<td>{topicName}</td>
 			</tr>
-			<tr class="!border-b !border-b-secondary-100">
+			<tr class="!border-b !border-b-secondary-100 dark:!border-b-surface-700">
 				<td class="align-top">Brief Information</td>
 				<td class="!whitespace-normal">{briefInformation}</td>
 			</tr>
-			<tr class="!border-b !border-b-secondary-100">
+			<tr class="!border-b !border-b-secondary-100 dark:!border-b-surface-700">
 				<td class="align-top">Detailed Information</td>
 				<td class="!whitespace-normal">{detailedInformation}</td>
 			</tr>
-			<tr class="!border-b !border-b-secondary-100">
+			<tr class="!border-b !border-b-secondary-100 dark:!border-b-surface-700">
 				<td class="align-top">Additional Resource</td>
 				<td>
 					{#if additionalResources.length <= 0}
@@ -81,7 +81,7 @@
 					{/if}
 				</td>
 			</tr>
-			<tr class="!border-b !border-b-secondary-100">
+			<tr class="!border-b !border-b-secondary-100 dark:!border-b-surface-700">
 				<td>Tags</td>
 				<td>
 					{#if tags.length <= 0}

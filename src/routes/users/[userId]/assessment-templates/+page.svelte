@@ -90,7 +90,7 @@
 	<a href={createRoute} class="btn variant-filled-secondary">Add New</a>
 </div>
 
-<div class="my-2 table-container !border !border-secondary-100">
+<div class="table-container my-2 !border !border-secondary-100 dark:!border-surface-700">
 	<table class="table" role="grid" use:tableInteraction use:tableA11y>
 		<thead on:click={(e) => dataTableStore.sort(e)} on:keypress class="!variant-soft-secondary">
 			<tr>
@@ -102,9 +102,9 @@
 				<th />
 			</tr>
 		</thead>
-		<tbody class="!bg-white">
+		<tbody class="!bg-white dark:!bg-inherit">
 			{#each $dataTableStore.filtered as row}
-				<tr class="!border-b !border-b-secondary-100">
+				<tr class="!border-b !border-b-secondary-100 dark:!border-b-surface-700">
 					<td role="gridcell" aria-colindex={1} tabindex="0">{row.index}</td>
 					<td role="gridcell" aria-colindex={2} tabindex="0">
 						<a href={viewRoute(row.id)}>
@@ -149,6 +149,9 @@
 
 <div class="w-full variant-soft-secondary rounded-lg p-2">
 	{#if $dataTableStore.pagination}
-		<Paginator bind:settings={$dataTableStore.pagination} buttonClasses="btn-icon bg-surface-500" />
+		<Paginator
+			bind:settings={$dataTableStore.pagination}
+			buttonClasses="btn-icon bg-surface-50 dark:bg-surface-900"
+		/>
 	{/if}
 </div>

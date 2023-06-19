@@ -42,9 +42,11 @@
 		dispatch('onModuleDeleteClick', { moduleId: moduleId, contents: contents });
 </script>
 
-<div class="flex flex-col my-2 rounded-lg border border-secondary-100 overflow-hidden">
+<div
+	class="flex flex-col my-2 rounded-lg border border-secondary-100 dark:!border-surface-700 overflow-hidden"
+>
 	<div class="p-4 font-bold variant-soft-secondary">Courses</div>
-	<section class="bg-white overflow-auto">
+	<section class="bg-white dark:bg-inherit overflow-auto">
 		{#each $dataTableStore.filtered as course}
 			<CollapsibleSection
 				headerText="{course.index}. {course.Name}"
@@ -68,12 +70,12 @@
 								await handlelModuleDelete(module.id, module.CourseContents)}
 						>
 							{#if module.CourseContents.length <= 0}
-								<span class="items-center text-primary-500 m-4">Contents are not available</span>
+								Contents are not available!
 							{:else}
-								<div class="table-container border !border-secondary-100">
+								<div class="table-container border !border-secondary-100 dark:!border-surface-700">
 									<table class="table table-compact">
 										<thead class="!variant-soft-secondary">
-											<tr class="">
+											<tr>
 												<th>Id</th>
 												<th>Title</th>
 												<th>Content Type</th>
@@ -82,9 +84,9 @@
 												<th />
 											</tr>
 										</thead>
-										<tbody class="!bg-white">
+										<tbody class="!bg-white dark:!bg-inherit">
 											{#each module.CourseContents.sort((a, b) => a.Sequence - b.Sequence) as content, i}
-												<tr class="!border-b !border-b-secondary-100">
+												<tr class="!border-b !border-b-secondary-100 dark:!border-b-surface-700">
 													<td role="gridcell" aria-colindex={1} tabindex="0">
 														{content.Sequence}
 													</td>
@@ -144,6 +146,9 @@
 
 <div class="w-full variant-soft-secondary rounded-lg p-2">
 	{#if $dataTableStore.pagination}
-		<Paginator bind:settings={$dataTableStore.pagination} buttonClasses="btn-icon bg-surface-500" />
+		<Paginator
+			bind:settings={$dataTableStore.pagination}
+			buttonClasses="btn-icon bg-surface-50 dark:bg-surface-900"
+		/>
 	{/if}
 </div>

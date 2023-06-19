@@ -57,7 +57,7 @@
 <form
 	method="post"
 	action="?/createAssessmentNodeAction"
-	class="table-container border border-secondary-100 my-2"
+	class="table-container my-2 border border-secondary-100 dark:!border-surface-700"
 >
 	<table class="table">
 		<thead class="!variant-soft-secondary">
@@ -70,8 +70,8 @@
 				</th>
 			</tr>
 		</thead>
-		<tbody class="!bg-white">
-			<tr class="!border-b !border-b-secondary-100">
+		<tbody class="!bg-white dark:!bg-inherit">
+			<tr class="!border-b !border-b-secondary-100 dark:!border-b-surface-700">
 				<td>Node Type *</td>
 				<td>
 					<select
@@ -86,7 +86,7 @@
 					</select>
 				</td>
 			</tr>
-			<tr class="!border-b !border-b-secondary-100">
+			<tr class="!border-b !border-b-secondary-100 dark:!border-b-surface-700">
 				<td>Parent Node *</td>
 				<td>
 					<select
@@ -101,7 +101,7 @@
 					</select>
 				</td>
 			</tr>
-			<tr class="!border-b !border-b-secondary-100">
+			<tr class="!border-b !border-b-secondary-100 dark:!border-b-surface-700">
 				<td>Title *</td>
 				<td>
 					<input
@@ -109,29 +109,28 @@
 						name="title"
 						required
 						placeholder="Enter title here..."
-						class="input w-full {form?.errors?.title
-							? 'border-error-300 text-error-500'
-							: 'border-primary-200 text-primary-500'}"
+						class="input w-full
+						{form?.errors?.title ? 'border-error-300 text-error-500' : ''}"
 					/>
 					{#if form?.errors?.title}
 						<p class="text-error-500 text-xs">{form?.errors?.title[0]}</p>
 					{/if}
 				</td>
 			</tr>
-			<tr class="!border-b !border-b-secondary-100">
+			<tr class="!border-b !border-b-secondary-100 dark:!border-b-surface-700">
 				<td class="align-top">Description</td>
 				<td>
 					<textarea name="description" placeholder="Enter description here..." class="input" />
 				</td>
 			</tr>
-			<tr class="!border-b !border-b-secondary-100">
+			<tr class="!border-b !border-b-secondary-100 dark:!border-b-surface-700">
 				<td>Sequence</td>
 				<td>
 					<input type="number" name="sequence" placeholder="Enter sequence here..." class="input" />
 				</td>
 			</tr>
 			{#if selectedNodeType === 'Question'}
-				<tr class="!border-b !border-b-secondary-100">
+				<tr class="!border-b !border-b-secondary-100 dark:!border-b-surface-700">
 					<td class="align-top">Query Response Type *</td>
 					<td>
 						<select
@@ -149,28 +148,13 @@
 				</tr>
 				{#if $scoringApplicableCondition === true}
 					{#if selectedQueryType === 'Single Choice Selection' || selectedQueryType === 'Multi Choice Selection'}
-						<tr class="!border-b !border-b-secondary-100">
+						<tr class="!border-b !border-b-secondary-100 dark:!border-b-surface-700">
 							<td class="align-top">Options</td>
 							<td>
 								<Choice />
 							</td>
 						</tr>
-						<tr class="!border-b !border-b-secondary-100">
-							<td>Resolution Score *</td>
-							<td>
-								<input
-									type="number"
-									name="resolutionScore"
-									placeholder="Enter resolution score here..."
-									class="input w-full {form?.errors?.resolutionScore
-										? 'border-error-300 text-error-500'
-										: 'border-primary-200 text-primary-500'}"
-									value={form?.data?.resolutionScore ?? ''}
-								/>
-							</td>
-						</tr>
-					{:else if selectedQueryType === 'Boolean'}
-						<tr class="!border-b !border-b-secondary-100">
+						<tr class="!border-b !border-b-secondary-100 dark:!border-b-surface-700">
 							<td>Resolution Score *</td>
 							<td>
 								<input
@@ -178,9 +162,21 @@
 									name="resolutionScore"
 									placeholder="Enter resolution score here..."
 									class="input w-full
-									{form?.errors?.resolutionScore
-										? 'border-error-300 text-error-500'
-										: 'border-primary-200 text-primary-500'}"
+									 {form?.errors?.resolutionScore ? 'border-error-300 text-error-500' : ''}"
+									value={form?.data?.resolutionScore ?? ''}
+								/>
+							</td>
+						</tr>
+					{:else if selectedQueryType === 'Boolean'}
+						<tr class="!border-b !border-b-secondary-100 dark:!border-b-surface-700">
+							<td>Resolution Score *</td>
+							<td>
+								<input
+									type="number"
+									name="resolutionScore"
+									placeholder="Enter resolution score here..."
+									class="input w-full
+									{form?.errors?.resolutionScore ? 'border-error-300 text-error-500' : ''}"
 									value={form?.data?.resolutionScore ?? ''}
 								/>
 							</td>
@@ -195,7 +191,7 @@
 					</tr>
 				{/if}
 			{:else if selectedNodeType === 'Message'}
-				<tr class="!border-b !border-b-secondary-100">
+				<tr class="!border-b !border-b-secondary-100 dark:!border-b-surface-700">
 					<td class="align-top">Message *</td>
 					<td>
 						<textarea
@@ -203,19 +199,19 @@
 							required
 							placeholder="Enter message here..."
 							class="textarea w-full
-						{form?.errors?.message ? 'border-error-300 text-error-500' : 'border-primary-200 text-primary-500'}"
+						{form?.errors?.message ? 'border-error-300 text-error-500' : ''}"
 						/>
 					</td>
 				</tr>
 			{:else}
-				<tr class="!border-b !border-b-secondary-100">
+				<tr class="!border-b !border-b-secondary-100 dark:!border-b-surface-700">
 					<td>Serve List Node Children At Once</td>
 					<td class="flex gap-2">
 						<input
 							type="checkbox"
 							name="serveListNodeChildrenAtOnce"
 							value="true"
-							class="checkbox !border !border-secondary-100"
+							class="checkbox !border !border-secondary-100 dark:!border-surface-700"
 						/>
 					</td>
 				</tr>

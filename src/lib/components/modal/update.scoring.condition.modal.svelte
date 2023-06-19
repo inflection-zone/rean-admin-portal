@@ -18,7 +18,7 @@
 
 <!-- svelte-ignore a11y-click-events-have-key-events -->
 <dialog
-	class="p-0 rounded-lg shadow-xl backdrop:bg-black/50"
+	class="p-0 rounded-lg shadow-xl bg-surface-50 dark:bg-surface-900 backdrop:bg-black/50 dark:backdrop:bg-white/50"
 	bind:this={dialog}
 	on:close={() => showScoringConditionModal.set(false)}
 	on:click|self={() => dialog.close()}
@@ -32,9 +32,9 @@
 
 	<form class="flex flex-col gap-2 p-4 -mt-2">
 		<label>
-			Resolution Score
+			<span class="dark:text-white">Resolution Score</span>
 			<input
-				class="input"
+				class="input dark:text-white"
 				name="resolutionScore"
 				type="number"
 				bind:value={resolutionScore}

@@ -11,15 +11,6 @@
 	const navbarTabs: TabDefinition[] = navbarMenu(userId);
 	const sidebarTabs: TabDefinition[] = sidebarMenu(userId);
 
-	let activeTab = '';
-	onMount(() => {
-		activeTab = $page.url.pathname;
-	});
-
-	afterUpdate(() => {
-		activeTab = $page.url.pathname;
-	});
-
 	function drawerLeftOpen(): void {
 		const settings: DrawerSettings = {
 			id: 'leftSidebar',
@@ -36,9 +27,8 @@
 			id: 'rightSidebar',
 			position: 'right',
 			width: '900px',
-			bgDrawer: 'bg-primary-50 text-on-primary-token',
-			duration: 300,
-			bgBackdrop: 'bg-primary-500/50'
+			bgDrawer:
+				'bg-secondary-50 dark:bg-surface-900 border-l border-l-surface-200 dark:border-l-surface-700 flex flex-col gap-4 p-4'
 		};
 		drawerStore.open(settings);
 	}
@@ -60,7 +50,7 @@
 			slotTrail="place-content-end"
 		>
 			<svelte:fragment slot="lead">
-				<div class="flex justify-start items-center">
+				<div class="flex  items-center">
 					<img class="block w-10 ml-2" src="/rean-logo-white.png" alt="REAN" />
 					<div class="relative ml-6 w-64 max-[450px]:w-40">
 						<input type="text" class="input pl-10" placeholder="Search" />
@@ -109,14 +99,14 @@
 				<a
 					href={t.path}
 					class="hover:bg-surface-700 hover:text-white p-2 hover:no-underline text-start no-underline rounded-md text-md font-medium
-					 {activeTab == t.path ? 'active: bg-surface-800 ' : 'text-white'}">{t.name}</a
+					 {$page.url.pathname == t.path ? 'active: bg-surface-800 ' : 'text-white'}">{t.name}</a
 				>
 			{/each}
 			{#each navbarTabs as t}
 				<a
 					href={t.path}
 					class="hover:bg-surface-700 lg:hidden sm:first:hidden hover:text-white p-2 hover:no-underline text-start no-underline rounded-md text-md font-medium
-					{activeTab == t.path ? 'active: bg-surface-800 ' : 'text-white'}">{t.name}</a
+					{$page.url.pathname == t.path ? 'active: bg-surface-800 ' : 'text-white'}">{t.name}</a
 				>
 			{/each}
 		</div>

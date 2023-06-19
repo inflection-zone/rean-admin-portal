@@ -29,7 +29,7 @@
 <form
 	method="post"
 	action="?/createKnowledgeNuggetAction"
-	class="table-container border border-secondary-100 my-2"
+	class="table-container my-2 border border-secondary-100 dark:!border-surface-700"
 >
 	<table class="table">
 		<thead class="!variant-soft-secondary">
@@ -42,8 +42,8 @@
 				</th>
 			</tr>
 		</thead>
-		<tbody class="!bg-white">
-			<tr class="!border-b !border-b-secondary-100">
+		<tbody class="!bg-white dark:!bg-inherit">
+			<tr class="!border-b !border-b-secondary-100 dark:!border-b-surface-700">
 				<td>Name *</td>
 				<td>
 					<input
@@ -51,16 +51,14 @@
 						name="topicName"
 						required
 						placeholder="Enter name here..."
-						class="input w-full {form?.errors?.topicName
-							? 'border-error-300 text-error-500'
-							: 'border-primary-200 text-primary-500'}"
+						class="input w-full {form?.errors?.topicName ? 'border-error-300 text-error-500' : ''}"
 					/>
 					{#if form?.errors?.topicName}
 						<p class="text-error-500 text-xs">{form?.errors?.topicName[0]}</p>
 					{/if}
 				</td>
 			</tr>
-			<tr class="!border-b !border-b-secondary-100">
+			<tr class="!border-b !border-b-secondary-100 dark:!border-b-surface-700">
 				<td class="align-top">Brief Information</td>
 				<td>
 					<textarea
@@ -70,7 +68,7 @@
 					/>
 				</td>
 			</tr>
-			<tr class="!border-b !border-b-secondary-100">
+			<tr class="!border-b !border-b-secondary-100 dark:!border-b-surface-700">
 				<td class="align-top">Detailed Information</td>
 				<td>
 					<textarea
@@ -80,7 +78,7 @@
 					/>
 				</td>
 			</tr>
-			<tr class="!border-b !border-b-secondary-100">
+			<tr class="!border-b !border-b-secondary-100 dark:!border-b-surface-700">
 				<td>Additional Resources</td>
 				<td>
 					<input
@@ -91,7 +89,7 @@
 					/>
 				</td>
 			</tr>
-			<tr class="!border-b !border-b-secondary-100">
+			<tr class="!border-b !border-b-secondary-100 dark:!border-b-surface-700">
 				<td class="align-top">Tags</td>
 				<td>
 					<InputChip chips="variant-filled-error rounded-2xl" name="tags" />
