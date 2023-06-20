@@ -46,6 +46,7 @@ export const updateWordPower = async (
   wordPowerId: string,
   name: string,
   description: string,
+  additionalResources: string[],
   tags: string[],
   version: string
 ) => {
@@ -53,6 +54,7 @@ export const updateWordPower = async (
     Name: name,
     Description: description,
     Tags: tags,
+    AdditionalResources: additionalResources,
     Version: version
   };
   const url = CAREPLAN_BACKEND_API_URL + `/assets/word-power/${wordPowerId}`;

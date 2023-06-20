@@ -1,16 +1,16 @@
 <script lang="ts">
 	import { page } from '$app/stores';
 	import BreadCrumbs from '$lib/components/breadcrumbs/breadcrums.svelte';
-	import Icon from '@iconify/svelte';
 	import { InputChip } from '@skeletonlabs/skeleton';
+	import Icon from '@iconify/svelte';
 
-  /////////////////////////////////////////////////////////////////////////////
+	/////////////////////////////////////////////////////////////////////////////
 
 	export let form;
 	const userId = $page.params.userId;
 	const assetRoute = `/users/${userId}/careplan/assets`;
-	const createRoute = `/users/${userId}/careplan/assets/appointments/create`;
-	const appointmentRoute = `/users/${userId}/careplan/assets/appointments/create`;
+	const createRoute = `/users/${userId}/careplan/assets/word-power/create`;
+	const wordpowerRoute = `/users/${userId}/careplan/assets/word-power/create`;
 
 	const breadCrumbs = [
 		{
@@ -18,8 +18,8 @@
 			path: assetRoute
 		},
 		{
-			name: 'Appointment',
-			path: appointmentRoute
+			name: 'Word-Power',
+			path: wordpowerRoute
 		},
 		{
 			name: 'Create',
@@ -32,13 +32,13 @@
 
 <form
 	method="post"
-	action="?/createAppointmentAction"
+	action="?/createWordPowerAction"
 	class="table-container my-2 border border-secondary-100 dark:!border-surface-700"
 >
 	<table class="table">
 		<thead class="!variant-soft-secondary">
 			<tr>
-				<th>Create Appointment</th>
+				<th>Create Word Power</th>
 				<th class="text-end">
 					<a href={assetRoute} class="btn p-2 -my-2 variant-soft-secondary">
 						<Icon icon="material-symbols:close-rounded" class="text-lg" />
@@ -69,15 +69,14 @@
 				</td>
 			</tr>
 			<tr class="!border-b !border-b-secondary-100 dark:!border-b-surface-700">
-				<td class="align-top">Appointment Type</td>
+				<td class="align-top">Additional Resources</td>
 				<td>
-					<select name="appointmentType" class="select">
-						<option disabled selected>Select appointment type</option>
-						<option>Doctor</option>
-						<option>Lab</option>
-						<option>Physiotherapy</option>
-						<option>Other</option>
-					</select>
+					<input
+						type="text"
+						placeholder="Enter word power additionalresources here..."
+						class="input input-bordered input-primary w-full "
+						name="additionalResources"
+					/>
 				</td>
 			</tr>
 			<tr class="!border-b !border-b-secondary-100 dark:!border-b-surface-700">

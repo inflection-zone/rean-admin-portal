@@ -5,35 +5,33 @@
 	import { InputChip } from '@skeletonlabs/skeleton';
 	import Icon from '@iconify/svelte';
 
-	//////////////////////////////////////////////////////////////////////
-
-	const userId = $page.params.userId;
-	const appointmentId = $page.params.id;
-	const assetRoute = `/users/${userId}/careplan/assets`;
-	const editRoute = `/users/${userId}/careplan/assets/appointments/${appointmentId}/edit`;
-	const viewRoute = `/users/${userId}/careplan/assets/appointments/${appointmentId}/view`;
-	const appointmentRoute = `/users/${userId}/careplan/assets/appointments/create`;
+	/////////////////////////////////////////////////////////////
 
 	export let form;
+	const userId = $page.params.userId;
+	const wordPowerId = $page.params.id;
+	const assetRoute = `/users/${userId}/careplan/assets`;
+	const editRoute = `/users/${userId}/careplan/assets/word-power/${wordPowerId}/edit`;
+	const viewRoute = `/users/${userId}/careplan/assets/word-power/${wordPowerId}/view`;
+	const wordpowerRoute = `/users/${userId}/careplan/assets/word-power/create`;
+
 	export let data: PageServerData;
-	let assetCode = data.appointment.AssetCode;
-	let name = data.appointment.Name;
-	let description = data.appointment.Description;
-	let appointmentType = data.appointment.AppointmentType;
-	let tags = data.appointment.Tags;
-	let version = data.appointment.Version;
+	let assetCode = data.wordPower.AssetCode;
+	let name = data.wordPower.Name;
+	let description = data.wordPower.Description;
+	let additionalResources = data.wordPower.AdditionalResources;
+	let tags = data.wordPower.Tags;
+	let version = data.wordPower.Version;
 
 	//Original data
 	let _name = name;
 	let _description = description;
 	let _tags = JSON.stringify(tags);
-	let _appointmentType = appointmentType;
 	let _version = version;
 
 	function handleReset() {
 		name = _name;
 		description = _description;
-		appointmentType = _appointmentType;
 		tags = JSON.parse(_tags);
 		version = _version;
 	}
@@ -44,8 +42,8 @@
 			path: assetRoute
 		},
 		{
-			name: 'Appointment',
-			path: appointmentRoute
+			name: 'Word-Power',
+			path: wordpowerRoute
 		},
 		{
 			name: 'Edit',
@@ -58,13 +56,13 @@
 
 <form
 	method="post"
-	action="?/updateAppointmentAction"
+	action="?/updateWordPowerAction"
 	class="table-container my-2 border border-secondary-100 dark:!border-surface-700"
 >
 	<table class="table">
 		<thead class="!variant-soft-secondary">
 			<tr>
-				<th>Edit Appointment</th>
+				<th>Edit Word Power</th>
 				<th class="text-end">
 					<a href={viewRoute} class="btn p-2 -my-2 variant-soft-secondary">
 						<Icon icon="material-symbols:close-rounded" class="text-lg" />
@@ -105,18 +103,14 @@
 				</td>
 			</tr>
 			<tr class="!border-b !border-b-secondary-100 dark:!border-b-surface-700">
-				<td class="align-top">Appointment Type</td>
+				<td class="align-top">Additional Resources</td>
 				<td>
-					<select
-						name="appointmentType"
-						bind:value={appointmentType}
-						class="select select-primary w-full "
-					>
-						<option>Doctor</option>
-						<option>Lab</option>
-						<option>Physiotherapy</option>
-						<option>Other</option>
-					</select>
+					<input
+						type="text"
+						placeholder="Enter word power additonal resources here..."
+						class="input "
+						bind:value={additionalResources}
+					/>
 				</td>
 			</tr>
 			<tr class="!border-b !border-b-secondary-100 dark:!border-b-surface-700">

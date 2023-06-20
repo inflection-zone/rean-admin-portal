@@ -7,22 +7,22 @@
 	import BreadCrumbs from '$lib/components/breadcrumbs/breadcrums.svelte';
 	import Icon from '@iconify/svelte';
 
-	////////////////////////////////////////////////////////////////////////////////////////
+	/////////////////////////////////////////////////////////////////////////////////
 
 	const userId = $page.params.userId;
-	const appointmentId = $page.params.id;
+	const wordPowerId = $page.params.id;
 	const assetRoute = `/users/${userId}/careplan/assets`;
-	const editRoute = `/users/${userId}/careplan/assets/appointments/${appointmentId}/edit`;
-	const viewRoute = `/users/${userId}/careplan/assets/appointments/${appointmentId}/view`;
-	const appointmentRoute = `/users/${userId}/careplan/assets/appointments/create`;
+	const editRoute = `/users/${userId}/careplan/assets/word-power/${wordPowerId}/edit`;
+	const viewRoute = `/users/${userId}/careplan/assets/word-power/${wordPowerId}/view`;
+	const wordpowerRoute = `/users/${userId}/careplan/assets/word-power/create`;
 
 	export let data: PageServerData;
-	let assetCode = data.appointment.AssetCode;
-	let name = data.appointment.Name;
-	let description = data.appointment.Description;
-	let appointmentType = data.appointment.AppointmentType;
-	let tags = data.appointment.Tags;
-	let version = data.appointment.Version;
+	let assetCode = data.wordPower.AssetCode;
+	let name = data.wordPower.Name;
+	let description = data.wordPower.Description;
+	let additionalResources = data.wordPower.AdditionalResources;
+	let tags = data.wordPower.Tags;
+	let version = data.wordPower.Version;
 
 	onMount(() => {
 		show(data);
@@ -35,8 +35,8 @@
 			path: assetRoute
 		},
 		{
-			name: 'Appointment',
-			path: appointmentRoute
+			name: 'Word-Power',
+			path: wordpowerRoute
 		},
 		{
 			name: 'View',
@@ -80,8 +80,8 @@
 				<td>{description}</td>
 			</tr>
 			<tr class="!border-b !border-b-secondary-100 dark:!border-b-surface-700">
-				<td class="align-top">Appointment Type</td>
-				<td>{appointmentType}</td>
+				<td class="align-top">Additional Resources</td>
+				<td>{additionalResources}</td>
 			</tr>
 			<tr class="!border-b !border-b-secondary-100 dark:!border-b-surface-700">
 				<td>Tags</td>
