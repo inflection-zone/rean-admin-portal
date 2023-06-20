@@ -3,11 +3,11 @@ import type { RequestEvent } from '@sveltejs/kit';
 import { errorMessage, successMessage } from '$lib/utils/message.utils';
 import { zfd } from 'zod-form-data';
 import { z } from 'zod';
-import { createReflection } from '$routes/api/services/careplan/assets/reflection';
+import { createReminder } from '$routes/api/services/careplan/assets/reminder';
 
 /////////////////////////////////////////////////////////////////////////
 
-const createReflectionSchema = zfd.formData({
+const createReminderSchema = zfd.formData({
 	name: z.string().max(128),
 	description: z.string().optional(),
 	tags: z.array(z.string()).optional(),
@@ -15,7 +15,7 @@ const createReflectionSchema = zfd.formData({
 });
 
 export const actions = {
-	createReflectionAction: async (event: RequestEvent) => {
+	createReminderAction: async (event: RequestEvent) => {
 		const request = event.request;
 		const userId = event.params.userId;
 		const sessionId = event.cookies.get('sessionId');
@@ -24,11 +24,11 @@ export const actions = {
 		const tags = data.has('tags') ? data.getAll('tags') : [];
 		const formDataValue = { ...formData, tags: tags };
 
-		type ReflectionSchema = z.infer<typeof createReflectionSchema>;
+		type ReminderSchema = z.infer<typeof createReminderSchema>;
 
-		let result: ReflectionSchema = {};
+		let result: ReminderSchema = {};
 		try {
-			result = createReflectionSchema.parse(formDataValue);
+			result = createReminderSchema.parse(formDataValue);
 			console.log('result', result);
 		} catch (err: any) {
 			const { fieldErrors: errors } = err.flatten();
@@ -40,7 +40,7 @@ export const actions = {
 			};
 		}
 
-		const response = await createReflection(
+		const response = await createReminder(
 			sessionId,
 			result.name,
 			result.description,
@@ -59,8 +59,8 @@ export const actions = {
 		}
 		throw redirect(
 			303,
-			`/users/${userId}/careplan/assets/reflections/${id}/view`,
-			successMessage(`Reflection created successfully!`),
+			`/users/${userId}/careplan/assets/reminders/${id}/view`,
+			successMessage(`Reminder created successfully!`),
 			event
 		);
 	}

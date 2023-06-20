@@ -1,13 +1,29 @@
-import { redirect } from 'sveltekit-flash-message/server';
 import type { RequestEvent } from '@sveltejs/kit';
+import { redirect } from 'sveltekit-flash-message/server';
+import type { PageServerLoad } from './$types';
 import { errorMessage, successMessage } from '$lib/utils/message.utils';
 import { zfd } from 'zod-form-data';
 import { z } from 'zod';
-import { createReflection } from '$routes/api/services/careplan/assets/reflection';
+import { getReminderById, updateReminder } from '$routes/api/services/careplan/assets/reminder';
 
 /////////////////////////////////////////////////////////////////////////
 
-const createReflectionSchema = zfd.formData({
+export const load: PageServerLoad = async (event: RequestEvent) => {
+	const sessionId = event.cookies.get('sessionId');
+
+	try {
+		const reminderId = event.params.id;
+		const response = await getReminderById(sessionId, reminderId);
+		const reminder = response.Data;
+		return {
+			reminder
+		};
+	} catch (error) {
+		console.error(`Error retriving reminder: ${error.message}`);
+	}
+};
+
+const updateReminderSchema = zfd.formData({
 	name: z.string().max(128),
 	description: z.string().optional(),
 	tags: z.array(z.string()).optional(),
@@ -15,20 +31,21 @@ const createReflectionSchema = zfd.formData({
 });
 
 export const actions = {
-	createReflectionAction: async (event: RequestEvent) => {
+	updateReminderAction: async (event: RequestEvent) => {
 		const request = event.request;
 		const userId = event.params.userId;
+		const reminderId = event.params.id;
 		const sessionId = event.cookies.get('sessionId');
 		const data = await request.formData();
 		const formData = Object.fromEntries(data);
 		const tags = data.has('tags') ? data.getAll('tags') : [];
 		const formDataValue = { ...formData, tags: tags };
 
-		type ReflectionSchema = z.infer<typeof createReflectionSchema>;
+		type ReminderSchema = z.infer<typeof updateReminderSchema>;
 
-		let result: ReflectionSchema = {};
+		let result: ReminderSchema = {};
 		try {
-			result = createReflectionSchema.parse(formDataValue);
+			result = updateReminderSchema.parse(formDataValue);
 			console.log('result', result);
 		} catch (err: any) {
 			const { fieldErrors: errors } = err.flatten();
@@ -40,16 +57,17 @@ export const actions = {
 			};
 		}
 
-		const response = await createReflection(
+		const response = await updateReminder(
 			sessionId,
+			reminderId,
 			result.name,
 			result.description,
 			result.tags,
 			result.version
 		);
 		const id = response.Data.id;
-		console.log(response);
-		if (response.Status === 'failure' || response.HttpCode !== 201) {
+
+		if (response.Status === 'failure' || response.HttpCode !== 200) {
 			throw redirect(
 				303,
 				`/users/${userId}/careplan/assets`,
@@ -59,8 +77,8 @@ export const actions = {
 		}
 		throw redirect(
 			303,
-			`/users/${userId}/careplan/assets/reflections/${id}/view`,
-			successMessage(`Reflection created successfully!`),
+			`/users/${userId}/careplan/assets/reminders/${id}/view`,
+			successMessage(`Reminder updated successfully!`),
 			event
 		);
 	}
