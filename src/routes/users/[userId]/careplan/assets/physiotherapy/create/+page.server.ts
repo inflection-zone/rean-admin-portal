@@ -3,19 +3,20 @@ import type { RequestEvent } from '@sveltejs/kit';
 import { errorMessage, successMessage } from '$lib/utils/message.utils';
 import { zfd } from 'zod-form-data';
 import { z } from 'zod';
-import { createNutrition } from '$routes/api/services/careplan/assets/nutrition';
+import { createPhysiotherapy } from '$routes/api/services/careplan/assets/physiotherapy';
 
 /////////////////////////////////////////////////////////////////////////
 
-const createNutritionSchema = zfd.formData({
+const createPhysiotherapySchema = zfd.formData({
 	name: z.string().max(128),
 	description: z.string().optional(),
+	recommendedDurationMin: zfd.numeric(z.number().optional()),
 	tags: z.array(z.string()).optional(),
 	version: z.string().optional()
 });
 
 export const actions = {
-	createNutritionAction: async (event: RequestEvent) => {
+	createPhysiotherapyAction: async (event: RequestEvent) => {
 		const request = event.request;
 		const userId = event.params.userId;
 		const sessionId = event.cookies.get('sessionId');
@@ -24,11 +25,11 @@ export const actions = {
 		const tags = data.has('tags') ? data.getAll('tags') : [];
 		const formDataValue = { ...formData, tags: tags };
 
-		type NutritionSchema = z.infer<typeof createNutritionSchema>;
+		type PhysiotherapySchema = z.infer<typeof createPhysiotherapySchema>;
 
-		let result: NutritionSchema = {};
+		let result: PhysiotherapySchema = {};
 		try {
-			result = createNutritionSchema.parse(formDataValue);
+			result = createPhysiotherapySchema.parse(formDataValue);
 			console.log('result', result);
 		} catch (err: any) {
 			const { fieldErrors: errors } = err.flatten();
@@ -40,10 +41,11 @@ export const actions = {
 			};
 		}
 
-		const response = await createNutrition(
+		const response = await createPhysiotherapy(
 			sessionId,
 			result.name,
 			result.description,
+			result.recommendedDurationMin,
 			result.tags,
 			result.version
 		);
@@ -59,8 +61,8 @@ export const actions = {
 		}
 		throw redirect(
 			303,
-			`/users/${userId}/careplan/assets/nutritions/${id}/view`,
-			successMessage(`Nutrition created successfully!`),
+			`/users/${userId}/careplan/assets/physiotherapy/${id}/view`,
+			successMessage(`Physiotherapy created successfully!`),
 			event
 		);
 	}

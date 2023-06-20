@@ -1,44 +1,44 @@
 <script lang="ts">
-  import { page } from '$app/stores';
-  import BreadCrumbs from '$lib/components/breadcrumbs/breadcrums.svelte';
-	import Icon from '@iconify/svelte';
+	import { page } from '$app/stores';
+	import BreadCrumbs from '$lib/components/breadcrumbs/breadcrums.svelte';
 	import { InputChip } from '@skeletonlabs/skeleton';
+	import Icon from '@iconify/svelte';
 
-  ////////////////////////////////////////////////////////////////////////////
+	//////////////////////////////////////////////////////////////////////////////////
 
-  export let form;
-  const userId = $page.params.userId;
-  const assetRoute = `/users/${userId}/careplan/assets`;
-  const createRoute = `/users/${userId}/careplan/assets/meditations/create`;
-  const meditationRoute = `/users/${userId}/careplan/assets/meditations/create`;
+	export let form;
+	const userId = $page.params.userId;
+	const assetRoute = `/users/${userId}/careplan/assets`;
+	const createRoute = `/users/${userId}/careplan/assets/physiotherapy/create`;
+	const physiotherapyRoute = `/users/${userId}/careplan/assets/physiotherapy/create`;
 
-  const breadCrumbs = [
-    {
-      name: 'Assets',
-      path: assetRoute
-    },
-    {
-      name: 'Meditation',
-      path: meditationRoute
-    },
-    {
-      name: 'Create',
-      path: createRoute
-    }
-  ];
+	const breadCrumbs = [
+		{
+			name: 'Assets',
+			path: assetRoute
+		},
+		{
+			name: 'Physiotherapy',
+			path: physiotherapyRoute
+		},
+		{
+			name: 'Create',
+			path: createRoute
+		}
+	];
 </script>
 
 <BreadCrumbs crumbs={breadCrumbs} />
 
 <form
 	method="post"
-	action="?/createMeditationAction"
+	action="?/createPhysiotherapyAction"
 	class="table-container my-2 border border-secondary-100 dark:!border-surface-700"
 >
 	<table class="table">
 		<thead class="!variant-soft-secondary">
 			<tr>
-				<th>Create Meditation</th>
+				<th>Create Physiotherapy</th>
 				<th class="text-end">
 					<a href={assetRoute} class="btn p-2 -my-2 variant-soft-secondary">
 						<Icon icon="material-symbols:close-rounded" class="text-lg" />
@@ -69,29 +69,14 @@
 				</td>
 			</tr>
 			<tr class="!border-b !border-b-secondary-100 dark:!border-b-surface-700">
-				<td>Meditation Type</td>
-				<td>
-					<select class="select" name="meditationType">
-            <option disabled selected>Select meditation type</option>
-            <option>Mindfulness</option>
-            <option>Spiritual</option>
-            <option>Focused</option>
-            <option>Mantra</option>
-            <option>Progressive relaxation</option>
-            <option>Transcendental</option>
-            <option>Visualization</option>
-          </select>
-				</td>
-			</tr>
-			<tr class="!border-b !border-b-secondary-100 dark:!border-b-surface-700">
 				<td>Recommended Duration Min</td>
 				<td>
-          <input
-          type="text"
-          name="recommendedDurationMin"
-          placeholder="Enter recommended duration min here..."
-          class="input"
-        />
+					<input
+						type="text"
+						name="recommendedDurationMin"
+						placeholder="Enter recommended duration min here..."
+						class="input"
+					/>
 				</td>
 			</tr>
 			<tr class="!border-b !border-b-secondary-100 dark:!border-b-surface-700">
@@ -103,7 +88,7 @@
 			<tr class="!border-b !border-b-secondary-100 dark:!border-b-surface-700">
 				<td>Version</td>
 				<td>
-          <input type="text" name="version" class="input" placeholder="V 1.0" />
+					<input type="text" name="version" class="input" placeholder="V 1.0" />
 				</td>
 			</tr>
 		</tbody>

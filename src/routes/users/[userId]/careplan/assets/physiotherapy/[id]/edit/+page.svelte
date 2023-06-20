@@ -1,60 +1,57 @@
 <script lang="ts">
-  import type { PageServerData } from './$types';
-  import { page } from '$app/stores';
-  import BreadCrumbs from '$lib/components/breadcrumbs/breadcrums.svelte';
-	import Icon from '@iconify/svelte';
+	import type { PageServerData } from './$types';
+	import { page } from '$app/stores';
+	import BreadCrumbs from '$lib/components/breadcrumbs/breadcrums.svelte';
 	import { InputChip } from '@skeletonlabs/skeleton';
+	import Icon from '@iconify/svelte';
 
-  ///////////////////////////////////////////////////////////////////////////////////////
+	/////////////////////////////////////////////////////////////////////////////
 
-  const userId = $page.params.userId;
-  const meditationId = $page.params.id;
-  const assetRoute = `/users/${userId}/careplan/assets`;
-  const editRoute = `/users/${userId}/careplan/assets/meditations/${meditationId}/edit`;
-  const viewRoute = `/users/${userId}/careplan/assets/meditations/${meditationId}/view`;
-  const meditationRoute = `/users/${userId}/careplan/assets/meditations/create`;
+	const userId = $page.params.userId;
+	const physiotherapyId = $page.params.id;
+	const assetRoute = `/users/${userId}/careplan/assets`;
+	const editRoute = `/users/${userId}/careplan/assets/physiotherapy/${physiotherapyId}/edit`;
+	const viewRoute = `/users/${userId}/careplan/assets/physiotherapy/${physiotherapyId}/view`;
+	const physiotherapyRoute = `/users/${userId}/careplan/assets/physiotherapy/create`;
 
-  export let form;
-  export let data: PageServerData;
-  let assetCode = data.meditation.AssetCode;
-  let name = data.meditation.Name;
-  let description = data.meditation.Description;
-  let meditationType = data.meditation.MeditationType;
-  let recommendedDurationMin = data.meditation.RecommendedDurationMin;
-  let tags = data.meditation.Tags;
-  let version = data.meditation.Version;
+	export let form;
+	export let data: PageServerData;
+	let assetCode = data.physiotherapy.AssetCode;
+	let name = data.physiotherapy.Name;
+	let description = data.physiotherapy.Description;
+	let recommendedDurationMin = data.physiotherapy.RecommendedDurationMin;
+	let tags = data.physiotherapy.Tags;
+	let version = data.physiotherapy.Version;
 
-  // Original data
-  let _name = name;
-  let _description = description;
-  let _tags = JSON.stringify(tags);
-  let _meditationtype = meditationType;
-  let _recommendeddurationmin = recommendedDurationMin;
-  let _version = version;
+	//Original data
+	let _name = name;
+	let _description = description;
+	let _tags = JSON.stringify(tags);
+	let _recommendedDuration = recommendedDurationMin;
+	let _version = version;
 
-  function handleReset() {
-    name = _name;
-    description = _description;
-    meditationType = _meditationtype;
-    recommendedDurationMin = _recommendeddurationmin;
-    tags = JSON.parse(_tags);
-    version = _version;
-  }
+	function handleReset() {
+		name = _name;
+		description = _description;
+		recommendedDurationMin = _recommendedDuration;
+		tags = JSON.parse(_tags);
+		version = _version;
+	}
 
-  const breadCrumbs = [
-    {
-      name: 'Assets',
-      path: assetRoute
-    },
-    {
-      name: 'Meditation',
-      path: meditationRoute
-    },
-    {
-      name: 'Edit',
-      path: editRoute
-    }
-  ];
+	const breadCrumbs = [
+		{
+			name: 'Assets',
+			path: assetRoute
+		},
+		{
+			name: 'Physiotherapy',
+			path: physiotherapyRoute
+		},
+		{
+			name: 'Edit',
+			path: editRoute
+		}
+	];
   
 </script>
 
@@ -62,13 +59,13 @@
 
 <form
 	method="post"
-	action="?/updateMeditationAction"
+	action="?/updatePhysiotherapyAction"
 	class="table-container my-2 border border-secondary-100 dark:!border-surface-700"
 >
 	<table class="table">
 		<thead class="!variant-soft-secondary">
 			<tr>
-				<th>Edit Meditation</th>
+				<th>Edit Physiotherapy</th>
 				<th class="text-end">
 					<a href={viewRoute} class="btn p-2 -my-2 variant-soft-secondary">
 						<Icon icon="material-symbols:close-rounded" class="text-lg" />
@@ -106,24 +103,6 @@
 						placeholder="Enter description here..."
 						bind:value={description}
 					/>
-				</td>
-			</tr>
-			<tr class="!border-b !border-b-secondary-100 dark:!border-b-surface-700">
-				<td class="align-top">Meditation Type</td>
-				<td>
-					<select
-            class="select select-primary w-full "
-            bind:value={meditationType}
-            name="meditationType"
-          >
-            <option>Mindfulness</option>
-            <option>Spiritual</option>
-            <option>Focused</option>
-            <option>Mantra</option>
-            <option>Progressive relaxation</option>
-            <option>Transcendental</option>
-            <option>Visualization</option>
-          </select>
 				</td>
 			</tr>
 			<tr class="!border-b !border-b-secondary-100 dark:!border-b-surface-700">

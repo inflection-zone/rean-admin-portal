@@ -1,34 +1,54 @@
-import { redirect } from 'sveltekit-flash-message/server';
 import type { RequestEvent } from '@sveltejs/kit';
+import { redirect } from 'sveltekit-flash-message/server';
+import type { PageServerLoad } from './$types';
 import { errorMessage, successMessage } from '$lib/utils/message.utils';
+import {
+	getPhysiotherapyById,
+	updatePhysiotherapy
+} from '$routes/api/services/careplan/assets/physiotherapy';
 import { zfd } from 'zod-form-data';
 import { z } from 'zod';
-import { createNutrition } from '$routes/api/services/careplan/assets/nutrition';
 
 /////////////////////////////////////////////////////////////////////////
 
-const createNutritionSchema = zfd.formData({
+export const load: PageServerLoad = async (event: RequestEvent) => {
+	const sessionId = event.cookies.get('sessionId');
+	try {
+		const physiotherapyId = event.params.id;
+		const response = await getPhysiotherapyById(sessionId, physiotherapyId);
+		const physiotherapy = response.Data;
+		return {
+			physiotherapy
+		};
+	} catch (error) {
+		console.error(`Error retriving physiotherapy: ${error.message}`);
+	}
+};
+
+const updatePhysiotherapySchema = zfd.formData({
 	name: z.string().max(128),
 	description: z.string().optional(),
+	recommendedDurationMin: zfd.numeric(z.number().optional()),
 	tags: z.array(z.string()).optional(),
 	version: z.string().optional()
 });
 
 export const actions = {
-	createNutritionAction: async (event: RequestEvent) => {
+	updatePhysiotherapyAction: async (event: RequestEvent) => {
 		const request = event.request;
 		const userId = event.params.userId;
+		const physiotheropyId = event.params.id;
 		const sessionId = event.cookies.get('sessionId');
 		const data = await request.formData();
 		const formData = Object.fromEntries(data);
 		const tags = data.has('tags') ? data.getAll('tags') : [];
 		const formDataValue = { ...formData, tags: tags };
 
-		type NutritionSchema = z.infer<typeof createNutritionSchema>;
+		type PhysiotherapySchema = z.infer<typeof updatePhysiotherapySchema>;
 
-		let result: NutritionSchema = {};
+		let result: PhysiotherapySchema = {};
 		try {
-			result = createNutritionSchema.parse(formDataValue);
+			result = updatePhysiotherapySchema.parse(formDataValue);
 			console.log('result', result);
 		} catch (err: any) {
 			const { fieldErrors: errors } = err.flatten();
@@ -40,10 +60,12 @@ export const actions = {
 			};
 		}
 
-		const response = await createNutrition(
+		const response = await updatePhysiotherapy(
 			sessionId,
+			physiotheropyId,
 			result.name,
 			result.description,
+			result.recommendedDurationMin,
 			result.tags,
 			result.version
 		);
@@ -59,8 +81,8 @@ export const actions = {
 		}
 		throw redirect(
 			303,
-			`/users/${userId}/careplan/assets/nutritions/${id}/view`,
-			successMessage(`Nutrition created successfully!`),
+			`/users/${userId}/careplan/assets/physiotherapy/${id}/view`,
+			successMessage(`Physiotherapy updated successfully!`),
 			event
 		);
 	}
