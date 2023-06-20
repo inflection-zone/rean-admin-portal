@@ -1,13 +1,13 @@
 import { redirect } from 'sveltekit-flash-message/server';
 import type { RequestEvent } from '@sveltejs/kit';
 import { errorMessage, successMessage } from '$lib/utils/message.utils';
-import { createAnimation } from '$routes/api/services/careplan/assets/animation';
 import { zfd } from 'zod-form-data';
 import { z } from 'zod';
+import { createVideo } from '$routes/api/services/careplan/assets/video';
 
 /////////////////////////////////////////////////////////////////////////
 
-const createAnimationSchema = zfd.formData({
+const createVideoSchema = zfd.formData({
 	name: z.string().max(128),
 	transcript: z.string().optional(),
 	pathUrl: z.string().optional(),
@@ -16,7 +16,7 @@ const createAnimationSchema = zfd.formData({
 });
 
 export const actions = {
-	createAnimationAction: async (event: RequestEvent) => {
+	createVideoAction: async (event: RequestEvent) => {
 		const request = event.request;
 		const userId = event.params.userId;
 		const sessionId = event.cookies.get('sessionId');
@@ -25,11 +25,11 @@ export const actions = {
 		const tags = data.has('tags') ? data.getAll('tags') : [];
 		const formDataValue = { ...formData, tags: tags };
 
-		type AnimationSchema = z.infer<typeof createAnimationSchema>;
+		type VideoSchema = z.infer<typeof createVideoSchema>;
 
-		let result: AnimationSchema = {};
+		let result: VideoSchema = {};
 		try {
-			result = createAnimationSchema.parse(formDataValue);
+			result = createVideoSchema.parse(formDataValue);
 			console.log('result', result);
 		} catch (err: any) {
 			const { fieldErrors: errors } = err.flatten();
@@ -41,7 +41,7 @@ export const actions = {
 			};
 		}
 
-		const response = await createAnimation(
+		const response = await createVideo(
 			sessionId,
 			result.name,
 			result.transcript,
@@ -53,12 +53,17 @@ export const actions = {
 		console.log(response);
 
 		if (response.Status === 'failure' || response.HttpCode !== 201) {
-			throw redirect(303, '/assets', errorMessage(response.Message), event);
+			throw redirect(
+				303,
+				`/users/${userId}/careplan/assets`,
+				errorMessage(response.Message),
+				event
+			);
 		}
 		throw redirect(
 			303,
-			`/users/${userId}/careplan/assets/animations/${id}/view`,
-			successMessage(`Animation created successfully!`),
+			`/users/${userId}/careplan/assets/video/${id}/view`,
+			successMessage(`Video created successfully!`),
 			event
 		);
 	}

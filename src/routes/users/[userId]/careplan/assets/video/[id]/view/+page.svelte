@@ -7,22 +7,23 @@
 	import BreadCrumbs from '$lib/components/breadcrumbs/breadcrums.svelte';
 	import Icon from '@iconify/svelte';
 
-	///////////////////////////////////////////////////////////////////////////
+	////////////////////////////////////////////////////////////////////////////
 
 	const userId = $page.params.userId;
-	const animationId = $page.params.id;
+	const videoId = $page.params.id;
 	const assetRoute = `/users/${userId}/careplan/assets`;
-	const editRoute = `/users/${userId}/careplan/assets/animations/${animationId}/edit`;
-	const viewRoute = `/users/${userId}/careplan/assets/animations/${animationId}/view`;
-	const animationRoute = `/users/${userId}/careplan/assets/animations/create`;
+	const editRoute = `/users/${userId}/careplan/assets/video/${videoId}/edit`;
+	const viewRoute = `/users/${userId}/careplan/assets/video/${videoId}/view`;
+	const videoRoute = `/users/${userId}/careplan/assets/video/create`;
 
 	export let data: PageServerData;
-	let assetCode = data.animation.AssetCode;
-	let name = data.animation.Name;
-	let transcript = data.animation.Transcript;
-	let pathUrl = data.animation.Url;
-	let tags = data.animation.Tags;
-	let version = data.animation.Version;
+
+	let assetCode = data.video.AssetCode;
+	let name = data.video.Name;
+	let transcript = data.video.Transcript;
+	let pathUrl = data.video.Url;
+	let tags = data.video.Tags;
+	let version = data.video.Version;
 
 	onMount(() => {
 		show(data);
@@ -35,8 +36,8 @@
 			path: assetRoute
 		},
 		{
-			name: 'Animation',
-			path: animationRoute
+			name: 'Video',
+			path: videoRoute
 		},
 		{
 			name: 'View',
@@ -58,7 +59,7 @@
 	<table class="table">
 		<thead class="!variant-soft-secondary">
 			<tr>
-				<th>Animation - {name}</th>
+				<th>View Video</th>
 				<th class="text-end">
 					<a href={assetRoute} class="btn p-2 -my-2 variant-soft-secondary">
 						<Icon icon="material-symbols:close-rounded" class="text-lg" />
