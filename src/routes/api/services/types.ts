@@ -1,5 +1,6 @@
 import { API_CLIENT_INTERNAL_KEY, BACKEND_API_URL } from '$env/static/private';
 import type { PersonRole, OrganizationTypes } from '$lib/types/domain.models';
+import { get_ } from './common';
 
 /////////////////////////////////////////////////////////////////////
 
@@ -49,4 +50,33 @@ export const getOrganizationTypes = async (): Promise<OrganizationTypes[]> => {
 		console.error(`Error retrieving user roles: ${error.message}`);
 		return [];
 	}
+};
+
+export const getTimeSlots = async (): Promise<string[]> => {
+	try {
+		const headers = {};
+		headers['Content-Type'] = 'application/json';
+		const url = BACKEND_API_URL + '/types/time-slots';
+
+		const res = await fetch(url, {
+			method: 'GET',
+			headers
+		});
+		const response = await res.json();
+
+		if (response.Status === 'failure' || response.HttpCode !== 200) {
+			console.log(`status code: ${response.HttpCode}`);
+			console.log(`error message: ${response.Message}`);
+			return [];
+		}
+		return response.Data.SlotTypes;
+	} catch (error) {
+		console.error(`Error retrieving Timeslot: ${error.message}`);
+		return [];
+	}
+};
+
+export const getAssetsType = async (sessionId: string) => {
+	const url = BACKEND_API_URL + `/types/assets`;
+	return await get_(sessionId, url);
 };

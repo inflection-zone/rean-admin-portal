@@ -40,13 +40,6 @@
 <BreadCrumbs crumbs={breadCrumbs} />
 
 <div class="flex flex-wrap gap-2">
-	<a href={editRoute} class="btn variant-filled-secondary ml-auto">
-		<Icon icon="material-symbols:edit-outline" />
-		<span>Edit</span>
-	</a>
-</div>
-
-<div class="flex flex-wrap gap-2">
 	<a href={schedulingRoute} class="btn variant-filled-secondary ml-auto">Scheduling</a>
 	<a href={editRoute} class="btn variant-filled-secondary">
 		<Icon icon="material-symbols:edit-outline" />
