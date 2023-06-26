@@ -64,7 +64,7 @@
 						{
 							icon: 'material-symbols:check-box-outline-rounded',
 							title: 'Enrollments',
-							link: `users/${userId}/careplan/enrollments`
+							link: `/users/${userId}/careplan/enrollments`
 						}
 					]
 				},

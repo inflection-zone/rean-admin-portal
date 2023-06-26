@@ -10,6 +10,7 @@
 		tableInteraction
 	} from '@skeletonlabs/skeleton';
 	import Icon from '@iconify/svelte';
+	import date from 'date-and-time';
 	import { Helper } from '$lib/utils/helper';
 	import { browser } from '$app/environment';
 	import BreadCrumbs from '$lib/components/breadcrumbs/breadcrums.svelte';
@@ -26,6 +27,8 @@
 	let asset = data.assets;
 	let selectedAssetType = 'Action plan';
 
+	asset = asset.map((item, index) => ({ ...item, index: index + 1 }));
+
 	const dataTableStore = createDataTableStore(asset, {
 		search: '',
 		sort: '',
@@ -39,34 +42,33 @@
 	let itemsPerPage = 10;
 	let pageIndex = 0;
 
-	const assetRouteMap = {
-		'Action plan': 'action-plans',
-		Animation: 'animations',
-		Appointment: 'appointments',
-		Article: 'articles',
-		Assessment: 'assessments',
-		Audio: 'audio',
-		Biometrics: 'biometrics',
-		Challenge: 'challenges',
-		Checkup: 'checkups',
-		Consultation: 'consultations',
-		Exercise: 'exercises',
-		Goal: 'goals',
-		Infographics: 'infographics',
-		Medication: 'medications',
-		Meditation: 'meditations',
-		Message: 'messages',
-		Nutrition: 'nutritions',
-		Physiotherapy: 'physiotherapy',
-		Priority: 'priorities',
-		Reflection: 'reflections',
-		Reminder: 'reminders',
-		Video: 'video',
-		'Web link': 'web-links',
-		'Web newsfeed': 'web-newsfeeds',
-		'Word power': 'word-power'
-	};
-
+  const assetRouteMap = {
+    'Action plan'  : 'action-plans',
+    'Animation'    : 'animations',
+    'Appointment'  : 'appointments',
+    'Article'      : 'articles',
+    'Assessment'   : 'assessments',
+    'Audio'        : 'audio',
+    'Biometrics'   : 'biometrics',
+    'Challenge'    : 'challenges',
+    'Checkup'      : 'checkups',
+    'Consultation' : 'consultations',
+    'Exercise'     : 'exercises',
+    'Goal'         : 'goals',
+    'Infographics' : 'infographics',
+    'Medication'   : 'medications',
+    'Meditation'   : 'meditations',
+    'Message'      : 'messages',
+    'Nutrition'    : 'nutritions',
+    'Physiotherapy': 'physiotherapy',
+    'Priority'     : 'priorities',
+    'Reflection'   : 'reflections',
+    'Reminder'     : 'reminders',
+    'Video'        : 'video',
+    'Web link'     : 'web-links',
+    'Web newsfeed' : 'web-newsfeeds',
+    'Word power'   : 'word-power'
+  };
 	async function searchAssets(model) {
 		const selectedAssetRoute = assetRouteMap[selectedAssetType];
 		let url = `/api/server/assets/search?assetType=${selectedAssetRoute}`;
@@ -99,7 +101,7 @@
 		});
 	};
 
-	const assetRoute = () => `/users/${userId}/assets`;
+	const assetRoute = () => `/users/${userId}/careplan/assets`;
 	const breadCrumbs = [
 		{
 			name: 'Assets',
@@ -152,7 +154,7 @@
 		bind:value={assetName}
 		class="input w-auto grow"
 	/>
-	<a href="/users/{userId}/assets/{selectedAssetType}/create/" class="btn variant-filled-secondary"
+	<a href="/users/{userId}/careplan/assets/{assetRouteMap[selectedAssetType]}/create/" class="btn variant-filled-secondary"
 		>Add New</a
 	>
 </div>
@@ -175,17 +177,17 @@
 				<tr class="!border-b !border-b-secondary-100 dark:!border-b-surface-700">
 					<td role="gridcell" aria-colindex={1} tabindex="0">{row.index}</td>
 					<td role="gridcell" aria-colindex={2} tabindex="0">
-						<a href="{assetRoute()}/{assetRouteMap[selectedAssetType]}/{item.id}/view"
+						<a href="{assetRoute()}/{assetRouteMap[selectedAssetType]}/{row.id}/view"
 							>{Helper.truncateText(row.Name, 20)}</a
 						>
 					</td>
 					<td role="gridcell" aria-colindex={3} tabindex="0">{row.AssetCode}</td>
 					<td role="gridcell" aria-colindex={4} tabindex="0">{row.AssetCategory}</td>
-					<td role="gridcell" aria-colindex={5} tabindex="0">{row.CreatedAt}</td>
+					<td role="gridcell" aria-colindex={5} tabindex="0">{date.format(new Date(row.CreatedAt), 'DD-MMM-YYYY')}</td>
 					<td>
 						<a
 							class="btn p-2 hover:variant-soft-secondary"
-							href="{assetRoute()}/{assetRouteMap[selectedAssetType]}/{item.id}/edit"
+							href="{assetRoute()}/{assetRouteMap[selectedAssetType]}/{row.id}/edit"
 						>
 							<Icon icon="material-symbols:edit-outline" class="text-lg" />
 						</a>

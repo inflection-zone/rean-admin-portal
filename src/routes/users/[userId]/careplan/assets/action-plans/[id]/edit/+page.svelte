@@ -7,10 +7,10 @@
 
   const userId = $page.params.userId;
   const actionPlanId = $page.params.id;
-  const assetRoute = `/users/${userId}/assets`;
-  const editRoute = `/users/${userId}/assets/action-plans/${actionPlanId}/edit`;
-  const viewRoute = `/users/${userId}/assets/action-plans/${actionPlanId}/view`;
-  const actionPlanRoute = `/users/${userId}/assets/action-plans/create`;
+  const assetRoute = `/users/${userId}/careplan/assets`;
+  const editRoute = `/users/${userId}/careplan/assets/action-plans/${actionPlanId}/edit`;
+  const viewRoute = `/users/${userId}/careplan/assets/action-plans/${actionPlanId}/view`;
+  const actionPlanRoute = `/users/${userId}/careplan/assets/action-plans/create`;
 
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////
   
@@ -102,7 +102,7 @@
 				</td>
 			</tr>
 			<tr class="!border-b !border-b-secondary-100 dark:!border-b-surface-700">
-				<td>Tags</td>
+				<td class="align-top">Tags</td>
           <td>
             <InputChip chips="variant-filled-error rounded-2xl" name="tags" bind:value={tags} />
           </td>

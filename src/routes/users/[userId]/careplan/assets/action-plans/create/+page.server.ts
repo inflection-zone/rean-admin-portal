@@ -21,10 +21,8 @@ export const actions = {
 		const sessionId = event.cookies.get('sessionId');
 		const data = await request.formData();
 		const formData = Object.fromEntries(data);
-
 		const tags = data.has('tags') ? data.getAll('tags') : [];
 		const formDataValue = { ...formData, tags: tags };
-
 
 		type ActionPlanSchema = z.infer<typeof createActionPlanSchema>;
 
@@ -52,12 +50,12 @@ export const actions = {
 		const id = response.Data.id;
     console.log(response);
     if (response.Status === 'failure' || response.HttpCode !== 201) {
-      throw redirect(303, '/assets', errorMessage(response.Message), event);
+      throw redirect(303, `/users/${userId}/careplan/assets`, errorMessage(response.Message), event);
     }
     throw redirect(
       303,
       `/users/${userId}/careplan/assets/action-plans/${id}/view`,
-      successMessage(`Action plan created successful!`),
+      successMessage(`Action plan created successfully!`),
       event
     );
   }

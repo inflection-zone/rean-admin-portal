@@ -9,10 +9,10 @@
 
   const userId = $page.params.userId;
   const actionPlanId = $page.params.id;
-  const assetRoute = `/users/${userId}/assets`;
-  const editRoute = `/users/${userId}/assets/action-plans/${actionPlanId}/edit`;
-  const viewRoute =`/users/${userId}/assets/action-plans/${actionPlanId}/view`;
-  const actionPlanRoute = `/users/${userId}/assets/action-plans/create`;
+  const assetRoute = `/users/${userId}/careplan/assets`;
+  const editRoute = `/users/${userId}/careplan/assets/action-plans/${actionPlanId}/edit`;
+  const viewRoute =`/users/${userId}/careplan/assets/action-plans/${actionPlanId}/view`;
+  const actionPlanRoute = `/users/${userId}/careplan/assets/action-plans/create`;
 
   ////////////////////////////////////////////////////////////////////////////////////////////////
   
@@ -41,6 +41,7 @@
       path: viewRoute
     }
   ];
+
 </script>
 
 <BreadCrumbs crumbs={breadCrumbs} />
@@ -56,7 +57,7 @@
 	<table class="table">
 		<thead class="!variant-soft-secondary">
 			<tr>
-				<th>Action Plan - {name}</th>
+				<th>View Action Plan</th>
 				<th class="text-end">
 					<a href={assetRoute} class="btn p-2 -my-2 variant-soft-secondary">
 						<Icon icon="material-symbols:close-rounded" class="text-lg" />
@@ -75,7 +76,7 @@
 			</tr>
 			<tr class="!border-b !border-b-secondary-100 dark:!border-b-surface-700">
 				<td class="align-top">Description</td>
-				<td>{description}</td>
+				<td class="h-full">{description}</td>
 			</tr>
 			<tr class="!border-b !border-b-secondary-100 dark:!border-b-surface-700">
 				<td>Tags</td>

@@ -35,6 +35,8 @@
 		}
 	];
 
+	enrollment = enrollment.map((item, index) => ({ ...item, index: index + 1 }));
+
 	const dataTableStore = createDataTableStore(enrollment, {
 		search: '',
 		sort: '',
@@ -90,24 +92,24 @@
 <BreadCrumbs crumbs={breadCrumbs} />
 
 <div class="flex flex-wrap gap-2 mt-1">
-	<input bind:value={carePlan} type="text" placeholder="Search by care plan" class="input" />
+	<input bind:value={carePlan} type="text" placeholder="Search by care plan" class="input w-auto grow" />
 	<input
 		bind:value={displayId}
 		type="text"
 		placeholder="Search by Enrollment code"
-		class="input input-bordered input-primary w-full"
+		class="input w-auto grow"
 	/>
 	<input
 		bind:value={startDate}
 		type="date"
 		placeholder="Start date"
-		class="input input-bordered input-primary w-full uppercase"
+		class="input w-auto grow uppercase"
 	/>
 	<input
 		bind:value={endDate}
 		type="date"
 		placeholder="End date"
-		class="input input-bordered input-primary w-full uppercase "
+		class="input w-auto grow uppercase "
 	/>
 </div>
 

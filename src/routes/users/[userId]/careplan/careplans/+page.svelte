@@ -19,8 +19,8 @@
 	const userId = $page.params.userId;
 	const careplansRoute = `/users/${userId}/careplans`;
 	const createRoute = `/users/${userId}/careplans/create`;
-	const editRoute = (id) => `/users/${userId}/careplans/${id}/edit`;
-	const viewRoute = (id) => `/users/${userId}/careplans/${id}/view`;
+	const editRoute = (id) => `/users/${userId}/careplan/careplans/${id}/edit`;
+	const viewRoute = (id) => `/users/${userId}/careplan/careplans/${id}/view`;
 
 	let name = undefined;
 	let categoryId = undefined;
@@ -46,10 +46,9 @@
 		search: '',
 		pagination: { offset: 0, limit: 10, size: 0, amounts: [10, 20, 30, 50] }
 	});
-	dataTableStore.subscribe((model) => dataTableHandler(model));
 
 	async function searchApiClient(model) {
-		let url = `/api/server/api-client/search?`;
+		let url = `/api/server/careplan/search?`;
 		if (sortOrder) url += `sortOrder=${sortOrder}`;
 		else url += `sortOrder=ascending`;
 		if (sortBy) url += `&sortBy=${sortBy}`;
@@ -70,6 +69,8 @@
 		carePlans = response.map((item, index) => ({ ...item, index: index + 1 }));
 		dataTableStore.updateSource(carePlans);
 	}
+
+	dataTableStore.subscribe((model) => dataTableHandler(model));
 	$: if (browser) searchApiClient({ name: name, categoryId: categoryId });
 
 	const handleCareplanDelete = async (e, id) => {
@@ -96,7 +97,7 @@
 
 <div class="flex flex-wrap gap-2 mt-1">
 	<input type="text" placeholder="Search by Name" bind:value={name} class="input w-auto grow" />
-	<select class="select select-primary w-full pl-2 select-in" bind:value={categoryId}>
+	<select class="select w-auto grow" bind:value={categoryId}>
 		<option disabled selected>Category</option>
 		{#each careplanCategories as category}
 			<option value={category.id}>{category.Type}</option>

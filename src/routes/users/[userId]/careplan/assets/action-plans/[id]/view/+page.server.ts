@@ -1,6 +1,6 @@
 import { getActionPlanById } from '$routes/api/services/careplan/assets/action-plan';
 import type { PageServerLoad } from './$types';
-import { error, redirect, type RequestEvent } from '@sveltejs/kit';
+import { error, type RequestEvent } from '@sveltejs/kit';
 
 ////////////////////////////////////////////////////////////////////////////
 
@@ -14,6 +14,7 @@ export const load: PageServerLoad = async (event: RequestEvent) => {
 			throw error(response.HttpCode, response.Message);
 		}
 		const actionPlan = response.Data;
+		console.log("actionPlan", actionPlan);
 		const id = response.Data.id;
 		return {
 			location: `${id}/edit`,
