@@ -77,12 +77,12 @@ export const actions = {
 		);
 		const id = response.Data.id;
 		console.log(response);
-		if (response.Status === 'failure' || response.HttpCode !== 201) {
-			throw redirect(303, `/users/${userId}/careplan/cateplans`, errorMessage(response.Message), event);
+		if (response.Status === 'failure' || response.HttpCode !== 200) {
+			throw redirect(303, `/users/${userId}/careplan/careplans`, errorMessage(response.Message), event);
 		}
 		throw redirect(
 			303,
-			`/users/${userId}/careplan/cateplans/${id}/view`,
+			`/users/${userId}/careplan/careplans/${id}/view`,
 			successMessage(`Careplan updated successfully!`),
 			event
 		);

@@ -8,10 +8,10 @@
   const userId = $page.params.userId;
   const enrollmentId = $page.params.enrollmentId;
   const createRoute = `/users/${userId}/enrollments/create`;
-  const editRoute = `/users/${userId}/enrollments/${enrollmentId}/edit`;
-  const viewRoute = `/users/${userId}/enrollments/${enrollmentId}/view`;
-  const viewTaskRoute = `/users/${userId}/enrollments/${enrollmentId}/tasks`;
-  const enrollmentsRoute = `/users/${userId}/enrollments`;
+  const editRoute = `/users/${userId}/careplan/enrollments/${enrollmentId}/edit`;
+  const viewRoute = `/users/${userId}/careplan/enrollments/${enrollmentId}/view`;
+  const viewTaskRoute = `/users/${userId}/careplan/enrollments/${enrollmentId}/tasks`;
+  const enrollmentsRoute = `/users/${userId}/careplan/enrollments`;
 
   ////////////////////////////////////////////////////////////////////////
 

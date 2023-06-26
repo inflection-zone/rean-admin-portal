@@ -17,8 +17,8 @@
 
 	export let data: PageServerData;
 	const userId = $page.params.userId;
-	const careplansRoute = `/users/${userId}/careplans`;
-	const createRoute = `/users/${userId}/careplans/create`;
+	const careplansRoute = `/users/${userId}/careplan/careplans`;
+	const createRoute = `/users/${userId}/careplan/careplans/create`;
 	const editRoute = (id) => `/users/${userId}/careplan/careplans/${id}/edit`;
 	const viewRoute = (id) => `/users/${userId}/careplan/careplans/${id}/view`;
 
@@ -48,7 +48,7 @@
 	});
 
 	async function searchApiClient(model) {
-		let url = `/api/server/careplan/search?`;
+		let url = `/api/server/careplan/careplan/search?`;
 		if (sortOrder) url += `sortOrder=${sortOrder}`;
 		else url += `sortOrder=ascending`;
 		if (sortBy) url += `&sortBy=${sortBy}`;
@@ -82,7 +82,7 @@
 	};
 
 	async function Delete(model) {
-		const response = await fetch(`/api/server/careplans`, {
+		const response = await fetch(`/api/server/careplan/careplans`, {
 			method: 'DELETE',
 			body: JSON.stringify(model),
 			headers: {

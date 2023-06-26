@@ -130,7 +130,7 @@
 				<tr class="!border-b !border-b-secondary-100 dark:!border-b-surface-700">
 					<td role="gridcell" aria-colindex={1} tabindex="0">{row.index}</td>
 					<td role="gridcell" aria-colindex={2} tabindex="0">
-						<a href="/users/${userId}/enrollments/{row.id}/view"
+						<a href="/users/${userId}/careplan/enrollments/{row.id}/view"
 							>Participant - {row.Participant.DisplayId}</a
 						>
 					</td>

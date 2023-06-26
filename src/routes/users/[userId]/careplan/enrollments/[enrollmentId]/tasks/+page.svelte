@@ -24,8 +24,8 @@
 	let enrollmentDsipId = data.enrollment;
 	let enrollmentCode = enrollmentDsipId.DisplayId;
 
-	const enrollmentsRoute = `/users/${userId}/enrollments`;
-	const enrollmentsTask = `/users/${userId}/enrollments/${enrollmentId}/tasks`;
+	const enrollmentsRoute = `/users/${userId}/careplan/enrollments`;
+	const enrollmentsTask = `/users/${userId}/careplan/enrollments/${enrollmentId}/tasks`;
 
 	let assetType = undefined;
 	let scheduledDate = undefined;
@@ -62,8 +62,8 @@
 	});
 	dataTableStore.subscribe((model) => dataTableHandler(model));
 
-	async function searchApiClient(model) {
-		let url = `/api/server/enrollment-task/search?`;
+	async function searchEnrollments(model) {
+		let url = `/api/server/careplan/enrollment-task/search?`;
 		if (sortOrder) url += `sortOrder=${sortOrder}`;
 		else url += `sortOrder=ascending`;
 		if (sortBy) url += `&sortBy=${sortBy}`;
@@ -80,21 +80,19 @@
 		enrollmentsTasksResult = response.map((item, index) => ({ ...item, index: index + 1 }));
 		dataTableStore.updateSource(enrollmentsTasksResult);
 	}
-	$: if (browser) searchApiClient({ assetType: assetType, scheduledDate: scheduledDate });
+	$: if (browser) searchEnrollments({ assetType: assetType, scheduledDate: scheduledDate });
 </script>
 
 <BreadCrumbs crumbs={breadCrumbs} />
 
-<div class="flex items-center mb-4 mt-10 lg:mx-16 md:mx-12 mx-8">
-	<div class="lg:w-[11%] md:w-1/6 w-1/6 ">
-		<!-- svelte-ignore a11y-label-has-associated-control -->
-		<label class="lable-text font-semibold">Enrollment Code</label>
-	</div>
-	<span class="lg:w-1/7 w-1/5">{enrollmentCode}</span>
+<div class="flex mx-2 gap-4">
+	<!-- svelte-ignore a11y-label-has-associated-control -->
+	<label class="lable-text font-semibold">Enrollment Code</label>
+	<span class="">{enrollmentCode}</span>
 </div>
 <div class="flex flex-wrap gap-2 mt-1">
-	<input type="text" placeholder="Search by Type" bind:value={assetType} class="input" />
-	<input type="date" placeholder="Start date" bind:value={scheduledDate} class="input" />
+	<input type="text" placeholder="Search by Type" bind:value={assetType} class="input w-auto grow" />
+	<input type="date" placeholder="Start date" bind:value={scheduledDate} class="input w-auto grow" />
 </div>
 
 <div class="table-container my-2 !border !border-secondary-100 dark:!border-surface-700">
@@ -117,7 +115,7 @@
 					<td role="gridcell" aria-colindex={4} tabindex="0"
 						>{date.format(new Date(row.CreatedAt), 'DD-MMM-YYYY')}</td
 					>
-					{#if item.ProgressStatus === 'Completed'}
+					{#if row.ProgressStatus === 'Completed'}
 						<Icon icon="material-symbols:right-outline" class="text-lg" />
 					{:else}
 						<Icon icon="material-symbols:close-rounded" class="text-lg" />
