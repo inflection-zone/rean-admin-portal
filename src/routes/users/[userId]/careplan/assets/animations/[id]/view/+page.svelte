@@ -58,7 +58,7 @@
 	<table class="table">
 		<thead class="!variant-soft-secondary">
 			<tr>
-				<th>Animation - {name}</th>
+				<th>View Animation</th>
 				<th class="text-end">
 					<a href={assetRoute} class="btn p-2 -my-2 variant-soft-secondary">
 						<Icon icon="material-symbols:close-rounded" class="text-lg" />

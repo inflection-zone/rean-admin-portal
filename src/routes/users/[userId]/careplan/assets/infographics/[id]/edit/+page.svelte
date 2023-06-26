@@ -105,7 +105,7 @@
 				</td>
 			</tr>
 			<tr class="!border-b !border-b-secondary-100 dark:!border-b-surface-700">
-				<td class="align-top">Url</td>
+				<td>Url</td>
 				<td>
 					<input
 						type="url"
@@ -118,7 +118,7 @@
 				</td>
 			</tr>
 			<tr class="!border-b !border-b-secondary-100 dark:!border-b-surface-700">
-				<td>Tags</td>
+				<td class="align-top">Tags</td>
 				<td>
 					<InputChip chips="variant-filled-error rounded-2xl" name="tags" bind:value={tags} />
 				</td>

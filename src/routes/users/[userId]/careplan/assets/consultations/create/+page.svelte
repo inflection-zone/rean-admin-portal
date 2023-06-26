@@ -53,7 +53,7 @@
 					<input
 						type="text"
 						required
-						placeholder="Enter appointment name here..."
+						placeholder="Enter name here..."
 						class="input {form?.errors?.name ? 'border-error-300 text-error-500' : ''}"
 						name="name"
 					/>
@@ -80,7 +80,7 @@
 				</td>
 			</tr>
 			<tr class="!border-b !border-b-secondary-100 dark:!border-b-surface-700">
-				<td>Tags</td>
+				<td class="align-top">Tags</td>
 				<td>
 					<InputChip chips="variant-filled-error rounded-2xl" name="tags" />
 				</td>

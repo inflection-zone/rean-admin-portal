@@ -82,7 +82,7 @@
 					<input
 						type="text"
 						required
-						placeholder="Enter action plan name here..."
+						placeholder="Enter name here..."
 						class="input {form?.errors?.name ? 'border-error-300 text-error-500' : ''}"
 						name="name"
 						bind:value={name}
@@ -104,7 +104,7 @@
 				</td>
 			</tr>
 			<tr class="!border-b !border-b-secondary-100 dark:!border-b-surface-700">
-				<td class="align-top">Url</td>
+				<td>Url</td>
 				<td>
 					<input
 						type="url"
@@ -117,7 +117,7 @@
 				</td>
 			</tr>
 			<tr class="!border-b !border-b-secondary-100 dark:!border-b-surface-700">
-				<td>Tags</td>
+				<td class="align-top">Tags</td>
 				<td>
 					<InputChip chips="variant-filled-error rounded-2xl" name="tags" bind:value={tags} />
 				</td>

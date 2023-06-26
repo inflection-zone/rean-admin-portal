@@ -112,6 +112,7 @@
 	const handleAssetsDelete = async (e, id) => {
 		const selectedAssetRoute = assetRouteMap[selectedAssetType];
 		const assetId = id;
+		console.log(assetId ,"assetId")
 		await Delete({
 			sessionId: data.sessionId,
 			selectAsset: selectedAssetRoute,
@@ -121,7 +122,7 @@
 
 	async function Delete(model) {
 		console.log('Model', model);
-		const response = await fetch(`/api/server/assets`, {
+		const response = await fetch(`/api/server/careplan/assets`, {
 			method: 'DELETE',
 			body: JSON.stringify(model),
 			headers: {

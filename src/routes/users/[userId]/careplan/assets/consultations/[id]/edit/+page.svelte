@@ -9,10 +9,10 @@
 
   const userId = $page.params.userId;
   const consultationId = $page.params.id;
-  const assetRoute = `/users/${userId}/assets`;
-  const editRoute = `/users/${userId}/assets/consultations/${consultationId}/edit`;
-  const viewRoute = `/users/${userId}/assets/consultations/${consultationId}/view`;
-  const consultationRoute = `/users/${userId}/assets/consultations/create`;
+  const assetRoute = `/users/${userId}/careplan/assets`;
+  const editRoute = `/users/${userId}/careplan/assets/consultations/${consultationId}/edit`;
+  const viewRoute = `/users/${userId}/careplan/assets/consultations/${consultationId}/view`;
+  const consultationRoute = `/users/${userId}/careplan/assets/consultations/create`;
 
   export let form;
   export let data: PageServerData;
@@ -120,7 +120,7 @@
 				</td>
 			</tr>
 			<tr class="!border-b !border-b-secondary-100 dark:!border-b-surface-700">
-				<td>Tags</td>
+				<td class="align-top">Tags</td>
 				<td>
 					<InputChip chips="variant-filled-error rounded-2xl" name="tags" bind:value={tags} />
 				</td>

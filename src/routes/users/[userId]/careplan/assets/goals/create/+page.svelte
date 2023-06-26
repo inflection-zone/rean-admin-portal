@@ -8,9 +8,9 @@
 
 	export let form;
 	const userId = $page.params.userId;
-	const assetRoute = `/users/${userId}/assets`;
-	const createRoute = `/users/${userId}/assets/goals/create`;
-	const goalRoute = `/users/${userId}/assets/goals/create`;
+	const assetRoute = `/users/${userId}/careplan/assets`;
+	const createRoute = `/users/${userId}/careplan/assets/goals/create`;
+	const goalRoute = `/users/${userId}/careplan/assets/goals/create`;
 
 	const breadCrumbs = [
 		{
@@ -69,7 +69,7 @@
 				</td>
 			</tr>
 			<tr class="!border-b !border-b-secondary-100 dark:!border-b-surface-700">
-				<td>Tags</td>
+				<td class="align-top">Tags</td>
 				<td>
 					<InputChip chips="variant-filled-error rounded-2xl" name="tags" />
 				</td>

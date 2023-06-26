@@ -1,4 +1,5 @@
-import { getPriorityById } from '$routes/api/services/priorities';
+
+import { getPriorityById } from '$routes/api/services/careplan/assets/priority';
 import type { PageServerLoad } from './$types';
 import { error, redirect, type RequestEvent } from '@sveltejs/kit';
 

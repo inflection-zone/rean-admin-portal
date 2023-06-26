@@ -10,10 +10,10 @@
 
 	const userId = $page.params.userId;
 	const animationId = $page.params.id;
-	const assetRoute = `/users/${userId}/assets`;
-	const editRoute = `/users/${userId}/assets/animations/${animationId}/edit`;
-	const viewRoute = `/users/${userId}/assets/animations/${animationId}/view`;
-	const animationRoute = `/users/${userId}/assets/animations/create`;
+	const assetRoute = `/users/${userId}/careplan/assets`;
+	const editRoute = `/users/${userId}/careplan/assets/animations/${animationId}/edit`;
+	const viewRoute = `/users/${userId}/careplan/assets/animations/${animationId}/view`;
+	const animationRoute = `/users/${userId}/careplan/assets/animations/create`;
 
   export let form;
 	export let data: PageServerData;
@@ -90,7 +90,7 @@
 					<input
 						type="text"
 						required
-						placeholder="Enter action plan name here..."
+						placeholder="Enter name here..."
 						class="input {form?.errors?.name ? 'border-error-300 text-error-500' : ''}"
 						name="name"
 						bind:value={name}
@@ -112,7 +112,7 @@
 				</td>
 			</tr>
 			<tr class="!border-b !border-b-secondary-100 dark:!border-b-surface-700">
-				<td class="align-top">Url</td>
+				<td>Url</td>
 				<td>
 					<input
 						type="url"
@@ -125,7 +125,7 @@
 				</td>
 			</tr>
 			<tr class="!border-b !border-b-secondary-100 dark:!border-b-surface-700">
-				<td>Tags</td>
+				<td class="align-top">Tags</td>
 				<td>
 					<InputChip chips="variant-filled-error rounded-2xl" name="tags" bind:value={tags} />
 				</td>

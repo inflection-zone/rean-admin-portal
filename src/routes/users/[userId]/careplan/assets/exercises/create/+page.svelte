@@ -110,7 +110,7 @@
 				</td>
 			</tr>
 			<tr class="!border-b !border-b-secondary-100 dark:!border-b-surface-700">
-				<td>Tags</td>
+				<td class="align-top">Tags</td>
 				<td>
 					<InputChip chips="variant-filled-error rounded-2xl" name="tags" />
 				</td>
@@ -118,12 +118,7 @@
 			<tr class="!border-b !border-b-secondary-100 dark:!border-b-surface-700">
 				<td>Version</td>
 				<td>
-					<input
-						type="number"
-						placeholder="Enter recommendeddurationmin here..."
-						class="input input-bordered input-primary w-full "
-						name="recommendedDurationMin"
-					/>
+					<input type="text" name="version" class="input" placeholder="V 1.0" />
 				</td>
 			</tr>
 		</tbody>

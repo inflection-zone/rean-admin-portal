@@ -60,7 +60,7 @@ export const actions = {
 		throw redirect(
 			303,
 			`/users/${userId}/careplan/assets/priorities/${id}/view`,
-			successMessage(`Priority created successful!`),
+			successMessage(`Priority created successfully!`),
 			event
 		);
 	}

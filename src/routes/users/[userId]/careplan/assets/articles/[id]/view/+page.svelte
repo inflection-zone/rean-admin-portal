@@ -11,10 +11,10 @@
 
 	const userId = $page.params.userId;
 	const articleId = $page.params.id;
-	const assetRoute = `/users/${userId}/assets`;
-	const editRoute = `/users/${userId}/assets/articles/${articleId}/edit`;
-	const viewRoute = `/users/${userId}/assets/articles/${articleId}/view`;
-	const articleRoute = `/users/${userId}/assets/articles/create`;
+	const assetRoute = `/users/${userId}/careplan/assets`;
+	const editRoute = `/users/${userId}/careplan/assets/articles/${articleId}/edit`;
+	const viewRoute = `/users/${userId}/careplan/assets/articles/${articleId}/view`;
+	const articleRoute = `/users/${userId}/careplan/assets/articles/create`;
 
 	export let data: PageServerData;
 	let assetCode = data.article.AssetCode;

@@ -8,9 +8,9 @@
 
 	export let form;
 	const userId = $page.params.userId;
-	const assetRoute = `/users/${userId}/assets`;
-	const createRoute = `/users/${userId}/assets/animations/create`;
-	const animationRoute = `/users/${userId}/assets/animations/create`;
+	const assetRoute = `/users/${userId}/careplan/assets`;
+	const createRoute = `/users/${userId}/careplan/assets/animations/create`;
+	const animationRoute = `/users/${userId}/careplan/assets/animations/create`;
 
 	const breadCrumbs = [
 		{
@@ -53,7 +53,7 @@
 					<input
 						type="text"
 						required
-						placeholder="Enter action plan name here..."
+						placeholder="Enter name here..."
 						class="input {form?.errors?.name ? 'border-error-300 text-error-500' : ''}"
 						name="name"
 					/>
@@ -69,13 +69,13 @@
 				</td>
 			</tr>
 			<tr class="!border-b !border-b-secondary-100 dark:!border-b-surface-700">
-				<td class="align-top">Url</td>
+				<td>Url</td>
 				<td>
 					<input type="url" placeholder="Enter url here..." class="input" name="pathUrl" />
 				</td>
 			</tr>
 			<tr class="!border-b !border-b-secondary-100 dark:!border-b-surface-700">
-				<td>Tags</td>
+				<td class="align-top">Tags</td>
 				<td>
 					<InputChip chips="variant-filled-error rounded-2xl" name="tags" />
 				</td>

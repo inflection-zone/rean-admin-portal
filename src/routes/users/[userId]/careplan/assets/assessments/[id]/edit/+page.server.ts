@@ -13,6 +13,7 @@ export const load: PageServerLoad = async (event: RequestEvent) => {
   try {
     const assessmentId = event.params.id;
     const response = await getAssessmentById(sessionId, assessmentId);
+		console.log("response", response);
 
     if (response.Status === 'failure' || response.HttpCode !== 200) {
       throw error(response.HttpCode, response.Message);

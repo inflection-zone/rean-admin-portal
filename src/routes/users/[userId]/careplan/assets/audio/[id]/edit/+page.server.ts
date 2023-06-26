@@ -78,8 +78,8 @@ export const actions = {
 		}
 		throw redirect(
 			303,
-			`/users/${userId}/assets/careplan/audio/${id}/view`,
-			successMessage(`Audio updated successful!`),
+			`/users/${userId}/careplan/assets/audio/${id}/view`,
+			successMessage(`Audio updated successfully!`),
 			event
 		);
 	}
