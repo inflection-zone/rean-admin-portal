@@ -44,7 +44,7 @@
 	});
 
 	async function searchEnrollments(model) {
-		let url = `/api/server/enrollments/search?`;
+		let url = `/api/server/careplan/enrollments/search?`;
 		if (sortOrder) url += `sortOrder=${sortOrder}`;
 		else url += `sortOrder=ascending`;
 		if (sortBy) url += `&sortBy=${sortBy}`;

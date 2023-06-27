@@ -33,7 +33,7 @@
 	let sortOrder = 'ascending';
 	let itemsPerPage = 10;
 	let pageIndex = 0;
-
+	enrollmentsTasks = enrollmentsTasks.map((item, index) => ({ ...item, index: index + 1 }));
 	let enrollmentsTasksResult = enrollmentsTasks.map((task) => {
 		const newTask = task;
 		participantResponse.forEach((item) => {
@@ -60,7 +60,6 @@
 		sort: '',
 		pagination: { offset: 0, limit: 10, size: 0, amounts: [10, 20, 30, 50] }
 	});
-	dataTableStore.subscribe((model) => dataTableHandler(model));
 
 	async function searchEnrollments(model) {
 		let url = `/api/server/careplan/enrollment-task/search?`;
@@ -80,6 +79,8 @@
 		enrollmentsTasksResult = response.map((item, index) => ({ ...item, index: index + 1 }));
 		dataTableStore.updateSource(enrollmentsTasksResult);
 	}
+
+	dataTableStore.subscribe((model) => dataTableHandler(model));
 	$: if (browser) searchEnrollments({ assetType: assetType, scheduledDate: scheduledDate });
 </script>
 

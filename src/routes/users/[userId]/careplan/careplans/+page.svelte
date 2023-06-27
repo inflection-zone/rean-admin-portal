@@ -48,7 +48,7 @@
 	});
 
 	async function searchApiClient(model) {
-		let url = `/api/server/careplan/careplan/search?`;
+		let url = `/api/server/careplan/careplans/search?`;
 		if (sortOrder) url += `sortOrder=${sortOrder}`;
 		else url += `sortOrder=ascending`;
 		if (sortBy) url += `&sortBy=${sortBy}`;
@@ -79,6 +79,7 @@
 			sessionId: data.sessionId,
 			careplanId
 		});
+		window.location.href = careplansRoute;
 	};
 
 	async function Delete(model) {

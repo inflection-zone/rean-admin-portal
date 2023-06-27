@@ -14,7 +14,6 @@ export const load: PageServerLoad  = async (event: RequestEvent) => {
     const assets = response.Data.Items;
     const assetTypes = await getAssetsType(sessionId);
     return {
-      response,
       assets,
       assetTypes,
       sessionId

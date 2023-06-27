@@ -18,13 +18,11 @@
 	///////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 	export let data: PageServerData;
-	const response = data.response;
 	const userId = $page.params.userId;
 	const assetType = data.assetTypes;
-	const val = response.Data.Items;
-	let types = assetType.Data.AssetTypes;
-	let item = val;
 	let asset = data.assets;
+	let types = assetType.Data.AssetTypes;
+	// let asset = data.assets;
 	let selectedAssetType = 'Action plan';
 
 	asset = asset.map((item, index) => ({ ...item, index: index + 1 }));
@@ -71,25 +69,27 @@
   };
 	async function searchAssets(model) {
 		const selectedAssetRoute = assetRouteMap[selectedAssetType];
-		let url = `/api/server/assets/search?assetType=${selectedAssetRoute}`;
-		if (sortOrder) url += `sortOrder=${sortOrder}`;
-		else url += `sortOrder=ascending`;
+		let url = `/api/server/careplan/assets/search?assetType=${selectedAssetRoute}`;
+		console.log("url",url)
+		if (sortOrder) url += `&sortOrder=${sortOrder}`;
+		else url += `&sortOrder=ascending`;
 		if (sortBy) url += `&sortBy=${sortBy}`;
 		if (itemsPerPage) url += `&itemsPerPage=${itemsPerPage}`;
 		if (pageIndex) url += `&pageIndex=${pageIndex}`;
 		if (assetCode) url += `&assetCode=${assetCode}`;
 		if (assetName) url += `&assetName=${assetName}`;
-
+		console.log("url",url)
 		const res = await fetch(url, {
 			method: 'GET',
 			headers: { 'content-type': 'application/json' }
 		});
 		const response = await res.json();
+		console.log("response",response)
 		asset = response.map((item, index) => ({ ...item, index: index + 1 }));
-
 		dataTableStore.updateSource(asset);
 	}
-	$: if (browser) searchAssets({ assetName: assetName, assetCode: assetCode });
+	
+	$: if (browser) searchAssets({selectedAssetType:selectedAssetType, assetName: assetName, assetCode: assetCode });
 
 	dataTableStore.subscribe((model) => dataTableHandler(model));
 
@@ -118,6 +118,7 @@
 			selectAsset: selectedAssetRoute,
 			assetId: assetId
 		});
+		window.location.href = assetRoute();
 	};
 
 	async function Delete(model) {

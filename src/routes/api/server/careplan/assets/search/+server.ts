@@ -6,9 +6,10 @@ import type { RequestEvent } from "@sveltejs/kit";
 export const GET = async (event: RequestEvent) => {
 	// const request = event.request;
     const sessionId = event.locals.sessionUser.sessionId;
-    
+    console.log("sessionId", sessionId);
     const searchParams: URLSearchParams = event.url.searchParams;
     const assetTypeRoute = searchParams.get('assetType');
+    console.log("assetTypeRoute", assetTypeRoute);
     const assetName = searchParams.get('assetName') ?? undefined;
     const assetCode = searchParams.get('assetCode') ?? undefined;
     // const carePlan = searchParams.get('carePlan') ?? undefined;
