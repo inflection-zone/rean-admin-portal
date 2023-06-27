@@ -12,16 +12,14 @@
   const careplanId = $page.params.careplanId;
   const activityId = $page.params.activityId;
 
-  const editRoute = `/users/${userId}/careplans/${careplanId}/scheduling/${activityId}/edit`;
-  const viewRoute = `/users/${userId}/careplans/${careplanId}/scheduling/${activityId}/view`;
-  const schedulingRoute = `/users/${userId}/careplans/${careplanId}/scheduling`;
+  const editRoute = `/users/${userId}/careplan/careplans/${careplanId}/scheduling/${activityId}/edit`;
+  const viewRoute = `/users/${userId}/careplan/careplans/${careplanId}/scheduling/${activityId}/view`;
+  const schedulingRoute = `/users/${userId}/careplan/careplans/${careplanId}/scheduling`;
 
   let items = [];
   let assetTypes = data.assetTypes.Data.AssetTypes;
   let timeSlots = data.timeslot;
-  let id = data.careplanActivitiy.id;
-  let assetType = data.careplanActivitiy.AssetType;
-  let value = null;
+ 
 
   let name = data.careplanActivitiy.Asset.Name;
   let assetId = data.careplanActivitiy.AssetId;

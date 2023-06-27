@@ -20,12 +20,12 @@ export const load: PageServerLoad = async (event: RequestEvent) => {
     const searchParams = {
       careplanId:careplanId 
     }
-    const careplanActivityId = event.params.activityId;
     const careplan = await getCareplanById(sessionId, careplanId);
     const response = await searchCarePlanActivities(sessionId, searchParams);
     const careplanActivities = response.Data.Items;
     const assetTypes = await getAssetsType(sessionId);
     const timeslot = await getTimeSlots();
+
     const _careplanCategories = await searchCareplanCategories(sessionId);
     const careplanCategories = _careplanCategories.Data.Items;
     return {
@@ -37,7 +37,7 @@ export const load: PageServerLoad = async (event: RequestEvent) => {
       sessionId
     };
   } catch (error) {
-    console.error(`Error retriving care plan: ${error.message}`);
+    console.error(`Error retriving data: ${error.message}`);
   }
 };
 
@@ -77,8 +77,8 @@ export const actions = {
 		const response = await createCarePlanActivity(
 			sessionId,
       result.assetType,
-      carePlanId,
       result.assetId,
+			carePlanId,
 			result.day,
 			result.timeSlot,
 		);

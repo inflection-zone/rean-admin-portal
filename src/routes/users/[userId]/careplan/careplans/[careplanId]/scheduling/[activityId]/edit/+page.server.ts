@@ -72,14 +72,14 @@ export const actions = {
 			sessionId,
 			careplanActivityId,
 			result.assetType,
-			carePlanId,
 			result.assetId,
+			carePlanId,
 			result.day,
 			result.timeSlot
 		);
 		const id = response.Data.id;
 		console.log(response);
-		if (response.Status === 'failure' || response.HttpCode !== 201) {
+		if (response.Status === 'failure' || response.HttpCode !== 200) {
 			throw redirect(
 				303,
 				`/users/${userId}/careplan/careplans/${carePlanId}/scheduling`,

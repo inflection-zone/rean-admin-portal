@@ -17,7 +17,7 @@ export const load: PageServerLoad = async (event: RequestEvent) => {
 		if (response.Status === 'failure' || response.HttpCode !== 200) {
 			throw redirect(
 				303,
-				`/users/${userId}/careplans/${careplanId}/scheduling/${careplanActivityId}/view`,
+				`/users/${userId}/careplan/careplans/${careplanId}/scheduling/${careplanActivityId}/view`,
 				errorMessage(response.Message),
 				event
 			);

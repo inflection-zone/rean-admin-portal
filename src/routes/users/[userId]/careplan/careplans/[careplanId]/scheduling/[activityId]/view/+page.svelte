@@ -12,8 +12,8 @@
 	const activityId = $page.params.activityId;
 	const careplansRoute = `/users/${userId}/careplan/careplans`;
 	const editRoute = `/users/${userId}/careplan/careplans/${careplanId}/scheduling/${activityId}/edit`;
-	const viewRoute = `/users/${userId}/careplans/${careplanId}/scheduling/${activityId}/view`;
-	const schedulingRoute = `/users/${userId}/careplans/${careplanId}/scheduling`;
+	const viewRoute = `/users/${userId}/careplan/careplans/${careplanId}/scheduling/${activityId}/view`;
+	const schedulingRoute = `/users/${userId}/careplan/careplans/${careplanId}/scheduling`;
 
 	let id = data.careplanActivity.id;
 	let assetType = data.careplanActivity.AssetType;
