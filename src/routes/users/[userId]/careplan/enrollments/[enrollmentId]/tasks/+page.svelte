@@ -71,6 +71,7 @@
 		if (assetType) url += `&assetType=${assetType}`;
 		if (scheduledDate) url += `&scheduledDate=${scheduledDate}`;
 
+		console.log("url",url);
 		const res = await fetch(url, {
 			method: 'GET',
 			headers: { 'content-type': 'application/json' }
@@ -116,11 +117,12 @@
 					<td role="gridcell" aria-colindex={4} tabindex="0"
 						>{date.format(new Date(row.CreatedAt), 'DD-MMM-YYYY')}</td
 					>
+					<td>
 					{#if row.ProgressStatus === 'Completed'}
-						<Icon icon="material-symbols:right-outline" class="text-lg" />
+						<Icon icon="material-symbols:done-rounded" class="text-xl text-success-500"/>
 					{:else}
-						<Icon icon="material-symbols:close-rounded" class="text-lg" />
-					{/if}
+						<Icon icon="material-symbols:close-rounded" class="text-xl text-error-500"/>
+					{/if}</td>
 				</tr>
 			{/each}
 		</tbody>

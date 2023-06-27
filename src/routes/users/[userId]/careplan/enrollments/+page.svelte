@@ -15,7 +15,7 @@
 	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 	const userId = $page.params.userId;
-	const enrollmentsRoute = () => `/users/${userId}/enrollments`;
+	const enrollmentsRoute = () => `/users/${userId}/careplan/enrollments`;
 
 	export let data: PageServerData;
 	let enrollment = data.enrollments;
