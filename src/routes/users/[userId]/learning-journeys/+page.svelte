@@ -87,9 +87,10 @@
 <BreadCrumbs crumbs={breadCrumbs} />
 
 <div class="flex flex-wrap gap-2 mt-1">
-	<input type="text" placeholder="Search by Name" bind:value={name} class="input w-auto grow" />
+	<input type="text" name="name" placeholder="Search by Name" bind:value={name} class="input w-auto grow" />
 	<input
 		type="text"
+		name="preferenceWeight"
 		placeholder="Search by Preference Weight"
 		bind:value={preferenceWeight}
 		class="input w-auto grow"

@@ -89,11 +89,12 @@
 <div class="flex flex-wrap gap-2 mt-1">
 	<input
 		type="text"
+		name="topicName"
 		placeholder="Search by Topic"
 		bind:value={topicName}
 		class="input w-auto grow"
 	/>
-	<input type="text" placeholder="Search by Tags" bind:value={tags} class="input w-auto grow" />
+	<input type="text" name="tags" placeholder="Search by Tags" bind:value={tags} class="input w-auto grow" />
 	<a href={createRoute} class="btn variant-filled-secondary">Add New</a>
 </div>
 
