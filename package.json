@@ -58,6 +58,7 @@
 		"dotenv": "^16.0.3",
 		"svelte-chartjs": "^3.1.2",
 		"svelte-dnd-action": "^0.9.22",
+		"svelte-select": "^5.6.1",
 		"svelte-tree-view-component": "^1.0.3",
 		"sveltekit-flash-message": "^0.9.8",
 		"zod": "^3.21.4",
