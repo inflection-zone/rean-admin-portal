@@ -48,7 +48,7 @@
 											<td>{activity.TimeSlot}</td>
 											<td>
 												<a
-													href={`/users/${userId}/careplans/${careplanId}/scheduling/${activity.id}/edit`}
+													href={`/users/${userId}/careplan/careplans/${careplanId}/scheduling/${activity.id}/edit`}
 													class="btn p-2 -my-1 hover:variant-soft-primary"
 												>
 													<Icon icon="material-symbols:edit-outline" class="lg" />

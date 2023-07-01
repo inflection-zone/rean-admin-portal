@@ -15,7 +15,7 @@
 >
 	<div class="p-4 font-bold variant-soft-secondary">Careplan Schedule</div>
 	<div class="flex items-center  my-3 justify-center ">
-		<RadioGroup active="variant-filled-primary" hover="hover:variant-soft-primary">
+		<RadioGroup background = 'bg-surface-100' active="variant-filled-secondary" hover="hover:variant-soft-secondary">
 			<RadioItem on:click = {() => (showWeeks = true)} bind:group={value} name="justify" value={0}>
 				Week View
 			</RadioItem>
