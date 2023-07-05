@@ -52,12 +52,17 @@
 					title: 'Careplan',
 					children: [
 						{
-							icon: 'material-symbols:health-and-safety-outline-rounded',
+							icon: 'material-symbols:dashboard-outline-rounded',
+							title: 'Dashboard',
+							link: `/users/${userId}/careplan`
+						},
+						{
+							icon: 'carbon:task-asset-view',
 							title: 'Assets',
 							link: `/users/${userId}/careplan/assets`
 						},
 						{
-							icon: 'material-symbols:home-health-outline-rounded',
+							icon: 'iconoir:healthcare',
 							title: 'Careplans',
 							link: `/users/${userId}/careplan/careplans`
 						},
