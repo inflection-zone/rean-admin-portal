@@ -5,10 +5,7 @@
 	import UpdateScoringCondition from '$lib/components/modal/update.scoring.condition.modal.svelte';
 	import { scoringApplicableCondition, showScoringConditionModal } from '$lib/store/general.store';
 	import { Helper } from '$lib/utils/helper';
-	import { LocalStorageUtils } from '$lib/utils/local.storage.utils';
-	import { show } from '$lib/utils/message.utils';
 	import Icon from '@iconify/svelte';
-	import { onMount } from 'svelte';
 	import type { PageServerData } from './$types';
 
 	////////////////////////////////////////////////////////////////////////////////////////////
@@ -39,11 +36,6 @@
 	scoringApplicableCondition.set(data.templateScoringCondition.ScoringApplicable);
 
 	console.log('assessmentNode', data.assessmentNode);
-
-	onMount(() => {
-		show(data);
-		LocalStorageUtils.removeItem('prevUrl');
-	});
 
 	const userId = $page.params.userId;
 	const templateId = $page.params.templateId;
@@ -98,7 +90,7 @@
 	const onUpdateScoringCondition = async (resolutionScore: number) => {
 		const scoringId = data.assessmentNode.ScoringCondition.id;
 		console.log(scoringId);
-		await updateApiKey({
+		await updateScoringCondition({
 			sessionId,
 			templateId,
 			nodeId,
@@ -107,7 +99,7 @@
 		});
 	};
 
-	async function updateApiKey(model) {
+	async function updateScoringCondition(model) {
 		const response = await fetch(`/api/server/assessment-nodes/update-scoring-condition`, {
 			method: 'POST',
 			body: JSON.stringify(model),

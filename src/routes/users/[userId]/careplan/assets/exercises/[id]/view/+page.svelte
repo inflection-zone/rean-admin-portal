@@ -1,8 +1,5 @@
 <script lang="ts">
 	import type { PageServerData } from './$types';
-	import { onMount } from 'svelte';
-	import { show } from '$lib/utils/message.utils';
-	import { LocalStorageUtils } from '$lib/utils/local.storage.utils';
 	import { page } from '$app/stores';
 	import BreadCrumbs from '$lib/components/breadcrumbs/breadcrums.svelte';
 	import Icon from '@iconify/svelte';
@@ -25,11 +22,6 @@
 	let recommendeddurationmin = data.exercise.RecommendedDurationMin;
 	let tags = data.exercise.Tags;
 	let version = data.exercise.Version;
-
-	onMount(() => {
-		show(data);
-		LocalStorageUtils.removeItem('prevUrl');
-	});
 
 	const breadCrumbs = [
 		{
