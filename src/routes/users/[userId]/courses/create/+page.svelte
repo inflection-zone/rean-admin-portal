@@ -92,6 +92,7 @@
 					<input
 						type="text"
 						name="name"
+						required
 						placeholder="Enter name here..."
 						class="input w-full {form?.errors?.name ? 'border-error-300 text-error-500' : ''}"
 					/>

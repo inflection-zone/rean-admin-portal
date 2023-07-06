@@ -89,12 +89,14 @@
 <div class="flex flex-wrap gap-2 mt-1">
 	<input
 		type="text"
+		name="drugName"
 		placeholder="Search by Drug Name"
 		bind:value={drugName}
 		class="input w-auto grow"
 	/>
 	<input
 		type="text"
+		name="genericName"
 		placeholder="Search by Generic Name"
 		bind:value={genericName}
 		class="input w-auto grow"

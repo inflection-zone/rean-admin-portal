@@ -146,12 +146,14 @@
 	</select>
 	<input
 		type="text"
+		name="code"
 		placeholder="Search by code"
 		bind:value={assetCode}
 		class="input w-auto grow"
 	/>
 	<input
 		type="text"
+		name="name"
 		placeholder="Search by name"
 		bind:value={assetName}
 		class="input w-auto grow"

@@ -154,6 +154,7 @@
 				<td class="flex flex-col gap-2 w-full">
 					<input
 						class="input"
+						name="courses"
 						bind:value={$dataTableStore.search}
 						type="search"
 						placeholder="Search course here..."

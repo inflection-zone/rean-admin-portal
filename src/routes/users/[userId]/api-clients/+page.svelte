@@ -93,12 +93,14 @@
 <div class="flex flex-wrap gap-2 mt-1">
 	<input
 		type="text"
+		name="clientName"
 		placeholder="Search by Name"
 		bind:value={clientName}
 		class="input w-auto grow"
 	/>
 	<input
 		type="text"
+		name="email"
 		placeholder="Search by Email"
 		bind:value={contactEmail}
 		class="input w-auto grow"

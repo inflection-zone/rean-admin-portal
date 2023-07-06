@@ -107,6 +107,7 @@
 				<td>
 					<input
 						type="text"
+						name="additionalResources"
 						placeholder="Enter word power additonal resources here..."
 						class="input "
 						bind:value={additionalResources}
