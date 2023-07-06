@@ -1,17 +1,31 @@
 <script lang="ts">
 	import '@skeletonlabs/skeleton/styles/all.css';
-	import Toasts from '$lib/components/toast/toasts.svelte';
 	import { beforeNavigate } from '$app/navigation';
-	import { LocalStorageUtils } from '$lib/utils/local.storage.utils';
 	import { page } from '$app/stores';
+	import { initFlash } from 'sveltekit-flash-message/client';
+	import toast, { Toaster } from 'svelte-french-toast';
 	import '../theme.css';
 	import '../app.postcss';
 
-	beforeNavigate(() => {
-		console.log(`previous URL: ` + $page.url.href);
-		LocalStorageUtils.setItem('prevUrl', $page.url.href);
+	//////////////////////////////////////////////////////////////////////////////
+	
+	const flash = initFlash(page);
+	beforeNavigate((nav) => {
+		if ($flash && nav.from?.url.toString() != nav.to?.url.toString()) {
+			$flash = undefined;
+		}
+	});
+
+	flash.subscribe(($flash) => {
+		if (!$flash) return;
+
+		toast($flash.message, {
+			icon: $flash.type == 'success' ? '✅' : '❌'
+		});
+
+		flash.set(undefined);
 	});
 </script>
 
-<Toasts />
+<Toaster />
 <slot />
