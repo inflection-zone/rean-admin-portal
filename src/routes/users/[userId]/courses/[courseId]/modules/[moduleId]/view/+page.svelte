@@ -2,10 +2,7 @@
 	import { page } from '$app/stores';
 	import BreadCrumbs from '$lib/components/breadcrumbs/breadcrums.svelte';
 	import Image from '$lib/components/image.svelte';
-	import { LocalStorageUtils } from '$lib/utils/local.storage.utils';
-	import { show } from '$lib/utils/message.utils';
 	import Icon from '@iconify/svelte';
-	import { onMount } from 'svelte';
 	import type { PageServerData } from './$types';
 
 	//////////////////////////////////////////////////////////////////////////////////////
@@ -17,11 +14,6 @@
 	let imageUrl = data.module.ImageUrl;
 	let contents = data.module.Contents;
 	let sequence = data.module.Sequence;
-
-	onMount(() => {
-		show(data);
-		LocalStorageUtils.removeItem('prevUrl');
-	});
 
 	const userId = $page.params.userId;
 	const courseId = $page.params.courseId;

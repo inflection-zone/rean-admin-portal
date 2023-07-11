@@ -2,8 +2,6 @@
 	import { page } from '$app/stores';
 	import BreadCrumbs from '$lib/components/breadcrumbs/breadcrums.svelte';
 	import { scoringApplicableCondition } from '$lib/store/general.store';
-	import { LocalStorageUtils } from '$lib/utils/local.storage.utils';
-	import { show } from '$lib/utils/message.utils';
 	import Icon from '@iconify/svelte';
 	import { onMount } from 'svelte';
 	import { TreeBranch, TreeLeaf, TreeView } from 'svelte-tree-view-component';
@@ -28,8 +26,6 @@
 	console.log('assessmentNodes', assessmentNodes);
 
 	onMount(() => {
-		show(data);
-		LocalStorageUtils.removeItem('prevUrl');
 		scoringApplicableCondition.set(data.assessmentTemplate.ScoringApplicable);
 		console.log('scoringApplicableCondition', $scoringApplicableCondition);
 	});

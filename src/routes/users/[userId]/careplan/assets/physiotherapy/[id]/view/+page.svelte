@@ -1,8 +1,5 @@
 <script lang="ts">
 	import type { PageServerData } from './$types';
-	import { show } from '$lib/utils/message.utils';
-	import { onMount } from 'svelte';
-	import { LocalStorageUtils } from '$lib/utils/local.storage.utils';
 	import { page } from '$app/stores';
 	import BreadCrumbs from '$lib/components/breadcrumbs/breadcrums.svelte';
 	import Icon from '@iconify/svelte';
@@ -23,11 +20,6 @@
 	let recommendedDurationMin = data.physiotherapy.RecommendedDurationMin;
 	let tags = data.physiotherapy.Tags;
 	let version = data.physiotherapy.Version;
-
-	onMount(() => {
-		show(data);
-		LocalStorageUtils.removeItem('prevUrl');
-	});
 
 	const breadCrumbs = [
 		{

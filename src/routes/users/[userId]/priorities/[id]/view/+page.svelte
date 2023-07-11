@@ -7,16 +7,13 @@
 	import { onMount } from 'svelte';
 	import type { PageServerData } from './$types';
 
+	///////////////////////////////////////////////////////////////////////////////
+
 	export let data: PageServerData;
 	let id = data.priority.id;
 	let type = data.priority.Type;
 	let tags_ = data.priority.Tags;
 	let tags = tags_.join(', ');
-
-	onMount(() => {
-		show(data);
-		LocalStorageUtils.removeItem('prevUrl');
-	});
 
 	const userId = $page.params.userId;
 	const editRoute = `/users/${userId}/priorities/${id}/edit`;

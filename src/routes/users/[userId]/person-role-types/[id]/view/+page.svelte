@@ -1,21 +1,15 @@
 <script lang="ts">
 	import { page } from '$app/stores';
 	import BreadCrumbs from '$lib/components/breadcrumbs/breadcrums.svelte';
-	import { LocalStorageUtils } from '$lib/utils/local.storage.utils';
-	import { show } from '$lib/utils/message.utils';
 	import Icon from '@iconify/svelte';
-	import { onMount } from 'svelte';
 	import type { PageServerData } from './$types';
+
+	//////////////////////////////////////////////////////////////////////
 
 	export let data: PageServerData;
 	let id = data.personRoleType.id;
 	let roleName = data.personRoleType.RoleName;
 	let description = data.personRoleType.Description;
-
-	onMount(() => {
-		show(data);
-		LocalStorageUtils.removeItem('prevUrl');
-	});
 
 	const userId = $page.params.userId;
 	const editRoute = `/users/${userId}/person-role-types/${id}/edit`;

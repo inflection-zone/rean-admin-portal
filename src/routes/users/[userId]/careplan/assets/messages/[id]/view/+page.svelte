@@ -1,8 +1,5 @@
 <script lang="ts">
   import type { PageServerData } from './$types';
-  import { LocalStorageUtils } from '$lib/utils/local.storage.utils';
-  import { show } from '$lib/utils/message.utils';
-  import { onMount } from 'svelte';
   import { page } from '$app/stores';
   import BreadCrumbs from '$lib/components/breadcrumbs/breadcrums.svelte';
 	import Icon from '@iconify/svelte';
@@ -24,11 +21,6 @@
   let tags = data.msg.Tags;
   let pathUrl = data.msg.Url;
   let version = data.msg.Version;
-
-  onMount(() => {
-    show(data);
-    LocalStorageUtils.removeItem('prevUrl');
-  });
 
   const breadCrumbs = [
     {

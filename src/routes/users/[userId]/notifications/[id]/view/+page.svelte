@@ -2,12 +2,11 @@
 	import { page } from '$app/stores';
 	import BreadCrumbs from '$lib/components/breadcrumbs/breadcrums.svelte';
 	import Image from '$lib/components/image.svelte';
-	import { LocalStorageUtils } from '$lib/utils/local.storage.utils';
-	import { show } from '$lib/utils/message.utils';
 	import Icon from '@iconify/svelte';
 	import date from 'date-and-time';
-	import { onMount } from 'svelte';
 	import type { PageServerData } from './$types';
+
+	///////////////////////////////////////////////////////////////////////////////////
 
 	export let data: PageServerData;
 	let title = data.notification.Title;
@@ -16,11 +15,6 @@
 	let sentOn = new Date(data.notification.SentOn);
 	let broadcastToAll = data.notification.BroadcastToAll;
 	let imageUrl = data.notification.ImageUrl;
-
-	onMount(() => {
-		show(data);
-		LocalStorageUtils.removeItem('prevUrl');
-	});
 
 	const userId = $page.params.userId;
 	const notificationId = $page.params.id;

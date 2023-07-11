@@ -8,6 +8,8 @@
 	import { onMount } from 'svelte';
 	import type { PageServerData } from './$types';
 
+	///////////////////////////////////////////////////////////////////////
+
 	export let data: PageServerData;
 	let symptom = data.symptom.Symptom;
 	let description = data.symptom.Description;
@@ -15,11 +17,6 @@
 	let tags = tags_.join(', ');
 	let language = data.symptom.Language;
 	let imageUrl = data.symptom.ImageUrl ?? undefined;
-
-	onMount(() => {
-		show(data);
-		LocalStorageUtils.removeItem('prevUrl');
-	});
 
 	const userId = $page.params.userId;
 	const symptomId = $page.params.id;
