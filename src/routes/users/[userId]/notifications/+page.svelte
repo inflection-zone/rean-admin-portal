@@ -90,8 +90,8 @@
 <BreadCrumbs crumbs={breadCrumbs} />
 
 <div class="flex flex-wrap gap-2 mt-1">
-	<input type="text" placeholder="Search by title" bind:value={title} class="input w-auto grow" />
-	<input type="text" placeholder="Search by type" bind:value={type} class="input w-auto grow" />
+	<input type="text" name="title" placeholder="Search by title" bind:value={title} class="input w-auto grow" />
+	<input type="text" name="type" placeholder="Search by type" bind:value={type} class="input w-auto grow" />
 	<a href={createRoute} class="btn variant-filled-secondary">Add New</a>
 </div>
 

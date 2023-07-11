@@ -105,7 +105,7 @@
 			<tr class="!border-b !border-b-secondary-100 dark:!border-b-surface-700">
 				<td>Type</td>
 				<td>
-					<select class="select w-full" placeholder="select type here...">
+					<select class="select w-full" name="type" placeholder="select type here...">
 						<option selected>General</option>
 						<option>Auto</option>
 						<option>Dark mode</option>

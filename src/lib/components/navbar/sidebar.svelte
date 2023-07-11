@@ -28,27 +28,6 @@
 			icon: 'material-symbols:medical-services-outline-rounded',
 			childNav: [
 				{
-					icon: 'material-symbols:home-health-outline-rounded',
-					title: 'Careplan',
-					children: [
-						{
-							icon: 'material-symbols:health-and-safety-outline-rounded',
-							title: 'Assets',
-							link: ``
-						},
-						{
-							icon: 'material-symbols:home-health-outline-rounded',
-							title: 'Careplan',
-							link: ``
-						},
-						{
-							icon: 'material-symbols:check-box-outline-rounded',
-							title: 'Enrollment',
-							link: ``
-						}
-					]
-				},
-				{
 					icon: 'material-symbols:assignment-outline-rounded',
 					title: 'Assessments',
 					link: `/users/${userId}/assessment-templates`
@@ -67,7 +46,33 @@
 					icon: 'material-symbols:pill-outline',
 					title: 'Drug',
 					link: `/users/${userId}/drugs`
-				}
+				},
+				{
+					icon: 'material-symbols:home-health-outline-rounded',
+					title: 'Careplan',
+					children: [
+						{
+							icon: 'material-symbols:dashboard-outline-rounded',
+							title: 'Dashboard',
+							link: `/users/${userId}/careplan`
+						},
+						{
+							icon: 'carbon:task-asset-view',
+							title: 'Assets',
+							link: `/users/${userId}/careplan/assets`
+						},
+						{
+							icon: 'iconoir:healthcare',
+							title: 'Careplans',
+							link: `/users/${userId}/careplan/careplans`
+						},
+						{
+							icon: 'material-symbols:check-box-outline-rounded',
+							title: 'Enrollments',
+							link: `/users/${userId}/careplan/enrollments`
+						}
+					]
+				},
 			]
 		},
 		{
@@ -161,6 +166,8 @@
 				<svelte:fragment slot="summary">{navParent.title}</svelte:fragment>
 				<svelte:fragment slot="content">
 					<nav class="list-nav space-y-1">
+
+
 						{#each navParent.childNav as navItem}
 							<!-- if no navItem.link but navItem.child -->
 							{#if navItem.link}

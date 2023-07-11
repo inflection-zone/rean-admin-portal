@@ -4,13 +4,13 @@
 	import Modalform from '$lib/components/modal/form.modal.svelte';
 	import RenewApiKeyModal from '$lib/components/modal/renew.api.key.modal.svelte';
 	import { showGetApiKeyModal, showRenewApiKeyModal } from '$lib/store/general.store';
-	import { LocalStorageUtils } from '$lib/utils/local.storage.utils';
-	import { show, showMessage } from '$lib/utils/message.utils';
 	import Icon from '@iconify/svelte';
 	import { clipboard } from '@skeletonlabs/skeleton';
-	import { onMount } from 'svelte';
 	import type { PageServerData } from './$types';
+	import toast from 'svelte-french-toast';
 
+	////////////////////////////////////////////////////////////////////////////////////
+	
 	export let data: PageServerData;
 	let id = data.apiClient.id;
 	let clientName = data.apiClient.ClientName;
@@ -18,12 +18,6 @@
 	let phone = data.apiClient.Phone;
 	let email = data.apiClient.Email;
 	let apiKey = undefined;
-
-	onMount(() => {
-		show(data);
-		LocalStorageUtils.removeItem('prevUrl');
-	});
-
 	let copied = false;
 	function onClickHandler(): void {
 		copied = true;
@@ -64,9 +58,9 @@
 		apiKey = apiKeyDetails.ApiKey;
 		console.log(response);
 		if (response.status !== 200) {
-			showMessage(`Provide valid credentials !`, 'error', true, 3500);
+			toast.error(`Provide valid credentials !`);
 		}
-		showMessage(`Client api keys renewed successfully!`, 'success', true, 3500);
+		toast.success(`Client api keys renewed successfully!`);
 	}
 
 	const onFormSubmit = async (userName, password) => {
@@ -85,9 +79,10 @@
 		const apiKeyDetails = JSON.parse(resp);
 		apiKey = apiKeyDetails.ApiKey;
 		console.log(response);
-		if (response.status !== 200) showMessage(`Provide valid credentials !`, 'error', true, 3500);
-
-		showMessage(`Client api keys retrieved successfully!`, 'success', true, 3500);
+		if (response.status !== 200) {
+			toast.error(`Provide valid credentials !`);
+		}
+		toast.success(`Client api keys retrieved successfully!`);
 	}
 </script>
 
