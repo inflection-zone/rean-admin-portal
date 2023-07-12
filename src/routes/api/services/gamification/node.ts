@@ -48,6 +48,7 @@ export const searchNodes = async (sessionId: string, searchParams?: any) => {
 					params.push(param);
 				}
 			}
+			searchString += params.join('&');
 		}
 	}
 	const url = AWARDS_BACKEND_API_URL + `/engine/nodes/search${searchString}`;

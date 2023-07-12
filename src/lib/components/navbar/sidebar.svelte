@@ -147,6 +147,32 @@
 					link: `/users/${userId}/notices`
 				}
 			]
+		},
+		{
+			title: 'Gamifiation',
+			icon: 'material-symbols:home-max-dots-outline',
+			childNav: [
+				{
+					icon: 'material-symbols:frame-person-outline-rounded',
+					title: 'Event Types',
+					link: `/users/${userId}/gamification/event-types`
+				},
+				{
+					icon: 'material-symbols:corporate-fare-rounded',
+					title: 'Badge Category',
+					link: `/users/${userId}/gamification/badge-category`
+				},
+				{
+					icon: 'material-symbols:notifications-outline-rounded',
+					title: 'Badges',
+					link: `/users/${userId}/gamification/badge`
+				},
+				{
+					icon: 'material-symbols:newsmode-outline-rounded',
+					title: 'Schemas',
+					link: `/users/${userId}/gamification/schema`
+				},
+			]
 		}
 	];
 

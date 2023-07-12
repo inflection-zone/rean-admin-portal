@@ -40,6 +40,7 @@ export const searchSchemas = async (sessionId: string, searchParams?: any) => {
 					params.push(param);
 				}
 			}
+			searchString += params.join('&');
 		}
 	}
 	const url = AWARDS_BACKEND_API_URL + `/engine/schema/search${searchString}`;

@@ -30,9 +30,12 @@ export const searchEventTypes = async (sessionId: string, searchParams?: any) =>
 					params.push(param);
 				}
 			}
+			searchString += params.join('&');
 		}
 	}
+	console.log("searchString",searchString)
 	const url = AWARDS_BACKEND_API_URL + `/engine/event-types/search${searchString}`;
+	console.log("url", url);
 	return await get_(sessionId, url, true);
 };
 
