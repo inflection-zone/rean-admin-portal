@@ -1,17 +1,16 @@
-import { AWARDS_BACKEND_API_URL } from '$env/static/private';
+import { AWARDS_BACKEND_API_URL, CLIENT_ID } from '$env/static/private';
 import { delete_, get_, post_, put_ } from '../common';
 
 ////////////////////////////////////////////////////////////////
 
 export const createBadgeCategory = async (
 	sessionId: string,
-	clientId: string,
 	name: string,
 	description: string,
 	imageUrl: string
 ) => {
 	const body = {
-		ClientId: clientId,
+		ClientId: CLIENT_ID,
 		Name: name,
 		Description: description ? description : null,
 		ImageUrl: imageUrl
@@ -25,7 +24,7 @@ export const getBadgeCategoryById = async (sessionId: string, badgeCategoryId: s
 	return await get_(sessionId, url, true);
 };
 
-export const searchBadgeCategorys = async (sessionId: string, searchParams?: any) => {
+export const searchBadgeCategories = async (sessionId: string, searchParams?: any) => {
 	let searchString = '';
 	if (searchParams) {
 		const keys = Object.keys(searchParams);
@@ -48,13 +47,14 @@ export const searchBadgeCategorys = async (sessionId: string, searchParams?: any
 export const updateBadgeCategory = async (
 	sessionId: string,
 	badgeCategoryId: string,
-	clientId: string,
+	// clientId: string,
 	name: string,
 	description: string,
 	imageUrl: string
 ) => {
 	const body = {
-		ClientId: clientId,
+		// ClientId: clientId,
+		ClientId:CLIENT_ID,   //This is the temporary solution
 		Name: name,
 		Description: description ? description : null,
 		ImageUrl: imageUrl

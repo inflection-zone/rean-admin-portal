@@ -159,8 +159,8 @@
 				},
 				{
 					icon: 'material-symbols:corporate-fare-rounded',
-					title: 'Badge Category',
-					link: `/users/${userId}/gamification/badge-category`
+					title: 'Badge Categories',
+					link: `/users/${userId}/gamification/badge-categories`
 				},
 				{
 					icon: 'material-symbols:notifications-outline-rounded',
