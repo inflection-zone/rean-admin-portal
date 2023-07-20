@@ -1,19 +1,19 @@
-import { AWARDS_BACKEND_API_URL } from '$env/static/private';
+import { AWARDS_BACKEND_API_URL, CLIENT_ID } from '$env/static/private';
 import { delete_, get_, post_, put_ } from '../common';
 
 ////////////////////////////////////////////////////////////////
 
 export const createBadge = async (
 	sessionId: string,
-	clientId: string,
-  categoryId: string,
+	// clientId: string,
+	categoryId: string,
 	name: string,
 	description: string,
 	imageUrl: string
 ) => {
 	const body = {
-		ClientId: clientId,
-    CategoryId: categoryId,
+		ClientId: CLIENT_ID,
+		CategoryId: categoryId,
 		Name: name,
 		Description: description ? description : null,
 		ImageUrl: imageUrl
@@ -44,21 +44,22 @@ export const searchBadges = async (sessionId: string, searchParams?: any) => {
 		}
 	}
 	const url = AWARDS_BACKEND_API_URL + `/badges/search${searchString}`;
+	console.log('url', url);
 	return await get_(sessionId, url, true);
 };
 
 export const updateBadge = async (
 	sessionId: string,
 	badgeId: string,
-	clientId: string,
-  categoryId: string,
+	// clientId: string,
+	categoryId: string,
 	name: string,
 	description: string,
 	imageUrl: string
 ) => {
 	const body = {
-		ClientId: clientId,
-    CategoryId: categoryId,
+		ClientId: CLIENT_ID,
+		CategoryId: categoryId,
 		Name: name,
 		Description: description ? description : null,
 		ImageUrl: imageUrl

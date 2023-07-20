@@ -165,12 +165,12 @@
 				{
 					icon: 'material-symbols:notifications-outline-rounded',
 					title: 'Badges',
-					link: `/users/${userId}/gamification/badge`
+					link: `/users/${userId}/gamification/badges`
 				},
 				{
 					icon: 'material-symbols:newsmode-outline-rounded',
 					title: 'Schemas',
-					link: `/users/${userId}/gamification/schema`
+					link: `/users/${userId}/gamification/schemas`
 				},
 			]
 		}

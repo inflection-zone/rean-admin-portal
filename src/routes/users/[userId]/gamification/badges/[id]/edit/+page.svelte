@@ -10,33 +10,37 @@
 
 	export let form;
 	export let data: PageServerData;
-	let id = data.badgeCategory.id;
-	let name = data.badgeCategory.Name;
-	let description = data.badgeCategory.Description;
-	let imageUrl = data.badgeCategory.ImageUrl;
+	let badgeCategories = data.badgeCategories;
+	console.log('badgeCategories', badgeCategories);
+	let categoray = data.badge.Category.Name;
+	let name = data.badge.Name;
+	let description = data.badge.Description;
+	let imageUrl = data.badge.ImageUrl;
 	$: avatarSource = imageUrl;
 
 	//Original data
+	let _categoray = categoray;
 	let _name = name;
 	let _description = description;
 	let _imageUrl = imageUrl;
 
 	function handleReset() {
+		categoray = _categoray;
 		name = _name;
 		description = _description;
 		imageUrl = _imageUrl;
 	}
 
 	const userId = $page.params.userId;
-	const badgeCategoryId = $page.params.id;
-	const editRoute = `/users/${userId}/gamification/badge-categories/${badgeCategoryId}/edit`;
-	const viewRoute = `/users/${userId}/gamification/badge-categories/${badgeCategoryId}/view`;
-	const badgeCategoryRoute = `/users/${userId}/gamification/badge-categories`;
+	const badgeId = $page.params.id;
+	const editRoute = `/users/${userId}/gamification/badges/${badgeId}/edit`;
+	const viewRoute = `/users/${userId}/gamification/badges/${badgeId}/view`;
+	const badgeRoute = `/users/${userId}/gamification/badges`;
 
 	const breadCrumbs = [
 		{
-			name: 'Badge-Categories',
-			path: badgeCategoryRoute
+			name: 'Badges',
+			path: badgeRoute
 		},
 		{
 			name: 'Edit',
@@ -88,13 +92,13 @@
 
 <form
 	method="post"
-	action="?/updateBadgeCategoryAction"
+	action="?/updateBadgeAction"
 	class="table-container my-2 border border-secondary-100 dark:!border-surface-700"
 >
 	<table class="table">
 		<thead class="!variant-soft-secondary">
 			<tr>
-				<th>Edit Badge Category</th>
+				<th>Edit Badge </th>
 				<th class="text-end">
 					<a href={viewRoute} class="btn p-2 -my-2 variant-soft-secondary">
 						<Icon icon="material-symbols:close-rounded" class="text-lg" />
@@ -103,6 +107,21 @@
 			</tr>
 		</thead>
 		<tbody class="!bg-white dark:!bg-inherit">
+			<tr class="!border-b !border-b-secondary-100 dark:!border-b-surface-700">
+				<td>Badge Category*</td>
+				<td>
+					<select
+						name="categoryId"
+						required
+						class="select w-full"
+						placeholder="Select category here..."
+					>
+						{#each badgeCategories as badgeCategory}
+							<option value={badgeCategory.id}>{badgeCategory.Name}</option>
+						{/each}
+					</select>
+				</td>
+			</tr>
 			<tr class="!border-b !border-b-secondary-100 dark:!border-b-surface-700">
 				<td>Name *</td>
 				<td>
