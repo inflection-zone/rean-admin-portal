@@ -1,22 +1,22 @@
-import { AWARDS_BACKEND_API_URL } from '$env/static/private';
+import { AWARDS_BACKEND_API_URL, CLIENT_ID } from '$env/static/private';
 import { delete_, get_, post_, put_ } from '../common';
 
 ////////////////////////////////////////////////////////////////
 
 export const createSchema = async (
 	sessionId: string,
-	clientId: string,
+	// clientId: string,
 	name: string,
 	description: string,
   type: string,
 	eventTypeIds: string[]
 ) => {
 	const body = {
-		ClientId: clientId,
+		ClientId: CLIENT_ID,
 		Name: name,
 		Description: description ? description : null,
     Type:type,
-    EventTypeIds:eventTypeIds
+    EventTypeIds:eventTypeIds? eventTypeIds : []
 	};
 	const url = AWARDS_BACKEND_API_URL + '/engine/schema';
 	return await post_(sessionId, url, body, true);
@@ -50,14 +50,14 @@ export const searchSchemas = async (sessionId: string, searchParams?: any) => {
 export const updateSchema = async (
 	sessionId: string,
 	schemaId: string,
-	clientId: string,
+	// clientId: string,
 	name: string,
 	description: string,
 	type: string,
 	eventTypeIds: string[]
 ) => {
 	const body = {
-		ClientId: clientId,
+		ClientId: CLIENT_ID,
 		Name: name,
 		Description: description ? description : null,
 		Type:type,

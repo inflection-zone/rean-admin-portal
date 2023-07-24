@@ -196,10 +196,10 @@
 						placeholder="Search course here..."
 					/>
 					<div class="mb-4 mt-1">
-						<CoursesDragDrop courses={$dataTableStore.filtered} />
+						<CoursesDragDrop title='Available courses' items={$dataTableStore.filtered} />
 					</div>
 					<div>
-						<SelectedCoursesDragDrop selectedCourses={courses} />
+						<SelectedCoursesDragDrop title='Add courses to learning journey' sletectItems={courses} />
 					</div>
 					<input
 						name="courseIds"

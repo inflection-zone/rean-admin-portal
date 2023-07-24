@@ -161,8 +161,8 @@
 					/>
 
 					<div class="flex flex-col gap-2">
-						<CoursesDragDrop courses={$dataTableStore.filtered} />
-						<SelectedCoursesDragDrop {selectedCourses} />
+						<CoursesDragDrop title = 'Available Courses' items={$dataTableStore.filtered} />
+						<SelectedCoursesDragDrop title = 'Add courses to learning journey' sletectItems={selectedCourses} />
 					</div>
 
 					<input
