@@ -6,6 +6,7 @@
 	import HorizontalBarChart from './charts/horizontal-bar-chart.svelte';
 	import HealthPillarChart from './charts/health-pillar-chart.svelte';
 	import BiometricsChart from './charts/biometrics-chart.svelte';
+	import { tick } from 'svelte';
 
 	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -89,8 +90,18 @@
 	let genderDistributionLabels = genderWiseUsers.map((x) => x.Status);
 	let genderDistributionData = genderWiseUsers.map((x) => x.Ratio);
 
-	let ageDistributionLabels = ageWiseUsers.map((x) => x.Status);
-	let ageDistributionData = ageWiseUsers.map((x) => x.Ratio);
+	let ageDistributionLabels;
+	let ageDistributionData;
+
+	$: if (ageWiseUsers) {
+		ageDistributionLabels = false;
+		ageDistributionData = false;
+
+		tick().then(() => {
+			ageDistributionLabels = ageWiseUsers.map((x) => x.Status);
+			ageDistributionData = ageWiseUsers.map((x) => x.Ratio);
+		});
+	}
 
 	let maritalStatusDistributionLabels = maritalStatusWiseUsers.map((x) => x.status);
 	let maritalStatusDistributionData = maritalStatusWiseUsers.map((x) => x.count);
@@ -312,13 +323,16 @@
 				</div>
 			</div>
 			<div class="w-64 h-64">
-				<PieChart labels={ageDistributionLabels} data={ageDistributionData} title="Age" />
-				<!-- <select name="year" id="" class="select w-2/3" on:change={handlelSelectYearForAge}>
-				<option>All the years</option>
-				<option value="2021">2021</option>
-				<option value="2022">2022</option>
-				<option value="2023">2023</option>
-			</select> -->
+				{#if ageDistributionData}
+					<PieChart labels={ageDistributionLabels} data={ageDistributionData} title="Age" />
+				{/if}
+
+				<select name="year" id="" class="select w-2/3" on:change={handlelSelectYearForAge}>
+					<option>All the years</option>
+					<option value="2021">2021</option>
+					<option value="2022">2022</option>
+					<option value="2023">2023</option>
+				</select>
 			</div>
 		</div>
 
