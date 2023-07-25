@@ -1,31 +1,32 @@
 <script lang="ts">
-	import { page } from '$app/stores';
-	import BreadCrumbs from '$lib/components/breadcrumbs/breadcrums.svelte';
+  import { page } from '$app/stores';
+  import BreadCrumbs from '$lib/components/breadcrumbs/breadcrums.svelte';
 	import Icon from '@iconify/svelte';
-	import InputChip from '$lib/components/Input-Chip.svelte';
+	import { InputChip } from '@skeletonlabs/skeleton';
 
-	//////////////////////////////////////////////////////////////////////
+  //////////////////////////////////////////////////////////////////////
 
-	export let form;
-	const userId = $page.params.userId;
-	const assetRoute = `/users/${userId}/careplan/assets`;
-	const createRoute = `/users/${userId}/careplan/assets/messages/create`;
-	const messageRoute = `/users/${userId}/careplan/assets/messages/create`;
+  export let form;
+  const userId = $page.params.userId;
+  const assetRoute = `/users/${userId}/careplan/assets`;
+  const createRoute = `/users/${userId}/careplan/assets/messages/create`;
+  const messageRoute = `/users/${userId}/careplan/assets/messages/create`;
 
-	const breadCrumbs = [
-		{
-			name: 'Assets',
-			path: assetRoute
-		},
-		{
-			name: 'Message',
-			path: messageRoute
-		},
-		{
-			name: 'Create',
-			path: createRoute
-		}
-	];
+  const breadCrumbs = [
+    {
+      name: 'Assets',
+      path: assetRoute
+    },
+    {
+      name: 'Message',
+      path: messageRoute
+    },
+    {
+      name: 'Create',
+      path: createRoute
+    }
+  ];
+  
 </script>
 
 <BreadCrumbs crumbs={breadCrumbs} />
@@ -71,12 +72,12 @@
 			<tr class="!border-b !border-b-secondary-100 dark:!border-b-surface-700">
 				<td>Message Type</td>
 				<td>
-					<select class="select" name="messageType">
-						<option disabled selected>Select message type</option>
-						<option>Educational</option>
-						<option>Status</option>
-						<option>Unknown</option>
-					</select>
+          <select class="select" name="messageType">
+            <option disabled selected>Select message type</option>
+            <option>Educational</option>
+            <option>Status</option>
+            <option>Unknown</option>
+          </select>
 				</td>
 			</tr>
 			<tr class="!border-b !border-b-secondary-100 dark:!border-b-surface-700">
@@ -85,7 +86,7 @@
 					<InputChip chips="variant-filled-error rounded-2xl" name="tags" />
 				</td>
 			</tr>
-			<tr class="!border-b !border-b-secondary-100 dark:!border-b-surface-700">
+      <tr class="!border-b !border-b-secondary-100 dark:!border-b-surface-700">
 				<td class="align-top">Url</td>
 				<td>
 					<input type="url" placeholder="Enter url here..." class="input" name="pathUrl" />

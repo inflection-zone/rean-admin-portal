@@ -1,31 +1,32 @@
 <script lang="ts">
-	import { page } from '$app/stores';
-	import BreadCrumbs from '$lib/components/breadcrumbs/breadcrums.svelte';
-	import InputChip from '$lib/components/Input-Chip.svelte';
+  import { page } from '$app/stores';
+  import BreadCrumbs from '$lib/components/breadcrumbs/breadcrums.svelte';
+	import { InputChip } from '@skeletonlabs/skeleton';
 	import Icon from '@iconify/svelte';
 
-	export let form;
-	const userId = $page.params.userId;
-	const assetRoute = `/users/${userId}/careplan/assets`;
-	const createRoute = `/users/${userId}/careplan/assets/biometric/create`;
-	const biometricRoute = `/users/${userId}/careplan/assets/biometrics/create`;
-	const breadCrumbs = [
-		{
-			name: 'Assets',
-			path: assetRoute
-		},
-		{
-			name: 'Biometric',
-			path: biometricRoute
-		},
-		{
-			name: 'Create',
-			path: createRoute
-		}
-	];
+  export let form;
+  const userId = $page.params.userId;
+  const assetRoute = `/users/${userId}/careplan/assets`;
+  const createRoute =`/users/${userId}/careplan/assets/biometric/create`;
+  const biometricRoute = `/users/${userId}/careplan/assets/biometrics/create`;
+  const breadCrumbs= [
+    {
+      name: 'Assets',
+      path: assetRoute
+    },
+    {
+      name: 'Biometric',
+      path: biometricRoute
+    },
+    {
+      name: 'Create',
+      path: createRoute
+    },   
+  ]
+
 </script>
 
-<BreadCrumbs crumbs={breadCrumbs} />
+<BreadCrumbs  crumbs={breadCrumbs}  />
 
 <form
 	method="post"
@@ -69,28 +70,28 @@
 				<td>Biometrics Type</td>
 				<td>
 					<select name="biometricsType" class="select">
-						<option disabled selected>Select biometrics type</option>
-						<option>Blood pressure</option>
-						<option>Blood glucose</option>
-						<option>Blood oxygen saturation</option>
-						<option>Body height</option>
-						<option>Body weight</option>
-						<option>Body temperature</option>
-						<option>Pulse</option>
-						<option>Other</option>
-					</select>
+            <option disabled selected>Select biometrics type</option>
+            <option>Blood pressure</option>
+            <option>Blood glucose</option>
+            <option>Blood oxygen saturation</option>
+            <option>Body height</option>
+            <option>Body weight</option>
+            <option>Body temperature</option>
+            <option>Pulse</option>
+            <option>Other</option>
+          </select>
 				</td>
 			</tr>
-			<tr class="!border-b !border-b-secondary-100 dark:!border-b-surface-700">
+      <tr class="!border-b !border-b-secondary-100 dark:!border-b-surface-700">
 				<td>Measurement Unit</td>
 				<td>
 					<input
-						type="text"
-						required
-						name="measurementUnit"
-						placeholder="Enter measurement unit here..."
-						class="input input-bordered input-primary w-full "
-					/>
+            type="text"
+            required
+            name="measurementUnit"
+            placeholder="Enter measurement unit here..."
+            class="input input-bordered input-primary w-full "
+          />
 				</td>
 			</tr>
 			<tr class="!border-b !border-b-secondary-100 dark:!border-b-surface-700">

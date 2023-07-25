@@ -1,60 +1,60 @@
 <script lang="ts">
-	import type { PageServerData } from './$types';
-	import { page } from '$app/stores';
-	import BreadCrumbs from '$lib/components/breadcrumbs/breadcrums.svelte';
-	import InputChip from '$lib/components/Input-Chip.svelte';
+  import type { PageServerData } from './$types';
+  import { page } from '$app/stores';
+  import BreadCrumbs from '$lib/components/breadcrumbs/breadcrums.svelte';
+	import { InputChip } from '@skeletonlabs/skeleton';
 	import Icon from '@iconify/svelte';
+ 
+  ////////////////////////////////////////////////////////////////////////////////////////////
 
-	////////////////////////////////////////////////////////////////////////////////////////////
+  const userId = $page.params.userId;
+  const messageId = $page.params.id;
+  const assetRoute = `/users/${userId}/careplan/assets`;
+  const editRoute = `/users/${userId}/careplan/assets/messages/${messageId}/edit`;
+  const viewRoute = `/users/${userId}/careplan/assets/messages/${messageId}/view`;
+  const messageRoute = `/users/${userId}/careplan/assets/messages/create`;
 
-	const userId = $page.params.userId;
-	const messageId = $page.params.id;
-	const assetRoute = `/users/${userId}/careplan/assets`;
-	const editRoute = `/users/${userId}/careplan/assets/messages/${messageId}/edit`;
-	const viewRoute = `/users/${userId}/careplan/assets/messages/${messageId}/view`;
-	const messageRoute = `/users/${userId}/careplan/assets/messages/create`;
+  export let form;
+  export let data: PageServerData;
+  let assetCode = data.msg.AssetCode;
+  let name = data.msg.Name;
+  let description = data.msg.Description;
+  let messageType = data.msg.MessageType;
+  let tags = data.msg.Tags;
+  let pathUrl = data.msg.Url;
+  let version = data.msg.Version;
 
-	export let form;
-	export let data: PageServerData;
-	let assetCode = data.msg.AssetCode;
-	let name = data.msg.Name;
-	let description = data.msg.Description;
-	let messageType = data.msg.MessageType;
-	let tags = data.msg.Tags;
-	let pathUrl = data.msg.Url;
-	let version = data.msg.Version;
+  //Original data
+  let _name = name;
+  let _description = description;
+  let _messagetype = messageType;
+  let _tags = JSON.stringify(tags);
+  let _pathUrl = pathUrl;
+  let _version = version;
 
-	//Original data
-	let _name = name;
-	let _description = description;
-	let _messagetype = messageType;
-	let _tags = JSON.stringify(tags);
-	let _pathUrl = pathUrl;
-	let _version = version;
+  function handleReset() {
+    name = _name;
+    description = _description;
+    messageType = _messagetype;
+    tags = JSON.parse(_tags);
+    pathUrl = _pathUrl;
+    version = _version;
+  }
 
-	function handleReset() {
-		name = _name;
-		description = _description;
-		messageType = _messagetype;
-		tags = JSON.parse(_tags);
-		pathUrl = _pathUrl;
-		version = _version;
-	}
-
-	const breadCrumbs = [
-		{
-			name: 'Assets',
-			path: assetRoute
-		},
-		{
-			name: 'Message',
-			path: messageRoute
-		},
-		{
-			name: 'Edit',
-			path: editRoute
-		}
-	];
+  const breadCrumbs = [
+    {
+      name: 'Assets',
+      path: assetRoute
+    },
+    {
+      name: 'Message',
+      path: messageRoute
+    },
+    {
+      name: 'Edit',
+      path: editRoute
+    }
+  ];
 </script>
 
 <BreadCrumbs crumbs={breadCrumbs} />
@@ -111,10 +111,10 @@
 				<td>Message Type</td>
 				<td>
 					<select class="select" bind:value={messageType} name="messageType">
-						<option>Educational</option>
-						<option>Status</option>
-						<option>Unknown</option>
-					</select>
+            <option>Educational</option>
+            <option>Status</option>
+            <option>Unknown</option>
+          </select>
 				</td>
 			</tr>
 			<tr class="!border-b !border-b-secondary-100 dark:!border-b-surface-700">
@@ -123,16 +123,16 @@
 					<InputChip chips="variant-filled-error rounded-2xl" name="tags" bind:value={tags} />
 				</td>
 			</tr>
-			<tr class="!border-b !border-b-secondary-100 dark:!border-b-surface-700">
+      <tr class="!border-b !border-b-secondary-100 dark:!border-b-surface-700">
 				<td>Url</td>
 				<td>
 					<input
-						type="url"
-						placeholder="Enter url here..."
-						name="pathUrl"
-						bind:value={pathUrl}
-						class="input"
-					/>
+            type="url"
+            placeholder="Enter url here..."
+            name="pathUrl"
+            bind:value={pathUrl}
+            class="input"
+          />
 				</td>
 			</tr>
 			<tr class="!border-b !border-b-secondary-100 dark:!border-b-surface-700">

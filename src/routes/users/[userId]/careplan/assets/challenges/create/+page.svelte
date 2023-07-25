@@ -1,31 +1,32 @@
 <script lang="ts">
-	import { page } from '$app/stores';
-	import BreadCrumbs from '$lib/components/breadcrumbs/breadcrums.svelte';
-	import InputChip from '$lib/components/Input-Chip.svelte';
+  import { page } from '$app/stores';
+  import BreadCrumbs from '$lib/components/breadcrumbs/breadcrums.svelte';
+	import { InputChip } from '@skeletonlabs/skeleton';
 	import Icon from '@iconify/svelte';
 
-	////////////////////////////////////////////////////////////////////////////////////
+  ////////////////////////////////////////////////////////////////////////////////////
 
-	export let form;
-	const userId = $page.params.userId;
-	const assetRoute = `/users/${userId}/careplan/assets`;
-	const createRoute = `/users/${userId}/careplan/assets/challenges/create`;
-	const challengeRoute = `/users/${userId}/careplan/assets/challenges/create`;
+  export let form;
+  const userId = $page.params.userId;
+  const assetRoute = `/users/${userId}/careplan/assets`;
+  const createRoute = `/users/${userId}/careplan/assets/challenges/create`;
+  const challengeRoute = `/users/${userId}/careplan/assets/challenges/create`;
 
-	const breadCrumbs = [
-		{
-			name: 'Assets',
-			path: assetRoute
-		},
-		{
-			name: 'Challenge',
-			path: challengeRoute
-		},
-		{
-			name: 'Create',
-			path: createRoute
-		}
-	];
+  const breadCrumbs = [
+    {
+      name: 'Assets',
+      path: assetRoute
+    },
+    {
+      name: 'Challenge',
+      path: challengeRoute
+    },
+    {
+      name: 'Create',
+      path: createRoute
+    }
+  ];
+
 </script>
 
 <BreadCrumbs crumbs={breadCrumbs} />
@@ -50,34 +51,43 @@
 			<tr class="!border-b !border-b-secondary-100 dark:!border-b-surface-700">
 				<td>Name *</td>
 				<td>
-					<input
-						type="text"
-						required
-						placeholder="Enter name here..."
-						class="input {form?.errors?.name ? 'border-error-300 text-error-500' : ''}"
-						name="name"
-					/>
-					{#if form?.errors?.name}
-						<p class="text-error-500 text-xs">{form?.errors?.name[0]}</p>
-					{/if}
+          <input
+          type="text"
+          required
+          placeholder="Enter name here..."
+          class="input {form?.errors?.name ? 'border-error-300 text-error-500' : ''}"
+          name="name"
+        />
+        {#if form?.errors?.name}
+          <p class="text-error-500 text-xs">{form?.errors?.name[0]}</p>
+        {/if}
 				</td>
 			</tr>
 			<tr class="!border-b !border-b-secondary-100 dark:!border-b-surface-700">
 				<td class="align-top">Description</td>
 				<td>
-					<textarea class="textarea" name="description" placeholder="Enter description here..." />
+          <textarea
+          class="textarea"
+          name="description"
+          placeholder="Enter description here..."
+        />
 				</td>
 			</tr>
 			<tr class="!border-b !border-b-secondary-100 dark:!border-b-surface-700">
 				<td class="align-top">Tags</td>
 				<td>
-					<InputChip chips="variant-filled-error rounded-2xl" name="tags" />
+          <InputChip chips="variant-filled-error rounded-2xl" name="tags" />
 				</td>
 			</tr>
 			<tr class="!border-b !border-b-secondary-100 dark:!border-b-surface-700">
 				<td>Version</td>
 				<td>
-					<input type="text" name="version" class="input" placeholder="V 1.0" />
+				  <input
+           type="text"
+            name="version"
+            class="input"
+            placeholder="V 1.0"
+          />
 				</td>
 			</tr>
 		</tbody>
