@@ -1,26 +1,28 @@
 <script lang="ts">
 	import { slide } from 'svelte/transition';
 
-	export let chipList: string[] = [];
-
+	export let value: string[] = [];
 	export let name: string = '';
 	export let id: string = '';
+	export let chips = '';
 
 	let input: string;
 
 	const addChip = () => {
 		if (input.trim() === '') return;
 
-		chipList = [...chipList, input.trim()];
+		value = [...value, input.trim()];
 		input = '';
 	};
 
 	const removeChip = (chip: string) => {
-		chipList = chipList.filter((item) => item !== chip);
+		value = value.filter((item) => item !== chip);
 	};
 </script>
 
-<div class="flex flex-col gap-2 bg-base-200 p-2 rounded">
+<div
+	class="flex flex-col gap-2 bg-surface-100 border border-surface-200 p-2 rounded-md hover:bg-surface-50 transition"
+>
 	<input
 		class="input input-sm"
 		type="text"
@@ -36,10 +38,10 @@
 		{id}
 	/>
 
-	{#if chipList.length}
+	{#if value.length}
 		<div class="flex flex-wrap gap-2" transition:slide>
-			{#each chipList as chip, i}
-				<button class="btn btn-sm btn-neutral hover:btn-error" on:click={() => removeChip(chip)}>
+			{#each value as chip, i}
+				<button class="btn btn-sm {chips}" on:click|preventDefault={() => removeChip(chip)}>
 					{chip} x
 				</button>
 			{/each}
