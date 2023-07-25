@@ -1,56 +1,56 @@
 <script lang="ts">
-  import type { PageServerData } from './$types';
-  import { page } from '$app/stores';
-  import BreadCrumbs from '$lib/components/breadcrumbs/breadcrums.svelte';
-	import { InputChip } from '@skeletonlabs/skeleton';
+	import type { PageServerData } from './$types';
+	import { page } from '$app/stores';
+	import BreadCrumbs from '$lib/components/breadcrumbs/breadcrums.svelte';
+	import InputChip from '$lib/components/Input-Chip.svelte';
 	import Icon from '@iconify/svelte';
 
-  //////////////////////////////////////////////////////////////////////////////////////////////////
+	//////////////////////////////////////////////////////////////////////////////////////////////////
 
-  const userId = $page.params.userId;
-  const audioId = $page.params.id;
-  const assetRoute = `/users/${userId}/careplan/assets`;
-  const editRoute = `/users/${userId}/careplan/assets/audio/${audioId}/edit`;
-  const viewRoute = `/users/${userId}/careplan/assets/audio/${audioId}/view`;
-  const audioRoute = `/users/${userId}/careplan/assets/audio/create`;
+	const userId = $page.params.userId;
+	const audioId = $page.params.id;
+	const assetRoute = `/users/${userId}/careplan/assets`;
+	const editRoute = `/users/${userId}/careplan/assets/audio/${audioId}/edit`;
+	const viewRoute = `/users/${userId}/careplan/assets/audio/${audioId}/view`;
+	const audioRoute = `/users/${userId}/careplan/assets/audio/create`;
 
-  export let form;
-  export let data: PageServerData;
-  let assetCode = data.audio.AssetCode;
-  let name = data.audio.Name;
-  let transcript = data.audio.Transcript;
-  let pathUrl = data.audio.Url;
-  let tags = data.audio.Tags;
-  let version = data.audio.Version;
+	export let form;
+	export let data: PageServerData;
+	let assetCode = data.audio.AssetCode;
+	let name = data.audio.Name;
+	let transcript = data.audio.Transcript;
+	let pathUrl = data.audio.Url;
+	let tags = data.audio.Tags;
+	let version = data.audio.Version;
 
-  //Original data
-  let _name = name;
-  let _transcript = transcript;
-  let _tags = JSON.stringify(tags);
-  let _pathUrl = pathUrl;
-  let _version = version;
+	//Original data
+	let _name = name;
+	let _transcript = transcript;
+	let _tags = JSON.stringify(tags);
+	let _pathUrl = pathUrl;
+	let _version = version;
 
-  function handleReset() {
-    name = _name;
-    transcript = _transcript;
-    pathUrl = _pathUrl;
-    tags = JSON.parse(_tags);
-    version = _version;
-  }
-  const breadCrumbs = [
-    {
-      name: 'Assets',
-      path: assetRoute
-    },
-    {
-      name: 'Audio',
-      path: audioRoute
-    },
-    {
-      name: 'Edit',
-      path: editRoute
-    }
-  ];
+	function handleReset() {
+		name = _name;
+		transcript = _transcript;
+		pathUrl = _pathUrl;
+		tags = JSON.parse(_tags);
+		version = _version;
+	}
+	const breadCrumbs = [
+		{
+			name: 'Assets',
+			path: assetRoute
+		},
+		{
+			name: 'Audio',
+			path: audioRoute
+		},
+		{
+			name: 'Edit',
+			path: editRoute
+		}
+	];
 </script>
 
 <BreadCrumbs crumbs={breadCrumbs} />
@@ -87,9 +87,9 @@
 						name="name"
 						bind:value={name}
 					/>
-          {#if form?.errors?.name}
-          <p class="text-error-500 text-xs">{form?.errors?.name[0]}</p>
-        {/if}
+					{#if form?.errors?.name}
+						<p class="text-error-500 text-xs">{form?.errors?.name[0]}</p>
+					{/if}
 				</td>
 			</tr>
 			<tr class="!border-b !border-b-secondary-100 dark:!border-b-surface-700">
@@ -141,4 +141,3 @@
 		<button type="submit" class="btn variant-filled-secondary">Submit</button>
 	</div>
 </form>
-

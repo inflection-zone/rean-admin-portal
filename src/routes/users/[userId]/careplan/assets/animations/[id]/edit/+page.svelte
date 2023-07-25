@@ -4,7 +4,7 @@
 	import { page } from '$app/stores';
 	import BreadCrumbs from '$lib/components/breadcrumbs/breadcrums.svelte';
 	import Icon from '@iconify/svelte';
-	import { InputChip } from '@skeletonlabs/skeleton';
+	import InputChip from '$lib/components/Input-Chip.svelte';
 
 	/////////////////////////////////////////////////////////////////////
 
@@ -15,7 +15,7 @@
 	const viewRoute = `/users/${userId}/careplan/assets/animations/${animationId}/view`;
 	const animationRoute = `/users/${userId}/careplan/assets/animations/create`;
 
-  export let form;
+	export let form;
 	export let data: PageServerData;
 	let initialData = {};
 	let assetCode = data.animation.AssetCode;
@@ -95,9 +95,9 @@
 						name="name"
 						bind:value={name}
 					/>
-          {#if form?.errors?.name}
-          <p class="text-error-500 text-xs">{form?.errors?.name[0]}</p>
-        {/if}
+					{#if form?.errors?.name}
+						<p class="text-error-500 text-xs">{form?.errors?.name[0]}</p>
+					{/if}
 				</td>
 			</tr>
 			<tr class="!border-b !border-b-secondary-100 dark:!border-b-surface-700">

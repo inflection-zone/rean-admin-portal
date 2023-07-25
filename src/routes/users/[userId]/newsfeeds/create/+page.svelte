@@ -3,7 +3,7 @@
 	import BreadCrumbs from '$lib/components/breadcrumbs/breadcrums.svelte';
 	import { showMessage } from '$lib/utils/message.utils';
 	import Icon from '@iconify/svelte';
-	import { InputChip } from '@skeletonlabs/skeleton';
+	import InputChip from '$lib/components/Input-Chip.svelte';
 
 	export let form;
 	const userId = $page.params.userId;
@@ -208,11 +208,7 @@
 			<tr class="!border-b !border-b-secondary-100 dark:!border-b-surface-700">
 				<td class="align-top">Tags</td>
 				<td>
-					<InputChip
-						chips="variant-filled-error rounded-2xl"
-						name="tags"
-						palceholder="Enter tags here"
-					/>
+					<InputChip chips="variant-filled-error rounded-2xl" name="tags" />
 				</td>
 			</tr>
 		</tbody>

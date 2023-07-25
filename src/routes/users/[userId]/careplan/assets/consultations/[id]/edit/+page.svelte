@@ -1,57 +1,57 @@
 <script lang="ts">
-  import type { PageServerData } from './$types';
-  import { page } from '$app/stores';
-  import BreadCrumbs from '$lib/components/breadcrumbs/breadcrums.svelte';
-	import { InputChip } from '@skeletonlabs/skeleton';
+	import type { PageServerData } from './$types';
+	import { page } from '$app/stores';
+	import BreadCrumbs from '$lib/components/breadcrumbs/breadcrums.svelte';
+	import InputChip from '$lib/components/Input-Chip.svelte';
 	import Icon from '@iconify/svelte';
 
-  ///////////////////////////////////////////////////////////////////////////////
+	///////////////////////////////////////////////////////////////////////////////
 
-  const userId = $page.params.userId;
-  const consultationId = $page.params.id;
-  const assetRoute = `/users/${userId}/careplan/assets`;
-  const editRoute = `/users/${userId}/careplan/assets/consultations/${consultationId}/edit`;
-  const viewRoute = `/users/${userId}/careplan/assets/consultations/${consultationId}/view`;
-  const consultationRoute = `/users/${userId}/careplan/assets/consultations/create`;
+	const userId = $page.params.userId;
+	const consultationId = $page.params.id;
+	const assetRoute = `/users/${userId}/careplan/assets`;
+	const editRoute = `/users/${userId}/careplan/assets/consultations/${consultationId}/edit`;
+	const viewRoute = `/users/${userId}/careplan/assets/consultations/${consultationId}/view`;
+	const consultationRoute = `/users/${userId}/careplan/assets/consultations/create`;
 
-  export let form;
-  export let data: PageServerData;
-  let assetCode = data.consultation.AssetCode;
-  let name = data.consultation.Name;
-  let description = data.consultation.Description;
-  let consultationtype = data.consultation.ConsultationType;
-  let tags = data.consultation.Tags;
-  let version = data.consultation.Version;
+	export let form;
+	export let data: PageServerData;
+	let assetCode = data.consultation.AssetCode;
+	let name = data.consultation.Name;
+	let description = data.consultation.Description;
+	let consultationtype = data.consultation.ConsultationType;
+	let tags = data.consultation.Tags;
+	let version = data.consultation.Version;
 
-  //Original data
-  let _name = name;
-  let _description = description;
-  let _tags = JSON.stringify(tags);
-  let _consultationtype = consultationtype;
-  let _version = version;
+	//Original data
+	let _name = name;
+	let _description = description;
+	let _tags = JSON.stringify(tags);
+	let _consultationtype = consultationtype;
+	let _version = version;
 
-  function handleReset() {
-    name = _name;
-    description = _description;
-    consultationtype = _consultationtype;
-    tags = JSON.parse(_tags);
-    version = _version;
-  }
+	function handleReset() {
+		name = _name;
+		description = _description;
+		consultationtype = _consultationtype;
+		tags = JSON.parse(_tags);
+		version = _version;
+	}
 
-  const breadCrumbs = [
-    {
-      name: 'Assets',
-      path: assetRoute
-    },
-    {
-      name: 'Consultation',
-      path: consultationRoute
-    },
-    {
-      name: 'Edit',
-      path: editRoute
-    }
-  ];
+	const breadCrumbs = [
+		{
+			name: 'Assets',
+			path: assetRoute
+		},
+		{
+			name: 'Consultation',
+			path: consultationRoute
+		},
+		{
+			name: 'Edit',
+			path: editRoute
+		}
+	];
 </script>
 
 <BreadCrumbs crumbs={breadCrumbs} />
@@ -107,16 +107,16 @@
 			<tr class="!border-b !border-b-secondary-100 dark:!border-b-surface-700">
 				<td class="align-top">Consultation Type</td>
 				<td>
-          <select
-          name="consultationType"
-          bind:value={consultationtype}
-          class="select select-primary w-full "
-        >
-          <option disabled selected>Select consultation type</option>
-          <option>Tele-consultation</option>
-          <option>Visit-consultation</option>
-          <option>Other</option>
-        </select>
+					<select
+						name="consultationType"
+						bind:value={consultationtype}
+						class="select select-primary w-full "
+					>
+						<option disabled selected>Select consultation type</option>
+						<option>Tele-consultation</option>
+						<option>Visit-consultation</option>
+						<option>Other</option>
+					</select>
 				</td>
 			</tr>
 			<tr class="!border-b !border-b-secondary-100 dark:!border-b-surface-700">

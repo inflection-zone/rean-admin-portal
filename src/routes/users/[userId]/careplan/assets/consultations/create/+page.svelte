@@ -1,31 +1,31 @@
 <script lang="ts">
-  import { page } from '$app/stores';
-  import BreadCrumbs from '$lib/components/breadcrumbs/breadcrums.svelte';
+	import { page } from '$app/stores';
+	import BreadCrumbs from '$lib/components/breadcrumbs/breadcrums.svelte';
 	import Icon from '@iconify/svelte';
-	import { InputChip } from '@skeletonlabs/skeleton';
+	import InputChip from '$lib/components/Input-Chip.svelte';
 
-  /////////////////////////////////////////////////////////////////////
-  
-  export let form;
-  const userId = $page.params.userId;
-  const assetRoute = `/users/${userId}/assets`;
-  const createRoute = `/users/${userId}/assets/consultations/create`;
-  const consultationRoute = `/users/${userId}/assets/consultations/create`;
+	/////////////////////////////////////////////////////////////////////
 
-  const breadCrumbs = [
-    {
-      name: 'Assets',
-      path: assetRoute
-    },
-    {
-      name: 'Consultation',
-      path: consultationRoute
-    },
-    {
-      name: 'Create',
-      path: createRoute
-    }
-  ];
+	export let form;
+	const userId = $page.params.userId;
+	const assetRoute = `/users/${userId}/assets`;
+	const createRoute = `/users/${userId}/assets/consultations/create`;
+	const consultationRoute = `/users/${userId}/assets/consultations/create`;
+
+	const breadCrumbs = [
+		{
+			name: 'Assets',
+			path: assetRoute
+		},
+		{
+			name: 'Consultation',
+			path: consultationRoute
+		},
+		{
+			name: 'Create',
+			path: createRoute
+		}
+	];
 </script>
 
 <BreadCrumbs crumbs={breadCrumbs} />
@@ -72,11 +72,11 @@
 				<td>Consultation Type</td>
 				<td>
 					<select name="consultationType" class="select select-primary w-full ">
-            <option disabled selected>Select consultation type</option>
-            <option>Tele-consultation</option>
-            <option>Visit-consultation</option>
-            <option>Other</option>
-          </select>
+						<option disabled selected>Select consultation type</option>
+						<option>Tele-consultation</option>
+						<option>Visit-consultation</option>
+						<option>Other</option>
+					</select>
 				</td>
 			</tr>
 			<tr class="!border-b !border-b-secondary-100 dark:!border-b-surface-700">
@@ -97,4 +97,3 @@
 		<button type="submit" class="btn variant-filled-secondary">Submit</button>
 	</div>
 </form>
-

@@ -3,18 +3,18 @@
 	import { page } from '$app/stores';
 	import BreadCrumbs from '$lib/components/breadcrumbs/breadcrums.svelte';
 	import Icon from '@iconify/svelte';
-	import { InputChip } from '@skeletonlabs/skeleton';
+	import InputChip from '$lib/components/Input-Chip.svelte';
 
 	//////////////////////////////////////////////////////////////////////////
 
-  const userId = $page.params.userId;
+	const userId = $page.params.userId;
 	const webLinkId = $page.params.id;
 	const assetRoute = `/users/${userId}/careplan/assets`;
 	const editRoute = `/users/${userId}/careplan/assets/web-links/${webLinkId}/edit`;
 	const viewRoute = `/users/${userId}/careplan/assets/web-links/${webLinkId}/view`;
 	const weblinkRoute = `/users/${userId}/careplan/assets/web-links/create`;
 
-  export let form;
+	export let form;
 	export let data: PageServerData;
 	let assetCode = data.webLink.AssetCode;
 	let name = data.webLink.Name;

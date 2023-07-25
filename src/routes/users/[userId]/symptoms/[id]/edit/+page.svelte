@@ -4,7 +4,7 @@
 	import Image from '$lib/components/image.svelte';
 	import { showMessage } from '$lib/utils/message.utils';
 	import Icon from '@iconify/svelte';
-	import { InputChip } from '@skeletonlabs/skeleton';
+	import InputChip from '$lib/components/Input-Chip.svelte';
 	import type { PageServerData } from './$types';
 
 	let fileinput;

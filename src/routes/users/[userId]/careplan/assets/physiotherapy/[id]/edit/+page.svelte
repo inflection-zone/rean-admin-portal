@@ -2,7 +2,7 @@
 	import type { PageServerData } from './$types';
 	import { page } from '$app/stores';
 	import BreadCrumbs from '$lib/components/breadcrumbs/breadcrums.svelte';
-	import { InputChip } from '@skeletonlabs/skeleton';
+	import InputChip from '$lib/components/Input-Chip.svelte';
 	import Icon from '@iconify/svelte';
 
 	/////////////////////////////////////////////////////////////////////////////
@@ -52,7 +52,6 @@
 			path: editRoute
 		}
 	];
-  
 </script>
 
 <BreadCrumbs crumbs={breadCrumbs} />

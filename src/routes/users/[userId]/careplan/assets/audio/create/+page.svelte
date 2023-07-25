@@ -1,35 +1,34 @@
 <script>
-  import { page } from '$app/stores';
-  import BreadCrumbs from '$lib/components/breadcrumbs/breadcrums.svelte';
+	import { page } from '$app/stores';
+	import BreadCrumbs from '$lib/components/breadcrumbs/breadcrums.svelte';
 	import Icon from '@iconify/svelte';
-	import { InputChip } from '@skeletonlabs/skeleton';
+	import InputChip from '$lib/components/Input-Chip.svelte';
 
-  //////////////////////////////////////////////////////////////////////////
+	//////////////////////////////////////////////////////////////////////////
 
-  export let form;
-  const userId = $page.params.userId;
-  const assetRoute = `/users/${userId}/careplan/assets`;
-  const createRoute = `/users/${userId}/careplan/assets/audio/create`;
-  const audioRoute = `/users/${userId}/careplan/assets/audio/create`;
+	export let form;
+	const userId = $page.params.userId;
+	const assetRoute = `/users/${userId}/careplan/assets`;
+	const createRoute = `/users/${userId}/careplan/assets/audio/create`;
+	const audioRoute = `/users/${userId}/careplan/assets/audio/create`;
 
-  const breadCrumbs= [
-    {
-      name: 'Assets',
-      path: assetRoute
-    },
-    {
-      name: 'Audio',
-      path: audioRoute
-    },
-    {
-      name: 'Create',
-      path: createRoute
-    }, 
-  ]
-
+	const breadCrumbs = [
+		{
+			name: 'Assets',
+			path: assetRoute
+		},
+		{
+			name: 'Audio',
+			path: audioRoute
+		},
+		{
+			name: 'Create',
+			path: createRoute
+		}
+	];
 </script>
 
-<BreadCrumbs  crumbs={breadCrumbs}  />
+<BreadCrumbs crumbs={breadCrumbs} />
 
 <form
 	method="post"

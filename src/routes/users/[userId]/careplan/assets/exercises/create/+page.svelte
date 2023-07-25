@@ -2,7 +2,7 @@
 	import { page } from '$app/stores';
 	import BreadCrumbs from '$lib/components/breadcrumbs/breadcrums.svelte';
 	import Icon from '@iconify/svelte';
-	import { InputChip } from '@skeletonlabs/skeleton';
+	import InputChip from '$lib/components/Input-Chip.svelte';
 
 	//////////////////////////////////////////////////////////////////////////////
 
@@ -102,11 +102,11 @@
 				<td>Recommended Duration Min</td>
 				<td>
 					<input
-          type="text"
-          name="recommendedDurationMin"
-          placeholder="Enter recommended duration min here..."
-          class="input"
-        />
+						type="text"
+						name="recommendedDurationMin"
+						placeholder="Enter recommended duration min here..."
+						class="input"
+					/>
 				</td>
 			</tr>
 			<tr class="!border-b !border-b-secondary-100 dark:!border-b-surface-700">
