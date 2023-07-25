@@ -5,8 +5,6 @@
 	import Icon from '@iconify/svelte';
 	import { InputChip } from '@skeletonlabs/skeleton';
 
-	let tagsPlaceholder = 'Enter a tags here...';
-
 	export let form;
 	const userId = $page.params.userId;
 	let imageResourceId = undefined;
