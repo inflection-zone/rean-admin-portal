@@ -1,9 +1,7 @@
 <script lang="ts">
 	import { page } from '$app/stores';
 	import BreadCrumbs from '$lib/components/breadcrumbs/breadcrums.svelte';
-	import Image from '$lib/components/image.svelte';
 	import Icon from '@iconify/svelte';
-	import { TreeBranch, TreeLeaf, TreeView } from 'svelte-tree-view-component';
 	import type { PageServerData } from './$types';
 
 	///////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -12,10 +10,10 @@
 	let name = data.schema.Name;
 	let description = data.schema.Description;
 	let type = data.schema.Type;
+	let eventTypes = data.schema.EventTypes;
 
 	const userId = $page.params.userId;
   const schemaId = $page.params.schemaId;
-	const createRoute = `/users/${userId}/gamification/schemas/create`;
   const editRoute = `/users/${userId}/gamification/schemas/${schemaId}/edit`;
 	const viewRoute = `/users/${userId}/gamification/schemas/${schemaId}/view`;
 	const schemaRoute = `/users/${userId}/gamification/schemas`;
@@ -70,6 +68,16 @@
 			<tr class="!border-b !border-b-secondary-100 dark:!border-b-surface-700">
 				<td>Type</td>
 				<td>{type}</td>
+			</tr>
+			<tr class="!border-b !border-b-secondary-100 dark:!border-b-surface-700">
+				<td class="align-top">Event Types</td>
+				<td>
+					<ol class="list-decimal ml-2">
+						{#each eventTypes as eventType}
+							<li>{eventType.Name}</li>
+						{/each}
+					</ol>
+				</td>
 			</tr>
 		</tbody>
 	</table>

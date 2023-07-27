@@ -12,38 +12,39 @@
 		tableA11y,
 		tableInteraction
 	} from '@skeletonlabs/skeleton';
-	import date from 'date-and-time';
 	import type { PageServerData } from './$types';
 
 	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 	export let data: PageServerData;
-	let schemas = data.schemas;
-  console.log("schemas", schemas)
+	let nodes = data.nodes;
+	console.log('nodes', nodes);
 	let index = Number;
-	schemas = schemas.map((item, index) => ({ ...item, index: index + 1 }));
+	nodes = nodes.map((item, index) => ({ ...item, index: index + 1 }));
 
-	const dataTableStore = createDataTableStore(schemas, {
+	const dataTableStore = createDataTableStore(nodes, {
 		search: '',
 		pagination: { offset: 0, limit: 10, size: 0, amounts: [10, 20, 30, 50] }
 	});
 
 	const userId = $page.params.userId;
-	const createRoute = `/users/${userId}/gamification/schemas/create`;
-	const editRoute = (id) => `/users/${userId}/gamification/schemas/${id}/edit`;
-	const viewRoute = (id) => `/users/${userId}/gamification/schemas/${id}/view`;
+	const schemaId = $page.params.schemaId;
+	const createRoute = `/users/${userId}/gamification/schemas/${schemaId}/nodes/create`;
+	const editRoute = (id) => `/users/${userId}/gamification/schemas/${schemaId}/nodes/${id}/edit`;
+	const viewRoute = (id) => `/users/${userId}/gamification/schemas/${schemaId}/nodes/${id}/view`;
 	const schemaRoute = `/users/${userId}/gamification/schemas`;
+	const nodeRoute = `/users/${userId}/gamification/schemas/${schemaId}/nodes`;
 
-	const breadCrumbs = [{ name: 'schemas', path: schemaRoute }];
+	const breadCrumbs = [
+		{ name: 'Gamifications', path: schemaRoute },
+		{ name: 'Schemas', path: schemaRoute },
+		{ name: 'Nodes', path: nodeRoute }
+	];
 
 	let name = undefined;
-	let sortBy = 'CreatedAt';
-	let sortOrder = 'ascending';
-	let itemsPerPage = 10;
-	let pageIndex = 0;
 
 	async function searchNode(model) {
-		let url = `/api/server/gamification/schemas/search?`;
+		let url = `/api/server/gamification/nodes/search?schemaId=${schemaId}&`;
 		if (name) url += `&name=${name}`;
 		const res = await fetch(url, {
 			method: 'GET',
@@ -51,27 +52,27 @@
 		});
 
 		const response = await res.json();
-		schemas = response.map((item, index) => ({ ...item, index: index + 1 }));
-		console.log("schemas",schemas)
-		dataTableStore.updateSource(schemas);
+		nodes = response.map((item, index) => ({ ...item, index: index + 1 }));
+		console.log('nodes', nodes);
+		dataTableStore.updateSource(nodes);
 	}
 
-	$: if (browser) searchNode({name: name });
+	$: if (browser) searchNode({ name: name });
 
 	dataTableStore.subscribe((model) => dataTableHandler(model));
 
-	const handleSchemaDelete = async (e, id) => {
-		const schemaId = id;
-		console.log('schemaId', schemaId);
+	const handleNodeDelete = async (e, id) => {
+		const nodeId = id;
+		console.log('nodeId', nodeId);
 		await Delete({
 			sessionId: data.sessionId,
-			schemaId
+			nodeId
 		});
-		window.location.href = schemaRoute;
+		window.location.href = nodeRoute;
 	};
 
 	async function Delete(model) {
-		const response = await fetch(`/api/server/gamification/schemas`, {
+		const response = await fetch(`/api/server/gamification/nodes`, {
 			method: 'DELETE',
 			body: JSON.stringify(model),
 			headers: { 'content-type': 'application/json' }
@@ -85,7 +86,7 @@
 	<input
 		type="text"
 		name="name"
-		placeholder="Search by schema name"
+		placeholder="Search by node name"
 		bind:value={name}
 		class="input w-auto grow"
 	/>
@@ -97,9 +98,10 @@
 		<thead on:click={(e) => dataTableStore.sort(e)} on:keypress class="!variant-soft-secondary">
 			<tr>
 				<th data-sort="index">Id</th>
-        <!-- <th data-sort="Type">Type</th> -->
+				<!-- <th data-sort="Type">Type</th> -->
 				<th data-sort="Name">Name</th>
 				<th>Description</th>
+				<th>Action Name</th>
 				<th />
 				<th />
 			</tr>
@@ -108,13 +110,18 @@
 			{#each $dataTableStore.filtered as row}
 				<tr class="!border-b !border-b-secondary-100 dark:!border-b-surface-700">
 					<td role="gridcell" aria-colindex={1} tabindex="0">{row.index}</td>
-          <!-- <td role="gridcell" aria-colindex={2} tabindex="0">
+					<!-- <td role="gridcell" aria-colindex={2} tabindex="0">
 						<a href={viewRoute(row.id)}>{row.Type}</a>
 					</td> -->
 					<td role="gridcell" aria-colindex={3} tabindex="0">
 						<a href={viewRoute(row.id)}>{row.Name} </a>
 					</td>
-					<td role="gridcell" aria-colindex={4} tabindex="0">{Helper.truncateText(row.Description, 40)}</td>
+					<td role="gridcell" aria-colindex={4} tabindex="0"
+						>{Helper.truncateText(row.Description, 40)}</td
+					>
+					<td role="gridcell" aria-colindex={5} tabindex="0"
+						>{row.Action.Name}</td
+					>
 					<td>
 						<a href={editRoute(row.id)} class="btn p-2 -my-1 hover:variant-soft-primary">
 							<Icon icon="material-symbols:edit-outline" class="text-lg" />
@@ -126,17 +133,17 @@
 							cancelTitle="Cancel"
 							let:confirm={confirmThis}
 							on:delete={(e) => {
-								handleSchemaDelete(e, row.id);
+								handleNodeDelete(e, row.id);
 							}}
 						>
 							<button
-								on:click|preventDefault={() => confirmThis(handleSchemaDelete, row.id)}
+								on:click|preventDefault={() => confirmThis(handleNodeDelete, row.id)}
 								class="btn p-2 -my-1 hover:variant-soft-error"
 							>
 								<Icon icon="material-symbols:delete-outline-rounded" class="text-lg" />
 							</button>
 							<span slot="title"> Delete </span>
-							<span slot="description"> Are you sure you want to delete a schema? </span>
+							<span slot="description"> Are you sure you want to delete a node? </span>
 						</Confirm>
 					</td>
 				</tr>

@@ -1,7 +1,7 @@
 import type { RequestEvent } from '@sveltejs/kit';
 import { error } from '@sveltejs/kit';
 import type { PageServerLoad } from './$types';
-import { searchSchemas } from '$routes/api/services/gamification/schema';
+import { searchNodes } from '$routes/api/services/gamification/node';
 
 ////////////////////////////////////////////////////////////////////////////
 
@@ -9,17 +9,21 @@ export const load: PageServerLoad = async (event: RequestEvent) => {
 	const sessionId = event.cookies.get('sessionId');
 
 	try {
-		const response = await searchSchemas(sessionId);
+    const schemaId = event.params.schemaId;
+		const searchParams = {
+			schemaId: schemaId
+		};
+		const response = await searchNodes(sessionId, searchParams);
 		if (response.Status === 'failure' || response.HttpCode !== 200) {
 			throw error(response.HttpCode, response.Message);
 		}
-		const schemas = response.Data.Items;
+		const nodes = response.Data.Items;
 		return {
-			schemas: schemas,
+      nodes,
 			sessionId,
 			message: response.Message
 		};
 	} catch (error) {
-		console.error(`Error retriving Schemas: ${error.message}`);
+		console.error(`Error retriving nodes: ${error.message}`);
 	}
 };
