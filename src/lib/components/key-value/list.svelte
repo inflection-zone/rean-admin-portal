@@ -13,7 +13,6 @@
           <Icon icon="material-symbols:close-rounded" class="text-lg" />
         </button>
     </li>
-    <input type="text" hidden name=filters value={$items}>
       {/each}
 </section>
 {/if}

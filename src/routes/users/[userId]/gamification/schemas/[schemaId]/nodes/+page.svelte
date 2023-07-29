@@ -120,7 +120,7 @@
 						>{Helper.truncateText(row.Description, 40)}</td
 					>
 					<td role="gridcell" aria-colindex={5} tabindex="0"
-						>{row.Action.Name}</td
+						>{row.Action?.Name ?? null}</td
 					>
 					<td>
 						<a href={editRoute(row.id)} class="btn p-2 -my-1 hover:variant-soft-primary">

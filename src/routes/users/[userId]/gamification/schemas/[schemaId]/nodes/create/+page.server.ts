@@ -106,9 +106,12 @@ export const actions = {
 		if (result.actionType === 'Store-Data'){
 			storageKeys = JSON.parse(result.storageKeys as string)
 		}
-		if (result.actionType === 'Extarct-Data' || result.actionType === 'Compare-Data'){
+		if (result.actionType === 'Extract-Data' || result.actionType === 'Compare-Data'){
 			filters = JSON.parse(result.filters as string)
 	}
+
+	console.log("storageKeys", storageKeys);
+	console.log("filters", filters);
 		const response = await createNode(
 			sessionId,
 			schemaId,

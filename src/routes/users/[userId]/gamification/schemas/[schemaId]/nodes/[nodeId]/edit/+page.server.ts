@@ -3,7 +3,7 @@ import { error, type RequestEvent } from '@sveltejs/kit';
 import { zfd } from 'zod-form-data';
 import { z } from 'zod';
 import { errorMessage, successMessage } from '$lib/utils/message.utils';
-import { createNode, getNodeById, searchNodes } from '$routes/api/services/gamification/node';
+import { createNode, getNodeById, searchNodes, updateNode } from '$routes/api/services/gamification/node';
 import { getDataActionTypes, getEventActionTypes, getInputSourceTypes, getLogicalOperatorTypes, getOperandDataTypes, getOutputSourceTypes } from '$routes/api/services/gamification/types.js';
 import type { PageServerLoad } from './$types';
 
@@ -56,12 +56,12 @@ export const load: PageServerLoad = async (event: RequestEvent) => {
 
 const updateNodeSchema = zfd.formData({
 	nodeType: z.string(),
-	parentNodeId: z.string().uuid(),
+	parentNodeId: z.string().uuid().optional(),
 	name: z.string().min(8).max(256),
 	description: z.string().optional(),
 	actionType: z.string().optional(),
   actionName:z.string().optional(),
-	filters:z.array(z.string()).optional(),
+	filters:z.string().optional(),
 	recordType:z.string().optional(),
 	sourceType:z.string().optional(),
 	message:z.string().optional(),
@@ -73,10 +73,10 @@ const updateNodeSchema = zfd.formData({
 	keyName:z.string().optional(),
 	valueDataType:z.string().optional(),
 	valueName:z.string().optional(),
-	value:zfd.checkbox(),
+	value:zfd.checkbox({ trueValue: 'true' }),
 	operator:z.string().optional(),
 	continuityCount:zfd.numeric(z.number().optional()),
-	storageKeys:z.array(z.string()).optional(),
+	storageKeys:z.string().optional(),
 });
 
 export const actions = {
@@ -84,20 +84,16 @@ export const actions = {
 		const request = event.request;
 		const userId = event.params.userId;
 		const schemaId = event.params.schemaId;
+		const nodeId = event.params.nodeId;
 		const sessionId = event.cookies.get('sessionId');
 		const data = await request.formData();
-		const filters = data.has('filters') ? data.getAll('filters') : [];
-		const output = JSON.stringify(filters);
-		console.log("output-----------",output)
 		const formData = Object.fromEntries(data);
-		console.log("formData",formData)
-		const formDataValue = { ...formData, filters: filters};
-
+		
 		type NodeSchema = z.infer<typeof updateNodeSchema>;
 
 		let result: NodeSchema = {};
 		try {
-			result = updateNodeSchema.parse(formDataValue);
+			result = updateNodeSchema.parse(formData);
 			console.log('result', result);
 		} catch (err: any) {
 			const { fieldErrors: errors } = err.flatten();
@@ -108,10 +104,22 @@ export const actions = {
 				errors
 			};
 		}
+		let storageKeys;
+		let filters;
+		if (result.actionType === 'Store-Data'){
+			storageKeys = JSON.parse(result.storageKeys as string)
+		}
+		if (result.actionType === 'Compare-Data' || result.actionType === 'Extract-Data'){
+			filters = JSON.parse(result.filters as string)
+			console.log("filters---------------",filters)
+	}
+	console.log("Action type", result.actionType);
+	console.log("storageKeys", storageKeys);
+	console.log("filters", filters);
 
-		const response = await createNode(
+		const response = await updateNode(
 			sessionId,
-			schemaId,
+			nodeId,
 			result.parentNodeId,
 			result.name,
 			result.description,
@@ -123,7 +131,7 @@ export const actions = {
 			result.destinationType,
 			result.recordType,
 			result.sourceType,
-			result.filters,
+			filters,
 			result.inputTag,
 			result.dataActionType,
 			result.keyDataType,
@@ -133,12 +141,12 @@ export const actions = {
 		  result.value,
 			result.operator,
 			result.continuityCount,
-			result.storageKeys
+			storageKeys
 		);
 
-		const nodeId = response.Data.id;
+		const id = response.Data.id;
 
-		if (response.Status === 'failure' || response.HttpCode !== 201) {
+		if (response.Status === 'failure' || response.HttpCode !== 200) {
 			throw redirect(
 				303,
 				`/users/${userId}/gamification/schemas`,
@@ -148,7 +156,7 @@ export const actions = {
 		}
 		throw redirect(
 			303,
-			`/users/${userId}/gamification/schemas/${schemaId}/nodes/${nodeId}/view`,
+			`/users/${userId}/gamification/schemas/${schemaId}/nodes/${id}/view`,
 			successMessage(`Schema node updated successfully!`),
 			event
 		);

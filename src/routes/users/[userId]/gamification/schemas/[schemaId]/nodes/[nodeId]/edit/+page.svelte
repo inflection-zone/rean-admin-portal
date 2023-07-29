@@ -9,7 +9,6 @@
 
 	/////////////////////////////////////////////////////////////////////////////////////
 
-	console.log("items", $items)
 	export let form;
 	export let data: PageServerData;
 
@@ -22,6 +21,24 @@
 	const parentNodes = data.nodes;
   const node = data.schemaNode;
 	console.log("node", node);
+	$:console.log("items", $items)
+	
+	let filtersData = node.Action.InputParams?.Filters ?? [];
+	
+	if(filtersData.length > 0){
+		for(const item of filtersData){
+			$items.push(item)
+		}
+	}
+
+	let storageKeys = node.Action?.InputParams?.StorageKeys ?? [];
+	if(storageKeys.length > 0){
+		for(const item of storageKeys){
+			$items.push(item)
+		}
+	}
+
+$:console.log("items", $items)
 
   let nodeType =  node.Type;
   let name = node.Name;
@@ -114,7 +131,7 @@
 					</select>
 				</td>
 			</tr>
-			<!-- <tr class="!border-b !border-b-secondary-100 dark:!border-b-surface-700">
+			<tr class="!border-b !border-b-secondary-100 dark:!border-b-surface-700 hidden">
 				<td>Parent Node *</td>
 				<td>
 					<select
@@ -122,14 +139,16 @@
 						required
 						class="select w-full"
 						placeholder="Select node type here..."
+						hidden
 					>
+					<option selected value={node.ParentNode?.id}>{node.ParentNode}</option>
 					{#each parentNodes as node}
-          <option selected>{node.ParentNode}</option>
+          
 					<option value={node.id}>{node.Name}</option>
 				{/each}
 					</select>
 				</td>
-			</tr> -->
+			</tr>
 			<tr class="!border-b !border-b-secondary-100 dark:!border-b-surface-700">
 				<td>Name*</td>
 				<td>
@@ -150,7 +169,7 @@
 			<tr class="!border-b !border-b-secondary-100 dark:!border-b-surface-700">
 				<td class="align-top">Description</td>
 				<td>
-					<textarea name="description" placeholder="Enter description here..." class="input" />
+					<textarea name="description" placeholder="Enter description here..." bind:value={description} class="input" />
 				</td>
 			</tr>
       <tr class="!border-b !border-b-secondary-100 dark:!border-b-surface-700">
@@ -198,7 +217,8 @@
             bind:value={recordType}
 					>
            <option selected>{recordType}</option>
-            <option >Medication</option>
+            <option>Medication</option>
+						<option>Badge</option>
 					</select>
 				</td>
 			</tr>
@@ -210,6 +230,7 @@
 						placeholder="Select node type here..."
 						class="select w-full"
 					>
+					<option selected>{sourceType}</option>
           {#each inputSourceTypes as inputSourceType}
           <option value={inputSourceType}>{inputSourceType}</option>
           {/each}   
@@ -218,11 +239,11 @@
 			</tr>
       {#if selectedEventActionType === 'Extract-Data'}
       <tr class="!border-b !border-b-secondary-100 dark:!border-b-surface-700">
-				<td>Filters</td>	
+				<td class="align-top">Filters</td>	
 					<td>
 						<KeyValue/>
 						<List/>
-						<!-- <input type="text" hidden name=filters value={$items}> -->
+						<input type="text" hidden name=filters value={JSON.stringify($items)}>
 					</td>
 			</tr>
       {:else if selectedEventActionType === 'Process-Data'}
@@ -234,6 +255,7 @@
 						name="inputTag"
 						placeholder="Enter input tag here..."
 						class="input w-full"
+						bind:value={inputParams.InputTag}
 					/>
 				</td>
 			</tr>
@@ -244,7 +266,9 @@
 						name="dataActionType"
 						placeholder="Select data action type here..."
 						class="select w-full"
+						bind:value={inputParams.DataActionType}
 					>
+					<option selected>{inputParams.DataActionType}</option>
           {#each dataActionTypes as dataActionType}
           <option value={dataActionType}>{dataActionType}</option>
           {/each}   
@@ -258,7 +282,9 @@
 						name="keyDataType"
 						placeholder="Select key data type here..."
 						class="select w-full"
+						bind:value={inputParams.KeyDataType}
 					>
+					<option selected>{inputParams.KeyDataType}</option>
           {#each operandDataTypes as operandDataType}
           <option value={operandDataType}>{operandDataType}</option>
           {/each}   
@@ -273,6 +299,7 @@
 						name="keyName"
 						placeholder="Enter key name here..."
 						class="input w-full"
+						bind:value={inputParams.KeyName}
 					/>
 				</td>
 			</tr>
@@ -283,7 +310,9 @@
 						name="valueDataType"
 						placeholder="Select data action type here..."
 						class="select w-full"
+						bind:value={inputParams.ValueDataType}
 					>
+					<option selected>{inputParams.ValueDataType}</option>
           {#each operandDataTypes as operandDataType}
           <option value={operandDataType}>{operandDataType}</option>
           {/each}   
@@ -298,6 +327,7 @@
 						name="valueName"
 						placeholder="Enter value name here..."
 						class="input w-full"
+						bind:value={inputParams.ValueName}
 					/>
 				</td>
 			</tr>
@@ -314,6 +344,8 @@
 					type="checkbox"
 					name="value"
 					class="checkbox checkbox-primary border-primary-200 hover:border-primary-400 checkbox-md ml-2"
+					bind:value={inputParams.Value}
+					bind:checked={inputParams.Value}
 				/>
 				</td>
 			</tr>
@@ -324,7 +356,9 @@
 						name="operator"
 						placeholder="Select data action type here..."
 						class="select w-full"
+						bind:value={inputParams.Operator}
 					>
+					<option selected>{inputParams.Operator}</option>
           {#each logicalOpratorTypes as logicalOpratorType}
           <option value={logicalOpratorType}>{logicalOpratorType}</option>
           {/each}   
@@ -339,6 +373,7 @@
 						name="continuityCount"
 						placeholder="Enter continuty count here..."
 						class="input w-full"
+						bind:value={inputParams.ContinuityCount}
 					/>
 				</td>
 			</tr>
@@ -351,6 +386,7 @@
 						name="inputTag"
 						placeholder="Enter input tag here..."
 						class="input w-full"
+						bind:value={inputParams.InputTag}
 					/>
 				</td>
 			</tr>
@@ -362,6 +398,7 @@
 						name="secondaryInputTag"
 						placeholder="Enter secondary input tag here..."
 						class="input w-full"
+						bind:value={inputParams.SecondaryInputTag}
 					/>
 				</td>
 			</tr>
@@ -372,6 +409,7 @@
 						name="dataActionType"
 						placeholder="Select data action type here..."
 						class="select w-full"
+						bind:value={inputParams.DataActionType}
 					>
           {#each dataActionTypes as dataActionType}
           <option value={dataActionType}>{dataActionType}</option>
@@ -380,11 +418,11 @@
 				</td>
 			</tr>
       <tr class="!border-b !border-b-secondary-100 dark:!border-b-surface-700">
-				<td>Filters</td>
+				<td class="align-top">Filters</td>
 				<td>
 					<KeyValue/>
 					<List/>
-					<input type="text" name=filters value={$items}>
+					<input type="text" name=filters hidden value={JSON.stringify($items)}>
 				</td>
 			</tr>
       {:else if selectedEventActionType === 'Store-Data'}
@@ -396,18 +434,16 @@
 						name="inputTag"
 						placeholder="Enter input tag here..."
 						class="input w-full"
+						bind:value={inputParams.InputTag}
 					/>
 				</td>
 			</tr>
       <tr class="!border-b !border-b-secondary-100 dark:!border-b-surface-700">
-				<td>Storage Keys</td>
+				<td class="align-top">Storage Keys</td>
 				<td>
-					<input
-						type="text"
-						name="storageKey"
-						placeholder="Enter storage key here..."
-						class="input w-full"
-					/>
+					<KeyValue/>
+					<List/>
+					<input type="text" hidden name=storageKeys value={JSON.stringify($items)}>
 				</td>
 			</tr>
       {/if}

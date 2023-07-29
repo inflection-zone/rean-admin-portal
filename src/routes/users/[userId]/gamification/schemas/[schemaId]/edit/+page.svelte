@@ -3,13 +3,11 @@
 	import BreadCrumbs from '$lib/components/breadcrumbs/breadcrums.svelte';
 	import ItemsDragDrop from '$lib/components/drag-and-drop/courses-drag-drop.svelte';
 	import SelectedItems from '$lib/components/drag-and-drop/selected-courses-drag-drop.svelte';
-	import Image from '$lib/components/image.svelte';
 	import { selectedItems } from '$lib/store/general.store';
-	import { showMessage } from '$lib/utils/message.utils';
 	import Icon from '@iconify/svelte';
 	import { createDataTableStore, dataTableHandler } from '@skeletonlabs/skeleton';
-	import type { PageServerData } from './$types';
-	import { browser } from '$app/environment';
+	import type { PageServerData } from './$types'
+	
 	///////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 	export let form;

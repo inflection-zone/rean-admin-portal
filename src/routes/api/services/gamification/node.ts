@@ -121,24 +121,83 @@ export const updateNode = async (
 	sessionId: string,
 	nodeId: string,
 	parentNodeId: string,
-	schemaId: string,
 	name: string,
 	description: string,
 	type: string,
 	actionType: string,
-	actionName: string
+	actionName: string,
+	message: string,
+	outputTag: string,
+	destinationType: string,
+	recordType: string,
+	sourceType: string,
+	filters: string[],
+	inputTag: string,
+	dataActionType: string,
+	keyDataType: string,
+	keyName: string,
+	valueDataType: string,
+	valueName: string,
+	value: boolean,
+	operator: string,
+	continuityCount: number,
+	storageKeys: string[]
 ) => {
+	let inputParams = {};
+	if (actionType === 'Extract-Data') {
+		inputParams = {
+			RecordType: recordType,
+			SourceType: sourceType,
+			Filters: filters
+		};
+	}
+	if (actionType === 'Compare-Data') {
+		inputParams = {
+			RecordType: recordType,
+			SourceType: sourceType,
+			InputTag: inputTag,
+			DataActionType: dataActionType,
+			Filters: filters
+		};
+	}
+	if (actionType === 'Process-Data') {
+		inputParams = {
+			RecordType: recordType,
+			SourceType: sourceType,
+			InputTag: inputTag,
+			DataActionType: dataActionType,
+			KeyDataType: keyDataType,
+			KeyName: keyName,
+			ValueDataType: valueDataType,
+			ValueName: valueName,
+			Value: value,
+			Operator: operator,
+			ContinuityCount: continuityCount
+		};
+	}
+	if (actionType === 'Store-Data') {
+		inputParams = {
+			RecordType: recordType,
+			SourceType: sourceType,
+			InputTag: inputTag,
+			StorageKeys: storageKeys
+		};
+	}
+
 	const body = {
 		ParentNodeId: parentNodeId,
-		schemaId: schemaId,
 		Name: name,
 		Description: description ? description : null,
 		Type: type,
 		Action: {
 			ActionType: actionType,
 			Name: actionName,
-			InputParams: {},
-			OutputParams: {}
+			InputParams: inputParams,
+			OutputParams: {
+				Message: message,
+				OutputTag: outputTag,
+				DestinationType: destinationType
+			}
 		}
 	};
 	const url = AWARDS_BACKEND_API_URL + `/engine/nodes/${nodeId}`;

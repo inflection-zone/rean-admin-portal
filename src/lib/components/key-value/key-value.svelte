@@ -10,6 +10,7 @@
 		} else {
 			items.update(Key, Value);
 		}
+		// this.reset();
 	}
 </script>
 
@@ -30,11 +31,11 @@
 		<input
 			class="input w-full ml-2"
 			name="Value"
-			type="text"
 			bind:value={Value}
+			type="text"
 			placeholder="Add value"
 		/>
 	</label>
-	<button class="btn variant-soft-secondary" on:click|preventDefault={handleSubmit}> Add </button>
+	<button class="btn variant-soft-secondary" on:click|preventDefault={handleSubmit}>Add</button>
 </div>
 

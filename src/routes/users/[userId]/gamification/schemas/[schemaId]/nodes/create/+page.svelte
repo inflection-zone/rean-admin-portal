@@ -165,6 +165,7 @@
 						class="select w-full"
 					>
             <option >Medication</option>
+						<option >Badge</option>
 					</select>
 				</td>
 			</tr>
@@ -376,7 +377,7 @@
 						<div class="mt-4">
 							<List/>
 						</div>
-						<input type="text" hidden name=storageKey value={JSON.stringify($items)}>
+						<input type="text" hidden name=storageKeys value={JSON.stringify($items)}>
 				</td>
 			</tr>
       {/if}

@@ -16,9 +16,9 @@ function createItems(initialItems) {
     return {
         subscribe,
         // create: add an object for the item at the end of the store's array
-        create: (key, value) => update(n => {
+        create: (Key, Value) => update(n => {
             n = [...n, {
-                Key: key, Value: value
+                Key: Key, Value: Value
             }];
             return formatInput(n);
         }),

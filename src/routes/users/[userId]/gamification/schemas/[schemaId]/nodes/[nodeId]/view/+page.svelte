@@ -108,8 +108,16 @@
 			</tr>
 			{#if actionType === 'Extract-Data'}
 				<tr class="!border-b !border-b-secondary-100 dark:!border-b-surface-700">
-					<td>Filters</td>
-					<td>{sourceType}</td>
+					<td class="align-top">Filters</td>
+					<td>
+						{#if inputParams?.Filters?.length > 0 }
+						{#each inputParams.Filters  as filter}
+							<li>{filter.Key} : {filter.Value}</li>
+						{/each}	
+						{:else}
+						<div>Filters are not defined</div>
+						{/if}
+					</td>
 				</tr>
 			{:else if actionType === 'Process-Data'}
 				<tr class="!border-b !border-b-secondary-100 dark:!border-b-surface-700">
@@ -155,24 +163,32 @@
 				</tr>
 				<tr class="!border-b !border-b-secondary-100 dark:!border-b-surface-700">
 					<td>Secondary Input Tag</td>
-					<td>{inputParams.SecondaryInputTag}</td>
+					<td>{inputParams?.SecondaryInputTag ?? null}</td>
 				</tr>
 				<tr class="!border-b !border-b-secondary-100 dark:!border-b-surface-700">
 					<td>Data Action Type</td>
 					<td>{inputParams.DataActionType}</td>
 				</tr>
-				<!-- <tr class="!border-b !border-b-secondary-100 dark:!border-b-surface-700">
-				<td>Filters</td>
-        <td>{sourceType}</td>
-			</tr> -->
+				<tr class="!border-b !border-b-secondary-100 dark:!border-b-surface-700">
+					<td class="align-top">Filters</td>
+					<td>
+						{#each inputParams.Filters  as filter}
+							<li>{filter.Key} : {filter.Value}</li>
+						{/each}	
+					</td>
+				</tr>
 			{:else if actionType === 'Store-Data'}
 				<tr class="!border-b !border-b-secondary-100 dark:!border-b-surface-700">
 					<td>Input Tag</td>
 					<td>{inputParams.InputTag}</td>
 				</tr>
 				<tr class="!border-b !border-b-secondary-100 dark:!border-b-surface-700">
-					<td>Storage Key</td>
-					<td>{inputParams.Storage}</td>
+					<td class="align-top">Storage Key</td>
+					<td>
+						{#each inputParams.StorageKeys  as storageKey}
+							<li>{storageKey.Key} : {storageKey.Value}</li>
+						{/each}	
+					</td>
 				</tr>
 			{/if}
 			<tr class="!border-b !border-b-secondary-100 dark:!border-b-surface-700">
