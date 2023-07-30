@@ -54,12 +54,6 @@
 
 	async function searchEventType(model) {
 		let url = `/api/server/gamification/event-types/search?`;
-		// if (sortOrder) url += `sortOrder=${sortOrder}`;
-		// else url += `sortOrder=ascending`;
-
-		// if (sortBy) url += `&sortBy=${sortBy}`;
-		// if (itemsPerPage) url += `&itemsPerPage=${itemsPerPage}`;
-		// if (pageIndex) url += `&pageIndex=${pageIndex}`;
 		if (name) url += `&name=${name}`;
 		const res = await fetch(url, {
 			method: 'GET',

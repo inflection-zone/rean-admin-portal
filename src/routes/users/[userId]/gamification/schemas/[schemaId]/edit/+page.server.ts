@@ -5,6 +5,7 @@ import { errorMessage, successMessage } from '$lib/utils/message.utils';
 import { zfd } from 'zod-form-data';
 import { z } from 'zod';
 import { getSchemaById, updateSchema } from '$routes/api/services/gamification/schema';
+import { searchEventTypes } from '$routes/api/services/gamification/event.types';
 
 ////////////////////////////////////////////////////////////////////////////
 
@@ -12,16 +13,19 @@ export const load: PageServerLoad = async (event: RequestEvent) => {
 	const sessionId = event.cookies.get('sessionId');
 
 	try {
-		const schemaId = event.params.id;
+		const schemaId = event.params.schemaId;
 		const response = await getSchemaById(sessionId, schemaId);
+		const _eventTypes = await searchEventTypes(sessionId);
 		if (response.Status === 'failure' || response.HttpCode !== 200) {
 			throw error(response.HttpCode, response.Message);
 		}
 		const schema = response.Data;
+		const eventTypes = _eventTypes.Data.Items;
 		const id = response.Data.id;
 		return {
 			location: `${id}/edit`,
 			schema,
+			eventTypes,
 			message: response.Message
 		};
 	} catch (error) {
@@ -37,21 +41,24 @@ const updateSchemaSchema = zfd.formData({
 });
 
 export const actions = {
-	updateschemaAction: async (event: RequestEvent) => {
+	updateSchemaAction: async (event: RequestEvent) => {
 		const request = event.request;
 		const userId = event.params.userId;
-		const schemaId = event.params.id;
+		const schemaId = event.params.schemaId;
 		const sessionId = event.cookies.get('sessionId');
-		const formData = Object.fromEntries(await request.formData());
+		const data = await request.formData();
+		const formData = Object.fromEntries(data);
+		
+		const eventTypeIds = data.has('eventTypeIds') ? data.getAll('eventTypeIds'): [];
+	
+		const formDataValue = { ...formData, eventTypeIds: eventTypeIds };
+		console.log("formDataValue",formDataValue)
 
 		type Schema = z.infer<typeof updateSchemaSchema>;
 
 		let result: Schema = {};
-    const eventTypes = result.eventTypeIds.map(x => x.split(','));
-		const flattenedArray = eventTypes.flat();
-		const updatedData = { "EventTypeIds": flattenedArray }
 		try {
-			result = updateSchemaSchema.parse(formData);
+			result = updateSchemaSchema.parse(formDataValue);
 			console.log('result', result);
 		} catch (err: any) {
 			const { fieldErrors: errors } = err.flatten();
@@ -62,7 +69,10 @@ export const actions = {
 				errors
 			};
 		}
-
+		const eventTypes = result.eventTypeIds.map(x => x.split(','));
+		const flattenedArray = eventTypes.flat();
+		const updatedData = { "EventTypeIds": flattenedArray }
+		console.log("updatedData", updatedData.EventTypeIds);
 		const response = await updateSchema(
 			sessionId,
 			schemaId,
