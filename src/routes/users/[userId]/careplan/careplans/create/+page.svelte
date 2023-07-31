@@ -3,9 +3,11 @@
   export let data: PageServerData;
   import { page } from '$app/stores';
   import BreadCrumbs from '$lib/components/breadcrumbs/breadcrums.svelte';
-	import { InputChip } from '@skeletonlabs/skeleton';
+  import InputChip from '$lib/components/input-chips.svelte';
 	import Icon from '@iconify/svelte';
 
+  //////////////////////////////////////////////////////////////////////
+  
   export let form;
   const userId = $page.params.userId;
   const careplanId = $page.params.id;

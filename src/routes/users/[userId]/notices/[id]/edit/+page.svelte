@@ -4,10 +4,12 @@
 	import Image from '$lib/components/image.svelte';
 	import { showMessage } from '$lib/utils/message.utils';
 	import Icon from '@iconify/svelte';
-	import { InputChip } from '@skeletonlabs/skeleton';
+	import InputChip from '$lib/components/input-chips.svelte';
 	import date from 'date-and-time';
 	import type { PageServerData } from './$types';
 
+	//////////////////////////////////////////////////////////////////////
+	
 	export let form;
 	export let data: PageServerData;
 	let id = data.notice.id;

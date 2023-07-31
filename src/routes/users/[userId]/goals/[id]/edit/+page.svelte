@@ -2,9 +2,11 @@
 	import { page } from '$app/stores';
 	import BreadCrumbs from '$lib/components/breadcrumbs/breadcrums.svelte';
 	import Icon from '@iconify/svelte';
-	import { InputChip } from '@skeletonlabs/skeleton';
+	import InputChip from '$lib/components/input-chips.svelte';
 	import type { PageServerData } from './$types';
 
+	////////////////////////////////////////////////////////////////////////
+	
 	export let form;
 	export let data: PageServerData;
 	let id = data.goal.id;

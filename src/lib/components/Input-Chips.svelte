@@ -21,7 +21,7 @@
 	const cBase = 'textarea cursor-pointer';
 	const cInterface = 'space-y-4';
 	const cChipList = 'flex flex-wrap gap-2';
-	const cInputField = 'unstyled bg-transparent border-0 !ring-0 p-0 w-full';
+	const cInputField = 'unstyled bg-transparent border-0 !ring-0 p-0 pl-1 w-full';
 	let inputValue = '';
 	let inputValid = true;
 	function onInputHandler() {
@@ -74,7 +74,7 @@
 			<input
 				type="text"
 				bind:value={inputValue}
-				placeholder={$$restProps.placeholder ?? 'Enter values...'}
+				placeholder={$$restProps.placeholder ?? 'To add a tag, type and press enter.'}
 				class="input-chip-field {classesInputField}"
 				on:input={onInputHandler}
 				on:input

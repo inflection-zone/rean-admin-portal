@@ -3,8 +3,10 @@
 	import BreadCrumbs from '$lib/components/breadcrumbs/breadcrums.svelte';
 	import { showMessage } from '$lib/utils/message.utils';
 	import Icon from '@iconify/svelte';
-	import { InputChip } from '@skeletonlabs/skeleton';
+	import InputChip from '$lib/components/input-chips.svelte';
 
+	/////////////////////////////////////////////////////////////////////////
+	
 	export let form;
 	const userId = $page.params.userId;
 	let image = undefined;

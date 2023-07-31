@@ -2,11 +2,10 @@
 	import { page } from '$app/stores';
 	import BreadCrumbs from '$lib/components/breadcrumbs/breadcrums.svelte';
 	import Icon from '@iconify/svelte';
-	import { InputChip } from '@skeletonlabs/skeleton';
+	import InputChip from '$lib/components/input-chips.svelte';
 
-	let retrievedTags = '';
-	let tagsPlaceholder = 'Enter a tags here...';
-
+	////////////////////////////////////////////////////////////////////
+	
 	export let form;
 	const userId = $page.params.userId;
 	const createRoute = `/users/${userId}/priorities/create`;
