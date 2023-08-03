@@ -2,7 +2,7 @@ import type { RequestEvent } from '@sveltejs/kit';
 import type { PageServerLoad } from './$types';
 import {
 	getActiveUsers,
-	getAddictioDistribution,
+	getAddictionDistribution,
 	getAgeWiseUsers,
 	getBiometricsDistribution,
 	getCountryWiseUsers,
@@ -44,7 +44,7 @@ export const load: PageServerLoad = async (event: RequestEvent) => {
 		const _countryWiseUsers = await getCountryWiseUsers(sessionId);
 		const _majorAilment = await getMajorAilment(sessionId);
 		const _obesityDistribution = await getObesityDistribution(sessionId);
-		const _addictionDistribution = await getAddictioDistribution(sessionId);
+		const _addictionDistribution = await getAddictionDistribution(sessionId);
 		const _healthPillarDistribution = await getHealthPillarDistribution(sessionId);
 		const _healthPillarDistributionMonthly = await getHealthPillarDistribution(
 			sessionId,

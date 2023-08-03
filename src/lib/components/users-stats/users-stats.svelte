@@ -27,13 +27,10 @@
 	export let usersCount;
 	export let deviceDetailWiseUsers;
 
+	$: countryWiseUsers;
 	let androidUsers = deviceDetailWiseUsers.AndroidUsers;
 	let iOSUsers = deviceDetailWiseUsers.IOSUsers;
 	let missingDeviceDetails = deviceDetailWiseUsers.MissingDeviceDetails;
-
-	$: ageWiseUsers;
-	$: genderWiseUsers;
-	$: countryWiseUsers;
 
 	const usersData = [
 		{
@@ -77,18 +74,19 @@
 			ratio: `${Math.ceil(missingDeviceDetails.Ratio)}`
 		}
 	];
-	const userId = $page.params.userId;
-	const homeRoute = `/users/${userId}/home`;
 
-	const breadCrumbs = [
-		{
-			name: 'Users',
-			path: homeRoute
-		}
-	];
+	let genderDistributionLabels;
+	let genderDistributionData;
 
-	let genderDistributionLabels = genderWiseUsers.map((x) => x.Status);
-	let genderDistributionData = genderWiseUsers.map((x) => x.Ratio);
+	$: if (genderWiseUsers) {
+		genderDistributionLabels = false;
+		genderDistributionData = false;
+
+		tick().then(() => {
+			genderDistributionLabels = genderWiseUsers.map((x) => x.Status);
+			genderDistributionData = genderWiseUsers.map((x) => x.Ratio);
+		});
+	}
 
 	let ageDistributionLabels;
 	let ageDistributionData;
@@ -103,14 +101,34 @@
 		});
 	}
 
-	let maritalStatusDistributionLabels = maritalStatusWiseUsers.map((x) => x.status);
-	let maritalStatusDistributionData = maritalStatusWiseUsers.map((x) => x.count);
+	// let maritalStatusDistributionLabels = maritalStatusWiseUsers.map((x) => x.status);
+	// let maritalStatusDistributionData = maritalStatusWiseUsers.map((x) => x.count);
 
-	let cuntryDistributionData = countryWiseUsers.map((x) => x.Ratio);
-	let cuntryDistributionLabels = countryWiseUsers.map((x) => x.Country);
+	let maritalStatusDistributionLabels;
+	let maritalStatusDistributionData;
 
-	$: cuntryDistributionData;
-	$: cuntryDistributionLabels;
+	$: if (maritalStatusWiseUsers) {
+		maritalStatusDistributionLabels = false;
+		maritalStatusDistributionData = false;
+
+		tick().then(() => {
+      maritalStatusDistributionLabels = maritalStatusWiseUsers.map((x) => x.status);
+	    maritalStatusDistributionData = maritalStatusWiseUsers.map((x) => x.count);
+		});
+	}
+
+	let cuntryDistributionLabels;
+	let cuntryDistributionData;
+
+	$: if (countryWiseUsers) {
+		cuntryDistributionLabels = false;
+		cuntryDistributionData = false;
+
+		tick().then(() => {
+		cuntryDistributionLabels = countryWiseUsers.map((x) => x.Country);
+		cuntryDistributionData = countryWiseUsers.map((x) => x.Ratio);
+		});
+	}
 
 	let majorAilmentDistributionData = majorAilment.map((x) => x.Count);
 	let majorAilmentDistributionLabels = majorAilment.map((x) => x.MajorAilment);
@@ -149,6 +167,31 @@
 			year: year
 		});
 	};
+
+	const handlelSelectYearForMaritalStatus = (year) => {
+		dispatch('selectMaritalStatusDistributionYearly', {
+			year: year
+		});
+	};
+
+	const handlelSelectYearForMajorAilments = (year) => {
+		dispatch('selectMajorAilmentDistributionYearly', {
+			year: year
+		});
+	};
+
+	const handlelSelectYearForObesity = (year) => {
+		dispatch('selectObesityDistributionYearly', {
+			year: year
+		});
+	};
+
+	const handlelSelectYearForAddiction = (year) => {
+		dispatch('selectAddictionDistributionYearly', {
+			year: year
+		});
+	};
+	
 </script>
 
 <!-- <BreadCrumbs crumbs={breadCrumbs} /> -->
@@ -322,20 +365,20 @@
 					</div>
 				</div>
 			</div>
-			<div class="w-64 h-64">
-				{#if ageDistributionData}
-					<PieChart labels={ageDistributionLabels} data={ageDistributionData} title="Age" />
-				{/if}
-
-				<select name="year" id="" class="select w-2/3" on:change={handlelSelectYearForAge}>
-					<option>All the years</option>
+			<div>
+				<select name="year" id="" class="select w-2/3 mt-3" on:change={handlelSelectYearForAge}>
+					<option selected>All the years</option>
 					<option value="2021">2021</option>
 					<option value="2022">2022</option>
 					<option value="2023">2023</option>
 				</select>
+				<div class="w-64 h-64">
+					{#if ageDistributionData}
+						<PieChart labels={ageDistributionLabels} data={ageDistributionData} title="Age" />
+					{/if}
+				</div>
 			</div>
 		</div>
-
 		<div
 			class="grid grid-cols-3 overflow-x-auto justify-center rounded-lg  shadow-xl border border-secondary-100 dark:border-surface-700 sm:px-4 w-full h-full gap-3 "
 		>
@@ -389,14 +432,22 @@
 					</div>
 				</div>
 			</div>
-			<div class="w-64 h-64">
-				<PieChart labels={genderDistributionLabels} data={genderDistributionData} title="Gender" />
-				<!-- <select name="year" id="" class="select w-2/3" on:change={handlelSelectYearForGender}>
+			<div>
+				<select name="year" id="" class="select w-2/3 mt-3" on:change={handlelSelectYearForGender}>
 					<option>All the years</option>
 					<option value="2021">2021</option>
 					<option value="2022">2022</option>
 					<option value="2023">2023</option>
-				</select> -->
+				</select>
+				<div class="w-64 h-64 pt-0">
+					{#if genderDistributionData}
+						<PieChart
+							labels={genderDistributionLabels}
+							data={genderDistributionData}
+							title="Gender"
+						/>
+					{/if}
+				</div>
 			</div>
 		</div>
 
@@ -453,15 +504,27 @@
 					</div>
 				</div>
 			</div>
-			<div class="w-64 h-64">
-				<PieChart labels={cuntryDistributionLabels} data={cuntryDistributionData} title="Country" />
-				<!-- <select name="year" id="" class="select w-2/3 " on:change={handlelSelectYearForCountry}>
-			<option>All the years</option>
-			<option value="2021">2021</option>
-			<option value="2022">2022</option>
-			<option value="2023">2023</option>
-		</select>
-		 -->
+			<div>
+				<select
+					name="year"
+					id=""
+					class="select w-2/3 mt-3 "
+					on:change={handlelSelectYearForCountry}
+				>
+					<option>All the years</option>
+					<option value="2021">2021</option>
+					<option value="2022">2022</option>
+					<option value="2023">2023</option>
+				</select>
+				<div class="w-64 h-64">
+					{#if cuntryDistributionData}
+						<PieChart
+							labels={cuntryDistributionLabels}
+							data={cuntryDistributionData}
+							title="Country"
+						/>
+					{/if}
+				</div>
 			</div>
 		</div>
 	</div>
@@ -471,11 +534,19 @@
 			class="flex overflow-x-auto justify-center items-center rounded-lg  shadow-xl border border-secondary-100 dark:border-surface-700 sm:px-4 w-1/2"
 		>
 			<div class="h-96 w-full ">
+				<select name="year" id="" class="select w-2/3 mt-3" on:change={handlelSelectYearForMaritalStatus}>
+					<option selected>All the years</option>
+					<option value="2021">2021</option>
+					<option value="2022">2022</option>
+					<option value="2023">2023</option>
+				</select>
+				{#if maritalStatusDistributionData}
 				<BarChart
 					dataSource={maritalStatusDistributionData}
 					labels={maritalStatusDistributionLabels}
 					title="Marital Status"
 				/>
+				{/if}
 			</div>
 		</div>
 		<div

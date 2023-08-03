@@ -264,7 +264,7 @@ export const getOverallUsers = async (sessionId: string, searchParams?: any) => 
 	return await get_(sessionId, url, true);
 };
 
-export const getAddictioDistribution = async (sessionId: string, searchParams?: any) => {
+export const getAddictionDistribution = async (sessionId: string, searchParams?: any) => {
 	let searchString = '';
 	if (searchParams) {
 		const keys = Object.keys(searchParams);

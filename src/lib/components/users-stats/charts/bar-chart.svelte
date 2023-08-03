@@ -6,7 +6,8 @@
 	export let title;
 	let barChart;
 	let ctx;
-
+	$:dataSource;
+  $:labels
 	onMount(() => {
 		ctx = barChart.getContext('2d');
 		barChart = new Chart(ctx, {

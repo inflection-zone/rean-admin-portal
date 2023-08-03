@@ -5,8 +5,8 @@
 	export let data: number[];
 	export let title: string;
 
-	$: data;
-
+	$:data;
+  $:labels
 	let pieChart;
 	let ctx;
 

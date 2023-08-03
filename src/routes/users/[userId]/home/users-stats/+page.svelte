@@ -8,7 +8,7 @@
 
 	let totalUsers = data.totalUsers;
 	let activeUsers = data.activeUsers;
-	let maritalStatusWiseUsers = data.maritalStatusWiseUsers;
+	let maritalStatusWiseUsers;
 	let genderWiseUsers;
 	let ageWiseUsers;
 	let countryWiseUsers;
@@ -24,14 +24,16 @@
 	let deviceDetailWiseUsers = data.deviceDetailWiseUsers;
 
 	$: genderWiseUsers;
-	$: ageWiseUsers;
+	$: ageWiseUsers;	
+	$: countryWiseUsers;
 	genderWiseUsers = data.genderWiseUsers;
 	ageWiseUsers = data.ageWiseUsers;
 	countryWiseUsers = data.countryWiseUsers;
+	maritalStatusWiseUsers = data.maritalStatusWiseUsers;
 
-	$: countryWiseUsers;
 	let selectedYear;
 
+	// Age distribution of users
 	const selectAgeWiseUsersDividionYearly = async (e) => {
 		selectedYear = e.currentTarget.value;
 		console.log('selected year', selectedYear);
@@ -53,6 +55,7 @@
 		console.log('ageWiseUsers------------', ageWiseUsers);
 	}
 
+	// Gender distribution of users
 	const selectGenderWiseUsersDividionYearly = async (e) => {
 		selectedYear = e.currentTarget.value;
 		console.log('selected year', selectedYear);
@@ -75,6 +78,7 @@
 		console.log('genderWiseUsers------------', genderWiseUsers);
 	}
 
+	// Country distribution of users
 	const selectCounrtyDistributionYearly = async (e) => {
 		selectedYear = e.currentTarget.value;
 		console.log('selected year', selectedYear);
@@ -94,8 +98,96 @@
 		});
 		const response = await res.json();
 		countryWiseUsers = response;
-		console.log('countryWiseUsers------------', countryWiseUsers);
 	}
+
+	// Marital status distribution of users
+	const selectMaritalSatusDistributionYearly = async (e) => {
+		selectedYear = e.currentTarget.value;
+		console.log('selected year', selectedYear);
+		await searchMaritalStatusDistributionOfUsers({
+			sessionId: data.sessionId,
+			year: selectedYear
+		});
+		// window.location.href = `/users/${userId}/home`;
+	};
+
+	async function searchMaritalStatusDistributionOfUsers(model) {
+		let url = `/api/server/users-stats/search-users-by-marital-status?year=${model.year}`;
+		console.log(url);
+		const res = await fetch(url, {
+			method: 'GET',
+			headers: { 'content-type': 'application/json' }
+		});
+		const response = await res.json();
+		maritalStatusWiseUsers = response;
+	};
+
+	// Major ailment distribution of users
+	const selectMajorAilmentDistributionYearly = async (e) => {
+		selectedYear = e.currentTarget.value;
+		console.log('selected year', selectedYear);
+		await searchMajorAilmentDistributionOfUsers({
+			sessionId: data.sessionId,
+			year: selectedYear
+		});
+		// window.location.href = `/users/${userId}/home`;
+	};
+
+	async function searchMajorAilmentDistributionOfUsers(model) {
+		let url = `/api/server/users-stats/search-users-by-major-ailments?year=${model.year}`;
+		console.log(url);
+		const res = await fetch(url, {
+			method: 'GET',
+			headers: { 'content-type': 'application/json' }
+		});
+		const response = await res.json();
+		majorAilment = response;
+	};
+
+	//Obesity distribution of users
+	const selectObesityDistributionYearly = async (e) => {
+		selectedYear = e.currentTarget.value;
+		console.log('selected year', selectedYear);
+		await searchObesityDistributionOfUsers({
+			sessionId: data.sessionId,
+			year: selectedYear
+		});
+		// window.location.href = `/users/${userId}/home`;
+	};
+
+	async function searchObesityDistributionOfUsers(model) {
+		let url = `/api/server/users-stats/search-users-by-obesity?year=${model.year}`;
+		console.log(url);
+		const res = await fetch(url, {
+			method: 'GET',
+			headers: { 'content-type': 'application/json' }
+		});
+		const response = await res.json();
+		obesityDistribution = response;
+	};
+
+	// Addiction distribution of users
+	const selectAddictionDistributionYearly = async (e) => {
+		selectedYear = e.currentTarget.value;
+		console.log('selected year', selectedYear);
+		await searchAddictionDistributionOfUsers({
+			sessionId: data.sessionId,
+			year: selectedYear
+		});
+	};
+
+	async function searchAddictionDistributionOfUsers(model) {
+		let url = `/api/server/users-stats/search-users-by-addiction?year=${model.year}`;
+		console.log(url);
+		const res = await fetch(url, {
+			method: 'GET',
+			headers: { 'content-type': 'application/json' }
+		});
+		const response = await res.json();
+		addictionDistribution = response;
+	};
+
+
 </script>
 
 <UsersStats
@@ -123,5 +215,8 @@
 	}}
 	on:selectCountryDistributionYearly={async (e) => {
 		await selectCounrtyDistributionYearly(e.detail.year);
+	}}
+	on:selectMaritalStatusDistributionYearly={async (e) => {
+		await selectMaritalSatusDistributionYearly(e.detail.year);
 	}}
 />
