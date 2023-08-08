@@ -10,8 +10,6 @@
 
 	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-	export let totalUsers;
-	export let activeUsers;
 	export let genderWiseUsers;
 	export let ageWiseUsers;
 	export let maritalStatusWiseUsers;
@@ -27,21 +25,20 @@
 	export let usersCount;
 	export let deviceDetailWiseUsers;
 
-	$: countryWiseUsers;
-	let androidUsers = deviceDetailWiseUsers.AndroidUsers;
-	let iOSUsers = deviceDetailWiseUsers.IOSUsers;
-	let missingDeviceDetails = deviceDetailWiseUsers.MissingDeviceDetails;
+	// let androidUsers = deviceDetailWiseUsers.AndroidUsers;
+	// let iOSUsers = deviceDetailWiseUsers.IOSUsers;
+	// let missingDeviceDetails = deviceDetailWiseUsers.MissingDeviceDetails;
 
 	const usersData = [
 		{
 			usersDetail: 'Not Deleted Users',
-			count: usersCount.NonDeletedUsers.Count,
-			ratio: `${Math.ceil(usersCount.NonDeletedUsers.Ratio)}`
+			count: usersCount.NotDeletedUsers.Count,
+			ratio: `${Math.ceil(usersCount.NotDeletedUsers.Ratio)}`
 		},
 		{
 			usersDetail: 'Users With Active Session',
-			count: usersCount.ActiveUsers.Count,
-			ratio: `${Math.ceil(usersCount.ActiveUsers.Ratio)}`
+			count: usersCount.UsersWithActiveSession.Count,
+			ratio: `${Math.ceil(usersCount.UsersWithActiveSession.Ratio)}`
 		},
 		{
 			usersDetail: 'Deleted Users',
@@ -50,30 +47,28 @@
 		},
 		{
 			usersDetail: 'Enrolled Users',
-			count: usersCount.EnrollmentUsers.Count,
-			ratio: `${Math.ceil(usersCount.EnrollmentUsers.Ratio)}`
+			count: usersCount.EnrolledUsers.Count,
+			ratio: `${Math.ceil(usersCount.EnrolledUsers.Ratio)}`
 		}
 	];
 
-	console.log('deviceDetailWiseUsers', deviceDetailWiseUsers);
-
-	const deviceDetailData = [
-		{
-			usersDetail: 'Android Users',
-			count: androidUsers.Count,
-			ratio: `${Math.ceil(androidUsers.Ratio)}`
-		},
-		{
-			usersDetail: 'IOS Users',
-			count: iOSUsers.Count,
-			ratio: `${Math.ceil(iOSUsers.Ratio)}`
-		},
-		{
-			usersDetail: 'Missing Device Detail Users',
-			count: missingDeviceDetails.Count,
-			ratio: `${Math.ceil(missingDeviceDetails.Ratio)}`
-		}
-	];
+	// const deviceDetailData = [
+	// 	{
+	// 		usersDetail: 'Android Users',
+	// 		count: androidUsers.Count,
+	// 		ratio: `${Math.ceil(androidUsers.Ratio)}`
+	// 	},
+	// 	{
+	// 		usersDetail: 'IOS Users',
+	// 		count: iOSUsers.Count,
+	// 		ratio: `${Math.ceil(iOSUsers.Ratio)}`
+	// 	},
+	// 	{
+	// 		usersDetail: 'Missing Device Detail Users',
+	// 		count: missingDeviceDetails.Count,
+	// 		ratio: `${Math.ceil(missingDeviceDetails.Ratio)}`
+	// 	}
+	// ];
 
 	let genderDistributionLabels;
 	let genderDistributionData;
@@ -101,9 +96,6 @@
 		});
 	}
 
-	// let maritalStatusDistributionLabels = maritalStatusWiseUsers.map((x) => x.status);
-	// let maritalStatusDistributionData = maritalStatusWiseUsers.map((x) => x.count);
-
 	let maritalStatusDistributionLabels;
 	let maritalStatusDistributionData;
 
@@ -112,7 +104,7 @@
 		maritalStatusDistributionData = false;
 
 		tick().then(() => {
-      maritalStatusDistributionLabels = maritalStatusWiseUsers.map((x) => x.status);
+      maritalStatusDistributionLabels = maritalStatusWiseUsers.map((x) => x.MaritalStatus);
 	    maritalStatusDistributionData = maritalStatusWiseUsers.map((x) => x.count);
 		});
 	}
@@ -130,7 +122,7 @@
 		});
 	}
 
-	let majorAilmentDistributionData = majorAilment.map((x) => x.Count);
+	let majorAilmentDistributionData = majorAilment.map((x) => x.count);
 	let majorAilmentDistributionLabels = majorAilment.map((x) => x.MajorAilment);
 
 	let obesityDistributionData = obesityDistribution.map((x) => x.Count);
@@ -276,12 +268,12 @@
 											</td>
 										</tr>
 									{/each}
-									{#each deviceDetailData as data}
+									{#each deviceDetailWiseUsers as data}
 										<tr class="hover:bg-secondary-50 dark:hover:bg-surface-800 transition">
 											<td
 												style="width:10%;"
 												class="whitespace-nowrap py-2 pl-4 pr-3 text-primary-500 dark:text-primary-100 text-sm  sm:pl-3"
-												>{data.usersDetail}</td
+												>{data.OSType}</td
 											>
 											<td
 												style="width:10%;"
@@ -296,10 +288,10 @@
 													<div class="h-2 w-1/4 rounded-full bg-primary-200 mr-2">
 														<div
 															class="h-2 rounded-full bg-primary-500"
-															style="width:{data.ratio}%"
+															style="width:{Math.ceil((data.count / usersCount.TotalUsers.Count) * 100).toFixed(2)}%"
 														/>
 													</div>
-													<span class="text-primary-500 dark:text-primary-100 ">{data.ratio}</span>
+													<span class="text-primary-500 dark:text-primary-100 ">{Math.ceil((data.count / usersCount.TotalUsers.Count) * 100).toFixed(0)}</span>
 													<span class="text-primary-500 dark:text-primary-100 text-xs">%</span>
 												</div>
 											</td>
@@ -587,7 +579,7 @@
 		</div>
 	</div>
 
-	<div class="flex justify-center items-center h-96 gap-10 w-full mt-10">
+	<!-- <div class="flex justify-center items-center h-96 gap-10 w-full mt-10">
 		<div
 			class="flex overflow-x-auto justify-center items-center rounded-lg  shadow-xl border border-secondary-100 dark:border-surface-700 sm:px-4 w-1/2"
 		>
@@ -606,8 +598,8 @@
 				<HealthPillarChart {healthPillarDistributionMonthly} />
 			</div>
 		</div>
-	</div>
-
+	</div> -->
+<!-- 
 	<div class="flex justify-center items-center h-96 gap-10 w-full mt-10">
 		<div
 			class="flex overflow-x-auto justify-center items-center rounded-lg  shadow-xl border border-secondary-100 dark:border-surface-700 sm:px-4 w-1/2"
@@ -627,5 +619,5 @@
 				<BiometricsChart {biometricsDistributionMonthly} />
 			</div>
 		</div>
-	</div>
+	</div> -->
 </div>

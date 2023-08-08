@@ -8,10 +8,10 @@
 	export let data: PageServerData;
 	let overallUsersData = data.overallUsersData;
 	let totalUsers = overallUsersData.TotalUsers;
-	let activeUsers = overallUsersData.ActiveUsers;
+	let activeUsers = overallUsersData.UsersWithActiveSession;
 	let deletedUsers = overallUsersData.DeletedUsers;
-	let nonDeletedUsers = overallUsersData.NonDeletedUsers;
-	// let deviceDetailWiseUsersData = data.deviceDetailWiseUsers;
+	let nonDeletedUsers = overallUsersData.NotDeletedUsers;
+	let deviceDetailWiseUsersData = data.deviceDetailWiseUsers;
 	let androidUsers = data.deviceDetailWiseUsers.AndroidUsers;
 	let iOSUsers = data.deviceDetailWiseUsers.IOSUsers;
 	let missingDeviceDetails = data.deviceDetailWiseUsers.MissingDeviceDetails;
@@ -19,7 +19,8 @@
 	let androidUsersData = data.androidUsersArray;
 	let iOSUsersData = data.iOSUsersArray;
 	let lables = data.years;
-	let totalEnrollment = overallUsersData.EnrollmentUsers;
+	let enrolledUsersData = overallUsersData.EnrolledUsers;
+	let downloads = data.appDownloadCount;
 
 	let labels = [
 		'Downloads',
@@ -28,13 +29,16 @@
 		'Users With Active Session',
 		'Enrolled Users'
 	];
-	let funnelChartData = [
-		totalUsers.Count,
+
+	let funnelChartData;
+	$: funnelChartData = [
+		downloads,
 		totalUsers.Count,
 		nonDeletedUsers.Count,
 		activeUsers.Count,
-		totalEnrollment.Count
+		enrolledUsersData.Count
 	];
+	
 </script>
 
 <dl class="mt-4 grid grid-cols-1 gap-4 sm:grid-cols-3">
@@ -45,7 +49,7 @@
 			App Downloads
 		</dt>
 		<dd class="mt-2 text-5xl font-semibold tracking-tight text-primary-500 dark:text-primary-100">
-			{totalUsers.Count}
+			{downloads}
 		</dd>
 	</div>
 	<div
@@ -98,28 +102,28 @@
 	>
 		<dt class="truncate text-md font-normal text-primary-500 dark:text-primary-100">Enrolled Users</dt>
 		<dd class="mt-1 flex items-baseline pb-6 sm:pb-7">
-			<div class="text-5xl  font-semibold text-primary-500 dark:text-primary-100">{totalEnrollment.Count}</div>
+			<div class="text-5xl  font-semibold text-primary-500 dark:text-primary-100">{enrolledUsersData.Count}</div>
 			<div class="ml-2 flex items-baseline text-md font-normal text-primary-500 dark:text-primary-100">
-				{totalEnrollment.Ratio}
+				{enrolledUsersData.Ratio}
 				<div class="text-xs">%</div>
 			</div>
 		</dd>
 	</div>
 
-	<!-- {#each deviceDetailWiseUsersData as data }
+	{#each deviceDetailWiseUsersData as data }
 		<div class="overflow-hidden rounded-lg px-4 shadow-xl border border-secondary-100 dark:border-surface-700 h-28 sm:p-4">
-			<dt class="truncate text-md font-normal text-primary-500 dark:text-primary-100">{data.Status}</dt>
+			<dt class="truncate text-md font-normal text-primary-500 dark:text-primary-100">{data.OSType}</dt>
 			<dd class="mt-1 flex items-baseline pb-6 sm:pb-7">
-				<div class="text-5xl  font-semibold text-primary-500 dark:text-primary-100">{data.Count}</div>
-				<div class="ml-2 flex items-baseline text-md font-normal text-primary-500 dark:text-primary-100">
-					{data.Ratio}
+				<div class="text-5xl  font-semibold text-primary-500 dark:text-primary-100">{data.count}</div>
+					<div class="ml-2 flex items-baseline text-md font-normal text-primary-500 dark:text-primary-100">
+				{((data.count / downloads) * 100).toFixed(2)}
 					<div class="text-xs">%</div>
 				</div>
 			</dd>
 		</div>
-		{/each} -->
+		{/each}
 
-	<div
+	<!-- <div
 		class="overflow-hidden rounded-lg px-4 shadow-xl border border-secondary-100 dark:border-surface-700 h-28 sm:p-4"
 	>
 		<dt class="truncate text-md font-normal text-primary-500 dark:text-primary-100">Android Users</dt>
@@ -154,7 +158,7 @@
 				<div class="text-xs">%</div>
 			</div>
 		</dd>
-	</div>
+	</div> -->
 </dl>
 
 <div class="flex h-80 gap-10 w-full mt-5">
@@ -171,7 +175,7 @@
 			<div class="flex  items-center gap-4 ">
 				<div class="h-3 w-3 mt-1 border bg-primary-700" />
 				<div class="text-sm font-normal text-primary-500 dark:text-primary-100">Downloads</div>
-				<div class="text-sm font-normal text-primary-500 dark:text-primary-100">{totalUsers.Count}</div>
+				<div class="text-sm font-normal text-primary-500 dark:text-primary-100">{downloads}</div>
 			</div>
 			<div class="flex  gap-4">
 				<div class="h-3 w-3 mt-1 border bg-primary-500" />
@@ -191,7 +195,7 @@
 			<div class="flex  gap-4">
 				<div class="h-3 w-3 mt-1 border bg-primary-700" />
 				<div class="text-sm  font-normal text-primary-500 dark:text-primary-100">Enrolled Users</div>
-				<div class="text-sm font-normal text-primary-500 dark:text-primary-100">{totalEnrollment.Count}</div>
+				<div class="text-sm font-normal text-primary-500 dark:text-primary-100">{enrolledUsersData.Count}</div>
 			</div>
 		</div>
 	</div>

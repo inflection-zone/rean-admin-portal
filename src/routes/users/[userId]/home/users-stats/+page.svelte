@@ -6,12 +6,13 @@
 
 	export let data: PageServerData;
 
-	let totalUsers = data.totalUsers;
-	let activeUsers = data.activeUsers;
+	// let totalUsers = data.totalUsers;
+	// let activeUsers = data.activeUsers;
 	let maritalStatusWiseUsers;
 	let genderWiseUsers;
 	let ageWiseUsers;
 	let countryWiseUsers;
+	let usersCount = data.overallUsersData;
 	let majorAilment = data.majorAilment;
 	let obesityDistribution = data.obesityDistribution;
 	let addictionDistribution = data.addictionDistribution;
@@ -20,9 +21,9 @@
 	let roleDistribution = data.roleDistribution;
 	let biometricsDistribution = data.biometricsDistribution;
 	let biometricsDistributionMonthly = data.biometricsDistributionMonthly;
-	let usersCount = data.overallUsersData;
 	let deviceDetailWiseUsers = data.deviceDetailWiseUsers;
 
+	console.log('usersCount------------------',usersCount)
 	$: genderWiseUsers;
 	$: ageWiseUsers;	
 	$: countryWiseUsers;
@@ -186,13 +187,9 @@
 		const response = await res.json();
 		addictionDistribution = response;
 	};
-
-
 </script>
 
 <UsersStats
-	{totalUsers}
-	{activeUsers}
 	{ageWiseUsers}
 	{genderWiseUsers}
 	{maritalStatusWiseUsers}
