@@ -149,7 +149,7 @@
 			{#if apiKey === undefined}
 				<tr class="!border-b !border-b-secondary-100 dark:!border-b-surface-700">
 					<td>Api Key</td>
-					<td>Not Available</td>
+					<td>Click on Get API key</td>
 				</tr>
 			{:else}
 				<tr class="!border-b !border-b-secondary-100 dark:!border-b-surface-700">

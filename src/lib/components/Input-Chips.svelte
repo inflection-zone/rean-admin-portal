@@ -9,7 +9,7 @@
 	export let max = -1;
 	export let minlength = -1;
 	export let maxlength = -1;
-	export let allowUpperCase = false;
+	export let allowUpperCase = true;
 	export let allowDuplicates = false;
 	export let validation = () => true;
 	export let duration = 150;
