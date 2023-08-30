@@ -22,7 +22,8 @@
 	let biometricsDistribution = data.biometricsDistribution;
 	let biometricsDistributionMonthly = data.biometricsDistributionMonthly;
 	let deviceDetailWiseUsers = data.deviceDetailWiseUsers;
-
+	let years =  data.years;
+	console.log('years------------------',years)
 	console.log('usersCount------------------',usersCount)
 	$: genderWiseUsers;
 	$: ageWiseUsers;	
@@ -190,6 +191,7 @@
 </script>
 
 <UsersStats
+  {years}
 	{ageWiseUsers}
 	{genderWiseUsers}
 	{maritalStatusWiseUsers}
@@ -215,5 +217,14 @@
 	}}
 	on:selectMaritalStatusDistributionYearly={async (e) => {
 		await selectMaritalSatusDistributionYearly(e.detail.year);
+	}}
+	on:selectMajorAilmentDistributionYearly={async (e) => {
+		await selectMajorAilmentDistributionYearly(e.detail.year);
+	}}
+	on:selectObesityDistributionYearly={async (e) => {
+		await selectObesityDistributionYearly(e.detail.year);
+	}}
+	on:selectAddictionDistributionYearly={async (e) => {
+		await selectAddictionDistributionYearly(e.detail.year);
 	}}
 />

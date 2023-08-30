@@ -10,6 +10,7 @@
 
 	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+	export let years;
 	export let genderWiseUsers;
 	export let ageWiseUsers;
 	export let maritalStatusWiseUsers;
@@ -25,6 +26,7 @@
 	export let usersCount;
 	export let deviceDetailWiseUsers;
 
+	console.log("years",years)
 	// let androidUsers = deviceDetailWiseUsers.AndroidUsers;
 	// let iOSUsers = deviceDetailWiseUsers.IOSUsers;
 	// let missingDeviceDetails = deviceDetailWiseUsers.MissingDeviceDetails;
@@ -122,14 +124,44 @@
 		});
 	}
 
-	let majorAilmentDistributionData = majorAilment.map((x) => x.count);
-	let majorAilmentDistributionLabels = majorAilment.map((x) => x.MajorAilment);
+	let majorAilmentDistributionData;
+	let majorAilmentDistributionLabels;
 
-	let obesityDistributionData = obesityDistribution.map((x) => x.Count);
-	let obesityDistributionLabels = obesityDistribution.map((x) => x.Status);
+	$: if (majorAilment) {
+		majorAilmentDistributionData = false;
+		majorAilmentDistributionLabels = false;
 
-	let addictionDistributionData = addictionDistribution.map((x) => x.Count);
-	let addictionDistributionLabels = addictionDistribution.map((x) => x.Status);
+		tick().then(() => {
+			majorAilmentDistributionData = majorAilment.map((x) => x.count);
+			majorAilmentDistributionLabels = majorAilment.map((x) => x.MajorAilment);
+		});
+	}
+
+	let obesityDistributionData;
+	let obesityDistributionLabels;
+
+	$: if (obesityDistribution) {
+		obesityDistributionData = false;
+		obesityDistributionLabels = false;
+
+		tick().then(() => {
+			obesityDistributionData = obesityDistribution.map((x) => x.Count);
+			obesityDistributionLabels = obesityDistribution.map((x) => x.Status);
+		});
+	}
+
+	let addictionDistributionData;
+	let addictionDistributionLabels;
+
+	$: if (obesityDistribution) {
+		addictionDistributionData = false;
+		addictionDistributionLabels = false;
+
+		tick().then(() => {
+			addictionDistributionData  = addictionDistribution.map((x) => x.Count);
+			addictionDistributionLabels = addictionDistribution.map((x) => x.Status);
+		});
+	}
 
 	let healthPillarDistributionData = healthPillarDistribution.map((x) => x.Count);
 	let healthPillarDistributionLabels = healthPillarDistribution.map((x) => x.Status);
@@ -359,10 +391,10 @@
 			</div>
 			<div>
 				<select name="year" id="" class="select w-2/3 mt-3" on:change={handlelSelectYearForAge}>
-					<option selected>All the years</option>
-					<option value="2021">2021</option>
-					<option value="2022">2022</option>
-					<option value="2023">2023</option>
+					<option selected disabled>All the years</option>
+					{#each years as year }
+					<option value= {year.year}>{year.year}</option>
+					{/each}
 				</select>
 				<div class="w-64 h-64">
 					{#if ageDistributionData}
@@ -426,10 +458,10 @@
 			</div>
 			<div>
 				<select name="year" id="" class="select w-2/3 mt-3" on:change={handlelSelectYearForGender}>
-					<option>All the years</option>
-					<option value="2021">2021</option>
-					<option value="2022">2022</option>
-					<option value="2023">2023</option>
+					<option selected disabled>All the years</option>
+					{#each years as year }
+					<option value= {year.year}>{year.year}</option>
+					{/each}
 				</select>
 				<div class="w-64 h-64 pt-0">
 					{#if genderDistributionData}
@@ -503,10 +535,10 @@
 					class="select w-2/3 mt-3 "
 					on:change={handlelSelectYearForCountry}
 				>
-					<option>All the years</option>
-					<option value="2021">2021</option>
-					<option value="2022">2022</option>
-					<option value="2023">2023</option>
+					<option selected disabled>All the years</option>
+					{#each years as year }
+					<option value= {year.year}>{year.year}</option>
+					{/each}
 				</select>
 				<div class="w-64 h-64">
 					{#if cuntryDistributionData}
@@ -521,36 +553,56 @@
 		</div>
 	</div>
 
-	<div class="flex justify-center items-center h-96 gap-10 w-full">
+	<div class="flex justify-center items-center h-full gap-10 w-full">
 		<div
 			class="flex overflow-x-auto justify-center items-center rounded-lg  shadow-xl border border-secondary-100 dark:border-surface-700 sm:px-4 w-1/2"
 		>
-			<div class="h-96 w-full ">
-				<select name="year" id="" class="select w-2/3 mt-3" on:change={handlelSelectYearForMaritalStatus}>
-					<option selected>All the years</option>
-					<option value="2021">2021</option>
-					<option value="2022">2022</option>
-					<option value="2023">2023</option>
-				</select>
+			<div class="w-full">
+				<div class="flex items-center">
+					<h4 class="mr-4 w-2/3 text-left justify-center py-3 ml-4 text-lg font-semibold text-primary-500 dark:text-primary-100 sm:pl-3">Marital Status</h4>
+					<select name="year" id="" class="select w-1/3 mt-3" on:change={handlelSelectYearForMaritalStatus}>
+						<option selected>All the years</option>
+							{#each years as year }
+								<option value= {year.year}>{year.year}</option>
+							{/each}
+					</select>
+				</div>
+			
 				{#if maritalStatusDistributionData}
-				<BarChart
-					dataSource={maritalStatusDistributionData}
-					labels={maritalStatusDistributionLabels}
-					title="Marital Status"
-				/>
+				<div class="h-96">
+					<BarChart
+						dataSource={maritalStatusDistributionData}
+						labels={maritalStatusDistributionLabels}
+						title="Marital Status"
+					/>
+			 </div>
 				{/if}
 			</div>
 		</div>
 		<div
 			class="flex overflow-x-auto justify-center items-center rounded-lg  shadow-xl border border-secondary-100 dark:border-surface-700 sm:px-4 w-1/2"
 		>
-			<div class="h-96 w-full">
-				<BarChart
-					dataSource={majorAilmentDistributionData}
-					labels={majorAilmentDistributionLabels}
-					title="Major Ailments"
-				/>
+		<div class="w-full">
+			<div class="flex items-center">
+				<h4 class="mr-4 w-2/3 text-left justify-center py-3 ml-4 text-lg font-semibold text-primary-500 dark:text-primary-100 sm:pl-3">Major Ailments</h4>
+				<select name="year" id="" class="select w-1/3 mt-3" on:change={handlelSelectYearForMajorAilments}>
+					<option selected>All the years</option>
+						{#each years as year }
+							<option value= {year.year}>{year.year}</option>
+						{/each}
+				</select>
 			</div>
+		
+			{#if majorAilmentDistributionData}
+				<div class="h-96">
+					<BarChart
+						dataSource={majorAilmentDistributionData}
+						labels={majorAilmentDistributionLabels}
+						title="Major Ailments"
+					/>
+				</div>
+			{/if}
+		</div>
 		</div>
 	</div>
 
@@ -558,23 +610,65 @@
 		<div
 			class="flex overflow-x-auto justify-center items-center rounded-lg  shadow-xl border border-secondary-100 dark:border-surface-700 sm:px-4 w-1/2"
 		>
-			<div class="h-96 w-full ">
+			<!-- <div class="h-96 w-full ">
 				<BarChart
 					dataSource={obesityDistributionData}
 					labels={obesityDistributionLabels}
 					title="Obesity"
 				/>
+			</div> -->
+			<div class="w-full">
+				<div class="flex items-center">
+					<h4 class="mr-4 w-2/3 text-left justify-center py-3 ml-4 text-lg font-semibold text-primary-500 dark:text-primary-100 sm:pl-3">Obesity</h4>
+					<select name="year" id="" class="select w-1/3 mt-3" on:change={handlelSelectYearForObesity}>
+						<option selected>All the years</option>
+							{#each years as year }
+								<option value= {year.year}>{year.year}</option>
+							{/each}
+					</select>
+				</div>
+			
+				{#if obesityDistributionData}
+					<div class="h-96">
+						<BarChart
+							dataSource={obesityDistributionData}
+							labels={obesityDistributionLabels}
+							title="Obesity"
+						/>
+					</div>
+				{/if}
 			</div>
 		</div>
 		<div
 			class="flex overflow-x-auto justify-center items-center rounded-lg shadow-xl border border-secondary-100 dark:border-surface-700 sm:px-4 w-1/2"
 		>
-			<div class="h-96 w-full">
+			<!-- <div class="h-96 w-full">
 				<BarChart
 					dataSource={addictionDistributionData}
 					labels={addictionDistributionLabels}
 					title="Addiction"
 				/>
+			</div> -->
+			<div class="w-full">
+				<div class="flex items-center">
+					<h4 class="mr-4 w-2/3 text-left justify-center py-3 ml-4 text-lg font-semibold text-primary-500 dark:text-primary-100 sm:pl-3">Addiction</h4>
+					<select name="year" id="" class="select w-1/3 mt-3" on:change={handlelSelectYearForAddiction}>
+						<option selected>All the years</option>
+							{#each years as year }
+								<option value= {year.year}>{year.year}</option>
+							{/each}
+					</select>
+				</div>
+			
+				{#if addictionDistributionData}
+					<div class="h-96">
+						<BarChart
+							dataSource={addictionDistributionData}
+							labels={addictionDistributionLabels}
+							title="Addiction"
+						/>
+					</div>
+				{/if}
 			</div>
 		</div>
 	</div>

@@ -362,3 +362,23 @@ export const getUsersStats= async (sessionId: string, searchParams?: any) => {
 	const url = BACKEND_API_URL + `/users-statistics/users-stats${searchString}`;
 	return await get_(sessionId, url, true);
 };
+
+export const getYears= async (sessionId: string, searchParams?: any) => {
+	let searchString = '';
+	if (searchParams) {
+		const keys = Object.keys(searchParams);
+		if (keys.length > 0) {
+			searchString = '?';
+			const params = [];
+			for (const key of keys) {
+				if (searchParams[key]) {
+					const param = `${key}=${searchParams[key]}`;
+					params.push(param);
+				}
+			}
+			searchString  += params.join('&');
+		}
+	}
+	const url = BACKEND_API_URL + `/users-statistics/years`;
+	return await get_(sessionId, url, true);
+};

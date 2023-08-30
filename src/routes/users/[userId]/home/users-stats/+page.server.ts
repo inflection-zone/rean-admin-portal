@@ -15,6 +15,7 @@ import {
 	getRoleDistribution,
 	// getTolalUsers,
 	getDeviceDetailWiseUsers,
+	getYears,
 } from '$routes/api/services/statistics';
 
 ////////////////////////////////////////////////////////////////////////////
@@ -33,10 +34,12 @@ export const load: PageServerLoad = async (event: RequestEvent) => {
 		// 	ageWiseUsersArray.push(genderWiseUsers);
 		// }
 
+		const currentDate = new Date();
+    const currentYear = currentDate.getFullYear();
 		const searchParams = {
-			year: '2023'
+			year: currentYear
 		};
-;
+
 		// const _totalUsers = await getTolalUsers(sessionId);
 		// const _activeUsers = await getActiveUsers(sessionId);
 		const _overallUsersData = await getOverallUsers(sessionId);
@@ -56,6 +59,7 @@ export const load: PageServerLoad = async (event: RequestEvent) => {
 		const _biometricsDistribution = await getBiometricsDistribution(sessionId);
 		const _biometricsDistributionMonthly = await getBiometricsDistribution(sessionId, searchParams);
 		const _deviceDetailWiseUsers = await getDeviceDetailWiseUsers(sessionId);
+		const _years = await getYears(sessionId);
 
 		// const totalUsers = _totalUsers.Data.TotalUsers;
 		// const activeUsers = _activeUsers.Data.ActiveUsers;
@@ -74,7 +78,8 @@ export const load: PageServerLoad = async (event: RequestEvent) => {
 		const biometricsDistribution = _biometricsDistribution.Data.Biometrics;
 		const biometricsDistributionMonthly = _biometricsDistributionMonthly.Data.Biometrics;
 		const deviceDetailWiseUsers = _deviceDetailWiseUsers.Data.DeviceDetailWiseUsers;
-
+		const years = _years.Data.Years;
+	
 		console.log('overallUsersData', overallUsersData);
 		// console.log('activeUsers', activeUsers);
 		console.log('ageWiseUsers', ageWiseUsers);
@@ -103,7 +108,8 @@ export const load: PageServerLoad = async (event: RequestEvent) => {
 			biometricsDistribution,
 			biometricsDistributionMonthly,
 			overallUsersData,
-			deviceDetailWiseUsers
+			deviceDetailWiseUsers,
+			years
 		};
 	} catch (error) {
 		console.error(`Error retriving users data: ${error.message}`);

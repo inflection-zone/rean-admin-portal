@@ -61,7 +61,7 @@
 						}
 					},
 					title: {
-						display: true,
+						display: false,
 						text: title,
 						position: 'top',
 						color: document.documentElement.classList.contains('dark') ? '#DED6EC' : '#5832A1',
