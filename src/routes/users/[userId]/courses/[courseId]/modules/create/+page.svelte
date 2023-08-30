@@ -131,6 +131,7 @@
 						type="number"
 						name="durationInMins"
 						placeholder="Enter duration here..."
+						min="1"
 						class="input w-full {form?.errors?.durationInMins
 							? 'border-error-300 text-error-500'
 							: ''}"
@@ -141,12 +142,13 @@
 				</td>
 			</tr>
 			<tr class="!border-b !border-b-secondary-100 dark:!border-b-surface-700">
-				<td>Sequence</td>
+				<td>Sequence*</td>
 				<td>
 					<input
 						type="number"
 						name="sequence"
 						placeholder="Enter sequence here..."
+						min="1"
 						class="input w-full {form?.errors?.sequence ? 'border-error-300 text-error-500' : ''}"
 					/>
 					{#if form?.errors?.sequence}

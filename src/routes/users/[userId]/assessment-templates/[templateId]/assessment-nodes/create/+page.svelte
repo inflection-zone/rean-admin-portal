@@ -126,7 +126,7 @@
 			<tr class="!border-b !border-b-secondary-100 dark:!border-b-surface-700">
 				<td>Sequence</td>
 				<td>
-					<input type="number" name="sequence" placeholder="Enter sequence here..." class="input" />
+					<input type="number" name="sequence" placeholder="Enter sequence here..." min="1" class="input" />
 				</td>
 			</tr>
 			{#if selectedNodeType === 'Question'}
@@ -161,6 +161,7 @@
 									type="number"
 									name="resolutionScore"
 									placeholder="Enter resolution score here..."
+									min="1"
 									class="input w-full
 									 {form?.errors?.resolutionScore ? 'border-error-300 text-error-500' : ''}"
 									value={form?.data?.resolutionScore ?? ''}
@@ -175,6 +176,7 @@
 									type="number"
 									name="resolutionScore"
 									placeholder="Enter resolution score here..."
+									min="1"
 									class="input w-full
 									{form?.errors?.resolutionScore ? 'border-error-300 text-error-500' : ''}"
 									value={form?.data?.resolutionScore ?? ''}

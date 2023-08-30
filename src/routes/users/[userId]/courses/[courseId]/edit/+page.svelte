@@ -144,6 +144,7 @@
 						type="number"
 						name="durationInDays"
 						placeholder="Enter duration here..."
+						min="1"
 						bind:value={durationInDays}
 						class="input w-full {form?.errors?.durationInDays
 							? 'border-error-300 text-error-500'

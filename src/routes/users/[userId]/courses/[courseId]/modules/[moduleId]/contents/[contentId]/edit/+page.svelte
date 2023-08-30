@@ -166,6 +166,7 @@
 						name="durationInMins"
 						placeholder="Enter duration here..."
 						bind:value={durationInMins}
+						min="1"
 						class="input w-full {form?.errors?.durationInMins
 							? 'border-error-300 text-error-500'
 							: ''}"
@@ -220,6 +221,7 @@
 						type="number"
 						name="sequence"
 						placeholder="Enter sequence here..."
+						min="1"
 						class="input w-full {form?.errors?.sequence ? 'border-error-300 text-error-500' : ''}"
 					/>
 					{#if form?.errors?.sequence}

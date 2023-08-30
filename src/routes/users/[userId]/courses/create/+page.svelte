@@ -115,6 +115,7 @@
 						name="durationInDays"
 						placeholder="Enter duration here..."
 						class="input"
+						min="1"
 					/>
 				</td>
 			</tr>

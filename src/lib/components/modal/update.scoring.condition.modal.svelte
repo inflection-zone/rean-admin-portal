@@ -37,6 +37,7 @@
 				class="input dark:text-white"
 				name="resolutionScore"
 				type="number"
+				min="1"
 				bind:value={resolutionScore}
 				placeholder="Enter resolution score here..."
 			/>

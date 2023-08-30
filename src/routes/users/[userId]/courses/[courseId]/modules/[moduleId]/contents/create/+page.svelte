@@ -127,6 +127,7 @@
 						name="durationInMins"
 						placeholder="Enter duration here..."
 						class="input"
+						min="1"
 					/>
 				</td>
 			</tr>
@@ -163,7 +164,7 @@
 			<tr class="!border-b !border-b-secondary-100 dark:!border-b-surface-700">
 				<td>Sequence</td>
 				<td>
-					<input type="number" name="sequence" placeholder="Enter sequence here..." class="input" />
+					<input type="number" name="sequence" placeholder="Enter sequence here..." min="1" class="input" />
 				</td>
 			</tr>
 			<tr class="!border-b !border-b-secondary-100 dark:!border-b-surface-700">
