@@ -73,12 +73,12 @@
 				<td>{description}</td>
 			</tr>
 			<tr class="!border-b !border-b-secondary-100 dark:!border-b-surface-700">
-				<td>Sequence</td>
-				<td>{sequence}</td>
-			</tr>
-			<tr class="!border-b !border-b-secondary-100 dark:!border-b-surface-700">
 				<td>Duration In Minutes</td>
 				<td>{durationInMins}</td>
+			</tr>
+			<tr class="!border-b !border-b-secondary-100 dark:!border-b-surface-700">
+				<td>Sequence</td>
+				<td>{sequence}</td>
 			</tr>
 			<tr class="!border-b !border-b-secondary-100 dark:!border-b-surface-700">
 				<td class="align-top">Image</td>

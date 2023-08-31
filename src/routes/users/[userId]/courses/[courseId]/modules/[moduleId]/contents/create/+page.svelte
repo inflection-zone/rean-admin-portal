@@ -162,9 +162,9 @@
 				</td>
 			</tr>
 			<tr class="!border-b !border-b-secondary-100 dark:!border-b-surface-700">
-				<td>Sequence</td>
+				<td>Sequence *</td>
 				<td>
-					<input type="number" name="sequence" placeholder="Enter sequence here..." min="1" class="input" />
+					<input type="number" name="sequence" placeholder="Enter sequence here..." min="1" required class="input" />
 				</td>
 			</tr>
 			<tr class="!border-b !border-b-secondary-100 dark:!border-b-surface-700">

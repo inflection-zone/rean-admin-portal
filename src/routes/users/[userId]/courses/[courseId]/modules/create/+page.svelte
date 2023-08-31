@@ -149,6 +149,7 @@
 						name="sequence"
 						placeholder="Enter sequence here..."
 						min="1"
+						required
 						class="input w-full {form?.errors?.sequence ? 'border-error-300 text-error-500' : ''}"
 					/>
 					{#if form?.errors?.sequence}
