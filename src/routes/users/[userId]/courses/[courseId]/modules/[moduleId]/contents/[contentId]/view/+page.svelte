@@ -15,7 +15,7 @@
 	let resourceLink = data.content.ResourceLink;
 	let imageUrl = data.content.ImageUrl;
 	let durationInMins = data.content.DurationInMins;
-
+	
 	const userId = $page.params.userId;
 	const courseId = $page.params.courseId;
 	const moduleId = $page.params.moduleId;
@@ -90,7 +90,13 @@
 			</tr>
 			<tr class="!border-b !border-b-secondary-100 dark:!border-b-surface-700">
 				<td>Resource Link</td>
-				<td>{resourceLink}</td>
+				<td>
+					{#if resourceLink === ''}
+							Not specified
+					{:else}
+						{resourceLink}
+					{/if}
+				</td>
 			</tr>
 			<tr class="!border-b !border-b-secondary-100 dark:!border-b-surface-700">
 				<td class="align-top">Image</td>

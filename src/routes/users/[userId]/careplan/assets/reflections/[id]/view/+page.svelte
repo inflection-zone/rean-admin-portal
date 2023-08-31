@@ -72,7 +72,13 @@
 			</tr>
 			<tr class="!border-b !border-b-secondary-100 dark:!border-b-surface-700">
 				<td>Tags</td>
-				<td>{tags}</td>
+				<td>
+					{#if tags.length <= 0}
+						<span class="span">Tags not specified</span>
+					{:else}
+						<span class="span">{tags}</span>
+					{/if}
+				</td>
 			</tr>
 			<tr class="!border-b !border-b-secondary-100 dark:!border-b-surface-700">
 				<td>Version</td>
