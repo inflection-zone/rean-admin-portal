@@ -145,7 +145,22 @@
 					icon: 'material-symbols:release-alert-outline-rounded',
 					title: 'Notices',
 					link: `/users/${userId}/notices`
-				}
+				},
+				{
+					icon: 'material-symbols:database-outline',
+					title: 'Custom Queries',
+					link: `/users/${userId}/custom-queries`
+				},
+				{
+					icon: 'material-symbols:tenancy-outline',
+					title: 'Tenants',
+					link: `/users/${userId}/tenants`
+				},
+				{
+					icon: 'material-symbols:groups-outline-rounded',
+					title: 'Cohorts',
+					link: `/users/${userId}/cohorts`
+				},
 			]
 		},
 		{
