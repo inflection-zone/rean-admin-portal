@@ -59,7 +59,7 @@ export const updateMessage = async (
     MessageType: messagetype,
     Tags: tags,
     Url: pathUrl,
-    Version: version
+    Version: !version || version?.length === 0 ? 'V 1.0' : version,
   };
   const url = CAREPLAN_BACKEND_API_URL + `/assets/messages/${messageId}`;
   return await put_(sessionId, url, body, true);

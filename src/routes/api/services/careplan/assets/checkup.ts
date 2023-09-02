@@ -50,7 +50,7 @@ export const updateCheckup = async (
     Name: name,
     Description: description,
     Tags: tags,
-    Version: version
+    Version: !version || version?.length === 0 ? 'V 1.0' : version,
   };
   const url = CAREPLAN_BACKEND_API_URL + `/assets/checkups/${checkupId}`;
   return await put_(sessionId, url, body, true);

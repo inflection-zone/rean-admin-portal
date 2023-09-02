@@ -41,18 +41,16 @@ export const searchChallenges = async (sessionId: string, searchParams) => {
 export const updateChallenge = async (
   sessionId: string,
   challengeId: string,
-  // assetCode: string,
   name: string,
   description: string,
   tags: string[],
   version: string
 ) => {
   const body = {
-    // AssetCode: assetCode,
     Name: name,
     Description: description,
     Tags: tags,
-    Version: version
+    Version: !version || version?.length === 0 ? 'V 1.0' : version,
   };
   const url = CAREPLAN_BACKEND_API_URL + `/assets/challenges/${challengeId}`;
   return await put_(sessionId, url, body, true);

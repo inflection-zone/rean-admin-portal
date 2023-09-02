@@ -5,7 +5,6 @@ import { delete_, get_, post_, put_ } from '../../common';
 
 export const createWebNewsfeed = async (
   sessionId: string,
-  // assetCode: string,
   name: string,
   description: string,
   pathUrl: string,
@@ -13,7 +12,6 @@ export const createWebNewsfeed = async (
   version: string
 ) => {
   const body = {
-    // AssetCode: assetCode,
     Name: name,
     Description: description,
     Url: pathUrl,
@@ -51,7 +49,6 @@ export const searchWebNewsfeed = async (sessionId: string, searchParams: any) =>
 export const updateWebNewsfeed = async (
   sessionId: string,
   webNewsfeedId: string,
-  // assetCode: string,
   name: string,
   description: string,
   pathUrl: string,
@@ -59,12 +56,11 @@ export const updateWebNewsfeed = async (
   version: string
 ) => {
   const body = {
-    // AssetCode: assetCode,
     Name: name,
     Description: description,
     Url: pathUrl,
     Tags: tags,
-    Version: version
+    Version: !version || version?.length === 0 ? 'V 1.0' : version,
   };
   const url = CAREPLAN_BACKEND_API_URL + `/assets/web-newsfeeds/${webNewsfeedId}`;
   return await put_(sessionId, url, body, true);

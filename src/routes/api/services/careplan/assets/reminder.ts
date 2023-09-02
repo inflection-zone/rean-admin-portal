@@ -5,14 +5,12 @@ import { delete_, get_, post_, put_ } from '../../common';
 
 export const createReminder = async (
   sessionId: string,
-  // assetCode: string,
   name: string,
   description: string,
   tags: string[],
   version: string
 ) => {
   const body = {
-    // AssetCode: assetCode,
     Name: name,
     Description: description,
     Tags: tags,
@@ -43,18 +41,16 @@ export const searchReminders = async (sessionId: string, searchParams: any) => {
 export const updateReminder = async (
   sessionId: string,
   reminderId: string,
-  // assetCode: string,
   name: string,
   description: string,
   tags: string[],
   version: string
 ) => {
   const body = {
-    // AssetCode: assetCode,
     Name: name,
     Description: description,
     Tags: tags,
-    Version: version
+    Version: !version || version?.length === 0 ? 'V 1.0' : version,
   };
 
   const url = CAREPLAN_BACKEND_API_URL + `/assets/reminders/${reminderId}`;

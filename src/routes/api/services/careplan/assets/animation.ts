@@ -53,7 +53,7 @@ export const updateAnimation = async (
     Transcript: transcript,
     Url: pathUrl,
     Tags: tags,
-    Version: version
+    Version: !version || version?.length === 0 ? 'V 1.0' : version,
   };
   const url = CAREPLAN_BACKEND_API_URL + `/assets/animations/${animationId}`;
   return await put_(sessionId, url, body, true);

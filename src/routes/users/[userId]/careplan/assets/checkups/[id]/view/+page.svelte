@@ -7,7 +7,7 @@
   //////////////////////////////////////////////////////////////////////////////
 
   const userId = $page.params.userId;
-  const checkupId = $page.params.userId;
+  const checkupId = $page.params.id;
   const assetRoute =  `/users/${userId}/careplan/assets`;
   const editRoute = `/users/${userId}/careplan/assets/checkups/${checkupId}/edit`;
   const viewRoute = `/users/${userId}/careplan/assets/checkups/${checkupId}/view`;

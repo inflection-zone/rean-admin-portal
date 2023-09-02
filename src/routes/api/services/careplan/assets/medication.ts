@@ -5,14 +5,12 @@ import { delete_, get_, post_, put_ } from '../../common';
 
 export const createMedication = async (
   sessionId: string,
-  // assetCode: string,
   name: string,
   description: string,
   tags: string[],
   version: string
 ) => {
   const body = {
-    // AssetCode: assetCode,
     Name: name,
     Description: description,
     Tags: tags,
@@ -45,7 +43,6 @@ export const searchMeditation = async (sessionId: string, searchParams: any) => 
 export const updateMedication = async (
   sessionId: string,
   medicationId: string,
-  // assetCode: string,
   name: string,
   description: string,
 
@@ -53,11 +50,10 @@ export const updateMedication = async (
   version: string
 ) => {
   const body = {
-    // AssetCode: assetCode,
     Name: name,
     Description: description,
     Tags: tags,
-    Version: version
+    Version: !version || version?.length === 0 ? 'V 1.0' : version,
   };
   const url = CAREPLAN_BACKEND_API_URL + `/assets/medications/${medicationId}`;
   return await put_(sessionId, url, body, true);

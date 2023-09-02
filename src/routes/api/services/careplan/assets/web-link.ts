@@ -56,7 +56,7 @@ export const updateWebLink = async (
     Description: description,
     Url: pathUrl,
     Tags: tags,
-    Version: version
+    Version: !version || version?.length === 0 ? 'V 1.0' : version,
   };
   const url = CAREPLAN_BACKEND_API_URL + `/assets/web-links/${webLinkId}`;
   return await put_(sessionId, url, body, true);

@@ -63,8 +63,9 @@ export const updateExercise = async (
     IntensityLevel: intensityLevel,
     RecommendedDurationMin: recommendedDurationMin,
     Tags: tags,
-    Version: version
+    Version: !version || version?.length === 0 ? 'V 1.0' : version,
   };
+  console.log("body", body)
   const url = CAREPLAN_BACKEND_API_URL + `/assets/exercise/${exerciseId}`;
   return await put_(sessionId, url, body, true);
 };

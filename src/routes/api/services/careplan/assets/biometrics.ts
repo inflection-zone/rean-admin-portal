@@ -59,7 +59,7 @@ export const updateBiometrics = async (
     BiometricsType: biometricsType,
     MeasurementUnit: measurementUnit,
     Tags: tags,
-    Version: version
+    Version: !version || version?.length === 0 ? 'V 1.0' : version,
   };
 
   const url = CAREPLAN_BACKEND_API_URL + `/assets/Biometrics/${biometricsId}`;

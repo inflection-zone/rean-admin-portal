@@ -5,7 +5,6 @@ import { delete_, get_, post_, put_ } from '../../common';
 
 export const createMeditation = async (
   sessionId: string,
-  // assetCode: string,
   name: string,
   description: string,
   meditationType: string,
@@ -14,7 +13,6 @@ export const createMeditation = async (
   version: string
 ) => {
   const body = {
-    // AssetCode: assetCode,
     Name: name,
     Description: description,
     MeditationType: meditationType,
@@ -49,7 +47,6 @@ export const searchMeditation = async (sessionId: string, searchParams: any) => 
 export const updateMeditation = async (
   sessionId: string,
   meditationId: string,
-  // assetCode: string,
   name: string,
   description: string,
   meditationType: string,
@@ -59,13 +56,12 @@ export const updateMeditation = async (
   version: string
 ) => {
   const body = {
-    // AssetCode: assetCode,
     Name: name,
     Description: description,
     MeditationType: meditationType,
     RecommendedDurationMin: recommendedDurationMin,
     Tags: tags,
-    Version: version
+    Version: !version || version?.length === 0 ? 'V 1.0' : version,
   };
   const url = CAREPLAN_BACKEND_API_URL + `/assets/meditations/${meditationId}`;
 

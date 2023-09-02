@@ -98,7 +98,6 @@ export const put_ = async (
 		body,
 		headers
 	});
-
 	const response = await res.json();
 	if (response.Status === 'failure' || (response.HttpCode !== 200 && response.HttpCode !== 201)) {
 		console.log(chalk.red(`put_ response message: ${response.Message}`));
