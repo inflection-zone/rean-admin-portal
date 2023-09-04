@@ -28,6 +28,7 @@
 	let _description = description;
 	let _queryType = queryType;
 	let _sequence = sequence;
+	let _message = message;
 
 	function handleReset() {
 		nodeType = _nodeType;
@@ -35,6 +36,7 @@
 		description = _description;
 		queryType = _queryType;
 		sequence = _sequence;
+		message = _message;
 	}
 
 	const userId = $page.params.userId;
@@ -83,7 +85,8 @@
 		<tbody class="!bg-white dark:!bg-inherit">
 			<tr class="!border-b !border-b-secondary-100 dark:!border-b-surface-700">
 				<td>Node Type *</td>
-				<td>
+				<td>{nodeType}</td>
+				<!-- <td>
 					<select
 						name="nodeType"
 						bind:value={nodeType}
@@ -96,7 +99,7 @@
 						<option>Message</option>
 						<option>Node List</option>
 					</select>
-				</td>
+				</td> -->
 			</tr>
 			<tr class="!border-b !border-b-secondary-100 dark:!border-b-surface-700">
 				<td>Title *</td>

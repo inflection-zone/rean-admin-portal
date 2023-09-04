@@ -15,8 +15,8 @@
 	let id = data.assessmentNode.id;
 	let nodeType = data.assessmentNode.NodeType;
 	let title = data.assessmentNode.Title;
-	let description = data.assessmentNode.Description ?? null;
-	let message = data.assessmentNode.Message ?? null;
+	let description = data.assessmentNode.Description !== null ? data.assessmentNode.Description : "Not specified";
+	let message = data.assessmentNode.Message !== null ? data.assessmentNode.Message : "Not specified" ;
 	let serveListNodeChildrenAtOnce = data.assessmentNode.ServeListNodeChildrenAtOnce ?? null;
 	let queryType = data.assessmentNode.QueryResponseType;
 	let options = data.assessmentNode.Options ?? [];
