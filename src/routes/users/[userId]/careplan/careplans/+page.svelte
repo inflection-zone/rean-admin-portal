@@ -47,7 +47,7 @@
 		pagination: { offset: 0, limit: 10, size: 0, amounts: [10, 20, 30, 50] }
 	});
 
-	async function searchApiClient(model) {
+	async function searchCareplan(model) {
 		let url = `/api/server/careplan/careplans/search?`;
 		if (sortOrder) url += `sortOrder=${sortOrder}`;
 		else url += `sortOrder=ascending`;
@@ -71,7 +71,7 @@
 	}
 
 	dataTableStore.subscribe((model) => dataTableHandler(model));
-	$: if (browser) searchApiClient({ name: name, categoryId: categoryId });
+	$: if (browser) searchCareplan({ name: name, categoryId: categoryId });
 
 	const handleCareplanDelete = async (e, id) => {
 		const careplanId = id;
