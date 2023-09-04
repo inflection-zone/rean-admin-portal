@@ -16,7 +16,7 @@
 	export let data: PageServerData;
 	let assetCode = data.reminder.AssetCode;
 	let name = data.reminder.Name;
-	let description = data.reminder.Description;
+	let description = data.reminder.Description !== null ? data.reminder.Description : 'Not specified';
 	let tags = data.reminder.Tags;
 	let version = data.reminder.Version;
 

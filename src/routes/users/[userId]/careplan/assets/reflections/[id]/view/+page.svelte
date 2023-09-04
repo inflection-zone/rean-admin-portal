@@ -16,7 +16,7 @@
 	export let data: PageServerData;
 	let assetCode = data.reflection.AssetCode;
 	let name = data.reflection.Name;
-	let description = data.reflection.Description;
+	let description = data.reflection.Description !== null ? data.reflection.Description : 'Not specified';
 	let tags = data.reflection.Tags;
 	let version = data.reflection.Version;
 

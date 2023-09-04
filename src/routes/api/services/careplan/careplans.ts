@@ -17,7 +17,7 @@ export const createCareplan = async (
         Code: code,
         CategoryId:categoryId,
         Name: name,
-        Description: description,
+        Description: description ? description : null,
         Tags: tags,
         Version: !version || version?.length === 0 ? 'V 1.0' : version,
     };
@@ -67,9 +67,9 @@ export const updateCareplan = async (
     Code: code,
         CategoryId:categoryId,
         Name: name,
-        Description: description,
+        Description: description ? description : null,
         Tags: tags,
-        Version: version
+        Version: !version || version?.length === 0 ? 'V 1.0' : version,
   };
   return await put_(sessionId, url, body, true);
 };

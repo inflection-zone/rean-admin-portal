@@ -16,7 +16,7 @@
 	export let data: PageServerData;
 	let assetCode = data.physiotherapy.AssetCode;
 	let name = data.physiotherapy.Name;
-	let description = data.physiotherapy.Description;
+	let description = data.physiotherapy.Description !== null ? data.physiotherapy.Description : 'Not specified';
 	let recommendedDurationMin = data.physiotherapy.RecommendedDurationMin;
 	let tags = data.physiotherapy.Tags;
 	let version = data.physiotherapy.Version;

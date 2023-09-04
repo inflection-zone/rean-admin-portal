@@ -16,7 +16,7 @@
 	export let data: PageServerData;
 	let assetCode = data.webNewsfeed.AssetCode;
 	let name = data.webNewsfeed.Name;
-	let description = data.webNewsfeed.Description;
+	let description = data.webNewsfeed.Description !== null ? data.webNewsfeed.Description : 'Not specified';
 	let pathUrl = data.webNewsfeed.Url;
 	let tags = data.webNewsfeed.Tags;
 	let version = data.webNewsfeed.Version;

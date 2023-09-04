@@ -16,7 +16,7 @@
 	export let data: PageServerData;
 	let assetCode = data.nutrition.AssetCode;
 	let name = data.nutrition.Name;
-	let description = data.nutrition.Description;
+	let description = data.nutrition.Description !== null ? data.nutrition.Description : 'Not specified';
 	let tags = data.nutrition.Tags;
 	let version = data.nutrition.Version;
 

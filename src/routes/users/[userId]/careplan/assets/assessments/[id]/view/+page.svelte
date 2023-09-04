@@ -16,7 +16,7 @@
   export let data: PageServerData
   let assetCode = data.assessment.AssetCode;
   let name = data.assessment.Name;
-  let description = data.assessment.Description;
+  let description = data.assessment.Description !== null ? data.assessment.Description : 'Not specified';
   let template = data.assessment.Template;
   let tags = data.assessment.Tags;
   let version = data.assessment.Version;

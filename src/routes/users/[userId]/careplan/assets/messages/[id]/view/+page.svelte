@@ -16,7 +16,7 @@
   export let data: PageServerData;
   let assetCode = data.msg.AssetCode;
   let name = data.msg.Name;
-  let description = data.msg.Description;
+  let description = data.message.Description !== null ? data.message.Description : 'Not specified';
   let messageType = data.msg.MessageType;
   let tags = data.msg.Tags;
   let pathUrl = data.msg.Url;

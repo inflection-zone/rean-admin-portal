@@ -16,7 +16,7 @@
 	export let data: PageServerData;
 	let assetCode = data.goal.AssetCode;
 	let name = data.goal.Name;
-	let description = data.goal.Description;
+	let description = data.goal.Description !== null ? data.goal.Description : 'Not specified';
 	let tags = data.goal.Tags;
 	let version = data.goal.Version;
 

@@ -16,7 +16,7 @@
 	export let data: PageServerData;
 	let assetCode = data.appointment.AssetCode;
 	let name = data.appointment.Name;
-	let description = data.appointment.Description;
+	let description = data.appointment.Description !== null ? data.appointment.Description : 'Not specified';
 	let appointmentType = data.appointment.AppointmentType;
 	let tags = data.appointment.Tags;
 	let version = data.appointment.Version;

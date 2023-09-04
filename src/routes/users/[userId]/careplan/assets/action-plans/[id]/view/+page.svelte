@@ -16,7 +16,7 @@
   export let data: PageServerData;
   let assetCode = data.actionPlan.AssetCode;
   let name = data.actionPlan.Name;
-  let description = data.actionPlan.Description;
+	let description = data.actionPlan.Description !== null ? data.actionPlan.Description : 'Not specified';
   let tags = data.actionPlan.Tags;
   let version = data.actionPlan.Version;
 

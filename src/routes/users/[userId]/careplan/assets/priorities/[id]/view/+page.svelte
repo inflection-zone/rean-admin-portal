@@ -16,7 +16,7 @@
 	export let data: PageServerData;
 	let assetCode = data.priority.AssetCode;
 	let name = data.priority.Name;
-	let description = data.priority.Description;
+	let description = data.priority.Description !== null ? data.priority.Description : 'Not specified';
 	let tags = data.priority.Tags;
 	let version = data.priority.Version;
 

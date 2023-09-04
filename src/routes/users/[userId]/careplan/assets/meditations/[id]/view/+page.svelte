@@ -16,7 +16,7 @@
   export let data: PageServerData;
   let assetCode = data.meditation.AssetCode;
   let name = data.meditation.Name;
-  let description = data.meditation.Description;
+  let description = data.meditation.Description !== null ? data.meditation.Description : 'Not specified';
   let meditationtype = data.meditation.MeditationType;
   let recommendedDurationMin = data.meditation.RecommendedDurationMin;
   let tags = data.meditation.Tags;

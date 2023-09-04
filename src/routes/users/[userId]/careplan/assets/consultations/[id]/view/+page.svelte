@@ -16,7 +16,7 @@
   export let data: PageServerData;
   let assetCode = data.consultation.AssetCode;
   let name = data.consultation.Name;
-  let description = data.consultation.Description;
+  let description = data.consultation.Description !== null ? data.consultation.Description : 'Not specified';
   let consultationtype = data.consultation.ConsultationType;
   let tags = data.consultation.Tags;
   let version = data.consultation.Version;

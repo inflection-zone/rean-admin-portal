@@ -16,7 +16,7 @@
 	export let data: PageServerData;
 	let assetCode = data.exercise.AssetCode;
 	let name = data.exercise.Name;
-	let description = data.exercise.Description;
+	let description = data.exercise.Description !== null ? data.exercise.Description : 'Not specified';
 	let exercisetype = data.exercise.ExerciseType;
 	let intensitylevel = data.exercise.IntensityLevel;
 	let recommendeddurationmin = data.exercise.RecommendedDurationMin;

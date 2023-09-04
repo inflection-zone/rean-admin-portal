@@ -16,7 +16,7 @@
   export let data: PageServerData;
   let assetCode = data.checkup.AssetCode;
   let name = data.checkup.Name;
-  let description = data.checkup.Description;
+	let description = data.checkup.Description !== null ? data.checkup.Description : 'Not specified';
   let tags = data.checkup.Tags;
   let version = data.checkup.Version;
 

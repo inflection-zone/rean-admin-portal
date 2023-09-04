@@ -16,7 +16,7 @@
 	export let data: PageServerData;
 	let assetCode = data.infographics.AssetCode;
 	let name = data.infographics.Name;
-	let description = data.infographics.Description;
+	let description = data.infographics !== null ? data.infographics.Description : 'Not specified';
 	let pathUrl = data.infographics.Url;
 	let tags = data.infographics.Tags;
 	let version = data.infographics.Version;

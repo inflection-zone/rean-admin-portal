@@ -15,7 +15,7 @@
 	let code = data.careplan.Code;
 	let categoryId = data.careplan.CategoryId;
 	let name = data.careplan.Name;
-	let description = data.careplan.Description;
+	let description = data.careplan.Description !== null ? data.careplan.Description : 'Not specified';
 	let tags_ = data.careplan.Tags;
 	let tags = tags_.join(', ');
 	let version = data.careplan.Version;

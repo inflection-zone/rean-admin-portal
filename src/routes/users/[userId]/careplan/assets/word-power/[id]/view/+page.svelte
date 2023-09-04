@@ -16,7 +16,7 @@
 	export let data: PageServerData;
 	let assetCode = data.wordPower.AssetCode;
 	let name = data.wordPower.Name;
-	let description = data.wordPower.Description;
+	let description = data.wordPower.Description !== null ? data.wordPower.Description : 'Not specified';
 	let additionalResources = data.wordPower.AdditionalResources;
 	let tags = data.wordPower.Tags;
 	let version = data.wordPower.Version;

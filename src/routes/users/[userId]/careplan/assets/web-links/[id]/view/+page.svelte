@@ -17,7 +17,7 @@
 
 	let assetCode = data.webLink.AssetCode;
 	let name = data.webLink.Name;
-	let description = data.webLink.Description;
+	let description = data.webLink.Description !== null ? data.webLink.Description : 'Not specified';
 	let pathUrl = data.webLink.Url;
 	let tags = data.webLink.Tags;
 	let version = data.webLink.Version;

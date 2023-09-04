@@ -16,7 +16,7 @@
 	export let data: PageServerData;
 	let assetCode = data.biometrics.AssetCode;
 	let name = data.biometrics.Name;
-	let description = data.biometrics.Description;
+	let description = data.biometrics.Description !== null ? data.biometrics.Description : 'Not specified';
 	let biometricsType = data.biometrics.BiometricsType;
 	let measurementUnit = data.biometrics.MeasurementUnit;
 	let tags = data.biometrics.Tags;

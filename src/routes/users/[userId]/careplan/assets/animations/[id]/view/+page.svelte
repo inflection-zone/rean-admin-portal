@@ -16,8 +16,8 @@
 	export let data: PageServerData;
 	let assetCode = data.animation.AssetCode;
 	let name = data.animation.Name;
-	let transcript = data.animation.Transcript;
-	let pathUrl = data.animation.Url;
+	let transcript = data.animation.Transcript !== null ? data.animation.Transcript : 'Not specified';
+	let pathUrl = data.animation.Url !== null ? data.animation.Url : 'Not specified';
 	let tags = data.animation.Tags;
 	let version = data.animation.Version;
 

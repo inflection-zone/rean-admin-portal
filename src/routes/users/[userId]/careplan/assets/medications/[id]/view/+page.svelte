@@ -16,7 +16,7 @@
 	export let data: PageServerData;
 	let assetCode = data.medication.AssetCode;
 	let name = data.medication.Name;
-	let description = data.medication.Description;
+	let description = data.medication !== null ? data.medication.Description : 'Not specified';
 	let tags = data.medication.Tags;
 	let version = data.medication.Version;
 
