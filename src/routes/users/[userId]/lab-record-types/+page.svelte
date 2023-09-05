@@ -87,7 +87,7 @@
 						<a href={viewRoute(row.id)}>{Helper.truncateText(row.TypeName, 20)} </a>
 					</td>
 					<td role="gridcell" aria-colindex={3} tabindex="0"
-						>{Helper.truncateText(row.DisplayName, 20)}
+						>{Helper.truncateText(row.DisplayName !== null ? row.DisplayName : 'Not specified', 20)}
 					</td>
 					<td role="gridcell" aria-colindex={4} tabindex="0">{row.NormalRangeMin}</td>
 					<td role="gridcell" aria-colindex={5} tabindex="0">{row.NormalRangeMax}</td>

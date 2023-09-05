@@ -61,7 +61,7 @@
 				<td>
 					<select class="select w-full" name="type" placeholder="Select type here...">
 						<option>Daily Update</option>
-						<option>Symptom</option>
+						<option>Symptoms</option>
 						<option>Survey</option>
 						<option>Protocol</option>
 						<option>Custom</option>
