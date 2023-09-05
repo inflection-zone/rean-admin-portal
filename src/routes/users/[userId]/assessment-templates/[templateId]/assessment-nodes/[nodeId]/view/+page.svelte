@@ -170,7 +170,7 @@
 					<tr class="!border-b !border-b-secondary-100 dark:!border-b-surface-700">
 						<td class="align-top">Options</td>
 						<td>
-							<ol class="list-decimal">
+							<ol class="list-decimal ml-3">
 								{#each options as option}
 									<li>{option.Text}</li>
 								{/each}
