@@ -25,7 +25,7 @@
 	const editRoute = `/users/${userId}/newsfeeds/${newsfeedId}/newsfeed-items/${id}/edit`;
 	const viewRoute = `/users/${userId}/newsfeeds/${newsfeedId}/newsfeed-items/${id}/view`;
 	const newsfeedRoute = `/users/${userId}/newsfeeds`;
-	const newsfeedItemRoute = `/users/${userId}/newsfeeds/newsfeed-items`;
+	const newsfeedItemRoute = `/users/${userId}/newsfeeds/${newsfeedId}/newsfeed-items`;
 
 	const breadCrumbs = [
 		{

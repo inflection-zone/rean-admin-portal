@@ -49,7 +49,6 @@ export const searchCareplans = async (sessionId: string,
     }
     const url = CAREPLAN_BACKEND_API_URL + `/careplans/search${searchString}`;
     console.log('Timestamp ', new Date().toTimeString());
-    console.log('url-> ', url);
     return await get_(sessionId, url, true);
 };
 

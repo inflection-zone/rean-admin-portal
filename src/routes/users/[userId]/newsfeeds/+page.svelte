@@ -106,7 +106,7 @@
 				<th data-sort="Title">Title</th>
 				<th>Link</th>
 				<th data-sort="Category">Category</th>
-				<th>Newsfeed Items</th>
+				<!-- <th>Newsfeed Items</th> -->
 				<th />
 				<th />
 			</tr>
@@ -121,7 +121,7 @@
 					<td role="gridcell" aria-colindex={3} tabindex="0">{Helper.truncateText(row.Link, 30)}</td
 					>
 					<td role="gridcell" aria-colindex={4} tabindex="0">{row.Category}</td>
-					<td role="gridcell" aria-colindex={5} tabindex="0"
+					<!-- <td role="gridcell" aria-colindex={5} tabindex="0"
 						>{#if newsfeeds.length <= 0}
 							<span>null</span>
 						{:else}
@@ -132,7 +132,7 @@
 								<br />
 							{/each}
 						{/if}
-					</td>
+					</td> -->
 
 					<td>
 						<a href={editRoute(row.id)} class="btn p-2 -my-1 hover:variant-soft-primary">
