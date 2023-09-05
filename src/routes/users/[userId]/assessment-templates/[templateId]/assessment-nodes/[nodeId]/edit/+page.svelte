@@ -150,6 +150,7 @@
 							name="queryType"
 							class="select select-info w-full"
 							placeholder="Select query type here..."
+							bind:value={queryType}
 							on:change={(val) => onSelectQueryResponseType(val)}
 						>
 							<option selected value={queryType}>{queryType}</option>
