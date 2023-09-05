@@ -18,7 +18,7 @@
 	let totalUsersData = data.totalUsersArray;
 	let androidUsersData = data.androidUsersArray;
 	let iOSUsersData = data.iOSUsersArray;
-	let lables = data.years;
+	let yearsArray = data.yearsArray;
 	let enrolledUsersData = overallUsersData.EnrolledUsers;
 	let downloads = data.appDownloadCount;
 
@@ -207,7 +207,7 @@
 				Platform Based Users
 			</h4>
 			<div class="w-full h-full">
-				<PlatformBasedChart {totalUsersData} {androidUsersData} {iOSUsersData} {lables} />
+				<PlatformBasedChart {totalUsersData} {androidUsersData} {iOSUsersData} lables={yearsArray} />
 			</div>
 		</div>
 	</div>

@@ -8,15 +8,15 @@ export const executeQuery = async (
 	name: string,
 	description: string,
   format: string,
-  userId: string,
-	queryId: string,
+  userId ?: string,
+	tenantId ?: string,
 ) => {
 	const body = {
 		Name: name,
 		Description: description ? description : null,
     Format: format,
 		UserId: userId,
-    queryId: queryId 
+    TenantId: tenantId 
 	};
 
 	const url = BACKEND_API_URL + '/custom-query';

@@ -43,7 +43,7 @@
 					<Icon icon="material-symbols:delete-outline-rounded" class="text-lg" />
 				</button>
 				<div slot="title">Delete</div>
-				<div slot="description">Are you sure you want to delete a content?</div>
+				<div slot="description">Are you sure you want to delete, this will leads to loss of data in course?</div>
 			</Confirm>
 		</div>
 		<button

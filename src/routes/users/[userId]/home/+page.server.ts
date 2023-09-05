@@ -1,13 +1,11 @@
 import type { RequestEvent } from '@sveltejs/kit';
 import type { PageServerLoad } from './$types';
 import {
-	// getActiveUsers,
 	getAppDownloadsData,
-	// getDeletdUsers,
 	getDeviceDetailWiseUsers,
 	getEnrollmetUsers,
 	getOverallUsers,
-	// getTolalUsers
+	getYears
 } from '$routes/api/services/statistics';
 
 ////////////////////////////////////////////////////////////////////////////
@@ -15,70 +13,68 @@ import {
 export const load: PageServerLoad = async (event: RequestEvent) => {
 	const sessionId = event.cookies.get('sessionId');
 	try {
-		const years = ['2020', '2021', '2022', '2023'];
+		const _overallUsersData = await getOverallUsers(sessionId);
+		const _deviceDetailWiseUsers = await getDeviceDetailWiseUsers(sessionId);
+		const _enrollmentUsers = await getEnrollmetUsers(sessionId);
+		const _appDownloadsData = await getAppDownloadsData(sessionId);
+		const _years = await getYears(sessionId);
+		const overallUsersData = _overallUsersData.Data.UsersCountStats;
+		const deviceDetailWiseUsers = _deviceDetailWiseUsers.Data.DeviceDetailWiseUsers;
+		const enrollmentUsers = _enrollmentUsers.Data.EnrollmentUsers;
+
+		const years = _years.Data.Years;
+		const appDownloadsData = _appDownloadsData.Data.AppDownload;
+		const latestEntry = latestDownloadEnrty(appDownloadsData);
+		const appDownloadCount = latestEntry.TotalDownloads;
+
+		const yearsArray = [];
+		for (const year of years) {
+			const year_ = year.year;
+			yearsArray.push(year_);
+		}
+
 		const totalUsersArray = [];
-		for (const y of years) {
+		for (const y of yearsArray) {
 			const searchParams = {
 				year: y
 			};
 			const _totalUsers = await getOverallUsers(sessionId, searchParams);
-			const totalUsers = _totalUsers.Data.UsersCountStats.TotalUsers.count;
+			const totalUsers = _totalUsers.Data.UsersCountStats.TotalUsers.Count;
 			totalUsersArray.push(totalUsers);
 		}
 
 		const androidUsersArray = [];
-		
+
 		const iOSUsersArray = [];
-		for (const y of years) {
+		for (const y of yearsArray) {
 			const searchParams = {
 				year: y
 			};
 			const _deviceDetailWiseUsers = await getDeviceDetailWiseUsers(sessionId, searchParams);
 
 			const deviceDetails = _deviceDetailWiseUsers.Data.DeviceDetailWiseUsers;
-
-			// console.log('iOSUsers.......................', iOSUsers);
-			// iOSUsersArray.push(iOSUsers);
+			console.log('deviceDetails----', deviceDetails);
+			for (const deviceDetail of deviceDetails )
+			if (deviceDetail.OSType === 'iOS'){
+				iOSUsersArray.push(deviceDetail.count)
+			}
+			else if (deviceDetail.OSType === 'android'){
+				iOSUsersArray.push(deviceDetail.count)
+			}
 		}
-		// console.log('totalUsersArray', totalUsersArray);
-		// console.log('totalUsersArray', androidUsersArray);
-		// console.log('totalUsersArray', iOSUsersArray);
 
-		// const _totalUsers = await getTolalUsers(sessionId);
-		const _overallUsersData = await getOverallUsers(sessionId);
-		// const _activeUsers = await getActiveUsers(sessionId);
-		// const _deletedUsers = await getDeletdUsers(sessionId);
-		const _deviceDetailWiseUsers = await getDeviceDetailWiseUsers(sessionId);
-		const _enrollmentUsers = await getEnrollmetUsers(sessionId);
-		const _appDownloadsData = await getAppDownloadsData(sessionId);
-
-		// const totalUsers = _totalUsers.Data.TotalUsers;
-		const overallUsersData = _overallUsersData.Data.UsersCountStats;
-		// const activeUsers = _activeUsers.Data.ActiveUsers;
-		// const deletedUsers = _deletedUsers.Data.DeletedUsers;
-		const deviceDetailWiseUsers = _deviceDetailWiseUsers.Data.DeviceDetailWiseUsers;
-		const enrollmentUsers = _enrollmentUsers.Data.EnrollmentUsers;
-		const appDownloadsData = _appDownloadsData.Data.AppDownload;
-    const latestEntry = latestDownloadEnrty(appDownloadsData);
-    const appDownloadCount = latestEntry.TotalDownloads ;
-
-		console.log("appDownloadsData------------",appDownloadCount);
-		// console.log("activeUsers",activeUsers);
-		// console.log("deletedUsers",deletedUsers);
+		console.log('appDownloadsData', appDownloadCount);
 		console.log('deviceDetailWiseUsers', deviceDetailWiseUsers);
-		console.log("overallUsersData--------",overallUsersData);
-		console.log("enrollmentUsers--------",enrollmentUsers);
-
+		console.log('overallUsersData', overallUsersData);
+		console.log('enrollmentUsers', enrollmentUsers);
+		console.log('years', years);
 		return {
 			sessionId,
-			// totalUsers,
-			// activeUsers,
-			// deletedUsers,
 			deviceDetailWiseUsers,
 			androidUsersArray,
 			totalUsersArray,
 			iOSUsersArray,
-			years,
+			yearsArray,
 			enrollmentUsers,
 			appDownloadCount,
 			overallUsersData
