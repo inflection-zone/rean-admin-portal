@@ -35,7 +35,6 @@
 			headers: { 'content-type': 'application/json' }
 		});
 		const resp = await response.text();
-		const scoringCondition = JSON.parse(resp);
 		console.log(response);
 	}
 </script>
@@ -64,7 +63,7 @@
 						type="text"
 						name="name"
 						bind:value={name}
-						placeholder="Enter cohort name here..."
+						placeholder="Enter query here..."
 						class="input w-full {form?.errors?.name ? 'border-error-300' : 'border-primary-200'}"
 					/>
 					{#if form?.errors?.name}

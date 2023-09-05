@@ -42,13 +42,13 @@
 	});
 
 	async function searchQuery(model) {
-		let url = `/api/server/queries/search?`;
+		let url = `/api/server/custom-query/search?`;
 		if (sortOrder) url += `sortOrder=${sortOrder}`;
 		else url += `sortOrder=ascending`;
 		if (sortBy) url += `&sortBy=${sortBy}`;
 		if (itemsPerPage) url += `&itemsPerPage=${itemsPerPage}`;
 		if (pageIndex) url += `&pageIndex=${pageIndex}`;
-		if (name) url += `&genericName=${name}`;
+		if (name) url += `&name=${name}`;
 
 		const res = await fetch(url, {
 			method: 'GET',
@@ -56,6 +56,7 @@
 		});
 		const response = await res.json();
 		queries = response.map((item, index) => ({ ...item, index: index + 1 }));
+		console.log("queries",queries)
 
 		dataTableStore.updateSource(queries);
 	}
@@ -73,7 +74,7 @@
 	};
 
 	async function Delete(model) {
-		const response = await fetch(`/api/server/queries`, {
+		const response = await fetch(`/api/server/custom-query/delete`, {
 			method: 'DELETE',
 			body: JSON.stringify(model),
 			headers: { 'content-type': 'application/json' }
