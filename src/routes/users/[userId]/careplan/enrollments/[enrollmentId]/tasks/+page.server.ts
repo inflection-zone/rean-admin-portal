@@ -9,22 +9,22 @@ import { searchParticipantActivities } from '$routes/api/services/careplan/parti
 
 export const load: PageServerLoad = async (event: RequestEvent) => {
 	const sessionId = event.cookies.get('sessionId');
-	console.log('sessionId', sessionId);
 	try {
-		const response = await searchEnrollmentTask(sessionId);
 		const enrollmentId = event.params.enrollmentId;
-
-		const enrollment_ = await getEnrollmentById(sessionId, enrollmentId);
+		const response = await getEnrollmentById(sessionId, enrollmentId);
 		if (response.Status === 'failure' || response.HttpCode !== 200) {
 			throw error(response.HttpCode, response.Message);
 		}
-		if (response.Status === 'failure' || response.HttpCode !== 200) {
-			throw error(response.HttpCode, response.Message);
-		}
-		const enrollmentTask = response.Data.Items;
-		const enrollment = enrollment_.Data;
+	
+		const enrollment = response.Data;
 		const participantId = enrollment.ParticipantId;
+		const careplanId = enrollment.CareplanId;
+		const searchParams ={
+			careplanId :careplanId
+		}
+		const enrollmentTask_ = await searchEnrollmentTask(sessionId, searchParams);
 		const participantResponse_ = await searchParticipantActivities(sessionId, participantId);
+		const enrollmentTask = enrollmentTask_.Data.Items;
 		const participantResponse = participantResponse_.Data.Items;
 		return {
 			enrollmentTask,

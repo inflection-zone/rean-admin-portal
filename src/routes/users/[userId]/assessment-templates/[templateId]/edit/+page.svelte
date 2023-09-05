@@ -25,6 +25,7 @@
 	let _provider = provider;
 	let _providerAssessmentCode = providerAssessmentCode;
 	let _serveListNodeChildrenAtOnce = serveListNodeChildrenAtOnce;
+	let _scoringApplicable = scoringApplicable;
 
 	function handleReset() {
 		title = _title;
@@ -34,6 +35,7 @@
 		provider = _provider;
 		providerAssessmentCode = _providerAssessmentCode;
 		serveListNodeChildrenAtOnce = _serveListNodeChildrenAtOnce;
+		scoringApplicable = _scoringApplicable
 	}
 
 	const userId = $page.params.userId;
