@@ -6,7 +6,7 @@
 	export let name;
 	export let value = [];
 	export let whitelist = [];
-	export let max = -1;
+	export let max = 10;
 	export let minlength = -1;
 	export let maxlength = -1;
 	export let allowUpperCase = true;
@@ -81,6 +81,7 @@
 				disabled={$$restProps.disabled}
 			/>
 		</form>
+
 		<!-- Chip List -->
 		{#if value.length}
 			<div
@@ -107,6 +108,9 @@
 						</button>
 					</div>
 				{/each}
+				{#if value.length > 9 }
+				<div class="text-error-500">Number of tags should be less than or equal to 10</div>
+				{/if}
 			</div>
 		{/if}
 	</div>
