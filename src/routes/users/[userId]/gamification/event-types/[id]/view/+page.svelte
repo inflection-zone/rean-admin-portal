@@ -9,7 +9,7 @@
 	export let data: PageServerData;
 	let id = data.eventType.id;
 	let name = data.eventType.Name;
-	let description = data.eventType.Description;
+	let description = (data.eventType.Description !== null && data.eventType.Description ) ? data.eventType.Description: 'Not specified';
 
 	const userId = $page.params.userId;
 	const editRoute = `/users/${userId}/gamification/event-types/${id}/edit`;

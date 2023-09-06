@@ -239,11 +239,13 @@
 					<td>Scheduled Day*</td>
 					<td>
 						<input
-							type="text"
+							type="number"
 							name="day"
 							required
 							placeholder="Enter scheduled day here..."
 							class="input "
+							min="1"
+							step="1"
 						/>
 					</td>
 				</tr>
