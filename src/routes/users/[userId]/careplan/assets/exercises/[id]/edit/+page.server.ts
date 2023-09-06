@@ -73,7 +73,7 @@ export const actions = {
 		);
 		const id = response.Data.id;
 		console.log(response);
-		if (response.Status === 'failure' || response.HttpCode !== 201) {
+		if (response.Status === 'failure' || response.HttpCode !== 200) {
 			throw redirect(
 				303,
 				`/users/${userId}/careplan/assets`,
