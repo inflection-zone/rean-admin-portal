@@ -189,7 +189,7 @@
 						type="file"
 						class="true input w-full"
 						placeholder="Image"
-						on:change={async (e) => await onFileSelected(e)}
+						on:change={async (e) => await onFaviconSelected(e)}
 					/>
 					<input type="hidden" name="favicon" value={favicon} />
 				</td>

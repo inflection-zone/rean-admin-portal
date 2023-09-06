@@ -23,6 +23,7 @@
 	let tags = tags_.join(', ');
 	let newsfeedItems = data.newsfeed.FeedItems;
 
+	console.log("newsfeed",data.newsfeed)
 	const userId = $page.params.userId;
 	const newsfeedId = $page.params.newsfeedId;
 	const editRoute = `/users/${userId}/newsfeeds/${id}/edit`;

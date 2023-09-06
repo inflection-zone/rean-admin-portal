@@ -16,10 +16,10 @@
   export let data: PageServerData;
   let assetCode = data.msg.AssetCode;
   let name = data.msg.Name;
-  let description = data.message.Description !== null ? data.message.Description : 'Not specified';
+  let description = (data.msg.Description !== null && data.msg.Description !== '' ) ? data.msg.Description : 'Not specified';
   let messageType = data.msg.MessageType;
   let tags = data.msg.Tags;
-  let pathUrl = data.msg.Url;
+	let pathUrl = (data.msg.Url !== null && data.msg.Url !== '' ) ? data.msg.Url : 'Not specified';
   let version = data.msg.Version;
 
   const breadCrumbs = [

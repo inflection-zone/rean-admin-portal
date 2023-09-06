@@ -16,8 +16,8 @@
   export let data: PageServerData;
   let assetCode = data.audio.AssetCode;
   let name = data.audio.Name;
-  let transcript = data.audio.Transcript;
-  let pathUrl = data.audio.Url;
+	let transcript = (data.audio.Transcript !== null && data.audio.Transcript !== '') ? data.audio.Transcript : 'Not specified';
+	let pathUrl = (data.audio.Url !== null && data.audio.Url !== '') ? data.audio.Url : 'Not specified';
   let tags = data.audio.Tags;
   let version = data.audio.Version;
 

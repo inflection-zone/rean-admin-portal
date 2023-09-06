@@ -16,8 +16,8 @@
 	export let data: PageServerData;
 	let assetCode = data.article.AssetCode;
 	let name = data.article.Name;
-	let summary = data.article.Summary;
-	let pathUrl = data.article.Url;
+	let summary = (data.article.Summary !== null && data.article.Summary !== '') ? data.article.Summary : 'Not specified';
+	let pathUrl = (data.article.Url !== null && data.article.Url !== '') ? data.article.Url : 'Not specified';
 	let tags = data.article.Tags;
 	let version = data.article.Version;
 

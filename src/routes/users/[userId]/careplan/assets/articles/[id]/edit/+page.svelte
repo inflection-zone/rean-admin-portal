@@ -108,7 +108,6 @@
 				<td>
 					<input
 						type="url"
-						required
 						placeholder="Enter url here..."
 						bind:value={pathUrl}
 						class="input"

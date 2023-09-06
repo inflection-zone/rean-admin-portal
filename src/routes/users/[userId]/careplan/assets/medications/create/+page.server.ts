@@ -59,7 +59,7 @@ export const actions = {
 		throw redirect(
 			303,
 			`/users/${userId}/careplan/assets/medications/${id}/view`,
-			successMessage(`Medication created successful!`),
+			successMessage(`Medication created successfully!`),
 			event
 		);
 	}
