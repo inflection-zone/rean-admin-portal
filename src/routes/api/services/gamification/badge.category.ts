@@ -21,7 +21,7 @@ export const createBadgeCategory = async (
 
 export const getBadgeCategoryById = async (sessionId: string, badgeCategoryId: string) => {
 	const url = AWARDS_BACKEND_API_URL + `/badge-categories/${badgeCategoryId}`;
-	return await get_(sessionId, url, true);
+	return await get_(sessionId, url, true, true, AWARDS_SERVICE_API_KEY);
 };
 
 export const searchBadgeCategories = async (sessionId: string, searchParams?: any) => {
