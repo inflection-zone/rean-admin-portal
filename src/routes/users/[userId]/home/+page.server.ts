@@ -27,11 +27,11 @@ export const load: PageServerLoad = async (event: RequestEvent) => {
 
 		let appDownloadCount = 0;
 
-		if (appDownloadsData.length > 0) {
+		if (appDownloadsData.rows.length > 0) {
 			const latestEntry = latestDownloadEnrty(appDownloadsData);
 			 appDownloadCount = latestEntry.TotalDownloads;
 		}
-		
+
 		const yearsArray = [];
 		for (const year of years) {
 			const year_ = year.year;

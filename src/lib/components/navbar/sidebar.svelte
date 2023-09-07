@@ -165,25 +165,25 @@
 		},
 		{
 			title: 'Gamifiation',
-			icon: 'material-symbols:home-max-dots-outline',
+			icon: 'simple-icons:gamedeveloper',
 			childNav: [
 				{
-					icon: 'material-symbols:frame-person-outline-rounded',
+					icon: 'mdi:event-edit',
 					title: 'Event Types',
 					link: `/users/${userId}/gamification/event-types`
 				},
 				{
-					icon: 'material-symbols:corporate-fare-rounded',
+					icon: 'octicon:id-badge-16',
 					title: 'Badge Categories',
 					link: `/users/${userId}/gamification/badge-categories`
 				},
 				{
-					icon: 'material-symbols:notifications-outline-rounded',
+					icon: 'cil:badge',
 					title: 'Badges',
 					link: `/users/${userId}/gamification/badges`
 				},
 				{
-					icon: 'material-symbols:newsmode-outline-rounded',
+					icon: 'ic:outline-schema',
 					title: 'Schemas',
 					link: `/users/${userId}/gamification/schemas`
 				},
