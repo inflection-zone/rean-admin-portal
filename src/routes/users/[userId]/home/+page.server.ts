@@ -24,9 +24,14 @@ export const load: PageServerLoad = async (event: RequestEvent) => {
 
 		const years = _years.Data.Years;
 		const appDownloadsData = _appDownloadsData.Data.AppDownload;
-		const latestEntry = latestDownloadEnrty(appDownloadsData);
-		const appDownloadCount = latestEntry.TotalDownloads;
 
+		let appDownloadCount = 0;
+
+		if (appDownloadsData.length > 0) {
+			const latestEntry = latestDownloadEnrty(appDownloadsData);
+			 appDownloadCount = latestEntry.TotalDownloads;
+		}
+		
 		const yearsArray = [];
 		for (const year of years) {
 			const year_ = year.year;
