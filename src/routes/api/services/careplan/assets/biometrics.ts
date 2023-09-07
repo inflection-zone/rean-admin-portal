@@ -22,12 +22,12 @@ export const createBiometrics = async (
   };
 
   const url = CAREPLAN_BACKEND_API_URL + '/assets/biometrics';
-  return await post_(sessionId, url, body, true);
+  return await post_(sessionId, url, body, true, false);
 };
 
 export const getBiometricsById = async (sessionId: string, biometricsId: string) => {
   const url = CAREPLAN_BACKEND_API_URL + `/assets/biometrics/${biometricsId}`;
-  return await get_(sessionId, url, true);
+  return await get_(sessionId, url, true, false);
 };
 
 export const searchBiometrics = async (sessionId: string, searchParams) => {
@@ -40,7 +40,7 @@ export const searchBiometrics = async (sessionId: string, searchParams) => {
     }
   }
   const url = CAREPLAN_BACKEND_API_URL + `/assets/biometrics/search${searchString}`;
-  return await get_(sessionId, url, true);
+  return await get_(sessionId, url, true, false);
 };
 
 export const updateBiometrics = async (
@@ -63,10 +63,10 @@ export const updateBiometrics = async (
   };
 
   const url = CAREPLAN_BACKEND_API_URL + `/assets/Biometrics/${biometricsId}`;
-  return await put_(sessionId, url, body, true);
+  return await put_(sessionId, url, body, true, false);
 };
 
 export const deleteBiometrics = async (sessionId: string, biometricsId: string) => {
   const url = CAREPLAN_BACKEND_API_URL + `/assets/biometrics/${biometricsId}`;
-  return await delete_(sessionId, url, true);
+  return await delete_(sessionId, url, true, false);
 };

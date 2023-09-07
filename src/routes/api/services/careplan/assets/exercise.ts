@@ -24,12 +24,12 @@ export const createExercise = async (
   };
 
   const url = CAREPLAN_BACKEND_API_URL + '/assets/exercises';
-  return await post_(sessionId, url, body, true);
+  return await post_(sessionId, url, body, true, false);
 };
 
 export const getExerciseById = async (sessionId: string, exerciseId: string) => {
   const url = CAREPLAN_BACKEND_API_URL + `/assets/exercises/${exerciseId}`;
-  return await get_(sessionId, url, true);
+  return await get_(sessionId, url, true, false);
 };
 
 export const searchExercise = async (sessionId: string, searchParams) => {
@@ -42,7 +42,7 @@ export const searchExercise = async (sessionId: string, searchParams) => {
     }
   }
   const url = CAREPLAN_BACKEND_API_URL + `/assets/exercises/search${searchString}`;
-  return await get_(sessionId, url, true);
+  return await get_(sessionId, url, true, false);
 };
 
 export const updateExercise = async (
@@ -67,10 +67,10 @@ export const updateExercise = async (
   };
   console.log("body", body)
   const url = CAREPLAN_BACKEND_API_URL + `/assets/exercises/${exerciseId}`;
-  return await put_(sessionId, url, body, true);
+  return await put_(sessionId, url, body, true, false);
 };
 
 export const deleteExercise = async (sessionId: string, exerciseId: string) => {
   const url = CAREPLAN_BACKEND_API_URL + `/assets/exercises/${exerciseId}`;
-  return await delete_(sessionId, url, true);
+  return await delete_(sessionId, url, true, false);
 };

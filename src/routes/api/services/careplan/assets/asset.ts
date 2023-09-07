@@ -32,5 +32,5 @@ export const searchAssets = async (
     const url = CAREPLAN_BACKEND_API_URL + `/assets/${assetTypeRoute}/search${searchString}`;
        
    
-    return await get_(sessionId, url,true);
+    return await get_(sessionId, url, true, false);
 };

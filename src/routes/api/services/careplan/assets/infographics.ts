@@ -18,12 +18,12 @@ export const createInfographics = async (
     Version: !version || version?.length === 0 ? 'V 1.0' : version,
   };
   const url = CAREPLAN_BACKEND_API_URL + '/assets/infographics';
-  return await post_(sessionId, url, body, true);
+  return await post_(sessionId, url, body, true, false);
 };
 
 export const getInfographicsById = async (sessionId: string, infographicsId: string) => {
   const url = CAREPLAN_BACKEND_API_URL + `/assets/infographics/${infographicsId}`;
-  return await get_(sessionId, url, true);
+  return await get_(sessionId, url, true, false);
 };
 
 export const searchInfographics = async (sessionId: string, searchParams) => {
@@ -37,7 +37,7 @@ export const searchInfographics = async (sessionId: string, searchParams) => {
   }
 
   const url = CAREPLAN_BACKEND_API_URL + `/assets/infographics/search${searchString}`;
-  return await get_(sessionId, url, true);
+  return await get_(sessionId, url, true, false);
 };
 
 export const updateInfographics = async (
@@ -58,10 +58,10 @@ export const updateInfographics = async (
   };
 
   const url = CAREPLAN_BACKEND_API_URL + `/assets/infographics/${infographicsId}`;
-  return await put_(sessionId, url, body, true);
+  return await put_(sessionId, url, body, true, false);
 };
 
 export const deleteInfographics = async (sessionId: string, infographicsId: string) => {
   const url = CAREPLAN_BACKEND_API_URL + `/assets/infographics/${infographicsId}`;
-  return await delete_(sessionId, url, true);
+  return await delete_(sessionId, url, true, false);
 };

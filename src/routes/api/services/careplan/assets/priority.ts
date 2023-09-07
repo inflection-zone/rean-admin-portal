@@ -17,12 +17,12 @@ export const createPriority = async (
     Version: !version || version?.length === 0 ? 'V 1.0' : version,
   };
   const url = CAREPLAN_BACKEND_API_URL + '/assets/priorities';
-  return await post_(sessionId, url, body, true);
+  return await post_(sessionId, url, body, true, false);
 };
 
 export const getPriorityById = async (sessionId: string, priorityId: string) => {
   const url = CAREPLAN_BACKEND_API_URL + `/assets/priorities/${priorityId}`;
-  return await get_(sessionId, url, true);
+  return await get_(sessionId, url, true, false);
 };
 
 export const searchPriority = async (sessionId: string, searchParams: any) => {
@@ -37,7 +37,7 @@ export const searchPriority = async (sessionId: string, searchParams: any) => {
   }
 
   const url = CAREPLAN_BACKEND_API_URL + `/assets/priorities/search${searchString}`;
-  return await get_(sessionId, url, true);
+  return await get_(sessionId, url, true, false);
 };
 
 export const updatePriority = async (
@@ -56,10 +56,10 @@ export const updatePriority = async (
   };
 
   const url = CAREPLAN_BACKEND_API_URL + `/assets/priorities/${priorityId}`;
-  return await put_(sessionId, url, body, true);
+  return await put_(sessionId, url, body, true, false);
 };
 
 export const deletePriority = async (sessionId: string, priorityId: string) => {
   const url = CAREPLAN_BACKEND_API_URL + `/assets/priority/${priorityId}`;
-  return await delete_(sessionId, url, true);
+  return await delete_(sessionId, url, true, false);
 };

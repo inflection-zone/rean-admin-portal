@@ -17,12 +17,12 @@ export const createChallenge = async (
     Version: !version || version?.length === 0 ? 'V 1.0' : version,
   };
   const url = CAREPLAN_BACKEND_API_URL + '/assets/challenges';
-  return await post_(sessionId, url, body, true);
+  return await post_(sessionId, url, body, true, false);
 };
 
 export const getChallengeById = async (sessionId: string, challengeId: string) => {
   const url = CAREPLAN_BACKEND_API_URL + `/assets/challenges/${challengeId}`;
-  return await get_(sessionId, url, true);
+  return await get_(sessionId, url, true, false);
 };
 
 export const searchChallenges = async (sessionId: string, searchParams) => {
@@ -35,7 +35,7 @@ export const searchChallenges = async (sessionId: string, searchParams) => {
     }
   }
   const url = CAREPLAN_BACKEND_API_URL + `/assets/challenges/search${searchString}`;
-  return await get_(sessionId, url, true);
+  return await get_(sessionId, url, true, false);
 };
 
 export const updateChallenge = async (
@@ -53,11 +53,11 @@ export const updateChallenge = async (
     Version: !version || version?.length === 0 ? 'V 1.0' : version,
   };
   const url = CAREPLAN_BACKEND_API_URL + `/assets/challenges/${challengeId}`;
-  return await put_(sessionId, url, body, true);
+  return await put_(sessionId, url, body, true, false);
 };
 
 export const deleteChallenge = async (sessionId: string, challengeId: string) => {
   const url = CAREPLAN_BACKEND_API_URL + `/assets/challenges/${challengeId}`;
-  return await delete_(sessionId, url, true);
+  return await delete_(sessionId, url, true, false);
 };
 

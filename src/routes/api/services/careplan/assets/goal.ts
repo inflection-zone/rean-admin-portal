@@ -18,12 +18,12 @@ export const createGoal = async (
   };
 
   const url = CAREPLAN_BACKEND_API_URL + '/assets/goals';
-  return await post_(sessionId, url, body, true);
+  return await post_(sessionId, url, body, true, false);
 };
 
 export const getGoalById = async (sessionId: string, goalId: string) => {
   const url = CAREPLAN_BACKEND_API_URL + `/assets/goals/${goalId}`;
-  return await get_(sessionId, url, true);
+  return await get_(sessionId, url, true, false);
 };
 
 export const searchGoals = async (sessionId: string, searchParams) => {
@@ -37,7 +37,7 @@ export const searchGoals = async (sessionId: string, searchParams) => {
   }
 
   const url = CAREPLAN_BACKEND_API_URL + `/assets/goals/search${searchString}`;
-  return await get_(sessionId, url, true);
+  return await get_(sessionId, url, true, false);
 };
 
 export const updateGoal = async (
@@ -56,10 +56,10 @@ export const updateGoal = async (
   };
 
   const url = CAREPLAN_BACKEND_API_URL + `/assets/goals/${goalId}`;
-  return await put_(sessionId, url, body, true);
+  return await put_(sessionId, url, body, true, false);
 };
 
 export const deleteGoal = async (sessionId: string, goalId: string) => {
   const url = CAREPLAN_BACKEND_API_URL + `/assets/goals/${goalId}`;
-  return await delete_(sessionId, url, true);
+  return await delete_(sessionId, url, true, false);
 };

@@ -19,12 +19,12 @@ export const createArticle = async (
     Version: !version || version?.length === 0 ? 'V 1.0' : version,
   };
   const url = CAREPLAN_BACKEND_API_URL + '/assets/articles';
-  return await post_(sessionId, url, body, true);
+  return await post_(sessionId, url, body, true, false);
 };
 
 export const getArticleById = async (sessionId: string, articleId: string) => {
   const url = CAREPLAN_BACKEND_API_URL + `/assets/articles/${articleId}`;
-  return await get_(sessionId, url, true);
+  return await get_(sessionId, url, true, false);
 };
 
 export const searchArticles = async (sessionId: string, searchParams) => {
@@ -37,7 +37,7 @@ export const searchArticles = async (sessionId: string, searchParams) => {
     }
   }
   const url = CAREPLAN_BACKEND_API_URL + `/assets/articles/search${searchString}`;
-  return await get_(sessionId, url, true);
+  return await get_(sessionId, url, true, false);
 };
 
 export const updateArticle = async (
@@ -58,10 +58,10 @@ export const updateArticle = async (
   };
 
   const url = CAREPLAN_BACKEND_API_URL + `/assets/articles/${articleId}`;
-  return await put_(sessionId, url, body, true);
+  return await put_(sessionId, url, body, true, false);
 };
 
 export const deleteArticle = async (sessionId: string, articleId: string) => {
   const url = CAREPLAN_BACKEND_API_URL + `/assets/articles/${articleId}`;
-  return await delete_(sessionId, url, true);
+  return await delete_(sessionId, url, true, false);
 };

@@ -20,12 +20,12 @@ export const createAppointment = async (
   };
   const url = CAREPLAN_BACKEND_API_URL + '/assets/appointments';
   console.log("url--------",url);
-  return await post_(sessionId, url, body, true);
+  return await post_(sessionId, url, body, true, false);
 };
 
 export const getAppointmentById = async (sessionId: string, appointmentId: string) => {
   const url = CAREPLAN_BACKEND_API_URL + `/assets/appointments/${appointmentId}`;
-  return await get_(sessionId, url, true);
+  return await get_(sessionId, url, true, false);
 };
 
 export const searchAppointments = async (sessionId: string, searchParams) => {
@@ -39,7 +39,7 @@ export const searchAppointments = async (sessionId: string, searchParams) => {
   }
 
   const url = CAREPLAN_BACKEND_API_URL + `/assets/appointments/search${searchString}`;
-  return await get_(sessionId, url, true);
+  return await get_(sessionId, url, true, false);
 };
 
 export const updateAppointment = async (
@@ -60,10 +60,10 @@ export const updateAppointment = async (
   };
 
   const url = CAREPLAN_BACKEND_API_URL + `/assets/appointments/${appointmentId}`;
-  return await put_(sessionId, url, body, true);
+  return await put_(sessionId, url, body, true, false);
 };
 
 export const deleteAppointment = async (sessionId: string, appointmentId: string) => {
   const url = CAREPLAN_BACKEND_API_URL + `/assets/appointments/${appointmentId}`;
-  return await delete_(sessionId, url, true);
+  return await delete_(sessionId, url, true, false);
 };

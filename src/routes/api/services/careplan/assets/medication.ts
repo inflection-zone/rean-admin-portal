@@ -18,12 +18,12 @@ export const createMedication = async (
   };
 
   const url = CAREPLAN_BACKEND_API_URL + '/assets/medications';
-  return await post_(sessionId, url, body, true);
+  return await post_(sessionId, url, body, true, false);
 };
 
 export const getMedicationById = async (sessionId: string, medicationId: string) => {
   const url = CAREPLAN_BACKEND_API_URL + `/assets/medications/${medicationId}`;
-  return await get_(sessionId, url, true);
+  return await get_(sessionId, url, true, false);
 };
 
 export const searchMeditation = async (sessionId: string, searchParams: any) => {
@@ -37,7 +37,7 @@ export const searchMeditation = async (sessionId: string, searchParams: any) => 
     }
   }
   const url = CAREPLAN_BACKEND_API_URL + `/assets/medications/search${searchString}`;
-  return await get_(sessionId, url, true);
+  return await get_(sessionId, url, true, false);
 };
 
 export const updateMedication = async (
@@ -56,10 +56,10 @@ export const updateMedication = async (
     Version: !version || version?.length === 0 ? 'V 1.0' : version,
   };
   const url = CAREPLAN_BACKEND_API_URL + `/assets/medications/${medicationId}`;
-  return await put_(sessionId, url, body, true);
+  return await put_(sessionId, url, body, true, false);
 };
 
 export const deleteMedication = async (sessionId: string, assetId: string) => {
   const url = CAREPLAN_BACKEND_API_URL + `/assets/medications/${assetId}`;
-  return await delete_(sessionId, url, true);
+  return await delete_(sessionId, url, true, false);
 };

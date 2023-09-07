@@ -18,12 +18,12 @@ export const createAnimation = async (
     Version: !version || version?.length === 0 ? 'V 1.0' : version,
   };
   const url = CAREPLAN_BACKEND_API_URL + '/assets/animations';
-  return await post_(sessionId, url, body, true);
+  return await post_(sessionId, url, body, true, false);
 };
 
 export const getAnimationById = async (sessionId: string, animationId: string) => {
   const url = CAREPLAN_BACKEND_API_URL + `/assets/animations/${animationId}`;
-  return await get_(sessionId, url, true);
+  return await get_(sessionId, url, true, false);
 };
 
 export const searchAnimation = async (sessionId: string, searchParams) => {
@@ -36,7 +36,7 @@ export const searchAnimation = async (sessionId: string, searchParams) => {
     }
   }
   const url = CAREPLAN_BACKEND_API_URL + `/assets/animations/search${searchString}`;
-  return await get_(sessionId, url, true);
+  return await get_(sessionId, url, true, false);
 };
 
 export const updateAnimation = async (
@@ -56,10 +56,10 @@ export const updateAnimation = async (
     Version: !version || version?.length === 0 ? 'V 1.0' : version,
   };
   const url = CAREPLAN_BACKEND_API_URL + `/assets/animations/${animationId}`;
-  return await put_(sessionId, url, body, true);
+  return await put_(sessionId, url, body, true, false);
 };
 
 export const deleteAnimation = async (sessionId: string, animationId: string) => {
   const url = CAREPLAN_BACKEND_API_URL + `/assets/animations/${animationId}`;
-  return await delete_(sessionId, url, true);
+  return await delete_(sessionId, url, true, false);
 };

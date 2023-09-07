@@ -21,12 +21,12 @@ export const createCareplan = async (
         Tags: tags,
         Version: !version || version?.length === 0 ? 'V 1.0' : version,
     };
-    return await post_(sessionId, url, body, true);
+    return await post_(sessionId, url, body, true, false);
 };
 
 export const getCareplanById = async (sessionId: string, careplanId: string) => {
     const url = CAREPLAN_BACKEND_API_URL + `/careplans/${careplanId}`;
-    return await get_(sessionId, url,true);
+    return await get_(sessionId, url,true, false);
 };
 
 export const searchCareplans = async (sessionId: string,
@@ -49,7 +49,7 @@ export const searchCareplans = async (sessionId: string,
     }
     const url = CAREPLAN_BACKEND_API_URL + `/careplans/search${searchString}`;
     console.log('Timestamp ', new Date().toTimeString());
-    return await get_(sessionId, url, true);
+    return await get_(sessionId, url, true, false);
 };
 
 export const updateCareplan = async (
@@ -70,17 +70,17 @@ export const updateCareplan = async (
         Tags: tags,
         Version: !version || version?.length === 0 ? 'V 1.0' : version,
   };
-  return await put_(sessionId, url, body, true);
+  return await put_(sessionId, url, body, true, false);
 };
 
 export const deleteCareplan = async (sessionId: string, careplanId: string) => {
     const url = CAREPLAN_BACKEND_API_URL + `/careplans/${careplanId}`;
-    return await delete_(sessionId, url, true);
+    return await delete_(sessionId, url, true, false);
 };
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 export const searchCareplanCategories = async (sessionId: string) => {
     const url = CAREPLAN_BACKEND_API_URL + `/careplan-categories/search`;
-    return await get_(sessionId, url, true);
+    return await get_(sessionId, url, true, false);
 };

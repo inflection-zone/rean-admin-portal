@@ -21,12 +21,12 @@ export const createMessage = async (
     Version: !version || version?.length === 0 ? 'V 1.0' : version,
   };
   const url = CAREPLAN_BACKEND_API_URL + '/assets/messages';
-  return await post_(sessionId, url, body, true);
+  return await post_(sessionId, url, body, true, false);
 };
 
 export const getMessageById = async (sessionId: string, messageId: string) => {
   const url = CAREPLAN_BACKEND_API_URL + `/assets/messages/${messageId}`;
-  return await get_(sessionId, url, true);
+  return await get_(sessionId, url, true, false);
 };
 
 export const searchMessage = async (sessionId: string, searchParams: any) => {
@@ -40,7 +40,7 @@ export const searchMessage = async (sessionId: string, searchParams: any) => {
     }
   }
   const url = CAREPLAN_BACKEND_API_URL + `/assets/messages/search${searchString}`;
-  return await get_(sessionId, url, true);
+  return await get_(sessionId, url, true, false);
 };
 
 export const updateMessage = async (
@@ -62,10 +62,10 @@ export const updateMessage = async (
     Version: !version || version?.length === 0 ? 'V 1.0' : version,
   };
   const url = CAREPLAN_BACKEND_API_URL + `/assets/messages/${messageId}`;
-  return await put_(sessionId, url, body, true);
+  return await put_(sessionId, url, body, true, false);
 };
 
 export const deleteMessage = async (sessionId: string, messageId: string) => {
   const url = CAREPLAN_BACKEND_API_URL + `/assets/messages/${messageId}`;
-  return await delete_(sessionId, url, true);
+  return await delete_(sessionId, url, true, false);
 };

@@ -19,12 +19,12 @@ export const createVideo = async (
     Version: !version || version?.length === 0 ? 'V 1.0' : version,
   };
   const url = CAREPLAN_BACKEND_API_URL + '/assets/video';
-  return await post_(sessionId, url, body, true);
+  return await post_(sessionId, url, body, true, false);
 };
 
 export const getVideoById = async (sessionId: string, videoId: string) => {
   const url = CAREPLAN_BACKEND_API_URL + `/assets/video/${videoId}`;
-  return await get_(sessionId, url, true);
+  return await get_(sessionId, url, true, false);
 };
 
 export const searchVideos = async (sessionId: string, searchParams: any) => {
@@ -38,7 +38,7 @@ export const searchVideos = async (sessionId: string, searchParams: any) => {
     }
   }
   const url = CAREPLAN_BACKEND_API_URL + `/assets/web-newsfeeds/search${searchString}`;
-  return await get_(sessionId, url, true);
+  return await get_(sessionId, url, true, false);
 };
 
 export const updateVideo = async (
@@ -58,10 +58,10 @@ export const updateVideo = async (
     Version: !version || version?.length === 0 ? 'V 1.0' : version,
   };
   const url = CAREPLAN_BACKEND_API_URL + `/assets/video/${videoId}`;
-  return await put_(sessionId, url, body, true);
+  return await put_(sessionId, url, body, true, false);
 };
 
 export const deleteVideo = async (sessionId: string, videoId: string) => {
   const url = CAREPLAN_BACKEND_API_URL + `/assets/video/${videoId}`;
-  return await delete_(sessionId, url, true);
+  return await delete_(sessionId, url, true, false);
 };

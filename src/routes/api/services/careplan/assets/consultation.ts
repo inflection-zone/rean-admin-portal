@@ -19,12 +19,12 @@ export const createConsultation = async (
     Version: !version || version?.length === 0 ? 'V 1.0' : version,
   };
   const url = CAREPLAN_BACKEND_API_URL + '/assets/consultations';
-  return await post_(sessionId, url, body, true);
+  return await post_(sessionId, url, body, true, false);
 };
 
 export const getConsultationById = async (sessionId: string, consultationId: string) => {
   const url = CAREPLAN_BACKEND_API_URL + `/assets/consultations/${consultationId}`;
-  return await get_(sessionId, url, true);
+  return await get_(sessionId, url, true, false);
 };
 
 export const searchConsultation = async (sessionId: string, searchParams) => {
@@ -37,7 +37,7 @@ export const searchConsultation = async (sessionId: string, searchParams) => {
     }
   }
   const url = CAREPLAN_BACKEND_API_URL + `/assets/consultations/search${searchString}`;
-  return await get_(sessionId, url, true);
+  return await get_(sessionId, url, true, false);
 };
 
 export const updateConsultation = async (
@@ -58,10 +58,10 @@ export const updateConsultation = async (
   };
 
   const url = CAREPLAN_BACKEND_API_URL + `/assets/consultations/${consultationId}`;
-  return await put_(sessionId, url, body, true);
+  return await put_(sessionId, url, body, true, false);
 };
 
 export const deleteConsultation = async (sessionId: string, consultationId: string) => {
   const url = CAREPLAN_BACKEND_API_URL + `/assets/consultations/${consultationId}`;
-  return await delete_(sessionId, url, true);
+  return await delete_(sessionId, url, true, false);
 };

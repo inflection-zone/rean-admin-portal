@@ -17,12 +17,12 @@ export const createReminder = async (
     Version: !version || version?.length === 0 ? 'V 1.0' : version,
   };
   const url = CAREPLAN_BACKEND_API_URL + '/assets/reminders';
-  return await post_(sessionId, url, body, true);
+  return await post_(sessionId, url, body, true, false);
 };
 
 export const getReminderById = async (sessionId: string, reminderId: string) => {
   const url = CAREPLAN_BACKEND_API_URL + `/assets/reminders/${reminderId}`;
-  return await get_(sessionId, url, true);
+  return await get_(sessionId, url, true, false);
 };
 
 export const searchReminders = async (sessionId: string, searchParams: any) => {
@@ -35,7 +35,7 @@ export const searchReminders = async (sessionId: string, searchParams: any) => {
     }
   }
   const url = CAREPLAN_BACKEND_API_URL + `/assets/reminders/search${searchString}`;
-  return await get_(sessionId, url, true);
+  return await get_(sessionId, url, true, false);
 };
 
 export const updateReminder = async (
@@ -55,10 +55,10 @@ export const updateReminder = async (
 
   const url = CAREPLAN_BACKEND_API_URL + `/assets/reminders/${reminderId}`;
 
-  return await put_(sessionId, url, body, true);
+  return await put_(sessionId, url, body, true, false);
 };
 
 export const deleteReminder = async (sessionId: string, reminderId: string) => {
   const url = CAREPLAN_BACKEND_API_URL + `/assets/reminder/${reminderId}`;
-  return await delete_(sessionId, url, true);
+  return await delete_(sessionId, url, true, false);
 };

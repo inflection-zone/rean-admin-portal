@@ -19,12 +19,12 @@ export const createAudio = async (
     Version: !version || version?.length === 0 ? 'V 1.0' : version,
   };
   const url = CAREPLAN_BACKEND_API_URL + '/assets/audio';
-  return await post_(sessionId, url, body, true);
+  return await post_(sessionId, url, body, true, false);
 };
 
 export const getAudioById = async (sessionId: string, audioId: string) => {
   const url = CAREPLAN_BACKEND_API_URL + `/assets/audio/${audioId}`;
-  return await get_(sessionId, url, true);
+  return await get_(sessionId, url, true, false);
 };
 
 export const searchAudios = async (sessionId: string, searchParams) => {
@@ -37,7 +37,7 @@ export const searchAudios = async (sessionId: string, searchParams) => {
     }
   }
   const url = CAREPLAN_BACKEND_API_URL + `/assets/audio/search${searchString}`;
-  return await get_(sessionId, url, true);
+  return await get_(sessionId, url, true, false);
 };
 
 export const updateAudio = async (
@@ -57,10 +57,10 @@ export const updateAudio = async (
     Version: !version || version?.length === 0 ? 'V 1.0' : version,
   };
   const url = CAREPLAN_BACKEND_API_URL + `/assets/audio/${audioId}`;
-  return await put_(sessionId, url, body, true);
+  return await put_(sessionId, url, body, true, false);
 };
 
 export const deleteAudio = async (sessionId: string, audioId: string) => {
   const url = CAREPLAN_BACKEND_API_URL + `/assets/audio/${audioId}`;
-  return await delete_(sessionId, url, true);
+  return await delete_(sessionId, url, true, false);
 };

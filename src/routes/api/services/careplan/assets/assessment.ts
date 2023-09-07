@@ -20,12 +20,12 @@ export const createAssessment = async (
   };
 
   const url = CAREPLAN_BACKEND_API_URL + '/assets/assessments';
-  return await post_(sessionId, url, body, true);
+  return await post_(sessionId, url, body, true, false);
 };
 
 export const getAssessmentById = async (sessionId: string, assessmentId: string) => {
   const url = CAREPLAN_BACKEND_API_URL + `/assets/assessments/${assessmentId}`;
-  return await get_(sessionId, url, true);
+  return await get_(sessionId, url, true, false);
 };
 
 export const searchAssessment = async (sessionId: string, searchParams) => {
@@ -38,7 +38,7 @@ export const searchAssessment = async (sessionId: string, searchParams) => {
     }
   }
   const url = CAREPLAN_BACKEND_API_URL + `/assets/assessments/search${searchString}`;
-  return await get_(sessionId, url, true);
+  return await get_(sessionId, url, true, false);
 };
 
 export const updateAssessment = async (
@@ -58,10 +58,10 @@ export const updateAssessment = async (
     Version: !version || version?.length === 0 ? 'V 1.0' : version,
   };
   const url = CAREPLAN_BACKEND_API_URL + `/assets/assessments/${assessmentId}`;
-  return await put_(sessionId, url, body, true);
+  return await put_(sessionId, url, body, true, false);
 };
 
 export const deleteAssessment = async (sessionId: string, assessmentId: string) => {
   const url = CAREPLAN_BACKEND_API_URL + `/assets/assessments/${assessmentId}`;
-  return await delete_(sessionId, url, true);
+  return await delete_(sessionId, url, true, false);
 };

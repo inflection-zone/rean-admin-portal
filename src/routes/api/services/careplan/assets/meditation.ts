@@ -22,12 +22,12 @@ export const createMeditation = async (
   };
 
   const url = CAREPLAN_BACKEND_API_URL + '/assets/meditations';
-  return await post_(sessionId, url, body, true);
+  return await post_(sessionId, url, body, true, false);
 };
 
 export const getMeditationById = async (sessionId: string, meditationId: string) => {
   const url = CAREPLAN_BACKEND_API_URL + `/assets/meditations/${meditationId}`;
-  return await get_(sessionId, url, true);
+  return await get_(sessionId, url, true, false);
 };
 
 export const searchMeditation = async (sessionId: string, searchParams: any) => {
@@ -41,7 +41,7 @@ export const searchMeditation = async (sessionId: string, searchParams: any) => 
     }
   }
   const url = CAREPLAN_BACKEND_API_URL + `/assets/meditations/search${searchString}`;
-  return await get_(sessionId, url, true);
+  return await get_(sessionId, url, true, false);
 };
 
 export const updateMeditation = async (
@@ -65,10 +65,10 @@ export const updateMeditation = async (
   };
   const url = CAREPLAN_BACKEND_API_URL + `/assets/meditations/${meditationId}`;
 
-  return await put_(sessionId, url, body, true);
+  return await put_(sessionId, url, body, true, false);
 };
 
 export const deleteMeditation = async (sessionId: string, assetId: string) => {
   const url = CAREPLAN_BACKEND_API_URL + `/assets/meditations/${assetId}`;
-  return await delete_(sessionId, url, true);
+  return await delete_(sessionId, url, true, false);
 };
