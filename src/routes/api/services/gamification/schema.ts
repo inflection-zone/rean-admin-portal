@@ -1,4 +1,4 @@
-import { AWARDS_BACKEND_API_URL, CLIENT_ID } from '$env/static/private';
+import { AWARDS_BACKEND_API_URL, AWARDS_SERVICE_API_KEY, CLIENT_ID } from '$env/static/private';
 import { delete_, get_, post_, put_ } from '../common';
 
 ////////////////////////////////////////////////////////////////
@@ -19,12 +19,12 @@ export const createSchema = async (
     EventTypeIds:eventTypeIds? eventTypeIds : []
 	};
 	const url = AWARDS_BACKEND_API_URL + '/engine/schema';
-	return await post_(sessionId, url, body, true);
+	return await post_(sessionId, url, body, true, true, AWARDS_SERVICE_API_KEY);
 };
 
 export const getSchemaById = async (sessionId: string, schemaId: string) => {
 	const url = AWARDS_BACKEND_API_URL + `/engine/schema/${schemaId}`;
-	return await get_(sessionId, url, true);
+	return await get_(sessionId, url, true, true, AWARDS_SERVICE_API_KEY);
 };
 
 export const searchSchemas = async (sessionId: string, searchParams?: any) => {
@@ -44,7 +44,7 @@ export const searchSchemas = async (sessionId: string, searchParams?: any) => {
 		}
 	}
 	const url = AWARDS_BACKEND_API_URL + `/engine/schema/search${searchString}`;
-	return await get_(sessionId, url, true);
+	return await get_(sessionId, url, true, true, AWARDS_SERVICE_API_KEY);
 };
 
 export const updateSchema = async (
@@ -64,10 +64,10 @@ export const updateSchema = async (
     EventTypeIds:eventTypeIds
 	};
 	const url = AWARDS_BACKEND_API_URL + `/engine/schema/${schemaId}`;
-	return await put_(sessionId, url, body, true);
+	return await put_(sessionId, url, body, true, true, AWARDS_SERVICE_API_KEY);
 };
 
 export const deleteSchema = async (sessionId: string, schemaId: string) => {
 	const url = AWARDS_BACKEND_API_URL + `/engine/schema/${schemaId}`;
-	return await delete_(sessionId, url, true);
+	return await delete_(sessionId, url, true, true, AWARDS_SERVICE_API_KEY);
 };

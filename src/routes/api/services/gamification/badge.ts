@@ -1,4 +1,4 @@
-import { AWARDS_BACKEND_API_URL, CLIENT_ID } from '$env/static/private';
+import { AWARDS_BACKEND_API_URL, AWARDS_SERVICE_API_KEY, CLIENT_ID } from '$env/static/private';
 import { delete_, get_, post_, put_ } from '../common';
 
 ////////////////////////////////////////////////////////////////
@@ -19,7 +19,7 @@ export const createBadge = async (
 		ImageUrl: imageUrl
 	};
 	const url = AWARDS_BACKEND_API_URL + '/badges';
-	return await post_(sessionId, url, body, true);
+	return await post_(sessionId, url, body, true, true, AWARDS_SERVICE_API_KEY);
 };
 
 export const getBadgeById = async (sessionId: string, badgeId: string) => {
@@ -45,7 +45,7 @@ export const searchBadges = async (sessionId: string, searchParams?: any) => {
 	}
 	const url = AWARDS_BACKEND_API_URL + `/badges/search${searchString}`;
 	console.log('url', url);
-	return await get_(sessionId, url, true);
+	return await get_(sessionId, url, true, true, AWARDS_SERVICE_API_KEY);
 };
 
 export const updateBadge = async (
@@ -65,10 +65,10 @@ export const updateBadge = async (
 		ImageUrl: imageUrl
 	};
 	const url = AWARDS_BACKEND_API_URL + `/badges/${badgeId}`;
-	return await put_(sessionId, url, body, true);
+	return await put_(sessionId, url, body, true, true, AWARDS_SERVICE_API_KEY);
 };
 
 export const deleteBadge = async (sessionId: string, badgeId: string) => {
 	const url = AWARDS_BACKEND_API_URL + `/badges/${badgeId}`;
-	return await delete_(sessionId, url, true);
+	return await delete_(sessionId, url, true, true, AWARDS_SERVICE_API_KEY);
 };

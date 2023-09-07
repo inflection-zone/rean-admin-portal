@@ -1,4 +1,4 @@
-import { AWARDS_BACKEND_API_URL } from '$env/static/private';
+import { AWARDS_BACKEND_API_URL, AWARDS_SERVICE_API_KEY } from '$env/static/private';
 import { delete_, get_, post_, put_ } from '../common';
 
 ////////////////////////////////////////////////////////////////
@@ -89,12 +89,12 @@ export const createNode = async (
 		}
 	};
 	const url = AWARDS_BACKEND_API_URL + '/engine/nodes';
-	return await post_(sessionId, url, body, true);
+	return await post_(sessionId, url, body, true, true, AWARDS_SERVICE_API_KEY);
 };
 
 export const getNodeById = async (sessionId: string, nodeId: string) => {
 	const url = AWARDS_BACKEND_API_URL + `/engine/nodes/${nodeId}`;
-	return await get_(sessionId, url, true);
+	return await get_(sessionId, url, true, true, AWARDS_SERVICE_API_KEY);
 };
 
 export const searchNodes = async (sessionId: string, searchParams?: any) => {
@@ -114,7 +114,7 @@ export const searchNodes = async (sessionId: string, searchParams?: any) => {
 		}
 	}
 	const url = AWARDS_BACKEND_API_URL + `/engine/nodes/search${searchString}`;
-	return await get_(sessionId, url, true);
+	return await get_(sessionId, url, true, true, AWARDS_SERVICE_API_KEY);
 };
 
 export const updateNode = async (
@@ -201,10 +201,10 @@ export const updateNode = async (
 		}
 	};
 	const url = AWARDS_BACKEND_API_URL + `/engine/nodes/${nodeId}`;
-	return await put_(sessionId, url, body, true);
+	return await put_(sessionId, url, body, true, true, AWARDS_SERVICE_API_KEY);
 };
 
 export const deleteNode = async (sessionId: string, nodeId: string) => {
 	const url = AWARDS_BACKEND_API_URL + `/engine/nodes/${nodeId}`;
-	return await delete_(sessionId, url, true);
+	return await delete_(sessionId, url, true, true, AWARDS_SERVICE_API_KEY);
 };

@@ -5,14 +5,20 @@ import chalk from 'chalk';
 
 /////////////////////////////////////////////////////////////////////////
 
-export const get_ = async (sessionId: string, url: string, authorizeUser = false, authorizeClient = true) => {
+export const get_ = async (
+	sessionId: string,
+	url: string,
+	authorizeUser = false,
+	authorizeClient = true,
+	apiKey = API_CLIENT_INTERNAL_KEY
+) => {
 	const session = await SessionManager.getSession(sessionId);
 	const accessToken = session.accessToken;
 	console.log(`accessToken = ${accessToken}`);
 	const headers = {};
 	headers['Content-Type'] = 'application/json';
 	if (authorizeClient) {
-		headers['x-api-key'] = API_CLIENT_INTERNAL_KEY;
+		headers['x-api-key'] = apiKey;
 	}
 	if (authorizeUser) {
 		headers['Authorization'] = `Bearer ${accessToken}`;
@@ -33,7 +39,6 @@ export const get_ = async (sessionId: string, url: string, authorizeUser = false
 		}
 	}
 	console.log(chalk.green(`get_ response message: ${response.Message}`));
-	// console.log(chalk.green(`get_ response: ${JSON.stringify(response, null, 2)}`));
 	return response;
 };
 
@@ -42,15 +47,15 @@ export const post_ = async (
 	url: string,
 	bodyObj: unknown,
 	authorizeUser = false,
-	authorizeClient = true
+	authorizeClient = true,
+	apiKey = API_CLIENT_INTERNAL_KEY
 ) => {
 	const session = await SessionManager.getSession(sessionId);
 	const accessToken = session.accessToken;
-	//console.log(`accessToken = ${accessToken}`);
 	const headers = {};
 	headers['Content-Type'] = 'application/json';
 	if (authorizeClient) {
-		headers['x-api-key'] = API_CLIENT_INTERNAL_KEY;
+		headers['x-api-key'] = apiKey;
 	}
 	if (authorizeUser) {
 		headers['Authorization'] = `Bearer ${accessToken}`;
@@ -78,16 +83,15 @@ export const put_ = async (
 	url: string,
 	bodyObj: unknown,
 	authorizeUser = false,
-	authorizeClient = true
+	authorizeClient = true,
+	apiKey = API_CLIENT_INTERNAL_KEY
 ) => {
 	const session = await SessionManager.getSession(sessionId);
 	const accessToken = session.accessToken;
-	//console.log(`accessToken = ${accessToken}`);
 	const headers = {};
 	headers['Content-Type'] = 'application/json';
-	headers['x-api-key'] = API_CLIENT_INTERNAL_KEY;
 	if (authorizeClient) {
-		headers['x-api-key'] = API_CLIENT_INTERNAL_KEY;
+		headers['x-api-key'] = apiKey;
 	}
 	if (authorizeUser) {
 		headers['Authorization'] = `Bearer ${accessToken}`;
@@ -107,14 +111,19 @@ export const put_ = async (
 	return response;
 };
 
-export const delete_ = async (sessionId: string, url: string, authorizeUser = false, authorizeClient = true) => {
+export const delete_ = async (
+	sessionId: string,
+	url: string,
+	authorizeUser = false,
+	authorizeClient = true,
+	apiKey = API_CLIENT_INTERNAL_KEY
+) => {
 	const session = await SessionManager.getSession(sessionId);
 	const accessToken = session.accessToken;
-	//console.log(`accessToken = ${accessToken}`);
 	const headers = {};
 	headers['Content-Type'] = 'application/json';
 	if (authorizeClient) {
-		headers['x-api-key'] = API_CLIENT_INTERNAL_KEY;
+		headers['x-api-key'] = apiKey;
 	}
 	if (authorizeUser) {
 		headers['Authorization'] = `Bearer ${accessToken}`;

@@ -1,4 +1,4 @@
-import { AWARDS_BACKEND_API_URL, CLIENT_ID } from '$env/static/private';
+import { AWARDS_BACKEND_API_URL, CLIENT_ID, AWARDS_SERVICE_API_KEY } from '$env/static/private';
 import { delete_, get_, post_, put_ } from '../common';
 
 ////////////////////////////////////////////////////////////////
@@ -16,7 +16,7 @@ export const createBadgeCategory = async (
 		ImageUrl: imageUrl
 	};
 	const url = AWARDS_BACKEND_API_URL + '/badge-categories';
-	return await post_(sessionId, url, body, true);
+	return await post_(sessionId, url, body, true, true, AWARDS_SERVICE_API_KEY);
 };
 
 export const getBadgeCategoryById = async (sessionId: string, badgeCategoryId: string) => {
@@ -41,7 +41,7 @@ export const searchBadgeCategories = async (sessionId: string, searchParams?: an
 		}
 	}
 	const url = AWARDS_BACKEND_API_URL + `/badge-categories/search${searchString}`;
-	return await get_(sessionId, url, true);
+	return await get_(sessionId, url, true, true, AWARDS_SERVICE_API_KEY);
 };
 
 export const updateBadgeCategory = async (
@@ -60,10 +60,10 @@ export const updateBadgeCategory = async (
 		ImageUrl: imageUrl
 	};
 	const url = AWARDS_BACKEND_API_URL + `/badge-categories/${badgeCategoryId}`;
-	return await put_(sessionId, url, body, true);
+	return await put_(sessionId, url, body, true, true, AWARDS_SERVICE_API_KEY);
 };
 
 export const deleteBadgeCategory = async (sessionId: string, badgeCategoryId: string) => {
 	const url = AWARDS_BACKEND_API_URL + `/badge-categories/${badgeCategoryId}`;
-	return await delete_(sessionId, url, true);
+	return await delete_(sessionId, url, true, true, AWARDS_SERVICE_API_KEY);
 };
