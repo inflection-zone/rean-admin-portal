@@ -105,9 +105,9 @@
 				</td>
 			</tr>
 			<tr class="!border-b !border-b-secondary-100 dark:!border-b-surface-700">
-				<td>Link</td>
+				<td>Link *</td>
 				<td>
-					<input type="url" name="link" placeholder="Enter copyright here..." class="input" />
+					<input type="url" name="link" required placeholder="Enter copyright here..." class="input" />
 				</td>
 			</tr>
 			<tr class="!border-b !border-b-secondary-100 dark:!border-b-surface-700">

@@ -9,16 +9,17 @@
 	///////////////////////////////////////////////////////////////////
 
 	export let data: PageServerData;
-	let id = data.newsfeedItem.id;
-	let title = data.newsfeedItem.Title;
-	let description = data.newsfeedItem.Description;
-	let link = data.newsfeedItem.Link;
-	let content = data.newsfeedItem.Content;
-	let authorName = data.newsfeedItem.AuthorName;
-	let authorEmail = data.newsfeedItem.AuthorEmail;
-	let authorLink = data.newsfeedItem.AuthorLink;
-	let publishingDate = new Date(data.newsfeedItem.PublishingDate);
-	let image = data.newsfeedItem.Image;
+	let newsfeedItem =data.newsfeedItem;
+	let id = newsfeedItem.id;
+	let title = newsfeedItem.Title;
+	let description = (newsfeedItem.Description !== null && newsfeedItem.Description !== "") ? newsfeedItem.Description : 'Not specified' ;
+	let link = newsfeedItem.Link;
+	let content = newsfeedItem.Content;
+	let authorName = (newsfeedItem.AuthorName !== null &&  newsfeedItem.AuthorName !== "") ? newsfeedItem.AuthorName : 'Not specified';
+	let authorEmail = (newsfeedItem.AuthorEmail !== null &&  newsfeedItem.AuthorEmail !== "") ? newsfeedItem.AuthorEmail : 'Not specified';;
+	let authorLink = (newsfeedItem.AuthorLink !== null &&  newsfeedItem.AuthorLink !== "") ? newsfeedItem.AuthorLink : 'Not specified';;
+	let publishingDate = new Date(newsfeedItem.PublishingDate);
+	let image = newsfeedItem.Image;
 
 	const userId = $page.params.userId;
 	const newsfeedId = $page.params.newsfeedId;

@@ -118,9 +118,9 @@
 					<td role="gridcell" aria-colindex={2} tabindex="0">
 						<a href={viewRoute(row.id)}>{Helper.truncateText(row.Title, 20)}</a>
 					</td>
-					<td role="gridcell" aria-colindex={3} tabindex="0">{Helper.truncateText(row.Link, 30)}</td
+					<td role="gridcell" aria-colindex={3} tabindex="0">{Helper.truncateText((row.Link !== null && row.Link !== "") ? row.Link : 'Not specified', 30)}</td
 					>
-					<td role="gridcell" aria-colindex={4} tabindex="0">{row.Category}</td>
+					<td role="gridcell" aria-colindex={4} tabindex="0">{(row.Category !== null && row.Category !== "") ? row.Category : 'Not specified'}</td>
 					<!-- <td role="gridcell" aria-colindex={5} tabindex="0"
 						>{#if newsfeeds.length <= 0}
 							<span>null</span>

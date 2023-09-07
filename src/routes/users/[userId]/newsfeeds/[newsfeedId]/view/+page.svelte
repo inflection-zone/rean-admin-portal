@@ -9,21 +9,22 @@
 	///////////////////////////////////////////////////////////////////////
 
 	export let data: PageServerData;
-	let id = data.newsfeed.id;
-	let title = data.newsfeed.Title;
-	let description = data.newsfeed.Description;
-	let category = data.newsfeed.Category;
-	let link = data.newsfeed.Link;
-	let language = data.newsfeed.Language;
-	let copyright = data.newsfeed.Copyright;
-	let favicon = data.newsfeed.Favicon;
-	let updated = new Date(data.newsfeed.Updated);
-	let image = data.newsfeed.Image;
-	let tags_ = data.newsfeed.Tags;
+	let newsfeed = data.newsfeed;
+	let id = newsfeed.id;
+	let title = newsfeed.Title;
+	let description = (newsfeed.Description !== null && newsfeed.Description !== "") ? newsfeed.Description : 'Not specified';
+	let category = (newsfeed.Category !== null && newsfeed.Category !== "") ? newsfeed.Category : 'Not specified';
+	let link = (newsfeed.Link !== null && newsfeed.Link !== "") ? newsfeed.Link : 'Not specified';
+	let language = (newsfeed.Language !== null && newsfeed.Language !== "") ? newsfeed.Language : 'Not specified';
+	let copyright = (newsfeed.Copyright !== null && newsfeed.Copyright !== "") ? newsfeed.Copyright : 'Not specified';
+	let favicon = newsfeed.Favicon;
+	let updated = new Date(newsfeed.Updated);
+	let image = newsfeed.Image;
+	let tags_ = newsfeed.Tags;
 	let tags = tags_.join(', ');
-	let newsfeedItems = data.newsfeed.FeedItems;
+	let newsfeedItems = newsfeed.FeedItems;
 
-	console.log("newsfeed",data.newsfeed)
+	console.log("newsfeed",newsfeed)
 	const userId = $page.params.userId;
 	const newsfeedId = $page.params.newsfeedId;
 	const editRoute = `/users/${userId}/newsfeeds/${id}/edit`;

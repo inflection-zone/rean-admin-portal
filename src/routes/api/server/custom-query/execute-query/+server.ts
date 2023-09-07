@@ -16,7 +16,7 @@ export const POST = async (event: RequestEvent) => {
 		);
 		const query = response;
 		console.log("response----",response)
-		return new Response(query);
+		return response;
 	} catch (err) {
 		console.error(`Error executing query: ${err.message}`);
 		return new Response(err.message);
