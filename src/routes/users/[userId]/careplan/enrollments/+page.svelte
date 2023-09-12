@@ -102,13 +102,15 @@
 	<input
 		bind:value={startDate}
 		type="date"
-		placeholder="Start date"
-		class="input w-auto grow uppercase"
+		required
+		placeholder="Search by start date"
+		class="input w-auto grow"
 	/>
 	<input
 		bind:value={endDate}
 		type="date"
-		placeholder="End date"
+		required
+		placeholder="Search by end date"
 		class="input w-auto grow uppercase "
 	/>
 </div>

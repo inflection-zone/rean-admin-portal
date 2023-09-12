@@ -117,11 +117,11 @@
 					<td role="gridcell" aria-colindex={3} tabindex="0">
 						{Helper.truncateText(row.Description !== null ? row.Description : 'Not specified', 40)}
 					</td>
-					<td>
+					<!-- <td>
 						<a href={editRoute(row.id)} class="btn p-2 -my-1 hover:variant-soft-primary">
 							<Icon icon="material-symbols:edit-outline" class="text-lg" />
 						</a>
-					</td>
+					</td> -->
 					<td>
 						<Confirm
 							confirmTitle="Delete"
