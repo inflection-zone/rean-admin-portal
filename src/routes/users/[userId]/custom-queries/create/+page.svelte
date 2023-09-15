@@ -2,6 +2,7 @@
 	import { page } from '$app/stores';
 	import BreadCrumbs from '$lib/components/breadcrumbs/breadcrums.svelte';
 	import Icon from '@iconify/svelte';
+	import InputChip from '$lib/components/input-chips.svelte';
 
 	/////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -16,14 +17,18 @@
 	];
 
 	let name ='';
-	let decription = '';
-	let format = '';
+	let description = '';
+	let format;
+	let query = '';
+	let tags = [];
 
-	const onQuerySubmit = async (name:string, decription: string, format: string) => {
+	const onQuerySubmit = async (name:string, description: string, format: string, query:string, tags:string[]) => {
 		await executeQuery({
 			name,
-			decription,
-			format
+			description,
+			format,
+			query,
+			tags
 		});
 	};
 
@@ -37,12 +42,45 @@
 		const resp = await response.text();
 		console.log(response);
 	}
+
+// 	async function fetchDataAndDownload(type) {
+//   try {
+//     const response = await fetch('your-api-endpoint');
+//     const contentType = response.headers.get('content-type');
+    
+//     if (contentType.includes('application/json')) {
+//       const jsonData = await response.json();
+//       downloadFile(JSON.stringify(jsonData), 'data.json', 'application/json');
+//     } else if (contentType.includes('text/csv')) {
+//       const csvData = await response.text();
+//       downloadFile(csvData, 'data.csv', 'text/csv');
+//     } else {
+//       console.error('Unsupported content type:', contentType);
+//     }
+//   } catch (error) {
+//     console.error('Error fetching data:', error);
+//   }
+// }
+
+function downloadFile(data, filename, contentType) {
+  const blob = new Blob([data], { type: contentType });
+  const url = window.URL.createObjectURL(blob);
+
+  const link = document.createElement('a');
+  link.href = url;
+  link.download = filename;
+
+  document.body.appendChild(link);
+  link.click();
+  window.URL.revokeObjectURL(url);
+  document.body.removeChild(link);
+}
 </script>
 
 <BreadCrumbs crumbs={breadCrumbs} />
 
 <form
-	on:submit={async () => await onQuerySubmit(name, decription, format)}
+	on:submit={async () => await onQuerySubmit(name, description, format, query, tags)}
 >
 	<table class="table">
 		<thead class="!variant-soft-secondary">
@@ -74,13 +112,34 @@
 			<tr class="!border-b !border-b-secondary-100 dark:!border-b-surface-700">
 				<td class="align-top">Description</td>
 				<td>
-					<textarea bind:value={decription} class="textarea" name="description" placeholder="Enter description here..." />
+					<textarea bind:value={description} class="textarea" name="description" placeholder="Enter description here..." />
 				</td>
 			</tr>
 			<tr class="!border-b !border-b-secondary-100 dark:!border-b-surface-700">
-				<td class="align-top">Format</td>
+				<td class="align-top">Add Query</td>
 				<td>
-					<input bind:value={format} type="text" class="input w-full" name="format" placeholder="Enter format here..." />
+					<textarea bind:value={query} class="textarea" name="description" placeholder="Enter description here..." />
+				</td>
+			</tr>
+			<tr class="!border-b !border-b-secondary-100 dark:!border-b-surface-700">
+				<td class="align-top">Tags</td>
+				<td>
+          <InputChip chips="variant-filled-error rounded-2xl" name="tags" bind:value={tags} />
+				</td>
+			</tr>
+			<tr class="!border-b !border-b-secondary-100 dark:!border-b-surface-700">
+				<td>Format *</td>
+				<td>
+					<select
+						name="format"
+						required
+						class="select w-full"
+						placeholder="Select forma here..."
+						bind:value={format}
+					>
+						<option value=CSV>CSV</option>
+						<option value=JSON>JSON</option>
+					</select>
 				</td>
 			</tr>
 		</tbody>
