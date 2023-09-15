@@ -15,14 +15,14 @@ export const load: PageServerLoad = async (event: RequestEvent) => {
 	try {
 		const _overallUsersData = await getOverallUsers(sessionId);
 		const _deviceDetailWiseUsers = await getDeviceDetailWiseUsers(sessionId);
-		const _enrollmentUsers = await getEnrollmetUsers(sessionId);
+		// const _enrollmentUsers = await getEnrollmetUsers(sessionId);
 		const _appDownloadsData = await getAppDownloadsData(sessionId);
 		const _years = await getYears(sessionId);
 		const overallUsersData = _overallUsersData.Data.UsersCountStats;
 		const deviceDetailWiseUsers = _deviceDetailWiseUsers.Data.DeviceDetailWiseUsers;
-		const enrollmentUsers = _enrollmentUsers.Data.EnrollmentUsers;
+		// const enrollmentUsers = _enrollmentUsers.Data.EnrollmentUsers;
 
-		const years = _years.Data.Years;
+		let years = _years.Data.Years;
 		const appDownloadsData = _appDownloadsData.Data.AppDownload;
 
 		let appDownloadCount = 0;
@@ -33,6 +33,7 @@ export const load: PageServerLoad = async (event: RequestEvent) => {
 		}
 
 		const yearsArray = [];
+		years =	years.sort((a, b) => a.year - b.year);
 		for (const year of years) {
 			const year_ = year.year;
 			yearsArray.push(year_);
@@ -71,7 +72,7 @@ export const load: PageServerLoad = async (event: RequestEvent) => {
 		console.log('appDownloadsData', appDownloadCount);
 		console.log('deviceDetailWiseUsers', deviceDetailWiseUsers);
 		console.log('overallUsersData', overallUsersData);
-		console.log('enrollmentUsers', enrollmentUsers);
+		// console.log('enrollmentUsers', enrollmentUsers);
 		console.log('years', years);
 		return {
 			sessionId,
@@ -80,7 +81,7 @@ export const load: PageServerLoad = async (event: RequestEvent) => {
 			totalUsersArray,
 			iOSUsersArray,
 			yearsArray,
-			enrollmentUsers,
+			// enrollmentUsers,
 			appDownloadCount,
 			overallUsersData
 		};
