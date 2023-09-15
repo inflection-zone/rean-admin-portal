@@ -5,26 +5,6 @@ import { SessionManager } from '../session.manager';
 
 ////////////////////////////////////////////////////////////////
 
-// export const executeQuery = async (
-// 	sessionId: string,
-// 	name: string,
-// 	description: string,
-//   format: string,
-//   userId ?: string,
-// 	tenantId ?: string,
-// ) => {
-// 	const body = {
-// 		Name: name,
-// 		Description: description ? description : null,
-//     Format: format,
-// 		UserId: userId,
-//     TenantId: tenantId 
-// 	};
-
-// 	const url = BACKEND_API_URL + '/custom-query';
-// 	return await post_(sessionId, url, body, true);
-// };
-
 export const executeQuery = async (
 	sessionId: string,
 	name: string,
@@ -62,50 +42,47 @@ export const executeQuery = async (
 		headers
 	});
 	const contentType = res.headers.get('content-type');
-	const data = await res.text();
-	const responseHeaders = res.headers;
-	// const contentType = responseHeaders['content-type'];
-	const disposition = responseHeaders['content-disposition'];
-		console.log("data----",disposition)
-	// const data = await res.arrayBuffer();
-	console.log("contentType----",contentType)
-	console.log("data",data)
-	// if (data) {
-	// 	const responseHeaders = res.headers;
-	// 	const contentType = responseHeaders['content-type'];
-	// 	console.log("data",contentType)
-	// 	const parts = contentType.split('/');
-	// 	const extension = parts.pop();
-	// 	let filename = 'download-' + Date.now().toString() + '.' + extension;
-	// 	// if (asAttachment === true) {
-	// 		const disposition = responseHeaders['content-disposition'];
-	// 		if (disposition) {
-	// 			const tokens = disposition.split('filename=');
-	// 			if (tokens.length > 1) {
-	// 				filename = tokens[1];
-	// 			}
-	// 		// }
-	// 	}
-	// 	return data;
-	// } else {
-	// 	const response = await res.json();
-	// 	console.log(`post_ response message: ${response.Message}`);
-	// 	throw error(response.HttpCode, response.Message);
-	// }
 	if (contentType.includes('application/json')) {
-		const data = await res.json();
-		// Handle JSON data here
-		return data;
+		const jsonData = await res.json();
+		let filename = '';
+			const disposition = res.headers.get('content-disposition');
+			if (disposition) {
+				const tokens = disposition.split('filename=');
+				if (tokens.length > 1) {
+					  filename = tokens[1];
+				}
+			}
+		return {
+			success: true,
+			Data: {
+				Buffer: jsonData,
+				FileName: filename,
+				MimeType: contentType
+			}
+		};
 	} else if (contentType.includes('text/csv')) {
 		const csvData = await res.text();
-		// Handle CSV data here
-		return csvData;
+			let filename = '';
+			const disposition = res.headers.get('content-disposition');
+			if (disposition) {
+				const tokens = disposition.split('filename=');
+				if (tokens.length > 1) {
+					  filename = tokens[1];
+				}
+			}
+		return {
+			success: true,
+			Data: {
+				Buffer: csvData,
+				FileName: filename,
+				MimeType: contentType
+			}
+		};
 	} else {
 		const response = await res.json();
 			console.log(`post_ response message: ${response.Message}`);
 			throw error(response.HttpCode, response.Message);
 	}
-
 };
 
 export const getQueryById = async (sessionId: string, queryId: string) => {

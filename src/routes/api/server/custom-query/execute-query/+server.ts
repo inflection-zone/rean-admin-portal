@@ -16,11 +16,10 @@ export const POST = async (event: RequestEvent) => {
 			data.query,
 			data.tags
 		);
-		const query = response;
-		console.log("response----",response)
-		return response;
+		return new Response(JSON.stringify(response));
 	} catch (err) {
 		console.error(`Error executing query: ${err.message}`);
 		return new Response(err.message);
 	}
 };
+

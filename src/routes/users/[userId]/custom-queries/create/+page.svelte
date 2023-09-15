@@ -21,6 +21,7 @@
 	let format;
 	let query = '';
 	let tags = [];
+	let csvData;
 
 	const onQuerySubmit = async (name:string, description: string, format: string, query:string, tags:string[]) => {
 		await executeQuery({
@@ -39,48 +40,39 @@
 			body: JSON.stringify(model),
 			headers: { 'content-type': 'application/json' }
 		});
-		const resp = await response.text();
-		console.log(response);
+	  const res = await response.json();
+		console.log("response-------",res)
+		const data = downloadFile(res)
+		console.log("response",res)
+		console.log("data", data);
 	}
 
-// 	async function fetchDataAndDownload(type) {
-//   try {
-//     const response = await fetch('your-api-endpoint');
-//     const contentType = response.headers.get('content-type');
-    
-//     if (contentType.includes('application/json')) {
-//       const jsonData = await response.json();
-//       downloadFile(JSON.stringify(jsonData), 'data.json', 'application/json');
-//     } else if (contentType.includes('text/csv')) {
-//       const csvData = await response.text();
-//       downloadFile(csvData, 'data.csv', 'text/csv');
-//     } else {
-//       console.error('Unsupported content type:', contentType);
-//     }
-//   } catch (error) {
-//     console.error('Error fetching data:', error);
-//   }
-// }
-
-function downloadFile(data, filename, contentType) {
-  const blob = new Blob([data], { type: contentType });
-  const url = window.URL.createObjectURL(blob);
-
-  const link = document.createElement('a');
-  link.href = url;
-  link.download = filename;
-
-  document.body.appendChild(link);
-  link.click();
-  window.URL.revokeObjectURL(url);
-  document.body.removeChild(link);
+function downloadFile(response) {
+	const bufferData = response.Data.Buffer;
+	let fileName = response.Data.FileName
+	let blob;
+	if(fileName.includes(".csv")){
+		blob = new Blob([bufferData], { type: response.Data.MimeType });
+	}
+	else {
+		blob = new Blob([JSON.stringify(bufferData)], { type: response.Data.MimeType });
+	}
+	const url = URL.createObjectURL(blob);
+	const a = document.createElement('a');
+	a.href = url;
+	a.download = fileName
+	a.click();
+	URL.revokeObjectURL(url);
 }
+
+
 </script>
 
 <BreadCrumbs crumbs={breadCrumbs} />
 
 <form
 	on:submit={async () => await onQuerySubmit(name, description, format, query, tags)}
+	class="table-container my-2 border border-secondary-100 dark:!border-surface-700"
 >
 	<table class="table">
 		<thead class="!variant-soft-secondary">
@@ -116,9 +108,9 @@ function downloadFile(data, filename, contentType) {
 				</td>
 			</tr>
 			<tr class="!border-b !border-b-secondary-100 dark:!border-b-surface-700">
-				<td class="align-top">Add Query</td>
+				<td class="align-top">Query *</td>
 				<td>
-					<textarea bind:value={query} class="textarea" name="description" placeholder="Enter description here..." />
+					<textarea bind:value={query} class="textarea" name="query" placeholder="Add query here..." />
 				</td>
 			</tr>
 			<tr class="!border-b !border-b-secondary-100 dark:!border-b-surface-700">
@@ -137,6 +129,7 @@ function downloadFile(data, filename, contentType) {
 						placeholder="Select forma here..."
 						bind:value={format}
 					>
+					  <option selected disabled>Select response format</option>
 						<option value=CSV>CSV</option>
 						<option value=JSON>JSON</option>
 					</select>
