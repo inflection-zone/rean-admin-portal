@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { page } from '$app/stores';
+	import date from 'date-and-time';
 	import BreadCrumbs from '$lib/components/breadcrumbs/breadcrums.svelte';
 	import Image from '$lib/components/image.svelte';
 	import Icon from '@iconify/svelte';
@@ -8,20 +9,15 @@
 	////////////////////////////////////////////////////////////////////////
 
 	export let data: PageServerData;
-	let id = data.organization.id;
-	let type = data.organization.Type;
-	let name = data.organization.Name;
-	let contactNumber = data.organization.ContactPhone;
-	let email = data.organization.ContactEmail;
-	let about = data.organization.About ?? null;
-	let operationalSince = data.organization.OperationalSince;
-	// let addressType = data.organization.Addresses[0].Type ?? null;
-	// let addressLine = data.organization.Addresses[0].AddressLine ?? null;
-	// let city = data.organization.Addresses[0].City ?? null;
-	// let district = data.organization.Addresses[0].District ?? null;
-	// let state = data.organization.Addresses[0].State ?? null;
-	// let country = data.organization.Addresses[0].Country ?? null;
-	// let postalCode = data.organization.Addresses[0].PostalCode ?? null;
+	let organization = data.organization;
+	let id = organization.id;
+	let type = organization.Type;
+	let name = organization.Name;
+	let contactNumber = organization.ContactPhone;
+	let email = organization.ContactEmail;
+	let about = (organization.About !== null && organization.About !== "") ? organization.About : 'Not specified';
+	let operationalSince = new Date(data.organization.OperationalSince);
+
 	let addressType = null;
 	let addressLine = null;
 	let city = null;
@@ -29,23 +25,20 @@
 	let state = null;
 	let country = null;
 	let postalCode = null;
-	let imageUrl = data.organization.ImageUrl ?? undefined;
-	let isHealthFacility = data.organization.IsHealthFacility;
+	let imageUrl = organization.ImageUrl
+	let isHealthFacility = organization.IsHealthFacility;
 
-	if (data.organization.Addresses.length > 0) {
+	if (organization.Addresses.length > 0) {
+		addressType = organization.Addresses[0].Type ?? null;
+		addressLine = organization.Addresses[0].AddressLine ?? null;
+		city = (organization.Addresses[0].City !== null && organization.Addresses[0].City !== "") ? organization.Addresses[0].City : 'Not specified';
+		district = (organization.Addresses[0].District !== null && organization.Addresses[0].District !== "") ? organization.Addresses[0].District : 'Not specified';
+		state = (organization.Addresses[0].State !== null && organization.Addresses[0].State !== "") ? organization.Addresses[0].State : 'Not specified';
+		country = (organization.Addresses[0].Country !== null && organization.Addresses[0].Country !== "") ? organization.Addresses[0].Country : 'Not specified';
+		postalCode = (organization.Addresses[0].PostalCode !== null && organization.Addresses[0].PostalCode !== "") ? organization.Addresses[0].PostalCode : 'Not specified';
 	}
 
-	if (data.organization.Addresses.length > 0) {
-		addressType = data.organization.Addresses[0].Type ?? null;
-		addressLine = data.organization.Addresses[0].AddressLine ?? null;
-		city = data.organization.Addresses[0].City ?? null;
-		district = data.organization.Addresses[0].District ?? null;
-		state = data.organization.Addresses[0].State ?? null;
-		country = data.organization.Addresses[0].Country ?? null;
-		postalCode = data.organization.Addresses[0].PostalCode ?? null;
-	}
-
-	console.log('organization', data.organization);
+	console.log('organization', organization);
 
 	const userId = $page.params.userId;
 	const editRoute = `/users/${userId}/organizations/${id}/edit`;
@@ -108,7 +101,7 @@
 			</tr>
 			<tr class="!border-b !border-b-secondary-100 dark:!border-b-surface-700">
 				<td>Operational Since</td>
-				<td>{(new Date(operationalSince), 'DD-MMM-YYYY')}</td>
+				<td>{date.format(operationalSince, 'DD MMM YYYY')}</td>
 			</tr>
 			<tr class="!border-b !border-b-secondary-100 dark:!border-b-surface-700">
 				<td>Address Type</td>
@@ -141,7 +134,7 @@
 			<tr class="!border-b !border-b-secondary-100 dark:!border-b-surface-700">
 				<td class="align-top">Image</td>
 				<td>
-					{#if imageUrl === 'undefined'}
+					{#if imageUrl === null }
 						Not specified
 					{:else}
 						<Image cls="flex h-24 w-24 rounded-lg" source={imageUrl} w="24" h="24" />

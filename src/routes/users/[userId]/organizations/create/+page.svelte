@@ -242,7 +242,7 @@
 				</td>
 			</tr>
 			<tr class="!border-b !border-b-secondary-100 dark:!border-b-surface-700">
-				<td>Image *</td>
+				<td>Image </td>
 				<td>
 					<input
 						name="fileinput"

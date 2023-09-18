@@ -3,6 +3,8 @@
 	import BreadCrumbs from '$lib/components/breadcrumbs/breadcrums.svelte';
 	import Icon from '@iconify/svelte';
 	import InputChip from '$lib/components/input-chips.svelte';
+	import toast from 'svelte-french-toast';
+	import { goto } from '$app/navigation';
 
 	/////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -42,6 +44,14 @@
 	  const res = await response.json();
 		console.log("response-------",res)
 		const data = downloadFile(res)
+		if(res.success === true){
+			toast.success(`Query executed successfully, View downloads for data file`)
+			goto(queryRoute);
+		}
+		else
+		{
+			toast.error(`Unable to execute query!`)
+		}
 		console.log("response",res)
 		console.log("data", data);
 	}

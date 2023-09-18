@@ -68,7 +68,7 @@
 		const res = await response.json();
 		const data = downloadFile(res)
 		if(res.success === true){
-			toast.success(`Query updated successfully!`)
+			toast.success(`Query updated successfully, View downloads for data file`)
 			goto(viewRoute);
 		}
 		else
