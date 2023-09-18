@@ -21,7 +21,6 @@
 	let format;
 	let query = '';
 	let tags = [];
-	let csvData;
 
 	const onQuerySubmit = async (name:string, description: string, format: string, query:string, tags:string[]) => {
 		await executeQuery({

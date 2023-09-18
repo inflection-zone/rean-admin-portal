@@ -17,8 +17,8 @@ export const POST = async (event: RequestEvent) => {
 			data.query,
 			data.tags
 		);
-		const query = response.Data.Query;
-		return new Response(JSON.stringify(query));
+		console.log(JSON.stringify(response))
+		return new Response(JSON.stringify(response));
 	} catch (err) {
 		console.error(`Error executing query: ${err.message}`);
 		return new Response(err.message);

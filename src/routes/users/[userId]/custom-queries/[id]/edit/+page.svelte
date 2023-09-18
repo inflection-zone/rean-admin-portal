@@ -5,6 +5,7 @@
 	import InputChip from '$lib/components/input-chips.svelte';
 	import type { PageServerData } from './$types';
 	import { goto } from '$app/navigation';
+	import toast from 'svelte-french-toast';
 
 	//////////////////////////////////////////////////////////////////////
 	
@@ -64,11 +65,35 @@
 			body: JSON.stringify(model),
 			headers: { 'content-type': 'application/json' }
 		});
-		const resp = await response.text();
-		console.log(response);
-		goto(viewRoute);
+		const res = await response.json();
+		const data = downloadFile(res)
+		if(res.success === true){
+			toast.success(`Query updated successfully!`)
+			goto(viewRoute);
+		}
+		else
+		{
+			toast.error(`Unable to updated query!`)
+		}
 	}
 
+	function downloadFile(response) {
+	const bufferData = response.Data.Buffer;
+	let fileName = response.Data.FileName
+	let blob;
+	if(fileName.includes(".csv")){
+		blob = new Blob([bufferData], { type: response.Data.MimeType });
+	}
+	else {
+		blob = new Blob([JSON.stringify(bufferData)], { type: response.Data.MimeType });
+	}
+	const url = URL.createObjectURL(blob);
+	const a = document.createElement('a');
+	a.href = url;
+	a.download = fileName
+	a.click();
+	URL.revokeObjectURL(url);
+};
 </script>
 
 <BreadCrumbs crumbs={breadCrumbs} />

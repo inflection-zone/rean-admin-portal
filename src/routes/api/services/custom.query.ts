@@ -121,7 +121,7 @@ export const updateQuery = async (
   userId ?: string,
 	tenantId ?: string,
 ) => {
-	const body = {
+	const bodyObj = {
 		Name: name,
 		Description: description ? description : null,
     Format: format,
@@ -130,8 +130,66 @@ export const updateQuery = async (
 		Query: query,
 		Tags: tags
 	};
+	console.log("bodyObj", bodyObj)
 	const url = BACKEND_API_URL + `/custom-query/${queryId}`;
-	return await put_(sessionId, url, body, true);
+	
+	const session = await SessionManager.getSession(sessionId);
+	const accessToken = session.accessToken;
+
+	const headers = {};
+	headers['x-api-key'] = API_CLIENT_INTERNAL_KEY;
+	headers['Authorization'] = `Bearer ${accessToken}`;
+	headers['Content-Type'] = 'application/json';
+	const body = JSON.stringify(bodyObj);
+	console.log(body);
+	const res = await fetch(url, {
+		method: 'PUT',
+		body,
+		headers
+	});
+	const contentType = res.headers.get('content-type');
+	if (contentType.includes('application/json')) {
+		const jsonData = await res.json();
+		let filename = '';
+			const disposition = res.headers.get('content-disposition');
+			if (disposition) {
+				const tokens = disposition.split('filename=');
+				if (tokens.length > 1) {
+					  filename = tokens[1];
+				}
+			}
+		return {
+			success: true,
+			Data: {
+				Buffer: jsonData,
+				FileName: filename,
+				MimeType: contentType
+			}
+		};
+	} else if (contentType.includes('text/csv')) {
+		const csvData = await res.text();
+		console.log("csvData",csvData)
+			let filename = '';
+			const disposition = res.headers.get('content-disposition');
+			if (disposition) {
+				const tokens = disposition.split('filename=');
+				if (tokens.length > 1) {
+					  filename = tokens[1];
+				}
+			}
+		return {
+			success: true,
+			Data: {
+				Buffer: csvData,
+				FileName: filename,
+				MimeType: contentType
+			}
+		};
+	} else {
+		const response = await res.json();
+			console.log(`put_ response message: ${response.Message}`);
+			throw error(response.HttpCode, response.Message);
+	}
 };
 
 export const deleteQuery = async (sessionId: string, queryId: string) => {
