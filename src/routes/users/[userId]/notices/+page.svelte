@@ -118,7 +118,7 @@
 					<td role="gridcell" aria-colindex={2} tabindex="0">
 						<a href={viewRoute(row.id)}>{Helper.truncateText(row.Title, 20)} </a>
 					</td>
-					<td role="gridcell" aria-colindex={3} tabindex="0">{Helper.truncateText(row.Link, 20)}</td
+					<td role="gridcell" aria-colindex={3} tabindex="0">{ row.Link !== null ? Helper.truncateText(row.Link, 20) : 'Not specified'}</td
 					>
 					<td role="gridcell" aria-colindex={4} tabindex="0">{row.DaysActive}</td>
 					<td role="gridcell" aria-colindex={5} tabindex="0"

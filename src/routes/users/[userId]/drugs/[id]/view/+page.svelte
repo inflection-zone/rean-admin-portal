@@ -4,15 +4,18 @@
 	import Icon from '@iconify/svelte';
 	import type { PageServerData } from './$types';
 
+	////////////////////////////////////////////////////////
+
 	export let data: PageServerData;
-	let id = data.drug.id;
-	let drugName = data.drug.DrugName;
-	let genericName = data.drug.GenericName;
-	let ingredients = data.drug.Ingredients;
-	let strength = data.drug.Strength;
-	let commercialNames = data.drug.OtherCommercialNames;
-	let manufacturer = data.drug.Manufacturer;
-	let otherInformation = data.drug.OtherInformation;
+	let drug = data.drug;
+	let id = drug.id;
+	let drugName = drug.DrugName;
+	let genericName = drug.GenericName !== null ? drug.GenericName : 'Not specified';
+	let ingredients = drug.Ingredients !== null ? drug.Ingredients : 'Not specified';
+	let strength = drug.Strength !== null ? drug.Strength : 'Not specified';
+	let commercialNames = drug.OtherCommercialNames !== null ? drug.OtherCommercialNames : 'Not specified';
+	let manufacturer = drug.Manufacturer !== null ? drug.Manufacturer : 'Not specified';
+	let otherInformation = drug.OtherInformation !== null ? drug.OtherInformation: 'Not specified';
 
 	const userId = $page.params.userId;
 	const editRoute = `/users/${userId}/drugs/${id}/edit`;

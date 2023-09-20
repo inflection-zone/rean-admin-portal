@@ -125,10 +125,10 @@
 						<a href={viewRoute(row.id)}>{Helper.truncateText(row.DrugName, 20)}</a>
 					</td>
 					<td role="gridcell" aria-colindex={3} tabindex="0">
-						{Helper.truncateText(row.GenericName, 40)}
+						{row.GenericName !== null ? Helper.truncateText(row.GenericName, 40) : 'Not specified'}
 					</td>
 					<td role="gridcell" aria-colindex={4} tabindex="0">
-						{Helper.truncateText(row.Ingredients, 40)}
+						{row.Ingredients !== null ? Helper.truncateText(row.Ingredients, 40) : 'Not specified'}
 					</td>
 					<td role="gridcell" aria-colindex={5} tabindex="0">
 						{date.format(new Date(row.CreatedAt), 'DD-MMM-YYYY')}</td

@@ -9,7 +9,7 @@
 	export let data: PageServerData;
 	let id = data.personRoleType.id;
 	let roleName = data.personRoleType.RoleName;
-	let description = data.personRoleType.Description;
+	let description = data.personRoleType.Description !== null ? data.personRoleType.Description : 'Not specified';
 
 	const userId = $page.params.userId;
 	const editRoute = `/users/${userId}/person-role-types/${id}/edit`;

@@ -109,7 +109,7 @@
 					<td role="gridcell" aria-colindex={2} tabindex="0">
 						<a href={viewRoute(row.id)}>{Helper.truncateText(row.Type, 20)} </a>
 					</td>
-					<td role="gridcell" aria-colindex={3} tabindex="0">{row.Tags}</td>
+					<td role="gridcell" aria-colindex={3} tabindex="0">{row.Tags.length > 0 ? row.Tags : 'Not specified'}</td>
 					<td role="gridcell" aria-colindex={4} tabindex="0"
 						>{date.format(new Date(row.CreatedAt), 'DD-MMM-YYYY')}</td
 					>

@@ -119,9 +119,9 @@
 						<a href={viewRoute(row.id)}>{Helper.truncateText(row.Name, 20)}</a>
 					</td>
 					<td role="gridcell" aria-colindex={3} tabindex="0">
-						{Helper.truncateText(row.Description, 30)}
+						{row.Description !== null ? Helper.truncateText(row.Description, 30) : 'Not specified'}
 					</td>
-					<td role="gridcell" aria-colindex={4} tabindex="0">{row.PreferenceWeight}</td>
+					<td role="gridcell" aria-colindex={4} tabindex="0">{row.PreferenceWeight !== null ? row.PreferenceWeight : 'Not Specified'  }</td>
 					<td role="gridcell" aria-colindex={5} tabindex="0">
 						{date.format(new Date(row.CreatedAt), 'DD-MMM-YYYY')}
 					</td>

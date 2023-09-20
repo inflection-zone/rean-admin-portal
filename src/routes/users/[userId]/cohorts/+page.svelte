@@ -18,6 +18,7 @@
 
 	export let data: PageServerData;
 	let cohorts = data.cohorts;
+	console.log("cohorts", cohorts);
 	let tenants = data.tenants;
 	console.log('Items', cohorts);
 	cohorts = cohorts.map((item, index) => ({ ...item, index: index + 1 }));
@@ -52,11 +53,11 @@
 		if (itemsPerPage) url += `&itemsPerPage=${itemsPerPage}`;
 		if (pageIndex) url += `&pageIndex=${pageIndex}`;
 		if (name) url += `&name=${name}`;
-		if (tenantId == 'Tenant') {
-			url;
-		} else {
-			url += `&tenantId=${tenantId}`;
-		}
+		// if (tenantId == 'Tenant') {
+		// 	url;
+		// } else {
+		// 	url += `&tenantId=${tenantId}`;
+		// }
 
 		const res = await fetch(url, {
 			method: 'GET',
@@ -128,13 +129,10 @@
 						<a href={viewRoute(row.id)}>{row.TenantId} </a>
 					</td> -->
 					<td role="gridcell" aria-colindex={2} tabindex="0">
-						{Helper.truncateText(row.Name, 20)}
+						<a href={viewRoute(row.id)}>{Helper.truncateText(row.Name, 20)} </a>
 					</td>
 					<td role="gridcell" aria-colindex={3} tabindex="0"
-						>{Helper.truncateText(
-							row.Description !== null ? row.Description : 'Not specified',
-							20
-						)}</td
+						>{row.Description !== null && row.Description !== '' ? Helper.truncateText(row.Description, 40) : 'Not specified'}</td
 					>
 					<td>
 						<a href={editRoute(row.id)} class="btn p-2 -my-1 hover:variant-soft-primary">

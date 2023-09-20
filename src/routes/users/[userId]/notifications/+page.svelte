@@ -115,7 +115,7 @@
 					<td role="gridcell" aria-colindex={2} tabindex="0">
 						<a href={viewRoute(row.id)}>{Helper.truncateText(row.Title, 20)}</a>
 					</td>
-					<td role="gridcell" aria-colindex={3} tabindex="0">{Helper.truncateText(row.Body, 40)}</td
+					<td role="gridcell" aria-colindex={3} tabindex="0">{row.Body !== null ? Helper.truncateText(row.Body, 40) : 'Not specified'}</td
 					>
 					<td role="gridcell" aria-colindex={4} tabindex="0">{row.Type}</td>
 					<td role="gridcell" aria-colindex={5} tabindex="0"
