@@ -128,7 +128,7 @@
 						<a href={viewRoute(row.id)}>{Helper.truncateText(row.ClientName, 20)}</a>
 					</td>
 					<td role="gridcell" aria-colindex={3} tabindex="0">{row.Email}</td>
-					<td role="gridcell" aria-colindex={4} tabindex="0">{row.Phone}</td>
+					<td role="gridcell" aria-colindex={4} tabindex="0">{(row.Phone !== null && row.Phone !== "") ? row.Phone : 'Not specified'}</td>
 					<td>
 						<a class="btn p-2 hover:variant-soft-secondary" href={editRoute(row.id)}>
 							<Icon icon="material-symbols:edit-outline" class="text-lg" />

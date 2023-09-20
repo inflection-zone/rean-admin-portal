@@ -115,7 +115,7 @@
 						{Helper.truncateText(row.Type, 40)}
 					</td>
 					<td role="gridcell" aria-colindex={4} tabindex="0">
-						{Helper.truncateText(row.Provider, 40)}
+						{(row.Provider !== null && row.Provider !== "") ? Helper.truncateText(row.Provider, 40): 'Not specified'}
 					</td>
 					<td>
 						<a href={editRoute(row.id)} class="btn p-2 -my-1 hover:variant-soft-primary">
