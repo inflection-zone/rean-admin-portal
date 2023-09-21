@@ -8,7 +8,7 @@
 
 	export let data: PageServerData;
 	let name = data.schema.Name;
-	let description = data.schema.Description;
+	let description = (data.schema.Description !== null && data.schema.Description) ? data.schema.Description : 'Not specified';
 	let type = data.schema.Type;
 	let eventTypes = data.schema.EventTypes;
 
