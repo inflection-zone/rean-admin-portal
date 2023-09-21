@@ -19,7 +19,7 @@ export const load: PageServerLoad = async (event: RequestEvent) => {
 		};
 	} catch (error) {
 		console.error(`Error retieving data : ${error.message}`);
-		throw redirect(400, '/');
+		throw redirect(303, '/');
 	}
 };
 
