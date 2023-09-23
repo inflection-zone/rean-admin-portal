@@ -7,19 +7,16 @@
 	import Icon from '@iconify/svelte';
 	import {
 		Paginator,
-		createDataTableStore,
-		dataTableHandler,
-		tableA11y,
-		tableInteraction
 	} from '@skeletonlabs/skeleton';
 	import date from 'date-and-time';
 	import type { PageServerData } from './$types';
+	import type { PaginationSettings } from '@skeletonlabs/skeleton/components/Paginator/types';
 
 	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 	export let data: PageServerData;
-	let drugs = data.drug;
-	drugs = drugs.map((item, index) => ({ ...item, index: index + 1 }));
+
+	let drugs = data.drugs.Items;
 
 	const userId = $page.params.userId;
 	const drugRoute = `/users/${userId}/drugs`;
@@ -31,40 +28,65 @@
 
 	let drugName = undefined;
 	let genericName = undefined;
-	let sortBy = 'CreatedAt';
+	let sortBy = 'DrugName';
 	let sortOrder = 'ascending';
 	let itemsPerPage = 10;
-	let pageIndex = 0;
+	let offset = 0;
+	let totalDrugsCount = data.drugs.TotalCount;
+	let isSortingName = false;
+  let isSortingGenericName = false;
 
-	const dataTableStore = createDataTableStore(drugs, {
-		search: '',
-		sort: '',
-		pagination: { offset: 0, limit: 10, size: 0, amounts: [10, 20, 30, 50] }
-	});
+	let paginationSettings = {
+		offset: 0,
+		limit: 10,
+		size: totalDrugsCount,
+		amounts: [10, 20, 30, 50]
+	} satisfies PaginationSettings;
 
-	async function searchdrug(model) {
+	async function searchDrug(model) {
 		let url = `/api/server/drugs/search?`;
 		if (sortOrder) url += `sortOrder=${sortOrder}`;
 		else url += `sortOrder=ascending`;
 
 		if (sortBy) url += `&sortBy=${sortBy}`;
 		if (itemsPerPage) url += `&itemsPerPage=${itemsPerPage}`;
-		if (pageIndex) url += `&pageIndex=${pageIndex}`;
+		if (offset) url += `&pageIndex=${offset}`;
 		if (drugName) url += `&drugName=${drugName}`;
 		if (genericName) url += `&genericName=${genericName}`;
-
 		const res = await fetch(url, {
 			method: 'GET',
 			headers: { 'content-type': 'application/json' }
 		});
 		const response = await res.json();
 		drugs = response.map((item, index) => ({ ...item, index: index + 1 }));
-
-		dataTableStore.updateSource(drugs);
 	}
-	$: if (browser) searchdrug({ drugName: drugName, genericName: genericName });
 
-	dataTableStore.subscribe((model) => dataTableHandler(model));
+	$: retrivedDrugs = drugs.slice(
+		paginationSettings.offset * paginationSettings.limit,
+		paginationSettings.offset * paginationSettings.limit + paginationSettings.limit
+	);
+
+	$: if (browser)
+		searchDrug({
+			drugName: drugName,
+			genericName: genericName,
+			itemsPerPage: itemsPerPage,
+			pageIndex: offset,
+			sortOrder: sortOrder,
+			sortBy: sortBy
+		});
+
+	let items = 10;
+
+	function onPageChange(e: CustomEvent): void {
+		let pageIndex = e.detail;
+		itemsPerPage = items * (pageIndex + 1);
+	}
+
+	function onAmountChange(e: CustomEvent): void {
+		itemsPerPage = e.detail;
+		items = itemsPerPage;
+	}
 
 	const handleDrugDelete = async (e, id) => {
 		const drugId = id;
@@ -82,6 +104,19 @@
 			headers: { 'content-type': 'application/json' }
 		});
 	}
+
+	function sortTable(columnName) {
+		isSortingName = false;
+    isSortingGenericName = false
+		sortOrder = sortOrder === 'ascending' ? 'descending' : 'ascending';
+		if (columnName === 'DrugName') {
+    isSortingName = true;
+  } else if (columnName === 'GenericName') {
+    isSortingGenericName = true;
+  }
+	sortBy = columnName;
+	}
+
 </script>
 
 <BreadCrumbs crumbs={breadCrumbs} />
@@ -105,12 +140,20 @@
 </div>
 
 <div class="table-container my-2 !border !border-secondary-100 dark:!border-surface-700">
-	<table class="table" role="grid" use:tableInteraction use:tableA11y>
-		<thead on:click={(e) => dataTableStore.sort(e)} on:keypress class="!variant-soft-secondary">
+	<table class="table" role="grid">
+		<thead class="!variant-soft-secondary">
 			<tr>
 				<th data-sort="index">Id</th>
-				<th data-sort="DrugName">Name</th>
-				<th data-sort="GenericName">Generic Name</th>
+				<th>
+					<button on:click={() => sortTable('DrugName')}>
+						Name {isSortingName ? (sortOrder === 'ascending' ? '▲' : '▼'): ''}
+					</button>
+				</th>
+				<th>
+					<button on:click={() => sortTable('GenericName')}>
+						Generic Name {isSortingGenericName ? (sortOrder === 'ascending' ? '▲' : '▼') : ''}
+					</button>
+				</th>
 				<th>Ingredients</th>
 				<th>Created Date</th>
 				<th />
@@ -118,7 +161,7 @@
 			</tr>
 		</thead>
 		<tbody class="!bg-white dark:!bg-inherit">
-			{#each $dataTableStore.filtered as row}
+			{#each retrivedDrugs as row}
 				<tr class="!border-b !border-b-secondary-100 dark:!border-b-surface-700">
 					<td role="gridcell" aria-colindex={1} tabindex="0">{row.index}</td>
 					<td role="gridcell" aria-colindex={2} tabindex="0">
@@ -162,10 +205,10 @@
 </div>
 
 <div class="w-full variant-soft-secondary rounded-lg p-2">
-	{#if $dataTableStore.pagination}
-		<Paginator
-			bind:settings={$dataTableStore.pagination}
-			buttonClasses="btn-icon bg-surface-50 dark:bg-surface-900"
-		/>
-	{/if}
+	<Paginator
+		bind:settings={paginationSettings}
+		on:page={onPageChange}
+		on:amount={onAmountChange}
+		buttonClasses="btn-icon bg-surface-50 dark:bg-surface-900"
+	/>
 </div>
