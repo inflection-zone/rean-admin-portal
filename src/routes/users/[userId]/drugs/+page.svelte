@@ -5,9 +5,7 @@
 	import Confirm from '$lib/components/modal/confirmModal.svelte';
 	import { Helper } from '$lib/utils/helper';
 	import Icon from '@iconify/svelte';
-	import {
-		Paginator,
-	} from '@skeletonlabs/skeleton';
+	import { Paginator } from '@skeletonlabs/skeleton';
 	import date from 'date-and-time';
 	import type { PageServerData } from './$types';
 	import type { PaginationSettings } from '@skeletonlabs/skeleton/components/Paginator/types';
@@ -34,7 +32,8 @@
 	let offset = 0;
 	let totalDrugsCount = data.drugs.TotalCount;
 	let isSortingName = false;
-  let isSortingGenericName = false;
+	let isSortingGenericName = false;
+	let items = 10;
 
 	let paginationSettings = {
 		offset: 0,
@@ -76,8 +75,6 @@
 			sortBy: sortBy
 		});
 
-	let items = 10;
-
 	function onPageChange(e: CustomEvent): void {
 		let pageIndex = e.detail;
 		itemsPerPage = items * (pageIndex + 1);
@@ -86,6 +83,18 @@
 	function onAmountChange(e: CustomEvent): void {
 		itemsPerPage = e.detail;
 		items = itemsPerPage;
+	}
+
+	function sortTable(columnName) {
+		isSortingName = false;
+		isSortingGenericName = false;
+		sortOrder = sortOrder === 'ascending' ? 'descending' : 'ascending';
+		if (columnName === 'DrugName') {
+			isSortingName = true;
+		} else if (columnName === 'GenericName') {
+			isSortingGenericName = true;
+		}
+		sortBy = columnName;
 	}
 
 	const handleDrugDelete = async (e, id) => {
@@ -104,19 +113,6 @@
 			headers: { 'content-type': 'application/json' }
 		});
 	}
-
-	function sortTable(columnName) {
-		isSortingName = false;
-    isSortingGenericName = false
-		sortOrder = sortOrder === 'ascending' ? 'descending' : 'ascending';
-		if (columnName === 'DrugName') {
-    isSortingName = true;
-  } else if (columnName === 'GenericName') {
-    isSortingGenericName = true;
-  }
-	sortBy = columnName;
-	}
-
 </script>
 
 <BreadCrumbs crumbs={breadCrumbs} />
@@ -146,7 +142,7 @@
 				<th data-sort="index">Id</th>
 				<th>
 					<button on:click={() => sortTable('DrugName')}>
-						Name {isSortingName ? (sortOrder === 'ascending' ? '▲' : '▼'): ''}
+						Name {isSortingName ? (sortOrder === 'ascending' ? '▲' : '▼') : ''}
 					</button>
 				</th>
 				<th>
