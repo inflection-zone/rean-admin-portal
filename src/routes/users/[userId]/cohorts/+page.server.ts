@@ -15,7 +15,7 @@ export const load: PageServerLoad = async (event: RequestEvent) => {
 		if (response.Status === 'failure' || response.HttpCode !== 200) {
 			throw error(response.HttpCode, response.Message);
 		}
-		const cohorts = response.Data.Cohorts.Items;
+		const cohorts = response.Data.Cohorts;
 		const tenants = tenants_.Data.TenantRecords.Items;
 		return {
 			cohorts,

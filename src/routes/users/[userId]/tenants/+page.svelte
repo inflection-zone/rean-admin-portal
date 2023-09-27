@@ -5,22 +5,15 @@
 	import Confirm from '$lib/components/modal/confirmModal.svelte';
 	import { Helper } from '$lib/utils/helper';
 	import Icon from '@iconify/svelte';
-	import {
-		Paginator,
-		createDataTableStore,
-		dataTableHandler,
-		tableA11y,
-		tableInteraction
-	} from '@skeletonlabs/skeleton';
+	import { Paginator } from '@skeletonlabs/skeleton';
 	import date from 'date-and-time';
 	import type { PageServerData } from './$types';
+	import type { PaginationSettings } from '@skeletonlabs/skeleton/components/Paginator/types';
 
 	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 	export let data: PageServerData;
-	let tenants = data.tenants;
-	console.log('Items', tenants);
-	tenants = tenants.map((item, index) => ({ ...item, index: index + 1 }));
+	let tenants = data.tenants.Items;
 
 	const userId = $page.params.userId;
 	const tenantRoute = `/users/${userId}/tenants`;
@@ -34,16 +27,23 @@
 	let code = undefined;
 	let email = undefined;
 	let phone = undefined;
-	let sortBy = 'CreatedAt';
+	let sortBy = 'Name';
 	let sortOrder = 'ascending';
 	let itemsPerPage = 10;
-	let pageIndex = 0;
+	let offset = 0;
+	let totalTenantsCount = data.tenants.TotalCount;
+	let isSortingName = false;
+	let isSortingCode = false;
+	let isSortingEmail = false;
+	let isSortingPhone = false;
+	let items = 10;
 
-	const dataTableStore = createDataTableStore(tenants, {
-		search: '',
-		sort: '',
-		pagination: { offset: 0, limit: 10, size: 0, amounts: [10, 20, 30, 50] }
-	});
+	let paginationSettings = {
+		offset: 0,
+		limit: 10,
+		size: totalTenantsCount,
+		amounts: [10, 20, 30, 50]
+	} satisfies PaginationSettings;
 
 	async function searchTenant(model) {
 		let url = `/api/server/tenants/search?`;
@@ -51,7 +51,7 @@
 		else url += `sortOrder=ascending`;
 		if (sortBy) url += `&sortBy=${sortBy}`;
 		if (itemsPerPage) url += `&itemsPerPage=${itemsPerPage}`;
-		if (pageIndex) url += `&pageIndex=${pageIndex}`;
+		if (offset) url += `&pageIndex=${offset}`;
 		if (name) url += `&name=${name}`;
 		if (code) url += `&code=${code}`;
 		if (email) url += `&email=${email}`;
@@ -63,12 +63,53 @@
 		});
 		const response = await res.json();
 		tenants = response.map((item, index) => ({ ...item, index: index + 1 }));
-
-		dataTableStore.updateSource(tenants);
 	}
-	$: if (browser) searchTenant({ name: name, code: code, email: email, phone: phone });
 
-	dataTableStore.subscribe((model) => dataTableHandler(model));
+	$: retrivedTenants = tenants.slice(
+		paginationSettings.offset * paginationSettings.limit,
+		paginationSettings.offset * paginationSettings.limit + paginationSettings.limit
+	);
+
+	$: if (browser)
+		searchTenant({
+			name: name,
+			code: code,
+			email: email,
+			phone: phone,
+			itemsPerPage: itemsPerPage,
+			pageIndex: offset,
+			sortOrder: sortOrder,
+			sortBy: sortBy
+		});
+
+	function onPageChange(e: CustomEvent): void {
+		let pageIndex = e.detail;
+		itemsPerPage = items * (pageIndex + 1);
+	}
+
+	function onAmountChange(e: CustomEvent): void {
+		itemsPerPage = e.detail;
+		items = itemsPerPage;
+	}
+
+	function sortTable(columnName) {
+		isSortingName = false;
+		isSortingCode = false;
+		isSortingEmail = false;
+		isSortingPhone = false;
+		sortOrder = sortOrder === 'ascending' ? 'descending' : 'ascending';
+		if (columnName === 'Name') {
+			isSortingName = true;
+		} else if (columnName === 'Code') {
+			isSortingCode = true;
+		} else if (columnName === 'Email') {
+			isSortingEmail = true;
+		} else if (columnName === 'Phone') {
+			isSortingPhone = true;
+		}
+
+		sortBy = columnName;
+	}
 
 	const handleTenantDelete = async (e, id) => {
 		const tenantId = id;
@@ -109,12 +150,20 @@
 </div>
 
 <div class="table-container my-2 !border !border-secondary-100 dark:!border-surface-700">
-	<table class="table" role="grid" use:tableInteraction use:tableA11y>
-		<thead on:click={(e) => dataTableStore.sort(e)} on:keypress class="!variant-soft-secondary">
+	<table class="table" role="grid">
+		<thead class="!variant-soft-secondary">
 			<tr>
 				<th data-sort="index">Id</th>
-				<th data-sort="Name">Name</th>
-				<th>Code</th>
+				<th>
+					<button on:click={() => sortTable('Name')}>
+						Name {isSortingName ? (sortOrder === 'ascending' ? '▲' : '▼') : ''}
+					</button>
+				</th>
+				<th>
+					<button on:click={() => sortTable('Code')}>
+						Code {isSortingCode ? (sortOrder === 'ascending' ? '▲' : '▼') : ''}
+					</button>
+				</th>
 				<th data-sort="Phone">Contact Number</th>
 				<th>Email</th>
 				<th />
@@ -122,7 +171,7 @@
 			</tr>
 		</thead>
 		<tbody class="!bg-white dark:!bg-inherit">
-			{#each $dataTableStore.filtered as row}
+			{#each retrivedTenants as row}
 				<tr class="!border-b !border-b-secondary-100 dark:!border-b-surface-700">
 					<td role="gridcell" aria-colindex={1} tabindex="0">{row.index}</td>
 					<td role="gridcell" aria-colindex={2} tabindex="0">
@@ -166,10 +215,10 @@
 </div>
 
 <div class="w-full variant-soft-secondary rounded-lg p-2">
-	{#if $dataTableStore.pagination}
-		<Paginator
-			bind:settings={$dataTableStore.pagination}
-			buttonClasses="btn-icon bg-surface-50 dark:bg-surface-900"
-		/>
-	{/if}
+	<Paginator
+		bind:settings={paginationSettings}
+		on:page={onPageChange}
+		on:amount={onAmountChange}
+		buttonClasses="btn-icon bg-surface-50 dark:bg-surface-900"
+	/>
 </div>

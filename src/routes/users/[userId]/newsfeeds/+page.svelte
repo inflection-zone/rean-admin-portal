@@ -5,26 +5,15 @@
 	import Confirm from '$lib/components/modal/confirmModal.svelte';
 	import { Helper } from '$lib/utils/helper';
 	import Icon from '@iconify/svelte';
-	import {
-		Paginator,
-		createDataTableStore,
-		dataTableHandler,
-		tableA11y,
-		tableInteraction
-	} from '@skeletonlabs/skeleton';
+	import { Paginator } from '@skeletonlabs/skeleton';
 	import type { PageServerData } from './$types';
+	import type { PaginationSettings } from '@skeletonlabs/skeleton/components/Paginator/types';
 
 	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 	export let data: PageServerData;
-	let newsfeeds = data.newsfeeds;
-	newsfeeds = newsfeeds.map((item, index) => ({ ...item, index: index + 1 }));
+	let newsfeeds = data.newsfeeds.Items;
 
-	const dataTableStore = createDataTableStore(newsfeeds, {
-		search: '',
-		sort: '',
-		pagination: { offset: 0, limit: 10, size: 0, amounts: [10, 20, 30, 50] }
-	});
 	const userId = $page.params.userId;
 	const newsfeedRoute = `/users/${userId}/newsfeeds`;
 	const editRoute = (id) => `/users/${userId}/newsfeeds/${id}/edit`;
@@ -36,10 +25,21 @@
 
 	let title = undefined;
 	let category = undefined;
-	let sortBy = 'CreatedAt';
+	let sortBy = 'Title';
 	let sortOrder = 'ascending';
 	let itemsPerPage = 10;
-	let pageIndex = 0;
+	let offset = 0;
+	let totalNewsfeedsCount = data.newsfeeds.TotalCount;
+	let isSortingTitle = false;
+	let isSortingCategory = false;
+	let items = 10;
+
+	let paginationSettings = {
+		offset: 0,
+		limit: 10,
+		size: totalNewsfeedsCount,
+		amounts: [10, 20, 30, 50]
+	} satisfies PaginationSettings;
 
 	async function searchNewsfeed(model) {
 		let url = `/api/server/newsfeeds/search?`;
@@ -48,7 +48,7 @@
 
 		if (sortBy) url += `&sortBy=${sortBy}`;
 		if (itemsPerPage) url += `&itemsPerPage=${itemsPerPage}`;
-		if (pageIndex) url += `&pageIndex=${pageIndex}`;
+		if (offset) url += `&pageIndex=${offset}`;
 		if (title) url += `&title=${title}`;
 		if (category) url += `&category=${category}`;
 
@@ -59,12 +59,44 @@
 
 		const response = await res.json();
 		newsfeeds = response.map((item, index) => ({ ...item, index: index + 1 }));
-
-		dataTableStore.updateSource(newsfeeds);
 	}
-	$: if (browser) searchNewsfeed({ title: title, category: category });
 
-	dataTableStore.subscribe((model) => dataTableHandler(model));
+	$: retrivedNewsfeeds = newsfeeds.slice(
+		paginationSettings.offset * paginationSettings.limit,
+		paginationSettings.offset * paginationSettings.limit + paginationSettings.limit
+	);
+
+	$: if (browser)
+		searchNewsfeed({
+			title: title,
+			category: category,
+			itemsPerPage: itemsPerPage,
+			pageIndex: offset,
+			sortOrder: sortOrder,
+			sortBy: sortBy
+		});
+
+	function onPageChange(e: CustomEvent): void {
+		let pageIndex = e.detail;
+		itemsPerPage = items * (pageIndex + 1);
+	}
+
+	function onAmountChange(e: CustomEvent): void {
+		itemsPerPage = e.detail;
+		items = itemsPerPage;
+	}
+
+	function sortTable(columnName) {
+		isSortingTitle = false;
+		isSortingCategory = false;
+		sortOrder = sortOrder === 'ascending' ? 'descending' : 'ascending';
+		if (columnName === 'Title') {
+			isSortingTitle = true;
+		} else if (columnName === 'Category') {
+			isSortingCategory = true;
+		}
+		sortBy = columnName;
+	}
 
 	const handleNewsfeedDelete = async (e, id) => {
 		const newsfeedId = id;
@@ -87,7 +119,13 @@
 <BreadCrumbs crumbs={breadCrumbs} />
 
 <div class="flex flex-wrap gap-2 mt-1">
-	<input type="text" name="title" placeholder="Search by title" bind:value={title} class="input w-auto grow" />
+	<input
+		type="text"
+		name="title"
+		placeholder="Search by title"
+		bind:value={title}
+		class="input w-auto grow"
+	/>
 	<input
 		type="text"
 		name="category"
@@ -99,28 +137,41 @@
 </div>
 
 <div class="table-container my-2 !border !border-secondary-100 dark:!border-surface-700">
-	<table class="table" role="grid" use:tableInteraction use:tableA11y>
-		<thead on:click={(e) => dataTableStore.sort(e)} on:keypress class="!variant-soft-secondary">
+	<table class="table" role="grid">
+		<thead class="!variant-soft-secondary">
 			<tr>
 				<th data-sort="index">Id</th>
-				<th data-sort="Title">Title</th>
+				<th>
+					<button on:click={() => sortTable('Title')}>
+						Title {isSortingTitle ? (sortOrder === 'ascending' ? '▲' : '▼') : ''}
+					</button>
+				</th>
 				<th>Link</th>
-				<th data-sort="Category">Category</th>
-				<!-- <th>Newsfeed Items</th> -->
+				<th>
+					<button on:click={() => sortTable('Category')}>
+						Category {isSortingCategory ? (sortOrder === 'ascending' ? '▲' : '▼') : ''}
+					</button>
+				</th>
 				<th />
 				<th />
 			</tr>
 		</thead>
 		<tbody class="!bg-white dark:!bg-inherit">
-			{#each $dataTableStore.filtered as row}
+			{#each retrivedNewsfeeds as row}
 				<tr class="!border-b !border-b-secondary-100 dark:!border-b-surface-700">
 					<td role="gridcell" aria-colindex={1} tabindex="0">{row.index}</td>
 					<td role="gridcell" aria-colindex={2} tabindex="0">
 						<a href={viewRoute(row.id)}>{Helper.truncateText(row.Title, 20)}</a>
 					</td>
-					<td role="gridcell" aria-colindex={3} tabindex="0">{Helper.truncateText((row.Link !== null && row.Link !== "") ? row.Link : 'Not specified', 30)}</td
+					<td role="gridcell" aria-colindex={3} tabindex="0"
+						>{Helper.truncateText(
+							row.Link !== null && row.Link !== '' ? row.Link : 'Not specified',
+							30
+						)}</td
 					>
-					<td role="gridcell" aria-colindex={4} tabindex="0">{(row.Category !== null && row.Category !== "") ? row.Category : 'Not specified'}</td>
+					<td role="gridcell" aria-colindex={4} tabindex="0"
+						>{row.Category !== null && row.Category !== '' ? row.Category : 'Not specified'}</td
+					>
 					<!-- <td role="gridcell" aria-colindex={5} tabindex="0"
 						>{#if newsfeeds.length <= 0}
 							<span>null</span>
@@ -165,10 +216,10 @@
 </div>
 
 <div class="w-full variant-soft-secondary rounded-lg p-2">
-	{#if $dataTableStore.pagination}
-		<Paginator
-			bind:settings={$dataTableStore.pagination}
-			buttonClasses="btn-icon bg-surface-50 dark:bg-surface-900"
-		/>
-	{/if}
+	<Paginator
+		bind:settings={paginationSettings}
+		on:page={onPageChange}
+		on:amount={onAmountChange}
+		buttonClasses="btn-icon bg-surface-50 dark:bg-surface-900"
+	/>
 </div>

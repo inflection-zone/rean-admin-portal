@@ -5,28 +5,14 @@
 	import Confirm from '$lib/components/modal/confirmModal.svelte';
 	import { Helper } from '$lib/utils/helper';
 	import Icon from '@iconify/svelte';
-	import {
-		Paginator,
-		createDataTableStore,
-		dataTableHandler,
-		tableA11y,
-		tableInteraction
-	} from '@skeletonlabs/skeleton';
+	import { Paginator } from '@skeletonlabs/skeleton';
 	import type { PageServerData } from './$types';
+	import type { PaginationSettings } from '@skeletonlabs/skeleton/components/Paginator/types';
 
 	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 	export let data: PageServerData;
-	let apiClients = data.apiClients;
-
-	apiClients = apiClients.map((item, index) => ({ ...item, index: index + 1 }));
-
-	const dataTableStore = createDataTableStore(apiClients, {
-		sort: '',
-		search: '',
-		pagination: { offset: 0, limit: 10, size: 0, amounts: [10, 20, 30, 50] }
-	});
-	dataTableStore.subscribe((model) => dataTableHandler(model));
+	let apiClients = data.apiClients.Items;
 
 	const userId = $page.params.userId;
 	const createRoute = `/users/${userId}/api-clients/create`;
@@ -34,19 +20,25 @@
 	const viewRoute = (id) => `/users/${userId}/api-clients/${id}/view`;
 	const apiClientRoute = `/users/${userId}/api-clients`;
 
-	const breadCrumbs = [
-		{
-			name: 'Clients',
-			path: apiClientRoute
-		}
-	];
+	const breadCrumbs = [{ name: 'Clients', path: apiClientRoute }];
 
 	let clientName = undefined;
 	let contactEmail = undefined;
-	let sortBy = 'CreatedAt';
+	let sortBy = 'ClientName';
 	let sortOrder = 'ascending';
 	let itemsPerPage = 10;
-	let pageIndex = 0;
+	let offset = 0;
+	let totalClientsCount = data.apiClients.TotalCount;
+	let isSortingName = false;
+	let isSortingContactEmail = false;
+	let items = 10;
+
+	let paginationSettings = {
+		offset: 0,
+		limit: 10,
+		size: totalClientsCount,
+		amounts: [10, 20, 30, 50]
+	} satisfies PaginationSettings;
 
 	async function searchApiClient(model) {
 		let url = `/api/server/api-client/search?`;
@@ -55,7 +47,7 @@
 
 		if (sortBy) url += `&sortBy=${sortBy}`;
 		if (itemsPerPage) url += `&itemsPerPage=${itemsPerPage}`;
-		if (pageIndex) url += `&pageIndex=${pageIndex}`;
+		if (offset) url += `&pageIndex=${offset}`;
 		if (clientName) url += `&clientName=${clientName}`;
 		if (contactEmail) url += `&clientEmail=${contactEmail}`;
 
@@ -65,9 +57,44 @@
 		});
 		const response = await res.json();
 		apiClients = response.map((item, index) => ({ ...item, index: index + 1 }));
-		dataTableStore.updateSource(apiClients);
 	}
-	$: if (browser) searchApiClient({ clientName: clientName, contactEmail: contactEmail });
+
+	$: retrivedClients = apiClients.slice(
+		paginationSettings.offset * paginationSettings.limit,
+		paginationSettings.offset * paginationSettings.limit + paginationSettings.limit
+	);
+
+	$: if (browser)
+		searchApiClient({
+			clientName: clientName,
+			contactEmail: contactEmail,
+			itemsPerPage: itemsPerPage,
+			pageIndex: offset,
+			sortOrder: sortOrder,
+			sortBy: sortBy
+		});
+
+	function onPageChange(e: CustomEvent): void {
+		let pageIndex = e.detail;
+		itemsPerPage = items * (pageIndex + 1);
+	}
+
+	function onAmountChange(e: CustomEvent): void {
+		itemsPerPage = e.detail;
+		items = itemsPerPage;
+	}
+
+	function sortTable(columnName) {
+		isSortingName = false;
+		isSortingContactEmail = false;
+		sortOrder = sortOrder === 'ascending' ? 'descending' : 'ascending';
+		if (columnName === 'ClientName') {
+			isSortingName = true;
+		} else if (columnName === 'ContactEmail') {
+			isSortingContactEmail = true;
+		}
+		sortBy = columnName;
+	}
 
 	const handleApiClientDelete = async (e, id) => {
 		const clientId = id;
@@ -109,28 +136,38 @@
 </div>
 
 <div class="table-container my-2 !border !border-secondary-100 dark:!border-surface-700">
-	<table class="table" role="grid" use:tableInteraction use:tableA11y>
-		<thead on:click={(e) => dataTableStore.sort(e)} on:keypress class="!variant-soft-secondary">
+	<table class="table" role="grid">
+		<thead class="!variant-soft-secondary">
 			<tr>
 				<th data-sort="index">Id</th>
-				<th data-sort="ClientName">Name</th>
-				<th data-sort="Email">Email</th>
+				<th>
+					<button on:click={() => sortTable('ClientName')}>
+						Name {isSortingName ? (sortOrder === 'ascending' ? '▲' : '▼') : ''}
+					</button>
+				</th>
+				<th>
+					<button on:click={() => sortTable('ContactEmail')}>
+						Email {isSortingContactEmail ? (sortOrder === 'ascending' ? '▲' : '▼') : ''}
+					</button>
+				</th>
 				<th>Phone</th>
 				<th />
 				<th />
 			</tr>
 		</thead>
 		<tbody class="!bg-white dark:!bg-inherit">
-			{#each $dataTableStore.filtered as row}
+			{#each retrivedClients as row}
 				<tr class="!border-b !border-b-secondary-100 dark:!border-b-surface-700">
 					<td role="gridcell" aria-colindex={1} tabindex="0">{row.index}</td>
 					<td role="gridcell" aria-colindex={2} tabindex="0">
 						<a href={viewRoute(row.id)}>{Helper.truncateText(row.ClientName, 20)}</a>
 					</td>
 					<td role="gridcell" aria-colindex={3} tabindex="0">{row.Email}</td>
-					<td role="gridcell" aria-colindex={4} tabindex="0">{(row.Phone !== null && row.Phone !== "") ? row.Phone : 'Not specified'}</td>
+					<td role="gridcell" aria-colindex={4} tabindex="0"
+						>{row.Phone !== null && row.Phone !== '' ? row.Phone : 'Not specified'}</td
+					>
 					<td>
-						<a class="btn p-2 hover:variant-soft-secondary" href={editRoute(row.id)}>
+						<a href={editRoute(row.id)} class="btn p-2 -my-1 hover:variant-soft-primary">
 							<Icon icon="material-symbols:edit-outline" class="text-lg" />
 						</a>
 					</td>
@@ -139,9 +176,7 @@
 							confirmTitle="Delete"
 							cancelTitle="Cancel"
 							let:confirm={confirmThis}
-							on:delete={(e) => {
-								handleApiClientDelete(e, row.id);
-							}}
+							on:delete={(e) => handleApiClientDelete(e, row.id)}
 						>
 							<button
 								on:click|preventDefault={() => confirmThis(handleApiClientDelete, row.id)}
@@ -149,7 +184,6 @@
 							>
 								<Icon icon="material-symbols:delete-outline-rounded" class="text-lg" />
 							</button>
-
 							<span slot="title"> Delete </span>
 							<span slot="description"> Are you sure you want to delete a client? </span>
 						</Confirm>
@@ -161,10 +195,10 @@
 </div>
 
 <div class="w-full variant-soft-secondary rounded-lg p-2">
-	{#if $dataTableStore.pagination}
-		<Paginator
-			bind:settings={$dataTableStore.pagination}
-			buttonClasses="btn-icon bg-surface-50 dark:bg-surface-900"
-		/>
-	{/if}
+	<Paginator
+		bind:settings={paginationSettings}
+		on:page={onPageChange}
+		on:amount={onAmountChange}
+		buttonClasses="btn-icon bg-surface-50 dark:bg-surface-900"
+	/>
 </div>
