@@ -9,15 +9,15 @@
 
 	export let data: PageServerData;
 	let assessmentNodes = data.assessmentNodes;
-	let id = data.assessmentTemplate.id;
-	let title = data.assessmentTemplate.Title;
-	let description = data.assessmentTemplate.Description;
-	let displayCode = data.assessmentTemplate.DisplayCode;
-	let type = data.assessmentTemplate.Type;
-	let providerAssessmentCode = data.assessmentTemplate.ProviderAssessmentCode;
-	let serveListNodeChildrenAtOnce = data.assessmentTemplate.ServeListNodeChildrenAtOnce;
-	let scoringApplicable = data.assessmentTemplate.ScoringApplicable;
-	let provider = data.assessmentTemplate.Provider;
+	let assessmentTemplate = data.assessmentTemplate;
+	let title = assessmentTemplate.Title;
+	let description = (assessmentTemplate.Description !== null && assessmentTemplate.Description !== "") ? assessmentTemplate.Description : 'Not specified';
+	let displayCode = assessmentTemplate.DisplayCode;
+	let type = assessmentTemplate.Type;
+	let providerAssessmentCode = (assessmentTemplate.ProviderAssessmentCode !== null && assessmentTemplate.ProviderAssessmentCode !== "") ? assessmentTemplate.ProviderAssessmentCode : 'Not specified';;
+	let serveListNodeChildrenAtOnce = assessmentTemplate.ServeListNodeChildrenAtOnce;
+	let scoringApplicable = assessmentTemplate.ScoringApplicable;
+	let provider = (assessmentTemplate.Provider !== null && assessmentTemplate.Provider !== "") ? assessmentTemplate.Provider : 'Not specified';;
 
 	assessmentNodes = assessmentNodes.sort((a, b) => {
 		return a.Sequence - b.Sequence;
@@ -26,7 +26,7 @@
 	console.log('assessmentNodes', assessmentNodes);
 
 	onMount(() => {
-		scoringApplicableCondition.set(data.assessmentTemplate.ScoringApplicable);
+		scoringApplicableCondition.set(assessmentTemplate.ScoringApplicable);
 		console.log('scoringApplicableCondition', $scoringApplicableCondition);
 	});
 

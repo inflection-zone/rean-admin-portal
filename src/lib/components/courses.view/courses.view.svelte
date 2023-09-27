@@ -96,7 +96,7 @@
 														</a>
 													</td>
 													<td>{content.ContentType}</td>
-													<td>{content.DurationInMins}</td>
+											<td>{(content.DurationInMins !== '' && content.DurationInMins !== null) ? content.DurationInMins : 'Not specified'}</td>
 													<td>
 														<a
 															href={editContentRoute(course.id, module.id, content.id)}

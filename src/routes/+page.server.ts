@@ -18,7 +18,7 @@ export const load: PageServerLoad = async (event: RequestEvent) => {
 			roles
 		};
 	} catch (error) {
-		console.error(`Error retieving data : ${error.message}`);
+		console.error(`Error retrieving data : ${error.message}`);
 		throw redirect(303, '/');
 	}
 };

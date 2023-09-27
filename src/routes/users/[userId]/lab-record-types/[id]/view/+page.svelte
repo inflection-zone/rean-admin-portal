@@ -7,14 +7,15 @@
 	///////////////////////////////////////////////////////////////////////
 
 	export let data: PageServerData;
-	let id = data.labRecordType.id;
-	let typeName = data.labRecordType.TypeName;
-	let displayName = data.labRecordType.DisplayName;
-	let snowmedCode = data.labRecordType.SnowmedCode;
-	let loincCode = data.labRecordType.LoincCode;
-	let normalRangeMin = data.labRecordType.NormalRangeMin;
-	let normalRangeMax = data.labRecordType.NormalRangeMax;
-	let unit = data.labRecordType.Unit;
+	let labRecordType = data.labRecordType;
+	let id = labRecordType.id;
+	let typeName = labRecordType.TypeName;
+	let displayName = labRecordType.DisplayName !== null && labRecordType.DisplayName !== "" ? labRecordType.DisplayName : 'Not specified';
+	let snowmedCode = labRecordType.SnowmedCode !== null ? labRecordType.SnowmedCode : 'Not specified';
+	let loincCode = labRecordType.LoincCode !== null ? labRecordType.LoincCode : 'Not specified';
+	let normalRangeMin = labRecordType.NormalRangeMin !== null ? labRecordType.NormalRangeMin : 'Not specified';
+	let normalRangeMax = labRecordType.NormalRangeMax !== null ? labRecordType.NormalRangeMax : 'Not specified';
+	let unit = labRecordType.Unit !== null ? labRecordType.Unit : 'Not specified';
 
 	const userId = $page.params.userId;
 	const editRoute = `/users/${userId}/lab-record-types/${id}/edit`;

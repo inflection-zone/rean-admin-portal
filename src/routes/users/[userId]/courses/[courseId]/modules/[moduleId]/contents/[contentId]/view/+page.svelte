@@ -8,13 +8,14 @@
 	//////////////////////////////////////////////////////////////////////////////////////////
 
 	export let data: PageServerData;
-	let title = data.content.Title;
-	let description = data.content.Description;
-	let sequence = data.content.Sequence;
-	let contentType = data.content.ContentType;
-	let resourceLink = data.content.ResourceLink;
-	let imageUrl = data.content.ImageUrl;
-	let durationInMins = data.content.DurationInMins;
+	let content = data.content;
+	let title = content.Title;
+	let description = (content.Description !== '' && content.Description !== null) ? content.Description : 'Not specified';
+	let sequence = content.Sequence;
+	let contentType = content.ContentType;
+	let resourceLink = (content.ResourceLink !== '' && content.ResourceLink !== null) ? content.ResourceLink : 'Not specified';
+	let imageUrl = content.ImageUrl;
+	let durationInMins = (content.DurationInMins !== '' && content.DurationInMins !== null) ? content.DurationInMins : 'Not specified';
 	
 	const userId = $page.params.userId;
 	const courseId = $page.params.courseId;
@@ -91,17 +92,13 @@
 			<tr class="!border-b !border-b-secondary-100 dark:!border-b-surface-700">
 				<td>Resource Link</td>
 				<td>
-					{#if resourceLink === ''}
-							Not specified
-					{:else}
 						{resourceLink}
-					{/if}
 				</td>
 			</tr>
 			<tr class="!border-b !border-b-secondary-100 dark:!border-b-surface-700">
 				<td class="align-top">Image</td>
 				<td>
-					{#if imageUrl === 'undefined'}
+					{#if imageUrl === 'undefined' || imageUrl == null}
 						Not specified
 					{:else}
 						<Image cls="flex h-24 w-24 rounded-lg" source={imageUrl} w="24" h="24" />

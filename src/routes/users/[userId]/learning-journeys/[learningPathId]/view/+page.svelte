@@ -10,15 +10,14 @@
 
 	export let data: PageServerData;
 
-	// add some checks here 'undefined (reading 'Courses')' data.learningJourney can be undefined
-	let courses = data.learningJourney.Courses;
+	let learningJourney = data.learningJourney;
+	let courses = learningJourney.Courses;
 	let learningPathId = $page.params.learningPathId;
-	let id = data.learningJourney.id;
-	let name = data.learningJourney.Name;
-	let preferenceWeight = data.learningJourney.PreferenceWeight;
-	let description = data.learningJourney.Description;
-	let durationInDays = data.learningJourney.DurationInDays;
-	let imageUrl = data.learningJourney.ImageUrl;
+	let name = learningJourney.Name;
+	let preferenceWeight = learningJourney.PreferenceWeight !== null ? learningJourney.PreferenceWeight : 'Not specified';
+	let description = learningJourney.Description !== null ? learningJourney.Description : 'Not specified';
+	let durationInDays = learningJourney.DurationInDays ? learningJourney.DurationInDays : 'Not specified';
+	let imageUrl = learningJourney.ImageUrl;
 
 	courses = courses.sort((a, b) => {
 		return a.Sequence - b.Sequence;

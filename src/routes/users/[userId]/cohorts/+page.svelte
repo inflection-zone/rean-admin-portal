@@ -5,22 +5,14 @@
 	import Confirm from '$lib/components/modal/confirmModal.svelte';
 	import { Helper } from '$lib/utils/helper';
 	import Icon from '@iconify/svelte';
-	import {
-		Paginator,
-		createDataTableStore,
-		dataTableHandler,
-		tableA11y,
-		tableInteraction
-	} from '@skeletonlabs/skeleton';
+	import { Paginator } from '@skeletonlabs/skeleton';
 	import type { PageServerData } from './$types';
+	import type { PaginationSettings } from '@skeletonlabs/skeleton/components/Paginator/types';
 
 	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 	export let data: PageServerData;
-	let cohorts = data.cohorts;
-	let tenants = data.tenants;
-	console.log('Items', cohorts);
-	cohorts = cohorts.map((item, index) => ({ ...item, index: index + 1 }));
+	let cohorts = data.cohorts.Items;
 
 	const userId = $page.params.userId;
 	const tenantRoute = `/users/${userId}/cohorts`;
@@ -32,16 +24,21 @@
 
 	let name = undefined;
 	let tenantId = undefined;
-	let sortBy = 'CreatedAt';
+	let sortBy = 'Name';
 	let sortOrder = 'ascending';
 	let itemsPerPage = 10;
-	let pageIndex = 0;
+	let offset = 0;
+	let totalCohortsCount = data.cohorts.TotalCount;
+	let isSortingName = false;
+	let isSortingTenantId = false;
+	let items = 10;
 
-	const dataTableStore = createDataTableStore(cohorts, {
-		search: '',
-		sort: '',
-		pagination: { offset: 0, limit: 10, size: 0, amounts: [10, 20, 30, 50] }
-	});
+	let paginationSettings = {
+		offset: 0,
+		limit: 10,
+		size: totalCohortsCount,
+		amounts: [10, 20, 30, 50]
+	} satisfies PaginationSettings;
 
 	async function searchCohorts(model) {
 		let url = `/api/server/cohorts/search?`;
@@ -50,13 +47,13 @@
 
 		if (sortBy) url += `&sortBy=${sortBy}`;
 		if (itemsPerPage) url += `&itemsPerPage=${itemsPerPage}`;
-		if (pageIndex) url += `&pageIndex=${pageIndex}`;
+		if (offset) url += `&pageIndex=${offset}`;
 		if (name) url += `&name=${name}`;
-		if (tenantId == 'Tenant') {
-			url;
-		} else {
-			url += `&tenantId=${tenantId}`;
-		}
+		// if (tenantId == 'Tenant') {
+		// 	url;
+		// } else {
+		// 	url += `&tenantId=${tenantId}`;
+		// }
 
 		const res = await fetch(url, {
 			method: 'GET',
@@ -64,12 +61,32 @@
 		});
 		const response = await res.json();
 		cohorts = response.map((item, index) => ({ ...item, index: index + 1 }));
-
-		dataTableStore.updateSource(cohorts);
 	}
-	$: if (browser) searchCohorts({ name: name, tenantId: tenantId });
 
-	dataTableStore.subscribe((model) => dataTableHandler(model));
+	$: retrivedCohorts = cohorts.slice(
+		paginationSettings.offset * paginationSettings.limit,
+		paginationSettings.offset * paginationSettings.limit + paginationSettings.limit
+	);
+
+	$: if (browser)
+		searchCohorts({
+			name: name,
+			tenantId: tenantId,
+			itemsPerPage: itemsPerPage,
+			pageIndex: offset,
+			sortOrder: sortOrder,
+			sortBy: sortBy
+		});
+
+	function onPageChange(e: CustomEvent): void {
+		let pageIndex = e.detail;
+		itemsPerPage = items * (pageIndex + 1);
+	}
+
+	function onAmountChange(e: CustomEvent): void {
+		itemsPerPage = e.detail;
+		items = itemsPerPage;
+	}
 
 	const handleCohortDelete = async (e, id) => {
 		const cohortId = id;
@@ -79,6 +96,18 @@
 		});
 		window.location.href = tenantRoute;
 	};
+
+	function sortTable(columnName) {
+		isSortingName = false;
+		isSortingTenantId = false;
+		sortOrder = sortOrder === 'ascending' ? 'descending' : 'ascending';
+		if (columnName === 'Name') {
+			isSortingName = true;
+		} else if (columnName === 'TenantId') {
+			isSortingTenantId = true;
+		}
+		sortBy = columnName;
+	}
 
 	async function Delete(model) {
 		const response = await fetch(`/api/server/cohorts`, {
@@ -109,32 +138,35 @@
 </div>
 
 <div class="table-container my-2 !border !border-secondary-100 dark:!border-surface-700">
-	<table class="table" role="grid" use:tableInteraction use:tableA11y>
-		<thead on:click={(e) => dataTableStore.sort(e)} on:keypress class="!variant-soft-secondary">
+	<table class="table" role="grid">
+		<thead class="!variant-soft-secondary">
 			<tr>
 				<th data-sort="index">Id</th>
 				<!-- <th data-sort="">Tenant</th> -->
-				<th data-sort="Name">Name</th>
+				<th>
+					<button on:click={() => sortTable('Name')}>
+						Name {isSortingName ? (sortOrder === 'ascending' ? '▲' : '▼') : ''}
+					</button>
+				</th>
 				<th>Description</th>
 				<th />
 				<th />
 			</tr>
 		</thead>
 		<tbody class="!bg-white dark:!bg-inherit">
-			{#each $dataTableStore.filtered as row}
+			{#each retrivedCohorts as row}
 				<tr class="!border-b !border-b-secondary-100 dark:!border-b-surface-700">
 					<td role="gridcell" aria-colindex={1} tabindex="0">{row.index}</td>
 					<!-- <td role="gridcell" aria-colindex={2} tabindex="0">
 						<a href={viewRoute(row.id)}>{row.TenantId} </a>
 					</td> -->
 					<td role="gridcell" aria-colindex={2} tabindex="0">
-						{Helper.truncateText(row.Name, 20)}
+						<a href={viewRoute(row.id)}>{Helper.truncateText(row.Name, 20)} </a>
 					</td>
 					<td role="gridcell" aria-colindex={3} tabindex="0"
-						>{Helper.truncateText(
-							row.Description !== null ? row.Description : 'Not specified',
-							20
-						)}</td
+						>{row.Description !== null && row.Description !== ''
+							? Helper.truncateText(row.Description, 40)
+							: 'Not specified'}</td
 					>
 					<td>
 						<a href={editRoute(row.id)} class="btn p-2 -my-1 hover:variant-soft-primary">
@@ -167,10 +199,10 @@
 </div>
 
 <div class="w-full variant-soft-secondary rounded-lg p-2">
-	{#if $dataTableStore.pagination}
-		<Paginator
-			bind:settings={$dataTableStore.pagination}
-			buttonClasses="btn-icon bg-surface-50 dark:bg-surface-900"
-		/>
-	{/if}
+	<Paginator
+		bind:settings={paginationSettings}
+		on:page={onPageChange}
+		on:amount={onAmountChange}
+		buttonClasses="btn-icon bg-surface-50 dark:bg-surface-900"
+	/>
 </div>

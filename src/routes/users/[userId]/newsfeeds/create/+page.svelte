@@ -11,7 +11,7 @@
 	const userId = $page.params.userId;
 	let image = undefined;
 	let favicon = undefined;
-	let fileinput;
+	let fileInput;
 
 	const createRoute = `/users/${userId}/newsfeeds/create`;
 	const newsfeedRoute = `/users/${userId}/newsfeeds`;
@@ -89,7 +89,7 @@
 		let reader = new FileReader();
 		reader.readAsDataURL(f);
 		reader.onload = async (e) => {
-			fileinput = e.target.result;
+			fileInput = e.target.result;
 			await upload(e.target.result, filename);
 		};
 	};
@@ -100,7 +100,7 @@
 		let reader = new FileReader();
 		reader.readAsDataURL(f);
 		reader.onload = async (e) => {
-			fileinput = e.target.result;
+			fileInput = e.target.result;
 			await uploadFavicon(e.target.result, faviconName);
 		};
 	};
@@ -185,7 +185,7 @@
 				<td>Favicon</td>
 				<td>
 					<input
-						name="fileinput"
+						name="fileInput"
 						type="file"
 						class="true input w-full"
 						placeholder="Image"

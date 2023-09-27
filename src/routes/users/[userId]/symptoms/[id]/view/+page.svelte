@@ -12,7 +12,7 @@
 
 	export let data: PageServerData;
 	let symptom = data.symptom.Symptom;
-	let description = data.symptom.Description;
+	let description = data.symptom.Description !== null ? data.symptom.Description : 'Not specified';
 	let tags_ = data.symptom.Tags;
 	let tags = tags_.join(', ');
 	let language = data.symptom.Language;

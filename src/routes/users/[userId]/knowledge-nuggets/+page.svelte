@@ -7,19 +7,15 @@
 	import Icon from '@iconify/svelte';
 	import {
 		Paginator,
-		createDataTableStore,
-		dataTableHandler,
-		tableA11y,
-		tableInteraction
 	} from '@skeletonlabs/skeleton';
 	import date from 'date-and-time';
 	import type { PageServerData } from './$types';
+	import type { PaginationSettings } from '@skeletonlabs/skeleton/components/Paginator/types';
 
 	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 	export let data: PageServerData;
-	let knowledgeNuggets = data.knowledgeNuggets;
-	knowledgeNuggets = knowledgeNuggets.map((item, index) => ({ ...item, index: index + 1 }));
+	let knowledgeNuggets = data.knowledgeNuggets.Items;
 
 	const userId = $page.params.userId;
 	const knowledgeNuggetRoute = `/users/${userId}/knowledge-nuggets`;
@@ -31,16 +27,21 @@
 
 	let topicName = undefined;
 	let tags = undefined;
-	let sortBy = 'CreatedAt';
+	let sortBy = 'TopicName';
 	let sortOrder = 'ascending';
 	let itemsPerPage = 10;
-	let pageIndex = 0;
+	let offset = 0;
+	let totalKnowledgeNuggetsCount = data.knowledgeNuggets.TotalCount;
+	let isSortingName = false;
+	let isSortingTags = false;
+	let items = 10;
 
-	const dataTableStore = createDataTableStore(knowledgeNuggets, {
-		search: '',
-		sort: '',
-		pagination: { offset: 0, limit: 10, size: 0, amounts: [10, 20, 30, 50] }
-	});
+	let paginationSettings = {
+		offset: 0,
+		limit: 10,
+		size: totalKnowledgeNuggetsCount,
+		amounts: [10, 20, 30, 50]
+	} satisfies PaginationSettings;
 
 	async function searchKnowledgeNugget(model) {
 		let url = `/api/server/knowledge-nuggets/search?`;
@@ -49,7 +50,7 @@
 
 		if (sortBy) url += `&sortBy=${sortBy}`;
 		if (itemsPerPage) url += `&itemsPerPage=${itemsPerPage}`;
-		if (pageIndex) url += `&pageIndex=${pageIndex}`;
+		if (offset) url += `&pageIndex=${offset}`;
 		if (topicName) url += `&topicName=${topicName}`;
 		if (tags) url += `&tags=${tags}`;
 
@@ -59,12 +60,44 @@
 		});
 		const response = await res.json();
 		knowledgeNuggets = response.map((item, index) => ({ ...item, index: index + 1 }));
-
-		dataTableStore.updateSource(knowledgeNuggets);
 	}
-	$: if (browser) searchKnowledgeNugget({ topicName: topicName, tags: tags });
 
-	dataTableStore.subscribe((model) => dataTableHandler(model));
+	$: retrivedKnowledgeNuggets = knowledgeNuggets.slice(
+		paginationSettings.offset * paginationSettings.limit,
+		paginationSettings.offset * paginationSettings.limit + paginationSettings.limit
+	);
+
+	$: if (browser)
+		searchKnowledgeNugget({
+			topicName: topicName,
+			tags: tags,
+			itemsPerPage: itemsPerPage,
+			pageIndex: offset,
+			sortOrder: sortOrder,
+			sortBy: sortBy
+		});
+
+		function onPageChange(e: CustomEvent): void {
+		let pageIndex = e.detail;
+		itemsPerPage = items * (pageIndex + 1);
+	}
+
+	function onAmountChange(e: CustomEvent): void {
+		itemsPerPage = e.detail;
+		items = itemsPerPage;
+	}
+
+	function sortTable(columnName) {
+		isSortingName = false;
+		isSortingTags = false;
+		sortOrder = sortOrder === 'ascending' ? 'descending' : 'ascending';
+		if (columnName === 'TopicName') {
+			isSortingName = true;
+		} else if (columnName === 'Tags') {
+			isSortingTags = true;
+		}
+		sortBy = columnName;
+	}
 
 	const handleKnowledgeNuggetDelete = async (e, id) => {
 		const knowledgeNuggetId = id;
@@ -94,30 +127,43 @@
 		bind:value={topicName}
 		class="input w-auto grow"
 	/>
-	<input type="text" name="tags" placeholder="Search by Tags" bind:value={tags} class="input w-auto grow" />
+	<input 
+		type="text"
+		name="tags"
+		placeholder="Search by Tags" bind:value={tags}
+		class="input w-auto grow"
+	/>
 	<a href={createRoute} class="btn variant-filled-secondary">Add New</a>
 </div>
 
 <div class="table-container my-2 !border !border-secondary-100 dark:!border-surface-700">
-	<table class="table" role="grid" use:tableInteraction use:tableA11y>
-		<thead on:click={(e) => dataTableStore.sort(e)} on:keypress class="!variant-soft-secondary">
+	<table class="table" role="grid">
+		<thead class="!variant-soft-secondary">
 			<tr>
 				<th data-sort="index">Id</th>
-				<th data-sort="TopicName">Topic Name</th>
-				<th data-sort="Tags">Tags</th>
+				<th>
+					<button on:click={() => sortTable('TopicName')}>
+						Topic Name {isSortingName ? (sortOrder === 'ascending' ? '▲' : '▼') : ''}
+					</button>
+				</th>
+				<th>
+					<button on:click={() => sortTable('Tags')}>
+						Tags {isSortingTags ? (sortOrder === 'ascending' ? '▲' : '▼') : ''}
+					</button>
+				</th>
 				<th>Created Date</th>
 				<th />
 				<th />
 			</tr>
 		</thead>
 		<tbody class="!bg-white dark:!bg-inherit">
-			{#each $dataTableStore.filtered as row}
+			{#each retrivedKnowledgeNuggets as row}
 				<tr class="!border-b !border-b-secondary-100 dark:!border-b-surface-700">
 					<td role="gridcell" aria-colindex={1} tabindex="0">{row.index}</td>
 					<td role="gridcell" aria-colindex={2} tabindex="0">
 						<a href={viewRoute(row.id)}>{Helper.truncateText(row.TopicName, 20)}</a>
 					</td>
-					<td role="gridcell" aria-colindex={3} tabindex="0">{row.Tags}</td>
+					<td role="gridcell" aria-colindex={3} tabindex="0">{row.Tags.length >0 ? row.Tags : 'Not specified'}</td>
 					<td role="gridcell" aria-colindex={4} tabindex="0"
 						>{date.format(new Date(row.CreatedAt), 'DD-MMM-YYYY')}</td
 					>
@@ -131,9 +177,7 @@
 							confirmTitle="Delete"
 							cancelTitle="Cancel"
 							let:confirm={confirmThis}
-							on:delete={(e) => {
-								handleKnowledgeNuggetDelete(e, row.id);
-							}}
+							on:delete={(e) => handleKnowledgeNuggetDelete(e, row.id)}
 						>
 							<button
 								on:click|preventDefault={() => confirmThis(handleKnowledgeNuggetDelete, row.id)}
@@ -152,10 +196,10 @@
 </div>
 
 <div class="w-full variant-soft-secondary rounded-lg p-2">
-	{#if $dataTableStore.pagination}
-		<Paginator
-			bind:settings={$dataTableStore.pagination}
-			buttonClasses="btn-icon bg-surface-50 dark:bg-surface-900"
-		/>
-	{/if}
+	<Paginator
+		bind:settings={paginationSettings}
+		on:page={onPageChange}
+		on:amount={onAmountChange}
+		buttonClasses="btn-icon bg-surface-50 dark:bg-surface-900"
+	/>
 </div>

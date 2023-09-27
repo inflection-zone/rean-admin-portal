@@ -8,12 +8,13 @@
 	//////////////////////////////////////////////////////////////////////////////////////
 
 	export let data: PageServerData;
-	let name = data.module.Name;
-	let description = data.module.Description;
-	let durationInMins = data.module.DurationInMins;
-	let imageUrl = data.module.ImageUrl;
-	let contents = data.module.Contents;
-	let sequence = data.module.Sequence;
+	let module = data.module;
+	let name = module.Name;
+	let description = (module.Description  !== '' && module.Description !== null) ? module.Description : 'Not specified';
+	let durationInMins = (module.DurationInMins  !== '' && module.DurationInMins !== null) ? module.DurationInMins : 'Not specified';
+	let imageUrl = module.ImageUrl;
+	let contents = module.Contents;
+	let sequence = module.Sequence;
 
 	const userId = $page.params.userId;
 	const courseId = $page.params.courseId;
@@ -83,7 +84,7 @@
 			<tr class="!border-b !border-b-secondary-100 dark:!border-b-surface-700">
 				<td class="align-top">Image</td>
 				<td>
-					{#if imageUrl === 'undefined'}
+					{#if imageUrl === 'undefined' || imageUrl == null}
 						Not specified
 					{:else}
 						<Image cls="flex h-24 w-24 rounded-lg" source={imageUrl} w="24" h="24" />

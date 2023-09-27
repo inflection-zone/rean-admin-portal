@@ -3,7 +3,6 @@
 	import BreadCrumbs from '$lib/components/breadcrumbs/breadcrums.svelte';
 	import { showMessage } from '$lib/utils/message.utils';
 	import Icon from '@iconify/svelte';
-	import type { PageServerData } from './$types';
 	import { createDataTableStore, dataTableHandler } from '@skeletonlabs/skeleton';
 	import { browser } from '$app/environment';
 	import ItemDragDrop from '$lib/components/drag-and-drop/courses-drag-drop.svelte';
@@ -13,7 +12,6 @@
 	/////////////////////////////////////////////////////////////////////////////
 
 	export let form;
-	export let data: PageServerData;
   let eventTypes = [];
 	let index = Number;
 	eventTypes = eventTypes.map((item, index) => ({ ...item, index: index + 1 }));

@@ -9,15 +9,16 @@
 	//////////////////////////////////////////////////////////////////////////
 
 	export let data: PageServerData;
-	let title = data.notice.Title;
-	let description = data.notice.Description;
-	let link = data.notice.Link;
-	let postDate = new Date(data.notice.PostDate);
-	let daysActive = data.notice.DaysActive;
-	let tags_ = data.notice.Tags;
+	let notice = data.notice;
+	let title = notice.Title;
+	let description = notice.Description !== null ? notice.Description : 'Not specified';
+	let link = notice.Link !== null ? notice.Link : 'Not specified';
+	let postDate = new Date(notice.PostDate);
+	let daysActive = notice.DaysActive !== null ? notice.DaysActive : 'Not specified';
+	let tags_ = notice.Tags;
 	let tags = tags_.join(', ');
-	let action = data.notice.Action;
-	let imageUrl = data.notice.ImageUrl;
+	let action = notice.Action !== null ? notice.Action : 'Not specified';
+	let imageUrl = notice.ImageUrl;
 
 	const userId = $page.params.userId;
 	const noticeId = $page.params.id;

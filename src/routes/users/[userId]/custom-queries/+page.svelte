@@ -102,7 +102,7 @@
 				<th data-sort="index">Id</th>
 				<th data-sort="Name">Name</th>
         <th data-sort="Description">Description</th>
-				<!-- <th>Created Date</th> -->
+				<th>Tags</th>
 				<th />
 				<th />
 			</tr>
@@ -115,8 +115,9 @@
 						<a href={viewRoute(row.id)}>{Helper.truncateText(row.Name, 20)}</a>
 					</td>
 					<td role="gridcell" aria-colindex={3} tabindex="0">
-						{Helper.truncateText(row.Description !== null ? row.Description : 'Not specified', 40)}
+						{row.Description !== null ? Helper.truncateText(row.Description, 40) : 'Not specified'}
 					</td>
+					<td role="gridcell" aria-colindex={4} tabindex="0">{row.Tags.length > 0 ? row.Tags : "Not specified"}</td>
 					<td>
 						<a href={editRoute(row.id)} class="btn p-2 -my-1 hover:variant-soft-primary">
 							<Icon icon="material-symbols:edit-outline" class="text-lg" />

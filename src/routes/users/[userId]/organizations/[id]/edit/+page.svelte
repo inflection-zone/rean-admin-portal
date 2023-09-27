@@ -332,7 +332,7 @@
 			<tr class="!border-b !border-b-secondary-100 dark:!border-b-surface-700">
 				<td class="align-top">Image</td>
 				<td>
-					{#if imageUrl === 'undefined'}
+					{#if imageUrl === 'undefined' || imageUrl == null}
 						<input
 							name="fileinput"
 							type="file"

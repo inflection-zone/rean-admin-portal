@@ -9,12 +9,13 @@
 	///////////////////////////////////////////////////////////////////////////////////
 
 	export let data: PageServerData;
-	let title = data.notification.Title;
-	let Body = data.notification.Body;
-	let type = data.notification.Type;
-	let sentOn = new Date(data.notification.SentOn);
-	let broadcastToAll = data.notification.BroadcastToAll;
-	let imageUrl = data.notification.ImageUrl;
+	let notification = data.notification;
+	let title = notification.Title;
+	let Body = notification.Body;
+	let type = notification.Type;
+	let sentOn = new Date(notification.SentOn);
+	let broadcastToAll = notification.BroadcastToAll;
+	let imageUrl = notification.ImageUrl;
 
 	const userId = $page.params.userId;
 	const notificationId = $page.params.id;

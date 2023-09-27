@@ -5,7 +5,9 @@
 	import Icon from '@iconify/svelte';
 	import date from 'date-and-time';
 	import type { PageServerData } from './$types';
-
+	import Confirm from '$lib/components/modal/confirmModal.svelte';
+	import { Helper } from '$lib/utils/helper';
+	
 	///////////////////////////////////////////////////////////////////////
 
 	export let data: PageServerData;
@@ -32,6 +34,7 @@
 	const newsfeedRoute = `/users/${userId}/newsfeeds`;
 	const viewItemRoute = (id) => `/users/${userId}/newsfeeds/${id}/newsfeed-items/${id}/view`;
 	const newsfeedItemRoute = `/users/${userId}/newsfeeds/${newsfeedId}/newsfeed-items/create`;
+	const editItemRoute = (id) => `/users/${userId}/newsfeeds/${id}/newsfeed-items/${id}/edit`;
 
 	const breadCrumbs = [
 		{
@@ -43,6 +46,23 @@
 			path: viewRoute
 		}
 	];
+
+	const handleNewsfeedItemDelete = async (e, id) => {
+		const newsfeedItemId = id;
+		await Delete({
+			sessionId: data.sessionId,
+			newsfeedItemId
+		});
+		window.location.href = viewRoute;
+	};
+
+	async function Delete(model) {
+		const response = await fetch(`/api/server/newsfeed-items`, {
+			method: 'DELETE',
+			body: JSON.stringify(model),
+			headers: { 'content-type': 'application/json' }
+		});
+	}
 </script>
 
 <BreadCrumbs crumbs={breadCrumbs} />
@@ -128,7 +148,7 @@
 			</tr>
 			<tr class="!border-b !border-b-secondary-100 dark:!border-b-surface-700">
 				<td class="align-top">Newsfeed Items</td>
-				<td>
+				<!-- <td>
 					{#if newsfeedItems.length <= 0}
 						<span class="span">Newsfeed Items are not available!</span>
 					{:else}
@@ -139,6 +159,68 @@
 								</a>
 							{/each}
 						</ol>
+					{/if}
+				</td> -->
+				<td>
+					{#if newsfeedItems.length <= 0}
+						<span class="span">Newsfeed items are not available!</span>
+					{:else}
+						<div
+							class="table-container border border-secondary-100 dark:!border-surface-700"
+							id="modules"
+						>
+							<table class="table table-compact">
+								<thead class="!variant-soft-secondary">
+									<tr>
+										<th>Title</th>
+										<th>Link</th>
+										<th>Content</th>
+										<th />
+										<th />
+									</tr>
+								</thead>
+								<tbody class="!bg-white dark:!bg-inherit">
+									{#each newsfeedItems as newsfeedItem}
+										<tr class="!border-b !border-b-secondary-100 dark:!border-b-surface-700">
+											<td>{Helper.truncateText(newsfeedItem.Title, 20)}</td>
+											<td>{newsfeedItem.Link !== null ? newsfeedItem.Link : 'Not specified'}</td>
+											<td>{Helper.truncateText(newsfeedItem.Content, 30)}</td>
+											<td>
+												<a
+													href={editItemRoute(newsfeedItem.id)}
+													class="btn p-2 -my-1 hover:variant-soft-primary"
+												>
+													<Icon icon="material-symbols:edit-outline" class="text-lg" />
+												</a>
+											</td>
+											<td>
+												<Confirm
+													confirmTitle="Delete"
+													cancelTitle="Cancel"
+													let:confirm={confirmThis}
+													on:delete={(e) => handleNewsfeedItemDelete(e, newsfeedItem.id)}
+												>
+													<button
+														on:click|preventDefault={() =>
+															confirmThis(handleNewsfeedItemDelete, newsfeedItem.id)}
+														class="btn p-2 -my-1 hover:variant-soft-error"
+													>
+														<Icon
+															icon="material-symbols:delete-outline-rounded"
+															class="text-lg"
+														/>
+													</button>
+													<span slot="title"> Delete </span>
+													<span slot="description">
+														Are you sure you want to delete a newsfeed item?
+													</span>
+												</Confirm>
+											</td>
+										</tr>
+									{/each}
+								</tbody>
+							</table>
+						</div>
 					{/if}
 				</td>
 			</tr>
