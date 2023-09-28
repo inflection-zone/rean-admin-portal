@@ -5,9 +5,8 @@
 	import Confirm from '$lib/components/modal/confirmModal.svelte';
 	import { Helper } from '$lib/utils/helper';
 	import Icon from '@iconify/svelte';
-	import { Paginator } from '@skeletonlabs/skeleton';
+	import { Paginator, type PaginationSettings } from '@skeletonlabs/skeleton';
 	import type { PageServerData } from './$types';
-	import type { PaginationSettings } from '@skeletonlabs/skeleton/components/Paginator/types';
 
 	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -27,14 +26,14 @@
 	let sortBy = 'Title';
 	let sortOrder = 'ascending';
 	let itemsPerPage = 10;
-	let offset = 0;
+	let offest = 0;
 	let totalAssessmentTemplatesCount = data.assessmentTemplate.TotalCount;
 	let isSortingTitle = false;
 	let isSortingType = false;
 	let items = 10;
 
 	let paginationSettings = {
-		offset: 0,
+		page: 0,
 		limit: 10,
 		size: totalAssessmentTemplatesCount,
 		amounts: [10, 20, 30, 50]
@@ -46,7 +45,7 @@
 		else url += `sortOrder=ascending`;
 		if (sortBy) url += `&sortBy=${sortBy}`;
 		if (itemsPerPage) url += `&itemsPerPage=${itemsPerPage}`;
-		if (offset) url += `&pageIndex=${offset}`;
+		if (offest) url += `&pageIndex=${offest}`;
 		if (title) url += `&title=${title}`;
 		if (type) url += `&type=${type}`;
 
@@ -59,8 +58,8 @@
 	}
 
 	$: retrivedAssessmentTemplates = assessmentTemplates.slice(
-		paginationSettings.offset * paginationSettings.limit,
-		paginationSettings.offset * paginationSettings.limit + paginationSettings.limit
+		paginationSettings.page * paginationSettings.limit,
+		paginationSettings.page * paginationSettings.limit + paginationSettings.limit
 	);
 
 	$: if (browser)
@@ -68,7 +67,7 @@
 			title,
 			type,
 			itemsPerPage: itemsPerPage,
-			pageIndex: offset,
+			pageIndex: page,
 			sortOrder: sortOrder,
 			sortBy: sortBy
 		});

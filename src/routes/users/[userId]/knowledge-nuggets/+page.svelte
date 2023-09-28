@@ -6,11 +6,10 @@
 	import { Helper } from '$lib/utils/helper';
 	import Icon from '@iconify/svelte';
 	import {
-		Paginator,
+		Paginator, type PaginationSettings,
 	} from '@skeletonlabs/skeleton';
 	import date from 'date-and-time';
 	import type { PageServerData } from './$types';
-	import type { PaginationSettings } from '@skeletonlabs/skeleton/components/Paginator/types';
 
 	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -37,7 +36,7 @@
 	let items = 10;
 
 	let paginationSettings = {
-		offset: 0,
+		page: 0,
 		limit: 10,
 		size: totalKnowledgeNuggetsCount,
 		amounts: [10, 20, 30, 50]
@@ -63,8 +62,8 @@
 	}
 
 	$: retrivedKnowledgeNuggets = knowledgeNuggets.slice(
-		paginationSettings.offset * paginationSettings.limit,
-		paginationSettings.offset * paginationSettings.limit + paginationSettings.limit
+		paginationSettings.page * paginationSettings.limit,
+		paginationSettings.page * paginationSettings.limit + paginationSettings.limit
 	);
 
 	$: if (browser)

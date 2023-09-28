@@ -5,10 +5,9 @@
 	import Confirm from '$lib/components/modal/confirmModal.svelte';
 	import { Helper } from '$lib/utils/helper';
 	import Icon from '@iconify/svelte';
-	import { Paginator } from '@skeletonlabs/skeleton';
+	import { Paginator, type PaginationSettings } from '@skeletonlabs/skeleton';
 	import type { PageServerData } from './$types';
-	import type { PaginationSettings } from '@skeletonlabs/skeleton/components/Paginator/types';
-
+	
 	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 	export let data: PageServerData;
@@ -34,7 +33,7 @@
 	let items = 10;
 
 	let paginationSettings = {
-		offset: 0,
+		page: 0,
 		limit: 10,
 		size: totalOrganizationsCount,
 		amounts: [10, 20, 30, 50]
@@ -61,8 +60,8 @@
 	}
 
 	$: retrivedOrganizations = organizations.slice(
-		paginationSettings.offset * paginationSettings.limit,
-		paginationSettings.offset * paginationSettings.limit + paginationSettings.limit
+		paginationSettings.page * paginationSettings.limit,
+		paginationSettings.page * paginationSettings.limit + paginationSettings.limit
 	);
 
 	$: if (browser)
