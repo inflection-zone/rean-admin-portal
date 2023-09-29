@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { createDataTableStore, dataTableHandler } from '@skeletonlabs/skeleton';
+	// import { createDataTableStore, dataTableHandler } from '@skeletonlabs/skeleton';
 	import { page } from '$app/stores';
 	import BreadCrumbs from '$lib/components/breadcrumbs/breadcrums.svelte';
 	import type { PageServerData } from './$types';
@@ -14,10 +14,10 @@
 	courses = courses.map((item, index) => ({ ...item, index: index + 1 }));
 	console.log('courses', courses);
 
-	const dataTableStore = createDataTableStore(courses, {
-		search: '',
-		pagination: { offset: 0, limit: 10, size: 0, amounts: [10, 20, 30, 50] }
-	});
+	// const dataTableStore = createDataTableStore(courses, {
+	// 	search: '',
+	// 	pagination: { offset: 0, limit: 10, size: 0, amounts: [10, 20, 30, 50] }
+	// });
 
 	const userId = $page.params.userId;
 	const courseRoute = `/users/${userId}/courses`;
@@ -63,9 +63,9 @@
 		const response = await res.json();
 
 		courses = response.map((item, index) => ({ ...item, index: index + 1 }));
-		dataTableStore.updateSource(courses);
+		// dataTableStore.updateSource(courses);
 	}
-	dataTableStore.subscribe((model) => dataTableHandler(model));
+	// dataTableStore.subscribe((model) => dataTableHandler(model));
 
 	const handleCourseDelete = async (id, modules) => {
 		const courseId = id;

@@ -4,11 +4,7 @@
 	import type { PageServerData } from './$types';
 	import { page } from '$app/stores';
 	import {
-		Paginator,
-		createDataTableStore,
-		dataTableHandler,
-		tableA11y,
-		tableInteraction
+		Paginator, type PaginationSettings,
 	} from '@skeletonlabs/skeleton';
 	import Icon from '@iconify/svelte';
 	import { browser } from '$app/environment';
@@ -29,10 +25,22 @@
 
 	let assetType = undefined;
 	let scheduledDate = undefined;
-	let sortBy = 'CreatedAt';
+	let sortBy = 'AssetType';
 	let sortOrder = 'ascending';
 	let itemsPerPage = 10;
-	let pageIndex = 0;
+	let offset = 0;
+	let totalEnrollmentTasksCount = data.enrollmentTask.TotalCount;
+	let isSortingAssetType = false;
+	let isSortingScheduledDate = false;
+	let items = 10;
+
+	let paginationSettings = {
+		page: 0,
+		limit: 10,
+		size: totalEnrollmentTasksCount,
+		amounts: [10, 20, 30, 50]
+	} satisfies PaginationSettings;
+
 	enrollmentsTasks = enrollmentsTasks.map((item, index) => ({ ...item, index: index + 1 }));
 	let enrollmentsTasksResult = enrollmentsTasks.map((task) => {
 		const newTask = task;
@@ -55,19 +63,13 @@
 		}
 	];
 
-	const dataTableStore = createDataTableStore(enrollmentsTasksResult, {
-		search: '',
-		sort: '',
-		pagination: { offset: 0, limit: 10, size: 0, amounts: [10, 20, 30, 50] }
-	});
-
 	async function searchEnrollments(model) {
 		let url = `/api/server/careplan/enrollment-task/search?`;
 		if (sortOrder) url += `sortOrder=${sortOrder}`;
 		else url += `sortOrder=ascending`;
 		if (sortBy) url += `&sortBy=${sortBy}`;
 		if (itemsPerPage) url += `&itemsPerPage=${itemsPerPage}`;
-		if (pageIndex) url += `&pageIndex=${pageIndex}`;
+		if (offset) url += `&pageIndex=${offset}`;
 		if (assetType) url += `&assetType=${assetType}`;
 		if (scheduledDate) url += `&scheduledDate=${scheduledDate}`;
 
@@ -78,11 +80,45 @@
 		});
 		const response = await res.json();
 		enrollmentsTasksResult = response.map((item, index) => ({ ...item, index: index + 1 }));
-		dataTableStore.updateSource(enrollmentsTasksResult);
 	}
 
-	dataTableStore.subscribe((model) => dataTableHandler(model));
-	$: if (browser) searchEnrollments({ assetType: assetType, scheduledDate: scheduledDate });
+	$: retrivedEnrollmentTasks = enrollmentsTasks.slice(
+		paginationSettings.page * paginationSettings.limit,
+		paginationSettings.page * paginationSettings.limit + paginationSettings.limit
+	);
+
+	$: if (browser)
+		searchEnrollments({ 
+			assetType: assetType, 
+			scheduledDate: scheduledDate, 
+			itemsPerPage: itemsPerPage,
+			pageIndex: offset,
+			sortOrder: sortOrder,
+			sortBy: sortBy
+	});
+
+	function onPageChange(e: CustomEvent): void {
+		let pageIndex = e.detail;
+		itemsPerPage = items * (pageIndex + 1);
+	}
+
+	function onAmountChange(e: CustomEvent): void {
+		itemsPerPage = e.detail;
+		items = itemsPerPage;
+	}
+
+	function sortTable(columnName) {
+		isSortingAssetType = false;
+		isSortingScheduledDate = false;
+		sortOrder = sortOrder === 'ascending' ? 'descending' : 'ascending';
+		if (columnName === 'AssetType') {
+			isSortingAssetType = true;
+		} else if (columnName === 'ScheduledDate') {
+			isSortingScheduledDate = true;
+		}
+		sortBy = columnName;
+	}
+
 </script>
 
 <BreadCrumbs crumbs={breadCrumbs} />
@@ -98,18 +134,28 @@
 </div>
 
 <div class="table-container my-2 !border !border-secondary-100 dark:!border-surface-700">
-	<table class="table" role="grid" use:tableInteraction use:tableA11y>
-		<thead on:click={(e) => dataTableStore.sort(e)} on:keypress class="!variant-soft-secondary">
+	<table class="table" role="grid">
+		<thead class="!variant-soft-secondary">
 			<tr>
 				<th data-sort="index">Id</th>
 				<th>Name</th>
 				<th>Type</th>
+				<th>
+					<button on:click={() => sortTable('AssetType')}>
+						Type {isSortingAssetType ? (sortOrder === 'ascending' ? '▲' : '▼') : ''}
+					</button>
+				</th>
 				<th>Created Date</th>
+				<th>
+					<button on:click={() => sortTable('ScheduledDate')}>
+						Created Date {isSortingScheduledDate ? (sortOrder === 'ascending' ? '▲' : '▼') : ''}
+					</button>
+				</th>
 				<th>Completed</th>
 			</tr>
 		</thead>
 		<tbody class="!bg-white dark:!bg-inherit">
-			{#each $dataTableStore.filtered as row}
+			{#each retrivedEnrollmentTasks as row}
 				<tr class="!border-b !border-b-secondary-100 dark:!border-b-surface-700">
 					<td role="gridcell" aria-colindex={1} tabindex="0">{row.index}</td>
 					<td role="gridcell" aria-colindex={2} tabindex="0">{row.Asset.Name}</td>
@@ -130,10 +176,10 @@
 </div>
 
 <div class="w-full variant-soft-secondary rounded-lg p-2">
-	{#if $dataTableStore.pagination}
-		<Paginator
-			bind:settings={$dataTableStore.pagination}
-			buttonClasses="btn-icon bg-surface-50 dark:bg-surface-900"
-		/>
-	{/if}
+	<Paginator
+		bind:settings={paginationSettings}
+		on:page={onPageChange}
+		on:amount={onAmountChange}
+		buttonClasses="btn-icon bg-surface-50 dark:bg-surface-900"
+	/>
 </div>

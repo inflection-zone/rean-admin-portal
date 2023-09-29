@@ -3,42 +3,41 @@
 	import type { PageServerData } from './$types';
 	import Confirm from '$lib/components/modal/confirmModal.svelte';
 	import {
-		Paginator,
-		createDataTableStore,
-		dataTableHandler,
-		tableA11y,
-		tableInteraction
+		Paginator, type PaginationSettings,
 	} from '@skeletonlabs/skeleton';
 	import Icon from '@iconify/svelte';
 	import date from 'date-and-time';
 	import { Helper } from '$lib/utils/helper';
 	import { browser } from '$app/environment';
 	import BreadCrumbs from '$lib/components/breadcrumbs/breadcrums.svelte';
-
+	
 	///////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 	export let data: PageServerData;
 	const userId = $page.params.userId;
 	const assetType = data.assetTypes;
-	let asset = data.assets;
+	let asset = data.assets.Items;
 	let types = assetType.Data.AssetTypes;
 	// let asset = data.assets;
 	let selectedAssetType = 'Action plan';
 
-	asset = asset.map((item, index) => ({ ...item, index: index + 1 }));
-
-	const dataTableStore = createDataTableStore(asset, {
-		search: '',
-		sort: '',
-		pagination: { offset: 0, limit: 10, size: 0, amounts: [10, 20, 30, 50] }
-	});
-
 	let assetName = undefined;
 	let assetCode = undefined;
-	let sortBy = 'CreatedAt';
+	let sortBy = 'AssetName';
 	let sortOrder = 'ascending';
 	let itemsPerPage = 10;
-	let pageIndex = 0;
+	let offset = 0;
+	let totalAssetsCount = data.assets.TotalCount;
+	let isSortingAssetName = false;
+	let isSortingAssetCode = false;
+	let items = 10;
+
+	let paginationSettings = {
+		page: 0,
+		limit: 10,
+		size: totalAssetsCount,
+		amounts: [10, 20, 30, 50]
+	} satisfies PaginationSettings;
 
   const assetRouteMap = {
     'Action plan'  : 'action-plans',
@@ -75,9 +74,9 @@
 		else url += `&sortOrder=ascending`;
 		if (sortBy) url += `&sortBy=${sortBy}`;
 		if (itemsPerPage) url += `&itemsPerPage=${itemsPerPage}`;
-		if (pageIndex) url += `&pageIndex=${pageIndex}`;
-		if (assetCode) url += `&assetCode=${assetCode}`;
+		if (offset) url += `&pageIndex=${offset}`;
 		if (assetName) url += `&assetName=${assetName}`;
+		if (assetCode) url += `&assetCode=${assetCode}`;
 		console.log("url",url)
 		const res = await fetch(url, {
 			method: 'GET',
@@ -86,13 +85,46 @@
 		const response = await res.json();
 		console.log("response",response)
 		asset = response.map((item, index) => ({ ...item, index: index + 1 }));
-		dataTableStore.updateSource(asset);
+	}
+
+	$: retrivedAssets = asset.slice(
+		paginationSettings.page * paginationSettings.limit,
+		paginationSettings.page * paginationSettings.limit + paginationSettings.limit
+	);
+	
+	$: if (browser)
+		searchAssets({ 
+			selectedAssetType:selectedAssetType,
+			assetName: assetName,
+			assetCode: assetCode,
+			itemsPerPage: itemsPerPage,
+			pageIndex: offset,
+			sortOrder: sortOrder,
+			sortBy: sortBy 
+	});
+
+	function onPageChange(e: CustomEvent): void {
+		let pageIndex = e.detail;
+		itemsPerPage = items * (pageIndex + 1);
+	}
+
+	function onAmountChange(e: CustomEvent): void {
+		itemsPerPage = e.detail;
+		items = itemsPerPage;
+	}
+
+	function sortTable(columnName) {
+		isSortingAssetName = false;
+		isSortingAssetCode = false;
+		sortOrder = sortOrder === 'ascending' ? 'descending' : 'ascending';
+		if (columnName === 'AssetName') {
+			isSortingAssetName = true;
+		} else if (columnName === 'AssetCode') {
+			isSortingAssetCode = true;
+		}
+		sortBy = columnName;
 	}
 	
-	$: if (browser) searchAssets({selectedAssetType:selectedAssetType, assetName: assetName, assetCode: assetCode });
-
-	dataTableStore.subscribe((model) => dataTableHandler(model));
-
 	const onSelectAssetType = async (e) => {
 		selectedAssetType = e.currentTarget.value;
 		await searchAssets({
@@ -164,12 +196,20 @@
 </div>
 
 <div class="table-container my-2 !border !border-secondary-100 dark:!border-surface-700">
-	<table class="table" role="grid" use:tableInteraction use:tableA11y>
-		<thead on:click={(e) => dataTableStore.sort(e)} on:keypress class="!variant-soft-secondary">
+	<table class="table" role="grid">
+		<thead class="!variant-soft-secondary">
 			<tr>
 				<th data-sort="index">Id</th>
-				<th data-sort="ClientName">Name</th>
-				<th data-sort="AssetCode">Code</th>
+				<th>
+					<button on:click={() => sortTable('AssetName')}>
+						Name {isSortingAssetName ? (sortOrder === 'ascending' ? '▲' : '▼') : ''}
+					</button>
+				</th>
+				<th>
+					<button on:click={() => sortTable('AssetCode')}>
+						Code {isSortingAssetCode ? (sortOrder === 'ascending' ? '▲' : '▼') : ''}
+					</button>
+				</th>
 				<th>Type</th>
 				<th>Created Date</th>
 				<th />
@@ -177,7 +217,7 @@
 			</tr>
 		</thead>
 		<tbody class="!bg-white dark:!bg-inherit">
-			{#each $dataTableStore.filtered as row}
+			{#each retrivedAssets as row}
 				<tr class="!border-b !border-b-secondary-100 dark:!border-b-surface-700">
 					<td role="gridcell" aria-colindex={1} tabindex="0">{row.index}</td>
 					<td role="gridcell" aria-colindex={2} tabindex="0">
@@ -223,10 +263,10 @@
 </div>
 
 <div class="w-full variant-soft-secondary rounded-lg p-2">
-	{#if $dataTableStore.pagination}
-		<Paginator
-			bind:settings={$dataTableStore.pagination}
-			buttonClasses="btn-icon bg-surface-50 dark:bg-surface-900"
-		/>
-	{/if}
+	<Paginator
+		bind:settings={paginationSettings}
+		on:page={onPageChange}
+		on:amount={onAmountChange}
+		buttonClasses="btn-icon bg-surface-50 dark:bg-surface-900"
+	/>
 </div>
