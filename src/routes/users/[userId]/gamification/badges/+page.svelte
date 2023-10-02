@@ -13,7 +13,7 @@
 	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 	export let data: PageServerData;
-	let badges = data.badges;
+	let badges = data.badges.Items;
 	let badgeCategories = data.badgeCategories;
 
 	const userId = $page.params.userId;
@@ -149,7 +149,12 @@
 		<thead class="!variant-soft-secondary">
 			<tr>
 				<th data-sort="index">Id</th>
-				<th data-sort="Name">Name</th>
+				<!-- <th data-sort="Name">Name</th> -->
+				<th>
+					<button on:click={() => sortTable('Name')}>
+						Name {isSortingName ? (sortOrder === 'ascending' ? '▲' : '▼') : ''}
+					</button>
+				</th>
 				<th data-sort="Name">Category</th>
 				<th>Description</th>
 				<th />

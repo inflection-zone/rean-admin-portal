@@ -13,7 +13,7 @@
 	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 	export let data: PageServerData;
-	let schemas = data.schemas;
+	let schemas = data.schemas.Items;
 
 	const userId = $page.params.userId;
 	const createRoute = `/users/${userId}/gamification/schemas/create`;
