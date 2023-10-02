@@ -2,15 +2,13 @@
 	import { page } from '$app/stores';
 	import type { PageServerData } from './$types';
 	import Confirm from '$lib/components/modal/confirmModal.svelte';
-	import {
-		Paginator, type PaginationSettings,
-	} from '@skeletonlabs/skeleton';
+	import { Paginator, type PaginationSettings } from '@skeletonlabs/skeleton';
 	import Icon from '@iconify/svelte';
 	import date from 'date-and-time';
 	import { Helper } from '$lib/utils/helper';
 	import { browser } from '$app/environment';
 	import BreadCrumbs from '$lib/components/breadcrumbs/breadcrums.svelte';
-	
+
 	///////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 	export let data: PageServerData;
@@ -23,7 +21,7 @@
 
 	let assetName = undefined;
 	let assetCode = undefined;
-	let sortBy = 'AssetName';
+	let sortBy = 'CreatedAt';
 	let sortOrder = 'ascending';
 	let itemsPerPage = 10;
 	let offset = 0;
@@ -39,37 +37,37 @@
 		amounts: [10, 20, 30, 50]
 	} satisfies PaginationSettings;
 
-  const assetRouteMap = {
-    'Action plan'  : 'action-plans',
-    'Animation'    : 'animations',
-    'Appointment'  : 'appointments',
-    'Article'      : 'articles',
-    'Assessment'   : 'assessments',
-    'Audio'        : 'audio',
-    'Biometrics'   : 'biometrics',
-    'Challenge'    : 'challenges',
-    'Checkup'      : 'checkups',
-    'Consultation' : 'consultations',
-    'Exercise'     : 'exercises',
-    'Goal'         : 'goals',
-    'Infographics' : 'infographics',
-    'Medication'   : 'medications',
-    'Meditation'   : 'meditations',
-    'Message'      : 'messages',
-    'Nutrition'    : 'nutritions',
-    'Physiotherapy': 'physiotherapy',
-    'Priority'     : 'priorities',
-    'Reflection'   : 'reflections',
-    'Reminder'     : 'reminders',
-    'Video'        : 'video',
-    'Web link'     : 'web-links',
-    'Web newsfeed' : 'web-newsfeeds',
-    'Word power'   : 'word-power'
-  };
+	const assetRouteMap = {
+		'Action plan': 'action-plans',
+		Animation: 'animations',
+		Appointment: 'appointments',
+		Article: 'articles',
+		Assessment: 'assessments',
+		Audio: 'audio',
+		Biometrics: 'biometrics',
+		Challenge: 'challenges',
+		Checkup: 'checkups',
+		Consultation: 'consultations',
+		Exercise: 'exercises',
+		Goal: 'goals',
+		Infographics: 'infographics',
+		Medication: 'medications',
+		Meditation: 'meditations',
+		Message: 'messages',
+		Nutrition: 'nutritions',
+		Physiotherapy: 'physiotherapy',
+		Priority: 'priorities',
+		Reflection: 'reflections',
+		Reminder: 'reminders',
+		Video: 'video',
+		'Web link': 'web-links',
+		'Web newsfeed': 'web-newsfeeds',
+		'Word power': 'word-power'
+	};
 	async function searchAssets(model) {
 		const selectedAssetRoute = assetRouteMap[selectedAssetType];
 		let url = `/api/server/careplan/assets/search?assetType=${selectedAssetRoute}`;
-		console.log("url",url)
+		console.log('url', url);
 		if (sortOrder) url += `&sortOrder=${sortOrder}`;
 		else url += `&sortOrder=ascending`;
 		if (sortBy) url += `&sortBy=${sortBy}`;
@@ -77,13 +75,13 @@
 		if (offset) url += `&pageIndex=${offset}`;
 		if (assetName) url += `&assetName=${assetName}`;
 		if (assetCode) url += `&assetCode=${assetCode}`;
-		console.log("url",url)
+		console.log('url', url);
 		const res = await fetch(url, {
 			method: 'GET',
 			headers: { 'content-type': 'application/json' }
 		});
 		const response = await res.json();
-		console.log("response",response)
+		console.log('response', response);
 		asset = response.map((item, index) => ({ ...item, index: index + 1 }));
 	}
 
@@ -91,17 +89,17 @@
 		paginationSettings.page * paginationSettings.limit,
 		paginationSettings.page * paginationSettings.limit + paginationSettings.limit
 	);
-	
+
 	$: if (browser)
-		searchAssets({ 
-			selectedAssetType:selectedAssetType,
+		searchAssets({
+			selectedAssetType: selectedAssetType,
 			assetName: assetName,
 			assetCode: assetCode,
 			itemsPerPage: itemsPerPage,
 			pageIndex: offset,
 			sortOrder: sortOrder,
-			sortBy: sortBy 
-	});
+			sortBy: sortBy
+		});
 
 	function onPageChange(e: CustomEvent): void {
 		let pageIndex = e.detail;
@@ -117,14 +115,14 @@
 		isSortingAssetName = false;
 		isSortingAssetCode = false;
 		sortOrder = sortOrder === 'ascending' ? 'descending' : 'ascending';
-		if (columnName === 'AssetName') {
+		if (columnName === 'Name') {
 			isSortingAssetName = true;
 		} else if (columnName === 'AssetCode') {
 			isSortingAssetCode = true;
 		}
 		sortBy = columnName;
 	}
-	
+
 	const onSelectAssetType = async (e) => {
 		selectedAssetType = e.currentTarget.value;
 		await searchAssets({
@@ -144,7 +142,7 @@
 	const handleAssetsDelete = async (e, id) => {
 		const selectedAssetRoute = assetRouteMap[selectedAssetType];
 		const assetId = id;
-		console.log(assetId ,"assetId")
+		console.log(assetId, 'assetId');
 		await Delete({
 			sessionId: data.sessionId,
 			selectAsset: selectedAssetRoute,
@@ -178,20 +176,22 @@
 	</select>
 	<input
 		type="text"
-		name="code"
-		placeholder="Search by code"
-		bind:value={assetCode}
-		class="input w-auto grow"
-	/>
-	<input
-		type="text"
 		name="name"
 		placeholder="Search by name"
 		bind:value={assetName}
 		class="input w-auto grow"
 	/>
-	<a href="/users/{userId}/careplan/assets/{assetRouteMap[selectedAssetType]}/create/" class="btn variant-filled-secondary"
-		>Add New</a
+	<input
+		type="text"
+		name="code"
+		placeholder="Search by code"
+		bind:value={assetCode}
+		class="input w-auto grow"
+	/>
+
+	<a
+		href="/users/{userId}/careplan/assets/{assetRouteMap[selectedAssetType]}/create/"
+		class="btn variant-filled-secondary">Add New</a
 	>
 </div>
 
@@ -201,7 +201,7 @@
 			<tr>
 				<th data-sort="index">Id</th>
 				<th>
-					<button on:click={() => sortTable('AssetName')}>
+					<button on:click={() => sortTable('Name')}>
 						Name {isSortingAssetName ? (sortOrder === 'ascending' ? '▲' : '▼') : ''}
 					</button>
 				</th>
@@ -227,7 +227,9 @@
 					</td>
 					<td role="gridcell" aria-colindex={3} tabindex="0">{row.AssetCode}</td>
 					<td role="gridcell" aria-colindex={4} tabindex="0">{row.AssetCategory}</td>
-					<td role="gridcell" aria-colindex={5} tabindex="0">{date.format(new Date(row.CreatedAt), 'DD-MMM-YYYY')}</td>
+					<td role="gridcell" aria-colindex={5} tabindex="0"
+						>{date.format(new Date(row.CreatedAt), 'DD-MMM-YYYY')}</td
+					>
 					<td>
 						<a
 							class="btn p-2 hover:variant-soft-secondary"
@@ -268,8 +270,8 @@
 		on:page={onPageChange}
 		on:amount={onAmountChange}
 		buttonClasses=" text-primary-500"
-		regionControl = 'bg-surface-100 rounded-lg btn-group text-primary-500 border border-primary-200'
-		controlVariant = 'rounded-full text-primary-500 '
-		controlSeparator = 'fill-primary-400'
-		/>
+		regionControl="bg-surface-100 rounded-lg btn-group text-primary-500 border border-primary-200"
+		controlVariant="rounded-full text-primary-500 "
+		controlSeparator="fill-primary-400"
+	/>
 </div>
