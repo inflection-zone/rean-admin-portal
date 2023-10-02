@@ -31,7 +31,7 @@
 	let sortOrder = 'ascending';
 	let itemsPerPage = 10;
 	let offset = 0;
-	let totalSymptomsCount = data.symptoms.TotalCount;
+	let totalSymptomsCount = data.symptomsCount;
 	let isSortingSymptom = false;
 	let isSortingTags = false;
 	let items = 10;
@@ -202,6 +202,9 @@
 		bind:settings={paginationSettings}
 		on:page={onPageChange}
 		on:amount={onAmountChange}
-		buttonClasses="btn-icon bg-surface-50 dark:bg-surface-900"
-	/>
+		buttonClasses=" text-primary-500"
+		regionControl = 'bg-surface-100 rounded-lg btn-group text-primary-500 border border-primary-200'
+		controlVariant = 'rounded-full text-primary-500 '
+		controlSeparator = 'fill-primary-400'
+		/>
 </div>
