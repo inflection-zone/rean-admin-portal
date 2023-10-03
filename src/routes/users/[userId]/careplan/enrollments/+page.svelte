@@ -147,7 +147,7 @@
 		type="date"
 		required
 		placeholder="Search by end date"
-		class="input w-auto grow uppercase "
+		class="input w-auto grow"
 	/>
 </div>
 

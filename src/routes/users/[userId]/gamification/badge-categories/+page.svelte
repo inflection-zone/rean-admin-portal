@@ -13,7 +13,7 @@
 	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 	export let data: PageServerData;
-	let badgeCategories = data.badgeCategories;
+	let badgeCategories = data.badgeCategories.Items;
 
 	const userId = $page.params.userId;
 	const createRoute = `/users/${userId}/gamification/badge-categories/create`;
@@ -28,7 +28,7 @@
 	let sortOrder = 'ascending';
 	let itemsPerPage = 10;
 	let offset = 0;
-	let totalBadgeCategoriesCount = badgeCategories.length;
+	let totalBadgeCategoriesCount = data.badgeCategories.TotalCount;
 	let isSortingName = false;
 	let items = 10;
 

@@ -14,7 +14,7 @@
 	export let data: PageServerData;
 	const userId = $page.params.userId;
 	const enrollmentId = $page.params.enrollmentId;
-	let enrollmentsTasks = data.enrollmentTask;
+	let enrollmentsTasks = data.enrollmentTask.Items;
 	let participantResponse = data.participantResponse;
 	let id = enrollmentsTasks.id;
 	let enrollmentDsipId = data.enrollment;
@@ -25,7 +25,7 @@
 
 	let assetType = undefined;
 	let scheduledDate = undefined;
-	let sortBy = 'AssetType';
+	let sortBy = 'ScheduledDate';
 	let sortOrder = 'ascending';
 	let itemsPerPage = 10;
 	let offset = 0;
@@ -130,7 +130,7 @@
 </div>
 <div class="flex flex-wrap gap-2 mt-1">
 	<input type="text" placeholder="Search by Type" bind:value={assetType} class="input w-auto grow" />
-	<input type="date" placeholder="Start date" bind:value={scheduledDate} class="input w-auto grow" />
+	<!-- <input type="date" placeholder="Start date" bind:value={scheduledDate} class="input w-auto grow" /> -->
 </div>
 
 <div class="table-container my-2 !border !border-secondary-100 dark:!border-surface-700">
@@ -139,13 +139,13 @@
 			<tr>
 				<th data-sort="index">Id</th>
 				<th>Name</th>
-				<th>Type</th>
+				<!-- <th>Type</th> -->
 				<th>
 					<button on:click={() => sortTable('AssetType')}>
 						Type {isSortingAssetType ? (sortOrder === 'ascending' ? '▲' : '▼') : ''}
 					</button>
 				</th>
-				<th>Created Date</th>
+				<!-- <th>Created Date</th> -->
 				<th>
 					<button on:click={() => sortTable('ScheduledDate')}>
 						Created Date {isSortingScheduledDate ? (sortOrder === 'ascending' ? '▲' : '▼') : ''}

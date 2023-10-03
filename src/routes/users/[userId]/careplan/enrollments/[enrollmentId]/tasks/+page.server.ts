@@ -17,6 +17,7 @@ export const load: PageServerLoad = async (event: RequestEvent) => {
 		}
 	
 		const enrollment = response.Data;
+		console.log("enrollment", enrollment);
 		const participantId = enrollment.ParticipantId;
 		const careplanId = enrollment.CareplanId;
 		const searchParams ={

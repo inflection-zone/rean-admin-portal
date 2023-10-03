@@ -13,7 +13,7 @@
 	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 	export let data: PageServerData;
-	let eventTypes = data.eventTypes;
+	let eventTypes = data.eventTypes.Items;
 
 	const userId = $page.params.userId;
 	const createRoute = `/users/${userId}/gamification/event-types/create`;
@@ -24,11 +24,11 @@
 	const breadCrumbs = [{ name: 'Event-Types', path: eventTypeRoute }];
 
 	let name = undefined;
-	let sortBy = 'CreatedAt';
-	let sortOrder = 'Name';
+	let sortBy = 'Name';
+	let sortOrder = 'ascending';
 	let itemsPerPage = 10;
 	let offset = 0;
-	let totalEventTypesCount = eventTypes.length;
+	let totalEventTypesCount = data.eventTypes.TotalCount;
 	let isSortingName = false;
 	let items = 10;
 

@@ -41,6 +41,11 @@
 
 	async function searchNode(model) {
 		let url = `/api/server/gamification/schemas/search?`;
+		if (sortOrder) url += `sortOrder=${sortOrder}`;
+		else url += `sortOrder=ascending`;
+		if (sortBy) url += `&sortBy=${sortBy}`;
+		if (itemsPerPage) url += `&itemsPerPage=${itemsPerPage}`;
+		if (offset) url += `&pageIndex=${offset}`;
 		if (name) url += `&name=${name}`;
 		const res = await fetch(url, {
 			method: 'GET',
