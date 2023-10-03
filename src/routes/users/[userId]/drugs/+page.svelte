@@ -160,13 +160,15 @@
 				<tr class="!border-b !border-b-secondary-100 dark:!border-b-surface-700">
 					<td role="gridcell" aria-colindex={1} tabindex="0">{row.index}</td>
 					<td role="gridcell" aria-colindex={2} tabindex="0">
-						<a href={viewRoute(row.id)}>{Helper.truncateText(row.DrugName, 20)}</a>
+						<a href={viewRoute(row.id)}>
+							{row.DrugName !== null && row.DrugName !== "" ? Helper.truncateText(row.DrugName, 20) : 'Not specified'}
+						</a>
 					</td>
 					<td role="gridcell" aria-colindex={3} tabindex="0">
-						{row.GenericName !== null ? Helper.truncateText(row.GenericName, 40) : 'Not specified'}
+						{row.GenericName !== null && row.GenericName !== "" ? Helper.truncateText(row.GenericName, 40) : 'Not specified'}
 					</td>
 					<td role="gridcell" aria-colindex={4} tabindex="0">
-						{row.Ingredients !== null ? Helper.truncateText(row.Ingredients, 40) : 'Not specified'}
+						{row.Ingredients !== null && row.Ingredients !== "" ? Helper.truncateText(row.Ingredients, 40) : 'Not specified'}
 					</td>
 					<td role="gridcell" aria-colindex={5} tabindex="0">
 						{date.format(new Date(row.CreatedAt), 'DD-MMM-YYYY')}</td
