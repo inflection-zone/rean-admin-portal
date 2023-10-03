@@ -12,7 +12,6 @@
 
 	export let data: PageServerData;
 	let assessmentTemplates = data.assessmentTemplate.Items;
-
 	const userId = $page.params.userId;
 	const assessmentRoute = `/users/${userId}/assessment-templates`;
 	const editRoute = (id) => `/users/${userId}/assessment-templates/${id}/edit`;
@@ -62,6 +61,7 @@
 		paginationSettings.page * paginationSettings.limit + paginationSettings.limit
 	);
 
+	$:console.log(retrivedAssessmentTemplates)
 	$: if (browser)
 		searchAssessmentTemplate({
 			title,
@@ -158,7 +158,9 @@
 					<td role="gridcell" aria-colindex={1} tabindex="0">{row.index}</td>
 					<td role="gridcell" aria-colindex={2} tabindex="0">
 						<a href={viewRoute(row.id)}>
-							{Helper.truncateText(row.Title, 40)}
+							{row.Title !== null && row.Title !== ''
+							? Helper.truncateText(row.Title, 40)
+							: 'Not specified'}
 						</a>
 					</td>
 					<td role="gridcell" aria-colindex={3} tabindex="0">
