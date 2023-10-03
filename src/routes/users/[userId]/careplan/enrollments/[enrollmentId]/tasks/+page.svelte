@@ -20,6 +20,7 @@
 	let enrollmentDsipId = data.enrollment;
 	let enrollmentCode = enrollmentDsipId.DisplayId;
 
+	console.log("enrollmentsTasks", enrollmentsTasks)
 	const enrollmentsRoute = `/users/${userId}/careplan/enrollments`;
 	const enrollmentsTask = `/users/${userId}/careplan/enrollments/${enrollmentId}/tasks`;
 
@@ -31,7 +32,7 @@
 	let offset = 0;
 	let totalEnrollmentTasksCount = data.enrollmentTask.TotalCount;
 	let isSortingAssetType = false;
-	let isSortingScheduledDate = false;
+	let isSortingCreatedAt = false;
 	let items = 10;
 
 	let paginationSettings = {
@@ -82,7 +83,7 @@
 		enrollmentsTasksResult = response.map((item, index) => ({ ...item, index: index + 1 }));
 	}
 
-	$: retrivedEnrollmentTasks = enrollmentsTasks.slice(
+	$: retrivedEnrollmentTasks = enrollmentsTasksResult.slice(
 		paginationSettings.page * paginationSettings.limit,
 		paginationSettings.page * paginationSettings.limit + paginationSettings.limit
 	);
@@ -109,12 +110,12 @@
 
 	function sortTable(columnName) {
 		isSortingAssetType = false;
-		isSortingScheduledDate = false;
+		isSortingCreatedAt = false;
 		sortOrder = sortOrder === 'ascending' ? 'descending' : 'ascending';
 		if (columnName === 'AssetType') {
 			isSortingAssetType = true;
 		} else if (columnName === 'ScheduledDate') {
-			isSortingScheduledDate = true;
+			isSortingCreatedAt = true;
 		}
 		sortBy = columnName;
 	}
@@ -147,8 +148,8 @@
 				</th>
 				<!-- <th>Created Date</th> -->
 				<th>
-					<button on:click={() => sortTable('ScheduledDate')}>
-						Created Date {isSortingScheduledDate ? (sortOrder === 'ascending' ? '▲' : '▼') : ''}
+					<button on:click={() => sortTable('CreatedAt')}>
+						Created Date {isSortingCreatedAt ? (sortOrder === 'ascending' ? '▲' : '▼') : ''}
 					</button>
 				</th>
 				<th>Completed</th>
