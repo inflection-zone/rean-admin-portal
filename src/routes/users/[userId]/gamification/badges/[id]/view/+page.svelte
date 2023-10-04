@@ -10,7 +10,7 @@
 	export let data: PageServerData;
 	let category = data.badge.Category.Name;
 	let name = data.badge.Name;
-	let description = data.badge.Description;
+	let description = (data.badge.Description !== null && data.badge.Description) ? data.badge.Description : 'Not specified';
 	let imageUrl = data.badge.ImageUrl;
 	const userId = $page.params.userId;
 	const badgeId = $page.params.id;

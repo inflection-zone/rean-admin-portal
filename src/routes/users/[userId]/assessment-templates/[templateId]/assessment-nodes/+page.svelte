@@ -4,13 +4,13 @@
 	import BreadCrumbs from '$lib/components/breadcrumbs/breadcrums.svelte';
 	import Confirm from '$lib/components/modal/confirmModal.svelte';
 	import Icon from '@iconify/svelte';
-	import { Paginator, createDataTableStore, dataTableHandler } from '@skeletonlabs/skeleton';
+	import { Paginator } from '@skeletonlabs/skeleton';
 	import type { PageServerData } from './$types';
+	import type { PaginationSettings } from '@skeletonlabs/skeleton/components/Paginator/types';
 	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 	export let data: PageServerData;
-	let assessmentNodes = data.assessmentNodes;
-	assessmentNodes = assessmentNodes.map((item, index) => ({ ...item, index: index + 1 }));
+	let assessmentNodes = data.assessmentNodes.Items;
 
 	const userId = $page.params.userId;
 	const templateId = $page.params.templateId;
@@ -29,34 +29,30 @@
 
 	let title = undefined;
 	let nodeType = undefined;
-	let sortBy = 'CreatedAt';
+	let sortBy = 'Title';
 	let sortOrder = 'ascending';
 	let itemsPerPage = 10;
-	let pageIndex = 0;
+	let offset = 0;
+	let totalAssessmentNodesCount = data.assessmentNodes.TotalCount;
+	let isSortingTitle = false;
+	let isSortingNodeType = false;
+	let items = 10;
 
-	const dataTableStore = createDataTableStore(
-		// Pass your source data here:
-		assessmentNodes,
-		{
-			// The current search term.
-			search: '',
-			// The current sort key.
-			sort: '',
-			// Paginator component settings.
-			pagination: { offset: 0, limit: 10, size: 0, amounts: [10, 20, 30, 50] }
-		}
-	);
-	// This automatically handles search, sort, etc when the model updates.
+	let paginationSettings = {
+		offset: 0,
+		limit: 10,
+		size: totalAssessmentNodesCount,
+		amounts: [10, 20, 30, 50]
+	} satisfies PaginationSettings;
 
 	async function searchNode(model) {
 		templateId;
 		let url = `/api/server/assessment-nodes/search?templateId=${templateId}&`;
 		if (sortOrder) url += `sortOrder=${sortOrder}`;
 		else url += `sortOrder=ascending`;
-
 		if (sortBy) url += `&sortBy=${sortBy}`;
 		if (itemsPerPage) url += `&itemsPerPage=${itemsPerPage}`;
-		if (pageIndex) url += `&pageIndex=${pageIndex}`;
+		if (offset) url += `&pageIndex=${offset}`;
 		if (title) url += `&title=${title}`;
 		if (nodeType) url += `&nodeType=${nodeType}`;
 
@@ -66,12 +62,44 @@
 		});
 		const response = await res.json();
 		assessmentNodes = response.map((item, index) => ({ ...item, index: index + 1 }));
-
-		dataTableStore.updateSource(assessmentNodes);
 	}
-	$: if (browser) searchNode({ title: title, nodeType: nodeType });
 
-	dataTableStore.subscribe((model) => dataTableHandler(model));
+	$: retrivedAssessmentNodes = assessmentNodes.slice(
+		paginationSettings.offset * paginationSettings.limit,
+		paginationSettings.offset * paginationSettings.limit + paginationSettings.limit
+	);
+
+	$: if (browser)
+		searchNode({
+			title: title,
+			nodeType: nodeType,
+			itemsPerPage: itemsPerPage,
+			pageIndex: offset,
+			sortOrder: sortOrder,
+			sortBy: sortBy
+		});
+
+	function onPageChange(e: CustomEvent): void {
+		let pageIndex = e.detail;
+		itemsPerPage = items * (pageIndex + 1);
+	}
+
+	function onAmountChange(e: CustomEvent): void {
+		itemsPerPage = e.detail;
+		items = itemsPerPage;
+	}
+
+	function sortTable(columnName) {
+		isSortingTitle = false;
+		isSortingNodeType = false;
+		sortOrder = sortOrder === 'ascending' ? 'descending' : 'ascending';
+		if (columnName === 'Title') {
+			isSortingTitle = true;
+		} else if (columnName === 'NodeType') {
+			isSortingNodeType = true;
+		}
+		sortBy = columnName;
+	}
 
 	const handleAssessmentNodeDelete = async (e, id) => {
 		const assessmentNodeId = id;
@@ -96,8 +124,20 @@
 <BreadCrumbs crumbs={breadCrumbs} />
 
 <div class="flex flex-wrap gap-2 mt-1">
-	<input type="text" name="title" placeholder="Search by title" bind:value={title} class="input w-auto grow" />
-	<input type="text" name="type" placeholder="Search by node type" bind:value={nodeType} class="input w-auto grow" />
+	<input
+		type="text"
+		name="title"
+		placeholder="Search by title"
+		bind:value={title}
+		class="input w-auto grow"
+	/>
+	<input
+		type="text"
+		name="type"
+		placeholder="Search by node type"
+		bind:value={nodeType}
+		class="input w-auto grow"
+	/>
 	<a href={createRoute} class="btn variant-filled-secondary">Add New</a>
 </div>
 
@@ -106,15 +146,23 @@
 		<thead class="!variant-soft-secondary">
 			<tr>
 				<th>Id</th>
-				<th>Title</th>
-				<th>Node Type</th>
+				<th>
+					<button on:click={() => sortTable('Title')}>
+						Title {isSortingTitle ? (sortOrder === 'ascending' ? '▲' : '▼') : ''}
+					</button>
+				</th>
+				<th>
+					<button on:click={() => sortTable('NodeType')}>
+						Node Type {isSortingNodeType ? (sortOrder === 'ascending' ? '▲' : '▼') : ''}
+					</button>
+				</th>
 				<th>Query Response Type</th>
 				<th />
 				<th />
 			</tr>
 		</thead>
 		<tbody class="!bg-white dark:!bg-inherit">
-			{#each $dataTableStore.filtered as row, rowIndex}
+			{#each retrivedAssessmentNodes as row, rowIndex}
 				<tr class="!border-b !border-b-secondary-100 dark:!border-b-surface-700">
 					<td>{row.index}</td>
 					<td>
@@ -151,10 +199,10 @@
 </div>
 
 <div class="w-full variant-soft-secondary rounded-lg p-2">
-	{#if $dataTableStore.pagination}
-		<Paginator
-			bind:settings={$dataTableStore.pagination}
-			buttonClasses="btn-icon bg-surface-50 dark:bg-surface-900"
-		/>
-	{/if}
+	<Paginator
+		bind:settings={paginationSettings}
+		on:page={onPageChange}
+		on:amount={onAmountChange}
+		buttonClasses="btn-icon bg-surface-50 dark:bg-surface-900"
+	/>
 </div>

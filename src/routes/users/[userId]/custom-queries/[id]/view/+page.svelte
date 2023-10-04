@@ -4,29 +4,24 @@
 	import Icon from '@iconify/svelte';
 	import type { PageServerData } from './$types';
 
-	///////////////////////////////////////////////////////////////////////////////////////////////////////////
+	//////////////////////////////////////////////////////////////////////////
 
 	export let data: PageServerData;
-	let name = data.schema.Name;
-	let description = (data.schema.Description !== null && data.schema.Description) ? data.schema.Description : 'Not specified';
-	let type = data.schema.Type;
-	let eventTypes = data.schema.EventTypes;
+	let name = data.query.Name;
+	let description = data.query.Description !== null ? data.query.Description : 'Not specified';
+	let query = data.query.Query;
+  let tags = data.query.Tags.length > 0 ? data.query.Tags : "Not specified"; 
 
 	const userId = $page.params.userId;
-  const schemaId = $page.params.schemaId;
-  const editRoute = `/users/${userId}/gamification/schemas/${schemaId}/edit`;
-	const viewRoute = `/users/${userId}/gamification/schemas/${schemaId}/view`;
-	const schemaRoute = `/users/${userId}/gamification/schemas`;
-	const nodeRoute = `/users/${userId}/gamification/schemas/${schemaId}/nodes/create`
+	const queryId = $page.params.id;
+	const viewRoute = `/users/${userId}/custom-queries/${queryId}/view`;
+	const editRoute = `/users/${userId}/custom-queries/${queryId}/edit`;
+	const queryRoute = `/users/${userId}/custom-queries`;
 
 	const breadCrumbs = [
-    {
-			name: 'Gamification',
-			path: schemaRoute
-		},
 		{
-			name: 'Schemas',
-			path: schemaRoute
+			name: 'Custom Queries',
+			path: queryRoute
 		},
 		{
 			name: 'View',
@@ -36,10 +31,8 @@
 </script>
 
 <BreadCrumbs crumbs={breadCrumbs} />
-
 <div class="flex flex-wrap gap-2">
-	<a href={nodeRoute} class="btn variant-filled-secondary ml-auto"> Add Node</a>
-	<a href={editRoute} class="btn variant-filled-secondary">
+	<a href={editRoute} class="btn variant-filled-secondary ml-auto">
 		<Icon icon="material-symbols:edit-outline" />
 		<span>Edit</span>
 	</a>
@@ -48,9 +41,9 @@
 	<table class="table">
 		<thead class="!variant-soft-secondary">
 			<tr>
-				<th>View Schema</th>
+				<th>View Query</th>
 				<th class="text-end">
-					<a href={schemaRoute} class="btn p-2 -my-2 variant-soft-secondary">
+					<a href={queryRoute} class="btn p-2 -my-2 variant-soft-secondary">
 						<Icon icon="material-symbols:close-rounded" class="text-lg" />
 					</a>
 				</th>
@@ -66,18 +59,12 @@
 				<td>{description}</td>
 			</tr>
 			<tr class="!border-b !border-b-secondary-100 dark:!border-b-surface-700">
-				<td>Type</td>
-				<td>{type}</td>
+				<td>Query</td>
+				<td>{query}</td>
 			</tr>
 			<tr class="!border-b !border-b-secondary-100 dark:!border-b-surface-700">
-				<td class="align-top">Event Types</td>
-				<td>
-					<ol class="list-decimal ml-2">
-						{#each eventTypes as eventType}
-							<li>{eventType.Name}</li>
-						{/each}
-					</ol>
-				</td>
+				<td>Tags</td>
+				<td>{tags}</td>
 			</tr>
 		</tbody>
 	</table>

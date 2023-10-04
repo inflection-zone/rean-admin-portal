@@ -9,12 +9,12 @@
 	////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 	export let data: PageServerData;
-	let id = data.course.id;
-	let name = data.course.Name;
-	let description = data.course.Description;
-	let durationInDays = data.course.DurationInDays;
-	let imageUrl = data.course.ImageUrl;
-	let modules = data.course.Modules;
+	let course = data.course;
+	let name = course.Name;
+	let description = (course.Description  !== '' && course.Description !== null) ? course.Description : 'Not specified';
+	let durationInDays = (course.DurationInDays  !== '' && course.DurationInDays !== null) ? course.DurationInDays : 'Not specified';
+	let imageUrl = course.ImageUrl;
+	let modules = course.Modules;
 
 	modules = modules.sort((a, b) => a.Sequence - b.Sequence);
 	console.log(modules);
@@ -76,7 +76,7 @@
 			<tr class="!border-b !border-b-secondary-100 dark:!border-b-surface-700">
 				<td class="align-top">Image</td>
 				<td>
-					{#if imageUrl === 'undefined'}
+					{#if imageUrl === 'undefined' || imageUrl == null}
 						Not specified
 					{:else}
 						<Image cls="flex h-24 w-24 rounded-lg" source={imageUrl} w="24" h="24" />

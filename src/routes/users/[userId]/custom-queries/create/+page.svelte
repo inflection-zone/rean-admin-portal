@@ -2,6 +2,9 @@
 	import { page } from '$app/stores';
 	import BreadCrumbs from '$lib/components/breadcrumbs/breadcrums.svelte';
 	import Icon from '@iconify/svelte';
+	import InputChip from '$lib/components/input-chips.svelte';
+	import toast from 'svelte-french-toast';
+	import { goto } from '$app/navigation';
 
 	/////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -16,14 +19,18 @@
 	];
 
 	let name ='';
-	let decription = '';
-	let format = '';
+	let description = '';
+	let format;
+	let query = '';
+	let tags = [];
 
-	const onQuerySubmit = async (name:string, decription: string, format: string) => {
+	const onQuerySubmit = async (name:string, description: string, format: string, query:string, tags:string[]) => {
 		await executeQuery({
 			name,
-			decription,
-			format
+			description,
+			format,
+			query,
+			tags
 		});
 	};
 
@@ -34,15 +41,47 @@
 			body: JSON.stringify(model),
 			headers: { 'content-type': 'application/json' }
 		});
-		const resp = await response.text();
-		console.log(response);
+	  const res = await response.json();
+		console.log("response-------",res)
+		const data = downloadFile(res)
+		if(res.success === true){
+			toast.success(`Query executed successfully, View downloads for data file`)
+			goto(queryRoute);
+		}
+		else
+		{
+			toast.error(`Unable to execute query!`)
+		}
+		console.log("response",res)
+		console.log("data", data);
 	}
+
+function downloadFile(response) {
+	const bufferData = response.Data.Buffer;
+	let fileName = response.Data.FileName
+	let blob;
+	if(fileName.includes(".csv")){
+		blob = new Blob([bufferData], { type: response.Data.MimeType });
+	}
+	else {
+		blob = new Blob([JSON.stringify(bufferData)], { type: response.Data.MimeType });
+	}
+	const url = URL.createObjectURL(blob);
+	const a = document.createElement('a');
+	a.href = url;
+	a.download = fileName
+	a.click();
+	URL.revokeObjectURL(url);
+}
+
+
 </script>
 
 <BreadCrumbs crumbs={breadCrumbs} />
 
 <form
-	on:submit={async () => await onQuerySubmit(name, decription, format)}
+	on:submit={async () => await onQuerySubmit(name, description, format, query, tags)}
+	class="table-container my-2 border border-secondary-100 dark:!border-surface-700"
 >
 	<table class="table">
 		<thead class="!variant-soft-secondary">
@@ -74,13 +113,35 @@
 			<tr class="!border-b !border-b-secondary-100 dark:!border-b-surface-700">
 				<td class="align-top">Description</td>
 				<td>
-					<textarea bind:value={decription} class="textarea" name="description" placeholder="Enter description here..." />
+					<textarea bind:value={description} class="textarea" name="description" placeholder="Enter description here..." />
 				</td>
 			</tr>
 			<tr class="!border-b !border-b-secondary-100 dark:!border-b-surface-700">
-				<td class="align-top">Format</td>
+				<td class="align-top">Query *</td>
 				<td>
-					<input bind:value={format} type="text" class="input w-full" name="format" placeholder="Enter format here..." />
+					<textarea bind:value={query} class="textarea" name="query" placeholder="Add query here..." />
+				</td>
+			</tr>
+			<tr class="!border-b !border-b-secondary-100 dark:!border-b-surface-700">
+				<td class="align-top">Tags</td>
+				<td>
+          <InputChip chips="variant-filled-error rounded-2xl" name="tags" bind:value={tags} />
+				</td>
+			</tr>
+			<tr class="!border-b !border-b-secondary-100 dark:!border-b-surface-700">
+				<td>Format *</td>
+				<td>
+					<select
+						name="format"
+						required
+						class="select w-full"
+						placeholder="Select forma here..."
+						bind:value={format}
+					>
+					  <option selected disabled>Select response format</option>
+						<option value=CSV>CSV</option>
+						<option value=JSON>JSON</option>
+					</select>
 				</td>
 			</tr>
 		</tbody>

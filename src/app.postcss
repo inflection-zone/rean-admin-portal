@@ -10,6 +10,27 @@ body {
 }
 /* html, body { @apply bg-white dark:bg-surface-900 text-black dark:text-white p-4; } */
 @tailwind base;
+@layer base {
+	input[type='date']::before {
+		content: attr(placeholder);
+		position: absolute;
+		color: #999999;
+	}
+
+	input[type='date'] {
+		color: #dfe7fd;
+	}
+
+	input[type='date']:focus,
+	input[type='date']:valid {
+		color: #000000;
+	}
+
+	input[type='date']:focus::before,
+	input[type='date']:valid::before {
+		content: '';
+	}
+}
 @tailwind components;
 @tailwind utilities;
 

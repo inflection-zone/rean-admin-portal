@@ -9,8 +9,8 @@
 	export let data: PageServerData;
 	let id = data.knowledgeNugget.id;
 	let topicName = data.knowledgeNugget.TopicName;
-	let briefInformation = data.knowledgeNugget.BriefInformation;
-	let detailedInformation = data.knowledgeNugget.DetailedInformation;
+	let briefInformation = data.knowledgeNugget.BriefInformation !== null ? data.knowledgeNugget.BriefInformation : 'Not specified'; 
+	let detailedInformation = data.knowledgeNugget.DetailedInformation !== null ? data.knowledgeNugget.DetailedInformation : 'Not specified';
 	let additionalResources_ = data.knowledgeNugget.AdditionalResources;
 	let additionalResources = additionalResources_.join(', ');
 	let tags_ = data.knowledgeNugget.Tags;

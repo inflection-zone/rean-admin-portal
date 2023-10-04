@@ -118,7 +118,7 @@
 					<td role="gridcell" aria-colindex={2} tabindex="0">
 						<a href={viewRoute(row.id)}>{Helper.truncateText(row.Symptom, 20)}</a>
 					</td>
-					<td role="gridcell" aria-colindex={3} tabindex="0">{row.Tags}</td>
+					<td role="gridcell" aria-colindex={3} tabindex="0">{row.Tags.length > 0 ? row.Tags : 'Not specified'}</td>
 					<td role="gridcell" aria-colindex={4} tabindex="0">
 						<!-- svelte-ignore missing-declaration -->
 						<Image cls="flex h-10 w-10 rounded-lg" source={row.ImageUrl} w="24" h="24" />

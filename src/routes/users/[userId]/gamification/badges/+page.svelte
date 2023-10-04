@@ -131,7 +131,7 @@
 						<a href={viewRoute(row.id)}>{Helper.truncateText(row.Name, 20)} </a>
 					</td>
 					<td role="gridcell" aria-colindex={3} tabindex="0">{row.Category.Name}</td>
-					<td role="gridcell" aria-colindex={4} tabindex="0">{row.Description}</td>
+					<td role="gridcell" aria-colindex={4} tabindex="0">{row.Description !== null ? Helper.truncateText(row.Description, 50) : 'Not specified'}</td>
 					<td>
 						<a href={editRoute(row.id)} class="btn p-2 -my-1 hover:variant-soft-primary">
 							<Icon icon="material-symbols:edit-outline" class="text-lg" />

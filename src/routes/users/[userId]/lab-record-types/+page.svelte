@@ -87,11 +87,11 @@
 						<a href={viewRoute(row.id)}>{Helper.truncateText(row.TypeName, 20)} </a>
 					</td>
 					<td role="gridcell" aria-colindex={3} tabindex="0"
-						>{Helper.truncateText(row.DisplayName !== null ? row.DisplayName : 'Not specified', 20)}
+						>{row.DisplayName !== null && row.DisplayName !== "" ? Helper.truncateText(row.DisplayName, 20) : 'Not specified'}
 					</td>
-					<td role="gridcell" aria-colindex={4} tabindex="0">{row.NormalRangeMin}</td>
-					<td role="gridcell" aria-colindex={5} tabindex="0">{row.NormalRangeMax}</td>
-					<td role="gridcell" aria-colindex={6} tabindex="0">{row.Unit}</td>
+					<td role="gridcell" aria-colindex={4} tabindex="0">{row.NormalRangeMin !== null ? row.NormalRangeMin : 'Not specified'}</td>
+					<td role="gridcell" aria-colindex={5} tabindex="0">{row.NormalRangeMax !== null ? row.NormalRangeMax : 'Not specified'}</td>
+					<td role="gridcell" aria-colindex={6} tabindex="0">{row.Unit !== null ? row.Unit : 'Not specified'}</td>
 					<td>
 						<a href={editRoute(row.id)} class="btn p-2 -my-1 hover:variant-soft-primary">
 							<Icon icon="material-symbols:edit-outline" class="text-lg" />

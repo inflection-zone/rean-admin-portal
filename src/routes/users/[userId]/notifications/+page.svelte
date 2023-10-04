@@ -5,21 +5,15 @@
 	import Confirm from '$lib/components/modal/confirmModal.svelte';
 	import { Helper } from '$lib/utils/helper';
 	import Icon from '@iconify/svelte';
-	import {
-		Paginator,
-		createDataTableStore,
-		dataTableHandler,
-		tableA11y,
-		tableInteraction
-	} from '@skeletonlabs/skeleton';
+	import { Paginator } from '@skeletonlabs/skeleton';
 	import date from 'date-and-time';
 	import type { PageServerData } from './$types';
+	import type { PaginationSettings } from '@skeletonlabs/skeleton/components/Paginator/types';
 
 	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 	export let data: PageServerData;
-	let notifications = data.notification;
-	notifications = notifications.map((item, index) => ({ ...item, index: index + 1 }));
+	let notifications = data.notification.Items;
 
 	const userId = $page.params.userId;
 	const notificationRoute = `/users/${userId}/notifications`;
@@ -27,24 +21,25 @@
 	const viewRoute = (id) => `/users/${userId}/notifications/${id}/view`;
 	const createRoute = `/users/${userId}/notifications/create`;
 
-	const breadCrumbs = [
-		{
-			name: 'Notifications',
-			path: notificationRoute
-		}
-	];
+	const breadCrumbs = [{ name: 'Notifications', path: notificationRoute }];
 
 	let title = undefined;
 	let type = undefined;
-	let sortBy = 'CreatedAt';
+	let sortBy = 'Title';
 	let sortOrder = 'ascending';
 	let itemsPerPage = 10;
-	let pageIndex = 0;
+	let offset = 0;
+	let totalNotificationsCount = data.notification.TotalCount;
+	let isSortingTitle = false;
+	let isSortingType = false;
+	let items = 10;
 
-	const dataTableStore = createDataTableStore(notifications, {
-		search: '',
-		pagination: { offset: 0, limit: 10, size: 0, amounts: [10, 20, 30, 50] }
-	});
+	let paginationSettings = {
+		offset: 0,
+		limit: 10,
+		size: totalNotificationsCount,
+		amounts: [10, 20, 30, 50]
+	} satisfies PaginationSettings;
 
 	async function searchNotification(model) {
 		let url = `/api/server/notifications/search?`;
@@ -53,7 +48,7 @@
 
 		if (sortBy) url += `&sortBy=${sortBy}`;
 		if (itemsPerPage) url += `&itemsPerPage=${itemsPerPage}`;
-		if (pageIndex) url += `&pageIndex=${pageIndex}`;
+		if (offset) url += `&pageIndex=${offset}`;
 		if (title) url += `&title=${title}`;
 		if (type) url += `&type=${type}`;
 
@@ -63,11 +58,44 @@
 		});
 		const response = await res.json();
 		notifications = response.map((item, index) => ({ ...item, index: index + 1 }));
-		dataTableStore.updateSource(notifications);
 	}
-	$: if (browser) searchNotification({ title: title, type: type });
 
-	dataTableStore.subscribe((model) => dataTableHandler(model));
+	$: retrivedNotifications = notifications.slice(
+		paginationSettings.offset * paginationSettings.limit,
+		paginationSettings.offset * paginationSettings.limit + paginationSettings.limit
+	);
+
+	$: if (browser)
+		searchNotification({
+			title: title,
+			type: type,
+			itemsPerPage: itemsPerPage,
+			pageIndex: offset,
+			sortOrder: sortOrder,
+			sortBy: sortBy
+		});
+
+	function onPageChange(e: CustomEvent): void {
+		let pageIndex = e.detail;
+		itemsPerPage = items * (pageIndex + 1);
+	}
+
+	function onAmountChange(e: CustomEvent): void {
+		itemsPerPage = e.detail;
+		items = itemsPerPage;
+	}
+
+	function sortTable(columnName) {
+		isSortingTitle = false;
+		isSortingType = false;
+		sortOrder = sortOrder === 'ascending' ? 'descending' : 'ascending';
+		if (columnName === 'Title') {
+			isSortingTitle = true;
+		} else if (columnName === 'Type') {
+			isSortingType = true;
+		}
+		sortBy = columnName;
+	}
 
 	const handleNotificationDelete = async (e, id) => {
 		const notificationId = id;
@@ -90,32 +118,53 @@
 <BreadCrumbs crumbs={breadCrumbs} />
 
 <div class="flex flex-wrap gap-2 mt-1">
-	<input type="text" name="title" placeholder="Search by title" bind:value={title} class="input w-auto grow" />
-	<input type="text" name="type" placeholder="Search by type" bind:value={type} class="input w-auto grow" />
+	<input
+		type="text"
+		name="title"
+		placeholder="Search by title"
+		bind:value={title}
+		class="input w-auto grow"
+	/>
+	<input
+		type="text"
+		name="type"
+		placeholder="Search by type"
+		bind:value={type}
+		class="input w-auto grow"
+	/>
 	<a href={createRoute} class="btn variant-filled-secondary">Add New</a>
 </div>
 
 <div class="table-container my-2 !border !border-secondary-100 dark:!border-surface-700">
-	<table class="table" role="grid" use:tableInteraction use:tableA11y>
-		<thead on:click={(e) => dataTableStore.sort(e)} on:keypress class="!variant-soft-secondary">
+	<table class="table" role="grid">
+		<thead class="!variant-soft-secondary">
 			<tr>
 				<th data-sort="index">Id</th>
-				<th data-sort="index">Title</th>
+				<th>
+					<button on:click={() => sortTable('Title')}>
+						Title {isSortingTitle ? (sortOrder === 'ascending' ? '▲' : '▼') : ''}
+					</button>
+				</th>
 				<th data-sort="index">Body</th>
-				<th>Type</th>
+				<th>
+					<button on:click={() => sortTable('Type')}>
+						Type {isSortingType ? (sortOrder === 'ascending' ? '▲' : '▼') : ''}
+					</button>
+				</th>
 				<th>Created Date</th>
 				<th />
 				<th />
 			</tr>
 		</thead>
 		<tbody class="!bg-white dark:!bg-inherit">
-			{#each $dataTableStore.filtered as row}
+			{#each retrivedNotifications as row}
 				<tr class="!border-b !border-b-secondary-100 dark:!border-b-surface-700">
 					<td role="gridcell" aria-colindex={1} tabindex="0">{row.index}</td>
 					<td role="gridcell" aria-colindex={2} tabindex="0">
 						<a href={viewRoute(row.id)}>{Helper.truncateText(row.Title, 20)}</a>
 					</td>
-					<td role="gridcell" aria-colindex={3} tabindex="0">{Helper.truncateText(row.Body, 40)}</td
+					<td role="gridcell" aria-colindex={3} tabindex="0"
+						>{row.Body !== null ? Helper.truncateText(row.Body, 40) : 'Not specified'}</td
 					>
 					<td role="gridcell" aria-colindex={4} tabindex="0">{row.Type}</td>
 					<td role="gridcell" aria-colindex={5} tabindex="0"
@@ -153,10 +202,10 @@
 </div>
 
 <div class="w-full variant-soft-secondary rounded-lg p-2">
-	{#if $dataTableStore.pagination}
-		<Paginator
-			bind:settings={$dataTableStore.pagination}
-			buttonClasses="btn-icon bg-surface-50 dark:bg-surface-900"
-		/>
-	{/if}
+	<Paginator
+		bind:settings={paginationSettings}
+		on:page={onPageChange}
+		on:amount={onAmountChange}
+		buttonClasses="btn-icon bg-surface-50 dark:bg-surface-900"
+	/>
 </div>

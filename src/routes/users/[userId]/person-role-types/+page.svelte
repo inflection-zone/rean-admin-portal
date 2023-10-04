@@ -82,7 +82,7 @@
 					<td>
 						<a href={viewRoute(row.id)}>{Helper.truncateText(row.RoleName, 20)} </a>
 					</td>
-					<td>{Helper.truncateText(row.Description, 40)} </td>
+					<td>{row.Description !== null ? Helper.truncateText(row.Description, 40) : 'Not specified'} </td>
 					<td>{date.format(new Date(row.CreatedAt), 'DD-MMM-YYYY')}</td>
 					<td>
 						<a href={editRoute(row.id)} class="btn p-2 -my-1 hover:variant-soft-primary">

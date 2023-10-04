@@ -11,14 +11,14 @@ export const GET = async (event: RequestEvent) => {
     const categoryId = searchParams.get('categoryId') ?? undefined;
     const sortBy = searchParams.get('sortBy') ?? 'CreatedAt';
     const sortOrder = searchParams.get('sortOrder') ?? 'ascending';
-    const itemsPerPage_ = searchParams.get('pageIndex');
-    const itemsPerPage = itemsPerPage_ ? parseInt(itemsPerPage_) : 25;
+    const itemsPerPage_ = searchParams.get('itemsPerPage');
+    const itemsPerPage = itemsPerPage_ ? parseInt(itemsPerPage_) : 10;
     const pageIndex_ = searchParams.get('pageIndex');
     const pageIndex = pageIndex_ ? parseInt(pageIndex_) : 0;
 
 	try {	
         const searchParams = {
-            name ,
+            name,
             categoryId,
             orderBy: sortBy,
             order: sortOrder,
