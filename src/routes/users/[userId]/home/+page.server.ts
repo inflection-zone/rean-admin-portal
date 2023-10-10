@@ -19,7 +19,13 @@ export const load: PageServerLoad = async (event: RequestEvent) => {
 		const _appDownloadsData = await getAppDownloadsData(sessionId);
 		const _years = await getYears(sessionId);
 		const overallUsersData = _overallUsersData.Data.UsersCountStats;
-		const deviceDetailWiseUsers = _deviceDetailWiseUsers.Data.DeviceDetailWiseUsers;
+		const deviceDetailWiseUsers_ = _deviceDetailWiseUsers.Data.DeviceDetailWiseUsers;
+		const deviceDetailWiseUsers = deviceDetailWiseUsers_.map(item => {
+			if (item.OSType === 'aaa') {
+				return { OSType: 'Missing device detail', count: item.count };
+			}
+			return item;
+		});
 		// const enrollmentUsers = _enrollmentUsers.Data.EnrollmentUsers;
 
 		let years = _years.Data.Years;
@@ -64,8 +70,8 @@ export const load: PageServerLoad = async (event: RequestEvent) => {
 			if (deviceDetail.OSType === 'iOS'){
 				iOSUsersArray.push(deviceDetail.count)
 			}
-			else if (deviceDetail.OSType === 'android'){
-				iOSUsersArray.push(deviceDetail.count)
+			else if (deviceDetail.OSType === 'Android'){
+				androidUsersArray.push(deviceDetail.count)
 			}
 		}
 

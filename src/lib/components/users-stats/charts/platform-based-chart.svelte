@@ -28,7 +28,7 @@
 						fill: false
 					},
 					{
-						label: 'IOS users',
+						label: 'iOS users',
 						data: iOSUsersData,
 						borderColor: 'purple',
 						fill: false
