@@ -57,6 +57,7 @@
 						<input type="text" class="input pl-10" placeholder="Search" />
 						<div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
 							<Icon icon="material-symbols:search-rounded" class="text-lg text-primary-300" />
+							
 						</div>
 					</div>
 				</div>
@@ -73,7 +74,8 @@
 					class="btn p-1 rounded hover:bg-white/10 text-white mr-6"
 					on:click={drawerRightOpen}
 				>
-					<Icon icon="material-symbols:person-outline-rounded" class="text-3xl" />
+					<!-- <Icon icon="material-symbols:person-outline-rounded" class="text-3xl" /> -->
+					<img class="w-8 ml-2 text-lg invert dark:filter-none" src="/user.png" alt="" />
 				</button>
 			</svelte:fragment>
 		</AppBar>

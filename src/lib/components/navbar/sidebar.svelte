@@ -16,11 +16,11 @@
 					title: 'RHG App',
 					link: `/users/${userId}/home`
 				},
-				{
-					icon: '/rean-logo-white.png',
-					title: 'RHG Bot',
-					link: `/users/${userId}/bot-stats`
-				}
+				// {
+				// 	icon: '/rean-logo-white.png',
+				// 	title: 'RHG Bot',
+				// 	link: `/users/${userId}/bot-stats`
+				// }
 			]
 		},
 		{
@@ -164,7 +164,7 @@
 			]
 		},
 		{
-			title: 'Gamifiation',
+			title: 'Gamification',
 			icon: 'simple-icons:gamedeveloper',
 			childNav: [
 				{
