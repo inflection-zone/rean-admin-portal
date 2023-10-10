@@ -21,7 +21,7 @@
 	const viewRoute = (id) => `/users/${userId}/gamification/schemas/${id}/view`;
 	const schemaRoute = `/users/${userId}/gamification/schemas`;
 
-	const breadCrumbs = [{ name: 'schemas', path: schemaRoute }];
+	const breadCrumbs = [{ name: 'Schemas', path: schemaRoute }];
 
 	let name = undefined;
 	let sortBy = 'Name';
