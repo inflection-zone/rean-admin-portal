@@ -13,10 +13,14 @@
 	export let data: PageServerData;
 	let symptom = data.symptom.Symptom;
 	let description = data.symptom.Description !== null ? data.symptom.Description : 'Not specified';
-	let tags_ = data.symptom.Tags;
-	let tags = tags_.join(', ');
+	let tags = data.symptom.Tags;
+ 
 	let language = data.symptom.Language;
-	let imageUrl = data.symptom.ImageUrl ?? undefined;
+	let imageUrl = data.symptom.ImageUrl;
+
+	if (tags.length < 1) {
+		tags = tags.join(', ');
+	}
 
 	const userId = $page.params.userId;
 	const symptomId = $page.params.id;
@@ -83,7 +87,7 @@
 			<tr class="!border-b !border-b-secondary-100 dark:!border-b-surface-700">
 				<td class="align-top">Image</td>
 				<td>
-					{#if imageUrl === 'undefined'}
+					{#if imageUrl == 'undefined' || imageUrl == null}
 						Not specified
 					{:else}
 						<Image cls="flex h-24 w-24 rounded-lg" source={imageUrl} w="24" h="24" />
