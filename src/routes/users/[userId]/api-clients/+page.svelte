@@ -180,11 +180,11 @@
 						>
 							<button
 								on:click|preventDefault={() => confirmThis(handleApiClientDelete, row.id)}
-								class="btn p-1 -my-1 hover:variant-soft-error"
+								class="btn px-0 -my-2 hover:variant-soft-error"
 							>
 							<SvgIcon
-								cls="stroke-slate-800 hover:stroke-primary-500 stroke-2 fill-none h-7"
-								h="50%" w="100%" iconPath='/images/others/delete.svg#icon'/>
+								cls="stroke-slate-800 hover:stroke-error-500 stroke-2 fill-none"
+								h="100%" w="100%" iconPath='/images/others/delete.svg#icon'/>
 								<!-- <Icon icon="material-symbols:delete-outline-rounded" class="text-lg" /> -->
 							</button>
 							<span slot="title"> Delete </span>
