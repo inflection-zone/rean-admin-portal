@@ -117,6 +117,11 @@
 			headers: { 'content-type': 'application/json' }
 		});
 	}
+
+	function getImageUrl(id:string):string{
+		return data.backendUrl+`/file-resources/${id}/download?disposition=inline`
+	}
+	
 </script>
 
 <BreadCrumbs crumbs={breadCrumbs} />
@@ -162,10 +167,13 @@
 						<a href={viewRoute(row.id)}>{Helper.truncateText(row.Symptom, 20)}</a>
 					</td>
 					<td role="gridcell" aria-colindex={3} tabindex="0">{row.Tags.length > 0 ? row.Tags : 'Not specified'}</td>
-					<td role="gridcell" aria-colindex={4} tabindex="0">
-						<!-- svelte-ignore missing-declaration -->
-						<Image cls="flex h-10 w-10 rounded-lg" source={row.ImageUrl} w="24" h="24" />
-					</td>
+					<td role="gridcell" aria-colindex="{4}" tabindex="0">
+						{#if row.ImageResourceId === undefined || row.ImageResourceId===null}
+						Not specified
+						{:else}
+						<Image cls="flex h-8 w-8 rounded-lg" source="{getImageUrl(row.ImageResourceId)}" w="24" h="24" />
+						{/if}
+						</td>
 					<td role="gridcell" aria-colindex={5} tabindex="0">
 						{date.format(new Date(row.CreatedAt), 'DD-MMM-YYYY')}
 					</td>

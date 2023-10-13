@@ -18,20 +18,21 @@ export const load: PageServerLoad = async (event: RequestEvent) => {
 		const symptomsCount = response.Data.SymptomTypes.TotalCount;
 		const symptoms = response.Data.SymptomTypes.Items;
 
-		for (const symptom of symptoms) {
-			if (symptom.ImageResourceId) {
-				symptom['ImageUrl'] =
-					BACKEND_API_URL +
-					`/file-resources/${symptom.ImageResourceId}/download?disposition=inline`;
-			} else {
-				symptom['ImageUrl'] = null;
-			}
-		}
+		// for (const symptom of symptoms) {
+		// 	if (symptom.ImageResourceId) {
+		// 		symptom['ImageUrl'] =
+		// 			BACKEND_API_URL +
+		// 			`/file-resources/${symptom.ImageResourceId}/download?disposition=inline`;
+		// 	} else {
+		// 		symptom['ImageUrl'] = null;
+		// 	}
+		// }
 		return {
 			symptomsCount,
 			symptoms,
 			sessionId,
-			message: response.Message
+			message: response.Message,
+			backendUrl:BACKEND_API_URL
 		};
 	} catch (error) {
 		console.error(`Error retriving symptom: ${error.message}`);
