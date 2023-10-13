@@ -21,7 +21,8 @@ export const load: PageServerLoad = async (event: RequestEvent) => {
 		const participantId = enrollment.ParticipantId;
 		const careplanId = enrollment.CareplanId;
 		const searchParams ={
-			careplanId :careplanId
+			careplanId :careplanId,
+			participantId: participantId
 		}
 		const enrollmentTask_ = await searchEnrollmentTask(sessionId, searchParams);
 		const participantResponse_ = await searchParticipantActivities(sessionId, participantId);

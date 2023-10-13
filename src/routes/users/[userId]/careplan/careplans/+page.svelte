@@ -153,7 +153,7 @@
 				<th data-sort="Code">Code</th>
 				<th>
 					<button on:click={() => sortTable('CategoryId')}>
-						Type {isSortingCategoryId ? (sortOrder === 'ascending' ? '▲' : '▼') : ''}
+						Category {isSortingCategoryId ? (sortOrder === 'ascending' ? '▲' : '▼') : ''}
 					</button>
 				</th>
 				<th />

@@ -107,9 +107,14 @@
 				<td>
 					<select class="select w-full" name="type" placeholder="select type here...">
 						<option selected>General</option>
-						<option>Auto</option>
-						<option>Dark mode</option>
-						<option>Light mode</option>
+						<option value="Email">Email</option>
+						<option value="SMS">SMS</option>
+						<option value="WebPush">Web Push</option>
+						<option value="MobilePush">Mobile Push</option>
+						<option value="Webhook">Webhook</option>
+						<option value="WhatsApp">Whats App</option>
+						<option value="Telegram">Telegram</option>
+						<option value="Slack">Slack</option>
 					</select>
 				</td>
 			</tr>

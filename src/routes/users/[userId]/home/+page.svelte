@@ -35,8 +35,8 @@
 		// downloads,
 		totalUsers.Count,
 		nonDeletedUsers.Count,
-		activeUsers.Count,
-		enrolledUsersData.Count
+		enrolledUsersData.Count,
+		activeUsers.Count,	
 	];
 	
 </script>
@@ -178,24 +178,24 @@
 				<div class="text-sm font-normal text-primary-500 dark:text-primary-100">{downloads}</div>
 			</div> -->
 			<div class="flex gap-4 w-full py-1">
-				<div class="h-3 w-3 mt-1 border bg-primary-500" />
+				<div class="h-3 w-3 mt-1 border bg-primary-700" />
 				<div class="text-sm w-2/3 font-normal text-primary-500 dark:text-primary-100">Onboarded Users</div>
 				<div class="text-sm w-1/3 font-normal text-primary-500 dark:text-primary-100">{totalUsers.Count}</div>
 			</div>
 			<div class="flex gap-4 w-full py-1">
-				<div class="h-3 w-3 mt-1 border bg-secondary-500" />
+				<div class="h-3 w-3 mt-1 border bg-primary-500" />
 				<div class="text-sm w-2/3 font-normal text-primary-500 dark:text-primary-100">Not Deleted Users</div>
 				<div class="text-sm w-1/3 font-normal text-primary-500 dark:text-primary-100">{nonDeletedUsers.Count}</div>
+			</div>
+			<div class="flex gap-4 py-1 w-full">
+				<div class="h-3 w-3 mt-1 border bg-secondary-500" />
+				<div class="text-sm w-2/3 font-normal text-primary-500 dark:text-primary-100">Enrolled Users</div>
+				<div class="text-sm w-1/3 font-normal text-primary-500 dark:text-primary-100">{enrolledUsersData.Count}</div>
 			</div>
 			<div class="flex gap-4 w-full py-1">
 				<div class="h-3 w-3 mt-1 border bg-tertiary-500" />
 				<div class="text-sm w-2/3 font-normal text-primary-500 dark:text-primary-100">Users With Active Session</div>
 				<div class="text-sm w-1/3 font-normal text-primary-500 dark:text-primary-100">{activeUsers.Count}</div>
-			</div>
-			<div class="flex gap-4 py-1 w-full">
-				<div class="h-3 w-3 mt-1 border bg-primary-700" />
-				<div class="text-sm w-2/3 font-normal text-primary-500 dark:text-primary-100">Enrolled Users</div>
-				<div class="text-sm w-1/3 font-normal text-primary-500 dark:text-primary-100">{enrolledUsersData.Count}</div>
 			</div>
 		</div>
 	</div>

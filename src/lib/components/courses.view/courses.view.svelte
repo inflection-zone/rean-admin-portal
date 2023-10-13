@@ -2,17 +2,13 @@
 	import CollapsibleSection from '$lib/components/courses.view/collapsible.section.svelte';
 	import Confirm from '$lib/components/modal/confirmModal.svelte';
 	import Icon from '@iconify/svelte';
-	import { Paginator, type PaginationSettings } from '@skeletonlabs/skeleton';
 	import { createEventDispatcher } from 'svelte';
 
 	/////////////////////////////////////////////////////////////////////////////////////////////////
 
 	export let userId = undefined;
 	export let courses = [];
-	export let itemsPerPage;
-	export let toatalCourseCount;
-	let items = 10;
-
+	$:courses
 	courses = courses.map((item, index) => ({ ...item, index: index + 1 }));
 	let addModuleRoute = (courseId) => `/users/${userId}/courses/${courseId}/modules/create`;
 	let addContentRoute = (courseId, moduleId) =>
@@ -28,23 +24,6 @@
 	let viewContentRoute = (courseId, moduleId, contentId) =>
 		`/users/${userId}/courses/${courseId}/modules/${moduleId}/contents/${contentId}/edit`;
 
-	let paginationSettings = {
-		page: 0,
-		limit: 10,
-		size: toatalCourseCount,
-		amounts: [10, 20, 30, 50]
-	} satisfies PaginationSettings;
-
-	function onPageChange(e: CustomEvent): void {
-		let pageIndex = e.detail;
-		itemsPerPage = items * (pageIndex + 1);
-	}
-
-	function onAmountChange(e: CustomEvent): void {
-		itemsPerPage = e.detail;
-		items = itemsPerPage;
-	}
-
 	const dispatch = createEventDispatcher();
 
 	const handleContentDelete = async (id) => dispatch('onContentDeleteClick', { contentId: id });
@@ -54,6 +33,7 @@
 
 	const handlelModuleDelete = async (moduleId, contents) =>
 		dispatch('onModuleDeleteClick', { moduleId: moduleId, contents: contents });
+
 </script>
 
 <div
@@ -158,7 +138,7 @@
 	</section>
 </div>
 
-<div class="w-full variant-soft-secondary rounded-lg p-2">
+<!-- <div class="w-full variant-soft-secondary rounded-lg p-2">
 	<Paginator
 		bind:settings={paginationSettings}
 		on:page={onPageChange}
@@ -168,4 +148,4 @@
 		controlVariant = 'rounded-full text-primary-500 '
 		controlSeparator = 'fill-primary-400'
 		/>
-</div>
+</div> -->

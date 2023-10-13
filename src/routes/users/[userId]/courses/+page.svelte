@@ -1,11 +1,11 @@
 <script lang="ts">
-	// import { createDataTableStore, dataTableHandler } from '@skeletonlabs/skeleton';
 	import { page } from '$app/stores';
 	import BreadCrumbs from '$lib/components/breadcrumbs/breadcrums.svelte';
 	import type { PageServerData } from './$types';
 	import CourseView from '$lib/components/courses.view/courses.view.svelte';
 	import { showMessage } from '$lib/utils/message.utils';
 	import { browser } from '$app/environment';
+	import { Paginator, type PaginationSettings } from '@skeletonlabs/skeleton';
 
 	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -34,13 +34,8 @@
 	let sortOrder = 'ascending';
 	let itemsPerPage = 10;
 	let pageIndex = 0;
-
-	// const searchParams = async (name: string, durationInDays: string) => {
-	// 	await searchCourse({
-	// 		name: name,
-	// 		durationInDays: durationInDays
-	// 	});
-	// };
+	let items = 10;
+	
 	$: if (browser)
 	searchCourse({
 		name: name,
@@ -67,11 +62,30 @@
 			headers: { 'content-type': 'application/json' }
 		});
 		const response = await res.json();
-
 		courses = response.map((item, index) => ({ ...item, index: index + 1 }));
-
 	}
 
+	let paginationSettings = {
+		page: 0,
+		limit: 10,
+		size: toatalCourseCount,
+		amounts: [10, 20, 30, 50]
+	} satisfies PaginationSettings;
+
+	function onPageChange(e: CustomEvent): void {
+		let pageIndex = e.detail;
+		itemsPerPage = items * (pageIndex + 1);
+	}
+
+	function onAmountChange(e: CustomEvent): void {
+		itemsPerPage = e.detail;
+		items = itemsPerPage;
+	}
+
+	$: retrivedCourses = courses.slice(
+		paginationSettings.page * paginationSettings.limit,
+		paginationSettings.page * paginationSettings.limit + paginationSettings.limit
+	);
 	const handleCourseDelete = async (id, modules) => {
 		const courseId = id;
 		console.log('courseId', courseId);
@@ -144,18 +158,34 @@
 <BreadCrumbs crumbs={breadCrumbs} />
 
 <div class="flex flex-wrap gap-2 mt-1">
-	<a href={createRoute} class="btn variant-filled-secondary ml-auto">Add New</a>
+	<input
+		type="text"
+		name="name"
+		placeholder="Search by name"
+		bind:value={name}
+		class="input w-auto grow"
+	/>
+	<a href={createRoute} class="btn variant-filled-secondary">Add New</a>
 </div>
 
 <CourseView
-	{courses}
+  courses={retrivedCourses}
 	{userId}
-	itemsPerPage= {itemsPerPage}
-	toatalCourseCount= {toatalCourseCount}
-	on:searchCourse={async () => await searchCourse({name, durationInDays, itemsPerPage, pageIndex, sortOrder, sortBy })}
 	on:onContentDeleteClick={async (e) => await handleContentDelete(e.detail.contentId)}
 	on:onModuleDeleteClick={async (e) =>
 		await handleModuleDelete(e.detail.moduleId, e.detail.contents)}
 	on:onCourseDeleteClick={async (e) =>
 		await handleCourseDelete(e.detail.courseId, e.detail.modules)}
 />
+
+<div class="w-full variant-soft-secondary rounded-lg p-2">
+	<Paginator
+		bind:settings={paginationSettings}
+		on:page={onPageChange}
+		on:amount={onAmountChange}
+		buttonClasses=" text-primary-500"
+		regionControl = 'bg-surface-100 rounded-lg btn-group text-primary-500 border border-primary-200'
+		controlVariant = 'rounded-full text-primary-500 '
+		controlSeparator = 'fill-primary-400'
+		/>
+</div>
