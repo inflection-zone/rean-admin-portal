@@ -176,24 +176,30 @@
 			</tr>
 		</thead>
 		<tbody class="!bg-white dark:!bg-inherit">
-			{#each retrivedEnrollments as row}
-				<tr class="!border-b !border-b-secondary-100 dark:!border-b-surface-700">
-					<td role="gridcell" aria-colindex={1} tabindex="0">{row.index}</td>
-					<td role="gridcell" aria-colindex={2} tabindex="0">
-						<a href="/users/${userId}/careplan/enrollments/{row.id}/view"
-							>Participant - {row.Participant.DisplayId}</a
-						>
-					</td>
-					<td role="gridcell" aria-colindex={3} tabindex="0">{row.DisplayId}</td>
-					<td role="gridcell" aria-colindex={3} tabindex="0">{row.Careplan.Name}</td>
-					<td role="gridcell" aria-colindex={4} tabindex="0"
-						>{date.format(new Date(row.StartDate), 'DD-MMM-YYYY')}</td
-					>
-					<td role="gridcell" aria-colindex={5} tabindex="0"
-						>{date.format(new Date(row.EndDate), 'DD-MMM-YYYY')}</td
-					>
+			{#if retrivedEnrollments.length <= 0 }
+				<tr>
+					<td colspan="6">No records found</td>
 				</tr>
-			{/each}
+			{:else}
+				{#each retrivedEnrollments as row}
+					<tr class="!border-b !border-b-secondary-100 dark:!border-b-surface-700">
+						<td role="gridcell" aria-colindex={1} tabindex="0">{row.index}</td>
+						<td role="gridcell" aria-colindex={2} tabindex="0">
+							<a href="/users/${userId}/careplan/enrollments/{row.id}/view"
+								>Participant - {row.Participant.DisplayId}</a
+							>
+						</td>
+						<td role="gridcell" aria-colindex={3} tabindex="0">{row.DisplayId}</td>
+						<td role="gridcell" aria-colindex={3} tabindex="0">{row.Careplan.Name}</td>
+						<td role="gridcell" aria-colindex={4} tabindex="0"
+							>{date.format(new Date(row.StartDate), 'DD-MMM-YYYY')}</td
+						>
+						<td role="gridcell" aria-colindex={5} tabindex="0"
+							>{date.format(new Date(row.EndDate), 'DD-MMM-YYYY')}</td
+						>
+					</tr>
+				{/each}
+			{/if}
 		</tbody>
 	</table>
 </div>

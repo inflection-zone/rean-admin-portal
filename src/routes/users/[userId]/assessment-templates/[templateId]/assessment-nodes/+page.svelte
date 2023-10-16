@@ -162,38 +162,44 @@
 			</tr>
 		</thead>
 		<tbody class="!bg-white dark:!bg-inherit">
-			{#each retrivedAssessmentNodes as row, rowIndex}
-				<tr class="!border-b !border-b-secondary-100 dark:!border-b-surface-700">
-					<td>{row.index}</td>
-					<td>
-						<a href={viewRoute(row.id)}> {row.Title}</a>
-					</td>
-					<td>{row.NodeType}</td>
-					<td>{row.QueryResponseType}</td>
-					<td>
-						<a href={editRoute(row.id)} class="btn p-2 -my-1 hover:variant-soft-primary">
-							<Icon icon="material-symbols:edit-outline" class="text-lg" />
-						</a>
-					</td>
-					<td>
-						<Confirm
-							confirmTitle="Delete"
-							cancelTitle="Cancel"
-							let:confirm={confirmThis}
-							on:delete={(e) => handleAssessmentNodeDelete(e, row.id)}
-						>
-							<button
-								on:click|preventDefault={() => confirmThis(handleAssessmentNodeDelete, row.id)}
-								class="btn p-2 -my-1 hover:variant-soft-error"
-							>
-								<Icon icon="material-symbols:delete-outline-rounded" class="text-lg" />
-							</button>
-							<span slot="title"> Delete </span>
-							<span slot="description"> Are you sure you want to delete a assessment node? </span>
-						</Confirm>
-					</td>
+			{#if retrivedAssessmentNodes.length <= 0 }
+				<tr>
+					<td colspan="6">No records found</td>
 				</tr>
-			{/each}
+			{:else}
+				{#each retrivedAssessmentNodes as row, rowIndex}
+					<tr class="!border-b !border-b-secondary-100 dark:!border-b-surface-700">
+						<td>{row.index}</td>
+						<td>
+							<a href={viewRoute(row.id)}> {row.Title}</a>
+						</td>
+						<td>{row.NodeType}</td>
+						<td>{row.QueryResponseType}</td>
+						<td>
+							<a href={editRoute(row.id)} class="btn p-2 -my-1 hover:variant-soft-primary">
+								<Icon icon="material-symbols:edit-outline" class="text-lg" />
+							</a>
+						</td>
+						<td>
+							<Confirm
+								confirmTitle="Delete"
+								cancelTitle="Cancel"
+								let:confirm={confirmThis}
+								on:delete={(e) => handleAssessmentNodeDelete(e, row.id)}
+							>
+								<button
+									on:click|preventDefault={() => confirmThis(handleAssessmentNodeDelete, row.id)}
+									class="btn p-2 -my-1 hover:variant-soft-error"
+								>
+									<Icon icon="material-symbols:delete-outline-rounded" class="text-lg" />
+								</button>
+								<span slot="title"> Delete </span>
+								<span slot="description"> Are you sure you want to delete a assessment node? </span>
+							</Confirm>
+						</td>
+					</tr>
+				{/each}
+			{/if}
 		</tbody>
 	</table>
 </div>

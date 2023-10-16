@@ -159,43 +159,49 @@
 			</tr>
 		</thead>
 		<tbody class="!bg-white dark:!bg-inherit">
-			{#each retrivedOrganizations as row}
-				<tr class="!border-b !border-b-secondary-100 dark:!border-b-surface-700">
-					<td role="gridcell" aria-colindex={1} tabindex="0">{row.index}</td>
-					<td role="gridcell" aria-colindex={2} tabindex="0">
-						<a href={viewRoute(row.id)}>{Helper.truncateText(row.Type, 20)}</a>
-					</td>
-					<td role="gridcell" aria-colindex={3} tabindex="0">{Helper.truncateText(row.Name, 20)}</td
-					>
-					<td role="gridcell" aria-colindex={4} tabindex="0">{row.ContactPhone}</td>
-					<td role="gridcell" aria-colindex={5} tabindex="0">{row.ContactEmail}</td>
-					<td>
-						<a class="btn p-2 hover:variant-soft-secondary" href={editRoute(row.id)}>
-							<Icon icon="material-symbols:edit-outline" class="text-lg" />
-						</a>
-					</td>
-					<td>
-						<Confirm
-							confirmTitle="Delete"
-							cancelTitle="Cancel"
-							let:confirm={confirmThis}
-							on:delete={(e) => {
-								handleOrganizationsDelete(e, row.id);
-							}}
-						>
-							<button
-								on:click|preventDefault={() => confirmThis(handleOrganizationsDelete, row.id)}
-								class="btn p-2 -my-1 hover:variant-soft-error"
-							>
-								<Icon icon="material-symbols:delete-outline-rounded" class="text-lg" />
-							</button>
-
-							<span slot="title"> Delete </span>
-							<span slot="description"> Are you sure you want to delete a organization? </span>
-						</Confirm>
-					</td>
+			{#if retrivedOrganizations.length <= 0 }
+				<tr>
+					<td colspan="6">No records found</td>
 				</tr>
-			{/each}
+			{:else}
+				{#each retrivedOrganizations as row}
+					<tr class="!border-b !border-b-secondary-100 dark:!border-b-surface-700">
+						<td role="gridcell" aria-colindex={1} tabindex="0">{row.index}</td>
+						<td role="gridcell" aria-colindex={2} tabindex="0">
+							<a href={viewRoute(row.id)}>{Helper.truncateText(row.Type, 20)}</a>
+						</td>
+						<td role="gridcell" aria-colindex={3} tabindex="0">{Helper.truncateText(row.Name, 20)}</td
+						>
+						<td role="gridcell" aria-colindex={4} tabindex="0">{row.ContactPhone}</td>
+						<td role="gridcell" aria-colindex={5} tabindex="0">{row.ContactEmail}</td>
+						<td>
+							<a class="btn p-2 hover:variant-soft-secondary" href={editRoute(row.id)}>
+								<Icon icon="material-symbols:edit-outline" class="text-lg" />
+							</a>
+						</td>
+						<td>
+							<Confirm
+								confirmTitle="Delete"
+								cancelTitle="Cancel"
+								let:confirm={confirmThis}
+								on:delete={(e) => {
+									handleOrganizationsDelete(e, row.id);
+								}}
+							>
+								<button
+									on:click|preventDefault={() => confirmThis(handleOrganizationsDelete, row.id)}
+									class="btn p-2 -my-1 hover:variant-soft-error"
+								>
+									<Icon icon="material-symbols:delete-outline-rounded" class="text-lg" />
+								</button>
+
+								<span slot="title"> Delete </span>
+								<span slot="description"> Are you sure you want to delete a organization? </span>
+							</Confirm>
+						</td>
+					</tr>
+				{/each}
+			{/if}
 		</tbody>
 	</table>
 </div>

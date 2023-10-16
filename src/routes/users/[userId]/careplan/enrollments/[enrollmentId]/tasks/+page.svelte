@@ -156,22 +156,28 @@
 			</tr>
 		</thead>
 		<tbody class="!bg-white dark:!bg-inherit">
-			{#each retrivedEnrollmentTasks as row}
-				<tr class="!border-b !border-b-secondary-100 dark:!border-b-surface-700">
-					<td role="gridcell" aria-colindex={1} tabindex="0">{row.index}</td>
-					<td role="gridcell" aria-colindex={2} tabindex="0">{row.Asset.Name}</td>
-					<td role="gridcell" aria-colindex={3} tabindex="0">{row.AssetType}</td>
-					<td role="gridcell" aria-colindex={4} tabindex="0"
-						>{date.format(new Date(row.CreatedAt), 'DD-MMM-YYYY')}</td
-					>
-					<td>
-					{#if row.ProgressStatus === 'Completed'}
-						<Icon icon="material-symbols:done-rounded" class="text-xl text-success-500"/>
-					{:else}
-						<Icon icon="material-symbols:close-rounded" class="text-xl text-error-500"/>
-					{/if}</td>
+			{#if retrivedEnrollmentTasks.length <= 0 }
+				<tr>
+					<td colspan="6">No records found</td>
 				</tr>
-			{/each}
+			{:else}
+				{#each retrivedEnrollmentTasks as row}
+					<tr class="!border-b !border-b-secondary-100 dark:!border-b-surface-700">
+						<td role="gridcell" aria-colindex={1} tabindex="0">{row.index}</td>
+						<td role="gridcell" aria-colindex={2} tabindex="0">{row.Asset.Name}</td>
+						<td role="gridcell" aria-colindex={3} tabindex="0">{row.AssetType}</td>
+						<td role="gridcell" aria-colindex={4} tabindex="0"
+							>{date.format(new Date(row.CreatedAt), 'DD-MMM-YYYY')}</td
+						>
+						<td>
+						{#if row.ProgressStatus === 'Completed'}
+							<Icon icon="material-symbols:done-rounded" class="text-xl text-success-500"/>
+						{:else}
+							<Icon icon="material-symbols:close-rounded" class="text-xl text-error-500"/>
+						{/if}</td>
+					</tr>
+				{/each}
+			{/if}
 		</tbody>
 	</table>
 </div>
