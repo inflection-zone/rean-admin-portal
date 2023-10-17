@@ -11,7 +11,7 @@
 	export let data: PageServerData;
 	let notification = data.notification;
 	let title = notification.Title;
-	let Body = notification.Body;
+	let Body = notification.Body !== null ? notification.Body : 'Not specified';
 	let type = notification.Type;
 	let sentOn = new Date(notification.SentOn);
 	let broadcastToAll = notification.BroadcastToAll;
