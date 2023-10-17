@@ -44,7 +44,7 @@
 				},
 				{
 					icon: 'material-symbols:pill-outline',
-					title: 'Drug',
+					title: 'Drugs',
 					link: `/users/${userId}/drugs`
 				},
 				{
