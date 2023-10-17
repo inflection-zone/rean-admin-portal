@@ -260,7 +260,7 @@
 								</button>
 
 								<span slot="title">Delete</span>
-								<span slot="description"> Are you sure you want to delete a asset? </span>
+								<span slot="description"> Are you sure you want to delete an asset? </span>
 							</Confirm>
 						</td>
 					</tr>
