@@ -95,11 +95,12 @@
 				</td>
 			</tr>
 			<tr class="!border-b !border-b-secondary-100 dark:!border-b-surface-700">
-				<td>code</td>
+				<td>Code *</td>
 				<td>
 					<input
-						type="number"
+						type="text"
 						name="code"
+						required
 						bind:value={code}
 						placeholder="Enter code here..."
 						class="input"
@@ -112,6 +113,7 @@
 					<input
 						type="text"
 						name="phone"
+						required
 						bind:value={phone}
 						placeholder="Enter phone here..."
 						class="input"

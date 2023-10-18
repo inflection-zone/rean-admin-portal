@@ -56,12 +56,13 @@
 				</td>
 			</tr>
 			<tr class="!border-b !border-b-secondary-100 dark:!border-b-surface-700">
-				<td>Code</td>
+				<td>Code *</td>
 				<td>
 					<input
-						type="number"
+						type="text"
+						required
 						name="code"
-						placeholder="Enter password here..."
+						placeholder="Enter code here..."
 						class="input w-full"
 					/>
 				</td>
@@ -72,6 +73,7 @@
 					<input
 						type="text"
 						name="phone"
+						required
 						placeholder="Enter phone here..."
 						class="input w-full {form?.errors?.phone ? 'border-error-300' : 'border-primary-200'}"
 					/>
@@ -84,7 +86,7 @@
 				<td>Email *</td>
 				<td>
 					<input
-						type="text"
+						type="email"
 						name="email"
 						placeholder="Enter email here..."
 						class="input w-full {form?.errors?.email ? 'border-error-300' : 'border-primary-200'}"
