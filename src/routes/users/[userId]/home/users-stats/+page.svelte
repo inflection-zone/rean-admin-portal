@@ -14,13 +14,13 @@
 	let countryWiseUsers;
 	let usersCount = data.overallUsersData;
 	let majorAilment = data.majorAilment;
-	let obesityDistribution = data.obesityDistribution;
+	// let obesityDistribution = data.obesityDistribution;
 	let addictionDistribution = data.addictionDistribution;
-	let healthPillarDistribution = data.healthPillarDistribution;
-	let healthPillarDistributionMonthly = data.healthPillarDistributionMonthly;
-	let roleDistribution = data.roleDistribution;
-	let biometricsDistribution = data.biometricsDistribution;
-	let biometricsDistributionMonthly = data.biometricsDistributionMonthly;
+	// let healthPillarDistribution = data.healthPillarDistribution;
+	// let healthPillarDistributionMonthly = data.healthPillarDistributionMonthly;
+	// let roleDistribution = data.roleDistribution;
+	// let biometricsDistribution = data.biometricsDistribution;
+	// let biometricsDistributionMonthly = data.biometricsDistributionMonthly;
 	let deviceDetailWiseUsers = data.deviceDetailWiseUsers;
 	let years =  data.years;
 	console.log('years------------------',years)
@@ -34,6 +34,11 @@
 	maritalStatusWiseUsers = data.maritalStatusWiseUsers;
 
 	let selectedYear;
+
+countryWiseUsers = countryWiseUsers.map((item) => ({
+  ...item,
+  Country: item.Country || 'Not Specified',
+}));
 
 	// Age distribution of users
 	const selectAgeWiseUsersDividionYearly = async (e) => {
@@ -100,6 +105,11 @@
 		});
 		const response = await res.json();
 		countryWiseUsers = response;
+		countryWiseUsers = countryWiseUsers.map((item) => ({
+		...item,
+		Country: item.Country || 'Not Specified',
+		}));
+		console.log("countryWiseUsers", countryWiseUsers)
 	}
 
 	// Marital status distribution of users
@@ -147,26 +157,26 @@
 	};
 
 	//Obesity distribution of users
-	const selectObesityDistributionYearly = async (e) => {
-		selectedYear = e.currentTarget.value;
-		console.log('selected year', selectedYear);
-		await searchObesityDistributionOfUsers({
-			sessionId: data.sessionId,
-			year: selectedYear
-		});
-		// window.location.href = `/users/${userId}/home`;
-	};
+	// const selectObesityDistributionYearly = async (e) => {
+	// 	selectedYear = e.currentTarget.value;
+	// 	console.log('selected year', selectedYear);
+	// 	await searchObesityDistributionOfUsers({
+	// 		sessionId: data.sessionId,
+	// 		year: selectedYear
+	// 	});
+	// 	// window.location.href = `/users/${userId}/home`;
+	// };
 
-	async function searchObesityDistributionOfUsers(model) {
-		let url = `/api/server/users-stats/search-users-by-obesity?year=${model.year}`;
-		console.log(url);
-		const res = await fetch(url, {
-			method: 'GET',
-			headers: { 'content-type': 'application/json' }
-		});
-		const response = await res.json();
-		obesityDistribution = response;
-	};
+	// async function searchObesityDistributionOfUsers(model) {
+	// 	let url = `/api/server/users-stats/search-users-by-obesity?year=${model.year}`;
+	// 	console.log(url);
+	// 	const res = await fetch(url, {
+	// 		method: 'GET',
+	// 		headers: { 'content-type': 'application/json' }
+	// 	});
+	// 	const response = await res.json();
+	// 	obesityDistribution = response;
+	// };
 
 	// Addiction distribution of users
 	const selectAddictionDistributionYearly = async (e) => {
@@ -187,6 +197,7 @@
 		});
 		const response = await res.json();
 		addictionDistribution = response;
+		console.log("addictionDistribution",addictionDistribution)
 	};
 </script>
 
@@ -197,13 +208,7 @@
 	{maritalStatusWiseUsers}
 	{countryWiseUsers}
 	{majorAilment}
-	{obesityDistribution}
 	{addictionDistribution}
-	{healthPillarDistribution}
-	{healthPillarDistributionMonthly}
-	{roleDistribution}
-	{biometricsDistribution}
-	{biometricsDistributionMonthly}
 	{usersCount}
 	{deviceDetailWiseUsers}
 	on:selectAgeWiseUsersDividionYearly={async (e) => {
@@ -221,10 +226,11 @@
 	on:selectMajorAilmentDistributionYearly={async (e) => {
 		await selectMajorAilmentDistributionYearly(e.detail.year);
 	}}
-	on:selectObesityDistributionYearly={async (e) => {
-		await selectObesityDistributionYearly(e.detail.year);
-	}}
 	on:selectAddictionDistributionYearly={async (e) => {
 		await selectAddictionDistributionYearly(e.detail.year);
 	}}
 />
+
+<!-- on:selectObesityDistributionYearly={async (e) => {
+	await selectObesityDistributionYearly(e.detail.year);
+}} -->

@@ -16,13 +16,13 @@
 	export let maritalStatusWiseUsers;
 	export let countryWiseUsers;
 	export let majorAilment;
-	export let obesityDistribution;
+	// export let obesityDistribution;
 	export let addictionDistribution;
-	export let healthPillarDistribution;
-	export let healthPillarDistributionMonthly;
-	export let roleDistribution;
-	export let biometricsDistribution;
-	export let biometricsDistributionMonthly;
+	// export let healthPillarDistribution;
+	// export let healthPillarDistributionMonthly;
+	// export let roleDistribution;
+	// export let biometricsDistribution;
+	// export let biometricsDistributionMonthly;
 	export let usersCount;
 	export let deviceDetailWiseUsers;
 
@@ -140,20 +140,20 @@
 	let obesityDistributionData;
 	let obesityDistributionLabels;
 
-	$: if (obesityDistribution) {
-		obesityDistributionData = false;
-		obesityDistributionLabels = false;
+	// $: if (obesityDistribution) {
+	// 	obesityDistributionData = false;
+	// 	obesityDistributionLabels = false;
 
-		tick().then(() => {
-			obesityDistributionData = obesityDistribution.map((x) => x.Count);
-			obesityDistributionLabels = obesityDistribution.map((x) => x.Status);
-		});
-	}
+	// 	tick().then(() => {
+	// 		obesityDistributionData = obesityDistribution.map((x) => x.Count);
+	// 		obesityDistributionLabels = obesityDistribution.map((x) => x.Status);
+	// 	});
+	// }
 
 	let addictionDistributionData;
 	let addictionDistributionLabels;
 
-	$: if (obesityDistribution) {
+	$: if (addictionDistribution) {
 		addictionDistributionData = false;
 		addictionDistributionLabels = false;
 
@@ -163,14 +163,14 @@
 		});
 	}
 
-	let healthPillarDistributionData = healthPillarDistribution.map((x) => x.Count);
-	let healthPillarDistributionLabels = healthPillarDistribution.map((x) => x.Status);
+	// let healthPillarDistributionData = healthPillarDistribution.map((x) => x.Count);
+	// let healthPillarDistributionLabels = healthPillarDistribution.map((x) => x.Status);
 
-	let roleDistributionData = roleDistribution.map((x) => x.Ratio);
-	let roleDistributionLabels = roleDistribution.map((x) => x.Role);
+	// let roleDistributionData = roleDistribution.map((x) => x.Ratio);
+	// let roleDistributionLabels = roleDistribution.map((x) => x.Role);
 
-	let biometricsDistributionData = biometricsDistribution.map((x) => x.Count);
-	let biometricsDistributionLabels = biometricsDistribution.map((x) => x.Biometrics);
+	// let biometricsDistributionData = biometricsDistribution.map((x) => x.Count);
+	// let biometricsDistributionLabels = biometricsDistribution.map((x) => x.Biometrics);
 
 	const dispatch = createEventDispatcher();
 
@@ -606,17 +606,10 @@
 		</div>
 	</div>
 
-	<div class="flex justify-center items-center h-96 gap-10 w-full mt-10">
-		<div
+	<div class="flex justify-start items-center h-96 gap-10 w-full mt-10">
+		<!-- <div
 			class="flex overflow-x-auto justify-center items-center rounded-lg  shadow-xl border border-secondary-100 dark:border-surface-700 sm:px-4 w-1/2"
 		>
-			<!-- <div class="h-96 w-full ">
-				<BarChart
-					dataSource={obesityDistributionData}
-					labels={obesityDistributionLabels}
-					title="Obesity"
-				/>
-			</div> -->
 			<div class="w-full">
 				<div class="flex items-center">
 					<h4 class="mr-4 w-2/3 text-left justify-center py-3 ml-4 text-lg font-semibold text-primary-500 dark:text-primary-100 sm:pl-3">Obesity</h4>
@@ -638,7 +631,7 @@
 					</div>
 				{/if}
 			</div>
-		</div>
+		</div> -->
 		<div
 			class="flex overflow-x-auto justify-center items-center rounded-lg shadow-xl border border-secondary-100 dark:border-surface-700 sm:px-4 w-1/2"
 		>

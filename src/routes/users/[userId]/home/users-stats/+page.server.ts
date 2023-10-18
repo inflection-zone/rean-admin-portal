@@ -4,15 +4,15 @@ import {
 	// getActiveUsers,
 	getAddictionDistribution,
 	getAgeWiseUsers,
-	getBiometricsDistribution,
+	// getBiometricsDistribution,
 	getCountryWiseUsers,
 	getGenderWiseUsers,
-	getHealthPillarDistribution,
+	// getHealthPillarDistribution,
 	getMajorAilment,
 	getMaritalStatusWiseUsers,
-	getObesityDistribution,
+	// getObesityDistribution,
 	getOverallUsers,
-	getRoleDistribution,
+	// getRoleDistribution,
 	// getTolalUsers,
 	getDeviceDetailWiseUsers,
 	getYears,
@@ -48,16 +48,16 @@ export const load: PageServerLoad = async (event: RequestEvent) => {
 		const _maritalStatusWiseUsers = await getMaritalStatusWiseUsers(sessionId);
 		const _countryWiseUsers = await getCountryWiseUsers(sessionId);
 		const _majorAilment = await getMajorAilment(sessionId);
-		const _obesityDistribution = await getObesityDistribution(sessionId);
+		// const _obesityDistribution = await getObesityDistribution(sessionId);
 		const _addictionDistribution = await getAddictionDistribution(sessionId);
-		const _healthPillarDistribution = await getHealthPillarDistribution(sessionId);
-		const _healthPillarDistributionMonthly = await getHealthPillarDistribution(
-			sessionId,
-			searchParams
-		);
-		const _roleDistribution = await getRoleDistribution(sessionId);
-		const _biometricsDistribution = await getBiometricsDistribution(sessionId);
-		const _biometricsDistributionMonthly = await getBiometricsDistribution(sessionId, searchParams);
+		// const _healthPillarDistribution = await getHealthPillarDistribution(sessionId);
+		// const _healthPillarDistributionMonthly = await getHealthPillarDistribution(
+		// 	sessionId,
+		// 	searchParams
+		// );
+		// const _roleDistribution = await getRoleDistribution(sessionId);
+		// const _biometricsDistribution = await getBiometricsDistribution(sessionId);
+		// const _biometricsDistributionMonthly = await getBiometricsDistribution(sessionId, searchParams);
 		const _deviceDetailWiseUsers = await getDeviceDetailWiseUsers(sessionId);
 		const _years = await getYears(sessionId);
 
@@ -69,14 +69,14 @@ export const load: PageServerLoad = async (event: RequestEvent) => {
 		const maritalStatusWiseUsers = _maritalStatusWiseUsers.Data.MaritalStatusWiseUsers;
 		const countryWiseUsers = _countryWiseUsers.Data.CountryWiseUsers;
 		const majorAilment = _majorAilment.Data.MajorAilmentDistribution;
-		const obesityDistribution = _obesityDistribution.Data.ObesityDistribution;
+		// const obesityDistribution = _obesityDistribution.Data.ObesityDistribution;
 		const addictionDistribution = _addictionDistribution.Data.AddictionDistribution;
-		const healthPillarDistribution = _healthPillarDistribution.Data.HealthPillarDistribution;
-		const healthPillarDistributionMonthly =
-			_healthPillarDistributionMonthly.Data.HealthPillarDistribution;
-		const roleDistribution = _roleDistribution.Data.RoleDistribution;
-		const biometricsDistribution = _biometricsDistribution.Data.Biometrics;
-		const biometricsDistributionMonthly = _biometricsDistributionMonthly.Data.Biometrics;
+		// const healthPillarDistribution = _healthPillarDistribution.Data.HealthPillarDistribution;
+		// const healthPillarDistributionMonthly =
+		// 	_healthPillarDistributionMonthly.Data.HealthPillarDistribution;
+		// const roleDistribution = _roleDistribution.Data.RoleDistribution;
+		// const biometricsDistribution = _biometricsDistribution.Data.Biometrics;
+		// const biometricsDistributionMonthly = _biometricsDistributionMonthly.Data.Biometrics;
 		const deviceDetailWiseUsers = _deviceDetailWiseUsers.Data.DeviceDetailWiseUsers;
 		const years = _years.Data.Years;
 	
@@ -85,10 +85,10 @@ export const load: PageServerLoad = async (event: RequestEvent) => {
 		console.log('ageWiseUsers', ageWiseUsers);
 		console.log('genderWiseUsers', genderWiseUsers);
 		console.log('maritalStatusWiseUsers', maritalStatusWiseUsers);
-		console.log('obesityDistribution', obesityDistribution);
+		// console.log('obesityDistribution', obesityDistribution);
 		console.log('addictionDistribution', addictionDistribution);
-		console.log('healthPillarDistributionMonthly', healthPillarDistributionMonthly);
-		console.log('roleDistribution', roleDistribution);
+		// console.log('healthPillarDistributionMonthly', healthPillarDistributionMonthly);
+		// console.log('roleDistribution', roleDistribution);
     console.log('deviceDetailWiseUsers', deviceDetailWiseUsers);
 
 		return {
@@ -100,13 +100,13 @@ export const load: PageServerLoad = async (event: RequestEvent) => {
 			maritalStatusWiseUsers,
 			countryWiseUsers,
 			majorAilment,
-			obesityDistribution,
+			// obesityDistribution,
 			addictionDistribution,
-			healthPillarDistribution,
-			healthPillarDistributionMonthly,
-			roleDistribution,
-			biometricsDistribution,
-			biometricsDistributionMonthly,
+			// healthPillarDistribution,
+			// healthPillarDistributionMonthly,
+			// roleDistribution,
+			// biometricsDistribution,
+			// biometricsDistributionMonthly,
 			overallUsersData,
 			deviceDetailWiseUsers,
 			years
