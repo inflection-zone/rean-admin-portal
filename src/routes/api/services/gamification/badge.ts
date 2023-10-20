@@ -24,7 +24,7 @@ export const createBadge = async (
 
 export const getBadgeById = async (sessionId: string, badgeId: string) => {
 	const url = AWARDS_BACKEND_API_URL + `/badges/${badgeId}`;
-	return await get_(sessionId, url, true);
+	return await get_(sessionId, url, true, true, AWARDS_SERVICE_API_KEY);
 };
 
 export const searchBadges = async (sessionId: string, searchParams?: any) => {
