@@ -13,6 +13,9 @@ module.exports = {
 	
 	theme: {
 		extend: {
+				strokeWidth: {
+					'2': '4px',
+				},
 			backgroundImage: {
 			'back-ground': 
 			"linear-gradient(to bottom, white 0%, white 35%, #7165E3 35%, #7165E3 100%)",

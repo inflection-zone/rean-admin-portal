@@ -112,7 +112,7 @@
 				</td>
 			</tr>
       <tr class="!border-b !border-b-secondary-100 dark:!border-b-surface-700">
-				<td>Type</td>
+				<td>Type *</td>
 				<td>
 					<select
 						name="type"
@@ -127,7 +127,7 @@
 				</td>
 			</tr>
       <tr class="!border-b !border-b-secondary-100 dark:!border-b-surface-700">
-				<td class="align-top w-1/4">Event-Types</td>
+				<td class="align-top w-1/4">Event Types *</td>
 				<td class="flex flex-col gap-2 w-full">
 					<input
 						class="input"

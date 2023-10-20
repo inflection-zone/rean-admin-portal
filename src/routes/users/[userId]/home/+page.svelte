@@ -193,7 +193,7 @@
 				<div class="text-sm w-1/3 font-normal text-primary-500 dark:text-primary-100">{enrolledUsersData.Count}</div>
 			</div>
 			<div class="flex gap-4 w-full py-1">
-				<div class="h-3 w-3 mt-1 border bg-tertiary-500" />
+				<div class="h-3 w-3 mt-1 border bg-secondary-200" />
 				<div class="text-sm w-2/3 font-normal text-primary-500 dark:text-primary-100">Users With Active Session</div>
 				<div class="text-sm w-1/3 font-normal text-primary-500 dark:text-primary-100">{activeUsers.Count}</div>
 			</div>

@@ -44,7 +44,7 @@
 				},
 				{
 					icon: 'material-symbols:pill-outline',
-					title: 'Drug',
+					title: 'Drugs',
 					link: `/users/${userId}/drugs`
 				},
 				{
@@ -207,8 +207,6 @@
 				<svelte:fragment slot="summary">{navParent.title}</svelte:fragment>
 				<svelte:fragment slot="content">
 					<nav class="list-nav space-y-1">
-
-
 						{#each navParent.childNav as navItem}
 							<!-- if no navItem.link but navItem.child -->
 							{#if navItem.link}

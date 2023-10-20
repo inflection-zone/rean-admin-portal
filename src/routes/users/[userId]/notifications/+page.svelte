@@ -156,46 +156,52 @@
 			</tr>
 		</thead>
 		<tbody class="!bg-white dark:!bg-inherit">
-			{#each retrivedNotifications as row}
-				<tr class="!border-b !border-b-secondary-100 dark:!border-b-surface-700">
-					<td role="gridcell" aria-colindex={1} tabindex="0">{row.index}</td>
-					<td role="gridcell" aria-colindex={2} tabindex="0">
-						<a href={viewRoute(row.id)}>{Helper.truncateText(row.Title, 20)}</a>
-					</td>
-					<td role="gridcell" aria-colindex={3} tabindex="0"
-						>{row.Body !== null ? Helper.truncateText(row.Body, 40) : 'Not specified'}</td
-					>
-					<td role="gridcell" aria-colindex={4} tabindex="0">{row.Type}</td>
-					<td role="gridcell" aria-colindex={5} tabindex="0"
-						>{date.format(new Date(row.SentOn), 'DD-MMM-YYYY')}</td
-					>
-					<td>
-						<a href={editRoute(row.id)} class="btn p-2 -my-1 hover:variant-soft-primary">
-							<Icon icon="material-symbols:edit-outline" class="text-lg" />
-						</a>
-					</td>
-					<td>
-						<!-- svelte-ignore missing-declaration -->
-						<Confirm
-							confirmTitle="Delete"
-							cancelTitle="Cancel"
-							let:confirm={confirmThis}
-							on:delete={(e) => {
-								handleNotificationDelete(e, row.id);
-							}}
-						>
-							<button
-								on:click|preventDefault={() => confirmThis(handleNotificationDelete, row.id)}
-								class="btn p-2 -my-1 hover:variant-soft-error"
-							>
-								<Icon icon="material-symbols:delete-outline-rounded" class="text-lg" />
-							</button>
-							<span slot="title"> Delete </span>
-							<span slot="description"> Are you sure you want to delete a notification? </span>
-						</Confirm>
-					</td>
+			{#if retrivedNotifications.length <= 0 }
+				<tr>
+					<td colspan="6">No records found</td>
 				</tr>
-			{/each}
+			{:else}
+				{#each retrivedNotifications as row}
+					<tr class="!border-b !border-b-secondary-100 dark:!border-b-surface-700">
+						<td role="gridcell" aria-colindex={1} tabindex="0">{row.index}</td>
+						<td role="gridcell" aria-colindex={2} tabindex="0">
+							<a href={viewRoute(row.id)}>{Helper.truncateText(row.Title, 20)}</a>
+						</td>
+						<td role="gridcell" aria-colindex={3} tabindex="0"
+							>{row.Body !== null ? Helper.truncateText(row.Body, 40) : 'Not specified'}</td
+						>
+						<td role="gridcell" aria-colindex={4} tabindex="0">{row.Type}</td>
+						<td role="gridcell" aria-colindex={5} tabindex="0"
+							>{date.format(new Date(row.SentOn), 'DD-MMM-YYYY')}</td
+						>
+						<td>
+							<a href={editRoute(row.id)} class="btn p-2 -my-1 hover:variant-soft-primary">
+								<Icon icon="material-symbols:edit-outline" class="text-lg" />
+							</a>
+						</td>
+						<td>
+							<!-- svelte-ignore missing-declaration -->
+							<Confirm
+								confirmTitle="Delete"
+								cancelTitle="Cancel"
+								let:confirm={confirmThis}
+								on:delete={(e) => {
+									handleNotificationDelete(e, row.id);
+								}}
+							>
+								<button
+									on:click|preventDefault={() => confirmThis(handleNotificationDelete, row.id)}
+									class="btn p-2 -my-1 hover:variant-soft-error"
+								>
+									<Icon icon="material-symbols:delete-outline-rounded" class="text-lg" />
+								</button>
+								<span slot="title"> Delete </span>
+								<span slot="description"> Are you sure you want to delete a notification? </span>
+							</Confirm>
+						</td>
+					</tr>
+				{/each}
+			{/if}
 		</tbody>
 	</table>
 </div>

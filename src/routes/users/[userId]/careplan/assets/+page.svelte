@@ -217,49 +217,55 @@
 			</tr>
 		</thead>
 		<tbody class="!bg-white dark:!bg-inherit">
-			{#each retrivedAssets as row}
-				<tr class="!border-b !border-b-secondary-100 dark:!border-b-surface-700">
-					<td role="gridcell" aria-colindex={1} tabindex="0">{row.index}</td>
-					<td role="gridcell" aria-colindex={2} tabindex="0">
-						<a href="{assetRoute()}/{assetRouteMap[selectedAssetType]}/{row.id}/view"
-							>{Helper.truncateText(row.Name, 20)}</a
-						>
-					</td>
-					<td role="gridcell" aria-colindex={3} tabindex="0">{row.AssetCode}</td>
-					<td role="gridcell" aria-colindex={4} tabindex="0">{row.AssetCategory}</td>
-					<td role="gridcell" aria-colindex={5} tabindex="0"
-						>{date.format(new Date(row.CreatedAt), 'DD-MMM-YYYY')}</td
-					>
-					<td>
-						<a
-							class="btn p-2 hover:variant-soft-secondary"
-							href="{assetRoute()}/{assetRouteMap[selectedAssetType]}/{row.id}/edit"
-						>
-							<Icon icon="material-symbols:edit-outline" class="text-lg" />
-						</a>
-					</td>
-					<td>
-						<Confirm
-							confirmTitle="Delete"
-							cancelTitle="Cancel"
-							let:confirm={confirmThis}
-							on:delete={(e) => {
-								handleAssetsDelete(e, row.id);
-							}}
-						>
-							<button
-								on:click|preventDefault={() => confirmThis(handleAssetsDelete, row.id)}
-								class="btn p-2 -my-1 hover:variant-soft-error"
-							>
-								<Icon icon="material-symbols:delete-outline-rounded" class="text-lg" />
-							</button>
-
-							<span slot="title">Delete</span>
-							<span slot="description"> Are you sure you want to delete a asset? </span>
-						</Confirm>
-					</td>
+			{#if retrivedAssets.length <= 0 }
+				<tr>
+					<td colspan="6">No records found</td>
 				</tr>
-			{/each}
+			{:else}
+				{#each retrivedAssets as row}
+					<tr class="!border-b !border-b-secondary-100 dark:!border-b-surface-700">
+						<td role="gridcell" aria-colindex={1} tabindex="0">{row.index}</td>
+						<td role="gridcell" aria-colindex={2} tabindex="0">
+							<a href="{assetRoute()}/{assetRouteMap[selectedAssetType]}/{row.id}/view"
+								>{Helper.truncateText(row.Name, 20)}</a
+							>
+						</td>
+						<td role="gridcell" aria-colindex={3} tabindex="0">{row.AssetCode}</td>
+						<td role="gridcell" aria-colindex={4} tabindex="0">{row.AssetCategory}</td>
+						<td role="gridcell" aria-colindex={5} tabindex="0"
+							>{date.format(new Date(row.CreatedAt), 'DD-MMM-YYYY')}</td
+						>
+						<td>
+							<a
+								class="btn p-2 hover:variant-soft-secondary"
+								href="{assetRoute()}/{assetRouteMap[selectedAssetType]}/{row.id}/edit"
+							>
+								<Icon icon="material-symbols:edit-outline" class="text-lg" />
+							</a>
+						</td>
+						<td>
+							<Confirm
+								confirmTitle="Delete"
+								cancelTitle="Cancel"
+								let:confirm={confirmThis}
+								on:delete={(e) => {
+									handleAssetsDelete(e, row.id);
+								}}
+							>
+								<button
+									on:click|preventDefault={() => confirmThis(handleAssetsDelete, row.id)}
+									class="btn p-2 -my-1 hover:variant-soft-error"
+								>
+									<Icon icon="material-symbols:delete-outline-rounded" class="text-lg" />
+								</button>
+
+								<span slot="title">Delete</span>
+								<span slot="description"> Are you sure you want to delete an asset? </span>
+							</Confirm>
+						</td>
+					</tr>
+				{/each}
+			{/if}
 		</tbody>
 	</table>
 </div>

@@ -27,7 +27,7 @@
 	let displayId = undefined;
 	let startDate = undefined;
 	let endDate = undefined;
-	let sortBy = 'CarePlan';
+	let sortBy = 'StartDate';
 	let sortOrder = 'ascending';
 	let itemsPerPage = 10;
 	let offset = 0;
@@ -53,12 +53,23 @@
 		if (itemsPerPage) url += `&itemsPerPage=${itemsPerPage}`;
 		if (offset) url += `&pageIndex=${offset}`;
 		if (carePlan) {
-			const careplanId = enrollment.map((item) => {
-				if (item.Careplan.Name == carePlan) {
-					return item.Careplan.id;
-				}
-			});
-			url += `&carePlan=${careplanId}`;
+			let careplanId = undefined
+			let search = enrollment.find(item =>item.Careplan.Name === carePlan.trim())
+			if (search){
+				careplanId = search.Careplan.id;
+			}
+			console.log('data',data)
+			// enrollment.forEach(element => {
+			// 	if (element.Careplan.Name === carePlan.trim()){
+			// 		careplanId = element.Careplan.id;
+			// 	}			
+			// });
+			if(careplanId){
+				url += `&carePlan=${careplanId}`;
+			}
+			else{
+				url += `&carePlan=${carePlan}`;
+			}
 		}
 		if (displayId) {
 			url += `&displayId=${displayId}`;
@@ -69,14 +80,60 @@
 		if (endDate) {
 			url += `&endDate=${endDate}`;
 		}
-
 		const res = await fetch(url, {
 			method: 'GET',
 			headers: { 'content-type': 'application/json' }
 		});
-		const response = await res.json();
+		let response = await res.json();
 		enrollment = response.map((item, index) => ({ ...item, index: index + 1 }));
 	}
+
+	// async function searchEnrollments(model) {
+	// 	let url = `/api/server/careplan/enrollments/search?`;
+	// 	if (sortOrder) url += `sortOrder=${sortOrder}`;
+	// 	else url += `sortOrder=ascending`;
+	// 	if (sortBy) url += `&sortBy=${sortBy}`;
+	// 	if (itemsPerPage) url += `&itemsPerPage=${itemsPerPage}`;
+	// 	if (offset) url += `&pageIndex=${offset}`;
+	// 	// if (carePlan) {
+	// 	// 	const careplanId = enrollment.map((item) => {
+	// 	// 		if (item.Careplan.Name == carePlan) {
+	// 	// 			return item.Careplan.id;
+	// 	// 		}
+	// 	// 	});
+	// 	// 	url += `&carePlan=${careplanId}`;
+	// 	// }
+	// 	if (carePlan) {
+  //     let careplanId = undefined
+	// 			enrollment.forEach(element => {
+	// 					if (element.Careplan.Name === carePlan.trim()){
+	// 							careplanId = element.Careplan.id;
+	// 					}
+	// 		});
+	// 		if(careplanId){
+	// 				url += `&carePlan=${careplanId}`;
+	// 		}
+	// 		else{
+	// 				url += `&carePlan=${carePlan}`;
+	// 		}
+  //   }
+	// 	if (displayId) {
+	// 		url += `&displayId=${displayId}`;
+	// 	}
+	// 	if (startDate) {
+	// 		url += `&startDate=${startDate}`;
+	// 	}
+	// 	if (endDate) {
+	// 		url += `&endDate=${endDate}`;
+	// 	}
+
+	// 	const res = await fetch(url, {
+	// 		method: 'GET',
+	// 		headers: { 'content-type': 'application/json' }
+	// 	});
+	// 	const response = await res.json();
+	// 	enrollment = response.map((item, index) => ({ ...item, index: index + 1 }));
+	// }
 
 	$: retrivedEnrollments = enrollment.slice(
 		paginationSettings.page * paginationSettings.limit,
@@ -95,7 +152,7 @@
 			sortBy: sortBy
 		});
 
-		function onPageChange(e: CustomEvent): void {
+	function onPageChange(e: CustomEvent): void {
 		let pageIndex = e.detail;
 		itemsPerPage = items * (pageIndex + 1);
 	}
@@ -176,24 +233,30 @@
 			</tr>
 		</thead>
 		<tbody class="!bg-white dark:!bg-inherit">
-			{#each retrivedEnrollments as row}
-				<tr class="!border-b !border-b-secondary-100 dark:!border-b-surface-700">
-					<td role="gridcell" aria-colindex={1} tabindex="0">{row.index}</td>
-					<td role="gridcell" aria-colindex={2} tabindex="0">
-						<a href="/users/${userId}/careplan/enrollments/{row.id}/view"
-							>Participant - {row.Participant.DisplayId}</a
-						>
-					</td>
-					<td role="gridcell" aria-colindex={3} tabindex="0">{row.DisplayId}</td>
-					<td role="gridcell" aria-colindex={3} tabindex="0">{row.Careplan.Name}</td>
-					<td role="gridcell" aria-colindex={4} tabindex="0"
-						>{date.format(new Date(row.StartDate), 'DD-MMM-YYYY')}</td
-					>
-					<td role="gridcell" aria-colindex={5} tabindex="0"
-						>{date.format(new Date(row.EndDate), 'DD-MMM-YYYY')}</td
-					>
+			{#if retrivedEnrollments.length <= 0 }
+				<tr>
+					<td colspan="6">No records found</td>
 				</tr>
-			{/each}
+			{:else}
+				{#each retrivedEnrollments as row}
+					<tr class="!border-b !border-b-secondary-100 dark:!border-b-surface-700">
+						<td role="gridcell" aria-colindex={1} tabindex="0">{row.index}</td>
+						<td role="gridcell" aria-colindex={2} tabindex="0">
+							<a href="/users/${userId}/careplan/enrollments/{row.id}/view"
+								>Participant - {row.Participant.DisplayId}</a
+							>
+						</td>
+						<td role="gridcell" aria-colindex={3} tabindex="0">{row.DisplayId}</td>
+						<td role="gridcell" aria-colindex={3} tabindex="0">{row.Careplan.Name}</td>
+						<td role="gridcell" aria-colindex={4} tabindex="0"
+							>{date.format(new Date(row.StartDate), 'DD-MMM-YYYY')}</td
+						>
+						<td role="gridcell" aria-colindex={5} tabindex="0"
+							>{date.format(new Date(row.EndDate), 'DD-MMM-YYYY')}</td
+						>
+					</tr>
+				{/each}
+			{/if}
 		</tbody>
 	</table>
 </div>

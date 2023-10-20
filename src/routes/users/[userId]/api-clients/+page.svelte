@@ -7,6 +7,7 @@
 	import Icon from '@iconify/svelte';
 	import { Paginator, type PaginationSettings } from '@skeletonlabs/skeleton';
 	import type { PageServerData } from './$types';
+	import SvgIcon from '$lib/components/svgIcon.svelte';
 	
 	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -112,6 +113,8 @@
 			headers: { 'content-type': 'application/json' }
 		});
 	}
+
+	$:console.log("retrivedClients",retrivedClients)
 </script>
 
 <BreadCrumbs crumbs={breadCrumbs} />
@@ -155,40 +158,49 @@
 			</tr>
 		</thead>
 		<tbody class="!bg-white dark:!bg-inherit">
-			{#each retrivedClients as row}
-				<tr class="!border-b !border-b-secondary-100 dark:!border-b-surface-700">
-					<td role="gridcell" aria-colindex={1} tabindex="0">{row.index}</td>
-					<td role="gridcell" aria-colindex={2} tabindex="0">
-						<a href={viewRoute(row.id)}>{Helper.truncateText(row.ClientName, 20)}</a>
-					</td>
-					<td role="gridcell" aria-colindex={3} tabindex="0">{row.Email}</td>
-					<td role="gridcell" aria-colindex={4} tabindex="0"
-						>{row.Phone !== null && row.Phone !== '' ? row.Phone : 'Not specified'}</td
-					>
-					<td>
-						<a href={editRoute(row.id)} class="btn p-2 -my-1 hover:variant-soft-primary">
-							<Icon icon="material-symbols:edit-outline" class="text-lg" />
-						</a>
-					</td>
-					<td>
-						<Confirm
-							confirmTitle="Delete"
-							cancelTitle="Cancel"
-							let:confirm={confirmThis}
-							on:delete={(e) => handleApiClientDelete(e, row.id)}
-						>
-							<button
-								on:click|preventDefault={() => confirmThis(handleApiClientDelete, row.id)}
-								class="btn p-2 -my-1 hover:variant-soft-error"
-							>
-								<Icon icon="material-symbols:delete-outline-rounded" class="text-lg" />
-							</button>
-							<span slot="title"> Delete </span>
-							<span slot="description"> Are you sure you want to delete a client? </span>
-						</Confirm>
-					</td>
+			{#if retrivedClients.length <= 0 }
+				<tr>
+					<td colspan="6">No records found</td>
 				</tr>
-			{/each}
+			{:else}
+				{#each retrivedClients as row}
+					<tr class="!border-b !border-b-secondary-100 dark:!border-b-surface-700">
+						<td role="gridcell" aria-colindex={1} tabindex="0">{row.index}</td>
+						<td role="gridcell" aria-colindex={2} tabindex="0">
+							<a href={viewRoute(row.id)}>{Helper.truncateText(row.ClientName, 20)}</a>
+						</td>
+						<td role="gridcell" aria-colindex={3} tabindex="0">{row.Email}</td>
+						<td role="gridcell" aria-colindex={4} tabindex="0"
+							>{row.Phone !== null && row.Phone !== '' ? row.Phone : 'Not specified'}</td
+						>
+						<td>
+							<a href={editRoute(row.id)} class="btn p-2 -my-1 hover:variant-soft-primary">
+								<Icon icon="material-symbols:edit-outline" class="text-lg" />
+							</a>
+						</td>
+						<td>
+							<Confirm
+								confirmTitle="Delete"
+								cancelTitle="Cancel"
+								let:confirm={confirmThis}
+								on:delete={(e) => handleApiClientDelete(e, row.id)}
+							>
+								<button
+									on:click|preventDefault={() => confirmThis(handleApiClientDelete, row.id)}
+									class="btn px-0 -my-2 hover:variant-soft-error"
+								>
+								<SvgIcon
+									cls="stroke-slate-800 hover:stroke-error-500 stroke-2 fill-none"
+									h="100%" w="100%" iconPath='/images/others/delete.svg#icon'/>
+									<!-- <Icon icon="material-symbols:delete-outline-rounded" class="text-lg" /> -->
+								</button>
+								<span slot="title"> Delete </span>
+								<span slot="description"> Are you sure you want to delete a client? </span>
+							</Confirm>
+						</td>
+					</tr>
+				{/each}
+			{/if}
 		</tbody>
 	</table>
 </div>

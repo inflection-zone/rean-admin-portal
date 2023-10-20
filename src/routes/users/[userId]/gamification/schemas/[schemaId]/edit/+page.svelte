@@ -103,7 +103,7 @@
 				</td>
 			</tr>
 			<tr class="!border-b !border-b-secondary-100 dark:!border-b-surface-700">
-				<td>Type</td>
+				<td>Type *</td>
 				<td>
 					<select
 						name="type"
@@ -119,7 +119,7 @@
 				</td>
 			</tr>
 			<tr class="!border-b !border-b-secondary-100 dark:!border-b-surface-700">
-				<td class="align-top">Event Types</td>
+				<td class="align-top">Event Types *</td>
 				<td>
 					<!-- <input
 						class="input mb-3"

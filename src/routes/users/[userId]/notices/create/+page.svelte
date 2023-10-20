@@ -118,6 +118,7 @@
 						name="daysActive"
 						placeholder="Enter days active here..."
 						class="input"
+						min="0"
 					/>
 				</td>
 			</tr>
