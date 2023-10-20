@@ -4,9 +4,9 @@
 	import { oragnizationTypesStore } from '$lib/store/general.store';
 	import { LocalStorageUtils } from '$lib/utils/local.storage.utils';
 	import { showMessage } from '$lib/utils/message.utils';
-	import Icon from '@iconify/svelte';
 	import { Country } from 'country-state-city';
 	import type { PageServerData } from './$types';
+	import Icon from '$lib/components/icon.svelte';
 
 	///////////////////////////////////////////////////////////////////////////////////////
 
@@ -89,8 +89,10 @@
 			<tr>
 				<th>Create Organization</th>
 				<th class="text-end">
-					<a href={organizationRoute} class="btn p-2 -my-2 variant-soft-secondary">
-						<Icon icon="material-symbols:close-rounded" class="text-lg" />
+					<a href={organizationRoute} class="btn px-0 w-8 h-8 variant-soft-secondary">
+						<Icon
+							cls="stroke-primary-500 stroke-2 fill-none"
+							h="100%" w="100%" iconPath='/images/others/cancel.svg#icon'/>
 					</a>
 				</th>
 			</tr>

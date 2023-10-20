@@ -1,8 +1,8 @@
 <script lang="ts">
 	import CollapsibleSection from '$lib/components/courses.view/collapsible.section.svelte';
 	import Confirm from '$lib/components/modal/confirmModal.svelte';
-	import Icon from '@iconify/svelte';
 	import { createEventDispatcher } from 'svelte';
+	import Icon from '../icon.svelte';
 
 	/////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -51,7 +51,7 @@
 					addRoute={addModuleRoute(course.id)}
 					editRoute={editCourseRoute(course.id)}
 					viewRoute={viewCourseRoute(course.id)}
-					src="/course.png"
+					src="/images/others/course.svg#icon"
 					on:onDeleteClick|once={async () => await handlelCourseDelete(course.id, course.Modules)}
 				>
 					{#if course.Modules.length > 0}
@@ -62,7 +62,7 @@
 								addRoute={addContentRoute(course.id, module.id)}
 								editRoute={editModuleRoute(course.id, module.id)}
 								viewRoute={viewModuleRoute(course.id, module.id)}
-								src="/module.png"
+								src="/images/others/module.svg#icon"
 								on:onDeleteClick|once={async () =>
 									await handlelModuleDelete(module.id, module.CourseContents)}
 							>
@@ -97,9 +97,10 @@
 														<td>
 															<a
 																href={editContentRoute(course.id, module.id, content.id)}
-																class="btn p-2 -my-1 hover:variant-soft-primary"
-															>
-																<Icon icon="material-symbols:edit-outline" class="lg" />
+																class="btn px-0 -my-2 hover:variant-soft-secondary">
+															<Icon
+																cls="stroke-slate-800 hover:stroke-primary-500 stroke-2 fill-none"
+																h="100%" w="100%" iconPath='/images/others/edit.svg#icon'/>
 															</a>
 														</td>
 														<td>
@@ -112,12 +113,11 @@
 																<button
 																	on:click|preventDefault={() =>
 																		confirmThis(handleContentDelete, content.id)}
-																	class="btn p-2 -my-1 hover:variant-soft-error"
+																	class="btn px-0 -my-2 hover:variant-soft-error"
 																>
-																	<Icon
-																		icon="material-symbols:delete-outline-rounded"
-																		class="text-lg"
-																	/>
+																<Icon
+																	cls="stroke-slate-800 hover:stroke-slate-500 stroke-2 fill-none"
+																	h="100%" w="100%" iconPath='/images/others/delete.svg#icon'/>
 																</button>
 																<span slot="title"> Delete </span>
 																<span slot="description">

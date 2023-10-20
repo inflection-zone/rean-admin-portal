@@ -4,10 +4,10 @@
 	import Modalform from '$lib/components/modal/form.modal.svelte';
 	import RenewApiKeyModal from '$lib/components/modal/renew.api.key.modal.svelte';
 	import { showGetApiKeyModal, showRenewApiKeyModal } from '$lib/store/general.store';
-	import Icon from '@iconify/svelte';
 	import { clipboard } from '@skeletonlabs/skeleton';
 	import type { PageServerData } from './$types';
 	import toast from 'svelte-french-toast';
+	import Icon from '$lib/components/icon.svelte';
 
 	////////////////////////////////////////////////////////////////////////////////////
 	
@@ -111,9 +111,13 @@
 	<button class="btn variant-soft-secondary" on:click|capture={() => showGetApiKeyModal.set(true)}>
 		Get API key
 	</button>
-	<a href={editRoute} class="btn variant-filled-secondary">
-		<Icon icon="material-symbols:edit-outline" />
-		<span>Edit</span>
+	<a href={editRoute} class="btn variant-filled-secondary w-22 h-10 px-0">
+		<div class="flex items-center">
+			<Icon
+			cls="stroke-surface-100 stroke-2 fill-none"
+			h="100%" w="100%" iconPath='/images/others/edit.svg#icon'/>
+			<span class="pr-4">Edit</span>
+		</div>
 	</a>
 </div>
 
@@ -123,8 +127,10 @@
 			<tr>
 				<th>View Client</th>
 				<th class="text-end">
-					<a href={apiClientRoute} class="btn p-2 -my-2 variant-soft-secondary">
-						<Icon icon="material-symbols:close-rounded" class="text-lg" />
+					<a href={apiClientRoute} class="btn px-0 w-8 h-8 variant-soft-secondary">
+						<Icon
+							cls="stroke-primary-500 stroke-2 fill-none"
+							h="100%" w="100%" iconPath='/images/others/cancel.svg#icon'/>
 					</a>
 				</th>
 			</tr>
@@ -162,7 +168,10 @@
 							on:click={onClickHandler}
 							disabled={copied}
 						>
-							<Icon icon="material-symbols:content-copy-outline-rounded" class="text-lg" />
+						<Icon
+							cls="stroke-error-600 stroke-2 fill-none"
+							h="100%" w="100%" iconPath='/images/others/cancel-red.svg#icon'/>
+							<!-- <Icon icon="material-symbols:content-copy-outline-rounded" class="text-lg" /> -->
 						</button>
 					</td>
 				</tr>

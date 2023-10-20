@@ -1,18 +1,18 @@
 <script lang="ts">
 	import { navigating, page } from '$app/stores';
-	import Icon from '@iconify/svelte';
 	import { Accordion, AccordionItem } from '@skeletonlabs/skeleton';
+	import Icon from '../icon.svelte';
 
 	export let userId = undefined;
-	export let showSidebar = false;
+	export let showSidebar = false; 
 
 	const navData = [
 		{
 			title: 'Dashboard',
-			icon: 'material-symbols:dashboard-outline-rounded',
+			icon: '/images/dashboard/dashboard.svg#icon',
 			childNav: [
 				{
-					icon: '/rean-logo-white.png',
+					icon: '/images/dashboard/rean-logo.svg#icon',
 					title: 'RHG App',
 					link: `/users/${userId}/home`
 				},
@@ -25,49 +25,49 @@
 		},
 		{
 			title: 'Clinical',
-			icon: 'material-symbols:medical-services-outline-rounded',
+			icon: '/images/clinical/clinical.svg#icon',
 			childNav: [
 				{
-					icon: 'material-symbols:assignment-outline-rounded',
+					icon: '/images/clinical/assessment.svg#icon',
 					title: 'Assessments',
 					link: `/users/${userId}/assessment-templates`
 				},
 				{
-					icon: 'material-symbols:lab-research-outline-rounded',
+					icon: '/images/clinical/lab-record.svg#icon',
 					title: 'Lab-Records',
 					link: `/users/${userId}/lab-record-types`
 				},
 				{
-					icon: 'material-symbols:symptoms-outline',
+					icon: '/images/clinical/symptom.svg#icon',
 					title: 'Symptoms',
 					link: `/users/${userId}/symptoms`
 				},
 				{
-					icon: 'material-symbols:pill-outline',
-					title: 'Drugs',
+					icon: '/images/clinical/drug.svg#icon',
+					title: 'Drug',
 					link: `/users/${userId}/drugs`
 				},
 				{
-					icon: 'material-symbols:home-health-outline-rounded',
+					icon: '/images/clinical/careplan/careplan.svg#icon',
 					title: 'Careplan',
 					children: [
 						{
-							icon: 'material-symbols:dashboard-outline-rounded',
+							icon: '/images/clinical/careplan/dashboard.svg#icon',
 							title: 'Dashboard',
 							link: `/users/${userId}/careplan`
 						},
 						{
-							icon: 'carbon:task-asset-view',
+							icon: '/images/clinical/careplan/asset.svg#icon',
 							title: 'Assets',
 							link: `/users/${userId}/careplan/assets`
 						},
 						{
-							icon: 'iconoir:healthcare',
+							icon: '/images/clinical/careplan/careplan-menu.svg#icon',
 							title: 'Careplans',
 							link: `/users/${userId}/careplan/careplans`
 						},
 						{
-							icon: 'material-symbols:check-box-outline-rounded',
+							icon: '/images/clinical/careplan/enrollment.svg#icon',
 							title: 'Enrollments',
 							link: `/users/${userId}/careplan/enrollments`
 						}
@@ -77,20 +77,20 @@
 		},
 		{
 			title: 'Educational',
-			icon: 'material-symbols:school-outline-rounded',
+			icon: '/images/educational/educational.svg#icon',
 			childNav: [
 				{
-					icon: 'material-symbols:abc-rounded',
+					icon: '/images/educational/course.svg#icon',
 					title: 'Courses',
 					link: `/users/${userId}/courses`
 				},
 				{
-					icon: 'material-symbols:local-library-outline-rounded',
+					icon: '/images/educational/learning-journey.svg#icon',
 					title: 'Learning Journey',
 					link: `/users/${userId}/learning-journeys`
 				},
 				{
-					icon: 'material-symbols:assignment-add-outline-rounded',
+					icon: '/images/educational/knowledge-nuggets.svg#icon',
 					title: 'Knowledge Nuggets',
 					link: `/users/${userId}/knowledge-nuggets`
 				}
@@ -98,20 +98,20 @@
 		},
 		{
 			title: 'Types',
-			icon: 'material-symbols:account-tree-outline-rounded',
+			icon: '/images/types/types.svg#icon',
 			childNav: [
 				{
-					icon: 'material-symbols:person-search-outline-rounded',
+					icon: '/images/types/person-role.svg#icon',
 					title: 'Person Role',
 					link: `/users/${userId}/person-role-types`
 				},
 				{
-					icon: 'material-symbols:priority-outline',
+					icon: '/images/types/priorities.svg#icon',
 					title: 'Priorities',
 					link: `/users/${userId}/priorities`
 				},
 				{
-					icon: 'material-symbols:radar',
+					icon: '/images/types/goal.svg#icon',
 					title: 'Goals',
 					link: `/users/${userId}/goals`
 				}
@@ -119,45 +119,45 @@
 		},
 		{
 			title: 'Miscellaneous',
-			icon: 'material-symbols:home-max-dots-outline',
+			icon: '/images/miscellanous/miscellanous.svg#icon',
 			childNav: [
 				{
-					icon: 'material-symbols:frame-person-outline-rounded',
+					icon: '/images/miscellanous/client.svg#icon',
 					title: 'Clients',
 					link: `/users/${userId}/api-clients`
 				},
 				{
-					icon: 'material-symbols:corporate-fare-rounded',
+					icon: '/images/miscellanous/organization.svg#icon',
 					title: 'Organizations',
 					link: `/users/${userId}/organizations`
 				},
 				{
-					icon: 'material-symbols:notifications-outline-rounded',
+					icon: '/images/miscellanous/notification.svg#icon',
 					title: 'Notifications',
 					link: `/users/${userId}/notifications`
 				},
 				{
-					icon: 'material-symbols:newsmode-outline-rounded',
+					icon: '/images/miscellanous/newsfeed.svg#icon',
 					title: 'News Feed',
 					link: `/users/${userId}/newsfeeds`
 				},
 				{
-					icon: 'material-symbols:release-alert-outline-rounded',
+					icon: '/images/miscellanous/notice.svg#icon',
 					title: 'Notices',
 					link: `/users/${userId}/notices`
 				},
 				{
-					icon: 'material-symbols:database-outline',
+					icon: '/images/miscellanous/custom-queries.svg#icon',
 					title: 'Custom Queries',
 					link: `/users/${userId}/custom-queries`
 				},
 				{
-					icon: 'material-symbols:tenancy-outline',
+					icon: '/images/miscellanous/tenant.svg#icon',
 					title: 'Tenants',
 					link: `/users/${userId}/tenants`
 				},
 				{
-					icon: 'material-symbols:groups-outline-rounded',
+					icon: '/images/miscellanous/cohort.svg#icon',
 					title: 'Cohorts',
 					link: `/users/${userId}/cohorts`
 				},
@@ -165,25 +165,25 @@
 		},
 		{
 			title: 'Gamification',
-			icon: 'simple-icons:gamedeveloper',
+			icon: '/images/gamification/gamification.svg#icon',
 			childNav: [
 				{
-					icon: 'mdi:event-edit',
+					icon: '/images/gamification/event-type.svg#icon',
 					title: 'Event Types',
 					link: `/users/${userId}/gamification/event-types`
 				},
 				{
-					icon: 'octicon:id-badge-16',
+					icon: '/images/gamification/badge-categories.svg#icon',
 					title: 'Badge Categories',
 					link: `/users/${userId}/gamification/badge-categories`
 				},
 				{
-					icon: 'cil:badge',
+					icon: '/images/gamification/badge.svg#icon',
 					title: 'Badges',
 					link: `/users/${userId}/gamification/badges`
 				},
 				{
-					icon: 'ic:outline-schema',
+					icon: '/images/gamification/schemas.svg#icon',
 					title: 'Schemas',
 					link: `/users/${userId}/gamification/schemas`
 				},
@@ -192,6 +192,7 @@
 	];
 
 	$: if ($navigating) showSidebar = false;
+
 </script>
 
 <div
@@ -200,9 +201,13 @@
 >
 	<Accordion width="w-[280px]" autocollapse rounded="rounded-none">
 		{#each navData as navParent, idx}
+			<!-- svelte-ignore missing-declaration -->
+			<!-- svelte-ignore a11y-click-events-have-key-events -->
 			<AccordionItem open={idx === 0}>
 				<svelte:fragment slot="lead">
-					<Icon icon={navParent.icon} class="text-2xl" />
+					<Icon
+					cls="stroke-slate-800 stroke-2 fill-none h-10"
+					h="100%" w="100%" iconPath={navParent.icon}/>
 				</svelte:fragment>
 				<svelte:fragment slot="summary">{navParent.title}</svelte:fragment>
 				<svelte:fragment slot="content">
@@ -210,27 +215,32 @@
 						{#each navParent.childNav as navItem}
 							<!-- if no navItem.link but navItem.child -->
 							{#if navItem.link}
-								<a
+								<a 
 									href={navItem.link}
 									class:!variant-soft-secondary={$page.url.pathname === navItem.link}
 								>
-									{#if navItem.icon.endsWith('.png')}
-										<img src={navItem.icon} alt="" class="invert dark:filter-none w-6 h-6" />
-									{:else}
+									{#if navItem.icon.endsWith('.svg#icon')}										
 										<Icon
+											cls={`stroke-2 fill-none h-10 ${$page.url.pathname === navItem.link ? 'stroke-primary-600' : 'stroke-slate-500' }`}
+											h="100%" w="100%" iconPath={navItem.icon}/>									
+									<!-- {:else} -->
+										<!-- <Icon
 											icon={$page.url.pathname === navItem.link
 												? navItem.icon.replace('-outline', '')
 												: navItem.icon}
 											class="text-2xl"
-										/>
+										/> -->
 									{/if}
+							
 									<span>{navItem.title}</span>
 								</a>
 							{:else if navItem.children}
 								<Accordion>
 									<AccordionItem>
 										<svelte:fragment slot="lead">
-											<Icon icon={navItem.icon} class="text-2xl" />
+											<Icon
+											cls="stroke-slate-800 stroke-2 fill-none h-10"
+											h="100%" w="100%" iconPath={navParent.icon}/>
 										</svelte:fragment>
 										<svelte:fragment slot="summary">
 											{navItem.title}
@@ -242,11 +252,9 @@
 														href={childItem.link}
 														class:!variant-soft-secondary={$page.url.pathname === childItem.link}
 													>
-														<Icon
-															icon={$page.url.pathname === childItem.link
-																? childItem.icon.replace('-outline', '')
-																: childItem.icon}
-															class="text-2xl"
+													<Icon
+													cls={`stroke-2 fill-none h-10 ${$page.url.pathname === childItem.link ? 'stroke-primary-600' : 'stroke-slate-500' }`}
+														h="100%" w="100%" iconPath={childItem.icon}
 														/>
 														<span>{childItem.title}</span>
 													</a>

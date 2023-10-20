@@ -2,7 +2,7 @@
 	import CollapsibleSection from './collapsibleSection.svelte';
 	import Confirm from '$lib/components/modal/confirmModal.svelte';
 	import { createEventDispatcher } from 'svelte';
-	import Icon from '@iconify/svelte';
+	import Icon from '$lib/components/icon.svelte';
 
 	/////////////////////////////////////////////////////////////////////
 
@@ -50,9 +50,12 @@
 								<td>
 									<a
 										href={`/users/${userId}/careplan/careplans/${careplanId}/scheduling/${activity.id}/edit`}
-										class="btn p-2 -my-1 hover:variant-soft-primary"
+										class="btn p-1 -my-1 hover:variant-soft-primary"
 									>
-										<Icon icon="material-symbols:edit-outline" class="lg" />
+									
+									<Icon
+										cls="stroke-slate-800 hover:stroke-primary-500 stroke-2 fill-none"
+										h="100%" w="100%" iconPath='/images/others/edit.svg#icon'/>
 									</a>
 								</td>
 								<td>
@@ -64,9 +67,11 @@
 									>
 										<button
 											on:click|preventDefault={() => confirmThis(handlelDeleteClick, activity.id)}
-											class="btn p-2 -my-1 hover:variant-soft-error"
-										>
-											<Icon icon="material-symbols:delete-outline-rounded" class="text-lg" />
+											class="btn px-0 -my-2 hover:variant-soft-error"
+									>
+									<Icon
+										cls="stroke-slate-800 hover:stroke-slate-500 stroke-2 fill-none"
+										h="100%" w="100%" iconPath='/images/others/delete.svg#icon'/>
 										</button>
 										<span slot="title"> Delete </span>
 										<span slot="description"> Are you sure you want to delete a content? </span>

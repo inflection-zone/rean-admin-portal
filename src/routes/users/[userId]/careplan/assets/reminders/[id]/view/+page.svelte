@@ -2,7 +2,7 @@
 	import type { PageServerData } from './$types';
 	import { page } from '$app/stores';
 	import BreadCrumbs from '$lib/components/breadcrumbs/breadcrums.svelte';
-	import Icon from '@iconify/svelte';
+	import Icon from '$lib/components/icon.svelte';
 
 	//////////////////////////////////////////////////////////////////////////
 
@@ -39,9 +39,12 @@
 <BreadCrumbs crumbs={breadCrumbs} />
 
 <div class="flex flex-wrap gap-2">
-	<a href={editRoute} class="btn variant-filled-secondary ml-auto">
-		<Icon icon="material-symbols:edit-outline" />
-		<span>Edit</span>
+	<a href={editRoute} class="btn variant-filled-secondary ml-auto w-22 h-10 px-0">
+		<div class="flex items-center">
+			<Icon
+			cls="stroke-surface-100 stroke-2 fill-none"
+			h="100%" w="100%" iconPath='/images/others/edit.svg#icon'/>
+			<span class="pr-4">Edit</span>
 	</a>
 </div>
 
@@ -51,8 +54,10 @@
 			<tr>
 				<th>View Reminder</th>
 				<th class="text-end">
-					<a href={assetRoute} class="btn p-2 -my-2 variant-soft-secondary">
-						<Icon icon="material-symbols:close-rounded" class="text-lg" />
+					<a href={assetRoute} class="btn px-0 w-8 h-8 variant-soft-secondary">
+						<Icon
+							cls="stroke-primary-500 stroke-2 fill-none"
+							h="100%" w="100%" iconPath='/images/others/cancel.svg#icon'/>
 					</a>
 				</th>
 			</tr>

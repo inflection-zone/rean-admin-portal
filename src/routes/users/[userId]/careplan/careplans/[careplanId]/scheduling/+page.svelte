@@ -2,9 +2,8 @@
 	import Careplanscheduleform from './careplan-schedule-form.svelte';
 	import { page } from '$app/stores';
 	import BreadCrumbs from '$lib/components/breadcrumbs/breadcrums.svelte';
-	import Select from 'svelte-select';
 	import type { PageServerData } from './$types';
-	import Icon from '@iconify/svelte';
+	import Icon from '$lib/components/icon.svelte';
 
 	//////////////////////////////////////////////////////////////////////////
 
@@ -204,8 +203,10 @@
 				<tr>
 					<th>Schedule New Activity</th>
 					<th class="text-end">
-						<button class="btn p-2 -my-2 variant-soft-secondary" on:click={hideForm}>
-							<Icon icon="material-symbols:close-rounded" class="text-lg" />
+						<button class="btn px-0 w-8 h-8 variant-soft-secondary" on:click={hideForm}>
+						<Icon
+							cls="stroke-primary-500 stroke-2 fill-none"
+							h="100%" w="100%" iconPath='/images/others/cancel.svg#icon'/>
 						</button>
 					</th>
 				</tr>

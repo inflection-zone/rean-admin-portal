@@ -4,12 +4,11 @@
 	import BreadCrumbs from '$lib/components/breadcrumbs/breadcrums.svelte';
 	import Confirm from '$lib/components/modal/confirmModal.svelte';
 	import { Helper } from '$lib/utils/helper';
-	import Icon from '@iconify/svelte';
 	import {
 		Paginator, type PaginationSettings,
 	} from '@skeletonlabs/skeleton';
-	import date from 'date-and-time';
 	import type { PageServerData } from './$types';
+	import Icon from '$lib/components/icon.svelte';
 
 	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -156,8 +155,10 @@
 						</td>
 						<td role="gridcell" aria-colindex={4} tabindex="0">{row.Tags.length > 0 ? row.Tags : "Not specified"}</td>
 						<td>
-							<a href={editRoute(row.id)} class="btn p-2 -my-1 hover:variant-soft-primary">
-								<Icon icon="material-symbols:edit-outline" class="text-lg" />
+							<a href={editRoute(row.id)} class="btn px-0 -my-2 hover:variant-soft-secondary">
+								<Icon
+									cls="stroke-slate-800 hover:stroke-primary-500 stroke-2 fill-none"
+									h="100%" w="100%" iconPath='/images/others/edit.svg#icon'/>
 							</a>
 						</td>
 						<td>
@@ -169,9 +170,11 @@
 							>
 								<button
 									on:click|preventDefault={() => confirmThis(handleQueryDelete, row.id)}
-									class="btn p-2 -my-1 hover:variant-soft-error"
+									class="btn px-0 -my-2 hover:variant-soft-error"
 								>
-									<Icon icon="material-symbols:delete-outline-rounded" class="text-lg" />
+								<Icon
+									cls="stroke-slate-800 hover:stroke-slate-500 stroke-2 fill-none"
+									h="100%" w="100%" iconPath='/images/others/delete.svg#icon'/>
 								</button>
 								<span slot="title"> Delete </span>
 								<span slot="description"> Are you sure you want to delete a query? </span>

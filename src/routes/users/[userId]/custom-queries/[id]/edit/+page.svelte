@@ -1,11 +1,11 @@
 <script lang="ts">
 	import { page } from '$app/stores';
 	import BreadCrumbs from '$lib/components/breadcrumbs/breadcrums.svelte';
-	import Icon from '@iconify/svelte';
 	import InputChip from '$lib/components/input-chips.svelte';
 	import type { PageServerData } from './$types';
 	import { goto } from '$app/navigation';
 	import toast from 'svelte-french-toast';
+	import Icon from '$lib/components/icon.svelte';
 
 	//////////////////////////////////////////////////////////////////////
 	
@@ -107,8 +107,10 @@ on:submit={async () => await onUpdate(name, description, format, query, tags)}
 			<tr>
 				<th>Edit Query</th>
 				<th class="text-end">
-					<a href={viewRoute} class="btn p-2 -my-2 variant-soft-secondary">
-						<Icon icon="material-symbols:close-rounded" class="text-lg" />
+					<a href={viewRoute} class="btn px-0 w-8 h-8 variant-soft-secondary">
+						<Icon
+							cls="stroke-primary-500 stroke-2 fill-none"
+							h="100%" w="100%" iconPath='/images/others/cancel.svg#icon'/>
 					</a>
 				</th>
 			</tr>

@@ -3,8 +3,8 @@
 	import { onMount } from 'svelte';
 	import { page } from '$app/stores';
 	import BreadCrumbs from '$lib/components/breadcrumbs/breadcrums.svelte';
-	import Icon from '@iconify/svelte';
 	import InputChip from '$lib/components/input-chips.svelte';
+	import Icon from '$lib/components/icon.svelte';
 
 	/////////////////////////////////////////////////////////////////////
 
@@ -73,8 +73,10 @@
 			<tr>
 				<th>Edit Animation</th>
 				<th class="text-end">
-					<a href={viewRoute} class="btn p-2 -my-2 variant-soft-secondary">
-						<Icon icon="material-symbols:close-rounded" class="text-lg" />
+					<a href={viewRoute} class="btn px-0 w-8 h-8 variant-soft-secondary">
+						<Icon
+							cls="stroke-primary-500 stroke-2 fill-none"
+							h="100%" w="100%" iconPath='/images/others/cancel.svg#icon'/>
 					</a>
 				</th>
 			</tr>

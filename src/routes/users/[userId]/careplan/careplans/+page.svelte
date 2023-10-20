@@ -6,8 +6,8 @@
 	import {
 		Paginator, type PaginationSettings,
 	} from '@skeletonlabs/skeleton';
-	import Icon from '@iconify/svelte';
 	import { browser } from '$app/environment';
+	import Icon from '$lib/components/icon.svelte';
 
 	///////////////////////////////////////////////////////////////////
 
@@ -175,8 +175,10 @@
 						<td role="gridcell" aria-colindex={3} tabindex="0">{row.Code}</td>
 						<td role="gridcell" aria-colindex={4} tabindex="0">{row.Type}</td>
 						<td>
-							<a class="btn p-2 hover:variant-soft-secondary" href={editRoute(row.id)}>
-								<Icon icon="material-symbols:edit-outline" class="text-lg" />
+							<a class="btn px-0 -my-2 hover:variant-soft-secondary" href={editRoute(row.id)}>
+								<Icon
+									cls="stroke-slate-800 hover:stroke-primary-500 stroke-2 fill-none"
+									h="100%" w="100%" iconPath='/images/others/edit.svg#icon'/>
 							</a>
 						</td>
 						<td>
@@ -190,9 +192,11 @@
 							>
 								<button
 									on:click|preventDefault={() => confirmThis(handleCareplanDelete, row.id)}
-									class="btn p-2 -my-1 hover:variant-soft-error"
+									class="btn px-0 -my-2 hover:variant-soft-error"
 								>
-									<Icon icon="material-symbols:delete-outline-rounded" class="text-lg" />
+								<Icon
+									cls="stroke-slate-800 hover:stroke-slate-500 stroke-2 fill-none"
+									h="100%" w="100%" iconPath='/images/others/delete.svg#icon'/>
 								</button>
 
 								<span slot="title"> Delete </span>

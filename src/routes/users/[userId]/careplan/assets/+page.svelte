@@ -3,11 +3,11 @@
 	import type { PageServerData } from './$types';
 	import Confirm from '$lib/components/modal/confirmModal.svelte';
 	import { Paginator, type PaginationSettings } from '@skeletonlabs/skeleton';
-	import Icon from '@iconify/svelte';
 	import date from 'date-and-time';
 	import { Helper } from '$lib/utils/helper';
 	import { browser } from '$app/environment';
 	import BreadCrumbs from '$lib/components/breadcrumbs/breadcrums.svelte';
+	import Icon from '$lib/components/icon.svelte';
 
 	///////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -237,10 +237,12 @@
 						>
 						<td>
 							<a
-								class="btn p-2 hover:variant-soft-secondary"
+								class="btn px-0 -my-2 hover:variant-soft-secondary"
 								href="{assetRoute()}/{assetRouteMap[selectedAssetType]}/{row.id}/edit"
 							>
-								<Icon icon="material-symbols:edit-outline" class="text-lg" />
+							<Icon
+								cls="stroke-slate-800 hover:stroke-primary-500 stroke-2 fill-none"
+								h="100%" w="100%" iconPath='/images/others/edit.svg#icon'/>
 							</a>
 						</td>
 						<td>
@@ -254,9 +256,11 @@
 							>
 								<button
 									on:click|preventDefault={() => confirmThis(handleAssetsDelete, row.id)}
-									class="btn p-2 -my-1 hover:variant-soft-error"
+									class="btn px-0 -my-2 hover:variant-soft-error"
 								>
-									<Icon icon="material-symbols:delete-outline-rounded" class="text-lg" />
+								<Icon
+									cls="stroke-slate-800 hover:stroke-slate-500 stroke-2 fill-none"
+									h="100%" w="100%" iconPath='/images/others/delete.svg#icon'/>
 								</button>
 
 								<span slot="title">Delete</span>

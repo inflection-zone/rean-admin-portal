@@ -4,9 +4,8 @@
 	import ItemsDragDrop from '$lib/components/drag-and-drop/courses-drag-drop.svelte';
 	import SelectedItems from '$lib/components/drag-and-drop/selected-courses-drag-drop.svelte';
 	import { selectedItems } from '$lib/store/general.store';
-	import Icon from '@iconify/svelte';
-	// import { createDataTableStore, dataTableHandler } from '@skeletonlabs/skeleton';
 	import type { PageServerData } from './$types'
+	import Icon from '$lib/components/icon.svelte';
 	
 	///////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -68,8 +67,10 @@
 			<tr>
 				<th>Edit Schema</th>
 				<th class="text-end">
-					<a href={viewRoute} class="btn p-2 -my-2 variant-soft-secondary">
-						<Icon icon="material-symbols:close-rounded" class="text-lg" />
+					<a href={viewRoute} class="btn px-0 w-8 h-8 variant-soft-secondary">
+						<Icon
+							cls="stroke-primary-500 stroke-2 fill-none"
+							h="100%" w="100%" iconPath='/images/others/cancel.svg#icon'/>
 					</a>
 				</th>
 			</tr>

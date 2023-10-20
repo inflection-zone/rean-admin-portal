@@ -5,8 +5,8 @@
 	import UpdateScoringCondition from '$lib/components/modal/update.scoring.condition.modal.svelte';
 	import { scoringApplicableCondition, showScoringConditionModal } from '$lib/store/general.store';
 	import { Helper } from '$lib/utils/helper';
-	import Icon from '@iconify/svelte';
 	import type { PageServerData } from './$types';
+	import Icon from '$lib/components/icon.svelte';
 
 	////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -122,9 +122,13 @@
 	{#if nodeType === 'Node list'}
 		<a href={createNodeRoute} class="btn variant-filled-secondary">Add child</a>
 	{/if}
-	<a href={editRoute} class="btn variant-filled-secondary">
-		<Icon icon="material-symbols:edit-outline" />
-		<span>Edit</span>
+	<a href={editRoute} class="btn variant-filled-secondary w-22 h-10 px-0">
+		<div class="flex items-center">
+			<Icon
+			cls="stroke-surface-100 stroke-2 fill-none"
+			h="100%" w="100%" iconPath='/images/others/edit.svg#icon'/>
+			<span class="pr-4">Edit</span>
+		</div>
 	</a>
 </div>
 
@@ -134,8 +138,10 @@
 			<tr>
 				<th>View Assessment Node</th>
 				<th class="text-end">
-					<a href={assessmentNodeRoutes} class="btn p-2 -my-2 variant-soft-secondary">
-						<Icon icon="material-symbols:close-rounded" class="text-lg" />
+					<a href={assessmentNodeRoutes} class="btn px-0 w-8 h-8 variant-soft-secondary">
+						<Icon
+							cls="stroke-primary-500 stroke-2 fill-none"
+							h="100%" w="100%" iconPath='/images/others/cancel.svg#icon'/>
 					</a>
 				</th>
 			</tr>
@@ -190,7 +196,10 @@
 									on:click|preventDefault={async () => showScoringConditionModal.set(true)}
 									class="btn p-2 -my-1 ml-auto hover:variant-soft-primary"
 								>
-									<Icon icon="material-symbols:edit-outline" class="text-lg" />
+									<!-- <Icon icon="material-symbols:edit-outline" class="text-lg" /> -->
+						<Icon
+							cls="stroke-slate-800 hover:stroke-secondary-800 stroke-2 fill-none"
+							h="100%" w="100%" iconPath='/images/others/edit.svg#icon'/>
 								</button>
 							</div>
 						</td>
@@ -235,9 +244,9 @@
 												<td>
 													<a
 														href={editNodeRoute(node.id)}
-														class="btn p-2 -my-1 hover:variant-soft-primary"
+														class="btn p-1 -my-1 hover:variant-soft-primary"
 													>
-														<Icon icon="material-symbols:edit-outline" class="text-lg" />
+													<img class="w-8 text-lg" src="/assets/images/other/edit.png" alt="" />
 													</a>
 												</td>
 												<td>
@@ -250,12 +259,9 @@
 														<button
 															on:click|preventDefault={() =>
 																confirmThis(handleAssessmentNodeDelete, node.id)}
-															class="btn p-2 -my-1 hover:variant-soft-error"
+															class="btn p-1 -my-1 hover:variant-soft-error"
 														>
-															<Icon
-																icon="material-symbols:delete-outline-rounded"
-																class="text-lg"
-															/>
+														<img class="w-8 text-lg" src="/assets/images/other/trash.png" alt="" />
 														</button>
 														<span slot="title"> Delete </span>
 														<span slot="description">

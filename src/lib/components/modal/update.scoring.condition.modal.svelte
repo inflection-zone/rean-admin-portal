@@ -1,7 +1,7 @@
 <script lang="ts">
-	import Icon from '@iconify/svelte';
 	import { createEventDispatcher } from 'svelte';
 	import { showScoringConditionModal } from '../../store/general.store';
+	import Icon from '../icon.svelte';
 	export let resolutionScore = undefined;
 	let dialog;
 
@@ -25,8 +25,10 @@
 >
 	<div class="flex items-center justify-between variant-soft-secondary py-2 px-4">
 		<span class="text-xl">Update Scoring Condition</span>
-		<button class="btn p-2 variant-soft-secondary" on:click={() => dialog.close()}>
-			<Icon icon="material-symbols:close-rounded" class="text-lg" />
+		<button class="btn px-0 w-8 variant-soft-secondary h-8" on:click={() => dialog.close()}>
+			<Icon
+					cls="stroke-primary-500 stroke-2 fill-none"
+					h="100%" w="100%" iconPath='/images/others/cancel.svg#icon'/>
 		</button>
 	</div>
 

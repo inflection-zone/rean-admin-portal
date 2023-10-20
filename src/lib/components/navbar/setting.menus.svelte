@@ -1,7 +1,8 @@
 <script>
-	import Icon from '@iconify/svelte';
 	import { LightSwitch } from '@skeletonlabs/skeleton';
 	import { createEventDispatcher } from 'svelte';
+	import Icon from '../icon.svelte';
+	
 	const dispatch = createEventDispatcher();
 	const gotoLogout = async () => {
 		dispatch('logout');
@@ -10,12 +11,16 @@
 
 <div class="flex justify-between">
 	<button on:click={async () => await gotoLogout()} class="btn p-2 variant-soft-error">
-		<Icon icon="material-symbols:logout-rounded" />
+		<Icon
+			cls="stroke-slate-800 stroke-error-500 stroke-2 fill-none"
+			h="100%" w="100%" iconPath='/images/others/signout-red.svg#icon'/>
 		<span class="text-xs">Sign Out</span>
 	</button>
 
 	<button class="btn variant-soft-error p-2" on:click>
-		<Icon icon="material-symbols:close-rounded" class="text-xl" />
+		<Icon
+			cls="stroke-slate-800 stroke-error-500 stroke-2 fill-none"
+			h="100%" w="100%" iconPath='/images/others/cancel-red.svg#icon'/>
 	</button>
 </div>
 

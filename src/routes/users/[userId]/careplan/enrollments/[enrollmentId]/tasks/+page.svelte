@@ -6,8 +6,8 @@
 	import {
 		Paginator, type PaginationSettings,
 	} from '@skeletonlabs/skeleton';
-	import Icon from '@iconify/svelte';
 	import { browser } from '$app/environment';
+	import Icon from '$lib/components/icon.svelte';
 
 	////////////////////////////////////////////////////////////////////////////
 
@@ -171,9 +171,14 @@
 						>
 						<td>
 						{#if row.ProgressStatus === 'Completed'}
-							<Icon icon="material-symbols:done-rounded" class="text-xl text-success-500"/>
+							<!-- <Icon icon="material-symbols:done-rounded" class="text-xl text-success-500"/> -->
+							<Icon
+								cls="stroke-error-600 stroke-2 fill-none"
+								h="100%" w="100%" iconPath='/images/others/cancel-red.svg#icon'/>
 						{:else}
-							<Icon icon="material-symbols:close-rounded" class="text-xl text-error-500"/>
+						<Icon
+							cls="stroke-error-600 stroke-2 fill-none"
+							h="100%" w="100%" iconPath='/images/others/cancel-red.svg#icon'/>
 						{/if}</td>
 					</tr>
 				{/each}

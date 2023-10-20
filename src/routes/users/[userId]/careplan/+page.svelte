@@ -1,7 +1,8 @@
 <script lang="ts">
 	import CareplanLineChart from '$lib/components/users-stats/charts/careplan-line-chart.svelte';
 	import UserEngagementChart from '$lib/components/users-stats/charts/user-engagement-chart.svelte';
-	import type { PageServerData } from './dashboard/$types';
+	import type { PageServerData } from './$types';
+	
 	export let data: PageServerData;
 
 	let totalCareplans = data.careplanStats.CareplanStatistics.CareplansDaily;

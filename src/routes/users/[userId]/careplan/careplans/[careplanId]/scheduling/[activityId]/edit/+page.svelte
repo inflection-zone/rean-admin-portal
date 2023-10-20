@@ -3,7 +3,7 @@
   import Select from 'svelte-select';
   import { page } from '$app/stores';
   import BreadCrumbs from '$lib/components/breadcrumbs/breadcrums.svelte';
-	import Icon from '@iconify/svelte';
+	import Icon from '$lib/components/icon.svelte';
 
   //////////////////////////////////////////////////////////////////////////
 
@@ -121,8 +121,10 @@
 			<tr>
 				<th>Edit Careplan Activity</th>
 				<th class="text-end">
-					<a href={viewRoute} class="btn p-2 -my-2 variant-soft-secondary">
-						<Icon icon="material-symbols:close-rounded" class="text-lg" />
+					<a href={viewRoute} class="btn px-0 w-8 h-8 variant-soft-secondary">
+						<Icon
+							cls="stroke-slate-800 stroke:secondary-800 stroke-2 fill-none"
+							h="100%" w="100%" iconPath='/images/others/cancel.svg#icon'/>
 					</a>
 				</th>
 			</tr>

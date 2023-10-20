@@ -1,5 +1,6 @@
 <script lang="ts">
-	import Icon from '@iconify/svelte';
+	import Icon from "$lib/components/icon.svelte";
+
 
 	export let optionValueStore = [{ Text: '' }];
 
@@ -18,8 +19,10 @@
 				bind:value={optionValueStore[i].Text}
 				placeholder="Add option here..."
 			/>
-			<button class="btn p-2 variant-soft-error" on:click={removeOptionField}>
-				<Icon icon="material-symbols:close-rounded" />
+			<button class="btn p-2 px-0 variant-soft-error h-10" on:click={removeOptionField}>
+				<Icon
+				cls="stroke-error-500 stroke-2 fill-none"
+				h="100%" w="100%" iconPath='/images/others/cancel.svg#icon'/>
 			</button>
 		</div>
 	{/each}

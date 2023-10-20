@@ -2,11 +2,11 @@
 	import { page } from '$app/stores';
 	import BreadCrumbs from '$lib/components/breadcrumbs/breadcrums.svelte';
 	import Image from '$lib/components/image.svelte';
-	import Icon from '@iconify/svelte';
 	import date from 'date-and-time';
 	import type { PageServerData } from './$types';
 	import Confirm from '$lib/components/modal/confirmModal.svelte';
 	import { Helper } from '$lib/utils/helper';
+	import Icon from '$lib/components/icon.svelte';
 	
 	///////////////////////////////////////////////////////////////////////
 
@@ -69,9 +69,12 @@
 
 <div class="flex flex-wrap gap-2">
 	<a href={newsfeedItemRoute} class="btn variant-filled-secondary ml-auto">Add Items</a>
-	<a href={editRoute} class="btn variant-filled-secondary">
-		<Icon icon="material-symbols:edit-outline" />
-		<span>Edit</span>
+	<a href={editRoute} class="btn variant-filled-secondary w-22 h-10 px-0">
+		<div class="flex items-center">
+			<Icon
+			cls="stroke-surface-100 stroke-2 fill-none"
+			h="100%" w="100%" iconPath='/images/others/edit.svg#icon'/>
+			<span class="pr-4">Edit</span>
 	</a>
 </div>
 
@@ -81,8 +84,10 @@
 			<tr>
 				<th>View Newsfeed</th>
 				<th class="text-end">
-					<a href={newsfeedRoute} class="btn p-2 -my-2 variant-soft-secondary">
-						<Icon icon="material-symbols:close-rounded" class="text-lg" />
+					<a href={newsfeedRoute} class="btn px-0 w-8 h-8 variant-soft-secondary">
+						<Icon
+							cls="stroke-primary-500 stroke-2 fill-none"
+							h="100%" w="100%" iconPath='/images/others/cancel.svg#icon'/>
 					</a>
 				</th>
 			</tr>
@@ -188,9 +193,11 @@
 											<td>
 												<a
 													href={editItemRoute(newsfeedItem.id)}
-													class="btn p-2 -my-1 hover:variant-soft-primary"
+													class="btn px-0 -my-2 hover:variant-soft-primary"
 												>
-													<Icon icon="material-symbols:edit-outline" class="text-lg" />
+												<Icon
+													cls="stroke-slate-800 hover:stroke-primary-500 stroke-2 fill-none"
+													h="100%" w="100%" iconPath='/images/others/edit.svg#icon'/>
 												</a>
 											</td>
 											<td>
@@ -203,12 +210,11 @@
 													<button
 														on:click|preventDefault={() =>
 															confirmThis(handleNewsfeedItemDelete, newsfeedItem.id)}
-														class="btn p-2 -my-1 hover:variant-soft-error"
+														class="btn px-0 -my-2 hover:variant-soft-error"
 													>
-														<Icon
-															icon="material-symbols:delete-outline-rounded"
-															class="text-lg"
-														/>
+													<Icon
+														cls="stroke-slate-800 hover:stroke-slate-500 stroke-2 fill-none"
+														h="100%" w="100%" iconPath='/images/others/delete.svg#icon'/>
 													</button>
 													<span slot="title"> Delete </span>
 													<span slot="description">

@@ -2,9 +2,9 @@
 	import { page } from '$app/stores';
 	import BreadCrumbs from '$lib/components/breadcrumbs/breadcrums.svelte';
 	import { scoringApplicableCondition } from '$lib/store/general.store';
-	import Icon from '@iconify/svelte';
 	import type { PageServerData } from './$types';
 	import Choice from './choice.svelte';
+	import Icon from '$lib/components/icon.svelte';
 
 	/////////////////////////////////////////////////////////////////////////////////////
 
@@ -64,8 +64,10 @@
 			<tr>
 				<th>Create Assessment Node</th>
 				<th class="text-end">
-					<a href={assessmentNodeRoutes} class="btn p-2 -my-2 variant-soft-secondary">
-						<Icon icon="material-symbols:close-rounded" class="text-lg" />
+					<a href={assessmentNodeRoutes} class="btn px-0 w-8 h-8 variant-soft-secondary">
+						<Icon
+							cls="stroke-primary-500 stroke-2 fill-none"
+							h="100%" w="100%" iconPath='/images/others/cancel.svg#icon'/>
 					</a>
 				</th>
 			</tr>
