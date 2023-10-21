@@ -35,7 +35,7 @@
 		`/users/${userId}/courses/${courseId}/modules/${moduleId}/contents/${contentId}/view`;
 
 	const breadCrumbs = [
-		{ name: 'Learning-Journeys', path: learningJourneyRoute },
+		{ name: 'Learning Journeys', path: learningJourneyRoute },
 		{ name: 'View', path: viewRoute }
 	];
 </script>

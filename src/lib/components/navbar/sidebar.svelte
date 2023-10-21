@@ -86,7 +86,7 @@
 				},
 				{
 					icon: 'material-symbols:local-library-outline-rounded',
-					title: 'Learning Journey',
+					title: 'Learning Journeys',
 					link: `/users/${userId}/learning-journeys`
 				},
 				{
