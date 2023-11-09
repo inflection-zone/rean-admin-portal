@@ -20,7 +20,7 @@
 	const viewRoute = (id) => `/users/${userId}/learning-journeys/${id}/view`;
 	const createRoute = `/users/${userId}/learning-journeys/create`;
 
-	const breadCrumbs = [{ name: 'Learning-Journeys', path: learningJourneyRoute }];
+	const breadCrumbs = [{ name: 'Learning Journeys', path: learningJourneyRoute }];
 
 	let name = undefined;
 	let preferenceWeight = undefined;
