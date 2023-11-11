@@ -4,14 +4,14 @@
 declare namespace App {
   interface Locals {
     sessionUser: {
-      sessionId?: string;
-      userId?: string;
-      email?: string;
-      username?: string;
+      sessionId      ?: string;
+      userId         ?: string;
+      email          ?: string;
+      username       ?: string;
       profileImageUrl?: string;
-      fullName?: string;
-      firstName?: string;
-      roleId?: string;
+      fullName       ?: string;
+      firstName      ?: string;
+      roleId         ?: string;
     };
 
     // interface PageData {}
@@ -19,10 +19,10 @@ declare namespace App {
   }
 
   interface Error {
-    message: string;
-    code?: number;
-    userId?: string;
-    stack?: string;
+    message : string;
+    code   ?: number;
+    userId ?: string;
+    stack  ?: string;
   }
 
   interface PageData {
