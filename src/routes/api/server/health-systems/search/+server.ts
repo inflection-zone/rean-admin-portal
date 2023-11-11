@@ -23,10 +23,10 @@ export const GET = async (event: RequestEvent) => {
             itemsPerPage,
             pageIndex,
         };
-        // console.log("Search parms: ", searchParams);
+        console.log("Search parms: ", searchParams);
 		const response = await searchHealthSystems(sessionId, searchParams);
         const healthSystems = response.Data.HealthSystems;
-        // console.log("healthSystems", JSON.stringify(healthSystems, null, 2));
+        console.log("healthSystems", JSON.stringify(healthSystems, null, 2));
         return new Response(JSON.stringify(healthSystems));
 	} catch (err) {
 		console.error(`Error retriving health systems: ${err.message}`);

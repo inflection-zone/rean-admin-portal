@@ -8,41 +8,34 @@
     //////////////////////////////////////////////////////////////////////
 
     const userId = $page.params.userId;
-    const hospitalId = $page.params.id;
-    const editRoute = `/users/${userId}/hospitals/${hospitalId}/edit`;
-    const viewRoute = `/users/${userId}/hospitals/${hospitalId}/view`;
-    const hospitalsRoute = `/users/${userId}/hospitals`;
+    var healthSystemId = $page.params.id;
+    const editRoute = `/users/${userId}/health-systems/${healthSystemId}/edit`;
+    const viewRoute = `/users/${userId}/health-systems/${healthSystemId}/view`;
+    const healthSystemsRoute = `/users/${userId}/health-systems`;
 
     export let form;
     export let data: PageServerData;
-    let id = data.hospital.id;
-    let hospitalName = data.hospital.Name;
-    let healthSystemId = data.hospital.HealthSystemId;
-    let healthSystemName = data.hospital.HealthSystemName;
-    let tags = data.hospital.Tags;
-    let healthSystems = data.healthSystems;
+    let id = data.healthSystem.id;
+    let healthSystemName = data.healthSystem.Name;
+    let tags = data.healthSystem.Tags;
 
-    console.log('hospital name  ->', hospitalName);
-    console.log('healthSystemId ->', healthSystemId);
-    console.log('tags           ->', tags);
-    console.log('healthSystem   ->', healthSystemName);
+    console.log('health System name  ->', healthSystemName);
+    console.log('health System Id    ->', healthSystemId);
+    console.log('tags                ->', tags);
 
     //Original data
-    let _hospitalName = hospitalName;
+    let _healthSystemName = healthSystemName;
     let _healthSystemId = healthSystemId;
     let _tags = JSON.stringify(tags);
-    const r = healthSystems.filter((hs) => {
-        return hs.id === healthSystemId;
-    });
 
     function handleReset() {
-        hospitalName = _hospitalName;
+        healthSystemName = _healthSystemName;
         healthSystemId = _healthSystemId;
         tags = JSON.parse(_tags);
     }
 
     const breadCrumbs = [
-        { name: 'Hospitals', path: hospitalsRoute },
+        { name: 'Health Systems', path: healthSystemsRoute },
         { name: 'Edit', path: editRoute }
     ];
 </script>
@@ -51,13 +44,13 @@
 
 <form
     method="post"
-    action="?/updateHospitalAction"
+    action="?/updateHealthSystemAction"
     class="table-container my-2 border border-secondary-100 dark:!border-surface-700"
 >
     <table class="table">
         <thead class="!variant-soft-secondary">
             <tr>
-                <th>Edit Hospital</th>
+                <th>Edit HealthSystem</th>
                 <th class="text-end">
                     <a
                         href={viewRoute}
@@ -77,29 +70,15 @@
                 <td>
                     <input
                         type="text"
-                        class="input {form?.errors?.hospitalName ? 'border-error-300 text-error-500' : ''}"
-                        name="hospitalName"
+                        class="input {form?.errors?.healthSystemName ? 'border-error-300 text-error-500' : ''}"
+                        name="healthSystemName"
                         placeholder="Enter name here..."
-                        bind:value={hospitalName}
+                        bind:value={healthSystemName}
                         required
                     />
-                    {#if form?.errors?.hospitalName}
-                        <p class="text-error-500 text-xs">{form?.errors?.hospitalName[0]}</p>
+                    {#if form?.errors?.healthSystemName}
+                        <p class="text-error-500 text-xs">{form?.errors?.healthSystemName[0]}</p>
                     {/if}
-                </td>
-            </tr>
-            <tr class="!border-b !border-b-secondary-100 dark:!border-b-surface-700">
-                <td>Health System *</td>
-                <td>
-                    <select
-                        name="healthSystemId"
-                        class="select select-primary w-full "
-                    >
-                        <option value={healthSystemId}>{r[0].Name}</option>
-                        {#each healthSystems as healthSystem}
-                            <option value={healthSystem.id}>{healthSystem.Name}</option>
-                        {/each}
-                    </select>
                 </td>
             </tr>
             <tr class="!border-b !border-b-secondary-100 dark:!border-b-surface-700">
