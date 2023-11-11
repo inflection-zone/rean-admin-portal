@@ -38,7 +38,6 @@ export const actions = {
         const sessionId = event.cookies.get('sessionId');
         const data = await request.formData();
 		const formData = Object.fromEntries(data);
-
 		const tags = data.has('tags') ? data.getAll('tags') : [];
 		const formDataValue = { ...formData, tags: tags };
 

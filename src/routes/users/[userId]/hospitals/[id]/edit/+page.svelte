@@ -22,6 +22,11 @@
     let tags = data.hospital.Tags;
     let healthSystems = data.healthSystems;
 
+    console.log('hospital name  ->', hospitalName);
+    console.log('healthSystemId ->', healthSystemId);
+    console.log('tags           ->', tags);
+    console.log('healthSystem   ->', healthSystemName);
+
     //Original data
     let _hospitalName = hospitalName;
     let _healthSystemId = healthSystemId;

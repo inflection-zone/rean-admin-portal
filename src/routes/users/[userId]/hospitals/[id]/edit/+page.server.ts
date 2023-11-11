@@ -21,7 +21,9 @@ export const load: PageServerLoad = async (event: RequestEvent) => {
         }
         const hospital = response.Data.Hospital;
         const id = response.Data.Hospital.id;
-        const healthSystems = await searchHealthSystems(sessionId);
+        const healthSystems_ = await searchHealthSystems(sessionId);
+        const healthSystems = healthSystems_.Data.HealthSystems.Items;
+
         return {
             location: `${id}/edit`,
             hospital,
@@ -45,15 +47,20 @@ export const actions = {
         const userId = event.params.userId;
         const hospitalId = event.params.id;
         const sessionId = event.cookies.get('sessionId');
-        const formData = Object.fromEntries(await request.formData());
+        const data = await request.formData();
+		const formData = Object.fromEntries(data);
+		const tags = data.has('tags') ? data.getAll('tags') : [];
+		const formDataValue = { ...formData, tags: tags };
+
+        console.log('formData', JSON.stringify(formDataValue, null, 2));
 
         type HospitalSchema = z.infer<typeof updateHospitalSchema>;
 
         let result: HospitalSchema = {};
         try {
-            result = updateHospitalSchema.parse(formData);
+            result = updateHospitalSchema.parse(formDataValue);
             console.log('result', result);
-        } catch (err: any) {
+        } catch (err) {
             const { fieldErrors: errors } = err.flatten();
             console.log(errors);
             const { ...rest } = formData;
