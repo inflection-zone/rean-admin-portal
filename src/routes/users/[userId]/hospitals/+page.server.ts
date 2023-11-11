@@ -13,9 +13,9 @@ export const load: PageServerLoad = async (event: RequestEvent) => {
 		if (response.Status === 'failure' || response.HttpCode !== 200) {
 			throw error(response.HttpCode, response.Message);
 		}
-		const hospitals_ = response.Data.Hospitals;
-		const hospitals = hospitals_ ? hospitals_.Items : [];
-		console.log(`Hospitals: ${JSON.stringify(hospitals, null, 2)}`);
+		const hospitals = response.Data.Hospitals;
+		// const hospitals = hospitals_ ? hospitals_.Items : [];
+		// console.log(`Hospitals: ${JSON.stringify(hospitals, null, 2)}`);
 		return {
 			hospitals,
 			sessionId,

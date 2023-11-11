@@ -11,11 +11,11 @@ import { searchHealthSystems } from '../../../../api/services/health.systems';
 
 export const load: PageServerLoad = async (event: RequestEvent) => {
     const sessionId = event.cookies.get('sessionId');
-    // console.log(`session id received - ${sessionId}`);
+    console.log(`Loading the hospitals/create page`);
     try {
         const response = await searchHealthSystems(sessionId);
-        const healthSystems = response.Data.Items;
-        console.log(`Health systems = ${JSON.stringify(healthSystems)}`);
+        const healthSystems = response.Data.HealthSystems.Items;
+        // console.log(`Health systems = ${JSON.stringify(healthSystems)}`);
         return {
             healthSystems: healthSystems
         };
@@ -36,15 +36,21 @@ export const actions = {
         const request = event.request;
         const userId = event.params.userId;
         const sessionId = event.cookies.get('sessionId');
-        const formData = Object.fromEntries(await request.formData());
+        const data = await request.formData();
+		const formData = Object.fromEntries(data);
+
+		const tags = data.has('tags') ? data.getAll('tags') : [];
+		const formDataValue = { ...formData, tags: tags };
+
+        console.log('formData', JSON.stringify(formDataValue, null, 2));
 
         type HospitalSchema = z.infer<typeof createHospitalSchema>;
 
         let result: HospitalSchema = {};
         try {
-            result = createHospitalSchema.parse(formData);
+            result = createHospitalSchema.parse(formDataValue);
             console.log('result', result);
-        } catch (err: any) {
+        } catch (err) {
             const { fieldErrors: errors } = err.flatten();
             console.log(errors);
             const { ...rest } = formData;

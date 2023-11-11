@@ -29,7 +29,7 @@
 	}
 	function validate() {
 		if (!inputValue) return false;
-		if (validation !== void 0 && !validation(inputValue)) return false;
+		if (validation !== void 0 && !validation()) return false;
 		if (max !== -1 && value.length >= max) return false;
 		if (minlength !== -1 && inputValue.length < minlength) return false;
 		if (maxlength !== -1 && inputValue.length > maxlength) return false;
