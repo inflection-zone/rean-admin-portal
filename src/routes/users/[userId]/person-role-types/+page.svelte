@@ -33,7 +33,7 @@
 		amounts: [10, 20, 30, 50]
 	} satisfies PaginationSettings;
 
-	const handlePersonRoleTypeDelete = async (e, id) => {
+	const handlePersonRoleTypeDelete = async (id) => {
 		const personRoleTypeId = id;
 		console.log('personRoleTypeId', personRoleTypeId);
 		await Delete({
@@ -94,9 +94,6 @@
 								confirmTitle="Delete"
 								cancelTitle="Cancel"
 								let:confirm={confirmThis}
-								on:delete={(e) => {
-									handlePersonRoleTypeDelete(e, row.id);
-								}}
 							>
 								<button
 									on:click|preventDefault={() => confirmThis(handlePersonRoleTypeDelete, row.id)}

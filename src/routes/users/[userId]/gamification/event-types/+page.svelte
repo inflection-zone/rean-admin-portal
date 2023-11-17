@@ -93,7 +93,7 @@
 		sortBy = columnName;
 	}
 
-	const handleEventDelete = async (e, id) => {
+	const handleEventDelete = async (id) => {
 		const eventTypeId = id;
 		console.log('eventTypeId', eventTypeId);
 		await Delete({
@@ -163,9 +163,6 @@
 								confirmTitle="Delete"
 								cancelTitle="Cancel"
 								let:confirm={confirmThis}
-								on:delete={(e) => {
-									handleEventDelete(e, row.id);
-								}}
 							>
 								<button
 									on:click|preventDefault={() => confirmThis(handleEventDelete, row.id)}

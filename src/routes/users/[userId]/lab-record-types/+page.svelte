@@ -40,7 +40,7 @@
 		amounts: [10, 20, 30, 50]
 	} satisfies PaginationSettings;
 
-	const handleLabRecordTypeDelete = async (e, id) => {
+	const handleLabRecordTypeDelete = async (id) => {
 		const labRecordTypeId = id;
 		console.log('labRecordTypeId', labRecordTypeId);
 		await Delete({
@@ -107,9 +107,6 @@
 								confirmTitle="Delete"
 								cancelTitle="Cancel"
 								let:confirm={confirmThis}
-								on:delete={(e) => {
-									handleLabRecordTypeDelete(e, row.id);
-								}}
 							>
 								<button
 									on:click|preventDefault={() => confirmThis(handleLabRecordTypeDelete, row.id)}
