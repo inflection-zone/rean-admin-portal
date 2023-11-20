@@ -5,6 +5,7 @@
 	import InputChip from '$lib/components/input-chips.svelte';
 	import toast from 'svelte-french-toast';
 	import { goto } from '$app/navigation';
+    import { enhance } from '$app/forms';
 
 	/////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -82,6 +83,7 @@ function downloadFile(response) {
 <form
 	on:submit={async () => await onQuerySubmit(name, description, format, query, tags)}
 	class="table-container my-2 border border-secondary-100 dark:!border-surface-700"
+	use:enhance
 >
 	<table class="table">
 		<thead class="!variant-soft-secondary">

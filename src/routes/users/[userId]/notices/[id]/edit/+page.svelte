@@ -7,6 +7,7 @@
 	import InputChip from '$lib/components/input-chips.svelte';
 	import date from 'date-and-time';
 	import type { PageServerData } from './$types';
+    import { enhance } from '$app/forms';
 
 	//////////////////////////////////////////////////////////////////////
 	
@@ -107,6 +108,7 @@
 	method="post"
 	action="?/updateNoticeAction"
 	class="table-container my-2 border border-secondary-100 dark:!border-surface-700"
+	use:enhance
 >
 	<table class="table">
 		<thead class="!variant-soft-secondary">

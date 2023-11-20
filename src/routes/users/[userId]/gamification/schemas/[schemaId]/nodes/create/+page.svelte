@@ -6,6 +6,7 @@
 	import KeyValue from '$lib/components/key-value/key-value.svelte';
 	import List from '$lib/components/key-value/list.svelte';
 	import { items } from '$lib/store/key.value.store';
+    import { enhance } from '$app/forms';
 
 	/////////////////////////////////////////////////////////////////////////////////////
 
@@ -60,6 +61,7 @@
 	method="post"
 	action="?/createNodeAction"
 	class="table-container my-2 border border-secondary-100 dark:!border-surface-700"
+	use:enhance
 >
 	<table class="table">
 		<thead class="!variant-soft-secondary">
