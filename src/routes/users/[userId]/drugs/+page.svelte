@@ -96,7 +96,7 @@
 		sortBy = columnName;
 	}
 
-	const handleDrugDelete = async (e, id) => {
+	const handleDrugDelete = async (id) => {
 		const drugId = id;
 		await Delete({
 			sessionId: data.sessionId,
@@ -188,7 +188,6 @@
 								confirmTitle="Delete"
 								cancelTitle="Cancel"
 								let:confirm={confirmThis}
-								on:delete={(e) => handleDrugDelete(e, row.id)}
 							>
 								<button
 									on:click|preventDefault={() => confirmThis(handleDrugDelete, row.id)}

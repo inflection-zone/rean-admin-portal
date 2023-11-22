@@ -5,6 +5,7 @@
 	import Icon from '@iconify/svelte';
 	import type { PageServerData } from './$types';
 	import Choice from './choice.svelte';
+    import { enhance } from '$app/forms';
 
 	/////////////////////////////////////////////////////////////////////////////////////
 
@@ -58,6 +59,7 @@
 	method="post"
 	action="?/createAssessmentNodeAction"
 	class="table-container my-2 border border-secondary-100 dark:!border-surface-700"
+	use:enhance
 >
 	<table class="table">
 		<thead class="!variant-soft-secondary">

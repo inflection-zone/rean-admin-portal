@@ -5,6 +5,7 @@
 	import { showMessage } from '$lib/utils/message.utils';
 	import Icon from '@iconify/svelte';
 	import type { PageServerData } from './$types';
+    import { enhance } from '$app/forms';
 
 	//////////////////////////////////////////////////////////////////////////////////////////
 
@@ -93,6 +94,7 @@
 	method="post"
 	action="?/updateCourseAction"
 	class="table-container my-2 border border-secondary-100 dark:!border-surface-700"
+	use:enhance
 >
 	<table class="table">
 		<thead class="!variant-soft-secondary">

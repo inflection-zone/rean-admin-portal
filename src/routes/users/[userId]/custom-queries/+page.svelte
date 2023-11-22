@@ -92,7 +92,7 @@
 		sortBy = columnName;
 	}
 
-	const handleQueryDelete = async (e, id) => {
+	const handleQueryDelete = async (id) => {
 		const queryId = id;
 		await Delete({
 			sessionId: data.sessionId,
@@ -165,7 +165,6 @@
 								confirmTitle="Delete"
 								cancelTitle="Cancel"
 								let:confirm={confirmThis}
-								on:delete={(e) => handleQueryDelete(e, row.id)}
 							>
 								<button
 									on:click|preventDefault={() => confirmThis(handleQueryDelete, row.id)}

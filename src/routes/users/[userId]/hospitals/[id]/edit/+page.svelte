@@ -4,6 +4,7 @@
     import Icon from '@iconify/svelte';
     import type { PageServerData } from './$types';
     import InputChip from '$lib/components/input-chips.svelte';
+    import { enhance } from '$app/forms';
 
     //////////////////////////////////////////////////////////////////////
 
@@ -53,6 +54,7 @@
     method="post"
     action="?/updateHospitalAction"
     class="table-container my-2 border border-secondary-100 dark:!border-surface-700"
+    use:enhance
 >
     <table class="table">
         <thead class="!variant-soft-secondary">

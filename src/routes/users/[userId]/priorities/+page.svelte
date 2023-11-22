@@ -63,7 +63,7 @@
 		amounts: [10, 20, 30, 50]
 	} satisfies PaginationSettings;
 
-	const handlePriorityDelete = async (e, id) => {
+	const handlePriorityDelete = async (id) => {
 		const priorityId = id;
 		console.log('priorityId', priorityId);
 		await Delete({
@@ -125,9 +125,6 @@
 								confirmTitle="Delete"
 								cancelTitle="Cancel"
 								let:confirm={confirmThis}
-								on:delete={(e) => {
-									handlePriorityDelete(e, row.id);
-								}}
 							>
 								<button
 									on:click|preventDefault={() => confirmThis(handlePriorityDelete, row.id)}

@@ -5,6 +5,7 @@
   import BreadCrumbs from '$lib/components/breadcrumbs/breadcrums.svelte';
   import InputChip from '$lib/components/input-chips.svelte';
 	import Icon from '@iconify/svelte';
+    import { enhance } from '$app/forms';
 
   //////////////////////////////////////////////////////////////////////
   
@@ -36,6 +37,7 @@
 	method="post"
 	action="?/createCareplanAction"
 	class="table-container border border-secondary-100 dark:!border-surface-700 my-2"
+  use:enhance
 >
 	<table class="table">
 		<thead class="!variant-soft-secondary">

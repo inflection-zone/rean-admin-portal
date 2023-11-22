@@ -106,7 +106,7 @@
 		sortBy = columnName;
 	}
 
-	const handleBadgeDelete = async (e, id) => {
+	const handleBadgeDelete = async (id) => {
 		const badgeId = id;
 		console.log('badgeId', badgeId);
 		await Delete({
@@ -185,9 +185,6 @@
 								confirmTitle="Delete"
 								cancelTitle="Cancel"
 								let:confirm={confirmThis}
-								on:delete={(e) => {
-									handleBadgeDelete(e, row.id);
-								}}
 							>
 								<button
 									on:click|preventDefault={() => confirmThis(handleBadgeDelete, row.id)}

@@ -94,7 +94,7 @@
 		sortBy = columnName;
 	}
 
-	const handleAssessmentTemplateDelete = async (e, id) => {
+	const handleAssessmentTemplateDelete = async (id) => {
 		const assessmentTemplateId = id;
 		await Delete({
 			sessionId: data.sessionId,
@@ -186,7 +186,6 @@
 								confirmTitle="Delete"
 								cancelTitle="Cancel"
 								let:confirm={confirmThis}
-								on:delete={(e) => handleAssessmentTemplateDelete(e, row.id)}
 							>
 								<button
 									on:click|preventDefault={() => confirmThis(handleAssessmentTemplateDelete, row.id)}

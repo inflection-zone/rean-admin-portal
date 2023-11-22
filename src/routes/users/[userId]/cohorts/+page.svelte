@@ -87,7 +87,7 @@
 		items = itemsPerPage;
 	}
 
-	const handleCohortDelete = async (e, id) => {
+	const handleCohortDelete = async (id) => {
 		const cohortId = id;
 		await Delete({
 			sessionId: data.sessionId,
@@ -182,9 +182,6 @@
 								confirmTitle="Delete"
 								cancelTitle="Cancel"
 								let:confirm={confirmThis}
-								on:delete={(e) => {
-									handleCohortDelete(e, row.id);
-								}}
 							>
 								<button
 									on:click|preventDefault={() => confirmThis(handleCohortDelete, row.id)}

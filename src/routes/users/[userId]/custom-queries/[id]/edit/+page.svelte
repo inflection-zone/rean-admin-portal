@@ -6,6 +6,7 @@
 	import type { PageServerData } from './$types';
 	import { goto } from '$app/navigation';
 	import toast from 'svelte-french-toast';
+    import { enhance } from '$app/forms';
 
 	//////////////////////////////////////////////////////////////////////
 	
@@ -101,6 +102,7 @@
 <form
 on:submit={async () => await onUpdate(name, description, format, query, tags)}
 	class="table-container my-2 border border-secondary-100 dark:!border-surface-700"
+	use:enhance
 >
 	<table class="table">
 		<thead class="!variant-soft-secondary">

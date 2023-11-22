@@ -96,7 +96,7 @@
 		sortBy = columnName;
 	}
 
-	const handleLearningJourneyDelete = async (e, id) => {
+	const handleLearningJourneyDelete = async (id) => {
 		const symptomId = id;
 		await Delete({
 			sessionId: data.sessionId,
@@ -190,7 +190,6 @@
 								confirmTitle="Delete"
 								cancelTitle="Cancel"
 								let:confirm={confirmThis}
-								on:delete={(e) => handleLearningJourneyDelete(e, row.id)}
 							>
 								<button
 									on:click|preventDefault={() => confirmThis(handleLearningJourneyDelete, row.id)}
