@@ -4,27 +4,38 @@
 	import Confirm from '$lib/components/modal/confirmModal.svelte';
 	import { Helper } from '$lib/utils/helper';
 	import Icon from '@iconify/svelte';
-	import {
-		Paginator, type PaginationSettings } from '@skeletonlabs/skeleton';
+	import {Paginator, type PaginationSettings } from '@skeletonlabs/skeleton';
 	import type { PageServerData } from './$types';
-
-	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 	export let data: PageServerData;
-	let labRecordTypes = data.labRecordTypes;
-	let index = Number;
-	labRecordTypes = labRecordTypes.map((item, index) => ({ ...item, index: index + 1 }));
-
-	// const dataTableStore = createDataTableStore(labRecordTypes, {
-	// 	search: '',
-	// 	pagination: { offset: 0, limit: 10, size: 0, amounts: [10, 20, 30, 50] }
-	// });
+	let labRecordTypes=data.labRecordTypes;
+	let sortOrder = false;
 
 	const userId = $page.params.userId;
 	const createRoute = `/users/${userId}/lab-record-types/create`;
 	const editRoute = (id) => `/users/${userId}/lab-record-types/${id}/edit`;
 	const viewRoute = (id) => `/users/${userId}/lab-record-types/${id}/view`;
 	const labRecordTypesRoute = `/users/${userId}/lab-record-types`;
+	
+	sort(sortOrder)
+	$:{
+		labRecordTypes = labRecordTypes.map((item, index) => ({ ...item, index: index + 1 }));
+	}
+	
+	function sort(sortOrder){
+		labRecordTypes = labRecordTypes.sort((a, b) => {
+			let fa = a.TypeName.toLowerCase(),
+				fb = b.TypeName.toLowerCase();
+			if (fa < fb) {
+				return !sortOrder ? -1 : 1;
+			}
+			if (fa > fb) {
+				return !sortOrder ? 1 : -1;
+			}
+			return 0;
+		});
+	}
 
 	const breadCrumbs = [
 		{
@@ -35,14 +46,13 @@
 
 	let paginationSettings = {
 		page: 0,
-		limit: labRecordTypes.length,
+		limit: 10,
 		size: labRecordTypes.length,
 		amounts: [10, 20, 30, 50]
 	} satisfies PaginationSettings;
 
 	const handleLabRecordTypeDelete = async (id) => {
 		const labRecordTypeId = id;
-		console.log('labRecordTypeId', labRecordTypeId);
 		await Delete({
 			sessionId: data.sessionId,
 			labRecordTypeId: labRecordTypeId
@@ -50,17 +60,47 @@
 		window.location.href = labRecordTypesRoute;
 	};
 
+	$: selectedLabRecordTypes = labRecordTypes.slice(
+		paginationSettings.page * paginationSettings.limit,
+		paginationSettings.page * paginationSettings.limit + paginationSettings.limit
+	);
+
+	function onPageChange(e: CustomEvent): void {
+		 paginationSettings.page = e.detail
+	}
+
+	function onAmountChange(e: CustomEvent): void {
+		paginationSettings.limit = e.detail
+	}
+
 	async function Delete(model) {
-		const response = await fetch(`/api/server/lab-record-types`, {
-			method: 'DELETE',
-			body: JSON.stringify(model),
+		await fetch(`/api/server/lab-record-types?sessionId=${model.sessionId}&labRecordTypeId=${model.labRecordTypeId}`, {
+			method:'DELETE',
+			body:JSON.stringify(model),
 			headers: { 'content-type': 'application/json' }
 		});
+		
 	}
 </script>
 
 <BreadCrumbs crumbs={breadCrumbs} />
-
+<!-- <div class="flex flex-wrap gap-2 mt-1">
+	<input
+		type="text"
+		name="title"
+		placeholder="Search by title"
+		bind:value={title}
+		class="input w-auto grow"
+	/>
+	<input
+		type="text"
+		name="type"
+		placeholder="Search by type"
+		bind:value={type}
+		class="input w-auto grow"
+	/>
+	<a href={createRoute} class="btn variant-filled-secondary ml-auto">Add New</a>
+</div> -->
 <div class="flex flex-wrap gap-2 mt-1">
 	<a href={createRoute} class="btn variant-filled-secondary ml-auto">Add New</a>
 </div>
@@ -70,7 +110,12 @@
 		<thead class="!variant-soft-secondary">
 			<tr>
 				<th data-sort="index">Id</th>
-				<th data-sort="TypeName">Type Name</th>
+				<th>
+					<button on:click={() =>sort(sortOrder=!sortOrder?true:false) }>
+						Type Name {sortOrder ? '▲' : '▼'}
+					</button>
+				</th>
+				<!-- <th data-sort="TypeName">Type Name</th> -->
 				<th data-sort="DisplayName">Display Name</th>
 				<th>Minimum</th>
 				<th>Maximum</th>
@@ -80,12 +125,12 @@
 			</tr>
 		</thead>
 		<tbody class="!bg-white dark:!bg-inherit">
-			{#if labRecordTypes.length <= 0 }
+			{#if selectedLabRecordTypes.length <= 0 }
 				<tr>
 					<td colspan="6">No records found</td>
 				</tr>
 			{:else}
-				{#each labRecordTypes as row}
+				{#each selectedLabRecordTypes as row}
 					<tr class="!border-b !border-b-secondary-100 dark:!border-b-surface-700">
 						<td role="gridcell" aria-colindex={1} tabindex="0">{row.index}</td>
 						<td role="gridcell" aria-colindex={2} tabindex="0">
@@ -109,14 +154,15 @@
 								let:confirm={confirmThis}
 							>
 								<button
-									on:click|preventDefault={() => confirmThis(handleLabRecordTypeDelete, row.id)}
+									on:click|preventDefault={() => 
+									confirmThis(handleLabRecordTypeDelete, row.id)
+									}
 									class="btn p-2 -my-1 hover:variant-soft-error"
 								>
 									<Icon icon="material-symbols:delete-outline-rounded" class="text-lg" />
 								</button>
 								<span slot="title"> Delete </span>
-								<span slot="description"> Are you sure you want to delete a lab record type? </span>
-							</Confirm>
+								<span slot="description"> Are you sure you want to delete a lab record type? </span> 							</Confirm>
 						</td>
 					</tr>
 				{/each}
@@ -126,10 +172,13 @@
 </div>
 
 <div class="w-full variant-soft-secondary rounded-lg p-2">
-	<div class="invisible">
-		<Paginator
-			bind:settings={paginationSettings}
-			buttonClasses="btn-icon bg-surface-50 dark:bg-surface-900"
+	<Paginator
+		bind:settings={paginationSettings}
+		on:page={onPageChange}
+		on:amount={onAmountChange}
+		buttonClasses=" text-primary-500"
+		regionControl = 'bg-surface-100 rounded-lg btn-group text-primary-500 border border-primary-200'
+		controlVariant = 'rounded-full text-primary-500 '
+		controlSeparator = 'fill-primary-400'
 		/>
-	</div>
 </div>
