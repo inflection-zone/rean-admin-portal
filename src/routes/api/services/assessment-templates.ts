@@ -35,6 +35,7 @@ export const createAssessmentTemplate = async (
 export const importAssessmentTemplate = async (
 	sessionId: string,
 	fileName:string,
+	filePath:string,
 	isPublic?:true
 ) => {
 	const url = BACKEND_API_URL + '/clinical/assessment-templates/import-file';
@@ -42,14 +43,8 @@ export const importAssessmentTemplate = async (
 	const accessToken = session.accessToken;
 	const mimeType = ServerHelper.getMimeTypeFromFileName(fileName);
 	console.log(`mimeType = ${mimeType}`);
-
-	if (fs.existsSync(fileName)) {
-		console.log(Date.now().toString());
-		console.log(`File ${fileName} exist`);
-	}
-
 	const form = new FormData();
-    form.append("name", fs.createReadStream(fileName));
+    form.append("name", fs.createReadStream(filePath));
 	form.append("IsPublicResource", isPublic ? "true" : "false");
 
 	const headers = {
@@ -60,7 +55,7 @@ export const importAssessmentTemplate = async (
 
   	try{
 		const res = await axios.post(url, form, { headers });
-		//only for 201 response
+		//only for 201 status code
 		const response = res.data;
 		return response;
 	}catch(error){

@@ -13,23 +13,27 @@ export const actions = {
 		const sessionId = event.cookies.get('sessionId');
 		const formData = await request.formData();
 		const uploadedFile = formData?.get('name') as File;
-		
 		const fileName = uploadedFile.name;
+		const filePath = `./temp/${fileName}`;
+
+		if (!fs.existsSync('./temp')) {
+			fs.mkdirSync('./temp', { recursive: true });
+		  } 
+
+		await writeFile(filePath, Buffer.from(await uploadedFile?.arrayBuffer()));
 	
-		console.log(uploadedFile)
-	
-		await writeFile(fileName, Buffer.from(await uploadedFile?.arrayBuffer()));
-	
-		if (fs.existsSync(fileName)) {
-			console.log(`Copied file ${uploadedFile.name}`);
-			}
+		if (!fs.existsSync(filePath)) {
+			console.log('File not created');
+			throw redirect(303, `/users/${userId}/assessment-templates`, errorMessage('Unable to import assessment template.'), event);
+		}
 	
 		const response = await importAssessmentTemplate(
 			sessionId,
-			fileName
+			fileName,
+			filePath
 		);
 
-		fs.unlinkSync(fileName);
+		fs.unlinkSync(filePath);
 
 		if (response.Status === 'failure' || response.HttpCode !== 201) {
 			throw redirect(303, `/users/${userId}/assessment-templates`, errorMessage(response.Message), event);
