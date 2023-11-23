@@ -1,5 +1,11 @@
 import { BACKEND_API_URL } from '$env/static/private';
 import { delete_, get_, post_, put_ } from './common';
+import { ServerHelper } from '$lib/server/server.helper';
+import { SessionManager } from '../session.manager';
+import { API_CLIENT_INTERNAL_KEY } from '$env/static/private';
+import * as fs from 'fs';
+import axios from 'axios';
+import FormData from 'form-data';
 
 ////////////////////////////////////////////////////////////////
 
@@ -24,6 +30,44 @@ export const createAssessmentTemplate = async (
 	};
 	const url = BACKEND_API_URL + '/clinical/assessment-templates';
 	return await post_(sessionId, url, body, true);
+};
+
+export const importAssessmentTemplate = async (
+	sessionId: string,
+	fileName:string,
+	isPublic?:true
+) => {
+	const url = BACKEND_API_URL + '/clinical/assessment-templates/import-file';
+	const session = await SessionManager.getSession(sessionId);
+	const accessToken = session.accessToken;
+	const mimeType = ServerHelper.getMimeTypeFromFileName(fileName);
+	console.log(`mimeType = ${mimeType}`);
+
+	if (fs.existsSync(fileName)) {
+		console.log(Date.now().toString());
+		console.log(`File ${fileName} exist`);
+	}
+
+	const form = new FormData();
+    form.append("name", fs.createReadStream(fileName));
+	form.append("IsPublicResource", isPublic ? "true" : "false");
+
+	const headers = {
+        'Content-Type' : 'multipart/form-data',
+        'x-api-key' : API_CLIENT_INTERNAL_KEY,
+        'Authorization' : `Bearer ${accessToken}`,
+    };
+
+  	try{
+		const res = await axios.post(url, form, { headers });
+		//only for 201 response
+		const response = res.data;
+		return response;
+	}catch(error){
+		//other than 201 status code
+		return error.response.data;
+	}
+    
 };
 
 export const getAssessmentTemplateById = async (
