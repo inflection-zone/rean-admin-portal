@@ -3,6 +3,7 @@ import { importAssessmentTemplate } from "$routes/api/services/assessment-templa
 import type { RequestEvent } from "@sveltejs/kit";
 import { redirect } from 'sveltekit-flash-message/server';
 import { errorMessage, successMessage } from '$lib/utils/message.utils';
+import { PUBLIC_LOCAL_STORAGE } from '$env/static/public';
 import { Buffer } from "buffer";
 import * as fs from 'fs';
 
@@ -14,10 +15,11 @@ export const actions = {
 		const formData = await request.formData();
 		const uploadedFile = formData?.get('name') as File;
 		const fileName = uploadedFile.name;
-		const filePath = `./temp/${fileName}`;
+		const fileUploadFolder = PUBLIC_LOCAL_STORAGE;
+		const filePath = `${fileUploadFolder}/${fileName}`;
 
-		if (!fs.existsSync('./temp')) {
-			fs.mkdirSync('./temp', { recursive: true });
+		if (!fs.existsSync(`${fileUploadFolder}`)) {
+			fs.mkdirSync(`${fileUploadFolder}`, { recursive: true });
 		  } 
 
 		await writeFile(filePath, Buffer.from(await uploadedFile?.arrayBuffer()));
