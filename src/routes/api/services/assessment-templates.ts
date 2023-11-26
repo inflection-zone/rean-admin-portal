@@ -32,6 +32,14 @@ export const createAssessmentTemplate = async (
 	return await post_(sessionId, url, body, true);
 };
 
+export const exportAssessmentTemplateById = async (
+	sessionId: string,
+	assessmentTemplateId: string
+) => {
+	const url = BACKEND_API_URL + `/clinical/assessment-templates/${assessmentTemplateId}/export`;
+	return await get_(sessionId, url, true);
+};
+
 export const importAssessmentTemplate = async (
 	sessionId: string,
 	fileName:string,

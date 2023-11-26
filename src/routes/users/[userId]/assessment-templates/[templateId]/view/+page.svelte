@@ -6,11 +6,13 @@
 	import { onMount } from 'svelte';
 	import { TreeBranch, TreeLeaf, TreeView } from 'svelte-tree-view-component';
 	import type { PageServerData } from './$types';
+    import { invalidate, invalidateAll } from '$app/navigation';
 
 	export let data: PageServerData;
 	let assessmentNodes = data.assessmentNodes;
 	let assessmentTemplate = data.assessmentTemplate;
 	let title = assessmentTemplate.Title;
+	let assessmentTemplateId = assessmentTemplate.id;
 	let description = (assessmentTemplate.Description !== null && assessmentTemplate.Description !== "") ? assessmentTemplate.Description : 'Not specified';
 	let displayCode = assessmentTemplate.DisplayCode;
 	let type = assessmentTemplate.Type;
@@ -23,6 +25,7 @@
 		return a.Sequence - b.Sequence;
 	});
 
+	$:title = data.assessmentTemplate.Title
 	console.log('assessmentNodes', assessmentNodes);
 
 	onMount(() => {
@@ -43,12 +46,51 @@
 		{ name: 'Assessments', path: assessmentsRoutes },
 		{ name: 'View', path: viewRoute }
 	];
+
+	const exportAssessment = async()=>{
+		console.log('Inside export Assessment')
+		var fileName = title ? title : 'assessment'
+		let response;
+		try{
+			response = await fetch(`/api/server/assessment-templates?sessionId=${data.sessionId}&assessmentTemplateId=${assessmentTemplateId}`, {
+			method:'GET',
+			headers: { 'content-type': 'application/json' }
+		});
+		
+		const blob = await response.blob();
+		const anchor = document.createElement('a');
+		anchor.href = URL.createObjectURL(blob);
+		anchor.download = `${fileName}.json`; // Replace with the desired file name
+		anchor.click();
+		invalidate('app:viewAssessment')
+		}catch(error){
+			invalidate('app:viewAssessment')
+		}
+		// console.log('Inside export Assessment')
+		// var fileName = title ? title : 'assessment'
+		// let response = await fetch(`/api/server/assessment-templates?sessionId=${data.sessionId}&assessmentTemplateId=${assessmentTemplateId}`, {
+		// 	method:'GET',
+		// 	headers: { 'content-type': 'application/json' }
+		// });
+		// console.log('++++++++++',response)
+		// // if(!response){
+		// // const blob = await response.blob();
+		// // const anchor = document.createElement('a');
+		// // anchor.href = URL.createObjectURL(blob);
+		// // anchor.download = `${fileName}.json`; // Replace with the desired file name
+		// // anchor.click();
+		// // }else{
+		// 	invalidate('app:viewAssessment')
+		// // }
+		// // invalidate('app:viewAssessment')	
+	}
 </script>
 
 <BreadCrumbs crumbs={breadCrumbs} />
 
-<div class="flex flex-wrap gap-2">
-	<a href={nodeRoute} class="btn variant-filled-secondary ml-auto"> Add Assessment Node</a>
+<div class="flex flex-wrap justify-end gap-2">
+	<button class="btn variant-filled-secondary ml-auto" on:click|preventDefault={exportAssessment}> Export Assessment </button>
+	<a href={nodeRoute} class="btn variant-filled-secondary "> Add Assessment Node</a>
 	<a href={editRoute} class="btn variant-filled-secondary">
 		<Icon icon="material-symbols:edit-outline" />
 		<span>Edit</span>

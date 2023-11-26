@@ -1,15 +1,15 @@
-import { error, type RequestEvent } from '@sveltejs/kit';
+import { error } from '@sveltejs/kit';
 import type { PageServerLoad } from './$types';
 import { searchAssessmentNodes } from '../../../../../api/services/assessment-nodes';
 import { getAssessmentTemplateById } from '../../../../../api/services/assessment-templates';
 
 ////////////////////////////////////////////////////////////////////////////
 
-export const load: PageServerLoad = async (event: RequestEvent) => {
-	const sessionId = event.cookies.get('sessionId');
-
+export const load: PageServerLoad = async ({cookies,params,depends}) => {
+	const sessionId = cookies.get('sessionId');
+	depends('app:viewAssessment');
 	try {
-		const assessmentTemplateId = event.params.templateId;
+		const assessmentTemplateId = params.templateId;
 		const searchParams = {
 			templateId: assessmentTemplateId
 		};
@@ -27,6 +27,7 @@ export const load: PageServerLoad = async (event: RequestEvent) => {
 			location: `${id}/edit`,
 			assessmentTemplate,
 			assessmentNodes,
+			sessionId,
 			message: response.Message
 		};
 	} catch (error) {
