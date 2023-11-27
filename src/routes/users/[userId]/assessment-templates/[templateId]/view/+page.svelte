@@ -66,23 +66,6 @@
 		}catch(error){
 			invalidate('app:viewAssessment')
 		}
-		// console.log('Inside export Assessment')
-		// var fileName = title ? title : 'assessment'
-		// let response = await fetch(`/api/server/assessment-templates?sessionId=${data.sessionId}&assessmentTemplateId=${assessmentTemplateId}`, {
-		// 	method:'GET',
-		// 	headers: { 'content-type': 'application/json' }
-		// });
-		// console.log('++++++++++',response)
-		// // if(!response){
-		// // const blob = await response.blob();
-		// // const anchor = document.createElement('a');
-		// // anchor.href = URL.createObjectURL(blob);
-		// // anchor.download = `${fileName}.json`; // Replace with the desired file name
-		// // anchor.click();
-		// // }else{
-		// 	invalidate('app:viewAssessment')
-		// // }
-		// // invalidate('app:viewAssessment')	
 	}
 </script>
 
