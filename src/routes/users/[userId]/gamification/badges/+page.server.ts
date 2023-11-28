@@ -3,12 +3,14 @@ import { error } from '@sveltejs/kit';
 import type { PageServerLoad } from './$types';
 import { searchBadges } from '$routes/api/services/gamification/badge';
 import { searchBadgeCategories } from '$routes/api/services/gamification/badge.category';
+import { redirect } from 'sveltekit-flash-message/server';
+import { errorMessage } from '$lib/utils/message.utils';
 
 ////////////////////////////////////////////////////////////////////////////
 
 export const load: PageServerLoad = async (event: RequestEvent) => {
 	const sessionId = event.cookies.get('sessionId');
-
+	const userId = event.params.userId;
 	try {
 		const response = await searchBadges(sessionId);
 		const _badgeCategories = await searchBadgeCategories(sessionId);
@@ -25,5 +27,6 @@ export const load: PageServerLoad = async (event: RequestEvent) => {
 		};
 	} catch (error) {
 		console.error(`Error retriving badges: ${error.message}`);
+		throw redirect(303,`/users/${userId}/home`,errorMessage(`Error retriving badges`),event)
 	}
 };
