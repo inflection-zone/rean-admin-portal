@@ -7,11 +7,13 @@
 	import Icon from '@iconify/svelte';
 	import { Paginator, type PaginationSettings } from '@skeletonlabs/skeleton';
 	import type { PageServerData } from './$types';
+    import { invalidate } from '$app/navigation';
 
 	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 	export let data: PageServerData;
-	let assessmentTemplates = data.assessmentTemplate.Items;
+	$:assessmentTemplates = data.assessmentTemplate.Items;
+	let retrivedAssessmentTemplates;
 	const userId = $page.params.userId;
 	const assessmentRoute = `/users/${userId}/assessment-templates`;
 	const editRoute = (id) => `/users/${userId}/assessment-templates/${id}/edit`;
@@ -57,10 +59,14 @@
 		assessmentTemplates = response.map((item, index) => ({ ...item, index: index + 1 }));
 	}
 
-	$: retrivedAssessmentTemplates = assessmentTemplates.slice(
+	$:{
+		assessmentTemplates = assessmentTemplates.map((item, index) => ({ ...item, index: index + 1 }));
+		paginationSettings.size = data.assessmentTemplate.TotalCount;
+		retrivedAssessmentTemplates = assessmentTemplates.slice(
 		paginationSettings.page * paginationSettings.limit,
 		paginationSettings.page * paginationSettings.limit + paginationSettings.limit
-	);
+	);}
+	
 
 	$:console.log(retrivedAssessmentTemplates)
 	$: if (browser)
@@ -101,7 +107,7 @@
 			sessionId: data.sessionId,
 			assessmentTemplateId: assessmentTemplateId
 		});
-		window.location.href = assessmentRoute;
+		invalidate('app:assessmentTemplate');
 	};
 
 	async function Delete(model) {
@@ -114,7 +120,6 @@
 </script>
 
 <BreadCrumbs crumbs={breadCrumbs} />
-
 <div class="flex flex-wrap gap-2 mt-1">
 	<input
 		type="text"

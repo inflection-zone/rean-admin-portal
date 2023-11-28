@@ -1,4 +1,3 @@
-import type { RequestEvent } from '@sveltejs/kit';
 import { error } from '@sveltejs/kit';
 import { BACKEND_API_URL } from '$env/static/private';
 import type { PageServerLoad } from './$types';
@@ -6,9 +5,9 @@ import { searchSymptoms } from '../../../api/services/symptoms';
 
 ////////////////////////////////////////////////////////////////////////////
 
-export const load: PageServerLoad = async (event: RequestEvent) => {
-	const sessionId = event.cookies.get('sessionId');
-
+export const load: PageServerLoad = async ({cookies,depends}) => {
+	const sessionId = cookies.get('sessionId');
+	depends('app:symptoms')
 	try {
 		const response = await searchSymptoms(sessionId);
 		if (response.Status === 'failure' || response.HttpCode !== 200) {
