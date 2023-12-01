@@ -3,12 +3,14 @@ import { error } from '@sveltejs/kit';
 import { BACKEND_API_URL } from '$env/static/private';
 import type { PageServerLoad } from './$types';
 import { searchSymptoms } from '../../../api/services/symptoms';
+import { redirect } from 'sveltekit-flash-message/server';
+import { errorMessage } from '$lib/utils/message.utils';
 
 ////////////////////////////////////////////////////////////////////////////
 
 export const load: PageServerLoad = async (event: RequestEvent) => {
 	const sessionId = event.cookies.get('sessionId');
-
+	const userId = event.params.userId;
 	try {
 		const response = await searchSymptoms(sessionId);
 		if (response.Status === 'failure' || response.HttpCode !== 200) {
@@ -36,5 +38,6 @@ export const load: PageServerLoad = async (event: RequestEvent) => {
 		};
 	} catch (error) {
 		console.error(`Error retriving symptom: ${error.message}`);
+		throw redirect(303,`/users/${userId}/home`,errorMessage(`Error retriving Lab record types`),event)
 	}
 };
