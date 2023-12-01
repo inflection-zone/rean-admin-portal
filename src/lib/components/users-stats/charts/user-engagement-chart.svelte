@@ -6,10 +6,13 @@ import {onMount} from 'svelte';
 import Chart from 'chart.js/auto';
 export let total;
 
+const tickColorLight = '#661B26';
+const tickColorDark = '#DED6EC';
+
 let dates_arr = total.map((element) => {
   var d = new Date(element.Day);
    let value =d.getMonth()+1;
-   
+
   return `${d.getDate()}/${filterMonth(value)}/${d.getFullYear() % 100}`;
 
   function filterMonth(value) {
@@ -22,10 +25,10 @@ let dates_arr = total.map((element) => {
         break;
     case 3:
         value = 'Mar';
-        break; 
+        break;
     case 4:
         value = 'Apr';
-        break;    
+        break;
     case 5:
         value = 'May';
         break;
@@ -43,13 +46,13 @@ let dates_arr = total.map((element) => {
         break;
     case 10:
         value = 'Oct';
-        break;   
+        break;
     case 11:
         value = 'Nov';
-        break;    
+        break;
     case 12:
         value = 'Apr';
-        break; 
+        break;
     }
     return value;
 };
@@ -75,9 +78,9 @@ onMount(() => {
 						// label: 'Total users',
                         borderWidth: 2,
 						data: data_val,
-						borderColor: document.documentElement.classList.contains('dark') ? '#DED6EC' : '#5832A1' ,
+						borderColor: document.documentElement.classList.contains('dark') ? tickColorDark : tickColorLight,
 						fill: false
-                        
+
 					},
 				]
 			},
@@ -90,7 +93,7 @@ onMount(() => {
 							display: false
 						},
 						ticks: {
-							color: document.documentElement.classList.contains('dark') ? '#DED6EC' : '#5832A1' // set x-axis label color here
+							color: document.documentElement.classList.contains('dark') ? tickColorDark : tickColorLight // set x-axis label color here
 						}
 					},
 					y: {
@@ -98,7 +101,7 @@ onMount(() => {
 							display: false
 						},
 						ticks: {
-							color: document.documentElement.classList.contains('dark') ? '#DED6EC' : '#5832A1' // set y-axis label color here
+							color: document.documentElement.classList.contains('dark') ? tickColorDark : tickColorLight // set y-axis label color here
 						}
 					}
 				},
@@ -113,7 +116,7 @@ onMount(() => {
 						position: 'top',
 						align: 'center',
 						labels: {
-							color: document.documentElement.classList.contains('dark') ? '#DED6EC' : '#5832A1',
+							color: document.documentElement.classList.contains('dark') ? tickColorDark : tickColorLight,
 							boxWidth: 10,
 							boxHeight: 10
 						}
@@ -124,4 +127,3 @@ onMount(() => {
 	});
 
 </script>
- 

@@ -62,32 +62,32 @@
                     title: 'Drugs',
                     link: `/users/${userId}/drugs`
                 },
-                {
-                    icon: 'material-symbols:home-health-outline-rounded',
-                    title: 'Careplan',
-                    children: [
-                        {
-                            icon: 'material-symbols:dashboard-outline-rounded',
-                            title: 'Dashboard',
-                            link: `/users/${userId}/careplan`
-                        },
-                        {
-                            icon: 'carbon:task-asset-view',
-                            title: 'Assets',
-                            link: `/users/${userId}/careplan/assets`
-                        },
-                        {
-                            icon: 'iconoir:healthcare',
-                            title: 'Careplans',
-                            link: `/users/${userId}/careplan/careplans`
-                        },
-                        {
-                            icon: 'material-symbols:check-box-outline-rounded',
-                            title: 'Enrollments',
-                            link: `/users/${userId}/careplan/enrollments`
-                        }
-                    ]
-                }
+                // {
+                //     icon: 'material-symbols:home-health-outline-rounded',
+                //     title: 'Careplan',
+                //     children: [
+                //         {
+                //             icon: 'material-symbols:dashboard-outline-rounded',
+                //             title: 'Dashboard',
+                //             link: `/users/${userId}/careplan`
+                //         },
+                //         {
+                //             icon: 'carbon:task-asset-view',
+                //             title: 'Assets',
+                //             link: `/users/${userId}/careplan/assets`
+                //         },
+                //         {
+                //             icon: 'iconoir:healthcare',
+                //             title: 'Careplans',
+                //             link: `/users/${userId}/careplan/careplans`
+                //         },
+                //         {
+                //             icon: 'material-symbols:check-box-outline-rounded',
+                //             title: 'Enrollments',
+                //             link: `/users/${userId}/careplan/enrollments`
+                //         }
+                //     ]
+                // }
             ]
         },
         {
@@ -132,78 +132,78 @@
                 }
             ]
         },
-        {
-            title: 'Miscellaneous',
-            icon: 'material-symbols:home-max-dots-outline',
-            childNav: [
-                {
-                    icon: 'material-symbols:frame-person-outline-rounded',
-                    title: 'Clients',
-                    link: `/users/${userId}/api-clients`
-                },
-                {
-                    icon: 'material-symbols:corporate-fare-rounded',
-                    title: 'Organizations',
-                    link: `/users/${userId}/organizations`
-                },
-                {
-                    icon: 'material-symbols:notifications-outline-rounded',
-                    title: 'Notifications',
-                    link: `/users/${userId}/notifications`
-                },
-                {
-                    icon: 'material-symbols:newsmode-outline-rounded',
-                    title: 'News Feed',
-                    link: `/users/${userId}/newsfeeds`
-                },
-                {
-                    icon: 'material-symbols:release-alert-outline-rounded',
-                    title: 'Notices',
-                    link: `/users/${userId}/notices`
-                },
-                {
-                    icon: 'material-symbols:database-outline',
-                    title: 'Custom Queries',
-                    link: `/users/${userId}/custom-queries`
-                },
-                {
-                    icon: 'material-symbols:tenancy-outline',
-                    title: 'Tenants',
-                    link: `/users/${userId}/tenants`
-                },
-                {
-                    icon: 'material-symbols:groups-outline-rounded',
-                    title: 'Cohorts',
-                    link: `/users/${userId}/cohorts`
-                }
-            ]
-        },
-        {
-            title: 'Gamification',
-            icon: 'simple-icons:gamedeveloper',
-            childNav: [
-                {
-                    icon: 'mdi:event-edit',
-                    title: 'Event Types',
-                    link: `/users/${userId}/gamification/event-types`
-                },
-                {
-                    icon: 'octicon:id-badge-16',
-                    title: 'Badge Categories',
-                    link: `/users/${userId}/gamification/badge-categories`
-                },
-                {
-                    icon: 'cil:badge',
-                    title: 'Badges',
-                    link: `/users/${userId}/gamification/badges`
-                },
-                {
-                    icon: 'ic:outline-schema',
-                    title: 'Schemas',
-                    link: `/users/${userId}/gamification/schemas`
-                }
-            ]
-        }
+        // {
+        //     title: 'Miscellaneous',
+        //     icon: 'material-symbols:home-max-dots-outline',
+        //     childNav: [
+                // {
+                //     icon: 'material-symbols:frame-person-outline-rounded',
+                //     title: 'Clients',
+                //     link: `/users/${userId}/api-clients`
+                // },
+                // {
+                //     icon: 'material-symbols:corporate-fare-rounded',
+                //     title: 'Organizations',
+                //     link: `/users/${userId}/organizations`
+                // },
+                // {
+                //     icon: 'material-symbols:notifications-outline-rounded',
+                //     title: 'Notifications',
+                //     link: `/users/${userId}/notifications`
+                // },
+                // {
+                //     icon: 'material-symbols:newsmode-outline-rounded',
+                //     title: 'News Feed',
+                //     link: `/users/${userId}/newsfeeds`
+                // },
+                // {
+                //     icon: 'material-symbols:release-alert-outline-rounded',
+                //     title: 'Notices',
+                //     link: `/users/${userId}/notices`
+                // },
+                // {
+                //     icon: 'material-symbols:database-outline',
+                //     title: 'Custom Queries',
+                //     link: `/users/${userId}/custom-queries`
+                // },
+                // {
+                //     icon: 'material-symbols:tenancy-outline',
+                //     title: 'Tenants',
+                //     link: `/users/${userId}/tenants`
+                // },
+                // {
+                //     icon: 'material-symbols:groups-outline-rounded',
+                //     title: 'Cohorts',
+                //     link: `/users/${userId}/cohorts`
+                // }
+        //     ]
+        // },
+        // {
+        //     title: 'Gamification',
+        //     icon: 'simple-icons:gamedeveloper',
+        //     childNav: [
+        //         {
+        //             icon: 'mdi:event-edit',
+        //             title: 'Event Types',
+        //             link: `/users/${userId}/gamification/event-types`
+        //         },
+        //         {
+        //             icon: 'octicon:id-badge-16',
+        //             title: 'Badge Categories',
+        //             link: `/users/${userId}/gamification/badge-categories`
+        //         },
+        //         {
+        //             icon: 'cil:badge',
+        //             title: 'Badges',
+        //             link: `/users/${userId}/gamification/badges`
+        //         },
+        //         {
+        //             icon: 'ic:outline-schema',
+        //             title: 'Schemas',
+        //             link: `/users/${userId}/gamification/schemas`
+        //         }
+        //     ]
+        // }
     ];
 
     $: if ($navigating) showSidebar = false;

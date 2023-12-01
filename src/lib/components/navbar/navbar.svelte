@@ -12,6 +12,13 @@
     const sidebarTabs: TabDefinition[] = sidebarMenu(userId);
     const drawerStore = getDrawerStore();
 
+    // const logoImageSource = "https://www.reanfoundation.org/wp-content/uploads/2021/10/REAN-Foundation-brand-Logo.png"
+	const logoImageSource = "https://www.heart.org/-/media/Images/Logos/Global-Do-No-Edit/Header/AHA_icon.svg?h=90&w=70&hash=56C9AD72FEFA6EF4DDCBBDB69CE4CB10"
+	//const footerText = `© ${new Date().getFullYear()} REAN Foundation`;
+	const footerText = `© ${new Date().getFullYear()} American Heart Association`;
+	//const footerLink = 'https://www.reanfoundation.org';
+	const footerLink = 'https://www.heart.org';
+
     function drawerLeftOpen(): void {
         const settings: DrawerSettings = {
             id: 'leftSidebar',
@@ -45,14 +52,14 @@
     <svelte:fragment slot="header">
         <AppBar
             gridColumns="grid-cols-3"
-            background="bg-secondary-500"
+            background="bg-gradient-to-r from-primary-50 to-primary-700 border-b border-primary"
             class="text-white"
             slotDefault="place-self-center"
             slotTrail="place-content-end"
         >
             <svelte:fragment slot="lead">
-                <div class="flex  items-center">
-                    <img class="block w-10 ml-2" src="/rean-logo-white.png" alt="REAN" />
+                <div class="flex  items-center ">
+                    <img class="block w-10 ml-2" src={logoImageSource} alt="REAN" />
                     <!-- <div class="relative ml-6 w-64 max-[450px]:w-40">
                         <input type="text" class="input pl-10" placeholder="Search" />
                         <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
@@ -86,8 +93,8 @@
         <slot />
     </div>
     <svelte:fragment slot="footer">
-        <p class="bg-secondary-500 text-center p-2">
-            <a href="https://reanfoundation.org" class="!text-white">&#xa9; 2022 REAN Foundation</a>
+        <p class="bg-primary-700 text-center p-2">
+            <a href={footerLink} class="!text-white">{footerText}</a>
         </p>
     </svelte:fragment>
 </AppShell>

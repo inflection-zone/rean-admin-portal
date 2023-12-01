@@ -5,6 +5,13 @@
 	import type { PageServerData } from './$types';
     import { enhance } from '$app/forms';
 
+	// const logoImageSource = "https://www.reanfoundation.org/wp-content/uploads/2021/10/REAN-Foundation-brand-Logo.png"
+	const logoImageSource = "https://www.heart.org/-/media/Images/Logos/Global-Do-No-Edit/Header/AHA_Full.svg?h=256&iar=0&mw=960&w=426&hash=502DC0C0397CFBA7EA1142C51E062876"
+	//const footerText = `© ${new Date().getFullYear()} REAN Foundation`;
+	const footerText = `© ${new Date().getFullYear()} American Heart Association`;
+	//const footerLink = 'https://www.reanfoundation.org';
+	const footerLink = 'https://www.heart.org';
+
 	export let data: PageServerData;
 	personRolesStore.set(data.roles);
 	LocalStorageUtils.setItem('personRoles', JSON.stringify(data.roles));
@@ -20,28 +27,31 @@
 		}
 		LocalStorageUtils.removeItem('prevUrl');
 	}
+
+	var systemName = data.systemName;
+
 </script>
 
 <svelte:head>
-	<title>REAN careplans</title>
+	<title>{systemName}</title>
 	<meta name="description" content="REAN careplans" />
 </svelte:head>
 <body>
-	<div class="nav h-12 w-full bg-secondary-500" />
+	<div class="nav h-12 w-full bg-primary-700" />
 	<div class="w-full h-full" id="background-image">
-		<div class="bg-back-ground h-full w-full">
+		<div class="bg-back-ground h-full w-full bg-primary-50">
 			<!-- <div class="h-10 w-screen shadow-xl mb-4 bg-[#7165E3]" /> -->
 			<div class="h-full w-full px-3">
 				<div class=" flex justify-center flex-col items-center">
 					<img
 						class="ct-image w-36 mt-7 mb-7"
 						alt="logo"
-						src="https://www.reanfoundation.org/wp-content/uploads/2021/10/REAN-Foundation-brand-Logo.png"
+						src={logoImageSource}
 					/>
 					<form
 						method="post"
 						action="?/login"
-						class=" shadow-bottom-right p-8 pb-1 pt-5 rounded-lg mt-5 bg-secondary-50"
+						class=" shadow-bottom-right p-8 pb-1 pt-5 rounded-lg mt-5 bg-secondary-50 border border-slate-300 shadow-xl"
 						use:enhance
 					>
 						<!-- <input class="hidden" type="number" name="loginRoleId" value={loginRoleId}> -->
@@ -79,7 +89,7 @@
 			</div>
 		</div>
 	</div>
-	<footer class="w-full fixed bottom-0 bg-primary-500 text-center p-2">
-		<a href="https://reanfoundation.org" class="!text-white">&#xa9; 2022 REAN Foundation</a>
+	<footer class="w-full fixed bottom-0 bg-primary-900 text-center p-2">
+		<a href={footerLink} class="!text-white">{footerText}</a>
 	</footer>
 </body>

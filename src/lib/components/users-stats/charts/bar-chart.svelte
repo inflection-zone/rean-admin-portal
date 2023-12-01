@@ -7,7 +7,12 @@
 	let barChart;
 	let ctx;
 	$:dataSource;
-  $:labels
+  	$:labels
+
+	const chartColors = ['#CB463B', '#9F2A2A', '#661B26', '#2E0C16'];
+	const tickColorLight = '#661B26';
+	const tickColorDark = '#DED6EC';
+
 	onMount(() => {
 		ctx = barChart.getContext('2d');
 		barChart = new Chart(ctx, {
@@ -17,8 +22,8 @@
 				datasets: [
 					{
 						data: dataSource,
-						backgroundColor: ['#351e61', '#5832A1', '#7165E3', '#ECE4FC'],
-						borderColor: ['#351e61', '#5832A1', '#7165E3', '#ECE4FC'],
+						backgroundColor: chartColors,
+						borderColor: chartColors,
 						borderWidth: 1
 					}
 				]
@@ -33,7 +38,7 @@
 							display: false
 						},
 						ticks: {
-							color: document.documentElement.classList.contains('dark') ? '#DED6EC' : '#5832A1'
+							color: document.documentElement.classList.contains('dark') ? tickColorDark : tickColorLight
 						}
 					},
 					y: {
@@ -42,7 +47,7 @@
 							display: false
 						},
 						ticks: {
-							color: document.documentElement.classList.contains('dark') ? '#DED6EC' : '#5832A1' // set y-axis label color here
+							color: document.documentElement.classList.contains('dark') ? tickColorDark : tickColorLight // set y-axis label color here
 						}
 					}
 				},
@@ -57,14 +62,14 @@
 						position: 'top',
 						align: 'center',
 						labels: {
-							color: document.documentElement.classList.contains('dark') ? '#DED6EC' : '#5832A1'
+							color: document.documentElement.classList.contains('dark') ? tickColorDark : tickColorLight
 						}
 					},
 					title: {
 						display: false,
 						text: title,
 						position: 'top',
-						color: document.documentElement.classList.contains('dark') ? '#DED6EC' : '#5832A1',
+						color: document.documentElement.classList.contains('dark') ? tickColorDark : tickColorLight,
 						align: 'center',
 						padding: 20,
 						font: {

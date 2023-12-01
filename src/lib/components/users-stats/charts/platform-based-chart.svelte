@@ -7,6 +7,8 @@
 	export let iOSUsersData: number[] = [];
 	let barChart;
 	let ctx;
+	const tickColorLight = '#661B26';
+	const tickColorDark = '#DED6EC';
 
 	onMount(() => {
 		ctx = barChart.getContext('2d');
@@ -44,7 +46,7 @@
 							display: false
 						},
 						ticks: {
-							color: document.documentElement.classList.contains('dark') ? '#DED6EC' : '#5832A1' // set x-axis label color here
+							color: document.documentElement.classList.contains('dark') ? tickColorDark : tickColorLight // set x-axis label color here
 						}
 					},
 					y: {
@@ -52,7 +54,7 @@
 							display: false
 						},
 						ticks: {
-							color: document.documentElement.classList.contains('dark') ? '#DED6EC' : '#5832A1' // set y-axis label color here
+							color: document.documentElement.classList.contains('dark') ? tickColorDark : tickColorLight // set y-axis label color here
 						}
 					}
 				},
@@ -67,7 +69,7 @@
 						position: 'top',
 						align: 'center',
 						labels: {
-							color: document.documentElement.classList.contains('dark') ? '#DED6EC' : '#5832A1',
+							color: document.documentElement.classList.contains('dark') ? tickColorDark : tickColorLight,
 							boxWidth: 10,
 							boxHeight: 10
 						}

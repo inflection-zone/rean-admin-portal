@@ -7,15 +7,18 @@ import type { PageServerLoad } from './$types';
 import { SessionManager } from './api/session.manager';
 import { login } from './api/services/user';
 import { getUserRoles } from './api/services/types';
+import { SYSTEM_NAME } from '$env/static/private';
 
 ////////////////////////////////////////////////////////////////
 
 export const load: PageServerLoad = async (event: RequestEvent) => {
 	try {
+		const systemName = SYSTEM_NAME;
 		const roles: PersonRole[] = await getUserRoles();
 		return {
 			message: 'Common data successfully retrieved!',
-			roles
+			roles,
+			systemName
 		};
 	} catch (error) {
 		console.error(`Error retrieving data : ${error.message}`);

@@ -215,7 +215,7 @@
 			year: year
 		});
 	};
-	
+
 </script>
 
 <!-- <BreadCrumbs crumbs={breadCrumbs} /> -->
@@ -567,7 +567,7 @@
 							{/each}
 					</select>
 				</div>
-			
+
 				{#if maritalStatusDistributionData}
 				<div class="h-96">
 					<BarChart
@@ -592,7 +592,7 @@
 						{/each}
 				</select>
 			</div>
-		
+
 			{#if majorAilmentDistributionData}
 				<div class="h-96">
 					<BarChart
@@ -620,7 +620,7 @@
 							{/each}
 					</select>
 				</div>
-			
+
 				{#if obesityDistributionData}
 					<div class="h-96">
 						<BarChart
@@ -652,7 +652,7 @@
 							{/each}
 					</select>
 				</div>
-			
+
 				{#if addictionDistributionData}
 					<div class="h-96">
 						<BarChart
@@ -686,7 +686,7 @@
 			</div>
 		</div>
 	</div> -->
-<!-- 
+<!--
 	<div class="flex justify-center items-center h-96 gap-10 w-full mt-10">
 		<div
 			class="flex overflow-x-auto justify-center items-center rounded-lg  shadow-xl border border-secondary-100 dark:border-surface-700 sm:px-4 w-1/2"

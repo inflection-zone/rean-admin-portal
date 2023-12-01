@@ -18,6 +18,11 @@
   let usersAboveSeventyRatio = ageWiseUsers.UsersAboveSeventy.Ratio;
   let ageNotSpecifiedUsersRatio = ageWiseUsers.AgeNotSpecifiedUsers.Ratio;
 
+  const chartColors = ['#CB463B', '#9F2A2A', '#661B26', '#2E0C16'];
+  const hoverChartColors = ['#f2ecfd', '#CB463B', '#9F2A2A', '#661B26'];
+	const tickColorLight = '#661B26';
+	const tickColorDark = '#DED6EC';
+
   let sourceData = [usersBelowThirtyfiveRatio, usersBetweenThirtysixToSeventyRatio, usersAboveSeventyRatio, ageNotSpecifiedUsersRatio];
   $ : sourceData = [usersBelowThirtyfiveRatio, usersBetweenThirtysixToSeventyRatio, usersAboveSeventyRatio, ageNotSpecifiedUsersRatio];
 
@@ -26,26 +31,14 @@
   datasets: [
     {
       data:sourceData,
-      backgroundColor: [
-        '#351e61',
-        '#5832A1',
-        '#7165E3',
-        '#ECE4FC',
-      
-      ],
-      hoverBackgroundColor: [
-        '#422679',
-        '#8a70bd',
-        '#9c93eb',
-        '#f2ecfd',
-      ],
+      backgroundColor: chartColors,
+      hoverBackgroundColor: hoverChartColors,
     },
   ],
 };
 
  ChartJS.register(Title, Tooltip, Legend, ArcElement, CategoryScale);
- 
+
 </script>
 
 <Pie id="dataSource" bind:this={ageWiseUsers} {data} options={{ responsive: true }} />
-

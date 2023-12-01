@@ -26,8 +26,8 @@
 		// 'Downloads',
 		'Onboarded',
 		'Not-Deleted ',
-		'Users With Active Session',
-		'Enrolled Users'
+		'Enrolled Users',
+		// 'Users With Active Session',
 	];
 
 	let funnelChartData;
@@ -36,9 +36,9 @@
 		totalUsers.Count,
 		nonDeletedUsers.Count,
 		enrolledUsersData.Count,
-		activeUsers.Count,	
+		// activeUsers.Count,
 	];
-	
+
 </script>
 
 <dl class="mt-4 grid grid-cols-1 gap-4 sm:grid-cols-3">

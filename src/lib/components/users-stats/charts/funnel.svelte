@@ -3,13 +3,17 @@
 	import Chart, { LinearScale, CategoryScale } from 'chart.js/auto';
 	import { FunnelController, TrapezoidElement } from 'chartjs-chart-funnel';
 	import datalabels from 'chartjs-plugin-datalabels';
-  export let labels: string[];
+    export let labels: string[];
 	export let dataSource: number[];
 
 	Chart.register(FunnelController, TrapezoidElement, LinearScale, CategoryScale);
 
 	let funnelChart;
 	let ctx;
+
+	const chartColors = ['#CB463B', '#9F2A2A', '#661B26', '#2E0C16'];
+	const tickColorLight = '#661B26';
+	const tickColorDark = '#DED6EC';
 
 	onMount(() => {
 		ctx = funnelChart.getContext('2d');
@@ -20,8 +24,8 @@
 				datasets: [
 					{
             data:dataSource,
-						backgroundColor: ['#351e61', '#5832A1', '#7165E3', '#ECE4FC'],
-						borderColor: ['#351e61', '#5832A1', '#7165E3', '#ECE4FC'],
+						backgroundColor: chartColors,
+						borderColor: chartColors,
 						borderWidth: 1
 					},
       //     datalabels: {

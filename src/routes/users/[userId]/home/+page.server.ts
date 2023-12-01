@@ -80,6 +80,9 @@ export const load: PageServerLoad = async (event: RequestEvent) => {
 		console.log('overallUsersData', overallUsersData);
 		// console.log('enrollmentUsers', enrollmentUsers);
 		console.log('years', years);
+
+		event.setHeaders({ 'Cache-Control': 'max-age=86400' })
+
 		return {
 			sessionId,
 			deviceDetailWiseUsers,

@@ -23,19 +23,8 @@ import {
 export const load: PageServerLoad = async (event: RequestEvent) => {
 	const sessionId = event.cookies.get('sessionId');
 	try {
-		// const years = ['2020', '2021', '2022', '2023'];
-		// const ageWiseUsersArray = [];
-		// for (const y of years) {
-		// 	const searchParams = {
-		// 		year: y
-		// 	};
-		// 	const _ageWiseUsers = await getAgeWiseUsers(sessionId, searchParams);
-		// 	const genderWiseUsers = _ageWiseUsers.Data.AgeWiseUsers;
-		// 	ageWiseUsersArray.push(genderWiseUsers);
-		// }
-
 		const currentDate = new Date();
-    const currentYear = currentDate.getFullYear();
+    	const currentYear = currentDate.getFullYear();
 		const searchParams = {
 			year: currentYear
 		};
@@ -48,8 +37,8 @@ export const load: PageServerLoad = async (event: RequestEvent) => {
 		const _maritalStatusWiseUsers = await getMaritalStatusWiseUsers(sessionId);
 		const _countryWiseUsers = await getCountryWiseUsers(sessionId);
 		const _majorAilment = await getMajorAilment(sessionId);
-		// const _obesityDistribution = await getObesityDistribution(sessionId);
 		const _addictionDistribution = await getAddictionDistribution(sessionId);
+		// const _obesityDistribution = await getObesityDistribution(sessionId);
 		// const _healthPillarDistribution = await getHealthPillarDistribution(sessionId);
 		// const _healthPillarDistributionMonthly = await getHealthPillarDistribution(
 		// 	sessionId,
@@ -58,11 +47,11 @@ export const load: PageServerLoad = async (event: RequestEvent) => {
 		// const _roleDistribution = await getRoleDistribution(sessionId);
 		// const _biometricsDistribution = await getBiometricsDistribution(sessionId);
 		// const _biometricsDistributionMonthly = await getBiometricsDistribution(sessionId, searchParams);
-		const _deviceDetailWiseUsers = await getDeviceDetailWiseUsers(sessionId);
-		const _years = await getYears(sessionId);
-
 		// const totalUsers = _totalUsers.Data.TotalUsers;
 		// const activeUsers = _activeUsers.Data.ActiveUsers;
+
+		const _deviceDetailWiseUsers = await getDeviceDetailWiseUsers(sessionId);
+		const _years = await getYears(sessionId);
 		const overallUsersData = _overallUsersData.Data.UsersCountStats;
 		const ageWiseUsers = _ageWiseUsers.Data.AgeWiseUsers;
 		const genderWiseUsers = _genderWiseUsers.Data.GenderWiseUsers;
@@ -79,7 +68,7 @@ export const load: PageServerLoad = async (event: RequestEvent) => {
 		// const biometricsDistributionMonthly = _biometricsDistributionMonthly.Data.Biometrics;
 		const deviceDetailWiseUsers = _deviceDetailWiseUsers.Data.DeviceDetailWiseUsers;
 		const years = _years.Data.Years;
-	
+
 		console.log('overallUsersData', overallUsersData);
 		// console.log('activeUsers', activeUsers);
 		console.log('ageWiseUsers', ageWiseUsers);
@@ -89,7 +78,9 @@ export const load: PageServerLoad = async (event: RequestEvent) => {
 		console.log('addictionDistribution', addictionDistribution);
 		// console.log('healthPillarDistributionMonthly', healthPillarDistributionMonthly);
 		// console.log('roleDistribution', roleDistribution);
-    console.log('deviceDetailWiseUsers', deviceDetailWiseUsers);
+		console.log('deviceDetailWiseUsers', deviceDetailWiseUsers);
+
+		event.setHeaders({ 'Cache-Control': 'max-age=86400' })
 
 		return {
 			sessionId,

@@ -6,9 +6,12 @@
 	export let title: string;
 
 	$:data;
-  $:labels
+    $:labels
 	let pieChart;
 	let ctx;
+	const chartColors = ['#CB463B', '#9F2A2A', '#661B26', '#2E0C16']
+	const tickColorLight = '#661B26';
+	const tickColorDark = '#DED6EC';
 
 	onMount(async () => {
 		ctx = pieChart.getContext('2d');
@@ -19,8 +22,8 @@
 				datasets: [
 					{
 						data: data,
-						backgroundColor: ['#351e61', '#5832A1', '#7165E3', '#ECE4FC'],
-						hoverBackgroundColor: ['#422679', '#8a70bd', '#9c93eb', '#f2ecfd']
+						backgroundColor: chartColors,
+						hoverBackgroundColor: chartColors
 					}
 				]
 			},
@@ -41,14 +44,14 @@
 						labels: {
 							boxWidth: 10,
 							boxHeight: 10,
-							color: document.documentElement.classList.contains('dark') ? '#DED6EC' : '#5832A1'
+							color: document.documentElement.classList.contains('dark') ? tickColorDark : tickColorLight
 						}
 					},
 					title: {
 						display: false,
 						text: title,
 						position: 'top',
-						color: document.documentElement.classList.contains('dark') ? '#DED6EC' : '#5832A1',
+						color: document.documentElement.classList.contains('dark') ? tickColorDark : tickColorLight,
 						align: 'center',
 						padding: 20,
 						font: {
