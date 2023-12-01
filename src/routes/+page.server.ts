@@ -29,6 +29,7 @@ export const actions = {
 	login: async (event: RequestEvent) => {
 		const request = event.request;
 		const data = await request.formData(); // or .json(), or .text(), etc
+		let response;
 		console.log(Object.fromEntries(data));
 
 		const username = data.has('username') ? (data.get('username') as string) : null;
@@ -39,11 +40,16 @@ export const actions = {
 			throw error(400, `Username or password are not valid!`);
 		}
 		console.log(`data....... = ${JSON.stringify(request, null, 2)}`);
-		const response = await login(username, password, loginRoleId ?? 1);
+		try{
+			response = await login(username, password, loginRoleId ?? 1);
+		}catch(error){
+			throw redirect(303,'/',errorMessage(`Unable to process the request`),event);
+		}
+		
 		if (response.Status === 'failure' || response.HttpCode !== 200) {
 			console.log(response.Message);
 			//Login error, so redirect to the sign-in page
-			throw redirect(303, '/sign-in/', errorMessage(response.Message), event);
+			throw redirect(303, '/', errorMessage(response.Message), event);
 		}
 		console.log('response ....', response);
 		const user = response.Data.User;
