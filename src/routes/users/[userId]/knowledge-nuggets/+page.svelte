@@ -98,7 +98,7 @@
 		sortBy = columnName;
 	}
 
-	const handleKnowledgeNuggetDelete = async (e, id) => {
+	const handleKnowledgeNuggetDelete = async (id) => {
 		const knowledgeNuggetId = id;
 		await Delete({
 			sessionId: data.sessionId,
@@ -181,7 +181,6 @@
 								confirmTitle="Delete"
 								cancelTitle="Cancel"
 								let:confirm={confirmThis}
-								on:delete={(e) => handleKnowledgeNuggetDelete(e, row.id)}
 							>
 								<button
 									on:click|preventDefault={() => confirmThis(handleKnowledgeNuggetDelete, row.id)}

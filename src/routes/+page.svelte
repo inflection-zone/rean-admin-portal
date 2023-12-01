@@ -3,6 +3,7 @@
 	import { browser } from '$app/environment';
 	import { personRolesStore, genderTypesStore } from '$lib/store/general.store';
 	import type { PageServerData } from './$types';
+    import { enhance } from '$app/forms';
 
 	export let data: PageServerData;
 	personRolesStore.set(data.roles);
@@ -41,6 +42,7 @@
 						method="post"
 						action="?/login"
 						class=" shadow-bottom-right p-8 pb-1 pt-5 rounded-lg mt-5 bg-secondary-50"
+						use:enhance
 					>
 						<!-- <input class="hidden" type="number" name="loginRoleId" value={loginRoleId}> -->
 						<div class="hidden">

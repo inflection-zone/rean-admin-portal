@@ -17,7 +17,8 @@
 	const editRoute = (id) => `/users/${userId}/assessment-templates/${id}/edit`;
 	const viewRoute = (id) => `/users/${userId}/assessment-templates/${id}/view`;
 	const createRoute = `/users/${userId}/assessment-templates/create`;
-
+	const importRoute = `/users/${userId}/assessment-templates/import`;
+	
 	const breadCrumbs = [{ name: 'Assessments', path: assessmentRoute }];
 
 	let title = undefined;
@@ -94,7 +95,7 @@
 		sortBy = columnName;
 	}
 
-	const handleAssessmentTemplateDelete = async (e, id) => {
+	const handleAssessmentTemplateDelete = async (id) => {
 		const assessmentTemplateId = id;
 		await Delete({
 			sessionId: data.sessionId,
@@ -129,6 +130,7 @@
 		bind:value={type}
 		class="input w-auto grow"
 	/>
+	<a href="{importRoute}" class="btn variant-filled-secondary">Import</a>
 	<a href={createRoute} class="btn variant-filled-secondary">Add New</a>
 </div>
 
@@ -186,7 +188,6 @@
 								confirmTitle="Delete"
 								cancelTitle="Cancel"
 								let:confirm={confirmThis}
-								on:delete={(e) => handleAssessmentTemplateDelete(e, row.id)}
 							>
 								<button
 									on:click|preventDefault={() => confirmThis(handleAssessmentTemplateDelete, row.id)}

@@ -63,7 +63,7 @@
 	} satisfies PaginationSettings;
 
 
-	const handleGoalDelete = async (e, id) => {
+	const handleGoalDelete = async (id) => {
 		const goalId = id;
 		console.log('goalId', goalId);
 		await Delete({
@@ -125,9 +125,6 @@
 								confirmTitle="Delete"
 								cancelTitle="Cancel"
 								let:confirm={confirmThis}
-								on:delete={(e) => {
-									handleGoalDelete(e, row.id);
-								}}
 							>
 								<button
 									on:click|preventDefault={() => confirmThis(handleGoalDelete, row.id)}

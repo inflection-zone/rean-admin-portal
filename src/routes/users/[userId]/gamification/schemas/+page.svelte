@@ -91,7 +91,7 @@
 		sortBy = columnName;
 	}
 
-	const handleSchemaDelete = async (e, id) => {
+	const handleSchemaDelete = async (id) => {
 		const schemaId = id;
 		console.log('schemaId', schemaId);
 		await Delete({
@@ -165,9 +165,6 @@
 								confirmTitle="Delete"
 								cancelTitle="Cancel"
 								let:confirm={confirmThis}
-								on:delete={(e) => {
-									handleSchemaDelete(e, row.id);
-								}}
 							>
 								<button
 									on:click|preventDefault={() => confirmThis(handleSchemaDelete, row.id)}

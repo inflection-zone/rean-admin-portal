@@ -1,18 +1,25 @@
 import type { RequestEvent } from '@sveltejs/kit';
 import { deleteLabRecordType } from '../../services/lab-record-types';
+import { errorMessage, successMessage } from '$lib/utils/message.utils';
+import { redirect } from 'sveltekit-flash-message/server';
 
 //////////////////////////////////////////////////////////////
 
 export const DELETE = async (event: RequestEvent) => {
 	const request = event.request;
 	const data = await request.json();
-
-	try {
-		console.log('Inside lab record type server endpoints');
-		const response = await deleteLabRecordType(data.sessionId, data.labRecordTypeId);
-		return new Response(response.message);
-	} catch (err) {
-		console.error(`Error deleting lab record type: ${err.message}`);
-		return new Response(err.message);
+	console.log('Inside lab record type server endpoints');
+	let response;
+	try{
+		response = await deleteLabRecordType(data.sessionId, data.labRecordTypeId);
+	}catch(error){
+		throw redirect(
+			errorMessage('Error deleting lab record type.'), 
+			event
+			);
 	}
+	throw redirect(
+		successMessage(response.Message),
+		event
+		);	
 };

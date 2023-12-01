@@ -96,7 +96,7 @@
 		sortBy = columnName;
 	}
 
-	const handleOrganizationsDelete = async (e, id) => {
+	const handleOrganizationsDelete = async (id) => {
 		const organizationId = id;
 		console.log('organizationId', organizationId);
 
@@ -184,9 +184,6 @@
 								confirmTitle="Delete"
 								cancelTitle="Cancel"
 								let:confirm={confirmThis}
-								on:delete={(e) => {
-									handleOrganizationsDelete(e, row.id);
-								}}
 							>
 								<button
 									on:click|preventDefault={() => confirmThis(handleOrganizationsDelete, row.id)}

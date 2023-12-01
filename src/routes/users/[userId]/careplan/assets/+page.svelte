@@ -139,7 +139,7 @@
 		}
 	];
 
-	const handleAssetsDelete = async (e, id) => {
+	const handleAssetsDelete = async (id) => {
 		const selectedAssetRoute = assetRouteMap[selectedAssetType];
 		const assetId = id;
 		console.log(assetId, 'assetId');
@@ -248,9 +248,6 @@
 								confirmTitle="Delete"
 								cancelTitle="Cancel"
 								let:confirm={confirmThis}
-								on:delete={(e) => {
-									handleAssetsDelete(e, row.id);
-								}}
 							>
 								<button
 									on:click|preventDefault={() => confirmThis(handleAssetsDelete, row.id)}

@@ -8,6 +8,7 @@
 	import ItemDragDrop from '$lib/components/drag-and-drop/courses-drag-drop.svelte';
 	import SelectedDragDropItems from '$lib/components/drag-and-drop/selected-courses-drag-drop.svelte';
 	import { selectedItems } from '$lib/store/general.store';
+    import { enhance } from '$app/forms';
 
 	/////////////////////////////////////////////////////////////////////////////
 
@@ -77,6 +78,7 @@
 	method="post"
 	action="?/createSchemaAction"
 	class="table-container my-2 border border-secondary-100 dark:!border-surface-700"
+	use:enhance
 >
 	<table class="table">
 		<thead class="!variant-soft-secondary">

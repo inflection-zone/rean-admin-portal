@@ -5,7 +5,6 @@
 
     export let userId = undefined;
     export let showSidebar = false;
-
     const navData = [
         {
             title: 'Dashboard',
@@ -216,7 +215,7 @@
 >
     <Accordion
         width="w-[280px]"
-        autocollapse
+        autocollapse:false
         rounded="rounded-none"
     >
         {#each navData as navParent, idx}

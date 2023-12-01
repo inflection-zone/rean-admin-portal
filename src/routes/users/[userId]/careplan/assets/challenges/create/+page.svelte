@@ -1,4 +1,5 @@
 <script lang="ts">
+    import { enhance } from '$app/forms';
   import { page } from '$app/stores';
   import BreadCrumbs from '$lib/components/breadcrumbs/breadcrums.svelte';
   import InputChip from '$lib/components/input-chips.svelte';
@@ -35,6 +36,7 @@
 	method="post"
 	action="?/createChallengeAction"
 	class="table-container my-2 border border-secondary-100 dark:!border-surface-700"
+  use:enhance
 >
 	<table class="table">
 		<thead class="!variant-soft-secondary">

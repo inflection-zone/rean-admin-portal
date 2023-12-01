@@ -96,7 +96,7 @@
 		sortBy = columnName;
 	}
 
-	const handleApiClientDelete = async (e, id) => {
+	const handleApiClientDelete = async (id) => {
 		const clientId = id;
 
 		await Delete({
@@ -183,7 +183,6 @@
 								confirmTitle="Delete"
 								cancelTitle="Cancel"
 								let:confirm={confirmThis}
-								on:delete={(e) => handleApiClientDelete(e, row.id)}
 							>
 								<button
 									on:click|preventDefault={() => confirmThis(handleApiClientDelete, row.id)}
