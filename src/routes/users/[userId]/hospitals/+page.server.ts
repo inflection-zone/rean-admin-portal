@@ -1,13 +1,12 @@
-import type { RequestEvent } from '@sveltejs/kit';
 import { error } from '@sveltejs/kit';
 import type { PageServerLoad } from './$types';
 import { searchHospitals } from '../../../api/services/hospitals';
 
 ////////////////////////////////////////////////////////////////////////////
 
-export const load: PageServerLoad = async (event: RequestEvent) => {
-	const sessionId = event.cookies.get('sessionId');
-
+export const load: PageServerLoad = async ({cookies,depends}) => {
+	const sessionId = cookies.get('sessionId');
+	depends('app:hospitals')
 	try {
 		const response = await searchHospitals(sessionId);
 		if (response.Status === 'failure' || response.HttpCode !== 200) {
