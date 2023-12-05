@@ -45,7 +45,7 @@ export const actions = {
 				errors
 			};
 		}
-
+		
 		const response = await createNewsfeed(
 			sessionId,
 			result.title,

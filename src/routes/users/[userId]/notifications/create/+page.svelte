@@ -9,7 +9,7 @@
 
 	export let form;
 	const userId = $page.params.userId;
-	let imageUrl = undefined;
+	let imageUrl = '';
 	let fileinput;
 
 	const createRoute = `/users/${userId}/notifications/create`;
