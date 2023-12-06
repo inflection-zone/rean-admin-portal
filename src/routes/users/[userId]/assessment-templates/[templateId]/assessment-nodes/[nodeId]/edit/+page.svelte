@@ -87,7 +87,21 @@
 		<tbody class="!bg-white dark:!bg-inherit">
 			<tr class="!border-b !border-b-secondary-100 dark:!border-b-surface-700">
 				<td>Node Type *</td>
-				<td>{nodeType}</td>
+				<td>
+				<input
+						type="text"
+						disabled
+						bind:value={nodeType}
+						class="input"
+					/>
+					<input
+						type="hidden"
+						name="nodeType"
+						bind:value={nodeType}
+						class="input"
+					/>
+				</td>
+
 				<!-- <td>
 					<select
 						name="nodeType"
@@ -177,6 +191,7 @@
 							required
 							placeholder="Enter message here..."
 							bind:value={message}
+							disabled
 							class="textarea w-full
 						{form?.errors?.message ? 'border-error-300 text-error-500' : ''}"
 						/>
