@@ -144,7 +144,7 @@
 				<th data-sort="index">Id</th>
 				<th>
 					<button on:click={() => sortTable('DrugName')}>
-						Name {isSortingName ? (sortOrder === 'ascending' ? '▲' : '▼') : ''}
+						Drug Name {isSortingName ? (sortOrder === 'ascending' ? '▲' : '▼') : ''}
 					</button>
 				</th>
 				<th>

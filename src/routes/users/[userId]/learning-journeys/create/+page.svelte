@@ -165,7 +165,7 @@
 					<div class="flex flex-col gap-2">
 						<!-- <CoursesDragDrop title = 'Available Courses' items={$dataTableStore.filtered} /> -->
 						<CoursesDragDrop title = 'Available Courses' items={courses} />
-						<SelectedCoursesDragDrop title = 'Add courses to learning journey' sletectItems={selectedCourses} />
+						<SelectedCoursesDragDrop title = 'Drag & drop courses to learning journey' sletectItems={selectedCourses} />
 					</div>
 
 					<input
