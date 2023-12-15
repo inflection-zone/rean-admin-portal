@@ -1,18 +1,26 @@
 import type { PageServerLoad } from './$types';
-import type { RequestEvent } from '@sveltejs/kit';
-import {
-    getDailyStatistics,
-  } from '$routes/api/services/statistics';
+import { error, type RequestEvent } from '@sveltejs/kit';
+import { getDailyStatistics } from '$routes/api/services/statistics';
 
 ////////////////////////////////////////////////////////////////////////////
 
 export const load: PageServerLoad = async (event: RequestEvent) => {
     const sessionId = event.cookies.get('sessionId');
+    let response;
     try {
-        const response = await getDailyStatistics(sessionId);
+        response = await getDailyStatistics(sessionId);
+    } catch (err) {
+        console.error(`Error retriving users data: ${err.message}`);
+        throw error(500, err.message);
+    }
+    if (!response) {
+        throw error(404, 'Daily user statistics data not found');
+    }
+    try {
         // const _enrollmentUsers = await getEnrollmetUsers(sessionId);
         const overallUsersData = response.Data.DailyStatistics.StatisticsData.UserStatistics.UsersCountStats;
-        const deviceDetailWiseUsers_ = response.Data.DailyStatistics.StatisticsData.UserStatistics.DeviceDetailWiseUsers;
+        const deviceDetailWiseUsers_ =
+            response.Data.DailyStatistics.StatisticsData.UserStatistics.DeviceDetailWiseUsers;
         const yearWiseUserCount = response.Data.DailyStatistics.StatisticsData.UserStatistics.YearWiseUserCount;
         const yearWiseDeviceDetails = response.Data.DailyStatistics.StatisticsData.UserStatistics.YearWiseDeviceDetails;
         const deviceDetailWiseUsers = deviceDetailWiseUsers_.map((item) => {
@@ -22,7 +30,7 @@ export const load: PageServerLoad = async (event: RequestEvent) => {
             return item;
         });
         // const enrollmentUsers = _enrollmentUsers.Data.EnrollmentUsers;
-    
+
         const appDownloadsData = response.Data.DailyStatistics.StatisticsData.UserStatistics.AppDownload;
         let appDownloadCount = 0;
 
@@ -30,7 +38,7 @@ export const load: PageServerLoad = async (event: RequestEvent) => {
             const latestEntry = latestDownloadEnrty(appDownloadsData);
             appDownloadCount = latestEntry.TotalDownloads;
         }
-       
+
         return {
             sessionId,
             deviceDetailWiseUsers,
@@ -41,7 +49,8 @@ export const load: PageServerLoad = async (event: RequestEvent) => {
             yearWiseDeviceDetails
         };
     } catch (err) {
-        console.error(`Error retriving users data: ${err.message}`);
+        console.error(`Error processing retrived users data: ${err.message}`);
+        throw error(500, err.message);
     }
 
     function latestDownloadEnrty(appDownloadsData) {
