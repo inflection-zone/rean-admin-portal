@@ -263,6 +263,11 @@ export const getOverallUsers = async (sessionId: string, searchParams?: any) => 
 	return await get_(sessionId, url, true);
 };
 
+export const getDailyStatistics = async(sessionId:string)=>{
+	const url = BACKEND_API_URL + `/daily-stats`;
+	return await get_(sessionId, url, true);
+}
+
 export const getAddictionDistribution = async (sessionId: string, searchParams?: any) => {
 	let searchString = '';
 	if (searchParams) {

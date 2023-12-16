@@ -8,14 +8,14 @@
     import { Paginator, type PaginationSettings } from '@skeletonlabs/skeleton';
     import date from 'date-and-time';
     import type { PageServerData } from './$types';
+    import { invalidate } from '$app/navigation';
 
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     export let data: PageServerData;
 
-    let healthSystems = data.healthSystems.Items;
-    healthSystems = healthSystems.map((item, index) => ({ ...item, index: index + 1 }));
-
+    $: healthSystems = data.healthSystems.Items;
+    let retrivedHealthSystems;
     const userId = $page.params.userId;
     const healthSystemRoute = `/users/${userId}/health-systems`;
     const editRoute = (id) => `/users/${userId}/health-systems/${id}/edit`;
@@ -64,10 +64,14 @@
         healthSystems = items.map((item, index) => ({ ...item, index: index + 1 }));
     }
 
-    $: retrivedHealthSystems = healthSystems.slice(
+    $: {
+        healthSystems = healthSystems.map((item, index) => ({ ...item, index: index + 1 }));
+        paginationSettings.size = data.healthSystems.TotalCount;
+        retrivedHealthSystems = healthSystems.slice(
         paginationSettings.page * paginationSettings.limit,
         paginationSettings.page * paginationSettings.limit + paginationSettings.limit
-    );
+        );
+    }
 
     // $: console.log('retrivedHealthSystems', retrivedHealthSystems);
 
@@ -105,7 +109,7 @@
             sessionId: data.sessionId,
             healthSystemId
         });
-        window.location.href = healthSystemRoute;
+       invalidate('app:healthSystem');
     };
 
     async function Delete(model) {

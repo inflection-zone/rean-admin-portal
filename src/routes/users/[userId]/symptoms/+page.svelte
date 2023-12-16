@@ -11,11 +11,13 @@
 	} from '@skeletonlabs/skeleton';
 	import date from 'date-and-time';
 	import type { PageServerData } from './$types';
+    import { invalidate } from '$app/navigation';
 
 	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 	export let data: PageServerData;
-	let symptoms = data.symptoms;
+	let retrivedSymptoms;
+	$: symptoms = data.symptoms;
 
 	const userId = $page.params.userId;
 	const symptomRoute = `/users/${userId}/symptoms`;
@@ -64,10 +66,14 @@
 		symptoms = response.map((item, index) => ({ ...item, index: index + 1 }));
 	}
 
-	$: retrivedSymptoms = symptoms.slice(
+	$: {
+		symptoms = symptoms.map((item, index) => ({ ...item, index: index + 1 }));
+		paginationSettings.size = data.symptomsCount;
+		retrivedSymptoms = symptoms.slice(
 		paginationSettings.page * paginationSettings.limit,
 		paginationSettings.page * paginationSettings.limit + paginationSettings.limit
 	);
+	}
 
 	$: if (browser)
 		searchSymptom({ 
@@ -107,7 +113,7 @@
 			sessionId: data.sessionId,
 			symptomId: symptomId
 		});
-		window.location.href = symptomRoute;
+		invalidate('app:symptoms');
 	};
 
 	async function Delete(model) {

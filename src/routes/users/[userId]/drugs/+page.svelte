@@ -8,13 +8,13 @@
 	import { Paginator, type PaginationSettings } from '@skeletonlabs/skeleton';
 	import date from 'date-and-time';
 	import type { PageServerData } from './$types';
+    import { invalidate } from '$app/navigation';
 	
 	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 	export let data: PageServerData;
-
-	let drugs = data.drugs.Items;
-
+	let retrivedDrugs;
+	$:drugs = data.drugs.Items;
 	const userId = $page.params.userId;
 	const drugRoute = `/users/${userId}/drugs`;
 	const editRoute = (id) => `/users/${userId}/drugs/${id}/edit`;
@@ -59,11 +59,14 @@
 		drugs = response.map((item, index) => ({ ...item, index: index + 1 }));
 	}
 
-	$: retrivedDrugs = drugs.slice(
+	$:{
+		drugs = drugs.map((item, index) => ({ ...item, index: index + 1 }));
+		paginationSettings.size = data.drugs.TotalCount;
+		retrivedDrugs = drugs.slice(
 		paginationSettings.page * paginationSettings.limit,
 		paginationSettings.page * paginationSettings.limit + paginationSettings.limit
 	);
-
+	}
 	$: if (browser)
 		searchDrug({
 			drugName: drugName,
@@ -102,7 +105,7 @@
 			sessionId: data.sessionId,
 			drugId
 		});
-		window.location.href = drugRoute;
+		invalidate('app:drugs')
 	};
 
 	async function Delete(model) {
@@ -141,7 +144,7 @@
 				<th data-sort="index">Id</th>
 				<th>
 					<button on:click={() => sortTable('DrugName')}>
-						Name {isSortingName ? (sortOrder === 'ascending' ? '▲' : '▼') : ''}
+						Drug Name {isSortingName ? (sortOrder === 'ascending' ? '▲' : '▼') : ''}
 					</button>
 				</th>
 				<th>

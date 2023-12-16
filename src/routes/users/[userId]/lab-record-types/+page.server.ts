@@ -5,15 +5,16 @@ import { searchLabRecordTypes } from '../../../api/services/lab-record-types';
 
 ////////////////////////////////////////////////////////////////////////////
 
-export const load: PageServerLoad = async (event: RequestEvent) => {
-	const sessionId = event.cookies.get('sessionId');
-
+export const load: PageServerLoad = async ({cookies,depends}) => {
+	const sessionId = cookies.get('sessionId');
+	depends('app:labRecordType')
+	let labRecordTypes=[]
 	try {
 		const response = await searchLabRecordTypes(sessionId);
 		if (response.Status === 'failure' || response.HttpCode !== 200) {
 			throw error(response.HttpCode, response.Message);
 		}
-		const labRecordTypes = response.Data.LabRecordTypes;
+		labRecordTypes = response.Data.LabRecordTypes;
 		return {
 			labRecordTypes,
 			sessionId,
@@ -21,5 +22,10 @@ export const load: PageServerLoad = async (event: RequestEvent) => {
 		};
 	} catch (error) {
 		console.error(`Error retriving Lab record types: ${error.message}`);
+		return {
+			labRecordTypes,
+			sessionId,
+			message: error.message
+		};
 	}
 };

@@ -12,13 +12,16 @@
 	let deletedUsers = overallUsersData.DeletedUsers;
 	let nonDeletedUsers = overallUsersData.NotDeletedUsers;
 	let deviceDetailWiseUsersData = data.deviceDetailWiseUsers;
-	let androidUsers = data.deviceDetailWiseUsers.AndroidUsers;
-	let iOSUsers = data.deviceDetailWiseUsers.IOSUsers;
-	let missingDeviceDetails = data.deviceDetailWiseUsers.MissingDeviceDetails;
-	let totalUsersData = data.totalUsersArray;
-	let androidUsersData = data.androidUsersArray;
-	let iOSUsersData = data.iOSUsersArray;
-	let yearsArray = data.yearsArray;
+	// let missingDeviceDetails = data.deviceDetailWiseUsers.MissingDeviceDetails;
+	let yearsArray = [];
+	let totalUsersData = [];
+	let androidUsersData = [];
+	let iOSUsersData = [];
+	let yearWiseUserData = data.yearWiseUserCount
+	let yearWiseDeviceDetails = data.yearWiseDeviceDetails;
+	extractYearWiseUserCount(yearWiseUserData);
+	extractYearWiseDeviceDetails(yearWiseDeviceDetails);
+		
 	let enrolledUsersData = overallUsersData.EnrolledUsers;
 	let downloads = data.appDownloadCount;
 
@@ -39,6 +42,45 @@
 		activeUsers.Count,	
 	];
 	
+	function extractYearWiseUserCount(data:any[]){
+		data.forEach((value)=>{
+			yearsArray.push(value.Year);
+			totalUsersData.push(value.UserCount);
+		})
+	}
+
+	function extractYearWiseDeviceDetails(data:any[]){
+		data.forEach(value=>{
+			if (value.DeviceDetails.length===0){
+				androidUsersData.push(0);
+				iOSUsersData.push(0);
+			}else{
+				let andriodCount=undefined;
+				let iOSCount=undefined;
+				value.DeviceDetails.forEach(devicedetails=>{
+					if(devicedetails.OSType==='Android'){
+						andriodCount = devicedetails.count;
+						// androidUsersData.push(devicedetails.count);
+					}
+					if(devicedetails.OSType==='iOS'){
+						iOSCount = devicedetails.count;
+						// iOSUsersData.push(devicedetails.count);
+					}
+				})
+				if (!andriodCount){
+					androidUsersData.push(0);
+				}else{
+					androidUsersData.push(andriodCount);
+				}
+				if (!iOSCount){
+					iOSUsersData.push(0);
+				}else{
+					iOSUsersData.push(iOSCount);
+				}
+			}
+
+		})
+	}
 </script>
 
 <dl class="mt-4 grid grid-cols-1 gap-4 sm:grid-cols-3">
