@@ -1,7 +1,10 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
 	import Chart from 'chart.js/auto';
-
+    import {
+    PUBLIC_TICK_COLOR_LIGHT,
+    PUBLIC_TICK_COLOR_DARK
+} from '$env/static/public';
 	export let biometricsDistributionMonthly;
 
 	let cholesterolUsers = biometricsDistributionMonthly.CholesterolUsers;
@@ -23,8 +26,11 @@
 	let bodyTempratureUsersData = bodyTempratureUsers.map((x) => x.Count);
 	let pulseUsersData = pulseUsers.map((x) => x.Count);
 
-	const tickColorLight = '#661B26';
-	const tickColorDark = '#DED6EC';
+	// const tickColorLight = '#661B26';
+	// const tickColorDark = '#DED6EC';
+
+    const tickColorLight = PUBLIC_TICK_COLOR_LIGHT;
+    const tickColorDark = PUBLIC_TICK_COLOR_DARK;
 
 	let lineChart;
 	let ctx;

@@ -1,14 +1,23 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
 	import Chart from 'chart.js/auto';
+    import {
+    PUBLIC_CHART_COLORS,
+    PUBLIC_TICK_COLOR_LIGHT,
+    PUBLIC_TICK_COLOR_DARK
+    } from '$env/static/public';
 	export let labels: string[] = [];
 	export let dataSource: number[] = [];
 	export let title;
 	let barChart;
 	let ctx;
-	const chartColors = ['#CB463B', '#9F2A2A', '#661B26', '#2E0C16'];
-	const tickColorLight = '#661B26';
-	const tickColorDark = '#DED6EC';
+	// const chartColors = ['#CB463B', '#9F2A2A', '#661B26', '#2E0C16'];
+	// const tickColorLight = '#661B26';
+	// const tickColorDark = '#DED6EC';
+
+    const chartColors = PUBLIC_CHART_COLORS.split(',');
+    const tickColorLight = PUBLIC_TICK_COLOR_LIGHT;
+    const tickColorDark = PUBLIC_TICK_COLOR_DARK;
 
 	onMount(() => {
 		ctx = barChart.getContext('2d');

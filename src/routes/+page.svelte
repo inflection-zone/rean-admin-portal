@@ -4,14 +4,22 @@
 	import { personRolesStore, genderTypesStore } from '$lib/store/general.store';
 	import type { PageServerData } from './$types';
     import { enhance } from '$app/forms';
+    import {
+        PUBLIC_LOGO_IMAGE_SOURCE,
+        PUBLIC_FOOTER_TEXT,
+        PUBLIC_FOOTER_LINK
+    } from '$env/static/public';
 
 	// const logoImageSource = "https://www.reanfoundation.org/wp-content/uploads/2021/10/REAN-Foundation-brand-Logo.png"
-	const logoImageSource = "https://www.heart.org/-/media/Images/Logos/Global-Do-No-Edit/Header/AHA_Full.svg?h=256&iar=0&mw=960&w=426&hash=502DC0C0397CFBA7EA1142C51E062876"
-	//const footerText = `© ${new Date().getFullYear()} REAN Foundation`;
-	const footerText = `© ${new Date().getFullYear()} American Heart Association`;
-	//const footerLink = 'https://www.reanfoundation.org';
-	const footerLink = 'https://www.heart.org';
+	// const logoImageSource = "https://www.heart.org/-/media/Images/Logos/Global-Do-No-Edit/Header/AHA_Full.svg?h=256&iar=0&mw=960&w=426&hash=502DC0C0397CFBA7EA1142C51E062876"
+    const logoImageSource = PUBLIC_LOGO_IMAGE_SOURCE;
 
+    //const footerText = `© ${new Date().getFullYear()} REAN Foundation`;
+	// const footerText = `© ${new Date().getFullYear()} American Heart Association`;
+    const footerText = `© ${new Date().getFullYear()} ${PUBLIC_FOOTER_TEXT}`;
+	//const footerLink = 'https://www.reanfoundation.org';
+	// const footerLink = 'https://www.heart.org';
+    const footerLink = PUBLIC_FOOTER_LINK;
 	export let data: PageServerData;
 	personRolesStore.set(data.roles);
 	LocalStorageUtils.setItem('personRoles', JSON.stringify(data.roles));

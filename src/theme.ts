@@ -1,5 +1,6 @@
 import type { CustomThemeConfig } from '@skeletonlabs/tw-plugin';
-import themeSetting from '../src/lib/utils/custom.theme.setting'
+import {getCustomThemeConfiguration} from '../src/lib/utils/custom.theme.setting'
+export const themeSetting = getCustomThemeConfiguration();
 
 export const customTheme: CustomThemeConfig = {
 	name: 'customTheme',

@@ -3,9 +3,10 @@ import type { Config } from 'tailwindcss';
 import { skeleton } from '@skeletonlabs/tw-plugin';
 import forms from '@tailwindcss/forms';
 import { customTheme } from './src/theme'
-
-const themeDarkColor = '#C10E21';
-
+import {getCustomThemeConfiguration} from './src/lib/utils/custom.theme.setting';
+const themeSetting = getCustomThemeConfiguration();
+// const themeDarkColor = '#C10E21';
+const themeDarkColor = themeSetting.ThemeDarkColor;
 module.exports = {
 	darkMode: 'class',
 	content: [
