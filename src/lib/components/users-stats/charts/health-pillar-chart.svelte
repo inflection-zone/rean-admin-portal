@@ -1,10 +1,20 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
 	import Chart from 'chart.js/auto';
-    import {
-    PUBLIC_TICK_COLOR_LIGHT,
-    PUBLIC_TICK_COLOR_DARK
-} from '$env/static/public';
+	import {
+		getChartColors,
+		getHoverChartColors,
+		getTickColorLight,
+		getTickColorDark
+  	} from '$lib/themes/theme.selector';
+
+  /////////////////////////////////////////////////////////////////////////////
+
+  const chartColors = getChartColors();
+  const hoverChartColors = getHoverChartColors();
+  const tickColorLight = getTickColorLight();
+  const tickColorDark = getTickColorDark();
+
 	export let healthPillarDistributionMonthly;
 
 	let physicalActivityUsers = healthPillarDistributionMonthly.PhysicalActivityUsers;
@@ -26,13 +36,6 @@
 
 	let lineChart;
 	let ctx;
-
-	// const tickColorLight = '#661B26';
-	// const tickColorDark = '#DED6EC';
-
-    const tickColorLight = PUBLIC_TICK_COLOR_LIGHT;
-    const tickColorDark = PUBLIC_TICK_COLOR_DARK;
-
 
 	onMount(() => {
 		ctx = lineChart.getContext('2d');

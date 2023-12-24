@@ -3,12 +3,11 @@ import type { Config } from 'tailwindcss';
 import { skeleton } from '@skeletonlabs/tw-plugin';
 import forms from '@tailwindcss/forms';
 import { customTheme } from './src/theme';
-import { PUBLIC_SYSTEM_ID } from '$env/static/public';
 import { getThemeDarkColor } from './src/lib/themes/theme.selector';
 
 //////////////////////////////////////////////////////////////////////////
 
-const themeDarkColor = getThemeDarkColor(PUBLIC_SYSTEM_ID);
+const themeDarkColor = getThemeDarkColor();
 
 //////////////////////////////////////////////////////////////////////////
 

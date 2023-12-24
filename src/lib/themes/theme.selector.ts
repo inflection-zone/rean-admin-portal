@@ -15,6 +15,8 @@ import { TickColorLight as REANTickColorLight } from './rean.theme';
 import { TickColorDark as REANTickColorDark } from './rean.theme';
 import { ThemeDarkColor as REANThemeDarkColor } from './rean.theme';
 
+import { SYSTEM_ID } from '../constants';
+
 //////////////////////////////////////////////////////////////////////////////
 
 export enum ThemeFlavor {
@@ -24,8 +26,8 @@ export enum ThemeFlavor {
     Custom = 'Custom'
 }
 
-export const getThemeColors = (themeFlavor: string) => {
-    // const themeFlavor: ThemeFlavor = PUBLIC_SYSTEM_ID as ThemeFlavor;
+export const getThemeColors = () => {
+    const themeFlavor: ThemeFlavor = SYSTEM_ID as ThemeFlavor;
     switch (themeFlavor as ThemeFlavor) {
         case ThemeFlavor.REAN:
             return REANThemeColors;
@@ -36,8 +38,8 @@ export const getThemeColors = (themeFlavor: string) => {
     }
 };
 
-export const getChartColors = (themeFlavor: string) => {
-    // const themeFlavor: ThemeFlavor = PUBLIC_SYSTEM_ID as ThemeFlavor;
+export const getChartColors = () => {
+    const themeFlavor: ThemeFlavor = SYSTEM_ID as ThemeFlavor;
     switch (themeFlavor as ThemeFlavor) {
         case ThemeFlavor.REAN:
             return REANChartColors;
@@ -48,8 +50,8 @@ export const getChartColors = (themeFlavor: string) => {
     }
 };
 
-export const getHoverChartColors = (themeFlavor: string) => {
-    // const themeFlavor: ThemeFlavor = PUBLIC_SYSTEM_ID as ThemeFlavor;
+export const getHoverChartColors = () => {
+    const themeFlavor: ThemeFlavor = SYSTEM_ID as ThemeFlavor;
     switch (themeFlavor as ThemeFlavor) {
         case ThemeFlavor.REAN:
             return REANHoverChartColors;
@@ -60,8 +62,8 @@ export const getHoverChartColors = (themeFlavor: string) => {
     }
 };
 
-export const getTickColorLight = (themeFlavor: string) => {
-    // const themeFlavor: ThemeFlavor = PUBLIC_SYSTEM_ID as ThemeFlavor;
+export const getTickColorLight = () => {
+    const themeFlavor: ThemeFlavor = SYSTEM_ID as ThemeFlavor;
     switch (themeFlavor as ThemeFlavor) {
         case ThemeFlavor.REAN:
             return REANTickColorLight;
@@ -72,8 +74,8 @@ export const getTickColorLight = (themeFlavor: string) => {
     }
 };
 
-export const getTickColorDark = (themeFlavor: string) => {
-    // const themeFlavor: ThemeFlavor = PUBLIC_SYSTEM_ID as ThemeFlavor;
+export const getTickColorDark = () => {
+    const themeFlavor: ThemeFlavor = SYSTEM_ID as ThemeFlavor;
     switch (themeFlavor as ThemeFlavor) {
         case ThemeFlavor.REAN:
             return REANTickColorDark;
@@ -84,8 +86,8 @@ export const getTickColorDark = (themeFlavor: string) => {
     }
 };
 
-export const getThemeDarkColor = (themeFlavor: string) => {
-    // const themeFlavor: ThemeFlavor = PUBLIC_SYSTEM_ID as ThemeFlavor;
+export const getThemeDarkColor = () => {
+    const themeFlavor: ThemeFlavor = SYSTEM_ID as ThemeFlavor;
     switch (themeFlavor as ThemeFlavor) {
         case ThemeFlavor.REAN:
             return REANThemeDarkColor;
@@ -95,3 +97,7 @@ export const getThemeDarkColor = (themeFlavor: string) => {
             return REANThemeDarkColor;
     }
 };
+
+
+// export const getThemeDarkColor = (themeFlavor: string) => {
+    // const themeFlavor: ThemeFlavor = SYSTEM_ID as ThemeFlavor;

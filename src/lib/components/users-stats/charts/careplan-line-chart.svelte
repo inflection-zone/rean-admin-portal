@@ -3,14 +3,13 @@
 <script>
 import {onMount} from 'svelte';
 import Chart from 'chart.js/auto';
-import { PUBLIC_SYSTEM_ID } from '$env/static/public';
 import { getTickColorLight, getTickColorDark } from '$lib/themes/theme.selector';
 export let total;
 
 ///////////////////////////////////////////////////////////////////////////////
 
-const tickColorLight = getTickColorLight(PUBLIC_SYSTEM_ID);
-const tickColorDark = getTickColorDark(PUBLIC_SYSTEM_ID);
+const tickColorLight = getTickColorLight();
+const tickColorDark = getTickColorDark();
 
 let dates_arr = total.map((element) => {
   var d = new Date(element.Day);

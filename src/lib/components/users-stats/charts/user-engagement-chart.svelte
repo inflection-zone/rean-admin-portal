@@ -1,20 +1,22 @@
-
-
 <canvas id="myChart" width="910" height="300" bind:this={lineChart}></canvas>
 <script>
 import {onMount} from 'svelte';
 import Chart from 'chart.js/auto';
 import {
-    PUBLIC_TICK_COLOR_LIGHT,
-    PUBLIC_TICK_COLOR_DARK
-    } from '$env/static/public';
-export let total;
+		getChartColors,
+		getHoverChartColors,
+		getTickColorLight,
+		getTickColorDark
+  	} from '$lib/themes/theme.selector';
 
-// const tickColorLight = '#661B26';
-// const tickColorDark = '#DED6EC';
+  /////////////////////////////////////////////////////////////////////////////
 
-const tickColorLight = PUBLIC_TICK_COLOR_LIGHT;
-const tickColorDark = PUBLIC_TICK_COLOR_DARK;
+  const chartColors = getChartColors();
+  const hoverChartColors = getHoverChartColors();
+  const tickColorLight = getTickColorLight();
+  const tickColorDark = getTickColorDark();
+
+	export let total;
 
 let dates_arr = total.map((element) => {
   var d = new Date(element.Day);
