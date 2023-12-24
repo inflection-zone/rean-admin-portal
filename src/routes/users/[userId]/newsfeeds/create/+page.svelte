@@ -10,8 +10,8 @@
 	
 	export let form;
 	const userId = $page.params.userId;
-	let image = undefined;
-	let favicon = undefined;
+	let image = '';
+	let favicon = '';
 	let fileInput;
 
 	const createRoute = `/users/${userId}/newsfeeds/create`;

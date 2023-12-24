@@ -5,8 +5,9 @@ import { searchHealthSystems } from '../../../api/services/health.systems';
 
 ////////////////////////////////////////////////////////////////////////////
 
-export const load: PageServerLoad = async (event: RequestEvent) => {
-	const sessionId = event.cookies.get('sessionId');
+export const load: PageServerLoad = async ({cookies,depends}) => {
+	const sessionId = cookies.get('sessionId');
+	depends('app:healthSystem');
 
 	try {
 		const response = await searchHealthSystems(sessionId);

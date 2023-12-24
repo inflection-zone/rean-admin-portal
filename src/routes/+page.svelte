@@ -48,7 +48,6 @@
 	<div class="nav h-12 w-full bg-primary-700" />
 	<div class="w-full h-full" id="background-image">
 		<div class="bg-back-ground h-full w-full bg-primary-50">
-			<!-- <div class="h-10 w-screen shadow-xl mb-4 bg-[#7165E3]" /> -->
 			<div class="h-full w-full px-3">
 				<div class=" flex justify-center flex-col items-center">
 					<img

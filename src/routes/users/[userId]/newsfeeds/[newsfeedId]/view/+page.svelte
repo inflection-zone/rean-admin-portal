@@ -115,7 +115,7 @@
 			<tr class="!border-b !border-b-secondary-100 dark:!border-b-surface-700">
 				<td class="align-top">Favicon</td>
 				<td>
-					{#if favicon === 'undefined'}
+					{#if !favicon}
 						Not specified
 					{:else}
 						<Image cls="flex h-24 w-24 rounded-lg" source={favicon} w="24" h="24" />
@@ -129,7 +129,7 @@
 			<tr class="!border-b !border-b-secondary-100 dark:!border-b-surface-700">
 				<td class="align-top">Image</td>
 				<td>
-					{#if image === 'undefined'}
+					{#if !image}
 						Not specified
 					{:else}
 						<Image cls="flex h-24 w-24 rounded-lg" source={image} w="24" h="24" />

@@ -6,6 +6,7 @@
 	import Icon from '@iconify/svelte';
 	import {Paginator, type PaginationSettings } from '@skeletonlabs/skeleton';
 	import type { PageServerData } from './$types';
+    import { invalidate} from '$app/navigation';
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 	export let data: PageServerData;
@@ -17,12 +18,13 @@
 	const editRoute = (id) => `/users/${userId}/lab-record-types/${id}/edit`;
 	const viewRoute = (id) => `/users/${userId}/lab-record-types/${id}/view`;
 	const labRecordTypesRoute = `/users/${userId}/lab-record-types`;
-	
+
 	sort(sortOrder)
 	$:{
+		labRecordTypes = data.labRecordTypes;
+		sort(sortOrder)
 		labRecordTypes = labRecordTypes.map((item, index) => ({ ...item, index: index + 1 }));
 	}
-	
 	function sort(sortOrder){
 		labRecordTypes = labRecordTypes.sort((a, b) => {
 			let fa = a.TypeName.toLowerCase(),
@@ -51,13 +53,14 @@
 		amounts: [10, 20, 30, 50]
 	} satisfies PaginationSettings;
 
+	$:paginationSettings.size = labRecordTypes.length;
 	const handleLabRecordTypeDelete = async (id) => {
-		const labRecordTypeId = id;
-		await Delete({
+			const labRecordTypeId = id;
+			await Delete({
 			sessionId: data.sessionId,
 			labRecordTypeId: labRecordTypeId
 		});
-		window.location.href = labRecordTypesRoute;
+		invalidate('app:labRecordType')
 	};
 
 	$: selectedLabRecordTypes = labRecordTypes.slice(
@@ -79,28 +82,11 @@
 			body:JSON.stringify(model),
 			headers: { 'content-type': 'application/json' }
 		});
-		
+
 	}
 </script>
 
 <BreadCrumbs crumbs={breadCrumbs} />
-<!-- <div class="flex flex-wrap gap-2 mt-1">
-	<input
-		type="text"
-		name="title"
-		placeholder="Search by title"
-		bind:value={title}
-		class="input w-auto grow"
-	/>
-	<input
-		type="text"
-		name="type"
-		placeholder="Search by type"
-		bind:value={type}
-		class="input w-auto grow"
-	/>
-	<a href={createRoute} class="btn variant-filled-secondary ml-auto">Add New</a>
-</div> -->
 <div class="flex flex-wrap gap-2 mt-1">
 	<a href={createRoute} class="btn variant-filled-secondary ml-auto">Add New</a>
 </div>
@@ -130,7 +116,7 @@
 					<td colspan="6">No records found</td>
 				</tr>
 			{:else}
-				{#each selectedLabRecordTypes as row}
+				{#each selectedLabRecordTypes as row, id}
 					<tr class="!border-b !border-b-secondary-100 dark:!border-b-surface-700">
 						<td role="gridcell" aria-colindex={1} tabindex="0">{row.index}</td>
 						<td role="gridcell" aria-colindex={2} tabindex="0">
@@ -154,7 +140,7 @@
 								let:confirm={confirmThis}
 							>
 								<button
-									on:click|preventDefault={() => 
+									on:click|preventDefault={() =>
 									confirmThis(handleLabRecordTypeDelete, row.id)
 									}
 									class="btn p-2 -my-1 hover:variant-soft-error"

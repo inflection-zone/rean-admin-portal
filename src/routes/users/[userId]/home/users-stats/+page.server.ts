@@ -1,108 +1,49 @@
-import type { RequestEvent } from '@sveltejs/kit';
+import { error, type RequestEvent } from '@sveltejs/kit';
 import type { PageServerLoad } from './$types';
-import {
-	// getActiveUsers,
-	getAddictionDistribution,
-	getAgeWiseUsers,
-	// getBiometricsDistribution,
-	getCountryWiseUsers,
-	getGenderWiseUsers,
-	// getHealthPillarDistribution,
-	getMajorAilment,
-	getMaritalStatusWiseUsers,
-	// getObesityDistribution,
-	getOverallUsers,
-	// getRoleDistribution,
-	// getTolalUsers,
-	getDeviceDetailWiseUsers,
-	getYears,
-} from '$routes/api/services/statistics';
+import { getDailyStatistics } from '$routes/api/services/statistics';
 
 ////////////////////////////////////////////////////////////////////////////
 
 export const load: PageServerLoad = async (event: RequestEvent) => {
-	const sessionId = event.cookies.get('sessionId');
-	try {
-		const currentDate = new Date();
-    	const currentYear = currentDate.getFullYear();
-		const searchParams = {
-			year: currentYear
-		};
+    const sessionId = event.cookies.get('sessionId');
+    const response = await getDailyStatistics(sessionId);
+    if (!response) {
+        throw error(404, 'Daily user statistics data not found');
+    }
 
-		// const _totalUsers = await getTolalUsers(sessionId);
-		// const _activeUsers = await getActiveUsers(sessionId);
-		const _overallUsersData = await getOverallUsers(sessionId);
-		const _ageWiseUsers = await getAgeWiseUsers(sessionId);
-		const _genderWiseUsers = await getGenderWiseUsers(sessionId);
-		const _maritalStatusWiseUsers = await getMaritalStatusWiseUsers(sessionId);
-		const _countryWiseUsers = await getCountryWiseUsers(sessionId);
-		const _majorAilment = await getMajorAilment(sessionId);
-		const _addictionDistribution = await getAddictionDistribution(sessionId);
-		// const _obesityDistribution = await getObesityDistribution(sessionId);
-		// const _healthPillarDistribution = await getHealthPillarDistribution(sessionId);
-		// const _healthPillarDistributionMonthly = await getHealthPillarDistribution(
-		// 	sessionId,
-		// 	searchParams
-		// );
-		// const _roleDistribution = await getRoleDistribution(sessionId);
-		// const _biometricsDistribution = await getBiometricsDistribution(sessionId);
-		// const _biometricsDistributionMonthly = await getBiometricsDistribution(sessionId, searchParams);
-		// const totalUsers = _totalUsers.Data.TotalUsers;
-		// const activeUsers = _activeUsers.Data.ActiveUsers;
+    const overallUsersData = response.Data.DailyStatistics.Statistics.UserStatistics.UsersCountStats;
+    const ageWiseUsers = response.Data.DailyStatistics.Statistics.UserStatistics.AgeWiseUsers;
+    const genderWiseUsers = response.Data.DailyStatistics.Statistics.UserStatistics.GenderWiseUsers;
+    const maritalStatusWiseUsers = response.Data.DailyStatistics.Statistics.UserStatistics.MaritalStatusWiseUsers;
+    const countryWiseUsers = response.Data.DailyStatistics.Statistics.UserStatistics.CountryWiseUsers;
+    const majorAilment = response.Data.DailyStatistics.Statistics.UserStatistics.MajorAilmentDistribution;
+    const addictionDistribution = response.Data.DailyStatistics.Statistics.UserStatistics.AddictionDistribution;
+    const deviceDetailWiseUsers = response.Data.DailyStatistics.Statistics.UserStatistics.DeviceDetailWiseUsers;
+    const years = [];
+    const yearWiseUserCount = response.Data.DailyStatistics.Statistics.UserStatistics.YearWiseUserCount;
+    yearWiseUserCount.forEach((value) => {
+        years.push({
+            year: value.Year
+        });
+    });
+    console.log('###', years);
+    console.log('overallUsersData', overallUsersData);
+    console.log('ageWiseUsers', ageWiseUsers);
+    console.log('genderWiseUsers', genderWiseUsers);
+    console.log('maritalStatusWiseUsers', maritalStatusWiseUsers);
+    console.log('addictionDistribution', addictionDistribution);
+    console.log('deviceDetailWiseUsers', deviceDetailWiseUsers);
 
-		const _deviceDetailWiseUsers = await getDeviceDetailWiseUsers(sessionId);
-		const _years = await getYears(sessionId);
-		const overallUsersData = _overallUsersData.Data.UsersCountStats;
-		const ageWiseUsers = _ageWiseUsers.Data.AgeWiseUsers;
-		const genderWiseUsers = _genderWiseUsers.Data.GenderWiseUsers;
-		const maritalStatusWiseUsers = _maritalStatusWiseUsers.Data.MaritalStatusWiseUsers;
-		const countryWiseUsers = _countryWiseUsers.Data.CountryWiseUsers;
-		const majorAilment = _majorAilment.Data.MajorAilmentDistribution;
-		// const obesityDistribution = _obesityDistribution.Data.ObesityDistribution;
-		const addictionDistribution = _addictionDistribution.Data.AddictionDistribution;
-		// const healthPillarDistribution = _healthPillarDistribution.Data.HealthPillarDistribution;
-		// const healthPillarDistributionMonthly =
-		// 	_healthPillarDistributionMonthly.Data.HealthPillarDistribution;
-		// const roleDistribution = _roleDistribution.Data.RoleDistribution;
-		// const biometricsDistribution = _biometricsDistribution.Data.Biometrics;
-		// const biometricsDistributionMonthly = _biometricsDistributionMonthly.Data.Biometrics;
-		const deviceDetailWiseUsers = _deviceDetailWiseUsers.Data.DeviceDetailWiseUsers;
-		const years = _years.Data.Years;
-
-		console.log('overallUsersData', overallUsersData);
-		// console.log('activeUsers', activeUsers);
-		console.log('ageWiseUsers', ageWiseUsers);
-		console.log('genderWiseUsers', genderWiseUsers);
-		console.log('maritalStatusWiseUsers', maritalStatusWiseUsers);
-		// console.log('obesityDistribution', obesityDistribution);
-		console.log('addictionDistribution', addictionDistribution);
-		// console.log('healthPillarDistributionMonthly', healthPillarDistributionMonthly);
-		// console.log('roleDistribution', roleDistribution);
-		console.log('deviceDetailWiseUsers', deviceDetailWiseUsers);
-
-		event.setHeaders({ 'Cache-Control': 'max-age=86400' })
-
-		return {
-			sessionId,
-			// totalUsers,
-			// activeUsers,
-			ageWiseUsers,
-			genderWiseUsers,
-			maritalStatusWiseUsers,
-			countryWiseUsers,
-			majorAilment,
-			// obesityDistribution,
-			addictionDistribution,
-			// healthPillarDistribution,
-			// healthPillarDistributionMonthly,
-			// roleDistribution,
-			// biometricsDistribution,
-			// biometricsDistributionMonthly,
-			overallUsersData,
-			deviceDetailWiseUsers,
-			years
-		};
-	} catch (error) {
-		console.error(`Error retriving users data: ${error.message}`);
-	}
+    return {
+        sessionId,
+        ageWiseUsers,
+        genderWiseUsers,
+        maritalStatusWiseUsers,
+        countryWiseUsers,
+        majorAilment,
+        addictionDistribution,
+        overallUsersData,
+        deviceDetailWiseUsers,
+        years
+    };
 };
