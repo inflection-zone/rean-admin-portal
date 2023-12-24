@@ -1,8 +1,8 @@
 import type { CustomThemeConfig } from '@skeletonlabs/tw-plugin';
-import {getCustomThemeConfiguration} from '../src/lib/utils/custom.theme.setting'
-export const themeSetting = getCustomThemeConfiguration();
+import { getThemeColors } from './lib/themes/theme.selector';
+import { PUBLIC_SYSTEM_ID } from '$env/static/public';
 
 export const customTheme: CustomThemeConfig = {
 	name: 'customTheme',
-    properties: themeSetting.ThemeColors,
+    properties: getThemeColors(PUBLIC_SYSTEM_ID),
 }

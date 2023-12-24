@@ -1,7 +1,5 @@
-{
-    "ThemeColors":
-    {
-		"--theme-font-family-base": "'Montserrat', sans-serif",
+export const ThemeColors = {
+    "--theme-font-family-base": "'Montserrat', sans-serif",
     "--theme-font-family-heading": "'Montserrat', sans-serif",
     "--theme-font-color-base": "var(--color-surface-900)",
     "--theme-font-color-dark": "var(--color-surface-50)",
@@ -85,10 +83,12 @@
     "--color-surface-700": "55 68 108",
     "--color-surface-800": "45 56 88",
     "--color-surface-900": "31 38 61"
-	},
-    "ThemeDarkColor": "#C10E21",
-    "ChartColors": "#CB463B,#9F2A2A,#661B26,#2E0C16",
-    "HoverChartColor": "#f2ecfd,#CB463B,#9F2A2A,#661B26",
-    "TickColorLight": "#661B26",
-    "TickColorDark" : "#DED6EC"
-}
+};
+
+export const ThemeDarkColor   = '#7165E3';
+export const ChartColors      = ['#351e61', '#5832A1', '#7165E3', '#ECE4FC'];
+export const HoverChartColors = ['#422679', '#8a70bd', '#9c93eb', '#f2ecfd'];
+export const TickColorLight   = '#5832A1';
+export const TickColorDark    = '#DED6EC';
+
+

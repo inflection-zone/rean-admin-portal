@@ -2,18 +2,22 @@ import { join } from 'path';
 import type { Config } from 'tailwindcss';
 import { skeleton } from '@skeletonlabs/tw-plugin';
 import forms from '@tailwindcss/forms';
-import { customTheme } from './src/theme'
-import {getCustomThemeConfiguration} from './src/lib/utils/custom.theme.setting';
-const themeSetting = getCustomThemeConfiguration();
-// const themeDarkColor = '#C10E21';
-const themeDarkColor = themeSetting.ThemeDarkColor;
+import { customTheme } from './src/theme';
+import { PUBLIC_SYSTEM_ID } from '$env/static/public';
+import { getThemeDarkColor } from './src/lib/themes/theme.selector';
+
+//////////////////////////////////////////////////////////////////////////
+
+const themeDarkColor = getThemeDarkColor(PUBLIC_SYSTEM_ID);
+
+//////////////////////////////////////////////////////////////////////////
+
 module.exports = {
 	darkMode: 'class',
 	content: [
 		'./src/**/*.{html,js,svelte,ts}',
 	 	join(require.resolve('@skeletonlabs/skeleton'), '../**/*.{html,js,svelte,ts}')
 	],
-
 	theme: {
 		extend: {
 				strokeWidth: {
