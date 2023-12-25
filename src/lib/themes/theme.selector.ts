@@ -1,3 +1,4 @@
+import { SystemTypes } from '../system.types';
 
 // AHA Theme imports
 import { ThemeColors as AHAThemeColors } from './aha.theme';
@@ -19,19 +20,12 @@ import { SYSTEM_ID } from '../constants';
 
 //////////////////////////////////////////////////////////////////////////////
 
-export enum ThemeFlavor {
-    REAN   = 'REAN',
-    AHA    = 'AHA',
-    Sneha  = 'Sneha',
-    Custom = 'Custom'
-}
-
 export const getThemeColors = () => {
-    const themeFlavor: ThemeFlavor = SYSTEM_ID as ThemeFlavor;
-    switch (themeFlavor as ThemeFlavor) {
-        case ThemeFlavor.REAN:
+    const systemType: SystemTypes = SYSTEM_ID as SystemTypes;
+    switch (systemType as SystemTypes) {
+        case SystemTypes.REAN:
             return REANThemeColors;
-        case ThemeFlavor.AHA:
+        case SystemTypes.AHA:
             return AHAThemeColors;
         default:
             return REANThemeColors;
@@ -39,11 +33,11 @@ export const getThemeColors = () => {
 };
 
 export const getChartColors = () => {
-    const themeFlavor: ThemeFlavor = SYSTEM_ID as ThemeFlavor;
-    switch (themeFlavor as ThemeFlavor) {
-        case ThemeFlavor.REAN:
+    const systemType: SystemTypes = SYSTEM_ID as SystemTypes;
+    switch (systemType as SystemTypes) {
+        case SystemTypes.REAN:
             return REANChartColors;
-        case ThemeFlavor.AHA:
+        case SystemTypes.AHA:
             return AHAChartColors;
         default:
             return REANChartColors;
@@ -51,11 +45,11 @@ export const getChartColors = () => {
 };
 
 export const getHoverChartColors = () => {
-    const themeFlavor: ThemeFlavor = SYSTEM_ID as ThemeFlavor;
-    switch (themeFlavor as ThemeFlavor) {
-        case ThemeFlavor.REAN:
+    const systemType: SystemTypes = SYSTEM_ID as SystemTypes;
+    switch (systemType as SystemTypes) {
+        case SystemTypes.REAN:
             return REANHoverChartColors;
-        case ThemeFlavor.AHA:
+        case SystemTypes.AHA:
             return AHAHoverChartColors;
         default:
             return REANHoverChartColors;
@@ -63,11 +57,11 @@ export const getHoverChartColors = () => {
 };
 
 export const getTickColorLight = () => {
-    const themeFlavor: ThemeFlavor = SYSTEM_ID as ThemeFlavor;
-    switch (themeFlavor as ThemeFlavor) {
-        case ThemeFlavor.REAN:
+    const systemType: SystemTypes = SYSTEM_ID as SystemTypes;
+    switch (systemType as SystemTypes) {
+        case SystemTypes.REAN:
             return REANTickColorLight;
-        case ThemeFlavor.AHA:
+        case SystemTypes.AHA:
             return AHATickColorLight;
         default:
             return REANTickColorLight;
@@ -75,11 +69,11 @@ export const getTickColorLight = () => {
 };
 
 export const getTickColorDark = () => {
-    const themeFlavor: ThemeFlavor = SYSTEM_ID as ThemeFlavor;
-    switch (themeFlavor as ThemeFlavor) {
-        case ThemeFlavor.REAN:
+    const systemType: SystemTypes = SYSTEM_ID as SystemTypes;
+    switch (systemType as SystemTypes) {
+        case SystemTypes.REAN:
             return REANTickColorDark;
-        case ThemeFlavor.AHA:
+        case SystemTypes.AHA:
             return AHATickColorDark;
         default:
             return REANTickColorDark;
@@ -87,11 +81,11 @@ export const getTickColorDark = () => {
 };
 
 export const getThemeDarkColor = () => {
-    const themeFlavor: ThemeFlavor = SYSTEM_ID as ThemeFlavor;
-    switch (themeFlavor as ThemeFlavor) {
-        case ThemeFlavor.REAN:
+    const systemType: SystemTypes = SYSTEM_ID as SystemTypes;
+    switch (systemType as SystemTypes) {
+        case SystemTypes.REAN:
             return REANThemeDarkColor;
-        case ThemeFlavor.AHA:
+        case SystemTypes.AHA:
             return AHAThemeDarkColor;
         default:
             return REANThemeDarkColor;
@@ -99,5 +93,5 @@ export const getThemeDarkColor = () => {
 };
 
 
-// export const getThemeDarkColor = (themeFlavor: string) => {
-    // const themeFlavor: ThemeFlavor = SYSTEM_ID as ThemeFlavor;
+// export const getThemeDarkColor = (systemType: string) => {
+    // const systemType: SystemTypes = SYSTEM_ID as SystemTypes;
