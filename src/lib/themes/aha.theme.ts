@@ -90,3 +90,7 @@ export const ChartColors      = ['#CB463B', '#9F2A2A', '#661B26', '#2E0C16'];
 export const HoverChartColors = ['#f2ecfd', '#CB463B', '#9F2A2A', '#661B26'];
 export const TickColorLight   = '#661B26';
 export const TickColorDark    = '#DED6EC';
+
+export const PUBLIC_LOGO_IMAGE_SOURCE='https://www.heart.org/-/media/Images/Logos/Global-Do-No-Edit/Header/AHA_Full.svg?h=256&iar=0&mw=960&w=426&hash=502DC0C0397CFBA7EA1142C51E062876';
+export const PUBLIC_FOOTER_TEXT='American Heart Association'
+export const PUBLIC_FOOTER_LINK='https://www.heart.org'

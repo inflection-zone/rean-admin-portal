@@ -28,7 +28,7 @@ export const getUserRoles = async (): Promise<PersonRole[]> => {
 		console.log("response", response)
 		return response.Data.PersonRoleTypes;
 	} catch (error) {
-		console.error(`Error retrieving user roles: ${error.message}`);
+		console.error(`Error retrieving user roles: ${error.message}. Switching to default roles...`);
 		return [];
 	}
 };
@@ -52,7 +52,7 @@ export const getOrganizationTypes = async (): Promise<OrganizationTypes[]> => {
 		}
 		return response.Data.OrganizationTypes;
 	} catch (error) {
-		console.error(`Error retrieving user roles: ${error.message}`);
+		console.error(`Error retrieving organizations: ${error.message}`);
 		return [];
 	}
 };
