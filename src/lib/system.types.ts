@@ -4,3 +4,11 @@ export enum SystemTypes {
     Sneha  = 'Sneha',
     Custom = 'Custom'
 }
+
+export const UserRoles = [
+    {
+        RoleName : 'Admin',
+        id   : 1
+    },
+
+]

@@ -1,5 +1,6 @@
 import type { PersonRole } from '$lib/types/domain.models';
 import { CookieUtils } from '$lib/utils/cookie.utils';
+import { UserRoles } from '$lib/system.types';
 import { error, type RequestEvent } from '@sveltejs/kit';
 import { errorMessage, successMessage } from '$lib/utils/message.utils';
 import { redirect } from 'sveltekit-flash-message/server';
@@ -14,7 +15,10 @@ import { SYSTEM_NAME } from '$env/static/private';
 export const load: PageServerLoad = async (event: RequestEvent) => {
 	try {
 		const systemName = SYSTEM_NAME;
-		const roles: PersonRole[] = await getUserRoles();
+		let roles: PersonRole[] = await getUserRoles();
+		if (!roles || roles.length === 0) {
+			roles = UserRoles;
+		}
 		return {
 			message: 'Common data successfully retrieved!',
 			roles,

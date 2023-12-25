@@ -1,4 +1,8 @@
-import { API_CLIENT_INTERNAL_KEY, BACKEND_API_URL, CAREPLAN_BACKEND_API_URL } from '$env/static/private';
+import {
+	API_CLIENT_INTERNAL_KEY,
+	BACKEND_API_URL,
+	CAREPLAN_BACKEND_API_URL
+} from '$env/static/private';
 import type { PersonRole, OrganizationTypes } from '$lib/types/domain.models';
 import { get_ } from './common';
 
