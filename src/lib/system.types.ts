@@ -6,7 +6,7 @@ export enum SystemTypes {
 }
 
 export interface FeatureOptions {
-    Name: string;
+    Name   : string;
     Enabled: boolean;
 }
 

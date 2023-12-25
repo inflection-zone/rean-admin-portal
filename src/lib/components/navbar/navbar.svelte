@@ -61,7 +61,7 @@
         >
             <svelte:fragment slot="lead">
                 <div class="flex  items-center ">
-                    <img class="block w-10 ml-2" src={logoImageSource} alt="REAN" />
+                    <img class="block w-20 ml-2" src={logoImageSource} alt="REAN" />
                     <!-- <div class="relative ml-6 w-64 max-[450px]:w-40">
                         <input type="text" class="input pl-10" placeholder="Search" />
                         <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">

@@ -1,4 +1,4 @@
-import { FeatureOptions } from "$lib/system.types";
+import { type FeatureOptions } from "$lib/system.types";
 import { getFeatureOptions } from '$lib/options/options.selector';
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -11,6 +11,12 @@ export interface SidebarMenu {
     children : SidebarMenu[];
 }
 
+export interface navigation {
+    title   : string;
+    icon    : string;
+    link   ?: string | null | undefined;
+    childNav?: navigation[];
+}
 ///////////////////////////////////////////////////////////////////////////////
 
 export const getMenuList = (userId: string): SidebarMenu[] => {
@@ -21,17 +27,26 @@ export const getMenuList = (userId: string): SidebarMenu[] => {
         name    : 'Main-Dashboard',
         title   : 'Dashboard',
         icon    : 'material-symbols:dashboard-outline-rounded',
-        link    : `/users/${userId}/home`,
+        link    : null,
         children: []
     };
     menuList.push(dashbord);
+
+    const rhg: SidebarMenu = {
+        name    : 'Main-Home',
+        title   : 'Home',
+        icon    : 'material-symbols:home-outline-rounded',
+        link    : `/users/${userId}/home`,
+        children: []
+    };
+    menuList.push(rhg);
 
     //................................................................
 
     const administration: SidebarMenu = {
         name    : 'Administration',
         title   : 'Administration',
-        icon    : 'material-symbols:security-outline-rounded',
+        icon    : 'material-symbols:shield-person-outline-rounded',
         link    : null,
         children: []
     };
@@ -392,12 +407,12 @@ const getMenu = (menuList, menuName) => {
 };
 
 const toNavigation = (menu: SidebarMenu, options: FeatureOptions[]) => {
-    const featureOption = options[menu.name];
+    const featureOption = options.find(option => option.Name === menu.name);
     const isEnabled = featureOption && featureOption.Enabled;
     if (!isEnabled) {
         return null;
     }
-    const navigation = {
+    const navigation: navigation = {
         title: menu.title,
         icon: menu.icon,
     };
@@ -416,13 +431,15 @@ const toNavigation = (menu: SidebarMenu, options: FeatureOptions[]) => {
     return navigation;
 };
 
-export const buildSidebarMenu = (userId: string): unknown[] => {
+export const buildSidebarMenu = (userId: string): navigation[] => {
     const menuList: SidebarMenu[] = getMenuList(userId);
     const options: FeatureOptions = getFeatureOptions();
 
-    const sidebarMenu: unknown[] = [];
+    const sidebarMenu: navigation[] = [];
 
     const mainDashboard: SidebarMenu = getMenu(menuList, 'Main-Dashboard');
+    const mainHome: SidebarMenu = getMenu(menuList, 'Main-Home');
+    mainDashboard?.children.push(mainHome);
 
     const administration: SidebarMenu = getMenu(menuList, 'Administration');
     const clients: SidebarMenu = getMenu(menuList, 'Clients');
@@ -500,57 +517,59 @@ export const buildSidebarMenu = (userId: string): unknown[] => {
 
     // Now construct navigation based on options
 
-    const mainDashboardNavigation = toNavigation(mainDashboard, options);
+    const mainDashboardNavigation: navigation | null = toNavigation(mainDashboard, options);
     if (mainDashboardNavigation) {
         sidebarMenu.push(mainDashboardNavigation);
     }
 
-    const administrationNavigation = toNavigation(administration, options);
+    const administrationNavigation: navigation | null = toNavigation(administration, options);
     if (administrationNavigation) {
         sidebarMenu.push(administrationNavigation);
     }
 
-    const analysisNavigation = toNavigation(analysis, options);
+    const analysisNavigation: navigation | null = toNavigation(analysis, options);
     if (analysisNavigation) {
         sidebarMenu.push(analysisNavigation);
     }
 
-    const hospitalSystemsNavigation = toNavigation(hospitalSystems, options);
+    const hospitalSystemsNavigation: navigation | null = toNavigation(hospitalSystems, options);
     if (hospitalSystemsNavigation) {
         sidebarMenu.push(hospitalSystemsNavigation);
     }
 
-    const clinicalNavigation = toNavigation(clinical, options);
+    const clinicalNavigation: navigation | null = toNavigation(clinical, options);
     if (clinicalNavigation) {
         sidebarMenu.push(clinicalNavigation);
     }
 
-    const careplanNavigation = toNavigation(careplan, options);
+    const careplanNavigation: navigation | null = toNavigation(careplan, options);
     if (careplanNavigation) {
         sidebarMenu.push(careplanNavigation);
     }
 
-    const educationalNavigation = toNavigation(educational, options);
+    const educationalNavigation: navigation | null = toNavigation(educational, options);
     if (educationalNavigation) {
         sidebarMenu.push(educationalNavigation);
     }
 
-    const typesNavigation = toNavigation(types, options);
+    const typesNavigation: navigation | null = toNavigation(types, options);
     if (typesNavigation) {
         sidebarMenu.push(typesNavigation);
     }
 
-    const miscellaneousNavigation = toNavigation(miscellaneous, options);
+    const miscellaneousNavigation: navigation | null = toNavigation(miscellaneous, options);
     if (miscellaneousNavigation) {
         sidebarMenu.push(miscellaneousNavigation);
     }
 
-    const gamificationNavigation = toNavigation(gamification, options);
+    const gamificationNavigation: navigation | null = toNavigation(gamification, options);
     if (gamificationNavigation) {
         sidebarMenu.push(gamificationNavigation);
     }
 
     // Add here any new menu items
+
+    console.log('sidebarMenu', sidebarMenu);
 
     return sidebarMenu;
 };

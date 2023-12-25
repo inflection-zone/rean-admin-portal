@@ -8,7 +8,6 @@
 	const stack = $page.error.stack;
 	const stackMessages = stack.split('\n');
 	const isProd = false;
-	const logo =
 
 </script>
 

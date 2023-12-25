@@ -2,210 +2,13 @@
     import { navigating, page } from '$app/stores';
     import Icon from '@iconify/svelte';
     import { Accordion, AccordionItem } from '@skeletonlabs/skeleton';
+    import { buildSidebarMenu } from '$lib/components/navbar/sidebar.menus';
 
     export let userId = undefined;
     export let showSidebar = false;
 
-    const navData = [
-        {
-            title: 'Dashboard',
-            icon: 'material-symbols:dashboard-outline-rounded',
-            childNav: [
-                {
-                    icon: '/rean-logo-white.png',
-                    title: 'RHG App',
-                    link: `/users/${userId}/home`
-                }
-                // {
-                // 	icon: '/rean-logo-white.png',
-                // 	title: 'RHG Bot',
-                // 	link: `/users/${userId}/bot-stats`
-                // }
-            ]
-        },
-        {
-            title: 'Hospitals Systems',
-            icon: 'material-symbols:account-tree-outline-rounded',
-            childNav: [
-                {
-                    title: 'Hospitals',
-                    icon: 'material-symbols:local-hospital-outline-rounded',
-                    link: `/users/${userId}/hospitals`
-                },
-                {
-                    title: 'Health Systems',
-                    icon: 'material-symbols:health-and-safety-outline-rounded',
-                    link: `/users/${userId}/health-systems`
-                }
-            ]
-        },
-        {
-            title: 'Clinical',
-            icon: 'material-symbols:medical-services-outline-rounded',
-            childNav: [
-                {
-                    icon: 'material-symbols:assignment-outline-rounded',
-                    title: 'Assessments',
-                    link: `/users/${userId}/assessment-templates`
-                },
-                {
-                    icon: 'material-symbols:lab-research-outline-rounded',
-                    title: 'Lab-Records',
-                    link: `/users/${userId}/lab-record-types`
-                },
-                {
-                    icon: 'material-symbols:symptoms-outline',
-                    title: 'Symptoms',
-                    link: `/users/${userId}/symptoms`
-                },
-                {
-                    icon: 'material-symbols:pill-outline',
-                    title: 'Drugs',
-                    link: `/users/${userId}/drugs`
-                },
-                // {
-                //     icon: 'material-symbols:home-health-outline-rounded',
-                //     title: 'Careplan',
-                //     children: [
-                //         {
-                //             icon: 'material-symbols:dashboard-outline-rounded',
-                //             title: 'Dashboard',
-                //             link: `/users/${userId}/careplan`
-                //         },
-                //         {
-                //             icon: 'carbon:task-asset-view',
-                //             title: 'Assets',
-                //             link: `/users/${userId}/careplan/assets`
-                //         },
-                //         {
-                //             icon: 'iconoir:healthcare',
-                //             title: 'Careplans',
-                //             link: `/users/${userId}/careplan/careplans`
-                //         },
-                //         {
-                //             icon: 'material-symbols:check-box-outline-rounded',
-                //             title: 'Enrollments',
-                //             link: `/users/${userId}/careplan/enrollments`
-                //         }
-                //     ]
-                // }
-            ]
-        },
-        {
-            title: 'Educational',
-            icon: 'material-symbols:school-outline-rounded',
-            childNav: [
-                {
-                    icon: 'material-symbols:abc-rounded',
-                    title: 'Courses',
-                    link: `/users/${userId}/courses`
-                },
-                {
-                    icon: 'material-symbols:local-library-outline-rounded',
-                    title: 'Learning Journeys',
-                    link: `/users/${userId}/learning-journeys`
-                },
-                {
-                    icon: 'material-symbols:assignment-add-outline-rounded',
-                    title: 'Knowledge Nuggets',
-                    link: `/users/${userId}/knowledge-nuggets`
-                }
-            ]
-        },
-        {
-            title: 'Types',
-            icon: 'material-symbols:account-tree-outline-rounded',
-            childNav: [
-                {
-                    icon: 'material-symbols:person-search-outline-rounded',
-                    title: 'Person Role',
-                    link: `/users/${userId}/person-role-types`
-                },
-                {
-                    icon: 'material-symbols:priority-outline',
-                    title: 'Priorities',
-                    link: `/users/${userId}/priorities`
-                },
-                {
-                    icon: 'material-symbols:radar',
-                    title: 'Goals',
-                    link: `/users/${userId}/goals`
-                }
-            ]
-        },
-        // {
-        //     title: 'Miscellaneous',
-        //     icon: 'material-symbols:home-max-dots-outline',
-        //     childNav: [
-                // {
-                //     icon: 'material-symbols:frame-person-outline-rounded',
-                //     title: 'Clients',
-                //     link: `/users/${userId}/api-clients`
-                // },
-                // {
-                //     icon: 'material-symbols:corporate-fare-rounded',
-                //     title: 'Organizations',
-                //     link: `/users/${userId}/organizations`
-                // },
-                // {
-                //     icon: 'material-symbols:notifications-outline-rounded',
-                //     title: 'Notifications',
-                //     link: `/users/${userId}/notifications`
-                // },
-                // {
-                //     icon: 'material-symbols:newsmode-outline-rounded',
-                //     title: 'News Feed',
-                //     link: `/users/${userId}/newsfeeds`
-                // },
-                // {
-                //     icon: 'material-symbols:release-alert-outline-rounded',
-                //     title: 'Notices',
-                //     link: `/users/${userId}/notices`
-                // },
-                // {
-                //     icon: 'material-symbols:database-outline',
-                //     title: 'Custom Queries',
-                //     link: `/users/${userId}/custom-queries`
-                // },
-                // {
-                //     icon: 'material-symbols:tenancy-outline',
-                //     title: 'Tenants',
-                //     link: `/users/${userId}/tenants`
-                // },
-                // {
-                //     icon: 'material-symbols:groups-outline-rounded',
-                //     title: 'Cohorts',
-                //     link: `/users/${userId}/cohorts`
-                // }
-        //     ]
-        // },
-        // {
-        //     title: 'Gamification',
-        //     icon: 'simple-icons:gamedeveloper',
-        //     childNav: [
-        //         {
-        //             icon: 'mdi:event-edit',
-        //             title: 'Event Types',
-        //             link: `/users/${userId}/gamification/event-types`
-        //         },
-        //         {
-        //             icon: 'octicon:id-badge-16',
-        //             title: 'Badge Categories',
-        //             link: `/users/${userId}/gamification/badge-categories`
-        //         },
-        //         {
-        //             icon: 'cil:badge',
-        //             title: 'Badges',
-        //             link: `/users/${userId}/gamification/badges`
-        //         },
-        //         {
-        //             icon: 'ic:outline-schema',
-        //             title: 'Schemas',
-        //             link: `/users/${userId}/gamification/schemas`
-        //         }
-        //     ]
-        // }
-    ];
+    const navData = buildSidebarMenu(userId);
+    console.log('navData', JSON.stringify(navData, null, 2));
 
     $: if ($navigating) showSidebar = false;
 </script>
@@ -253,7 +56,7 @@
                                     {/if}
                                     <span>{navItem.title}</span>
                                 </a>
-                            {:else if navItem.children}
+                            {:else if navItem.childNav}
                                 <Accordion>
                                     <AccordionItem>
                                         <svelte:fragment slot="lead">
@@ -267,7 +70,7 @@
                                         </svelte:fragment>
                                         <svelte:fragment slot="content">
                                             <nav class="list-nav space-y-1">
-                                                {#each navItem.children as childItem}
+                                                {#each navItem.childNav as childItem}
                                                     <a
                                                         href={childItem.link}
                                                         class:!variant-soft-secondary={$page.url.pathname ===

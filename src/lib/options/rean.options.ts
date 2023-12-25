@@ -1,8 +1,12 @@
-import { FeatureOptions } from "../system.types";
+import { type FeatureOptions } from "$lib/system.types";
 
 export const Options: FeatureOptions[] = [
     {
         Name: 'Main-Dashboard',
+        Enabled: true
+    },
+    {
+        Name: 'Main-Home',
         Enabled: true
     },
     //..............................
