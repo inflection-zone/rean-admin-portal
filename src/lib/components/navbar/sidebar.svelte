@@ -5,6 +5,7 @@
 
     export let userId = undefined;
     export let showSidebar = false;
+    
     const navData = [
         {
             title: 'Dashboard',

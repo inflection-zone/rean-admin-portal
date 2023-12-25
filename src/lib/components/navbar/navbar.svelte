@@ -8,24 +8,18 @@
     import SettingMenu from './setting.menus.svelte';
     import Sidebar from './sidebar.svelte';
     import {
-        PUBLIC_LOGO_IMAGE_SOURCE,
-        PUBLIC_FOOTER_TEXT,
-        PUBLIC_FOOTER_LINK
-    } from '$env/static/public';
+        getPublicLogoImageSource,
+        getPublicFooterText,
+        getPublicFooterLink
+    } from '$lib/themes/theme.selector';
+
     export let userId = undefined;
     const navbarTabs: TabDefinition[] = navbarMenu(userId);
     const sidebarTabs: TabDefinition[] = sidebarMenu(userId);
     const drawerStore = getDrawerStore();
-
-    // const logoImageSource = "https://www.reanfoundation.org/wp-content/uploads/2021/10/REAN-Foundation-brand-Logo.png"
-	// const logoImageSource = "https://www.heart.org/-/media/Images/Logos/Global-Do-No-Edit/Header/AHA_icon.svg?h=90&w=70&hash=56C9AD72FEFA6EF4DDCBBDB69CE4CB10"
-	const logoImageSource = PUBLIC_LOGO_IMAGE_SOURCE;
-    //const footerText = `© ${new Date().getFullYear()} REAN Foundation`;
-	// const footerText = `© ${new Date().getFullYear()} American Heart Association`;
-    const footerText = `© ${new Date().getFullYear()} ${PUBLIC_FOOTER_TEXT}`;
-	//const footerLink = 'https://www.reanfoundation.org';
-	// const footerLink = 'https://www.heart.org';
-    const footerLink = PUBLIC_FOOTER_LINK;
+	const logoImageSource = getPublicLogoImageSource();
+    const footerText = `© ${new Date().getFullYear()} ${getPublicFooterText()}`;
+    const footerLink = getPublicFooterLink();
 
     function drawerLeftOpen(): void {
         const settings: DrawerSettings = {

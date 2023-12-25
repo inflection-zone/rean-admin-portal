@@ -1,6 +1,6 @@
 import { SystemTypes } from '../system.types';
-import { FeatureOptions as AHAFeatureOptions } from './aha.options';
-import { FeatureOptions as REANFeatureOptions } from './rean.options';
+import { Options as AHAFeatureOptions } from './aha.options';
+import { Options as REANFeatureOptions } from './rean.options';
 import { SYSTEM_ID } from '../constants';
 
 //////////////////////////////////////////////////////////////////////////////

@@ -5,6 +5,11 @@ export enum SystemTypes {
     Custom = 'Custom'
 }
 
+export interface FeatureOptions {
+    Name: string;
+    Enabled: boolean;
+}
+
 export const UserRoles = [
     {
         RoleName : 'System admin',
