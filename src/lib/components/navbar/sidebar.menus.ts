@@ -8,7 +8,7 @@ export interface SidebarMenu {
     title    : string;
     icon     : string;
     link    ?: string | null | undefined;
-    children?: SidebarMenu[];
+    children : SidebarMenu[];
 }
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -386,215 +386,173 @@ export const getMenuList = (userId: string): SidebarMenu[] => {
 
 ///////////////////////////////////////////////////////////////////////////////
 
+const getMenu = (menuList, menuName) => {
+    const menu = menuList.find(menu => menu.name === menuName);
+    return menu;
+};
+
+const toNavigation = (menu: SidebarMenu, options: FeatureOptions[]) => {
+    const featureOption = options[menu.name];
+    const isEnabled = featureOption && featureOption.Enabled;
+    if (!isEnabled) {
+        return null;
+    }
+    const navigation = {
+        title: menu.title,
+        icon: menu.icon,
+    };
+    if (menu.link) {
+        navigation['link'] = menu.link;
+    }
+    if (menu.children.length > 0) {
+        navigation['childNav'] = [];
+        for (const child of menu.children) {
+            const childNavigation = toNavigation(child, options);
+            if (childNavigation) {
+                navigation['childNav'].push(childNavigation);
+            }
+        }
+    }
+    return navigation;
+};
+
 export const buildSidebarMenu = (userId: string): unknown[] => {
     const menuList: SidebarMenu[] = getMenuList(userId);
     const options: FeatureOptions = getFeatureOptions();
 
     const sidebarMenu: unknown[] = [];
 
+    const mainDashboard: SidebarMenu = getMenu(menuList, 'Main-Dashboard');
+
+    const administration: SidebarMenu = getMenu(menuList, 'Administration');
+    const clients: SidebarMenu = getMenu(menuList, 'Clients');
+    const tenants: SidebarMenu = getMenu(menuList, 'Tenants');
+    const personRole: SidebarMenu = getMenu(menuList, 'Person-Role');
+    administration?.children.push(clients);
+    administration?.children.push(tenants);
+    administration?.children.push(personRole);
+
+    const analysis: SidebarMenu = getMenu(menuList, 'Analysis');
+    const customQueries: SidebarMenu = getMenu(menuList, 'Custom-Queries');
+    analysis?.children.push(customQueries);
+
+    const hospitalSystems: SidebarMenu = getMenu(menuList, 'Hospital-Systems');
+    const hospitals: SidebarMenu = getMenu(menuList, 'Hospitals');
+    const healthSystems: SidebarMenu = getMenu(menuList, 'Health-Systems');
+    hospitalSystems?.children.push(hospitals);
+    hospitalSystems?.children.push(healthSystems);
+
+    const clinical: SidebarMenu = getMenu(menuList, 'Clinical');
+    const assessments: SidebarMenu = getMenu(menuList, 'Assessments');
+    const labRecords: SidebarMenu = getMenu(menuList, 'Lab-Records');
+    const symptoms: SidebarMenu = getMenu(menuList, 'Symptoms');
+    const drugs: SidebarMenu = getMenu(menuList, 'Drugs');
+    clinical?.children.push(assessments);
+    clinical?.children.push(labRecords);
+    clinical?.children.push(symptoms);
+    clinical?.children.push(drugs);
+
+    const careplan: SidebarMenu = getMenu(menuList, 'Careplan');
+    const careplanDashboard: SidebarMenu = getMenu(menuList, 'Careplan-Dashboard');
+    const careplanAssets: SidebarMenu = getMenu(menuList, 'Careplan-Assets');
+    const careplanPlans: SidebarMenu = getMenu(menuList, 'Careplan-Plans');
+    const careplanEnrollments: SidebarMenu = getMenu(menuList, 'Careplan-Enrollments');
+    careplan?.children.push(careplanDashboard);
+    careplan?.children.push(careplanAssets);
+    careplan?.children.push(careplanPlans);
+    careplan?.children.push(careplanEnrollments);
+
+    const educational: SidebarMenu = getMenu(menuList, 'Educational');
+    const courses: SidebarMenu = getMenu(menuList, 'Courses');
+    const learningJourneys: SidebarMenu = getMenu(menuList, 'Learning-Journeys');
+    const knowledgeNuggets: SidebarMenu = getMenu(menuList, 'Knowledge-Nuggets');
+    educational?.children.push(courses);
+    educational?.children.push(learningJourneys);
+    educational?.children.push(knowledgeNuggets);
+
+    const types: SidebarMenu = getMenu(menuList, 'Types');
+    const priorities: SidebarMenu = getMenu(menuList, 'Priorities');
+    const goals: SidebarMenu = getMenu(menuList, 'Goals');
+    types?.children.push(priorities);
+    types?.children.push(goals);
+
+    const miscellaneous: SidebarMenu = getMenu(menuList, 'Miscellaneous');
+    const organizations: SidebarMenu = getMenu(menuList, 'Organizations');
+    const cohorts: SidebarMenu = getMenu(menuList, 'Cohorts');
+    const notifications: SidebarMenu = getMenu(menuList, 'Notifications');
+    const notices: SidebarMenu = getMenu(menuList, 'Notices');
+    const newsfeeds: SidebarMenu = getMenu(menuList, 'Newsfeeds');
+    miscellaneous?.children.push(organizations);
+    miscellaneous?.children.push(cohorts);
+    miscellaneous?.children.push(notifications);
+    miscellaneous?.children.push(notices);
+    miscellaneous?.children.push(newsfeeds);
+
+    const gamification: SidebarMenu = getMenu(menuList, 'Gamification');
+    const eventTypes: SidebarMenu = getMenu(menuList, 'Gamification-Event-Types');
+    const badgeCategories: SidebarMenu = getMenu(menuList, 'Gamification-Badge-Categories');
+    const badges: SidebarMenu = getMenu(menuList, 'Gamification-Badges');
+    const schemas: SidebarMenu = getMenu(menuList, 'Gamification-Schemas');
+    gamification?.children.push(eventTypes);
+    gamification?.children.push(badgeCategories);
+    gamification?.children.push(badges);
+    gamification?.children.push(schemas);
+
+    // Now construct navigation based on options
+
+    const mainDashboardNavigation = toNavigation(mainDashboard, options);
+    if (mainDashboardNavigation) {
+        sidebarMenu.push(mainDashboardNavigation);
+    }
+
+    const administrationNavigation = toNavigation(administration, options);
+    if (administrationNavigation) {
+        sidebarMenu.push(administrationNavigation);
+    }
+
+    const analysisNavigation = toNavigation(analysis, options);
+    if (analysisNavigation) {
+        sidebarMenu.push(analysisNavigation);
+    }
+
+    const hospitalSystemsNavigation = toNavigation(hospitalSystems, options);
+    if (hospitalSystemsNavigation) {
+        sidebarMenu.push(hospitalSystemsNavigation);
+    }
+
+    const clinicalNavigation = toNavigation(clinical, options);
+    if (clinicalNavigation) {
+        sidebarMenu.push(clinicalNavigation);
+    }
+
+    const careplanNavigation = toNavigation(careplan, options);
+    if (careplanNavigation) {
+        sidebarMenu.push(careplanNavigation);
+    }
+
+    const educationalNavigation = toNavigation(educational, options);
+    if (educationalNavigation) {
+        sidebarMenu.push(educationalNavigation);
+    }
+
+    const typesNavigation = toNavigation(types, options);
+    if (typesNavigation) {
+        sidebarMenu.push(typesNavigation);
+    }
+
+    const miscellaneousNavigation = toNavigation(miscellaneous, options);
+    if (miscellaneousNavigation) {
+        sidebarMenu.push(miscellaneousNavigation);
+    }
+
+    const gamificationNavigation = toNavigation(gamification, options);
+    if (gamificationNavigation) {
+        sidebarMenu.push(gamificationNavigation);
+    }
+
+    // Add here any new menu items
+
     return sidebarMenu;
 };
 
 ///////////////////////////////////////////////////////////////////////////////
-
-
-// const navData = [
-//     {
-//         title: 'Dashboard',
-//         icon: 'material-symbols:dashboard-outline-rounded',
-//         childNav: [
-//             // {
-//             //     icon: '/rean-logo-white.png',
-//             //     title: 'RHG App',
-//             //     link: `/users/${userId}/home`
-//             // }
-//             // {
-//             // 	icon: '/rean-logo-white.png',
-//             // 	title: 'RHG Bot',
-//             // 	link: `/users/${userId}/bot-stats`
-//             // }
-//         ]
-//     },
-//     {
-//         title: 'Hospitals Systems',
-//         icon: 'material-symbols:account-tree-outline-rounded',
-//         childNav: [
-//             {
-//                 title: 'Hospitals',
-//                 icon: 'material-symbols:local-hospital-outline-rounded',
-//                 link: `/users/${userId}/hospitals`
-//             },
-//             {
-//                 title: 'Health Systems',
-//                 icon: 'material-symbols:health-and-safety-outline-rounded',
-//                 link: `/users/${userId}/health-systems`
-//             }
-//         ]
-//     },
-//     {
-//         title: 'Clinical',
-//         icon: 'material-symbols:medical-services-outline-rounded',
-//         childNav: [
-//             {
-//                 icon: 'material-symbols:assignment-outline-rounded',
-//                 title: 'Assessments',
-//                 link: `/users/${userId}/assessment-templates`
-//             },
-//             {
-//                 icon: 'material-symbols:lab-research-outline-rounded',
-//                 title: 'Lab-Records',
-//                 link: `/users/${userId}/lab-record-types`
-//             },
-//             {
-//                 icon: 'material-symbols:symptoms-outline',
-//                 title: 'Symptoms',
-//                 link: `/users/${userId}/symptoms`
-//             },
-//             {
-//                 icon: 'material-symbols:pill-outline',
-//                 title: 'Drugs',
-//                 link: `/users/${userId}/drugs`
-//             },
-//             // {
-//             //     icon: 'material-symbols:home-health-outline-rounded',
-//             //     title: 'Careplan',
-//             //     children: [
-//             //         {
-//             //             icon: 'material-symbols:dashboard-outline-rounded',
-//             //             title: 'Dashboard',
-//             //             link: `/users/${userId}/careplan`
-//             //         },
-//             //         {
-//             //             icon: 'carbon:task-asset-view',
-//             //             title: 'Assets',
-//             //             link: `/users/${userId}/careplan/assets`
-//             //         },
-//             //         {
-//             //             icon: 'iconoir:healthcare',
-//             //             title: 'Careplans',
-//             //             link: `/users/${userId}/careplan/careplans`
-//             //         },
-//             //         {
-//             //             icon: 'material-symbols:check-box-outline-rounded',
-//             //             title: 'Enrollments',
-//             //             link: `/users/${userId}/careplan/enrollments`
-//             //         }
-//             //     ]
-//             // }
-//         ]
-//     },
-//     {
-//         title: 'Educational',
-//         icon: 'material-symbols:school-outline-rounded',
-//         childNav: [
-//             {
-//                 icon: 'material-symbols:abc-rounded',
-//                 title: 'Courses',
-//                 link: `/users/${userId}/courses`
-//             },
-//             {
-//                 icon: 'material-symbols:local-library-outline-rounded',
-//                 title: 'Learning Journeys',
-//                 link: `/users/${userId}/learning-journeys`
-//             },
-//             {
-//                 icon: 'material-symbols:assignment-add-outline-rounded',
-//                 title: 'Knowledge Nuggets',
-//                 link: `/users/${userId}/knowledge-nuggets`
-//             }
-//         ]
-//     },
-//     {
-//         title: 'Types',
-//         icon: 'material-symbols:account-tree-outline-rounded',
-//         childNav: [
-//             {
-//                 icon: 'material-symbols:person-search-outline-rounded',
-//                 title: 'Person Role',
-//                 link: `/users/${userId}/person-role-types`
-//             },
-//             {
-//                 icon: 'material-symbols:priority-outline',
-//                 title: 'Priorities',
-//                 link: `/users/${userId}/priorities`
-//             },
-//             {
-//                 icon: 'material-symbols:radar',
-//                 title: 'Goals',
-//                 link: `/users/${userId}/goals`
-//             }
-//         ]
-//     },
-//     // {
-//     //     title: 'Miscellaneous',
-//     //     icon: 'material-symbols:home-max-dots-outline',
-//     //     childNav: [
-//             // {
-//             //     icon: 'material-symbols:frame-person-outline-rounded',
-//             //     title: 'Clients',
-//             //     link: `/users/${userId}/api-clients`
-//             // },
-//             // {
-//             //     icon: 'material-symbols:corporate-fare-rounded',
-//             //     title: 'Organizations',
-//             //     link: `/users/${userId}/organizations`
-//             // },
-//             // {
-//             //     icon: 'material-symbols:notifications-outline-rounded',
-//             //     title: 'Notifications',
-//             //     link: `/users/${userId}/notifications`
-//             // },
-//             // {
-//             //     icon: 'material-symbols:newsmode-outline-rounded',
-//             //     title: 'News Feed',
-//             //     link: `/users/${userId}/newsfeeds`
-//             // },
-//             // {
-//             //     icon: 'material-symbols:release-alert-outline-rounded',
-//             //     title: 'Notices',
-//             //     link: `/users/${userId}/notices`
-//             // },
-//             // {
-//             //     icon: 'material-symbols:database-outline',
-//             //     title: 'Custom Queries',
-//             //     link: `/users/${userId}/custom-queries`
-//             // },
-//             // {
-//             //     icon: 'material-symbols:tenancy-outline',
-//             //     title: 'Tenants',
-//             //     link: `/users/${userId}/tenants`
-//             // },
-//             // {
-//             //     icon: 'material-symbols:groups-outline-rounded',
-//             //     title: 'Cohorts',
-//             //     link: `/users/${userId}/cohorts`
-//             // }
-//     //     ]
-//     // },
-//     // {
-//     //     title: 'Gamification',
-//     //     icon: 'simple-icons:gamedeveloper',
-//     //     childNav: [
-//     //         {
-//     //             icon: 'mdi:event-edit',
-//     //             title: 'Event Types',
-//     //             link: `/users/${userId}/gamification/event-types`
-//     //         },
-//     //         {
-//     //             icon: 'octicon:id-badge-16',
-//     //             title: 'Badge Categories',
-//     //             link: `/users/${userId}/gamification/badge-categories`
-//     //         },
-//     //         {
-//     //             icon: 'cil:badge',
-//     //             title: 'Badges',
-//     //             link: `/users/${userId}/gamification/badges`
-//     //         },
-//     //         {
-//     //             icon: 'ic:outline-schema',
-//     //             title: 'Schemas',
-//     //             link: `/users/${userId}/gamification/schemas`
-//     //         }
-//     //     ]
-//     // }
-// ];
