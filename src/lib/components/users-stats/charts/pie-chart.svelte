@@ -1,12 +1,26 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
 	import Chart from 'chart.js/auto';
+	import {
+		getChartColors,
+		getHoverChartColors,
+		getTickColorLight,
+		getTickColorDark
+  	} from '$lib/themes/theme.selector';
+
+  /////////////////////////////////////////////////////////////////////////////
+
+  const chartColors = getChartColors();
+  const hoverChartColors = getHoverChartColors();
+  const tickColorLight = getTickColorLight();
+  const tickColorDark = getTickColorDark();
+
 	export let labels: string[];
 	export let data: number[];
 	export let title: string;
 
 	$:data;
-  $:labels
+    $:labels
 	let pieChart;
 	let ctx;
 
@@ -19,8 +33,8 @@
 				datasets: [
 					{
 						data: data,
-						backgroundColor: ['#351e61', '#5832A1', '#7165E3', '#ECE4FC'],
-						hoverBackgroundColor: ['#422679', '#8a70bd', '#9c93eb', '#f2ecfd']
+						backgroundColor: chartColors,
+						hoverBackgroundColor: chartColors
 					}
 				]
 			},
@@ -41,14 +55,14 @@
 						labels: {
 							boxWidth: 10,
 							boxHeight: 10,
-							color: document.documentElement.classList.contains('dark') ? '#DED6EC' : '#5832A1'
+							color: document.documentElement.classList.contains('dark') ? tickColorDark : tickColorLight
 						}
 					},
 					title: {
 						display: false,
 						text: title,
 						position: 'top',
-						color: document.documentElement.classList.contains('dark') ? '#DED6EC' : '#5832A1',
+						color: document.documentElement.classList.contains('dark') ? tickColorDark : tickColorLight,
 						align: 'center',
 						padding: 20,
 						font: {

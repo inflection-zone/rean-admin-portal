@@ -176,7 +176,7 @@
                         >
                             <a href={viewRoute(row.id)}>
                                 {row.Name !== null && row.Name !== ''
-                                    ? Helper.truncateText(row.Name, 20)
+                                    ? Helper.truncateText(row.Name, 50)
                                     : 'Not specified'}
                             </a>
                         </td>

@@ -21,7 +21,7 @@
 	let yearWiseDeviceDetails = data.yearWiseDeviceDetails;
 	extractYearWiseUserCount(yearWiseUserData);
 	extractYearWiseDeviceDetails(yearWiseDeviceDetails);
-		
+
 	let enrolledUsersData = overallUsersData.EnrolledUsers;
 	let downloads = data.appDownloadCount;
 
@@ -29,8 +29,8 @@
 		// 'Downloads',
 		'Onboarded',
 		'Not-Deleted ',
-		'Users With Active Session',
-		'Enrolled Users'
+		'Enrolled Users',
+		// 'Users With Active Session',
 	];
 
 	let funnelChartData;
@@ -39,9 +39,9 @@
 		totalUsers.Count,
 		nonDeletedUsers.Count,
 		enrolledUsersData.Count,
-		activeUsers.Count,	
+		// activeUsers.Count,
 	];
-	
+
 	function extractYearWiseUserCount(data:any[]){
 		data.forEach((value)=>{
 			yearsArray.push(value.Year);

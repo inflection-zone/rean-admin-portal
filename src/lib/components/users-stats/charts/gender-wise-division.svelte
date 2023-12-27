@@ -8,6 +8,19 @@
     ArcElement,
     CategoryScale,
   } from 'chart.js';
+	import {
+		getChartColors,
+		getHoverChartColors,
+		getTickColorLight,
+		getTickColorDark
+  	} from '$lib/themes/theme.selector';
+
+  /////////////////////////////////////////////////////////////////////////////
+
+  const chartColors = getChartColors();
+  const hoverChartColors = getHoverChartColors();
+  const tickColorLight = getTickColorLight();
+  const tickColorDark = getTickColorDark();
 
   export let lablesList: string[] = [];
 	export let dataSource: number[] = [];
@@ -17,19 +30,8 @@
   datasets: [
     {
       data:dataSource,
-      backgroundColor: [
-        '#351e61',
-        '#5832A1',
-        '#7165E3',
-        '#ECE4FC',
-      
-      ],
-      hoverBackgroundColor: [
-        '#422679',
-        '#8a70bd',
-        '#9c93eb',
-        '#f2ecfd',
-      ],
+      backgroundColor: chartColors,
+      hoverBackgroundColor: hoverChartColors,
     },
   ],
 

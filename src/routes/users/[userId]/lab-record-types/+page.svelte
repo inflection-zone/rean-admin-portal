@@ -18,7 +18,7 @@
 	const editRoute = (id) => `/users/${userId}/lab-record-types/${id}/edit`;
 	const viewRoute = (id) => `/users/${userId}/lab-record-types/${id}/view`;
 	const labRecordTypesRoute = `/users/${userId}/lab-record-types`;
-	
+
 	sort(sortOrder)
 	$:{
 		labRecordTypes = data.labRecordTypes;
@@ -82,7 +82,7 @@
 			body:JSON.stringify(model),
 			headers: { 'content-type': 'application/json' }
 		});
-		
+
 	}
 </script>
 
@@ -140,7 +140,7 @@
 								let:confirm={confirmThis}
 							>
 								<button
-									on:click|preventDefault={() => 
+									on:click|preventDefault={() =>
 									confirmThis(handleLabRecordTypeDelete, row.id)
 									}
 									class="btn p-2 -my-1 hover:variant-soft-error"

@@ -1,5 +1,7 @@
 <script lang="ts">
 	import { page } from '$app/stores';
+	import { getPublicLogoImageSource } from '$lib/themes/theme.selector';
+
 	const userId = $page.error.userId;
 	const message = $page.error.message;
 	const code = $page.error.code;
@@ -13,7 +15,7 @@
 	<img
 		class="ct-image w-36 mt-7 mb-7"
 		alt="logo"
-		src="https://www.reanfoundation.org/wp-content/uploads/2021/10/REAN-Foundation-brand-Logo.png"
+		src={getPublicLogoImageSource()}
 	/>
 
 	{#if $page.error.code}
