@@ -7,7 +7,8 @@
 	import {
 		getPublicLogoImageSource,
 		getPublicFooterText,
-		getPublicFooterLink
+		getPublicFooterLink,
+		getSystemName,
 	} from '$lib/themes/theme.selector';
 
 	const logoImageSource = getPublicLogoImageSource();
@@ -29,7 +30,7 @@
 		LocalStorageUtils.removeItem('prevUrl');
 	}
 
-	var systemName = data.systemName;
+	var systemName = getSystemName();
 
 </script>
 
