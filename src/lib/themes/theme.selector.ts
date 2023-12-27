@@ -10,6 +10,7 @@ import { TickColorDark as AHATickColorDark } from './aha.theme';
 import { PUBLIC_LOGO_IMAGE_SOURCE as AHA_PUBLIC_LOGO_IMAGE_SOURCE } from './aha.theme';
 import { PUBLIC_FOOTER_TEXT as AHA_PUBLIC_FOOTER_TEXT } from './aha.theme';
 import { PUBLIC_FOOTER_LINK as AHA_PUBLIC_FOOTER_LINK } from './aha.theme';
+import { SYSTEM_NAME as AHA_SYSTEM_NAME } from './aha.theme';
 
 // REAN Theme imports
 import { ThemeColors as REANThemeColors } from './rean.theme';
@@ -21,6 +22,7 @@ import { ThemeDarkColor as REANThemeDarkColor } from './rean.theme';
 import { PUBLIC_LOGO_IMAGE_SOURCE as REAN_PUBLIC_LOGO_IMAGE_SOURCE } from './rean.theme';
 import { PUBLIC_FOOTER_TEXT as REAN_PUBLIC_FOOTER_TEXT } from './rean.theme';
 import { PUBLIC_FOOTER_LINK as REAN_PUBLIC_FOOTER_LINK } from './rean.theme';
+import { SYSTEM_NAME as REAN_SYSTEM_NAME } from './rean.theme';
 
 import { SYSTEM_ID } from '../constants';
 
@@ -131,5 +133,17 @@ export const getPublicFooterLink = () => {
             return AHA_PUBLIC_FOOTER_LINK;
         default:
             return REAN_PUBLIC_FOOTER_LINK;
+    }
+};
+
+export const getSystemName = () => {
+    const systemType: SystemTypes = SYSTEM_ID as SystemTypes;
+    switch (systemType as SystemTypes) {
+        case SystemTypes.REAN:
+            return REAN_SYSTEM_NAME;
+        case SystemTypes.AHA:
+            return AHA_SYSTEM_NAME;
+        default:
+            return REAN_SYSTEM_NAME;
     }
 };

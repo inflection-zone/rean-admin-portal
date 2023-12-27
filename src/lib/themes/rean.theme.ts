@@ -94,3 +94,4 @@ export const TickColorDark    = '#DED6EC';
 export const PUBLIC_LOGO_IMAGE_SOURCE='https://www.reanfoundation.org/wp-content/uploads/2021/10/REAN-Foundation-brand-Logo.png';
 export const PUBLIC_FOOTER_TEXT='REAN Foundation';
 export const PUBLIC_FOOTER_LINK='https://www.reanfoundation.org';
+export const SYSTEM_NAME = 'REAN Foundation';
