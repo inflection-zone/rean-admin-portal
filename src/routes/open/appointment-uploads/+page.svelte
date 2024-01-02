@@ -4,8 +4,8 @@
 
 </script>
 <svelte:head>
-  <title>REAN careplans</title>
-  <meta name="description" content="REAN careplans" />
+  <title>REAN Appointment Upload</title>
+  <meta name="description" content="Appointment Upload" />
 </svelte:head>
 <body>
   <div class="nav h-12 w-full " />

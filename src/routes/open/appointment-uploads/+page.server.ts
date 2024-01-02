@@ -1,5 +1,5 @@
 import { writeFile } from 'node:fs/promises';
-import { uploadAppoinmentPdf } from "$routes/api/services/appointment.upload";
+import { uploadAppoinmentPdf } from "$routes/api/services/appointment-upload";
 import type { RequestEvent } from "@sveltejs/kit";
 import { redirect } from 'sveltekit-flash-message/server';
 import { errorMessage, successMessage } from '$lib/utils/message.utils';
@@ -25,7 +25,7 @@ export const actions = {
 	
 		if (!fs.existsSync(filePath)) {
 			console.log('File not created');
-			throw redirect(303, `/open/appointment.uploads`, errorMessage('Unable to import appointment template.'), event);
+			throw redirect(303, `/open/appointment-uploads`, errorMessage('Unable to import appointment template.'), event);
 		}
 	
 		const response = await uploadAppoinmentPdf(
@@ -36,11 +36,11 @@ export const actions = {
 		fs.unlinkSync(filePath);
 		console.log('&&&&&&',response)
 		if (!response.body.success || response.status !== 200) {
-			throw redirect(303, `/open/appointment.uploads`, errorMessage(response.body.message), event);
+			throw redirect(303, `/open/appointment-uploads`, errorMessage(response.body.message), event);
 		}
 		throw redirect(
 		303,
-		`/open/appointment.uploads`,
+		`/open/appointment-uploads`,
 		successMessage(response.body.message),
 		event
 	);	
