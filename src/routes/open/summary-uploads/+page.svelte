@@ -87,15 +87,16 @@
     <div>
         <h1 class="text-2xl">Summary of Appointment FollowUp PDF</h1>
     </div>
+    <p class="text-lg">Date:{summary['Date']}</p>
     <!-- (Date) -->
-    <form 
+    <!-- <form 
         method="post"
         action="?/gmuDataFileDate">
         <div>
             <input type="date" name="dateInput"  placeholder="YYYY/MM/DD" class="block w-[150px] p-2 border rounded-md" />
       <button type="submit">submit</button>
         </div>
-    </form>
+    </form> -->
 </div>
 <!-- Start -->
 <div class="mt-8 mx-auto w-2/5 p-1">
