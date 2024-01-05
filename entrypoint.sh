@@ -8,7 +8,7 @@ aws s3 cp s3://$S3_CONFIG_BUCKET/$S3_CONFIG_PATH/rean-admin-portal/constants.ts 
 aws s3 cp s3://$S3_CONFIG_BUCKET/$S3_CONFIG_PATH/rean-admin-portal/.env ./.env
 aws s3 cp s3://$S3_CONFIG_BUCKET/$S3_CONFIG_PATH/rean-admin-portal/constants.ts /app/src/lib
 
-cd /app
+cd /app/build
 # Add any other scripts here...
 # Start the service
 # npm run start
