@@ -116,7 +116,7 @@ jobs:
         with:
           task-definition: task-definition.json
           container-name: default
-          image: public.ecr.aws/i9y2d4u3/reancare:${{ needs.Github-ECR-Tag-Check.outputs.release_name }}_${{ needs.Github-ECR-Tag-Check.outputs.release_id }}
+          image: public.ecr.aws/i9y2d4u3/rean-admin-portal:${{ needs.Github-ECR-Tag-Check.outputs.release_name }}_${{ needs.Github-ECR-Tag-Check.outputs.release_id }}
 
       - name: Deploy Amazon ECS task definition
         uses: aws-actions/amazon-ecs-deploy-task-definition@v1
