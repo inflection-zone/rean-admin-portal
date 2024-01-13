@@ -10,18 +10,19 @@ export const load: PageServerLoad = async (event: RequestEvent) => {
     if (!response) {
         throw error(404, 'Daily user statistics data not found');
     }
-    // const _enrollmentUsers = await getEnrollmetUsers(sessionId);
-    const overallUsersData = response.Data.DailyStatistics.Statistics.UserStatistics.UsersCountStats;
-    const deviceDetailWiseUsers_ = response.Data.DailyStatistics.Statistics.UserStatistics.DeviceDetailWiseUsers;
-    const yearWiseUserCount = response.Data.DailyStatistics.Statistics.UserStatistics.YearWiseUserCount;
-    const yearWiseDeviceDetails = response.Data.DailyStatistics.Statistics.UserStatistics.YearWiseDeviceDetails;
-    const deviceDetailWiseUsers = deviceDetailWiseUsers_.map((item) => {
+    if (response.Status === 'failure' || response.HttpCode !== 200) {
+        throw error(response.HttpCode, response.Message);
+    }
+    const userCountStats = response.Data.DailyStatistics.Statistics.UserStatistics.UsersCountStats;
+    var deviceDetailsStats = response.Data.DailyStatistics.Statistics.UserStatistics.DeviceDetailWiseUsers;
+    const userCountByYears = response.Data.DailyStatistics.Statistics.UserStatistics.YearWiseUserCount;
+    const deviceDetailsByYears = response.Data.DailyStatistics.Statistics.UserStatistics.YearWiseDeviceDetails;
+    deviceDetailsStats = deviceDetailsStats.map((item) => {
         if (item.OSType === 'aaa') {
             return { OSType: 'Missing device detail', count: item.count };
         }
         return item;
     });
-    // const enrollmentUsers = _enrollmentUsers.Data.EnrollmentUsers;
 
     const appDownloadsData = response.Data.DailyStatistics.Statistics.UserStatistics.AppDownload;
     let appDownloadCount = 0;
@@ -33,12 +34,11 @@ export const load: PageServerLoad = async (event: RequestEvent) => {
 
     return {
         sessionId,
-        deviceDetailWiseUsers,
-        // enrollmentUsers,
+        userCountStats,
+        userCountByYears,
+        deviceDetailsStats,
+        deviceDetailsByYears,
         appDownloadCount,
-        overallUsersData,
-        yearWiseUserCount,
-        yearWiseDeviceDetails
     };
 
     function latestDownloadEnrty(appDownloadsData) {
