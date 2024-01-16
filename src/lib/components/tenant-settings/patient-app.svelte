@@ -12,81 +12,107 @@
 
 	const dispatch = createEventDispatcher();
 
-	let isTerrachecked = false;
-	let isSenseSemichecked = false;
-	let isGamificationAndAwardschecked = false;
-	let isCommunityAndUserGroupschecked = false;
-	let isDefaultchecked = false;
-	let isCustomchecked = false;
-	let isCoursesAndLearningJourneyschecked = false;
-	let isAppointmentsAndVisitschecked = false;
+	export let isTerrachecked = false;
+	export let isSenseSemichecked = false;
+	export let isGamificationAndAwardschecked = false;
+	export let isCommunityAndUserGroupschecked = false;
+	export let isDefaultchecked = false;
+	export let isCustomchecked = false;
+	export let isCoursesAndLearningJourneyschecked = false;
+	export let isAppointmentsAndVisitschecked = false;
 
-	export function handleCheckboxChange(event) {
-		if (isTerrachecked) {
-			isTerrachecked = event.target.checked;
-		}
-		else {
-			isTerrachecked = false;
-		}
-		if (isSenseSemichecked) {
-    isSenseSemichecked = event.target.checked;
-		}
-		else {
-			isSenseSemichecked = false;
-		}
-		if (isGamificationAndAwardschecked) {
-    isGamificationAndAwardschecked = event.target.checked;
-		}
-		else {
-			isGamificationAndAwardschecked = false;
-		}
-		if (isCommunityAndUserGroupschecked) {
-    isCommunityAndUserGroupschecked = event.target.checked;
-		}
-		else {
-			isCommunityAndUserGroupschecked = false;
-		}
-		if (isDefaultchecked) {
-    isDefaultchecked = event.target.checked;
-		}
-		else {
-			isDefaultchecked = false;
-		}    
-		if (isCustomchecked) {
-			isCustomchecked = event.target.checked;
-		}
-		else {
-			isCustomchecked = false;
-		}
-		if (isCoursesAndLearningJourneyschecked) {
-    isCoursesAndLearningJourneyschecked = event.target.checked;
-		}
-		else {
-			isCoursesAndLearningJourneyschecked = false;
-		}
-		if (isAppointmentsAndVisitschecked) {
-    isAppointmentsAndVisitschecked = event.target.checked;
-		}
-		else {
-			isAppointmentsAndVisitschecked = false;
-		}   
-		let patientAppOptions = {
-      Terra: isTerrachecked,
-      senseSemi: isSenseSemichecked,
-      gamificationAndAwards: isGamificationAndAwardschecked,
-			communityAndUserGroups: isCommunityAndUserGroupschecked,
-      Default: isDefaultchecked,
-			Custom: isCustomchecked,
-			coursesAndLearningJourneys: isCoursesAndLearningJourneyschecked,
-      appointmentsAndVisits: isAppointmentsAndVisitschecked,
-    };
-		dispatch('patientAppOptionsChange', patientAppOptions);
-  }
+    export let patientAppSettingOptions;
 
-	const breadCrumbs = [
-		{ name: 'Tenants', path: tenantRoute },
-		{ name: 'Settings', path: createRoute }
-	];
+    $: {
+        patientAppSettingOptions.isTerrachecked = isTerrachecked;
+        patientAppSettingOptions.isSenseSemichecked = isSenseSemichecked;
+        patientAppSettingOptions.isGamificationAndAwardschecked = isGamificationAndAwardschecked;
+        patientAppSettingOptions.isCommunityAndUserGroupschecked = isCommunityAndUserGroupschecked;
+        patientAppSettingOptions.isDefaultchecked = isDefaultchecked;
+        patientAppSettingOptions.isCustomchecked = isCustomchecked;
+        patientAppSettingOptions.isCoursesAndLearningJourneyschecked = isCoursesAndLearningJourneyschecked;
+        patientAppSettingOptions.isAppointmentsAndVisitschecked = isAppointmentsAndVisitschecked;
+    }
+    function handlePatientReportOptionChange(event) {
+    if (event.currentTarget.value === 'Default') {
+        isDefaultchecked = true;
+        isCustomchecked = false;
+    }else if (event.currentTarget.value === 'Custom') {
+        isDefaultchecked = false;
+        isCustomchecked = true;
+    }
+    else {
+        isDefaultchecked = false;
+        isCustomchecked = false;
+    }
+   }
+
+// 	export function handleCheckboxChange(event) {
+// 		if (isTerrachecked) {
+// 			isTerrachecked = event.target.checked;
+// 		}
+// 		else {
+// 			isTerrachecked = false;
+// 		}
+// 		if (isSenseSemichecked) {
+//     isSenseSemichecked = event.target.checked;
+// 		}
+// 		else {
+// 			isSenseSemichecked = false;
+// 		}
+// 		if (isGamificationAndAwardschecked) {
+//     isGamificationAndAwardschecked = event.target.checked;
+// 		}
+// 		else {
+// 			isGamificationAndAwardschecked = false;
+// 		}
+// 		if (isCommunityAndUserGroupschecked) {
+//     isCommunityAndUserGroupschecked = event.target.checked;
+// 		}
+// 		else {
+// 			isCommunityAndUserGroupschecked = false;
+// 		}
+// 		if (isDefaultchecked) {
+//     isDefaultchecked = event.target.checked;
+// 		}
+// 		else {
+// 			isDefaultchecked = false;
+// 		}    
+// 		if (isCustomchecked) {
+// 			isCustomchecked = event.target.checked;
+// 		}
+// 		else {
+// 			isCustomchecked = false;
+// 		}
+// 		if (isCoursesAndLearningJourneyschecked) {
+//     isCoursesAndLearningJourneyschecked = event.target.checked;
+// 		}
+// 		else {
+// 			isCoursesAndLearningJourneyschecked = false;
+// 		}
+// 		if (isAppointmentsAndVisitschecked) {
+//     isAppointmentsAndVisitschecked = event.target.checked;
+// 		}
+// 		else {
+// 			isAppointmentsAndVisitschecked = false;
+// 		}   
+// 		let patientAppOptions = {
+//       Terra: isTerrachecked,
+//       senseSemi: isSenseSemichecked,
+//       gamificationAndAwards: isGamificationAndAwardschecked,
+// 			communityAndUserGroups: isCommunityAndUserGroupschecked,
+//       Default: isDefaultchecked,
+// 			Custom: isCustomchecked,
+// 			coursesAndLearningJourneys: isCoursesAndLearningJourneyschecked,
+//       appointmentsAndVisits: isAppointmentsAndVisitschecked,
+//     };
+// 		dispatch('patientAppOptionsChange', patientAppOptions);
+//   }
+
+// 	const breadCrumbs = [
+// 		{ name: 'Tenants', path: tenantRoute },
+// 		{ name: 'Settings', path: createRoute }
+// 	];
 </script>
 
 <!-- <BreadCrumbs crumbs={breadCrumbs} /> -->
@@ -124,7 +150,6 @@
 							type="checkbox"
 							name="terra"
 							bind:checked={isTerrachecked} 
-							on:change={handleCheckboxChange}
 							class="ml-12 checkbox checkbox-primary border-primary-200 hover:border-primary-400 checkbox-md"
 						/>
 					</td>
@@ -136,7 +161,6 @@
 							type="checkbox"
 							name="senseSemi"
 							bind:checked={isSenseSemichecked} 
-							on:change={handleCheckboxChange}
 							class="ml-10 checkbox checkbox-primary border-primary-200 hover:border-primary-400 checkbox-md"
 						/>
 					</td>
@@ -149,7 +173,6 @@
 						type="checkbox"
 						name="gamificationAndAwards"
 						bind:checked={isGamificationAndAwardschecked} 
-						on:change={handleCheckboxChange}
 						class="ml-10 checkbox checkbox-primary border-primary-200 hover:border-primary-400 checkbox-md"
 					/>
 				</td>
@@ -161,7 +184,6 @@
 						type="checkbox"
 						name="communityAndUserGroups"
 						bind:checked={isCommunityAndUserGroupschecked} 
-						on:change={handleCheckboxChange}
 						class="ml-10 checkbox checkbox-primary border-primary-200 hover:border-primary-400 checkbox-md"
 					/>
 				</td>
@@ -177,9 +199,10 @@
 					<td>
 						<input
 							type="radio"
-							name="default"
-							bind:group={isDefaultchecked} 
-							on:change={handleCheckboxChange}
+							name="patientReports"
+                            value="Default"
+                            checked={isDefaultchecked}
+                            on:change={handlePatientReportOptionChange}
 							class="ml-24 rounded-full radio radio-primary border-primary-200 hover:border-primary-400 radio-md"
 						/>
 					</td>
@@ -189,9 +212,10 @@
 					<td>
 						<input
 							type="radio"
-							name="custom"
-							bind:group={isCustomchecked} 
-							on:change={handleCheckboxChange}
+							name="patientReports"
+                            value="Custom"
+                            checked={isCustomchecked}
+							on:change={handlePatientReportOptionChange}
 							class="ml-10 radio rounded-full radio-primary border-primary-200 hover:border-primary-400 radio-md"
 						/>
 					</td>
@@ -204,7 +228,6 @@
 						type="checkbox"
 						name="coursesAndLearningJourneys"
 						bind:checked={isCoursesAndLearningJourneyschecked} 
-						on:change={handleCheckboxChange}
 						class="ml-10 checkbox checkbox-primary border-primary-200 hover:border-primary-400 checkbox-md"
 					/>
 				</td>
@@ -216,7 +239,6 @@
 						type="checkbox"
 						name="appointmentsAndVisits"
 						bind:checked={isAppointmentsAndVisitschecked} 
-						on:change={handleCheckboxChange}
 						class="ml-10 checkbox checkbox-primary border-primary-200 hover:border-primary-400 checkbox-md"
 					/>
 				</td>

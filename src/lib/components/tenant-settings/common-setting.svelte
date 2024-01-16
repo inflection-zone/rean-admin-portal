@@ -12,114 +12,50 @@
 
 	const dispatch = createEventDispatcher();
 
-	let isVitalsAndLabRecordsChecked = false;
-	let isRemindersChecked = false;
-	let isMedicationManagementChecked = false;
-	let isDocumentManagementChecked = false;
-	let isScheduledAssessmentsChecked = false;
-	let isEHRIntegrationsChecked = false;
-	let isABDMIntegrationChecked = false;
-	let isNutritionChecked = false;
-	let isExerciseAndFitnessChecked = false;
-	let isDefaultChecked = false;
-	let isCustomChecked = false;
-	let isFHIRResourceStorageChecked = false;
-
-	export function handleCheckboxChange(event) {
-		if (isVitalsAndLabRecordsChecked) {
-			isVitalsAndLabRecordsChecked = event.target.checked;
-		}
-		else {
-			isVitalsAndLabRecordsChecked = false;
-		}
-		if (isRemindersChecked) {
-    isRemindersChecked = event.target.checked;
-		}
-		else {
-			isRemindersChecked = false;
-		}
-		if (isMedicationManagementChecked) {
-    isMedicationManagementChecked = event.target.checked;
-		}
-		else {
-			isMedicationManagementChecked = false;
-		}
-		if (isDocumentManagementChecked) {
-    isDocumentManagementChecked = event.target.checked;
-		}
-		else {
-			isDocumentManagementChecked = false;
-		}
-		if (isScheduledAssessmentsChecked) {
-    isScheduledAssessmentsChecked = event.target.checked;
-		}
-		else {
-			isScheduledAssessmentsChecked = false;
-		}    
-		if (isEHRIntegrationsChecked) {
-			isEHRIntegrationsChecked = event.target.checked;
-		}
-		else {
-			isEHRIntegrationsChecked = false;
-		}
-		if (isABDMIntegrationChecked) {
-    isABDMIntegrationChecked = event.target.checked;
-		}
-		else {
-			isABDMIntegrationChecked = false;
-		}
-		if (isNutritionChecked) {
-    isNutritionChecked = event.target.checked;
-		}
-		else {
-			isNutritionChecked = false;
-		}
-		if (isExerciseAndFitnessChecked) {
-    isExerciseAndFitnessChecked = event.target.checked;
-		}
-		else {
-			isExerciseAndFitnessChecked = false;
-		}
-		if (isDefaultChecked) {
-    isDefaultChecked = event.target.checked;
-		}
-		else {
-			isDefaultChecked = false;
-		}   
-		if (isCustomChecked) {
-    isCustomChecked = event.target.checked;
-		}
-		else {
-			isCustomChecked = false;
-		}    
-		if (isFHIRResourceStorageChecked) {
-    isFHIRResourceStorageChecked = event.target.checked;
-		}
-		else {
-			isFHIRResourceStorageChecked = false;
-		}    
-		let commonSettingOptions = {
-      vitalsAndLabRecords: isVitalsAndLabRecordsChecked,
-      reminders: isRemindersChecked,
-      medicationManagement: isMedicationManagementChecked,
-			documentManagement: isDocumentManagementChecked,
-      scheduledAssessments: isScheduledAssessmentsChecked,
-			EHRIntegrations: isEHRIntegrationsChecked,
-			ABDMIntegration: isABDMIntegrationChecked,
-      Nutrition: isNutritionChecked,
-      exerciseAndFitness: isExerciseAndFitnessChecked,
-			Default: isDefaultChecked,
-      Custom: isCustomChecked,
-			FHIRResourceStorag: isFHIRResourceStorageChecked,
-    };
-		dispatch('commonSettingsChange', commonSettingOptions);
-  }
-
-	const breadCrumbs = [
-		{ name: 'Tenants', path: tenantRoute },
-		{ name: 'Settings', path: createRoute }
-	];
-
+	export let isVitalsAndLabRecordsChecked;
+	export let isRemindersChecked;
+	export let isMedicationManagementChecked;
+	export let isDocumentManagementChecked;
+	export let isScheduledAssessmentsChecked;
+	export let isEHRIntegrationsChecked;
+	export let isABDMIntegrationChecked;
+	export let isNutritionChecked;
+	export let isExerciseAndFitnessChecked;
+	export let isDefaultCareplanChecked;
+	export let isCustomCareplanChecked;
+	export let isFHIRResourceStorageChecked;
+    export let commonSettingOptions;
+    $: {
+        commonSettingOptions.isVitalsAndLabRecordsChecked = isVitalsAndLabRecordsChecked;
+        commonSettingOptions.isRemindersChecked = isRemindersChecked
+        commonSettingOptions.isMedicationManagementChecked = isMedicationManagementChecked
+        commonSettingOptions.isDocumentManagementChecked = isDocumentManagementChecked
+        commonSettingOptions.isScheduledAssessmentsChecked = isScheduledAssessmentsChecked
+        commonSettingOptions.isEHRIntegrationsChecked = isEHRIntegrationsChecked
+        commonSettingOptions.isABDMIntegrationChecked = isABDMIntegrationChecked
+        commonSettingOptions.isNutritionChecked = isNutritionChecked
+        commonSettingOptions.isExerciseAndFitnessChecked = isExerciseAndFitnessChecked
+        commonSettingOptions.isDefaultCareplanChecked = isDefaultCareplanChecked
+        commonSettingOptions.isCustomCareplanChecked = isCustomCareplanChecked
+        commonSettingOptions.isFHIRResourceStorageChecked = isFHIRResourceStorageChecked
+    }
+	
+   function handleCareplanChange(event) {
+    console.log('###',event.currentTarget.value)
+    console.log('isDefaultCareplanChecked',isDefaultCareplanChecked)
+    console.log('isCustomCareplanChecked',isCustomCareplanChecked)
+    if (event.currentTarget.value === 'Default') {
+        isDefaultCareplanChecked = true;
+        isCustomCareplanChecked = false;
+    }else if (event.currentTarget.value === 'Custom') {
+        isDefaultCareplanChecked = false;
+        isCustomCareplanChecked = true;
+    }
+    else {
+        isDefaultCareplanChecked = false;
+        isCustomCareplanChecked = false;
+    }
+   }
 </script>
 
 <!-- <BreadCrumbs crumbs={breadCrumbs} /> -->
@@ -303,8 +239,7 @@
 							<input
 								type="checkbox"
 								name="vitalsAndLabRecords"
-								bind:checked={isVitalsAndLabRecordsChecked}
-								on:change={handleCheckboxChange}
+                            	bind:checked={isVitalsAndLabRecordsChecked}
 								class="ml-10 checkbox checkbox-primary border-primary-200 hover:border-primary-400 checkbox-md"
 							/>
 						</td>
@@ -317,8 +252,7 @@
 									type="checkbox"
 									name="reminders"
 									bind:checked={isRemindersChecked}
-									on:change={handleCheckboxChange}
-									class="ml-10 checkbox checkbox-primary border-primary-200 hover:border-primary-400 checkbox-md"
+						    		class="ml-10 checkbox checkbox-primary border-primary-200 hover:border-primary-400 checkbox-md"
 								/>
 							</td>
 							<td class="ml-4">Reminders</td>
@@ -332,7 +266,6 @@
 								type="checkbox"
 								name="medicationManagement"
 								bind:checked={isMedicationManagementChecked}
-								on:change={handleCheckboxChange}
 								class="ml-10 checkbox checkbox-primary border-primary-200 hover:border-primary-400 checkbox-md"
 							/>
 						</td>
@@ -345,7 +278,6 @@
 									type="checkbox"
 									name="documentManagement"
 									bind:checked={isDocumentManagementChecked}
-									on:change={handleCheckboxChange}
 									class="ml-10 checkbox checkbox-primary border-primary-200 hover:border-primary-400 checkbox-md"
 								/>
 							</td>
@@ -359,7 +291,6 @@
 							type="checkbox"
 							name="scheduledAssessments"
 							bind:checked={isScheduledAssessmentsChecked}
-							on:change={handleCheckboxChange}
 							class="ml-10 checkbox checkbox-primary border-primary-200 hover:border-primary-400 checkbox-md"
 						/>
 					</td>
@@ -372,7 +303,6 @@
 								type="checkbox"
 								name="EHRIntegrations"
 								bind:checked={isEHRIntegrationsChecked}
-								on:change={handleCheckboxChange}
 								class="ml-10 checkbox checkbox-primary border-primary-200 hover:border-primary-400 checkbox-md"
 							/>
 						</td>
@@ -385,7 +315,6 @@
 									type="checkbox"
 									name="ABDMIntegration"
 									bind:checked={isABDMIntegrationChecked}
-									on:change={handleCheckboxChange}
 									class="ml-10 checkbox checkbox-primary border-primary-200 hover:border-primary-400 checkbox-md"
 								/>
 							</td>
@@ -400,7 +329,6 @@
 								type="checkbox"
 								name="Nutrition"
 								bind:checked={isNutritionChecked}
-								on:change={handleCheckboxChange}
 								class="ml-10 checkbox checkbox-primary border-primary-200 hover:border-primary-400 checkbox-md"
 							/>
 						</td>
@@ -413,7 +341,6 @@
 									type="checkbox"
 									name="exerciseAndFitness"
 									bind:checked={isExerciseAndFitnessChecked}
-									on:change={handleCheckboxChange}
 									class="ml-8 checkbox checkbox-primary border-primary-200 hover:border-primary-400 checkbox-md"
 								/>
 							</td>
@@ -432,9 +359,10 @@
 							<td>
 								<input
 									type="radio"
-									name="Default"
-									bind:group={isDefaultChecked}
-									on:change={handleCheckboxChange}
+									name="Careplans"
+                                    value="Default"
+                                    checked={isDefaultCareplanChecked}
+                                    on:change={handleCareplanChange}
 									class="ml-10 rounded-full radio radio-primary border-primary-200 hover:border-primary-400 radio-md"
 								/>
 							</td>
@@ -446,9 +374,10 @@
 							<td>
 								<input
 									type="radio"
-									name="Custom"
-									bind:group={isCustomChecked}
-									on:change={handleCheckboxChange}
+									name="Careplans"
+                                    value="Custom"
+                                    checked={isCustomCareplanChecked}
+                                    on:change={handleCareplanChange}
 									class="ml-10 rounded-full radio radio-primary border-primary-200 hover:border-primary-400 radio-md"
 								/>
 							</td>
@@ -461,8 +390,7 @@
 						<input
 							type="checkbox"
 							name="FHIRResourceStorage"
-							bind:checked={isFHIRResourceStorageChecked}
-							on:change={handleCheckboxChange}
+    						bind:checked={isFHIRResourceStorageChecked}
 							class="ml-10 checkbox checkbox-primary border-primary-200 hover:border-primary-400 checkbox-md"
 						/>
 					</td>

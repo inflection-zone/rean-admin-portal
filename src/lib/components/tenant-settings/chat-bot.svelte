@@ -12,105 +12,48 @@
 
 	const dispatch = createEventDispatcher();
 
-	let isDefaultchecked = false;
-	let isCustomchecked = false;
-	let isClickUpchecked = false;
-	let isQuicksightDashboardchecked = false;
-	let isLocalizationSupportchecked = false;
-	let isWhatsAppchecked = false;
-	let isTelegramchecked = false;
-	let isSlackchecked = false;
-	let isChatPersonlizationchecked = false;
-	let isCustomUserDBQuerieschecked = false;
-	let isLocalizationContextualQuerieschecked = false;
+	export let isDefaultchecked = false;
+	export let isCustomchecked = false;
+	export let isClickUpchecked = false;
+	export let isQuicksightDashboardchecked = false;
+	export let isLocalizationSupportchecked = false;
+	export let isWhatsAppchecked = false;
+	export let isTelegramchecked = false;
+	export let isSlackchecked = false;
+	export let isChatPersonlizationchecked = false;
+	export let isCustomUserDBQuerieschecked = false;
+	export let isLocalizationContextualQuerieschecked = false;
 
-	export function handleCheckboxChange(event) {
-		if (isDefaultchecked) {
-			isDefaultchecked = event.target.checked;
-		}
-		else {
-			isDefaultchecked = false;
-		}
-		if (isCustomchecked) {
-    isCustomchecked = event.target.checked;
-		}
-		else {
-			isCustomchecked = false;
-		}
-		if (isClickUpchecked) {
-    isClickUpchecked = event.target.checked;
-		}
-		else {
-			isClickUpchecked = false;
-		}
-		if (isQuicksightDashboardchecked) {
-    isQuicksightDashboardchecked = event.target.checked;
-		}
-		else {
-			isQuicksightDashboardchecked = false;
-		}
-		if (isLocalizationSupportchecked) {
-    isLocalizationSupportchecked = event.target.checked;
-		}
-		else {
-			isLocalizationSupportchecked = false;
-		}    
-		if (isWhatsAppchecked) {
-			isWhatsAppchecked = event.target.checked;
-		}
-		else {
-			isWhatsAppchecked = false;
-		}
-		if (isTelegramchecked) {
-    isTelegramchecked = event.target.checked;
-		}
-		else {
-			isTelegramchecked = false;
-		}
-		if (isSlackchecked) {
-    isSlackchecked = event.target.checked;
-		}
-		else {
-			isSlackchecked = false;
-		}
-		if (isChatPersonlizationchecked) {
-    isChatPersonlizationchecked = event.target.checked;
-		}
-		else {
-			isChatPersonlizationchecked = false;
-		}
-		if (isCustomUserDBQuerieschecked) {
-    isCustomUserDBQuerieschecked = event.target.checked;
-		}
-		else {
-			isCustomUserDBQuerieschecked = false;
-		}   
-		if (isLocalizationContextualQuerieschecked) {
-    isLocalizationContextualQuerieschecked = event.target.checked;
-		}
-		else {
-			isLocalizationContextualQuerieschecked = false;
-		}    
-		let chatBotOptions = {
-      Default: isDefaultchecked,
-      Custom: isCustomchecked,
-      clickUp: isClickUpchecked,
-			quicksightDashboard: isQuicksightDashboardchecked,
-      localizationSupport: isLocalizationSupportchecked,
-			whatsApp: isWhatsAppchecked,
-			Telegram: isTelegramchecked,
-      Slack: isSlackchecked,
-      chatPersonlization: isChatPersonlizationchecked,
-			customUserDBQueries: isCustomUserDBQuerieschecked,
-      localizationContextualQueries: isLocalizationContextualQuerieschecked,
-    };
-		dispatch('chatBotOptionsChange', chatBotOptions);
-  }
+    export let chatBotSettingOptions;
 
-	const breadCrumbs = [
-		{ name: 'Tenants', path: tenantRoute },
-		{ name: 'Settings', path: createRoute }
-	];
+    $: {
+        chatBotSettingOptions.isDefaultchecked = isDefaultchecked;
+        chatBotSettingOptions.isCustomchecked = isCustomchecked;
+        chatBotSettingOptions.isClickUpchecked = isClickUpchecked;
+        chatBotSettingOptions.isQuicksightDashboardchecked = isQuicksightDashboardchecked;
+        chatBotSettingOptions.isLocalizationSupportchecked = isLocalizationSupportchecked;
+        chatBotSettingOptions.isWhatsAppchecked = isWhatsAppchecked;
+        chatBotSettingOptions.isTelegramchecked = isTelegramchecked;
+        chatBotSettingOptions.isSlackchecked = isSlackchecked;
+        chatBotSettingOptions.isChatPersonlizationchecked = isChatPersonlizationchecked;
+        chatBotSettingOptions.isCustomUserDBQuerieschecked = isCustomUserDBQuerieschecked;
+        chatBotSettingOptions.isLocalizationContextualQuerieschecked = isLocalizationContextualQuerieschecked;
+    }
+
+    function handleFaqOptionChange(event) {
+        if (event.currentTarget.value === 'Default') {
+            isDefaultchecked = true;
+            isCustomchecked = false;
+        } else if (event.currentTarget.value === 'Custom') {
+            isDefaultchecked = false;
+            isCustomchecked = true;
+        }
+        else {
+            isDefaultchecked = false;
+            isCustomchecked = false;
+        }
+   }
+
 </script>
 
 <!-- <BreadCrumbs crumbs={breadCrumbs} /> -->
@@ -150,7 +93,6 @@
 								type="checkbox"
 								name="clickUp"
 								bind:checked={isClickUpchecked} 
-								on:change={handleCheckboxChange}
 								class="ml-9 checkbox checkbox-primary border-primary-200 hover:border-primary-400 checkbox-md"
 							/>
 						</td>
@@ -164,7 +106,6 @@
 								type="checkbox"
 								name="slack"
 								bind:checked={isSlackchecked} 
-								on:change={handleCheckboxChange}
 								class="ml-10 checkbox checkbox-primary border-primary-200 hover:border-primary-400 checkbox-md"
 							/>
 						</td>
@@ -178,7 +119,6 @@
 						type="checkbox"
 						name="localizationSupport"
 						bind:checked={isLocalizationSupportchecked} 
-						on:change={handleCheckboxChange}
 						class="ml-10 checkbox checkbox-primary border-primary-200 hover:border-primary-400 checkbox-md"
 					/>
 				</td>
@@ -197,7 +137,6 @@
 							type="checkbox"
 							name="whatsApp"
 							bind:checked={isWhatsAppchecked} 
-							on:change={handleCheckboxChange}
 							class="ml-10 checkbox checkbox-primary border-primary-200 hover:border-primary-400 checkbox-md"
 						/>
 					</td>
@@ -211,7 +150,6 @@
 								type="checkbox"
 								name="telegram"
 								bind:checked={isTelegramchecked} 
-								on:change={handleCheckboxChange}
 								class="ml-10 checkbox checkbox-primary border-primary-200 hover:border-primary-400 checkbox-md"
 							/>
 						</td>
@@ -230,9 +168,10 @@
 						<td>
 							<input
 								type="radio"
-								name="default"
-								bind:group={isDefaultchecked} 
-								on:change={handleCheckboxChange}
+								name="FAQ"
+                                value="Default"
+                                checked={isDefaultchecked}
+								on:change={handleFaqOptionChange}
 								class="ml-10 radio rounded-full radio-primary border-primary-200 hover:border-primary-400 radio-md"
 							/>
 						</td>
@@ -244,9 +183,10 @@
 						<td>
 							<input
 								type="radio"
-								name="custom"
-								bind:group={isCustomchecked} 
-								on:change={handleCheckboxChange}
+								name="FAQ"
+                                value="Custom"
+                                checked={isCustomchecked}
+								on:change={handleFaqOptionChange}
 								class="ml-10 radio rounded-full radio-primary border-primary-200 hover:border-primary-400 radio-md"
 							/>
 						</td>
@@ -260,7 +200,6 @@
 						type="checkbox"
 						name="quicksightDashboard"
 						bind:checked={isQuicksightDashboardchecked} 
-						on:change={handleCheckboxChange}
 						class="ml-10 checkbox checkbox-primary border-primary-200 hover:border-primary-400 checkbox-md"
 					/>
 				</td>
@@ -272,7 +211,6 @@
 						type="checkbox"
 						name="chatPersonlization"
 						bind:checked={isChatPersonlizationchecked} 
-						on:change={handleCheckboxChange}
 						class="ml-10 checkbox checkbox-primary border-primary-200 hover:border-primary-400 checkbox-md"
 					/>
 				</td>
@@ -285,7 +223,6 @@
 							type="checkbox"
 							name="customUserDBQueries"
 							bind:checked={isCustomUserDBQuerieschecked} 
-							on:change={handleCheckboxChange}
 							class="ml-10 checkbox checkbox-primary border-primary-200 hover:border-primary-400 checkbox-md"
 						/>
 					</td>
@@ -298,7 +235,6 @@
 								type="checkbox"
 								name="localizationContextualQueries"
 								bind:checked={isLocalizationContextualQuerieschecked} 
-								on:change={handleCheckboxChange}
 								class="ml-10 checkbox checkbox-primary border-primary-200 hover:border-primary-400 checkbox-md"
 							/>
 						</td>

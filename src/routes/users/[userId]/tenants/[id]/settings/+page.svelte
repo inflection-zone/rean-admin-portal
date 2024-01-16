@@ -45,12 +45,105 @@
     let isPatientAppChecked = false;
     let isChatbotChecked = false;
     let isFormsChecked = false;
-    if (data.settings) {
+
+    let commonSettingOptions = {
+		isVitalsAndLabRecordsChecked : false,
+		isRemindersChecked : false,
+		isMedicationManagementChecked : false,
+		isDocumentManagementChecked : false,
+		isScheduledAssessmentsChecked : false,
+		isEHRIntegrationsChecked : false,
+		isABDMIntegrationChecked : false,
+		isNutritionChecked : false,
+		isExerciseAndFitnessChecked : false,
+		isDefaultCareplanChecked : false,
+		isCustomCareplanChecked : false,
+		isFHIRResourceStorageChecked : false,
+	};
+
+    let patientAppSettingOptions = {
+        isTerrachecked : false,
+        isSenseSemichecked : false,
+        isGamificationAndAwardschecked : false,
+        isCommunityAndUserGroupschecked : false,
+        isDefaultchecked : false,
+        isCustomchecked : false,
+        isCoursesAndLearningJourneyschecked : false,
+        isAppointmentsAndVisitschecked : false
+    }
+
+    let chatBotSettingOptions = {
+        isDefaultchecked : false,
+	    isCustomchecked : false,
+	    isClickUpchecked : false,
+	    isQuicksightDashboardchecked : false,
+	    isLocalizationSupportchecked : false,
+	    isWhatsAppchecked : false,
+	    isTelegramchecked : false,
+	    isSlackchecked : false,
+	    isChatPersonlizationchecked : false,
+	    isCustomUserDBQuerieschecked : false,
+	    isLocalizationContextualQuerieschecked : false,
+    }
+
+    let formSettingOptions = {
+        iskoboToolboxchecked : false,
+        isodkchecked : false,
+        isgoogleFormschecked : false,
+        isofflineSupportchecked : false,
+        isfieldAppchecked : false,
+    }
+
+   if (data.settings) {
         isPatientAppChecked = data.settings.Integrations.PatientInterface,
         isChatbotChecked = data.settings.Integrations.ChatBotInterface,
         isFormsChecked = data.settings.Integrations.FormsInterface
+        
+        commonSettingOptions.isVitalsAndLabRecordsChecked = data.settings.Common.VitalAndLabRecords;
+        commonSettingOptions.isRemindersChecked = data.settings.Common.Reminders;
+        commonSettingOptions.isMedicationManagementChecked = data.settings.Common.MedicationManagement;
+        commonSettingOptions.isDocumentManagementChecked = data.settings.Common.DocumentManagement;
+        commonSettingOptions.isScheduledAssessmentsChecked = data.settings.Common.ScheduledAssesments;
+        commonSettingOptions.isEHRIntegrationsChecked = data.settings.Common.EHIRIntegrations;
+        commonSettingOptions.isABDMIntegrationChecked = data.settings.Common.ABDMIntegrations;
+        commonSettingOptions.isNutritionChecked = data.settings.Common.Nutrition;
+        commonSettingOptions.isExerciseAndFitnessChecked = data.settings.Common.ExcerciseAndFitness;
+        commonSettingOptions.isDefaultCareplanChecked = data.settings.Common.Careplans.Default;
+        commonSettingOptions.isCustomCareplanChecked = data.settings.Common.Careplans.Custom;
+        commonSettingOptions.isFHIRResourceStorageChecked = data.settings.Common.FHIRResourceStorage;
+
+        patientAppSettingOptions.isGamificationAndAwardschecked = data.settings.PatientInterface.GamificationAndAwards;
+        patientAppSettingOptions.isCoursesAndLearningJourneyschecked = data.settings.PatientInterface.CoursesAndLearningJourneys;
+        patientAppSettingOptions.isCommunityAndUserGroupschecked = data.settings.PatientInterface.CommunityAndUserGroups;
+        patientAppSettingOptions.isAppointmentsAndVisitschecked = data.settings.PatientInterface.AppointmentsAndVisits;
+        patientAppSettingOptions.isTerrachecked = data.settings.PatientInterface.DeviceIntegration.Terra;
+        patientAppSettingOptions.isSenseSemichecked = data.settings.PatientInterface.DeviceIntegration.SenseSemi;
+        patientAppSettingOptions.isDefaultchecked = data.settings.PatientInterface.PatientReports.Default;
+        patientAppSettingOptions.isCustomchecked = data.settings.PatientInterface.PatientReports.Custom;
+    
+        chatBotSettingOptions.isDefaultchecked = data.settings.ChatBotInterface.FAQ.Default;
+        chatBotSettingOptions.isCustomchecked = data.settings.ChatBotInterface.FAQ.Custom;
+        chatBotSettingOptions.isClickUpchecked = data.settings.ChatBotInterface.Integrations.ClickUp;
+        chatBotSettingOptions.isQuicksightDashboardchecked = data.settings.ChatBotInterface.QuicksightDashboard;
+        chatBotSettingOptions.isLocalizationSupportchecked = data.settings.ChatBotInterface.LocalizationSupport;
+        chatBotSettingOptions.isWhatsAppchecked = data.settings.ChatBotInterface.WhatsApp;
+        chatBotSettingOptions.isTelegramchecked = data.settings.ChatBotInterface.Telegram;
+        chatBotSettingOptions.isSlackchecked = data.settings.ChatBotInterface.Integrations.Slack;
+        chatBotSettingOptions.isChatPersonlizationchecked = data.settings.ChatBotInterface.ChatPersonalization;
+        chatBotSettingOptions.isCustomUserDBQuerieschecked = data.settings.ChatBotInterface.CustomUserDBQueries;
+        chatBotSettingOptions.isLocalizationContextualQuerieschecked = data.settings.ChatBotInterface.LocationContextualQueries;
+
+        formSettingOptions.iskoboToolboxchecked = data.settings.FormsInterface.Integrations.KoboToolbox
+        formSettingOptions.isodkchecked = data.settings.FormsInterface.Integrations.ODK
+        formSettingOptions.isgoogleFormschecked = data.settings.FormsInterface.Integrations.GoogleForm
+        formSettingOptions.isofflineSupportchecked = data.settings.FormsInterface.OfflineSupport
+        formSettingOptions.isfieldAppchecked = data.settings.FormsInterface.FieldApp
+
         disabled = true;
     }
+
+    $:console.log('COMMON SETTINGS ', commonSettingOptions)
+    $:console.log('PATIENT APP SETTINGS ', patientAppSettingOptions)
     let submit;
     let index = -1;
     $: initial = true;
@@ -102,12 +195,12 @@
         const tenantId = id;
         const settings = {
         Integrations: {
-            PatientInterface: true,
+            PatientInterface: false,
             ChatBotInterface: false,
             FormsInterface: false
         },
         Common: {
-            VitalAndLabRecords: true,
+            VitalAndLabRecords: false,
             Nutrition:false,
             MedicationManagement:false,
             Reminders:false,
@@ -166,6 +259,46 @@
     settings.Integrations.PatientInterface = isPatientAppChecked,
     settings.Integrations.ChatBotInterface = isChatbotChecked,
     settings.Integrations.FormsInterface = isFormsChecked,
+
+    settings.Common.VitalAndLabRecords = commonSettingOptions.isVitalsAndLabRecordsChecked;
+    settings.Common.Nutrition = commonSettingOptions.isNutritionChecked;
+    settings.Common.MedicationManagement = commonSettingOptions.isMedicationManagementChecked;
+    settings.Common.Reminders = commonSettingOptions.isRemindersChecked;
+    settings.Common.ScheduledAssesments = commonSettingOptions.isScheduledAssessmentsChecked;
+    settings.Common.ExcerciseAndFitness = commonSettingOptions.isExerciseAndFitnessChecked;
+    settings.Common.FHIRResourceStorage = commonSettingOptions.isFHIRResourceStorageChecked;
+    settings.Common.Careplans.Default = commonSettingOptions.isDefaultCareplanChecked;
+    settings.Common.Careplans.Custom = commonSettingOptions.isCustomCareplanChecked;
+    settings.Common.EHIRIntegrations = commonSettingOptions.isEHRIntegrationsChecked;
+    settings.Common.ABDMIntegrations = commonSettingOptions.isABDMIntegrationChecked;
+    settings.Common.DocumentManagement = commonSettingOptions.isDocumentManagementChecked;
+
+    settings.PatientInterface.GamificationAndAwards = patientAppSettingOptions.isGamificationAndAwardschecked;
+    settings.PatientInterface.CoursesAndLearningJourneys = patientAppSettingOptions.isCoursesAndLearningJourneyschecked;
+    settings.PatientInterface.CommunityAndUserGroups = patientAppSettingOptions.isCommunityAndUserGroupschecked;
+    settings.PatientInterface.AppointmentsAndVisits = patientAppSettingOptions.isAppointmentsAndVisitschecked;
+    settings.PatientInterface.DeviceIntegration.Terra = patientAppSettingOptions.isTerrachecked;
+    settings.PatientInterface.DeviceIntegration.SenseSemi = patientAppSettingOptions.isSenseSemichecked;
+    settings.PatientInterface.PatientReports.Default = patientAppSettingOptions.isDefaultchecked;
+    settings.PatientInterface.PatientReports.Custom = patientAppSettingOptions.isCustomchecked;
+
+    settings.ChatBotInterface.FAQ.Default = chatBotSettingOptions.isDefaultchecked;
+    settings.ChatBotInterface.FAQ.Custom = chatBotSettingOptions.isCustomchecked;
+    settings.ChatBotInterface.Integrations.ClickUp = chatBotSettingOptions.isClickUpchecked;
+    settings.ChatBotInterface.QuicksightDashboard = chatBotSettingOptions.isQuicksightDashboardchecked;
+    settings.ChatBotInterface.LocalizationSupport = chatBotSettingOptions.isLocalizationSupportchecked;
+    settings.ChatBotInterface.WhatsApp = chatBotSettingOptions.isWhatsAppchecked;
+    settings.ChatBotInterface.Telegram = chatBotSettingOptions.isTelegramchecked;
+    settings.ChatBotInterface.Integrations.Slack = chatBotSettingOptions.isSlackchecked;
+    settings.ChatBotInterface.ChatPersonalization = chatBotSettingOptions.isChatPersonlizationchecked;
+    settings.ChatBotInterface.CustomUserDBQueries = chatBotSettingOptions.isCustomUserDBQuerieschecked;
+    settings.ChatBotInterface.LocationContextualQueries = chatBotSettingOptions.isLocalizationContextualQuerieschecked;
+
+    settings.FormsInterface.Integrations.KoboToolbox = formSettingOptions.iskoboToolboxchecked
+    settings.FormsInterface.Integrations.ODK = formSettingOptions.isodkchecked
+    settings.FormsInterface.Integrations.GoogleForm = formSettingOptions.isgoogleFormschecked
+    settings.FormsInterface.OfflineSupport = formSettingOptions.isofflineSupportchecked
+    settings.FormsInterface.FieldApp = formSettingOptions.isfieldAppchecked
 
 		await Create({
 			sessionId: data.sessionId,
@@ -180,12 +313,12 @@
         const tenantSettingId = data.tenantSettingId;
         const settings = {
         Integrations: {
-            PatientInterface: true,
+            PatientInterface: false,
             ChatBotInterface: false,
             FormsInterface: false
         },
         Common: {
-            VitalAndLabRecords: true,
+            VitalAndLabRecords: false,
             Nutrition:false,
             MedicationManagement:false,
             Reminders:false,
@@ -244,6 +377,53 @@
     settings.Integrations.PatientInterface = isPatientAppChecked,
     settings.Integrations.ChatBotInterface = isChatbotChecked,
     settings.Integrations.FormsInterface = isFormsChecked,
+
+    settings.Common.VitalAndLabRecords = commonSettingOptions.isVitalsAndLabRecordsChecked;
+    settings.Common.Nutrition = commonSettingOptions.isNutritionChecked;
+    settings.Common.MedicationManagement = commonSettingOptions.isMedicationManagementChecked;
+    settings.Common.Reminders = commonSettingOptions.isRemindersChecked;
+    settings.Common.ScheduledAssesments = commonSettingOptions.isScheduledAssessmentsChecked;
+    settings.Common.ExcerciseAndFitness = commonSettingOptions.isExerciseAndFitnessChecked;
+    settings.Common.FHIRResourceStorage = commonSettingOptions.isFHIRResourceStorageChecked;
+    settings.Common.Careplans.Default = commonSettingOptions.isDefaultCareplanChecked;
+    settings.Common.Careplans.Custom = commonSettingOptions.isCustomCareplanChecked;
+    settings.Common.EHIRIntegrations = commonSettingOptions.isEHRIntegrationsChecked;
+    settings.Common.ABDMIntegrations = commonSettingOptions.isABDMIntegrationChecked;
+    settings.Common.DocumentManagement = commonSettingOptions.isDocumentManagementChecked;
+
+    if (settings.Integrations.PatientInterface) {
+        settings.PatientInterface.GamificationAndAwards = patientAppSettingOptions.isGamificationAndAwardschecked;
+        settings.PatientInterface.CoursesAndLearningJourneys = patientAppSettingOptions.isCoursesAndLearningJourneyschecked;
+        settings.PatientInterface.CommunityAndUserGroups = patientAppSettingOptions.isCommunityAndUserGroupschecked;
+        settings.PatientInterface.AppointmentsAndVisits = patientAppSettingOptions.isAppointmentsAndVisitschecked;
+        settings.PatientInterface.DeviceIntegration.Terra = patientAppSettingOptions.isTerrachecked;
+        settings.PatientInterface.DeviceIntegration.SenseSemi = patientAppSettingOptions.isSenseSemichecked;
+        settings.PatientInterface.PatientReports.Default = patientAppSettingOptions.isDefaultchecked;
+        settings.PatientInterface.PatientReports.Custom = patientAppSettingOptions.isCustomchecked;
+    }
+    
+    if (settings.Integrations.ChatBotInterface) {
+        settings.ChatBotInterface.FAQ.Default = chatBotSettingOptions.isDefaultchecked;
+        settings.ChatBotInterface.FAQ.Custom = chatBotSettingOptions.isCustomchecked;
+        settings.ChatBotInterface.Integrations.ClickUp = chatBotSettingOptions.isClickUpchecked;
+        settings.ChatBotInterface.QuicksightDashboard = chatBotSettingOptions.isQuicksightDashboardchecked;
+        settings.ChatBotInterface.LocalizationSupport = chatBotSettingOptions.isLocalizationSupportchecked;
+        settings.ChatBotInterface.WhatsApp = chatBotSettingOptions.isWhatsAppchecked;
+        settings.ChatBotInterface.Telegram = chatBotSettingOptions.isTelegramchecked;
+        settings.ChatBotInterface.Integrations.Slack = chatBotSettingOptions.isSlackchecked;
+        settings.ChatBotInterface.ChatPersonalization = chatBotSettingOptions.isChatPersonlizationchecked;
+        settings.ChatBotInterface.CustomUserDBQueries = chatBotSettingOptions.isCustomUserDBQuerieschecked;
+        settings.ChatBotInterface.LocationContextualQueries = chatBotSettingOptions.isLocalizationContextualQuerieschecked;
+    }
+
+    if (settings.Integrations.FormsInterface) {
+        settings.FormsInterface.Integrations.KoboToolbox = formSettingOptions.iskoboToolboxchecked
+        settings.FormsInterface.Integrations.ODK = formSettingOptions.isodkchecked
+        settings.FormsInterface.Integrations.GoogleForm = formSettingOptions.isgoogleFormschecked
+        settings.FormsInterface.OfflineSupport = formSettingOptions.isofflineSupportchecked
+        settings.FormsInterface.FieldApp = formSettingOptions.isfieldAppchecked
+    }
+
     console.log('Updated Settings ',settings)
 		await Update({
 			sessionId: data.sessionId,
@@ -331,16 +511,16 @@
 </table>
 {/if}
 {#if commonSetting}
-    <CommonSetting/>
+    <CommonSetting bind:commonSettingOptions {...commonSettingOptions} />
 {/if}
 {#if patientAppSetting}
-    <PatientApp/>
+    <PatientApp bind:patientAppSettingOptions {...patientAppSettingOptions}/>
 {/if}
 {#if chatBotSetting}
-    <ChatBot/>
+    <ChatBot bind:chatBotSettingOptions {...chatBotSettingOptions}/>
 {/if}
 {#if formSetting}
-    <Form/>
+    <Form bind:formSettingOptions {...formSettingOptions}/>
 {/if}
 </div>
 <div class="flex p-2 justify-end">

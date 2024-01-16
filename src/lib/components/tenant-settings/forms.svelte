@@ -10,60 +10,22 @@
 	const createRoute = `/users/${userId}/tenants/settings`;
 	const tenantRoute = `/users/${userId}/tenants`;
 
-	const dispatch = createEventDispatcher();
 	
-  let iskoboToolboxchecked = false;
-	let isodkchecked = false;
-	let isgoogleFormschecked = false;
-	let isofflineSupportchecked = false;
-	let isfieldAppchecked = false;
+    export let iskoboToolboxchecked = false;
+	export let isodkchecked = false;
+	export let isgoogleFormschecked = false;
+	export let isofflineSupportchecked = false;
+	export let isfieldAppchecked = false;
 
-
-	export function handleCheckboxChange(event) {
-		if (iskoboToolboxchecked) {
-    iskoboToolboxchecked = event.target.checked;
-		}
-		else {
-			iskoboToolboxchecked = false;
-		}
-		if (isodkchecked) {
-    isodkchecked = event.target.checked;
-		}
-		else {
-			isodkchecked = false;
-		}
-		if (isgoogleFormschecked) {
-    isgoogleFormschecked = event.target.checked;
-		}
-		else {
-			isgoogleFormschecked = false;
-		}
-		if (isofflineSupportchecked) {
-    isofflineSupportchecked = event.target.checked;
-		}
-		else {
-			isofflineSupportchecked = false;
-		}
-		if (isfieldAppchecked) {
-    isfieldAppchecked = event.target.checked;
-		}
-		else {
-			isfieldAppchecked = false;
-		}    
-		let formOptions = {
-      koboToolbox: iskoboToolboxchecked,
-      odk: isodkchecked,
-      googleForm: isgoogleFormschecked,
-			offlineSupport: isofflineSupportchecked,
-      fieldApp: isfieldAppchecked,
-    };
-		dispatch('formOptionsChange', formOptions);
-  }
-
-	const breadCrumbs = [
-		{ name: 'Tenants', path: tenantRoute },
-		{ name: 'Settings', path: createRoute }
-	];
+    export let formSettingOptions;
+	
+    $: {
+        formSettingOptions.iskoboToolboxchecked = iskoboToolboxchecked;
+        formSettingOptions.isodkchecked = isodkchecked;
+        formSettingOptions.isgoogleFormschecked = isgoogleFormschecked;
+        formSettingOptions.isofflineSupportchecked = isofflineSupportchecked;
+        formSettingOptions.isfieldAppchecked = isfieldAppchecked;
+    }
 
 </script>
 
@@ -104,7 +66,6 @@
 							name="koboToolbox"
 							value="koboToolbox"
 							bind:checked={iskoboToolboxchecked} 
-							on:change={handleCheckboxChange}
 							class="ml-10 checkbox checkbox-primary border-primary-200 hover:border-primary-400 checkbox-md"
 						/>
 					</td>
@@ -118,7 +79,6 @@
 							type="checkbox"
 							name="odk"
 							bind:checked={isodkchecked} 
-							on:change={handleCheckboxChange}
 							class="ml-10 checkbox checkbox-primary border-primary-200 hover:border-primary-400 checkbox-md"
 						/>
 					</td>
@@ -134,7 +94,6 @@
 							type="checkbox"
 							name="googleForms"
 							bind:checked={isgoogleFormschecked} 
-							on:change={handleCheckboxChange}
 							class="ml-10 checkbox checkbox-primary border-primary-200 hover:border-primary-400 checkbox-md"
 						/>
 					</td>
@@ -147,7 +106,6 @@
 						type="checkbox"
 						name="offlineSupport"
 						bind:checked={isofflineSupportchecked} 
-							on:change={handleCheckboxChange}
 						class="ml-10 checkbox checkbox-primary border-primary-200 hover:border-primary-400 checkbox-md"
 					/>
 				</td>
@@ -159,7 +117,6 @@
 						type="checkbox"
 						name="fieldApp"
 						bind:checked={isfieldAppchecked} 
-						on:change={handleCheckboxChange}
 						class="ml-10 checkbox checkbox-primary border-primary-200 hover:border-primary-400 checkbox-md"
 					/>
 				</td>
