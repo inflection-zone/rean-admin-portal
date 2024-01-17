@@ -1,16 +1,11 @@
 <script lang="ts">
 	import { page } from '$app/stores';
-	import BreadCrumbs from '$lib/components/breadcrumbs/breadcrums.svelte';
-	// import Icon from '$lib/components/icon.svelte';
 	import { createEventDispatcher } from 'svelte';
 
 	/////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 	const userId = $page.params.userId;
-	const createRoute = `/users/${userId}/tenants/settings`;
 	const tenantRoute = `/users/${userId}/tenants`;
-
-	const dispatch = createEventDispatcher();
 
 	export let isDefaultchecked = false;
 	export let isCustomchecked = false;
@@ -23,7 +18,7 @@
 	export let isChatPersonlizationchecked = false;
 	export let isCustomUserDBQuerieschecked = false;
 	export let isLocalizationContextualQuerieschecked = false;
-
+    export let edit;
     export let chatBotSettingOptions;
 
     $: {
@@ -56,8 +51,6 @@
 
 </script>
 
-<!-- <BreadCrumbs crumbs={breadCrumbs} /> -->
-
 <form
 	method="post"
 	class="table-container my-2 border border-secondary-100 dark:!border-surface-700 overflow-hidden"
@@ -68,12 +61,6 @@
 				<th>Chat Bot</th>
 				<th class="text-end">
 					<a href={tenantRoute} class="btn px-0 w-8 h-8 variant-soft-secondary">
-						<!-- <Icon
-							cls="stroke-primary-500 stroke-2 fill-none"
-							h="100%"
-							w="100%"
-							iconPath="/images/others/arrow-up.svg#icon"
-						/> -->
 					</a>
 				</th>
 			</tr>
@@ -89,12 +76,18 @@
 				<tr class="!bg-white !border-b !border-b-secondary-100 dark:!border-b-surface-700">
 					<div class="ml-24">
 						<td>
-							<input
-								type="checkbox"
-								name="clickUp"
-								bind:checked={isClickUpchecked} 
-								class="ml-9 checkbox checkbox-primary border-primary-200 hover:border-primary-400 checkbox-md"
-							/>
+                            {#if edit === true && isClickUpchecked === true}
+                            <span class="tick text-green-500 ml-10">✔</span>
+                            {:else}
+                                <input
+                                    type="checkbox"
+                                    name="clickUp"
+                                    disabled = {edit}
+                                    bind:checked={isClickUpchecked} 
+                                    class="ml-9 checkbox checkbox-primary border-primary-200 hover:border-primary-400 checkbox-md"
+                                />
+                            {/if}                            
+
 						</td>
 						<td class="ml-4">ClickUp</td>
 					</div>
@@ -102,12 +95,18 @@
 				<tr class="!bg-white !border-b !border-b-secondary-100 dark:!border-b-surface-700 w-3/4">
 					<div class="ml-8">
 						<td>
-							<input
-								type="checkbox"
-								name="slack"
-								bind:checked={isSlackchecked} 
-								class="ml-10 checkbox checkbox-primary border-primary-200 hover:border-primary-400 checkbox-md"
-							/>
+                            {#if edit === true && isSlackchecked === true}
+                                <span class="tick text-green-500 ml-10">✔</span>
+                            {:else}
+                                <input
+                                    type="checkbox"
+                                    name="slack"
+                                    disabled = {edit}
+                                    bind:checked={isSlackchecked} 
+                                    class="ml-10 checkbox checkbox-primary border-primary-200 hover:border-primary-400 checkbox-md"
+                                />
+                            {/if}                             
+
 						</td>
 						<td class="ml-4">Slack</td>
 					</div>
@@ -115,12 +114,18 @@
 			</div>
 			<tr class="!bg-white !border-b !border-b-secondary-100 dark:!border-b-surface-700">
 				<td>
-					<input
-						type="checkbox"
-						name="localizationSupport"
-						bind:checked={isLocalizationSupportchecked} 
-						class="ml-10 checkbox checkbox-primary border-primary-200 hover:border-primary-400 checkbox-md"
-					/>
+                    {#if edit === true && isLocalizationSupportchecked === true}
+                        <span class="tick text-green-500 ml-10">✔</span>
+                    {:else}
+                        <input
+                            type="checkbox"
+                            name="localizationSupport"
+                            disabled = {edit}
+                            bind:checked={isLocalizationSupportchecked} 
+                            class="ml-10 checkbox checkbox-primary border-primary-200 hover:border-primary-400 checkbox-md"
+                        />
+                    {/if}                            
+
 				</td>
 				<td class="ml-4">Localization Support</td>
 			</tr>
@@ -133,12 +138,18 @@
 				<tr class="!bg-white !border-b !border-b-secondary-100 dark:!border-b-surface-700">
 					<div class="ml-11">
 						<td>
-						<input
-							type="checkbox"
-							name="whatsApp"
-							bind:checked={isWhatsAppchecked} 
-							class="ml-10 checkbox checkbox-primary border-primary-200 hover:border-primary-400 checkbox-md"
-						/>
+                            {#if edit === true && isWhatsAppchecked === true}
+                                <span class="tick text-green-500 ml-10">✔</span>
+                            {:else}
+                                <input
+                                    type="checkbox"
+                                    name="whatsApp"
+                                    disabled = {edit}
+                                    bind:checked={isWhatsAppchecked} 
+                                    class="ml-10 checkbox checkbox-primary border-primary-200 hover:border-primary-400 checkbox-md"
+                                />
+                            {/if}                               
+
 					</td>
 					<td class="ml-4">WhatsApp</td>
 				</tr>
@@ -146,12 +157,17 @@
 				<tr class="!bg-white !border-b !border-b-secondary-100 dark:!border-b-surface-700 w-full">
 					<div class="ml-4">
 						<td>
-							<input
-								type="checkbox"
-								name="telegram"
-								bind:checked={isTelegramchecked} 
-								class="ml-10 checkbox checkbox-primary border-primary-200 hover:border-primary-400 checkbox-md"
-							/>
+                            {#if edit === true && isTelegramchecked === true}
+                                <span class="tick text-green-500 ml-10">✔</span>
+                            {:else}
+                                <input
+                                    type="checkbox"
+                                    name="telegram"
+                                    disabled = {edit}
+                                    bind:checked={isTelegramchecked} 
+                                    class="ml-10 checkbox checkbox-primary border-primary-200 hover:border-primary-400 checkbox-md"
+                                />
+                            {/if}                                  
 						</td>
 						<td class="ml-4">Telegram</td>
 					</div></tr
@@ -166,14 +182,20 @@
 				<tr class="!bg-white !border-b !border-b-secondary-100 dark:!border-b-surface-700">
 					<div class="ml-36">
 						<td>
-							<input
-								type="radio"
-								name="FAQ"
-                                value="Default"
-                                checked={isDefaultchecked}
-								on:change={handleFaqOptionChange}
-								class="ml-10 radio rounded-full radio-primary border-primary-200 hover:border-primary-400 radio-md"
-							/>
+                            {#if edit === true && isDefaultchecked === true}
+                                <span class="tick text-green-500 ml-10">✔</span>
+                            {:else}
+                                <input
+                                    type="radio"
+                                    name="FAQ"
+                                    value="Default"
+                                    disabled = {edit}
+                                    checked={isDefaultchecked}
+                                    on:change={handleFaqOptionChange}
+                                    class="ml-10 radio rounded-full radio-primary border-primary-200 hover:border-primary-400 radio-md"
+                                />
+                            {/if}                                     
+
 						</td>
 						<td>Default</td>
 					</div>
@@ -181,14 +203,20 @@
 				<tr class="!bg-white !border-b !border-b-secondary-100 dark:!border-b-surface-700 w-3/4">
 					<div class="ml-8">
 						<td>
-							<input
-								type="radio"
-								name="FAQ"
-                                value="Custom"
-                                checked={isCustomchecked}
-								on:change={handleFaqOptionChange}
-								class="ml-10 radio rounded-full radio-primary border-primary-200 hover:border-primary-400 radio-md"
-							/>
+                            {#if edit === true && isCustomchecked === true}
+                                <span class="tick text-green-500 ml-10">✔</span>
+                            {:else}
+                                <input
+                                    type="radio"
+                                    name="FAQ"
+                                    value="Custom"
+                                    disabled = {edit}
+                                    checked={isCustomchecked}
+                                    on:change={handleFaqOptionChange}
+                                    class="ml-10 radio rounded-full radio-primary border-primary-200 hover:border-primary-400 radio-md"
+                                />
+                            {/if}                                       
+
 						</td>
 						<td class="ml-4">Custom</td>
 					</div>
@@ -196,51 +224,70 @@
 			</div>
 			<tr class="!bg-white !border-b !border-b-secondary-100 dark:!border-b-surface-700">
 				<td>
-					<input
-						type="checkbox"
-						name="quicksightDashboard"
-						bind:checked={isQuicksightDashboardchecked} 
-						class="ml-10 checkbox checkbox-primary border-primary-200 hover:border-primary-400 checkbox-md"
-					/>
+                    {#if edit === true && isQuicksightDashboardchecked === true}
+                    <span class="tick text-green-500 ml-10">✔</span>
+                    {:else}
+                        <input
+                            type="checkbox"
+                            name="quicksightDashboard"
+                            disabled = {edit}
+                            bind:checked={isQuicksightDashboardchecked} 
+                            class="ml-10 checkbox checkbox-primary border-primary-200 hover:border-primary-400 checkbox-md"
+                        />
+                    {/if}                                       
 				</td>
 				<td class="ml-4">Quicksight Dashboard</td>
 			</tr>
 			<tr class="!bg-white !border-b !border-b-secondary-100 dark:!border-b-surface-700">
 				<td>
-					<input
-						type="checkbox"
-						name="chatPersonlization"
-						bind:checked={isChatPersonlizationchecked} 
-						class="ml-10 checkbox checkbox-primary border-primary-200 hover:border-primary-400 checkbox-md"
-					/>
-				</td>
+                    {#if edit === true && isChatPersonlizationchecked === true}
+                    <span class="tick text-green-500 ml-10">✔</span>
+                    {:else}
+                        <input
+                            type="checkbox"
+                            name="chatPersonlization"
+                            disabled = {edit}
+                            bind:checked={isChatPersonlizationchecked} 
+                            class="ml-10 checkbox checkbox-primary border-primary-200 hover:border-primary-400 checkbox-md"
+                        />
+                    {/if}        
+    			</td>
 				<td class="ml-4">Chat Personlization</td>
 			</tr>
 			<div class="flex flex-row">
 				<tr class="!bg-white !border-b !border-b-secondary-100 dark:!border-b-surface-700">
 					<td>
-						<input
-							type="checkbox"
-							name="customUserDBQueries"
-							bind:checked={isCustomUserDBQuerieschecked} 
-							class="ml-10 checkbox checkbox-primary border-primary-200 hover:border-primary-400 checkbox-md"
-						/>
-					</td>
+                        {#if edit === true && isCustomUserDBQuerieschecked === true}
+                            <span class="tick text-green-500 ml-10">✔</span>
+                        {:else}
+                            <input
+                                type="checkbox"
+                                name="customUserDBQueries"
+                                disabled = {edit}
+                                bind:checked={isCustomUserDBQuerieschecked} 
+                                class="ml-10 checkbox checkbox-primary border-primary-200 hover:border-primary-400 checkbox-md"
+                            />
+                        {/if}     
+    				</td>
 					<td class="ml-4 w-[400px]">Custom User DB Queries</td>
 				</tr>
 				<tr class="!bg-white !border-b !border-b-secondary-100 dark:!border-b-surface-700 w-full">
 					<div class="">
 						<td>
-							<input
-								type="checkbox"
-								name="localizationContextualQueries"
-								bind:checked={isLocalizationContextualQuerieschecked} 
-								class="ml-10 checkbox checkbox-primary border-primary-200 hover:border-primary-400 checkbox-md"
-							/>
+                            {#if edit === true && isLocalizationContextualQuerieschecked === true}
+                                <span class="tick text-green-500 ml-10">✔</span>
+                            {:else}
+                                <input
+                                    type="checkbox"
+                                    name="localizationContextualQueries"
+                                    disabled = {edit}
+                                    bind:checked={isLocalizationContextualQuerieschecked} 
+                                    class="ml-10 checkbox checkbox-primary border-primary-200 hover:border-primary-400 checkbox-md"
+                                />
+                            {/if}     
 						</td>
 						<td class="ml-4">Location Contextual Queries</td>
-					</div></tr
-				>
+					</div></tr>
 			</div>
 		</tbody>
 	</table>

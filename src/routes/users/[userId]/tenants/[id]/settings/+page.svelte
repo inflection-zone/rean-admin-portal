@@ -6,11 +6,11 @@
     import BreadCrumbs from '$lib/components/breadcrumbs/breadcrums.svelte';
     import { page } from '$app/stores';
     import Icon from '@iconify/svelte';
-    import { goto, invalidateAll } from '$app/navigation';
+    import { goto } from '$app/navigation';
     import type { PageServerData } from './$types';
-    import { bubble } from 'svelte/internal';
-
+    
     /////////////////////////////////////////////////////////////////////////
+    
     $:integrationSettings = {
             PatientInterface: false,
             ChatBotInterface: false,
@@ -33,6 +33,10 @@
 		}
 	];
     let disabled = false;
+
+    $: edit = disabled;
+    $: console.log('EDIT ALLOWED ',edit)
+
     console.log('$page param:',$page.params)
     const id = $page.params.id;
     // const userId = $page.params.userId;
@@ -140,6 +144,7 @@
         formSettingOptions.isfieldAppchecked = data.settings.FormsInterface.FieldApp
 
         disabled = true;
+        edit = disabled;
     }
 
     $:console.log('COMMON SETTINGS ', commonSettingOptions)
@@ -256,55 +261,55 @@
             FieldApp:false
         }
     }
-    settings.Integrations.PatientInterface = isPatientAppChecked,
-    settings.Integrations.ChatBotInterface = isChatbotChecked,
-    settings.Integrations.FormsInterface = isFormsChecked,
+        settings.Integrations.PatientInterface = isPatientAppChecked,
+        settings.Integrations.ChatBotInterface = isChatbotChecked,
+        settings.Integrations.FormsInterface = isFormsChecked,
 
-    settings.Common.VitalAndLabRecords = commonSettingOptions.isVitalsAndLabRecordsChecked;
-    settings.Common.Nutrition = commonSettingOptions.isNutritionChecked;
-    settings.Common.MedicationManagement = commonSettingOptions.isMedicationManagementChecked;
-    settings.Common.Reminders = commonSettingOptions.isRemindersChecked;
-    settings.Common.ScheduledAssesments = commonSettingOptions.isScheduledAssessmentsChecked;
-    settings.Common.ExcerciseAndFitness = commonSettingOptions.isExerciseAndFitnessChecked;
-    settings.Common.FHIRResourceStorage = commonSettingOptions.isFHIRResourceStorageChecked;
-    settings.Common.Careplans.Default = commonSettingOptions.isDefaultCareplanChecked;
-    settings.Common.Careplans.Custom = commonSettingOptions.isCustomCareplanChecked;
-    settings.Common.EHIRIntegrations = commonSettingOptions.isEHRIntegrationsChecked;
-    settings.Common.ABDMIntegrations = commonSettingOptions.isABDMIntegrationChecked;
-    settings.Common.DocumentManagement = commonSettingOptions.isDocumentManagementChecked;
+        settings.Common.VitalAndLabRecords = commonSettingOptions.isVitalsAndLabRecordsChecked;
+        settings.Common.Nutrition = commonSettingOptions.isNutritionChecked;
+        settings.Common.MedicationManagement = commonSettingOptions.isMedicationManagementChecked;
+        settings.Common.Reminders = commonSettingOptions.isRemindersChecked;
+        settings.Common.ScheduledAssesments = commonSettingOptions.isScheduledAssessmentsChecked;
+        settings.Common.ExcerciseAndFitness = commonSettingOptions.isExerciseAndFitnessChecked;
+        settings.Common.FHIRResourceStorage = commonSettingOptions.isFHIRResourceStorageChecked;
+        settings.Common.Careplans.Default = commonSettingOptions.isDefaultCareplanChecked;
+        settings.Common.Careplans.Custom = commonSettingOptions.isCustomCareplanChecked;
+        settings.Common.EHIRIntegrations = commonSettingOptions.isEHRIntegrationsChecked;
+        settings.Common.ABDMIntegrations = commonSettingOptions.isABDMIntegrationChecked;
+        settings.Common.DocumentManagement = commonSettingOptions.isDocumentManagementChecked;
 
-    settings.PatientInterface.GamificationAndAwards = patientAppSettingOptions.isGamificationAndAwardschecked;
-    settings.PatientInterface.CoursesAndLearningJourneys = patientAppSettingOptions.isCoursesAndLearningJourneyschecked;
-    settings.PatientInterface.CommunityAndUserGroups = patientAppSettingOptions.isCommunityAndUserGroupschecked;
-    settings.PatientInterface.AppointmentsAndVisits = patientAppSettingOptions.isAppointmentsAndVisitschecked;
-    settings.PatientInterface.DeviceIntegration.Terra = patientAppSettingOptions.isTerrachecked;
-    settings.PatientInterface.DeviceIntegration.SenseSemi = patientAppSettingOptions.isSenseSemichecked;
-    settings.PatientInterface.PatientReports.Default = patientAppSettingOptions.isDefaultchecked;
-    settings.PatientInterface.PatientReports.Custom = patientAppSettingOptions.isCustomchecked;
+        settings.PatientInterface.GamificationAndAwards = patientAppSettingOptions.isGamificationAndAwardschecked;
+        settings.PatientInterface.CoursesAndLearningJourneys = patientAppSettingOptions.isCoursesAndLearningJourneyschecked;
+        settings.PatientInterface.CommunityAndUserGroups = patientAppSettingOptions.isCommunityAndUserGroupschecked;
+        settings.PatientInterface.AppointmentsAndVisits = patientAppSettingOptions.isAppointmentsAndVisitschecked;
+        settings.PatientInterface.DeviceIntegration.Terra = patientAppSettingOptions.isTerrachecked;
+        settings.PatientInterface.DeviceIntegration.SenseSemi = patientAppSettingOptions.isSenseSemichecked;
+        settings.PatientInterface.PatientReports.Default = patientAppSettingOptions.isDefaultchecked;
+        settings.PatientInterface.PatientReports.Custom = patientAppSettingOptions.isCustomchecked;
 
-    settings.ChatBotInterface.FAQ.Default = chatBotSettingOptions.isDefaultchecked;
-    settings.ChatBotInterface.FAQ.Custom = chatBotSettingOptions.isCustomchecked;
-    settings.ChatBotInterface.Integrations.ClickUp = chatBotSettingOptions.isClickUpchecked;
-    settings.ChatBotInterface.QuicksightDashboard = chatBotSettingOptions.isQuicksightDashboardchecked;
-    settings.ChatBotInterface.LocalizationSupport = chatBotSettingOptions.isLocalizationSupportchecked;
-    settings.ChatBotInterface.WhatsApp = chatBotSettingOptions.isWhatsAppchecked;
-    settings.ChatBotInterface.Telegram = chatBotSettingOptions.isTelegramchecked;
-    settings.ChatBotInterface.Integrations.Slack = chatBotSettingOptions.isSlackchecked;
-    settings.ChatBotInterface.ChatPersonalization = chatBotSettingOptions.isChatPersonlizationchecked;
-    settings.ChatBotInterface.CustomUserDBQueries = chatBotSettingOptions.isCustomUserDBQuerieschecked;
-    settings.ChatBotInterface.LocationContextualQueries = chatBotSettingOptions.isLocalizationContextualQuerieschecked;
+        settings.ChatBotInterface.FAQ.Default = chatBotSettingOptions.isDefaultchecked;
+        settings.ChatBotInterface.FAQ.Custom = chatBotSettingOptions.isCustomchecked;
+        settings.ChatBotInterface.Integrations.ClickUp = chatBotSettingOptions.isClickUpchecked;
+        settings.ChatBotInterface.QuicksightDashboard = chatBotSettingOptions.isQuicksightDashboardchecked;
+        settings.ChatBotInterface.LocalizationSupport = chatBotSettingOptions.isLocalizationSupportchecked;
+        settings.ChatBotInterface.WhatsApp = chatBotSettingOptions.isWhatsAppchecked;
+        settings.ChatBotInterface.Telegram = chatBotSettingOptions.isTelegramchecked;
+        settings.ChatBotInterface.Integrations.Slack = chatBotSettingOptions.isSlackchecked;
+        settings.ChatBotInterface.ChatPersonalization = chatBotSettingOptions.isChatPersonlizationchecked;
+        settings.ChatBotInterface.CustomUserDBQueries = chatBotSettingOptions.isCustomUserDBQuerieschecked;
+        settings.ChatBotInterface.LocationContextualQueries = chatBotSettingOptions.isLocalizationContextualQuerieschecked;
 
-    settings.FormsInterface.Integrations.KoboToolbox = formSettingOptions.iskoboToolboxchecked
-    settings.FormsInterface.Integrations.ODK = formSettingOptions.isodkchecked
-    settings.FormsInterface.Integrations.GoogleForm = formSettingOptions.isgoogleFormschecked
-    settings.FormsInterface.OfflineSupport = formSettingOptions.isofflineSupportchecked
-    settings.FormsInterface.FieldApp = formSettingOptions.isfieldAppchecked
+        settings.FormsInterface.Integrations.KoboToolbox = formSettingOptions.iskoboToolboxchecked
+        settings.FormsInterface.Integrations.ODK = formSettingOptions.isodkchecked
+        settings.FormsInterface.Integrations.GoogleForm = formSettingOptions.isgoogleFormschecked
+        settings.FormsInterface.OfflineSupport = formSettingOptions.isofflineSupportchecked
+        settings.FormsInterface.FieldApp = formSettingOptions.isfieldAppchecked
 
-		await Create({
-			sessionId: data.sessionId,
-			tenantId,
+        await Create({
+            sessionId: data.sessionId,
+            tenantId,
             settings
-		});
+        });
         goto(`/users/${userId}/tenants/${id}/view`)
     }
 
@@ -374,62 +379,62 @@
             FieldApp:false
         }
     }
-    settings.Integrations.PatientInterface = isPatientAppChecked,
-    settings.Integrations.ChatBotInterface = isChatbotChecked,
-    settings.Integrations.FormsInterface = isFormsChecked,
+        settings.Integrations.PatientInterface = isPatientAppChecked,
+        settings.Integrations.ChatBotInterface = isChatbotChecked,
+        settings.Integrations.FormsInterface = isFormsChecked,
 
-    settings.Common.VitalAndLabRecords = commonSettingOptions.isVitalsAndLabRecordsChecked;
-    settings.Common.Nutrition = commonSettingOptions.isNutritionChecked;
-    settings.Common.MedicationManagement = commonSettingOptions.isMedicationManagementChecked;
-    settings.Common.Reminders = commonSettingOptions.isRemindersChecked;
-    settings.Common.ScheduledAssesments = commonSettingOptions.isScheduledAssessmentsChecked;
-    settings.Common.ExcerciseAndFitness = commonSettingOptions.isExerciseAndFitnessChecked;
-    settings.Common.FHIRResourceStorage = commonSettingOptions.isFHIRResourceStorageChecked;
-    settings.Common.Careplans.Default = commonSettingOptions.isDefaultCareplanChecked;
-    settings.Common.Careplans.Custom = commonSettingOptions.isCustomCareplanChecked;
-    settings.Common.EHIRIntegrations = commonSettingOptions.isEHRIntegrationsChecked;
-    settings.Common.ABDMIntegrations = commonSettingOptions.isABDMIntegrationChecked;
-    settings.Common.DocumentManagement = commonSettingOptions.isDocumentManagementChecked;
+        settings.Common.VitalAndLabRecords = commonSettingOptions.isVitalsAndLabRecordsChecked;
+        settings.Common.Nutrition = commonSettingOptions.isNutritionChecked;
+        settings.Common.MedicationManagement = commonSettingOptions.isMedicationManagementChecked;
+        settings.Common.Reminders = commonSettingOptions.isRemindersChecked;
+        settings.Common.ScheduledAssesments = commonSettingOptions.isScheduledAssessmentsChecked;
+        settings.Common.ExcerciseAndFitness = commonSettingOptions.isExerciseAndFitnessChecked;
+        settings.Common.FHIRResourceStorage = commonSettingOptions.isFHIRResourceStorageChecked;
+        settings.Common.Careplans.Default = commonSettingOptions.isDefaultCareplanChecked;
+        settings.Common.Careplans.Custom = commonSettingOptions.isCustomCareplanChecked;
+        settings.Common.EHIRIntegrations = commonSettingOptions.isEHRIntegrationsChecked;
+        settings.Common.ABDMIntegrations = commonSettingOptions.isABDMIntegrationChecked;
+        settings.Common.DocumentManagement = commonSettingOptions.isDocumentManagementChecked;
 
-    if (settings.Integrations.PatientInterface) {
-        settings.PatientInterface.GamificationAndAwards = patientAppSettingOptions.isGamificationAndAwardschecked;
-        settings.PatientInterface.CoursesAndLearningJourneys = patientAppSettingOptions.isCoursesAndLearningJourneyschecked;
-        settings.PatientInterface.CommunityAndUserGroups = patientAppSettingOptions.isCommunityAndUserGroupschecked;
-        settings.PatientInterface.AppointmentsAndVisits = patientAppSettingOptions.isAppointmentsAndVisitschecked;
-        settings.PatientInterface.DeviceIntegration.Terra = patientAppSettingOptions.isTerrachecked;
-        settings.PatientInterface.DeviceIntegration.SenseSemi = patientAppSettingOptions.isSenseSemichecked;
-        settings.PatientInterface.PatientReports.Default = patientAppSettingOptions.isDefaultchecked;
-        settings.PatientInterface.PatientReports.Custom = patientAppSettingOptions.isCustomchecked;
-    }
-    
-    if (settings.Integrations.ChatBotInterface) {
-        settings.ChatBotInterface.FAQ.Default = chatBotSettingOptions.isDefaultchecked;
-        settings.ChatBotInterface.FAQ.Custom = chatBotSettingOptions.isCustomchecked;
-        settings.ChatBotInterface.Integrations.ClickUp = chatBotSettingOptions.isClickUpchecked;
-        settings.ChatBotInterface.QuicksightDashboard = chatBotSettingOptions.isQuicksightDashboardchecked;
-        settings.ChatBotInterface.LocalizationSupport = chatBotSettingOptions.isLocalizationSupportchecked;
-        settings.ChatBotInterface.WhatsApp = chatBotSettingOptions.isWhatsAppchecked;
-        settings.ChatBotInterface.Telegram = chatBotSettingOptions.isTelegramchecked;
-        settings.ChatBotInterface.Integrations.Slack = chatBotSettingOptions.isSlackchecked;
-        settings.ChatBotInterface.ChatPersonalization = chatBotSettingOptions.isChatPersonlizationchecked;
-        settings.ChatBotInterface.CustomUserDBQueries = chatBotSettingOptions.isCustomUserDBQuerieschecked;
-        settings.ChatBotInterface.LocationContextualQueries = chatBotSettingOptions.isLocalizationContextualQuerieschecked;
-    }
+        if (settings.Integrations.PatientInterface) {
+            settings.PatientInterface.GamificationAndAwards = patientAppSettingOptions.isGamificationAndAwardschecked;
+            settings.PatientInterface.CoursesAndLearningJourneys = patientAppSettingOptions.isCoursesAndLearningJourneyschecked;
+            settings.PatientInterface.CommunityAndUserGroups = patientAppSettingOptions.isCommunityAndUserGroupschecked;
+            settings.PatientInterface.AppointmentsAndVisits = patientAppSettingOptions.isAppointmentsAndVisitschecked;
+            settings.PatientInterface.DeviceIntegration.Terra = patientAppSettingOptions.isTerrachecked;
+            settings.PatientInterface.DeviceIntegration.SenseSemi = patientAppSettingOptions.isSenseSemichecked;
+            settings.PatientInterface.PatientReports.Default = patientAppSettingOptions.isDefaultchecked;
+            settings.PatientInterface.PatientReports.Custom = patientAppSettingOptions.isCustomchecked;
+        }
+        
+        if (settings.Integrations.ChatBotInterface) {
+            settings.ChatBotInterface.FAQ.Default = chatBotSettingOptions.isDefaultchecked;
+            settings.ChatBotInterface.FAQ.Custom = chatBotSettingOptions.isCustomchecked;
+            settings.ChatBotInterface.Integrations.ClickUp = chatBotSettingOptions.isClickUpchecked;
+            settings.ChatBotInterface.QuicksightDashboard = chatBotSettingOptions.isQuicksightDashboardchecked;
+            settings.ChatBotInterface.LocalizationSupport = chatBotSettingOptions.isLocalizationSupportchecked;
+            settings.ChatBotInterface.WhatsApp = chatBotSettingOptions.isWhatsAppchecked;
+            settings.ChatBotInterface.Telegram = chatBotSettingOptions.isTelegramchecked;
+            settings.ChatBotInterface.Integrations.Slack = chatBotSettingOptions.isSlackchecked;
+            settings.ChatBotInterface.ChatPersonalization = chatBotSettingOptions.isChatPersonlizationchecked;
+            settings.ChatBotInterface.CustomUserDBQueries = chatBotSettingOptions.isCustomUserDBQuerieschecked;
+            settings.ChatBotInterface.LocationContextualQueries = chatBotSettingOptions.isLocalizationContextualQuerieschecked;
+        }
 
-    if (settings.Integrations.FormsInterface) {
-        settings.FormsInterface.Integrations.KoboToolbox = formSettingOptions.iskoboToolboxchecked
-        settings.FormsInterface.Integrations.ODK = formSettingOptions.isodkchecked
-        settings.FormsInterface.Integrations.GoogleForm = formSettingOptions.isgoogleFormschecked
-        settings.FormsInterface.OfflineSupport = formSettingOptions.isofflineSupportchecked
-        settings.FormsInterface.FieldApp = formSettingOptions.isfieldAppchecked
-    }
+        if (settings.Integrations.FormsInterface) {
+            settings.FormsInterface.Integrations.KoboToolbox = formSettingOptions.iskoboToolboxchecked
+            settings.FormsInterface.Integrations.ODK = formSettingOptions.isodkchecked
+            settings.FormsInterface.Integrations.GoogleForm = formSettingOptions.isgoogleFormschecked
+            settings.FormsInterface.OfflineSupport = formSettingOptions.isofflineSupportchecked
+            settings.FormsInterface.FieldApp = formSettingOptions.isfieldAppchecked
+        }
 
-    console.log('Updated Settings ',settings)
-		await Update({
-			sessionId: data.sessionId,
-			tenantSettingId,
+        console.log('Updated Settings ',settings)
+        await Update({
+            sessionId: data.sessionId,
+            tenantSettingId,
             settings
-		});
+        });
         goto(`/users/${userId}/tenants/${id}/view`)
     }
 
@@ -452,10 +457,13 @@
 	}
 
 </script>
+
 <BreadCrumbs crumbs={breadCrumbs} />
+
 <div class="flex w-full flex-wrap justify-end gap-2 mb-2">
     <button class="btn variant-filled-secondary" on:click={() => {
-        disabled = false
+        disabled = false;
+        edit = disabled;
     }}>
 		<Icon icon="material-symbols:edit-outline" />
 		<span>Edit</span>
@@ -473,411 +481,103 @@
     <tbody class="!bg-white dark:!bg-inherit flex flex-col w-[1183px]">
         <tr class="!border-b !border-b-secondary-100 dark:!border-b-surface-700">
             <td>
+              {#if edit === true && isPatientAppChecked === true}
+                <span class="tick text-green-500 ml-10">✔</span>
+              {:else}
                 <input
                     type="checkbox"
                     name="patientApp"
                     disabled = {disabled}
                     bind:checked={isPatientAppChecked}
                     class="ml-10 checkbox checkbox-primary border-primary-200 hover:border-primary-400 checkbox-md"
-                    />
-            </td>
+                />
+              {/if}
+               </td>
             <td class="ml-4">Patient App</td>
         </tr>
         <tr class="!bg-white !border-b !border-b-secondary-100 dark:!border-b-surface-700">
             <td>
-                <input
-                    type="checkbox"
-                    name="chatBot"
-                    disabled = {disabled}
-                    bind:checked={isChatbotChecked}
-                    class="ml-10 checkbox checkbox-primary border-primary-200 hover:border-primary-400 checkbox-md"
-                />
+                {#if edit === true && isChatbotChecked === true}
+                    <span class="tick text-green-500 ml-10">✔</span>
+                {:else}
+                    <input
+                        type="checkbox"
+                        name="chatBot"
+                        disabled = {disabled}
+                        bind:checked={isChatbotChecked}
+                        class="ml-10 checkbox checkbox-primary border-primary-200 hover:border-primary-400 checkbox-md"
+                    />
+                {/if}
+                
             </td>
             <td class="ml-4">Chat bot</td>
         </tr>
         <tr class="!bg-white !border-b !border-b-secondary-100 dark:!border-b-surface-700">
             <td>
-                <input
-                    type="checkbox"
-                    name="form"
-                    disabled = {disabled}
-                    bind:checked={isFormsChecked}
-                    class="ml-10 checkbox checkbox-primary border-primary-200 hover:border-primary-400 checkbox-md"
-                />
+                {#if edit === true && isFormsChecked === true}
+                    <span class="tick text-green-500 ml-10">✔</span>
+                {:else}
+                    <input
+                        type="checkbox"
+                        name="form"
+                        disabled = {disabled}
+                        bind:checked={isFormsChecked}
+                        class="ml-10 checkbox checkbox-primary border-primary-200 hover:border-primary-400 checkbox-md"
+                    />
+                {/if}
+                
             </td>
             <td class="ml-4">Forms</td>
         </tr>
     </tbody>
 </table>
 {/if}
+
 {#if commonSetting}
-    <CommonSetting bind:commonSettingOptions {...commonSettingOptions} />
+    <CommonSetting bind:commonSettingOptions {...commonSettingOptions} {edit}  />
 {/if}
+
 {#if patientAppSetting}
-    <PatientApp bind:patientAppSettingOptions {...patientAppSettingOptions}/>
+    <PatientApp bind:patientAppSettingOptions {...patientAppSettingOptions} {edit}/>
 {/if}
+
 {#if chatBotSetting}
-    <ChatBot bind:chatBotSettingOptions {...chatBotSettingOptions}/>
+    <ChatBot bind:chatBotSettingOptions {...chatBotSettingOptions} {edit}/>
 {/if}
+
 {#if formSetting}
-    <Form bind:formSettingOptions {...formSettingOptions}/>
+    <Form bind:formSettingOptions {...formSettingOptions} {edit}/>
 {/if}
+
 </div>
-<div class="flex p-2 justify-end">
-    <button class="btn variant-filled-secondary" disabled={ isPatientAppChecked ? false :(isChatbotChecked ? false :(isFormsChecked ? false :true))} on:click={()=>{
-        if (initial === true){
-            setIntegrationOptions();
-        }
-        if (index === -1){
-            goToNextSetting(index);
-            index += 1;
-        }else {
-            if (integrations[0]) {
-                goToNextSetting(0);
-                integrations[0] = false;
-                submit -=1;
-            } else if (integrations[1]) {
-                goToNextSetting(1);
-                integrations[1] = false;
-                submit -=1;
-            } else if (integrations[2]) {
-                goToNextSetting(2);
-                integrations[2] = false;
-                submit -=1;
+    <div class="flex p-2 justify-end">
+        <button class="btn variant-filled-secondary" disabled={ isPatientAppChecked ? false :(isChatbotChecked ? false :(isFormsChecked ? false :true))} on:click={()=>{
+            if (initial === true){
+                setIntegrationOptions();
+            }
+            if (index === -1){
+                goToNextSetting(index);
+                index += 1;
             }else {
-                if (!createSetting) {
-                    handleUpdateTenantSettings()
-                } else {
-                    handleCreateTenantSettings()
+                if (integrations[0]) {
+                    goToNextSetting(0);
+                    integrations[0] = false;
+                    submit -= 1;
+                } else if (integrations[1]) {
+                    goToNextSetting(1);
+                    integrations[1] = false;
+                    submit -= 1;
+                } else if (integrations[2]) {
+                    goToNextSetting(2);
+                    integrations[2] = false;
+                    submit -= 1;
+                }else {
+                    if (!createSetting) {
+                        handleUpdateTenantSettings()
+                    } else {
+                        handleCreateTenantSettings()
+                    }
                 }
             }
-        }
-    }}>{submit === 0 ? !createSetting ? "Update" : "Submit" : "Next"}</button>
+        }}>{submit === 0 ? !createSetting ? "Update" : "Submit" : "Next"}</button>
 </div>
-
-
-
-<!-- <script lang="ts">
-    import Form from '$lib/components/tenant-settings/forms.svelte';
-    import PatientApp from '$lib/components/tenant-settings/patient-app.svelte';
-    import ChatBot from '$lib/components/tenant-settings/chat-bot.svelte';
-    import CommonSetting from '$lib/components/tenant-settings/common-setting.svelte';
-    import { page } from '$app/stores';
-    import { goto, invalidateAll } from '$app/navigation';
-    import type { PageServerData } from './$types';
-
-    /////////////////////////////////////////////////////////////////////////
-    console.log('$page param:',$page.params)
-    const id = $page.params.id;
-    const userId = $page.params.userId;
-    export let data: PageServerData;
-    $:createSetting = data.tenantSettingId ? 0 : 1;
-    console.log('Data',data);
-    const tenantSetting = data.settings;
-    console.log('Tenant Setting = ',tenantSetting)
-    const integrations = [];
-    let isPatientAppChecked = false;
-    let isChatbotChecked = false;
-    let isFormsChecked = false;
-    let submit;
-    let index = -1;
-    $: initial = true;
-    $: chatBotSetting = false;
-    $: commonSetting = false;
-    $: patientAppSetting = false;
-    $: formSetting = false;
-    function goToNextSetting(index) {
-        if (index === -1) {
-            initial = false;
-            commonSetting = true;
-        }
-        if (index === 0) {
-            commonSetting = false;
-            patientAppSetting = true;
-        }
-        if (index === 1) {
-            commonSetting = false;
-            patientAppSetting = false;
-            chatBotSetting = true;
-        }
-        if (index === 2) {
-            commonSetting = false;
-            patientAppSetting = false;
-            chatBotSetting = false;
-            formSetting = true;
-        }
-    }
-    function setIntegrationOptions() {
-       let submitCount = 0;
-        if (isPatientAppChecked) {
-            submitCount +=1;
-        }
-        if (isChatbotChecked) {
-            submitCount +=1;
-        }
-        if (isFormsChecked) {
-            submitCount +=1;
-        }
-        submit = submitCount
-        integrations.push(isPatientAppChecked);
-        integrations.push(isChatbotChecked);
-        integrations.push(isFormsChecked);
-        console.log('PatientApp -',isPatientAppChecked)
-        console.log('ChatbotApp -',isChatbotChecked)
-        console.log('FormsApp -',isFormsChecked)
-    }
-    async function handleCreateTenantSettings() {
-        const tenantId = id;
-        const settings = {
-        Integrations: {
-            PatientInterface: true,
-            ChatBotInterface: false,
-            FormsInterface: false
-        },
-        Common: {
-            VitalAndLabRecords: true,
-            Nutrition:false,
-            MedicationManagement:false,
-            Reminders:false,
-            ScheduledAssesments:false,
-            ExcerciseAndFitness:false,
-            FHIRResourceStorage:false,
-            Careplans: {
-                Default:false,
-                Custom:false
-            },
-            EHIRIntegrations:false,
-            ABDMIntegrations:false,
-            DocumentManagement:false
-        },
-        PatientInterface: {
-            GamificationAndAwards:false,
-            CoursesAndLearningJourneys:false,
-            CommunityAndUserGroups:false,
-            AppointmentsAndVisits:false,
-            DeviceIntegration: {
-                Terra:false,
-                SenseSemi:false
-            },
-            PatientReports: {
-                Default:false,
-                Custom:false
-            }
-        },
-        ChatBotInterface: {
-            FAQ: {
-                Default:false,
-               Custom:false
-            },
-            Integrations: {
-                ClickUp:false,
-               Slack:false
-            },
-            WhatsApp:false,
-           Telegram:false,
-           QuicksightDashboard:false,
-           ChatPersonalization:false,
-           CustomUserDBQueries:false,
-           LocationContextualQueries:false,
-           LocalizationSupport:false
-        },
-        FormsInterface: {
-            Integrations: {
-                KoboToolbox:false,
-                ODK:false,
-                GoogleForm:false
-            },
-            OfflineSupport:false,
-            FieldApp:false
-        }
-    }
-		await Create({
-			sessionId: data.sessionId,
-			tenantId,
-            settings
-		});
-        goto(`/users/${userId}/tenants/${id}/view`)
-    }
-
-    async function handleUpdateTenantSettings() {
-        console.log('handledUpdateTenantSettings() get called.....');
-        const tenantSettingId = data.tenantSettingId;
-        const settings = {
-        Integrations: {
-            PatientInterface: true,
-            ChatBotInterface: false,
-            FormsInterface: false
-        },
-        Common: {
-            VitalAndLabRecords: true,
-            Nutrition:false,
-            MedicationManagement:false,
-            Reminders:false,
-            ScheduledAssesments:false,
-            ExcerciseAndFitness:false,
-            FHIRResourceStorage:false,
-            Careplans: {
-                Default:false,
-                Custom:false
-            },
-            EHIRIntegrations:false,
-            ABDMIntegrations:false,
-            DocumentManagement:false
-        },
-        PatientInterface: {
-            GamificationAndAwards:false,
-            CoursesAndLearningJourneys:false,
-            CommunityAndUserGroups:false,
-            AppointmentsAndVisits:false,
-            DeviceIntegration: {
-                Terra:false,
-                SenseSemi:false
-            },
-            PatientReports: {
-                Default:false,
-                Custom:false
-            }
-        },
-        ChatBotInterface: {
-            FAQ: {
-                Default:false,
-               Custom:false
-            },
-            Integrations: {
-                ClickUp:false,
-               Slack:false
-            },
-            WhatsApp:false,
-           Telegram:false,
-           QuicksightDashboard:false,
-           ChatPersonalization:false,
-           CustomUserDBQueries:false,
-           LocationContextualQueries:false,
-           LocalizationSupport:false
-        },
-        FormsInterface: {
-            Integrations: {
-                KoboToolbox:false,
-                ODK:false,
-                GoogleForm:false
-            },
-            OfflineSupport:false,
-            FieldApp:false
-        }
-    }
-		await Update({
-			sessionId: data.sessionId,
-			tenantSettingId,
-            settings
-		});
-        goto(`/users/${userId}/tenants/${id}/view`)
-    }
-
-    async function Create(model) {
-        console.log('Model',model)
-		await fetch(`/api/server/tenant-settings/create?userId=${userId}`, {
-			method: 'POST',
-			body: JSON.stringify(model),
-			headers: { 'content-type': 'application/json' }
-		});
-	}
-
-    async function Update(model) {
-        console.log('Model',model)
-		await fetch(`/api/server/tenant-settings/update?userId=${userId}`, {
-			method: 'PUT',
-			body: JSON.stringify(model),
-			headers: { 'content-type': 'application/json' }
-		});
-	}
-
-</script>
-<div>
-{#if initial}
-<table class="table">
-    <thead class="!variant-soft-secondary">
-        <tr>
-            <th>Integrations</th>
-        </tr>
-    </thead>
-    <tbody class="!bg-white dark:!bg-inherit flex flex-col w-[1183px]">
-        <tr class="!border-b !border-b-secondary-100 dark:!border-b-surface-700">
-            <td>
-                <input
-                    type="checkbox"
-                    name="patientApp"
-                    bind:checked={isPatientAppChecked}
-                    class="ml-10 checkbox checkbox-primary border-primary-200 hover:border-primary-400 checkbox-md"
-                    />
-            </td>
-            <td class="ml-4">Patient App</td>
-        </tr>
-        <tr class="!bg-white !border-b !border-b-secondary-100 dark:!border-b-surface-700">
-            <td>
-                <input
-                    type="checkbox"
-                    name="chatBot"
-                    bind:checked={isChatbotChecked}
-                    class="ml-10 checkbox checkbox-primary border-primary-200 hover:border-primary-400 checkbox-md"
-                />
-            </td>
-            <td class="ml-4">Chat bot</td>
-        </tr>
-        <tr class="!bg-white !border-b !border-b-secondary-100 dark:!border-b-surface-700">
-            <td>
-                <input
-                    type="checkbox"
-                    name="form"
-                    bind:checked={isFormsChecked}
-                    class="ml-10 checkbox checkbox-primary border-primary-200 hover:border-primary-400 checkbox-md"
-                />
-            </td>
-            <td class="ml-4">Forms</td>
-        </tr>
-    </tbody>
-</table>
-{/if}
-{#if commonSetting}
-    <CommonSetting/>
-{/if}
-{#if patientAppSetting}
-    <PatientApp/>
-{/if}
-{#if chatBotSetting}
-    <ChatBot/>
-{/if}
-{#if formSetting}
-    <Form/>
-{/if}
-</div>
-<div class="flex p-2 justify-end">
-    <button class="btn variant-filled-secondary" disabled={ isPatientAppChecked ? false :(isChatbotChecked ? false :(isFormsChecked ? false :true))} on:click={()=>{
-        if (initial === true){
-            setIntegrationOptions();
-        }
-        if (index === -1){
-            goToNextSetting(index);
-            index += 1;
-        }else {
-            if (integrations[0]) {
-                goToNextSetting(0);
-                integrations[0] = false;
-                submit -=1;
-            } else if (integrations[1]) {
-                goToNextSetting(1);
-                integrations[1] = false;
-                submit -=1;
-            } else if (integrations[2]) {
-                goToNextSetting(2);
-                integrations[2] = false;
-                submit -=1;
-            }else {
-                if (!createSetting) {
-                    handleUpdateTenantSettings()
-                } else {
-                    handleCreateTenantSettings()
-                }
-            }
-        }
-    }}>{submit === 0 ? !createSetting ? "Update" : "Submit" : "Next"}</button>
-</div> -->

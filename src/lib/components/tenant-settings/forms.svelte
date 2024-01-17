@@ -1,13 +1,9 @@
 <script lang="ts">
 	import { page } from '$app/stores';
-	import BreadCrumbs from '$lib/components/breadcrumbs/breadcrums.svelte';
-	// import Icon from '$lib/components/icon.svelte';
-	import { createEventDispatcher } from 'svelte';
 
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 	const userId = $page.params.userId;
-	const createRoute = `/users/${userId}/tenants/settings`;
 	const tenantRoute = `/users/${userId}/tenants`;
 
 	
@@ -16,7 +12,7 @@
 	export let isgoogleFormschecked = false;
 	export let isofflineSupportchecked = false;
 	export let isfieldAppchecked = false;
-
+    export let edit;
     export let formSettingOptions;
 	
     $: {
@@ -29,8 +25,6 @@
 
 </script>
 
-<!-- <BreadCrumbs crumbs={breadCrumbs} /> -->
-
 <form
 	method="post"
 
@@ -42,12 +36,6 @@
 				<th>Forms</th>
 				<th class="text-end">
 					<a href={tenantRoute} class="btn px-0 w-8 h-8 variant-soft-secondary">
-						<!-- <Icon
-							cls="stroke-primary-500 stroke-2 fill-none"
-							h="100%"
-							w="100%"
-							iconPath="/images/others/arrow-up.svg#icon"
-						/> -->
 					</a>
 				</th>
 			</tr>
@@ -61,13 +49,18 @@
 			<tr class="!bg-white !border-b !border-b-secondary-100 dark:!border-b-surface-700 w-100">
 				<div class="ml-8">
 					<td>
-						<input
-							type="checkbox"
-							name="koboToolbox"
-							value="koboToolbox"
-							bind:checked={iskoboToolboxchecked} 
-							class="ml-10 checkbox checkbox-primary border-primary-200 hover:border-primary-400 checkbox-md"
-						/>
+                        {#if edit === true && iskoboToolboxchecked === true}
+                            <span class="tick text-green-500 ml-10">✔</span>
+                        {:else}
+                            <input
+                                type="checkbox"
+                                name="koboToolbox"
+                                value="koboToolbox"
+                                disabled = {edit}
+                                bind:checked={iskoboToolboxchecked} 
+                                class="ml-10 checkbox checkbox-primary border-primary-200 hover:border-primary-400 checkbox-md"
+                            />
+                        {/if}     
 					</td>
 					<td class="ml-4">Kobo-Toolbox</td>
 				</div>
@@ -75,13 +68,18 @@
 			<tr class="!bg-white !border-b !border-b-secondary-100 dark:!border-b-surface-700 w-100">
 				<div class="ml-8">
 					<td>
-						<input
-							type="checkbox"
-							name="odk"
-							bind:checked={isodkchecked} 
-							class="ml-10 checkbox checkbox-primary border-primary-200 hover:border-primary-400 checkbox-md"
-						/>
-					</td>
+                        {#if edit === true && isodkchecked === true}
+                            <span class="tick text-green-500 ml-10">✔</span>
+                        {:else}
+                            <input
+                                type="checkbox"
+                                name="odk"
+                                disabled = {edit}
+                                bind:checked={isodkchecked} 
+                                class="ml-10 checkbox checkbox-primary border-primary-200 hover:border-primary-400 checkbox-md"
+                            />
+                        {/if}     
+    				</td>
 					<td class="ml-4">ODK</td>
 				</div>
 			</tr>
@@ -90,35 +88,50 @@
 			>
 				<div class="ml-8">
 					<td>
-						<input
-							type="checkbox"
-							name="googleForms"
-							bind:checked={isgoogleFormschecked} 
-							class="ml-10 checkbox checkbox-primary border-primary-200 hover:border-primary-400 checkbox-md"
-						/>
+                        {#if edit === true && isgoogleFormschecked === true}
+                            <span class="tick text-green-500 ml-10">✔</span>
+                        {:else}
+                            <input
+                                type="checkbox"
+                                name="googleForms"
+                                disabled = {edit}
+                                bind:checked={isgoogleFormschecked} 
+                                class="ml-10 checkbox checkbox-primary border-primary-200 hover:border-primary-400 checkbox-md"
+                            />
+                        {/if}     
 					</td>
 					<td class="ml-4">Google Forms</td>
 				</div>
 			</tr>
 			<tr class="!bg-white !border-b !border-b-secondary-100 dark:!border-b-surface-700 w-100">
 				<td>
-					<input
-						type="checkbox"
-						name="offlineSupport"
-						bind:checked={isofflineSupportchecked} 
-						class="ml-10 checkbox checkbox-primary border-primary-200 hover:border-primary-400 checkbox-md"
-					/>
+                    {#if edit === true && isofflineSupportchecked === true}
+                            <span class="tick text-green-500 ml-10">✔</span>
+                    {:else}
+                        <input
+                            type="checkbox"
+                            name="offlineSupport"
+                            disabled = {edit}
+                            bind:checked={isofflineSupportchecked} 
+                            class="ml-10 checkbox checkbox-primary border-primary-200 hover:border-primary-400 checkbox-md"
+                        />
+                    {/if}   
 				</td>
 				<td class="ml-4">Offline Support</td>
 			</tr>
 			<tr class="!bg-white !border-b !border-b-secondary-100 dark:!border-b-surface-700 w-100">
 				<td>
-					<input
-						type="checkbox"
-						name="fieldApp"
-						bind:checked={isfieldAppchecked} 
-						class="ml-10 checkbox checkbox-primary border-primary-200 hover:border-primary-400 checkbox-md"
-					/>
+                    {#if edit === true && isfieldAppchecked === true}
+                            <span class="tick text-green-500 ml-10">✔</span>
+                    {:else}
+                        <input
+                            type="checkbox"
+                            name="fieldApp"
+                            disabled = {edit}
+                            bind:checked={isfieldAppchecked} 
+                            class="ml-10 checkbox checkbox-primary border-primary-200 hover:border-primary-400 checkbox-md"
+                        />
+                    {/if}   
 				</td>
 				<td class="ml-4">Field App</td>
 			</tr>
