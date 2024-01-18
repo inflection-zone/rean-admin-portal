@@ -68,9 +68,9 @@
 		<tbody class="!bg-white dark:!bg-inherit flex flex-col w-[1183px]">
 			
 			<div class="flex flex-row">
-				<tr class="!bg-white !border-b !border-b-secondary-100 dark:!border-b-surface-700">
+			    <tr class="!bg-white !border-b !border-b-secondary-100 dark:!border-b-surface-700">
 					<div class="flex flex-col ml-10">
-						<td>Integrations</td>
+						<td class="w-[150px]">Support Channel</td>
 					</div>
 				</tr>
 				<tr class="!bg-white !border-b !border-b-secondary-100 dark:!border-b-surface-700">
@@ -130,9 +130,9 @@
 				<td class="ml-4">Localization Support</td>
 			</tr>
 			<div class="flex flex-row">
-				<tr class="!bg-white !border-b !border-b-secondary-100 dark:!border-b-surface-700">
+               <tr class="!bg-white !border-b !border-b-secondary-100 dark:!border-b-surface-700">
 					<div class="flex flex-col ml-10">
-						<td class=" w-[150px]">Connect</td>
+						<td class=" w-[150px]">Message Channel</td>
 					</div>
 				</tr>
 				<tr class="!bg-white !border-b !border-b-secondary-100 dark:!border-b-surface-700">
