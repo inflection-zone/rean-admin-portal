@@ -35,16 +35,10 @@
     let disabled = false;
 
     $: edit = disabled;
-    $: console.log('EDIT ALLOWED ',edit)
-
-    console.log('$page param:',$page.params)
     const id = $page.params.id;
-    // const userId = $page.params.userId;
     export let data: PageServerData;
     $:createSetting = data.tenantSettingId ? 0 : 1;
-    console.log('Data',data);
     const tenantSetting = data.settings;
-    console.log('Tenant Setting = ',tenantSetting)
     const integrations = [];
     let isPatientAppChecked = false;
     let isChatbotChecked = false;
@@ -147,8 +141,6 @@
         edit = disabled;
     }
 
-    $:console.log('COMMON SETTINGS ', commonSettingOptions)
-    $:console.log('PATIENT APP SETTINGS ', patientAppSettingOptions)
     let submit;
     let index = -1;
     $: initial = true;
@@ -192,10 +184,8 @@
         integrations.push(isPatientAppChecked);
         integrations.push(isChatbotChecked);
         integrations.push(isFormsChecked);
-        console.log('PatientApp -',isPatientAppChecked)
-        console.log('ChatbotApp -',isChatbotChecked)
-        console.log('FormsApp -',isFormsChecked)
     }
+    
     async function handleCreateTenantSettings() {
         const tenantId = id;
         const settings = {
@@ -449,13 +439,14 @@
 
     async function Update(model) {
         console.log('Model',model)
-		await fetch(`/api/server/tenant-settings/update?userId=${userId}`, {
+        if (edit == false) {
+            await fetch(`/api/server/tenant-settings/update?userId=${userId}`, {
 			method: 'PUT',
 			body: JSON.stringify(model),
 			headers: { 'content-type': 'application/json' }
 		});
+        }
 	}
-
 </script>
 
 <BreadCrumbs crumbs={breadCrumbs} />
@@ -551,7 +542,7 @@
 
 </div>
     <div class="flex p-2 justify-end">
-        <button class="btn variant-filled-secondary" disabled={ isPatientAppChecked ? false :(isChatbotChecked ? false :(isFormsChecked ? false :true))} on:click={()=>{
+        <button class="btn variant-filled-secondary" disabled={isPatientAppChecked ? false :(isChatbotChecked ? false :(isFormsChecked ? false :true))} on:click={()=>{
             if (initial === true){
                 setIntegrationOptions();
             }
