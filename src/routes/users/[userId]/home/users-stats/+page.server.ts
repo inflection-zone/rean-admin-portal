@@ -19,7 +19,7 @@ export const load: PageServerLoad = async (event: RequestEvent) => {
     const majorAilment = response.Data.DailyStatistics.Statistics.UserStatistics.MajorAilmentDistribution;
     const addictionDistribution = response.Data.DailyStatistics.Statistics.UserStatistics.AddictionDistribution;
     const deviceDetailWiseUsers = response.Data.DailyStatistics.Statistics.UserStatistics.DeviceDetailWiseUsers;
-    const years = [];
+    const years: any[] = [];
     const yearWiseUserCount = response.Data.DailyStatistics.Statistics.UserStatistics.YearWiseUserCount;
     yearWiseUserCount.forEach((value) => {
         years.push({
@@ -27,13 +27,6 @@ export const load: PageServerLoad = async (event: RequestEvent) => {
         });
     });
     
-    // console.log('###', years);
-    // console.log('overallUsersData', overallUsersData);
-    // console.log('ageWiseUsers', ageWiseUsers);
-    // console.log('genderWiseUsers', genderWiseUsers);
-    // console.log('maritalStatusWiseUsers', maritalStatusWiseUsers);
-    // console.log('addictionDistribution', addictionDistribution);
-    // console.log('deviceDetailWiseUsers', deviceDetailWiseUsers);
 
     return {
         sessionId,
