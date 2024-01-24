@@ -6,6 +6,7 @@ import { getDailyStatistics } from '$routes/api/services/statistics';
 
 export const load: PageServerLoad = async (event: RequestEvent) => {
     const sessionId = event.cookies.get('sessionId');
+
     const response = await getDailyStatistics(sessionId);
     if (!response) {
         throw error(404, 'Daily user statistics data not found');

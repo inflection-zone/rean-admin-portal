@@ -97,13 +97,13 @@
     <NumberCard cardTitle="Not Deleted Users" cardContent={nonDeletedUsers.Count.toFixed()} additional={nonDeletedUsers.Ratio} prefix="%" />
     <NumberCard cardTitle="Current Active Users" cardContent={activeUsers.Count.toFixed()} additional={activeUsers.Ratio} prefix="%" />
     <NumberCard cardTitle="Deleted Users" cardContent={deletedUsers.Count.toFixed()} additional={deletedUsers.Ratio} prefix="%" />
-    <NumberCard cardTitle="Enrolled Users" cardContent={enrolledUsersData.Count.toFixed()} additional={enrolledUsersData.Ratio} prefix="%" />
-    {#each deviceDetailsStats as d }
+    <!-- <NumberCard cardTitle="Enrolled Users" cardContent={enrolledUsersData.Count.toFixed()} additional={enrolledUsersData.Ratio} prefix="%" /> -->
+    <!-- {#each deviceDetailsStats as d }
         <NumberCard cardTitle={d.OSType} cardContent={d.count.toFixed()} />
-    {/each}
+    {/each} -->
 </dl>
 
 <div class="flex h-80 gap-10 w-full mt-5">
     <FunnelCard {labels} dataSource={funnelChartData} />
-    <PlatformStatsCard {deviceDetails} />
+    <!-- <PlatformStatsCard {deviceDetails} /> -->
 </div>

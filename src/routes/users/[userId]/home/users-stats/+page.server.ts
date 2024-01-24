@@ -26,13 +26,14 @@ export const load: PageServerLoad = async (event: RequestEvent) => {
             year: value.Year
         });
     });
-    console.log('###', years);
-    console.log('overallUsersData', overallUsersData);
-    console.log('ageWiseUsers', ageWiseUsers);
-    console.log('genderWiseUsers', genderWiseUsers);
-    console.log('maritalStatusWiseUsers', maritalStatusWiseUsers);
-    console.log('addictionDistribution', addictionDistribution);
-    console.log('deviceDetailWiseUsers', deviceDetailWiseUsers);
+    
+    // console.log('###', years);
+    // console.log('overallUsersData', overallUsersData);
+    // console.log('ageWiseUsers', ageWiseUsers);
+    // console.log('genderWiseUsers', genderWiseUsers);
+    // console.log('maritalStatusWiseUsers', maritalStatusWiseUsers);
+    // console.log('addictionDistribution', addictionDistribution);
+    // console.log('deviceDetailWiseUsers', deviceDetailWiseUsers);
 
     return {
         sessionId,
