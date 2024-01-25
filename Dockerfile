@@ -30,4 +30,9 @@ COPY --from=builder ./app/build .
 
 RUN npm install --production
 
-CMD ["node", "index.js"]
+COPY . /app
+
+#CMD ["node", "index.js"]
+
+RUN chmod +x /app/entrypoint.sh
+ENTRYPOINT ["/bin/bash", "-c", "/app/entrypoint.sh"]
