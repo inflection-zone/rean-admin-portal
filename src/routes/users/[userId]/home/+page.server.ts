@@ -25,7 +25,7 @@ export const load: PageServerLoad = async (event: RequestEvent) => {
         return item;
     });
 
-    const appDownloadsData = response.Data.DailyStatistics.Statistics.UserStatistics.AppDownload;
+    const appDownloadsData = response.Data.DailyStatistics.DashboardStats.UserStatistics.AppDownload;
     let appDownloadCount = 0;
 
     if (appDownloadsData.rows.length > 0) {
