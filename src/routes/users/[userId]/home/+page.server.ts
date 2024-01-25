@@ -11,10 +11,10 @@ export const load: PageServerLoad = async (event: RequestEvent) => {
         throw error(404, 'Daily user statistics data not found');
     }
     // const _enrollmentUsers = await getEnrollmetUsers(sessionId);
-    const overallUsersData = response.Data.DailyStatistics.Statistics.UserStatistics.UsersCountStats;
-    const deviceDetailWiseUsers_ = response.Data.DailyStatistics.Statistics.UserStatistics.DeviceDetailWiseUsers;
-    const yearWiseUserCount = response.Data.DailyStatistics.Statistics.UserStatistics.YearWiseUserCount;
-    const yearWiseDeviceDetails = response.Data.DailyStatistics.Statistics.UserStatistics.YearWiseDeviceDetails;
+    const overallUsersData = response.Data.DailyStatistics.DashboardStats.UserStatistics.UsersCountStats;
+    const deviceDetailWiseUsers_ = response.Data.DailyStatistics.DashboardStats.UserStatistics.DeviceDetailWiseUsers;
+    const yearWiseUserCount = response.Data.DailyStatistics.DashboardStats.UserStatistics.YearWiseUserCount;
+    const yearWiseDeviceDetails = response.Data.DailyStatistics.DashboardStats.UserStatistics.YearWiseDeviceDetails;
     const deviceDetailWiseUsers = deviceDetailWiseUsers_.map((item) => {
         if (item.OSType === 'aaa') {
             return { OSType: 'Missing device detail', count: item.count };
@@ -23,7 +23,7 @@ export const load: PageServerLoad = async (event: RequestEvent) => {
     });
     // const enrollmentUsers = _enrollmentUsers.Data.EnrollmentUsers;
 
-    const appDownloadsData = response.Data.DailyStatistics.Statistics.UserStatistics.AppDownload;
+    const appDownloadsData = response.Data.DailyStatistics.DashboardStats.UserStatistics.AppDownload;
     let appDownloadCount = 0;
 
     if (appDownloadsData.rows.length > 0) {
