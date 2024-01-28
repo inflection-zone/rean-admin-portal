@@ -1,7 +1,7 @@
 import type { RequestEvent } from '@sveltejs/kit';
 import type { PageServerLoad } from './$types';
 import { error } from '@sveltejs/kit';
-import { searchAssessmentNodes } from '../../../../../api/services/assessment-nodes';
+import { searchAssessmentNodes } from '../../../../../api/services/assessments/assessment-nodes';
 
 ////////////////////////////////////////////////////////////////////////////
 

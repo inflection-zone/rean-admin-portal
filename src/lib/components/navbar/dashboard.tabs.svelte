@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { dashboardMenu, type TabDefinition } from '$lib/components/navbar/navigation.tabs';
+	import { dashboardMenu, type TabDefinition } from '../../components/navbar/navigation.tabs';
 	import { page } from '$app/stores';
 
 	export let userId = undefined;

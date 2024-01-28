@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { page } from '$app/stores';
-	import DashboardTabs from '$lib/components/navbar/dashboard-tabs.svelte';
+	import DashboardTabs from '$lib/components/navbar/dashboard.tabs.svelte';
 
 	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 

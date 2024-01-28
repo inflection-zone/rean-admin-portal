@@ -1,18 +1,24 @@
 import * as fs from 'fs';
-import { S3 } from 'aws-sdk';
+import * as aws from "@aws-sdk/client-s3";
 import { BUCKET_NAME } from '$env/static/private';
 import { ACCESS_KEY_ID } from '$env/static/private';
 import { SECRET_ACCESS_KEY } from '$env/static/private';
-import { REGION } from '$env/static/private';
+import { BUCKET_REGION } from '$env/static/private';
 
 ////////////////////////////////////////////////////////////////////
 
-export const uploadAppoinmentPdf = async (fileName: string, filePath: string) => {
-    const s3 = new S3({
-        accessKeyId: ACCESS_KEY_ID,
-        secretAccessKey: SECRET_ACCESS_KEY,
-        region: REGION
+const getS3Client = (): aws.S3 => {
+    return new aws.S3({
+        credentials : {
+            accessKeyId     : ACCESS_KEY_ID,
+            secretAccessKey : SECRET_ACCESS_KEY
+        },
+        region : BUCKET_REGION
     });
+};
+
+export const uploadAppoinmentPdf = async (fileName: string, filePath: string) => {
+    const s3 = getS3Client();
 
     const bucketName = BUCKET_NAME;
     const filePathOnS3 = `${fileName}`; // Replace with your desired path and filename
@@ -25,7 +31,9 @@ export const uploadAppoinmentPdf = async (fileName: string, filePath: string) =>
     };
 
     try {
-        await s3.upload(params).promise();
+        const command = new aws.PutObjectCommand(params);
+        const response = await s3.send(command);
+        console.log('response', JSON.stringify(response, null, 2));
         return {
             status: 200,
             body: { success: true, message: 'File uploaded successfully to S3.' }

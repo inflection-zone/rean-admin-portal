@@ -1,6 +1,5 @@
 import type { RequestEvent } from '@sveltejs/kit';
-import { page } from '$app/stores';
-import { searchAssessmentTemplates } from '../../../services/assessment-templates';
+import { searchAssessmentNodes } from '../../../../services/assessments/assessment-nodes';
 
 //////////////////////////////////////////////////////////////
 
@@ -8,8 +7,9 @@ export const GET = async (event: RequestEvent) => {
 	const sessionId = event.locals.sessionUser.sessionId;
 
 	const searchParams: URLSearchParams = event.url.searchParams;
+	const templateId = searchParams.get('templateId') ?? undefined;
 	const title = searchParams.get('title') ?? undefined;
-	const type = searchParams.get('type') ?? undefined;
+	const nodeType = searchParams.get('nodeType') ?? undefined;
 	const sortBy = searchParams.get('sortBy') ?? 'CreatedAt';
 	const sortOrder = searchParams.get('sortOrder') ?? 'ascending';
 	const itemsPerPage_ = searchParams.get('itemsPerPage');
@@ -19,20 +19,21 @@ export const GET = async (event: RequestEvent) => {
 
 	try {
 		const searchParams = {
+			templateId,
 			title,
-			type: type,
+			nodeType,
 			orderBy: sortBy,
 			order: sortOrder,
 			itemsPerPage,
 			pageIndex
 		};
 		console.log('Search parms: ', searchParams);
-		const response = await searchAssessmentTemplates(sessionId, searchParams);
-		const items = response.Data.AssessmentTemplateRecords.Items;
+		const response = await searchAssessmentNodes(sessionId, searchParams);
+		const items = response.Data.AssessmentNodeRecords.Items;
 
 		return new Response(JSON.stringify(items));
 	} catch (err) {
-		console.error(`Error retriving assessment templates: ${err.message}`);
+		console.error(`Error retriving assessment node: ${err.message}`);
 		return new Response(err.message);
 	}
 };
