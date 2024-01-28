@@ -8,15 +8,15 @@
     import Icon from '@iconify/svelte';
     import { goto } from '$app/navigation';
     import type { PageServerData } from './$types';
-    
+
     /////////////////////////////////////////////////////////////////////////
-    
+
     $:integrationSettings = {
             PatientInterface: false,
             ChatBotInterface: false,
             FormsInterface: false
         }
-    
+
     const userId = $page.params.userId;
 	const tenantId = $page.params.id;
     const viewRoute = `/users/${userId}/tenants/${tenantId}/view`;
@@ -96,7 +96,7 @@
         isPatientAppChecked = data.settings.Integrations.PatientInterface,
         isChatbotChecked = data.settings.Integrations.ChatBotInterface,
         isFormsChecked = data.settings.Integrations.FormsInterface
-        
+
         commonSettingOptions.isVitalsAndLabRecordsChecked = data.settings.Common.VitalAndLabRecords;
         commonSettingOptions.isRemindersChecked = data.settings.Common.Reminders;
         commonSettingOptions.isMedicationManagementChecked = data.settings.Common.MedicationManagement;
@@ -118,7 +118,7 @@
         patientAppSettingOptions.isSenseSemichecked = data.settings.PatientInterface.DeviceIntegration.SenseSemi;
         patientAppSettingOptions.isDefaultchecked = data.settings.PatientInterface.PatientReports.Default;
         patientAppSettingOptions.isCustomchecked = data.settings.PatientInterface.PatientReports.Custom;
-    
+
         chatBotSettingOptions.isDefaultchecked = data.settings.ChatBotInterface.FAQ.Default;
         chatBotSettingOptions.isCustomchecked = data.settings.ChatBotInterface.FAQ.Custom;
         chatBotSettingOptions.isClickUpchecked = data.settings.ChatBotInterface.Integrations.ClickUp;
@@ -185,7 +185,7 @@
         integrations.push(isChatbotChecked);
         integrations.push(isFormsChecked);
     }
-    
+
     async function handleCreateTenantSettings() {
         const tenantId = id;
         const settings = {
@@ -396,7 +396,7 @@
             settings.PatientInterface.PatientReports.Default = patientAppSettingOptions.isDefaultchecked;
             settings.PatientInterface.PatientReports.Custom = patientAppSettingOptions.isCustomchecked;
         }
-        
+
         if (settings.Integrations.ChatBotInterface) {
             settings.ChatBotInterface.FAQ.Default = chatBotSettingOptions.isDefaultchecked;
             settings.ChatBotInterface.FAQ.Custom = chatBotSettingOptions.isCustomchecked;
@@ -499,7 +499,7 @@
                         class="ml-10 checkbox checkbox-primary border-primary-200 hover:border-primary-400 checkbox-md"
                     />
                 {/if}
-                
+
             </td>
             <td class="ml-4">Chat bot</td>
         </tr>
@@ -516,7 +516,7 @@
                         class="ml-10 checkbox checkbox-primary border-primary-200 hover:border-primary-400 checkbox-md"
                     />
                 {/if}
-                
+
             </td>
             <td class="ml-4">Forms</td>
         </tr>

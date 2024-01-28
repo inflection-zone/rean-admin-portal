@@ -1,5 +1,5 @@
 import { writeFile } from 'node:fs/promises';
-import { uploadAppoinmentPdf } from "$routes/api/services/appointment-upload";
+import { uploadAppoinmentPdf } from "../../../../api/services/gmu/appointment-upload";
 import type { RequestEvent } from "@sveltejs/kit";
 import { redirect } from 'sveltekit-flash-message/server';
 import { errorMessage, successMessage } from '$lib/utils/message.utils';
@@ -19,15 +19,15 @@ export const actions = {
         console.log(uploadedFile)
 		if (!fs.existsSync('./temp')) {
 			fs.mkdirSync('./temp', { recursive: true });
-		  } 
+		  }
 
 		await writeFile(filePath, Buffer.from(await uploadedFile?.arrayBuffer()));
-	
+
 		if (!fs.existsSync(filePath)) {
 			console.log('File not created');
 			throw redirect(303, `/open/appointment-uploads`, errorMessage('Unable to import appointment template.'), event);
 		}
-	
+
 		const response = await uploadAppoinmentPdf(
             fileName,
 			filePath
@@ -43,7 +43,7 @@ export const actions = {
 		`/open/appointment-uploads`,
 		successMessage(response.body.message),
 		event
-	);	
-			
+	);
+
 	}
 }

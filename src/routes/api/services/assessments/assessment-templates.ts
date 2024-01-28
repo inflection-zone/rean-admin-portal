@@ -1,7 +1,7 @@
 import { BACKEND_API_URL } from '$env/static/private';
-import { delete_, get_, post_, put_ } from './common';
+import { delete_, get_, post_, put_ } from '../common';
 import { ServerHelper } from '$lib/server/server.helper';
-import { SessionManager } from '../session.manager';
+import { SessionManager } from '../../session.manager';
 import { API_CLIENT_INTERNAL_KEY } from '$env/static/private';
 import * as fs from 'fs';
 import axios from 'axios';

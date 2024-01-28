@@ -1,88 +1,55 @@
 import { BACKEND_API_URL } from '$env/static/private';
-import { Helper } from '$lib/utils/helper';
-import { delete_, get_, post_, put_ } from './common';
-import { getTenantById } from './tenants';
+import { get_, put_ } from './common';
 
 ////////////////////////////////////////////////////////////////
 
-export const createTenantSettings = async (
+const baseUrl = BACKEND_API_URL + '/tenant-settings';
+
+////////////////////////////////////////////////////////////////
+
+export const getTenantSettingsTypes = async (
+	sessionId: string
+	) => {
+	const url = baseUrl + `/types`;
+	return await get_(sessionId, url, true, true);
+};
+
+export const getTenantSettingsByType = async (
 	sessionId: string,
 	tenantId: string,
-    settings: any
-    ) => {
-	const body = {
-		TenantId: tenantId,
-        Setting: settings
-	};
+	type: string
+	) => {
+	const url = baseUrl + `/${tenantId}/types/${type}`;
+	return await get_(sessionId, url, true, true);
+}
 
-	const url = BACKEND_API_URL + '/tenant-feature-setting';
-	return await post_(sessionId, url, body, true, false);
+export const getTenantSettings = async (
+	sessionId: string,
+	tenantId: string
+	) => {
+	const url = baseUrl + `/${tenantId}`;
+	return await get_(sessionId, url, true, true);
 };
+
+export const updateTenantSettingsByType = async (
+	sessionId: string,
+	tenantId: string,
+	type: string,
+	settings: any,
+	) => {
+	const url = baseUrl + `/${tenantId}/types/${type}`;
+	return await put_(sessionId, url, settings, true, true);
+}
 
 export const updateTenantSettings = async (
     sessionId: string,
-	tenantSettingId: string,
-    settings: any
+	tenantId: string,
+    settings: any,
     ) => {
         console.log('updateTenantSettings() get called....');
         const body = {
-		Setting: settings
+		...settings
 	};
-
-	const url = BACKEND_API_URL + `/tenant-feature-setting/${tenantSettingId}`;
+	const url = baseUrl + `/${tenantId}`;
 	return await put_(sessionId, url, body, true, false);
 };
-
-// export const getTenantById = async (sessionId: string, tenantId: string) => {
-// 	const url = BACKEND_API_URL + `/tenants/${tenantId}`;
-// 	return await get_(sessionId, url, true);
-// };
-
-export const searchTenantSettings = async (sessionId: string, searchParams?: any) => {
-	let searchString = '';
-	if (searchParams) {
-		const keys = Object.keys(searchParams);
-		if (keys.length > 0) {
-			searchString = '?';
-			const params:any = [];
-			for (const key of keys) {
-				if (searchParams[key]) {
-					const param = `${key}=${searchParams[key]}`;
-					params.push(param);
-				}
-			}
-			searchString += params.join('&');
-		}
-	}
-	const url = BACKEND_API_URL + `/tenant-feature-setting/search${searchString}`;
-	return await get_(sessionId, url, true, false);
-};
-
-
-// export const updateTenant = async (
-// 	sessionId: string,
-//   tenantId: string,
-// 	name: string,
-// 	description: string,
-//   code: string,
-//   phone: string,
-// 	email: string,
-// ) => {
-// 	const body = {
-//     Name: name,
-// 		Description: description ? description : null,
-//     Code: code,
-// 		Phone: phone ? phone : null,
-//     Email: email ? email : null,
-// 	};
-// 	if (Helper.isPhone(phone)) {
-// 		body.Phone = Helper.sanitizePhone(phone);
-// 	};
-// 	const url = BACKEND_API_URL + `/tenants/${tenantId}`;
-// 	return await put_(sessionId, url, body, true, false);
-// };
-
-// export const deleteTenant = async (sessionId: string, tenantId: string) => {
-// 	const url = BACKEND_API_URL + `/tenants/${tenantId}`;
-// 	return await delete_(sessionId, url, true, false);
-// };
