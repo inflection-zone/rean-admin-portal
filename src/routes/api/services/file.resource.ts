@@ -1,5 +1,5 @@
 import { API_CLIENT_INTERNAL_KEY, BACKEND_API_URL } from '$env/static/private';
-import { SessionManager } from '../session.manager';
+import { SessionManager } from '../sessions/session.manager';
 import { error } from '@sveltejs/kit';
 import { delete_, get_ } from './common';
 import { ServerHelper } from '$lib/server/server.helper';

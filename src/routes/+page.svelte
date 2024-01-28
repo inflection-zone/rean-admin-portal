@@ -14,7 +14,9 @@
 	const logoImageSource = getPublicLogoImageSource();
     const footerText = `© ${new Date().getFullYear()} ${getPublicFooterText()}`;
     const footerLink = getPublicFooterLink();
+    
 	export let data: PageServerData;
+
 	personRolesStore.set(data.roles);
 	LocalStorageUtils.setItem('personRoles', JSON.stringify(data.roles));
 	let personRoles = [],

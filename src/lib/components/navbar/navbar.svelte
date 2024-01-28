@@ -14,6 +14,9 @@
     } from '$lib/themes/theme.selector';
 
     export let userId = undefined;
+    export let tenantSettings = undefined;
+    export let userRole = undefined;
+
     const navbarTabs: TabDefinition[] = navbarMenu(userId);
     const sidebarTabs: TabDefinition[] = sidebarMenu(userId);
     const drawerStore = getDrawerStore();
@@ -89,7 +92,7 @@
         </AppBar>
     </svelte:fragment>
     <svelte:fragment slot="sidebarLeft">
-        <Sidebar {userId} bind:showSidebar />
+        <Sidebar userId={userId} tenantSettings={tenantSettings} userRole={userRole} bind:showSidebar />
     </svelte:fragment>
     <div class="m-4 md:m-8">
         <slot />

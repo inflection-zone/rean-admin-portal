@@ -1,5 +1,5 @@
 import type { Handle, HandleServerError } from '@sveltejs/kit';
-import { SessionManager } from './routes/api/session.manager';
+import { SessionManager } from './routes/api/sessions/session.manager';
 
 export const handle: Handle = async ({ event, resolve }) => {
 	const sessionId = event.cookies.get('sessionId');

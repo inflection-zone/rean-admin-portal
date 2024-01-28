@@ -11,7 +11,7 @@ export const getTenantSettingsTypes = async (
 	sessionId: string
 	) => {
 	const url = baseUrl + `/types`;
-	return await get_(sessionId, url, true, true);
+	return await get_(sessionId, url, true);
 };
 
 export const getTenantSettingsByType = async (
@@ -20,7 +20,7 @@ export const getTenantSettingsByType = async (
 	type: string
 	) => {
 	const url = baseUrl + `/${tenantId}/types/${type}`;
-	return await get_(sessionId, url, true, true);
+	return await get_(sessionId, url, true);
 }
 
 export const getTenantSettings = async (
@@ -28,7 +28,7 @@ export const getTenantSettings = async (
 	tenantId: string
 	) => {
 	const url = baseUrl + `/${tenantId}`;
-	return await get_(sessionId, url, true, true);
+	return await get_(sessionId, url, true);
 };
 
 export const updateTenantSettingsByType = async (
@@ -38,7 +38,7 @@ export const updateTenantSettingsByType = async (
 	settings: any,
 	) => {
 	const url = baseUrl + `/${tenantId}/types/${type}`;
-	return await put_(sessionId, url, settings, true, true);
+	return await put_(sessionId, url, settings, true);
 }
 
 export const updateTenantSettings = async (
@@ -51,5 +51,5 @@ export const updateTenantSettings = async (
 		...settings
 	};
 	const url = baseUrl + `/${tenantId}`;
-	return await put_(sessionId, url, body, true, false);
+	return await put_(sessionId, url, body, true);
 };

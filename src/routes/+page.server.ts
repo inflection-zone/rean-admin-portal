@@ -5,7 +5,7 @@ import { error, type RequestEvent } from '@sveltejs/kit';
 import { errorMessage, successMessage } from '$lib/utils/message.utils';
 import { redirect } from 'sveltekit-flash-message/server';
 import type { PageServerLoad } from './$types';
-import { SessionManager } from './api/session.manager';
+import { SessionManager } from './api/sessions/session.manager';
 import { login } from './api/services/user';
 import { getUserRoles } from './api/services/types';
 

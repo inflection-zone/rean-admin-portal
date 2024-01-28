@@ -6,11 +6,14 @@
 
     export let userId = undefined;
     export let showSidebar = false;
+    export let tenantSettings = undefined;
+    export let userRole = undefined;
 
-    const navData = buildSidebarMenu(userId);
+    const navData = buildSidebarMenu(userId, tenantSettings, userRole);
     console.log('navData', JSON.stringify(navData, null, 2));
 
     $: if ($navigating) showSidebar = false;
+
 </script>
 
 <div

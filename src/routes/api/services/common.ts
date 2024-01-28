@@ -1,6 +1,6 @@
 import { API_CLIENT_INTERNAL_KEY } from '$env/static/private';
 import { error } from '@sveltejs/kit';
-import { SessionManager } from '../session.manager';
+import { SessionManager } from '../sessions/session.manager';
 import chalk from 'chalk';
 
 /////////////////////////////////////////////////////////////////////////
