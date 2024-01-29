@@ -6,7 +6,7 @@
     import { afterUpdate, onMount } from 'svelte';
     import { navbarMenu, sidebarMenu, type TabDefinition } from './navigation.tabs';
     import SettingMenu from './setting.menus.svelte';
-    import Sidebar from './sidebar.svelte';
+    import Sidebar from './sidebar/sidebar.svelte';
     import {
         getPublicLogoImageSource,
         getPublicFooterText,

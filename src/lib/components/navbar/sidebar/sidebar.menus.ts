@@ -1,45 +1,206 @@
 import { type FeatureOptions } from "$lib/system.types";
 import { getFeatureOptions } from '$lib/options/options.selector';
+import { SidebarMenu, NavigationMenu, TenantSettings } from "./sidebar.types";
 
 ///////////////////////////////////////////////////////////////////////////////
-
-export interface SidebarMenu {
-    name     : string;
-    title    : string;
-    icon     : string;
-    link    ?: string | null | undefined;
-    children : SidebarMenu[];
-}
-
-export interface navigation {
-    title   : string;
-    icon    : string;
-    link   ?: string | null | undefined;
-    childNav?: navigation[];
-}
-///////////////////////////////////////////////////////////////////////////////
-
-const getMenu = (menuList, menuName) => {
-    const menu = menuList.find(menu => menu.name === menuName);
-    return menu;
-};
 
 //TODO: Remove feature-options based filtering.
 //TODO: Move FeatureOptions to Tenant Settings for AHA and Sneha also.
 //TODO: Remove this comment after above TODOs are done.
 
-const isSettingEnabled = (menuName: string, tenantSettings: any) => {
-    // const isSettingEnabled = tenantSettings.find(setting => setting.Name === menuName);
-    // return isSettingEnabled;
+const isSettingEnabled = (menuName: string, tenantSettings: TenantSettings) => {
+    if (menuName === 'Settings')
+    {
+        return true;
+    }
+    if (menuName === 'Analysis') {
+        if (tenantSettings.Common.Analysis.CustomQueries ||
+            tenantSettings.Common.Analysis.Quicksight) {
+            return true;
+        }
+        return false;
+    }
+    if (menuName === 'Clinical') {
+        if (tenantSettings.Common.Clinical.Assessments ||
+            tenantSettings.Common.Clinical.LabRecords ||
+            tenantSettings.Common.Clinical.Symptoms ||
+            tenantSettings.Common.Clinical.DrugsManagement) {
+            return true;
+        }
+        return false;
+    }
+    if (menuName === 'Assessments') {
+        if (tenantSettings.Common.Clinical.Assessments) {
+            return true;
+        }
+        return false;
+    }
+    if (menuName === 'Lab-Records') {
+        if (tenantSettings.Common.Clinical.LabRecords) {
+            return true;
+        }
+        return false;
+    }
+    if (menuName === 'Symptoms') {
+        if (tenantSettings.Common.Clinical.Symptoms) {
+            return true;
+        }
+        return false;
+    }
+    if (menuName === 'Drugs') {
+        if (tenantSettings.Common.Clinical.DrugsManagement) {
+            return true;
+        }
+        return false;
+    }
+    if (menuName === 'Careplan' ||
+        menuName === 'Careplan-Dashboard' ||
+        menuName === 'Careplan-Assets' ||
+        menuName === 'Careplan-Plans' ||
+        menuName === 'Careplan-Enrollments') {
+        if (tenantSettings.Common.Clinical.Careplans) {
+            return true;
+        }
+        return false;
+    }
+    if (menuName === 'Assessments') {
+        if (tenantSettings.Common.Clinical.Assessments) {
+            return true;
+        }
+        return false;
+    }
+    if (menuName === 'Hospital-Systems' ||
+        menuName === 'Hospitals' ||
+        menuName === 'Health-Systems') {
+        if (tenantSettings.Common.AddOns.HospitalSystems) {
+            return true;
+        }
+        return false;
+    }
+    if (menuName === 'Gamification' ||
+        menuName === 'Gamification-Event-Types' ||
+        menuName === 'Gamification-Badge-Categories' ||
+        menuName === 'Gamification-Badges' ||
+        menuName === 'Gamification-Schemas') {
+        if (tenantSettings.Common.AddOns.Gamification) {
+            return true;
+        }
+        return false;
+    }
+    if (menuName === 'Educational' ||
+        menuName === 'Courses' ||
+        menuName === 'Learning-Journeys' ||
+        menuName === 'Knowledge-Nuggets') {
+        if (tenantSettings.Common.AddOns.LearningJourney) {
+            return true;
+        }
+        return false;
+    }
+    if (menuName === 'Types' ||
+        menuName === 'Priorities' ||
+        menuName === 'Goals') {
+        if (tenantSettings.PatientApp) {
+            return true;
+        }
+        return false;
+    }
+    if (menuName === 'Add-ons') {
+        if (tenantSettings.Common.AddOns.Organizations ||
+            tenantSettings.Common.AddOns.Cohorts ||
+            tenantSettings.Common.AddOns.Notifications ||
+            tenantSettings.Common.AddOns.Notices ||
+            tenantSettings.Common.AddOns.Newsfeeds) {
+            return true;
+        }
+        return false;
+    }
+    if (menuName === 'Organizations') {
+        if (tenantSettings.Common.AddOns.Organizations) {
+            return true;
+        }
+        return false;
+    }
+    if (menuName === 'Cohorts') {
+        if (tenantSettings.Common.AddOns.Cohorts) {
+            return true;
+        }
+        return false;
+    }
+    if (menuName === 'Notifications') {
+        if (tenantSettings.Common.AddOns.Notifications) {
+            return true;
+        }
+        return false;
+    }
+    if (menuName === 'Notices') {
+        if (tenantSettings.Common.AddOns.Notices) {
+            return true;
+        }
+        return false;
+    }
+    if (menuName === 'Newsfeeds') {
+        if (tenantSettings.Common.AddOns.Newsfeeds) {
+            return true;
+        }
+        return false;
+    }
+    if (menuName === 'Custom-Queries') {
+        if (tenantSettings.Common.Analysis.CustomQueries) {
+            return true;
+        }
+        return false;
+    }
+
+
     return true;
 }
 
 const hasRolePermission = (menuName: string, userRole: string) => {
+
+    if (menuName === 'Clients' ||
+        menuName === 'Tenants' ||
+        menuName === 'Person-Role' ||
+        menuName === 'User Management') {
+        if (userRole === 'System admin' || 
+            userRole === 'System user') {
+            return true;
+        }
+        return false;
+    }
+
+    if (menuName === 'Clients' ||
+        menuName === 'Tenants') {
+        if (userRole === 'System admin' || 
+            userRole === 'System user') {
+            return true;
+        }
+        return false;
+    }
+
+    if (menuName === 'Settings') {
+        if (userRole === 'System admin' || 
+            userRole === 'Tenant admin') {
+            return true;
+        }
+        return false;
+    }
+
+    if (menuName === 'User-Management') {
+        if (userRole === 'System admin' || 
+            userRole === 'Tenant admin') {
+            return true;
+        }
+        return false;
+    }
+
     return true;
-    // return hasRolePermission;
 }
 
-const shouldAdd = (menu: SidebarMenu, userRole: string, tenantSettings, options: FeatureOptions[]) => {
+const shouldAdd = (
+    menu: SidebarMenu, 
+    userRole: string, 
+    tenantSettings, 
+    options: FeatureOptions[]) => {
     const settingEnabled = isSettingEnabled(menu.name, tenantSettings);
     if (!settingEnabled) {
         return null
@@ -55,12 +216,21 @@ const shouldAdd = (menu: SidebarMenu, userRole: string, tenantSettings, options:
     }
 };
 
-const toNavigation = (menu: SidebarMenu, userRole: string, tenantSettings, options: FeatureOptions[]) => {
+const getMenu = (menuList, menuName) => {
+    const menu = menuList.find(menu => menu.name === menuName);
+    return menu;
+};
+
+const toNavigation = (
+    menu: SidebarMenu, 
+    userRole: string, 
+    tenantSettings, 
+    options: FeatureOptions[]) => {
     const shouldAddMenu = shouldAdd(menu, userRole, tenantSettings, options);
     if (!shouldAddMenu) {
         return null;
     }
-    const navigation: navigation = {
+    const navigation: NavigationMenu = {
         title: menu.title,
         icon: menu.icon,
     };
@@ -79,11 +249,14 @@ const toNavigation = (menu: SidebarMenu, userRole: string, tenantSettings, optio
     return navigation;
 };
 
-export const buildSidebarMenu = (userId: string, tenantSettings: any, userRole: string): navigation[] => {
+export const buildSidebarMenu = (
+    userId: string, 
+    tenantSettings: any, 
+    userRole: string): NavigationMenu[] => {
 
     const options: FeatureOptions = getFeatureOptions();
 
-    let sidebarNaviagation: navigation[] = [];
+    let sidebarNaviagation: NavigationMenu[] = [];
 
     sidebarNaviagation = addMainDashboardMenu(sidebarNaviagation, userId, userRole, tenantSettings, options);
     sidebarNaviagation = addAdministrationMenus(sidebarNaviagation, userId, userRole, tenantSettings, options);
@@ -104,11 +277,11 @@ export const buildSidebarMenu = (userId: string, tenantSettings: any, userRole: 
 };
 
 function addMainDashboardMenu(
-    sidebarNaviagation: navigation[], 
+    sidebarNaviagation: NavigationMenu[], 
     userId: string, 
     userRole: string, 
     tenantSettings: any, 
-    options: FeatureOptions): navigation[] {
+    options: FeatureOptions): NavigationMenu[] {
 
     const menuList: SidebarMenu[] = [];
     const dashbord: SidebarMenu = {
@@ -133,7 +306,7 @@ function addMainDashboardMenu(
     const mainHome: SidebarMenu = getMenu(menuList, 'Main-Home');
     mainDashboard?.children.push(mainHome);
 
-    const mainDashboardNavigation: navigation | null = toNavigation(mainDashboard, userRole, tenantSettings, options);
+    const mainDashboardNavigation: NavigationMenu | null = toNavigation(mainDashboard, userRole, tenantSettings, options);
     if (mainDashboardNavigation) {
         sidebarNaviagation.push(mainDashboardNavigation);
     }
@@ -141,11 +314,11 @@ function addMainDashboardMenu(
 }
 
 function addAdministrationMenus(
-    sidebarNaviagation: navigation[], 
+    sidebarNaviagation: NavigationMenu[], 
     userId: string, 
     userRole: string, 
     tenantSettings: any, 
-    options: FeatureOptions): navigation[] {
+    options: FeatureOptions): NavigationMenu[] {
 
     const menuList: SidebarMenu[] = [];
 
@@ -178,22 +351,33 @@ function addAdministrationMenus(
 
     const personRoleMenu: SidebarMenu = {
         name    : 'Person-Role',
-        title   : 'Person Role',
+        title   : 'User Roles',
         icon    : 'material-symbols:person-search-outline-rounded',
         link    : `/users/${userId}/person-role-types`,
         children: []
     };
     menuList.push(personRoleMenu);
 
+    const userManagementMenu: SidebarMenu = {
+        name    : 'User-Managment',
+        title   : 'User Management',
+        icon    : 'material-symbols:manage_accounts',
+        link    : `/users/${userId}/user-management`,
+        children: []
+    };
+    menuList.push(userManagementMenu);
+
     const administration_: SidebarMenu = getMenu(menuList, 'Administration');
     const clients: SidebarMenu = getMenu(menuList, 'Clients');
     const tenants: SidebarMenu = getMenu(menuList, 'Tenants');
     const personRole: SidebarMenu = getMenu(menuList, 'Person-Role');
+    const userManagement: SidebarMenu = getMenu(menuList, 'User-Managment');
     administration_?.children.push(clients);
     administration_?.children.push(tenants);
     administration_?.children.push(personRole);
+    administration_?.children.push(userManagement);
 
-    const administrationNavigation: navigation | null = toNavigation(administration_, userRole, tenantSettings, options);
+    const administrationNavigation: NavigationMenu | null = toNavigation(administration_, userRole, tenantSettings, options);
     if (administrationNavigation) {
         sidebarNaviagation.push(administrationNavigation);
     }
@@ -202,11 +386,11 @@ function addAdministrationMenus(
 }
 
 function addAnalysisMenus(
-    sidebarNaviagation: navigation[], 
+    sidebarNaviagation: NavigationMenu[], 
     userId: string, 
     userRole: string, 
     tenantSettings: any, 
-    options: FeatureOptions): navigation[] {
+    options: FeatureOptions): NavigationMenu[] {
 
     const menuList: SidebarMenu[] = [];
 
@@ -228,11 +412,22 @@ function addAnalysisMenus(
     };
     menuList.push(customQuery);
 
-    const analysis_: SidebarMenu = getMenu(menuList, 'Analysis');
-    const customQueries: SidebarMenu = getMenu(menuList, 'Custom-Queries');
-    analysis_?.children.push(customQueries);
+    const quicksightDashboard: SidebarMenu = {
+        name    : 'Quicksight-Dashboard',
+        title   : 'Quicksight Dashboard',
+        icon    : 'material-symbols:monitoring',
+        link    : `/users/${userId}/quicksight-dashboards`,
+        children: []
+    };
+    menuList.push(quicksightDashboard);
 
-    const analysisNavigation: navigation | null = toNavigation(analysis_, userRole, tenantSettings, options);
+    const analysis_: SidebarMenu = getMenu(menuList, 'Analysis');
+    const customQueries_: SidebarMenu = getMenu(menuList, 'Custom-Queries');
+    const quicksightDashboard_: SidebarMenu = getMenu(menuList, 'Quicksight-Dashboards');
+    analysis_?.children.push(customQueries_);
+    analysis_?.children.push(quicksightDashboard_);
+
+    const analysisNavigation: NavigationMenu | null = toNavigation(analysis_, userRole, tenantSettings, options);
     if (analysisNavigation) {
         sidebarNaviagation.push(analysisNavigation);
     }
@@ -241,11 +436,11 @@ function addAnalysisMenus(
 }
 
 function addHospitalSystemsMenus (
-    sidebarNaviagation: navigation[], 
+    sidebarNaviagation: NavigationMenu[], 
     userId: string, 
     userRole: string, 
     tenantSettings: any, 
-    options: FeatureOptions): navigation[] {
+    options: FeatureOptions): NavigationMenu[] {
 
     const menuList: SidebarMenu[] = [];
 
@@ -282,7 +477,7 @@ function addHospitalSystemsMenus (
     hospitalSystems_?.children.push(hospitals_);
     hospitalSystems_?.children.push(healthSystems_);
 
-    const hospitalSystemsNavigation: navigation | null = toNavigation(hospitalSystems_, userRole, tenantSettings, options);
+    const hospitalSystemsNavigation: NavigationMenu | null = toNavigation(hospitalSystems_, userRole, tenantSettings, options);
     if (hospitalSystemsNavigation) {
         sidebarNaviagation.push(hospitalSystemsNavigation);
     }
@@ -291,11 +486,11 @@ function addHospitalSystemsMenus (
 }
 
 function addClinicalMenus(
-    sidebarMenu: navigation[],
+    sidebarMenu: NavigationMenu[],
     userId: string,
     userRole: string,
     tenantSettings: any,
-    options: FeatureOptions): navigation[] {
+    options: FeatureOptions): NavigationMenu[] {
 
         const menuList: SidebarMenu[] = [];
 
@@ -354,7 +549,7 @@ function addClinicalMenus(
         clinical?.children.push(symptoms);
         clinical?.children.push(drugs);
 
-        const clinicalNavigation: navigation | null = toNavigation(clinical_, userRole, tenantSettings, options);
+        const clinicalNavigation: NavigationMenu | null = toNavigation(clinical_, userRole, tenantSettings, options);
         if (clinicalNavigation) {
             sidebarMenu.push(clinicalNavigation);
         }
@@ -363,11 +558,11 @@ function addClinicalMenus(
 }
 
 function addCareplanMenus(
-    sidebarMenu: navigation[],
+    sidebarMenu: NavigationMenu[],
     userId: string,
     userRole: string,
     tenantSettings: any,
-    options: FeatureOptions): navigation[] {
+    options: FeatureOptions): NavigationMenu[] {
 
         const menuList: SidebarMenu[] = [];
             
@@ -426,7 +621,7 @@ function addCareplanMenus(
             careplan_?.children.push(careplanPlans_);
             careplan_?.children.push(careplanEnrollments_);
 
-            const careplanNavigation: navigation | null = toNavigation(careplan_, userRole, tenantSettings, options);
+            const careplanNavigation: NavigationMenu | null = toNavigation(careplan_, userRole, tenantSettings, options);
             if (careplanNavigation) {
                 sidebarMenu.push(careplanNavigation);
             }
@@ -435,11 +630,11 @@ function addCareplanMenus(
 }
 
 function addEducationalMenus(
-    sidebarMenu: navigation[],
+    sidebarMenu: NavigationMenu[],
     userId: string,
     userRole: string,
     tenantSettings: any,
-    options: FeatureOptions): navigation[] {
+    options: FeatureOptions): NavigationMenu[] {
 
         const menuList: SidebarMenu[] = [];
 
@@ -487,7 +682,7 @@ function addEducationalMenus(
         educational_?.children.push(learningJourneys_);
         educational_?.children.push(knowledgeNuggets_);
 
-        const educationalNavigation: navigation | null = toNavigation(educational_, userRole, tenantSettings, options);
+        const educationalNavigation: NavigationMenu | null = toNavigation(educational_, userRole, tenantSettings, options);
         if (educationalNavigation) {
             sidebarMenu.push(educationalNavigation);
         }
@@ -496,11 +691,11 @@ function addEducationalMenus(
 }
 
 function addTypesMenus(
-    sidebarMenu: navigation[],
+    sidebarMenu: NavigationMenu[],
     userId: string,
     userRole: string,
     tenantSettings: any,
-    options: FeatureOptions): navigation[] {
+    options: FeatureOptions): NavigationMenu[] {
 
         const menuList: SidebarMenu[] = [];
 
@@ -537,7 +732,7 @@ function addTypesMenus(
         types_?.children.push(priorities_);
         types_?.children.push(goals_);
 
-        const typesNavigation: navigation | null = toNavigation(types_, userRole, tenantSettings, options);
+        const typesNavigation: NavigationMenu | null = toNavigation(types_, userRole, tenantSettings, options);
         if (typesNavigation) {
             sidebarMenu.push(typesNavigation);
         }
@@ -546,22 +741,22 @@ function addTypesMenus(
 }
 
 function addMiscellaneousMenus(
-    sidebarMenu: navigation[],
+    sidebarMenu: NavigationMenu[],
     userId: string,
     userRole: string,
     tenantSettings: any,
-    options: FeatureOptions): navigation[] {
+    options: FeatureOptions): NavigationMenu[] {
 
         const menuList: SidebarMenu[] = [];
 
-        const miscellaneous: SidebarMenu = {
-            name    : 'Miscellaneous',
-            title   : 'Miscellaneous',
+        const addOns: SidebarMenu = {
+            name    : 'Add-ons',
+            title   : 'Add-ons',
             icon    : 'material-symbols:home-max-dots-outline',
             link    : null,
             children: []
         };
-        menuList.push(miscellaneous);
+        menuList.push(addOns);
     
         const organizations: SidebarMenu = {
             name    : 'Organizations',
@@ -608,19 +803,19 @@ function addMiscellaneousMenus(
         };
         menuList.push(newsfeeds);
 
-        const miscellaneous_: SidebarMenu = getMenu(menuList, 'Miscellaneous');
+        const addons_: SidebarMenu = getMenu(menuList, 'Add-ons');
         const organizations_: SidebarMenu = getMenu(menuList, 'Organizations');
         const cohorts_: SidebarMenu = getMenu(menuList, 'Cohorts');
         const notifications_: SidebarMenu = getMenu(menuList, 'Notifications');
         const notices_: SidebarMenu = getMenu(menuList, 'Notices');
         const newsfeeds_: SidebarMenu = getMenu(menuList, 'Newsfeeds');
-        miscellaneous_?.children.push(organizations_);
-        miscellaneous_?.children.push(cohorts_);
-        miscellaneous_?.children.push(notifications_);
-        miscellaneous_?.children.push(notices_);
-        miscellaneous_?.children.push(newsfeeds_);
+        addons_?.children.push(organizations_);
+        addons_?.children.push(cohorts_);
+        addons_?.children.push(notifications_);
+        addons_?.children.push(notices_);
+        addons_?.children.push(newsfeeds_);
 
-        const miscellaneousNavigation: navigation | null = toNavigation(miscellaneous_, userRole, tenantSettings, options);
+        const miscellaneousNavigation: NavigationMenu | null = toNavigation(addons_, userRole, tenantSettings, options);
         if (miscellaneousNavigation) {
             sidebarMenu.push(miscellaneousNavigation);
         }
@@ -629,11 +824,11 @@ function addMiscellaneousMenus(
 }
 
 function addGamificationMenus(
-    sidebarMenu: navigation[],
+    sidebarMenu: NavigationMenu[],
     userId: string,
     userRole: string,
     tenantSettings: any,
-    options: FeatureOptions): navigation[] {
+    options: FeatureOptions): NavigationMenu[] {
 
         const menuList: SidebarMenu[] = [];
 
@@ -692,7 +887,7 @@ function addGamificationMenus(
         gamification_?.children.push(badges_);
         gamification_?.children.push(schemas_);
 
-        const gamificationNavigation: navigation | null = toNavigation(gamification_, userRole, tenantSettings, options);
+        const gamificationNavigation: NavigationMenu | null = toNavigation(gamification_, userRole, tenantSettings, options);
         if (gamificationNavigation) {
             sidebarMenu.push(gamificationNavigation);
         }
