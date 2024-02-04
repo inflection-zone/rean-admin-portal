@@ -1,13 +1,13 @@
 export enum TenantSettingsTypes {
-    HealthcareInterfaces = 'HealthcareInterfaces',
-    Common              = 'Common',
-    PatientApp          = 'PatientApp',
-    ChatBot             = 'ChatBot',
-    Forms               = 'Forms'
+    UserInterfaces = 'UserInterfaces',
+    Common         = 'Common',
+    PatientApp     = 'PatientApp',
+    ChatBot        = 'ChatBot',
+    Forms          = 'Forms'
 }
 
 export const TenantSettingsTypesList = [
-    TenantSettingsTypes.HealthcareInterfaces,
+    TenantSettingsTypes.UserInterfaces,
     TenantSettingsTypes.Common,
     TenantSettingsTypes.PatientApp,
     TenantSettingsTypes.ChatBot,
@@ -32,7 +32,7 @@ export interface ClinicalFeatures {
 
 export interface ExternalIntegrations {
     FHIRStorage    : boolean;
-    EHIRIntegration: boolean;
+    EHRIntegration : boolean;
     ABDMIntegration: boolean;
 }
 
@@ -73,7 +73,6 @@ export interface PatientAppSettings {
     Excercise        : boolean;
     Nutrition        : boolean;
     DeviceIntegration: DeviceIntegration,
-    Community        : boolean,
 }
 
 export interface MessageChannels {

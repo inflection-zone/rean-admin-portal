@@ -8,6 +8,8 @@ import { SidebarMenu, NavigationMenu, TenantSettings } from "./sidebar.types";
 //TODO: Move FeatureOptions to Tenant Settings for AHA and Sneha also.
 //TODO: Remove this comment after above TODOs are done.
 
+///////////////////////////////////////////////////////////////////////////////
+
 const isSettingEnabled = (menuName: string, tenantSettings: TenantSettings) => {
     if (menuName === 'Settings')
     {
@@ -260,6 +262,7 @@ export const buildSidebarMenu = (
 
     sidebarNaviagation = addMainDashboardMenu(sidebarNaviagation, userId, userRole, tenantSettings, options);
     sidebarNaviagation = addAdministrationMenus(sidebarNaviagation, userId, userRole, tenantSettings, options);
+    sidebarNaviagation = addTenantSettingsMenus(sidebarNaviagation, userId, userRole, tenantSettings, options);
     sidebarNaviagation = addAnalysisMenus(sidebarNaviagation, userId, userRole, tenantSettings, options);
     sidebarNaviagation = addHospitalSystemsMenus(sidebarNaviagation, userId, userRole, tenantSettings, options);
     sidebarNaviagation = addClinicalMenus(sidebarNaviagation, userId, userRole, tenantSettings, options);
@@ -383,6 +386,33 @@ function addAdministrationMenus(
     }
 
     return sidebarNaviagation;
+}
+
+function addTenantSettingsMenus(
+    sidebarNaviagation: NavigationMenu[],
+    userId: string,
+    userRole: string,
+    tenantSettings: any,
+    options: FeatureOptions): NavigationMenu[] {
+            
+            const menuList: SidebarMenu[] = [];
+    
+            const tenantSettingsMenu: SidebarMenu = {
+                name    : 'Settings',
+                title   : 'Settings',
+                icon    : 'material-symbols:settings-outline-rounded',
+                link    : null,
+                children: []
+            };
+            menuList.push(tenantSettingsMenu);
+        
+            const tenantSettings_: SidebarMenu = getMenu(menuList, 'Settings');
+            const tenantSettingsNavigation: NavigationMenu | null = toNavigation(tenantSettings_, userRole, tenantSettings, options);
+            if (tenantSettingsNavigation) {
+                sidebarNaviagation.push(tenantSettingsNavigation);
+            }
+
+            return sidebarNaviagation;
 }
 
 function addAnalysisMenus(
