@@ -15,7 +15,7 @@ export const load: PageServerLoad = async (event: RequestEvent) => {
         throw error(response.HttpCode, response.Message);
     }
     const userCountStats = response.Data.DailyStatistics.Statistics.UserStatistics.UsersCountStats;
-    var deviceDetailsStats = response.Data.DailyStatistics.Statistics.UserStatistics.DeviceDetailWiseUsers;
+    let deviceDetailsStats = response.Data.DailyStatistics.Statistics.UserStatistics.DeviceDetailWiseUsers;
     const userCountByYears = response.Data.DailyStatistics.Statistics.UserStatistics.YearWiseUserCount;
     const deviceDetailsByYears = response.Data.DailyStatistics.Statistics.UserStatistics.YearWiseDeviceDetails;
     deviceDetailsStats = deviceDetailsStats.map((item) => {

@@ -12,8 +12,8 @@ export const PUT = async (event: RequestEvent) => {
     try {
         response = await updateTenantSettings(
             data.sessionId,
-            data.tenantSettingId,
-            data.settings
+            data.tenantId,
+            data.updatedSettings
         );
     }
     catch (error) {

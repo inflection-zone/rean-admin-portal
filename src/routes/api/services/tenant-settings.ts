@@ -47,9 +47,7 @@ export const updateTenantSettings = async (
     settings: any,
     ) => {
         console.log('updateTenantSettings() get called....');
-        const body = {
-		...settings
-	};
+        const body = settings;
 	const url = baseUrl + `/${tenantId}`;
 	return await put_(sessionId, url, body, true);
 };
