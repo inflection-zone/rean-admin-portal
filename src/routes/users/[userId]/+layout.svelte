@@ -2,11 +2,11 @@
 	import { page } from '$app/stores';
 	import Navbar from '$lib/components/navbar/navbar.svelte';
 	import { LocalStorageUtils } from '$lib/utils/local.storage.utils';
-    import type { PageServerData } from '../../$types';
+    import type { LayoutServerData } from './$types';
 
     ////////////////////////////////////////////////////////////////
 
-	export let data: PageServerData;
+	export let data: LayoutServerData;
 
 	const userId = $page.params.userId;
     const userRole = data.sessionUser.roleName;

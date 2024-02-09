@@ -1,6 +1,6 @@
-import { type FeatureOptions } from "$lib/system.types";
+import type { FeatureOptions } from "$lib/system.types";
 import { getFeatureOptions } from '$lib/options/options.selector';
-import { SidebarMenu, NavigationMenu, TenantSettings } from "./sidebar.types";
+import type{ SidebarMenu, NavigationMenu, TenantSettings } from "./sidebar.types";
 
 ///////////////////////////////////////////////////////////////////////////////
 
@@ -216,6 +216,7 @@ const shouldAdd = (
     if (!isEnabled) {
         return null;
     }
+    return true;
 };
 
 const getMenu = (menuList, menuName) => {
