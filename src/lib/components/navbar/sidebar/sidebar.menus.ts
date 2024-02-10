@@ -454,7 +454,7 @@ function addAnalysisMenus(
 
     const analysis_: SidebarMenu = getMenu(menuList, 'Analysis');
     const customQueries_: SidebarMenu = getMenu(menuList, 'Custom-Queries');
-    const quicksightDashboard_: SidebarMenu = getMenu(menuList, 'Quicksight-Dashboards');
+    const quicksightDashboard_: SidebarMenu = getMenu(menuList, 'Quicksight-Dashboard');
     analysis_?.children.push(customQueries_);
     analysis_?.children.push(quicksightDashboard_);
 
