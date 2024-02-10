@@ -3,9 +3,15 @@ import { uploadAppoinmentPdf } from "../../../../api/services/gmu/appointment-up
 import type { RequestEvent } from "@sveltejs/kit";
 import { redirect } from 'sveltekit-flash-message/server';
 import { errorMessage, successMessage } from '$lib/utils/message.utils';
+import type {PageServerLoad } from './$types';
 import { Buffer } from "buffer";
 import * as fs from 'fs';
-
+export const load:PageServerLoad = () => {
+    console.log('Appointments-upload load() get called');
+    return {
+        Message: 'Login successful'
+    }
+}
 export const actions = {
 	uploadAppoinment: async (event: RequestEvent) => {
 		// const userId = event.params.userId;
@@ -36,11 +42,9 @@ export const actions = {
 		fs.unlinkSync(filePath);
 		console.log('&&&&&&',response)
 		if (!response.body.success || response.status !== 200) {
-			throw redirect(303, `/open/appointment-uploads`, errorMessage(response.body.message), event);
+			throw redirect(errorMessage(response.body.message), event);
 		}
 		throw redirect(
-		303,
-		`/open/appointment-uploads`,
 		successMessage(response.body.message),
 		event
 	);
