@@ -6,11 +6,8 @@ import { errorMessage, successMessage } from '$lib/utils/message.utils';
 import type {PageServerLoad } from './$types';
 import { Buffer } from "buffer";
 import * as fs from 'fs';
-export const load:PageServerLoad = () => {
-    console.log('Appointments-upload load() get called');
-    return {
-        Message: 'Login successful'
-    }
+export const load:PageServerLoad = ({depends}) => {
+    depends('app:appointment-upload');
 }
 export const actions = {
 	uploadAppoinment: async (event: RequestEvent) => {
@@ -42,12 +39,21 @@ export const actions = {
 		fs.unlinkSync(filePath);
 		console.log('&&&&&&',response)
 		if (!response.body.success || response.status !== 200) {
-			throw redirect(errorMessage(response.body.message), event);
+            return {
+                Success: 'failure',
+                Message: response.body.message
+            }
+			// throw redirect(errorMessage(response.body.message), event);
 		}
-		throw redirect(
-		successMessage(response.body.message),
-		event
-	);
+		// throw redirect(
+		// successMessage(response.body.message),
+		// event
+        // );
+        return {
+            Success: 'success',
+            Message: response.body.message
+        }
+
 
 	}
 }

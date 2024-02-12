@@ -1,7 +1,24 @@
 <script lang="ts">
 	import { enhance } from "$app/forms";
-  import { page } from '$app/stores';
+    import { invalidate } from "$app/navigation";
+    import { page } from '$app/stores';
+    import type { ActionData } from "./$types";
+    import { onMount } from 'svelte';
+	import toast, { Toaster } from 'svelte-french-toast';
 
+
+    export let form: ActionData;
+    $: {
+        if (form?.Success) {
+            if (form.Success=== 'success') {
+                toast.success(form.Message)
+            }
+            if (form.Success=== 'failure') {
+                toast.error(form.Message)
+            }
+            invalidate('app:appointment-upload');
+        }
+    }
 </script>
 <svelte:head>
   <title>REAN Appointment Upload</title>
@@ -22,7 +39,8 @@
           <form
             method="post"
             action="?/uploadAppoinment"
-            use:enhance enctype="multipart/form-data"
+            use:enhance
+            enctype="multipart/form-data"
             class="table-container mt-4 my-2 dark:!border-surface-700 "
 >
             <table class="table w-2/3 mx-auto">
