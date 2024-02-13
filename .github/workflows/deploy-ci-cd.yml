@@ -49,7 +49,7 @@ jobs:
           docker rm admin-portal || true
           aws ecr get-login-password --region ap-south-1 | docker login --username AWS --password-stdin 443751504066.dkr.ecr.ap-south-1.amazonaws.com
           docker pull 443751504066.dkr.ecr.ap-south-1.amazonaws.com/rean-admin-portal:${{ github.sha }}
-          docker run -d -p 3232:3232 --network host --name admin-portal 443751504066.dkr.ecr.ap-south-1.amazonaws.com/rean-admin-portal:${{ github.sha }}
+          docker run -d -p 3000:3000 --network host --name admin-portal 443751504066.dkr.ecr.ap-south-1.amazonaws.com/rean-admin-portal:${{ github.sha }}
 
     # - name: Get the latest revision of ECS task definition
     #   id: get-latest-revision
