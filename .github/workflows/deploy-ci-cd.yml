@@ -32,6 +32,9 @@ jobs:
     - name: Login to Amazon ECR
       run: aws ecr get-login-password --region ap-south-1 | docker login --username AWS --password-stdin 443751504066.dkr.ecr.ap-south-1.amazonaws.com
 
+    - name: Copy env file
+      run: aws s3 cp s3://reancare-configs/rean-admin-portal/.env ./.env
+
     - name: Build Docker image
       run: |
         docker build -t 443751504066.dkr.ecr.ap-south-1.amazonaws.com/rean-admin-portal:${{ github.sha }} .
