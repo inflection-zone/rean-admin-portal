@@ -30,7 +30,7 @@ COPY --from=builder ./app/build .
 
 RUN npm install --production
 
-COPY . /app
+# COPY . /app
 
 #CMD ["node", "index.js"]
 
