@@ -166,4 +166,17 @@ export const Options: FeatureOptions[] = [
         Name: 'Gamification-Schemas',
         Enabled: true
     },
+    //................................
+    {
+        Name: 'GMU',
+        Enabled: true
+    },
+    {
+        Name: 'Appointment-pdf-Upload',
+        Enabled: true
+    },
+    {
+        Name: 'Appointment-Status-Report',
+        Enabled: true
+    }
 ];

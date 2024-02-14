@@ -43,7 +43,8 @@ export const actions = {
 			throw error(400, `Username or password are not valid!`);
 		}
 		console.log(`data....... = ${JSON.stringify(request, null, 2)}`);
-		const response = await login(username, password, loginRoleId ?? 1);
+		// const response = await login(username, password, loginRoleId ?? 1);
+        const response = await login(username, password);
 		if (response.Status === 'failure' || response.HttpCode !== 200) {
 			console.log(response.Message);
 			//Login error, so redirect to the sign-in page
@@ -58,11 +59,7 @@ export const actions = {
 		const sessionId = response.Data.SessionId;
 		const userId: string = response.Data.User.id;
 
-		if (user.Role.RoleName !== 'System admin') {
-			throw redirect(303, `/`, errorMessage(`Unsupported user role!`), event);
-		}
-
-		const session = await SessionManager.constructSession(user, accessToken, expiryDate, refreshToken);
+			const session = await SessionManager.constructSession(user, accessToken, expiryDate, refreshToken);
 		if (!session) {
 			console.log(`Session cannot be constructed!`);
 			throw redirect(303, `/`, errorMessage(`Use login session cannot be created!`), event);
@@ -72,7 +69,7 @@ export const actions = {
 		console.log(JSON.stringify(userSession, null, 2));
 
 		CookieUtils.setCookieHeader(event, 'sessionId', sessionId);
-
+      
 		throw redirect(303, `/users/${userId}/home`, successMessage(`Login successful!`), event);
 	}
 };

@@ -3,11 +3,11 @@ import { type FeatureOptions } from "$lib/system.types";
 export const Options: FeatureOptions[] = [
     {
         Name: 'Main-Dashboard',
-        Enabled: true
+        Enabled: false
     },
     {
         Name: 'Main-Home',
-        Enabled: true
+        Enabled: false
     },
     //..............................
     {
@@ -166,4 +166,17 @@ export const Options: FeatureOptions[] = [
         Name: 'Gamification-Schemas',
         Enabled: false
     },
+     //................................
+     {
+        Name: 'GMU',
+        Enabled: true
+    },
+    {
+        Name: 'Appointment-pdf-Upload',
+        Enabled: true
+    },
+    {
+        Name: 'Appointment-Status-Report',
+        Enabled: true
+    }
 ];

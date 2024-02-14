@@ -272,7 +272,7 @@ export const buildSidebarMenu = (
     sidebarNaviagation = addTypesMenus(sidebarNaviagation, userId, userRole, tenantSettings, options);
     sidebarNaviagation = addMiscellaneousMenus(sidebarNaviagation, userId, userRole, tenantSettings, options);
     sidebarNaviagation = addGamificationMenus(sidebarNaviagation, userId, userRole, tenantSettings, options);
-
+    sidebarNaviagation = addGMUMenus(sidebarNaviagation, userId, userRole, tenantSettings, options);   
     // Add here any new menu items
 
     console.log('sidebarMenu', sidebarNaviagation);
@@ -921,6 +921,59 @@ function addGamificationMenus(
         const gamificationNavigation: NavigationMenu | null = toNavigation(gamification_, userRole, tenantSettings, options);
         if (gamificationNavigation) {
             sidebarMenu.push(gamificationNavigation);
+        }
+
+        return sidebarMenu;
+}
+
+function addGMUMenus(
+    sidebarMenu: NavigationMenu[],
+    userId: string,
+    userRole: string,
+    tenantSettings: any,
+    options: FeatureOptions): NavigationMenu[] {
+
+        const menuList: SidebarMenu[] = [];
+
+        const gmu: SidebarMenu = {
+            name    : 'GMU',
+            title   : 'Appointment Follow-Up',
+            icon    : 'simple-icons:gamedeveloper',
+            link    : null,
+            children: []
+        };
+        menuList.push(gmu);
+    
+        const pdfUpload: SidebarMenu = {
+            name    : 'Appointment-pdf-Upload',
+            title   : 'PDF Upload',
+            icon    : 'mdi:event-edit',
+            link    : `/users/${userId}/gmu/appointment-uploads`,
+            children: []
+        };
+        menuList.push(pdfUpload);
+    
+        const statusReport: SidebarMenu = {
+            name    : 'Appointment-Status-Report',
+            title   : 'Status Report',
+            icon    : 'octicon:id-badge-16',
+            link    : `/users/${userId}/gmu/summary-uploads`,
+            children: []
+        };
+        menuList.push(statusReport);
+    
+        const gmu_: SidebarMenu = getMenu(menuList, 'GMU');
+        const pdfUpload_: SidebarMenu = getMenu(menuList, 'Appointment-pdf-Upload');
+        const statusReport_: SidebarMenu = getMenu(menuList, 'Appointment-Status-Report');
+
+        gmu_?.children.push(pdfUpload_);
+        gmu_?.children.push(statusReport_);
+        // gamification_?.children.push(badges_);
+        // gamification_?.children.push(schemas_);
+
+        const gmuNavigation: NavigationMenu | null = toNavigation(gmu_, userRole, tenantSettings, options);
+        if (gmuNavigation) {
+            sidebarMenu.push(gmuNavigation);
         }
 
         return sidebarMenu;
