@@ -11,7 +11,7 @@ export const load:PageServerLoad = ({depends}) => {
 }
 export const actions = {
 	uploadAppoinment: async (event: RequestEvent) => {
-		// const userId = event.params.userId;
+        // const userId = event.params.userId;
 		const request = event.request;
 		// const sessionId = event.cookies.get('sessionId');
 		const formData = await request.formData();
@@ -40,17 +40,12 @@ export const actions = {
 		console.log('&&&&&&',response)
 		if (!response.body.success || response.status !== 200) {
             return {
-                Success: 'failure',
+                Status: 'failure',
                 Message: response.body.message
             }
-			// throw redirect(errorMessage(response.body.message), event);
 		}
-		// throw redirect(
-		// successMessage(response.body.message),
-		// event
-        // );
-        return {
-            Success: 'success',
+	    return {
+            Status: 'success',
             Message: response.body.message
         }
 

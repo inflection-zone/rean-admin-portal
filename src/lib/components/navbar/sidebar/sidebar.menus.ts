@@ -937,7 +937,7 @@ function addGMUMenus(
 
         const gmu: SidebarMenu = {
             name    : 'GMU',
-            title   : 'GMU',
+            title   : 'Appointment Follow-Up',
             icon    : 'simple-icons:gamedeveloper',
             link    : null,
             children: []

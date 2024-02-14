@@ -59,11 +59,7 @@ export const actions = {
 		const sessionId = response.Data.SessionId;
 		const userId: string = response.Data.User.id;
 
-		// if (user.Role.RoleName !== 'System admin') {
-		// 	throw redirect(303, `/`, errorMessage(`Unsupported user role!`), event);
-		// }
-
-		const session = await SessionManager.constructSession(user, accessToken, expiryDate, refreshToken);
+			const session = await SessionManager.constructSession(user, accessToken, expiryDate, refreshToken);
 		if (!session) {
 			console.log(`Session cannot be constructed!`);
 			throw redirect(303, `/`, errorMessage(`Use login session cannot be created!`), event);
@@ -73,9 +69,7 @@ export const actions = {
 		console.log(JSON.stringify(userSession, null, 2));
 
 		CookieUtils.setCookieHeader(event, 'sessionId', sessionId);
-        if (userSession?.username === 'gmu-admin') {
-            throw redirect(303, `/users/${userId}/gmu/appointment-uploads`, successMessage(`Login successful!`), event);
-        }
+      
 		throw redirect(303, `/users/${userId}/home`, successMessage(`Login successful!`), event);
 	}
 };

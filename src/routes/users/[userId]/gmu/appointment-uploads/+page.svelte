@@ -9,11 +9,11 @@
 
     export let form: ActionData;
     $: {
-        if (form?.Success) {
-            if (form.Success=== 'success') {
+        if (form?.Status) {
+            if (form.Status=== 'success') {
                 toast.success(form.Message)
             }
-            if (form.Success=== 'failure') {
+            if (form.Status=== 'failure') {
                 toast.error(form.Message)
             }
             invalidate('app:appointment-upload');
@@ -21,21 +21,21 @@
     }
 </script>
 <svelte:head>
-  <title>REAN Appointment Upload</title>
+  <title>GMU Appointment Upload</title>
   <meta name="description" content="Appointment Upload" />
 </svelte:head>
 <body>
-  <div class="nav h-12 w-full " />
-  <div class="w-full h-full" id="background-image">
-    <div class=" h-full w-full">
+  <!-- <div class="nav h-12 w-full " />
+  <div class="w-full h-full" id="background-image"> -->
+    <!-- <div class=" h-full w-full"> -->
       <!-- <div class="h-10 w-screen shadow-xl mb-4 bg-[#7165E3]" /> -->
-      <div class="h-full w-full px-3">
-        <div class=" flex justify-center flex-col items-center">
-          <img
+      <!-- <div class="h-full w-full px-3"> -->
+        <div class="  flex h-96 flex-col justify-center items-center">
+          <!-- <img
             class="ct-image w-36 mt-14 mb-7"
             alt="logo"
             src="https://www.reanfoundation.org/wp-content/uploads/2021/10/REAN-Foundation-brand-Logo.png"
-          />
+          /> -->
           <form
             method="post"
             action="?/uploadAppoinment"
@@ -67,13 +67,13 @@
              </tr>
            </tbody>
          </form>
-        </div>
+        <!-- </div> -->
       </div>
-    </div>
-  </div>
-  <footer class="w-full fixed bottom-0 bg-primary-500 text-center p-2">
+    <!-- </div> -->
+  <!-- </div> -->
+  <!-- <footer class="w-full fixed bottom-0 bg-primary-500 text-center p-2">
     <a href="https://reanfoundation.org" class="!text-white">&#xa9; 2022 REAN Foundation</a>
-  </footer>
+  </footer> -->
 </body>
 
 
