@@ -18,6 +18,7 @@ RUN apk add --no-cache \
 RUN apk add --update alpine-sdk
 RUN apk add chromium \
     harfbuzz
+RUN apk --no-cache add aws-cli
 
 RUN apk update
 RUN apk upgrade
@@ -27,10 +28,11 @@ RUN rm -rf ./*
 
 COPY --from=builder ./app/package*.json ./
 COPY --from=builder ./app/build .
+COPY --from=builder ./app/entrypoint.sh ./
 
 RUN npm install --production
 
-COPY . /app
+# COPY . /app
 
 #CMD ["node", "index.js"]
 
