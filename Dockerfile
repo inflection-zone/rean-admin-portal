@@ -32,7 +32,7 @@ COPY --from=builder ./app/entrypoint.sh ./
 
 RUN npm install --production
 
-# COPY . /app
+COPY . /app
 
 #CMD ["node", "index.js"]
 
