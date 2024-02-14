@@ -26,7 +26,7 @@ RUN apk upgrade
 WORKDIR /app
 # RUN rm -rf ./*
 
-# COPY --from=builder ./app/package*.json ./
+COPY --from=builder ./app/ ./
 # COPY --from=builder ./app/build .
 # COPY --from=builder ./app/entrypoint.sh ./
 
