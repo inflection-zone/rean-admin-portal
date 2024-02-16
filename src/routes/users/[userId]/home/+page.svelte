@@ -8,4 +8,6 @@
     
 </script>
 
-<SuperAdminDashboard {data} />
+<!-- <SuperAdminDashboard {data} /> -->
+
+<p class="text-3xl text-center font-bold text-blue-500">Welcome to Rean ! </p>

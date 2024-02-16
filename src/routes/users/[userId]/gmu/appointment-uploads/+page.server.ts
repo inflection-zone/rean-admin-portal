@@ -3,6 +3,7 @@ import { uploadAppoinmentPdf } from "../../../../api/services/gmu/appointment-up
 import type { RequestEvent } from "@sveltejs/kit";
 import { redirect } from 'sveltekit-flash-message/server';
 import { errorMessage, successMessage } from '$lib/utils/message.utils';
+import { Helper } from '$lib/utils/helper';
 import type {PageServerLoad } from './$types';
 import { Buffer } from "buffer";
 import * as fs from 'fs';
@@ -17,7 +18,8 @@ export const actions = {
 		const formData = await request.formData();
 		const uploadedFile = formData?.get('name') as File;
 		const fileName = uploadedFile.name;
-		const filePath = `./temp/${fileName}`;
+        const newFileName = Helper.replaceAll(fileName, ' ', '_');
+		const filePath = `./temp/${newFileName}`;
 
         console.log(uploadedFile)
 		if (!fs.existsSync('./temp')) {
@@ -32,7 +34,7 @@ export const actions = {
 		}
 
 		const response = await uploadAppoinmentPdf(
-            fileName,
+            newFileName,
 			filePath
 		);
 
