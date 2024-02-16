@@ -34,7 +34,10 @@ RUN npm install
 
 # # COPY . /app
 
-CMD ["npm", "run", "dev", "--", "--host", "--port", "3000"]
+# CMD ["npm", "run", "dev", "--", "--host", "--port", "3000"]
 
 # RUN chmod +x /app/entrypoint.sh
 # ENTRYPOINT ["/bin/bash", "-c", "/app/entrypoint.sh"]
+ENV ORIGIN=http://localhost:3000
+
+CMD ["node", "build/index.js"]
