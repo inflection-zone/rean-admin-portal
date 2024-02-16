@@ -16,9 +16,9 @@ RUN apk add --no-cache \
         python3 \
     && rm -rf /var/cache/apk/*
 RUN apk add --update alpine-sdk
-RUN apk add chromium \
-    harfbuzz
-RUN apk --no-cache add aws-cli
+# RUN apk add chromium \
+#     harfbuzz
+# RUN apk --no-cache add aws-cli
 
 RUN apk update
 RUN apk upgrade
@@ -30,11 +30,11 @@ COPY --from=builder ./app/ ./
 # COPY --from=builder ./app/build .
 # COPY --from=builder ./app/entrypoint.sh ./
 
-RUN npm install --production
+RUN npm install
 
-# COPY . /app
+# # COPY . /app
 
-#CMD ["node", "index.js"]
+CMD ["npm", "run", "dev", "--", "--host", "--port", "3000"]
 
-RUN chmod +x /app/entrypoint.sh
-ENTRYPOINT ["/bin/bash", "-c", "/app/entrypoint.sh"]
+# RUN chmod +x /app/entrypoint.sh
+# ENTRYPOINT ["/bin/bash", "-c", "/app/entrypoint.sh"]
