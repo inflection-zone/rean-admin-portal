@@ -38,6 +38,6 @@ RUN npm install
 
 # RUN chmod +x /app/entrypoint.sh
 # ENTRYPOINT ["/bin/bash", "-c", "/app/entrypoint.sh"]
-ENV ORIGIN=http://localhost:3000
+ENV ORIGIN=http://127.0.0.1:3000
 
 CMD ["node", "build/index.js"]
