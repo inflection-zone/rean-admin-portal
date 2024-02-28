@@ -7,5 +7,5 @@
 	const userId = $page.params.userId;
 </script>
 
-<!-- <DashboardTabs {userId} /> -->
+<DashboardTabs {userId} />
 <slot />

@@ -3,12 +3,19 @@
 
     export let deviceDetails;
 
-    const totalUsers = deviceDetails.TotalUsers;
-    const androidUsers = deviceDetails.AndroidUsers;
-    const iOSUsers = deviceDetails.iOSUsers;
-    const years = deviceDetails.Years;
+    const totalUsers = [];
+    const androidUsers = [];
+    const iOSUsers = [];
+    const years = []
 
-</script>
+    for (let i = 0; i < deviceDetails.length; i++) {
+        totalUsers.push(deviceDetails[i].UserCount);
+        years.push(deviceDetails[i].Year);
+        androidUsers.push(deviceDetails[i].DeviceDetails[0].Count);
+        iOSUsers.push(deviceDetails[i].DeviceDetails[1].Count);
+    }
+ 
+ </script>
 
 <div
     class="mt-5 flex overflow-x-auto rounded-lg shadow-xl border border-secondary-100 dark:border-surface-700 sm:p-6 w-1/2 h-auto"

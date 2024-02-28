@@ -5,9 +5,9 @@
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     export let data: PageServerData;
+
+    console.log('RESPONSE', data);
     
 </script>
 
-<!-- <SuperAdminDashboard {data} /> -->
-
-<p class="text-3xl text-center font-bold text-blue-500">Welcome to Rean ! </p>
+<SuperAdminDashboard {data} />

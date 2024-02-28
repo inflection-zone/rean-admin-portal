@@ -6,101 +6,32 @@
 	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     export let data;
-
-    let yearsArray = [];
-    let androidUsers = [];
-    let iOSUsers = [];
     let funnelChartData;
-    
-    function extractYearWiseUserCount(data:any[]) {
-        data.forEach((value)=>{
-            yearsArray.push(value.Year);
-            totalUsers.push(value.UserCount);
-        })
-    }
-
-    function extractYearWiseDeviceDetails(data:any[]) {
-        data.forEach(value=>{
-            if (value.DeviceDetails.length===0){
-                androidUsers.push(0);
-                iOSUsers.push(0);
-            }else{
-                let andriodCount=undefined;
-                let iOSCount=undefined;
-                value.DeviceDetails.forEach(devicedetails=>{
-                    if(devicedetails.OSType==='Android'){
-                        andriodCount = devicedetails.count;
-                        // androidUsersData.push(devicedetails.count);
-                    }
-                    if(devicedetails.OSType==='iOS'){
-                        iOSCount = devicedetails.count;
-                        // iOSUsersData.push(devicedetails.count);
-                    }
-                })
-                if (!andriodCount){
-                    androidUsers.push(0);
-                }else{
-                    androidUsers.push(andriodCount);
-                }
-                if (!iOSCount){
-                    iOSUsers.push(0);
-                }else{
-                    iOSUsers.push(iOSCount);
-                }
-            }
-
-        })
-    }
-
-    let userCountStats       = data.userCountStats;
-    let deviceDetailsStats   = data.deviceDetailsStats;
-    let userCountByYears     = data.userCountByYears
-    let deviceDetailsByYears = data.deviceDetailsByYears;
-    let appDownloads         = data.appDownloadCount;
-
-    let totalUsers      = userCountStats.TotalUsers;
-    let activeUsers     = userCountStats.UsersWithActiveSession;
-    let deletedUsers    = userCountStats.DeletedUsers;
-    let nonDeletedUsers = userCountStats.NotDeletedUsers;
-
-    extractYearWiseUserCount(userCountByYears);
-    extractYearWiseDeviceDetails(deviceDetailsByYears);
-
-    let enrolledUsersData = userCountStats.EnrolledUsers;
-
+  
     let labels = [
         'Onboarded',
         'Not-Deleted ',
-        'Enrolled Users',
         'Users With Active Session',
     ];
 
     $: funnelChartData = [
-        totalUsers.Count,
-        nonDeletedUsers.Count,
-        enrolledUsersData.Count,
-        activeUsers.Count,
+        data.userCountStats.TotalUsers.Count,
+        data.userCountStats.NotDeletedUsers.Count,
+        data.userCountStats.UsersWithActiveSession.Count,
     ];
 
-    $: deviceDetails = {
-        TotalUsers: totalUsers,
-        AndroidUsers: androidUsers.reduce((a, b) => a + b, 0),
-        iOSUsers: iOSUsers.reduce((a, b) => a + b, 0),
-        Years: yearsArray
-    }
-
+    $: deviceDetails = data.deviceDetailsByYears;
 </script>
 
 <dl class="mt-4 grid grid-cols-1 gap-4 sm:grid-cols-3">
-    <!-- <NumberCard cardTitle="App Downloads" cardContent={appDownloads.toFixed()} /> -->
-    <NumberCard cardTitle="Onboarded Users" cardContent={totalUsers.Count.toFixed()} />
-    <NumberCard cardTitle="Not Deleted Users" cardContent={nonDeletedUsers.Count.toFixed()} additional={nonDeletedUsers.Ratio} prefix="%" />
-    <NumberCard cardTitle="Current Active Users" cardContent={activeUsers.Count.toFixed()} additional={activeUsers.Ratio} prefix="%" />
-    <NumberCard cardTitle="Deleted Users" cardContent={deletedUsers.Count.toFixed()} additional={deletedUsers.Ratio} prefix="%" />
-    <NumberCard cardTitle="Enrolled Users" cardContent={enrolledUsersData.Count.toFixed()} additional={enrolledUsersData.Ratio} prefix="%" />
-    {#each deviceDetailsStats as d }
+    <NumberCard cardTitle="Onboarded Users" cardContent={data.userCountStats.TotalUsers.Count.toFixed()} />
+    <NumberCard cardTitle="Not Deleted Users" cardContent={data.userCountStats.NotDeletedUsers.Count.toFixed()} additional={data.userCountStats.NotDeletedUsers.Ratio} prefix="%" />
+    <NumberCard cardTitle="Current Active Users" cardContent={data.userCountStats.UsersWithActiveSession.Count.toFixed()} additional={data.userCountStats.UsersWithActiveSession.Ratio} prefix="%" />
+    <NumberCard cardTitle="Deleted Users" cardContent={data.userCountStats.DeletedUsers.Count.toFixed()} additional={data.userCountStats.DeletedUsers.Ratio} prefix="%" />
+    <NumberCard cardTitle="Enrolled Users" cardContent={data.userCountStats.EnrolledUsers.Count.toFixed()} additional={data.userCountStats.EnrolledUsers.Ratio} prefix="%" />
+    <!-- {#each data.DeviceDetailWiseUsers as d }
         <NumberCard cardTitle={d.OSType} cardContent={d.count.toFixed()} />
-    {/each}
+    {/each} -->
 </dl>
 
 <div class="flex h-80 gap-10 w-full mt-5">
