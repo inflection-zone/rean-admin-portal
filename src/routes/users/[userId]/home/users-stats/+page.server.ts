@@ -15,22 +15,17 @@ export const load: PageServerLoad = async (event: RequestEvent) => {
 
     if (event.locals.sessionUser.roleName === 'System admin') {
         response = await getDailyStatistics(sessionId);
-        if (!response) {
-            throw error(404, 'Daily user statistics data not found');
-        }
-        if (response.Status === 'failure' || response.HttpCode !== 200) {
-            throw error(response.HttpCode, response.Message);
-        }
     } else if (event.locals.sessionUser.roleName === 'Tenant admin') {
         response = await getDailyTenantStatistics(sessionId, event.locals.sessionUser.tenantId);
-        if (!response) {
-            throw error(404, 'Daily user statistics data not found');
-        }
-        if (response.Status === 'failure' || response.HttpCode !== 200) {
-            throw error(response.HttpCode, response.Message);
-        }
     } else {
         throw error (401, 'Unauthorized Access');
+    }
+    
+    if (!response) {
+        throw error(404, 'Daily user statistics data not found');
+    }
+    if (response.Status === 'failure' || response.HttpCode !== 200) {
+        throw error(response.HttpCode, response.Message);
     }
     
     const overallUsersData = response.Data.DailyStatistics.DashboardStats.UserStatistics.UsersCountStats;
@@ -54,7 +49,6 @@ export const load: PageServerLoad = async (event: RequestEvent) => {
         });
     });
     
-
     return {
         sessionId,
         ageWiseUsers,

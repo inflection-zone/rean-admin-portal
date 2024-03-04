@@ -1,4 +1,6 @@
 import { BACKEND_API_URL } from '$env/static/private';
+import { API_CLIENT_INTERNAL_KEY } from '$env/static/private';
+import { SessionManager } from '../sessions/session.manager';
 import { get_ } from './common';
 
 ////////////////////////////////////////////////////////////////
@@ -269,8 +271,27 @@ export const getDailyStatistics = async(sessionId:string)=>{
 }
 
 export const getDailyTenantStatistics = async(sessionId:string, tenantId: string)=>{
-	const url = BACKEND_API_URL + `/daily-stats/${tenantId}`;
+	const url = BACKEND_API_URL + `/daily-stats/tenants/${tenantId}`;
 	return await get_(sessionId, url, true);
+}
+
+export const getDailyTenantStatsReport = async(sessionId:string, resourceId: string) => {
+    const url = BACKEND_API_URL + `/file-resources/${resourceId}/download`;
+    const session = await SessionManager.getSession(sessionId);
+	const accessToken = session.accessToken;
+
+	const headers = {};
+	headers['x-api-key'] = API_CLIENT_INTERNAL_KEY;
+	headers['Authorization'] = `Bearer ${accessToken}`;
+
+	const response = await fetch(url, {
+		method: 'GET',
+		headers
+	});
+    if (response.ok){
+        return response;
+    }
+    return null;
 }
 
 export const getAddictionDistribution = async (sessionId: string, searchParams?: any) => {

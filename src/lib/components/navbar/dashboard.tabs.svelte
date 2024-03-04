@@ -1,7 +1,14 @@
 <script lang="ts">
 	import { dashboardMenu, type TabDefinition } from '../../components/navbar/navigation.tabs';
 	import { page } from '$app/stores';
+    import { createEventDispatcher } from 'svelte';
 
+    const dispatch = createEventDispatcher();
+
+    function handleDownloadReportClick() {
+        console.log('Created custom event: downloadReport');
+        dispatch('downloadReport',{});
+    }
 	export let userId = undefined;
 	const dashboardTabs: TabDefinition[] = dashboardMenu(userId);
 
@@ -27,4 +34,8 @@
 	>
 		Distribution
 	</a>
+
+    <button class ="btn variant-filled-secondary" on:click={handleDownloadReportClick}>
+        Download Report
+    </button>
 </div>
