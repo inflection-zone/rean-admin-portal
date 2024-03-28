@@ -13,8 +13,7 @@ export const load: PageServerLoad = async (event: RequestEvent) => {
 		if (response.Status === 'failure' || response.HttpCode !== 200) {
 			throw error(response.HttpCode, response.Message);
 		}
-
-		const apiClients = response.Data.ApiClientRecords;
+		const apiClients = response.Data.ClientAppRecords;
 		return {
 			apiClients,
 			sessionId,
