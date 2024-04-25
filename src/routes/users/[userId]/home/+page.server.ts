@@ -1,6 +1,6 @@
 import type { PageServerLoad } from './$types';
 import { error, type RequestEvent } from '@sveltejs/kit';
-import { getDailyStatistics, getDailyTenantStatistics } from '$routes/api/services/statistics';
+import { getDailyStatistics, getDailyTenantStatistics } from "../../../../routes/api/services/statistics"
 
 //////////////////////////////////////////////////////////////////////////
 
@@ -11,7 +11,6 @@ export const load: PageServerLoad = async (event: RequestEvent) => {
     if (! event.locals.sessionUser) {
         throw error (401, 'Unauthorized Access');
     }
-
     if (event.locals.sessionUser.roleName === 'System admin') {
         response = await getDailyStatistics(sessionId);
      } else if (event.locals.sessionUser.roleName === 'Tenant admin') {

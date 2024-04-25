@@ -275,6 +275,11 @@ export const getDailyTenantStatistics = async(sessionId:string, tenantId: string
 	return await get_(sessionId, url, true);
 }
 
+export const getDailySystemStatistics = async(sessionId:string)=>{
+	const url = BACKEND_API_URL + `/daily-stats`;
+	return await get_(sessionId, url, true);
+}
+
 export const getDailyTenantStatsReport = async(sessionId:string, resourceId: string) => {
     const url = BACKEND_API_URL + `/file-resources/${resourceId}/download`;
     const session = await SessionManager.getSession(sessionId);
