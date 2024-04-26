@@ -1,13 +1,13 @@
-import type { RequestEvent } from '@sveltejs/kit';
+import type { ServerLoadEvent } from '@sveltejs/kit';
 import { error } from '@sveltejs/kit';
 import type { PageServerLoad } from './$types';
 import { searchApiClients } from '../../../api/services/api-clients';
 
 ////////////////////////////////////////////////////////////////////////////
 
-export const load: PageServerLoad = async (event: RequestEvent) => {
+export const load: PageServerLoad = async (event: ServerLoadEvent) => {
 	const sessionId = event.cookies.get('sessionId');
-
+    event.depends('app:api-clients');
 	try {
 		const response = await searchApiClients(sessionId);
 		if (response.Status === 'failure' || response.HttpCode !== 200) {
