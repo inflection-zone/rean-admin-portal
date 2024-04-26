@@ -43,21 +43,22 @@
 
 	async function searchApiClient(model) {
 		let url = `/api/server/api-client/search?`;
-		if (sortOrder) url += `sortOrder=${sortOrder}`;
+		if (sortOrder) url += `sortOrder=${model.sortOrder}`;
 		else url += `sortOrder=ascending`;
 
 		if (sortBy) url += `&sortBy=${sortBy}`;
-		if (itemsPerPage) url += `&itemsPerPage=${itemsPerPage}`;
+		if (itemsPerPage) url += `&itemsPerPage=${model.itemsPerPage}`;
 		if (offset) url += `&pageIndex=${offset}`;
-		if (clientName) url += `&clientName=${clientName}`;
-		if (contactEmail) url += `&clientEmail=${contactEmail}`;
+		if (clientName) url += `&clientName=${model.clientName}`;
+		if (contactEmail) url += `&clientEmail=${model.contactEmail}`;
 
 		const res = await fetch(url, {
 			method: 'GET',
 			headers: { 'content-type': 'application/json' }
 		});
 		const response = await res.json();
-		apiClients = response.map((item, index) => ({ ...item, index: index + 1 }));
+        const items = response.Items;
+		apiClients = items.map((item, index) => ({ ...item, index: index + 1 }));
 	}
 
     $:{
