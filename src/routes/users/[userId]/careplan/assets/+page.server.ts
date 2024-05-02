@@ -1,4 +1,4 @@
-import type { RequestEvent } from '@sveltejs/kit';
+import type { RequestEvent, ServerLoadEvent } from '@sveltejs/kit';
 import type { PageServerLoad, Action } from './$types';
 import { searchAssets } from '$routes/api/services/careplan/assets/action-plan';
 import { getAssetsType } from '$routes/api/services/careplan/assets/asset';
@@ -7,8 +7,9 @@ import { errorMessage } from '$lib/utils/message.utils';
 
 ////////////////////////////////////////////////////////////////////////////
 
-export const load: PageServerLoad  = async (event: RequestEvent) => {
+export const load: PageServerLoad  = async (event: ServerLoadEvent) => {
   const sessionId = event.cookies.get('sessionId');
+  event.depends('app:careplan-assets');
   const userId = event.params.userId;
   console.log('sessionId', sessionId);
   const assetType = event.params.assetTypes;

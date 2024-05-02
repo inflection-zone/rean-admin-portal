@@ -1,4 +1,4 @@
-import type { RequestEvent } from '@sveltejs/kit';
+import type { RequestEvent, ServerLoadEvent } from '@sveltejs/kit';
 import type { PageServerLoad } from './$types';
 import { error } from '@sveltejs/kit';
 import { searchCareplanCategories, searchCareplans } from '$routes/api/services/careplan/careplans';
@@ -7,11 +7,11 @@ import { redirect } from 'sveltekit-flash-message/server';
 
 ////////////////////////////////////////////////////////////////////////////
 
-export const load: PageServerLoad  = async (event: RequestEvent) => {
+export const load: PageServerLoad  = async (event: ServerLoadEvent) => {
     const userId = event.params.userId;
     const sessionId = event.cookies.get('sessionId');
     console.log('sessionId', sessionId);
-
+    event.depends('app:careplan-careplans');
     try {
         const response = await searchCareplans(sessionId );
         
