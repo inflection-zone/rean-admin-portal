@@ -169,14 +169,14 @@ export const Options: FeatureOptions[] = [
     //................................
     {
         Name: 'GMU',
-        Enabled: true
+        Enabled: false
     },
     {
         Name: 'Appointment-pdf-Upload',
-        Enabled: true
+        Enabled: false
     },
     {
         Name: 'Appointment-Status-Report',
-        Enabled: true
+        Enabled: false
     }
 ];
