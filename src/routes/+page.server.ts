@@ -48,7 +48,7 @@ export const actions = {
 		if (response.Status === 'failure' || response.HttpCode !== 200) {
 			console.log(response.Message);
 			//Login error, so redirect to the sign-in page
-			throw redirect(303, '/sign-in/', errorMessage(response.Message), event);
+			throw redirect(303, '/', errorMessage(response.Message), event);
 		}
 		console.log('response ....', response);
 		const user = response.Data.User;
