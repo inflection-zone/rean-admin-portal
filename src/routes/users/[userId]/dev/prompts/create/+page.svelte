@@ -3,8 +3,6 @@
     import { page } from '$app/stores';
     import BreadCrumbs from '$lib/components/breadcrumbs/breadcrums.svelte';
     import Icon from '@iconify/svelte';
-    import InputChip from '$lib/components/input-chips.svelte';
-    import { ProgressBar } from '@skeletonlabs/skeleton';
 
     ////////////////////////////////////////////////////////////////////////////////
 
@@ -13,17 +11,19 @@
     let frequency = 0;
     let presence = 0;
 
-    function temperatureValue(event) {
-        temperature = event.target.value;
-    }
-    function topPValue(event) {
-        topP = event.target.value;
-    }
-    function frequencyValue(event) {
-        frequency = event.target.value;
-    }
-    function presenceValue(event) {
-        presence = event.target.value;
+    let prompt = '';
+    let variables = [];
+
+    function updateVariables() {
+        const regex = /\{(.*?)\}/g;
+        let matches = [];
+        let match;
+
+        while ((match = regex.exec(prompt)) !== null) {
+            matches.push(match[1]);
+        }
+
+        variables = matches;
     }
 
     function getColorClass(temp) {
@@ -40,11 +40,11 @@
 
     export let form;
     const userId = $page.params.userId;
-    const createRoute = `/users/${userId}/assessment-templates/create`;
-    const assessmentsRoutes = `/users/${userId}/assessment-templates`;
+    const createRoute = `/users/${userId}/dev/prompts/create`;
+    const groupsRoute = `/users/${userId}/dev/prompts/prompts`;
 
     const breadCrumbs = [
-        { name: 'Prompts', path: assessmentsRoutes },
+        { name: 'Prompts', path: groupsRoute },
         { name: 'Create', path: createRoute }
     ];
 </script>
@@ -53,7 +53,7 @@
 
 <form
     method="post"
-    action="?/createNotificationAction"
+    action="?/createPromptsAction"
     class="table-container my-2 border border-secondary-100 dark:!border-surface-700"
     use:enhance
 >
@@ -63,7 +63,7 @@
                 <th>Create Prompt</th>
                 <th class="text-end">
                     <a
-                        href={assessmentsRoutes}
+                        href={groupsRoute}
                         class="btn p-2 -my-2 variant-soft-secondary"
                     >
                         <Icon
@@ -80,7 +80,7 @@
                 <td>
                     <input
                         type="text"
-                        name="title"
+                        name="name"
                         required
                         placeholder="Enter name here..."
                         class="input w-full {form?.errors?.title ? 'border-error-300 text-error-500' : ''}"
@@ -95,6 +95,7 @@
                 <td>
                     <textarea
                         name="description"
+                        required
                         placeholder="Enter description here..."
                         class="input"
                     />
@@ -109,13 +110,13 @@
                 <td>
                     <select
                         class="select w-full"
-                        name="type"
+                        required
+                        name="useCaseType"
                         placeholder="Select type here..."
                     >
                         <option>Chat</option>
                         <option>Classification</option>
                         <option>Extraction</option>
-                        <option>Ideation</option>
                         <option>Summarization</option>
                         <option>Generation</option>
                     </select>
@@ -126,7 +127,8 @@
                 <td>
                     <select
                         class="select w-full"
-                        name="type"
+                        required
+                        name="group"
                         placeholder="Select type here..."
                     >
                         <option>Chat Default</option>
@@ -143,7 +145,8 @@
                 <td>
                     <select
                         class="select w-full"
-                        name="type"
+                        required
+                        name="model"
                         placeholder="Select type here..."
                     >
                         <option>OpenAi GPT 3.5 Turbo</option>
@@ -159,19 +162,26 @@
                 <td class="align-top">Prompt *</td>
                 <td>
                     <textarea
-                        name="description"
+                        name="prompt"
+                        bind:value={prompt}
+                        required
                         placeholder="Enter prompt here..."
                         class="input"
+                        on:input={updateVariables}
                     />
                 </td>
             </tr>
             <tr class="!border-b !border-b-secondary-100 dark:!border-b-surface-700">
                 <td class="align-top">Variables</td>
                 <td class="">
-                    <p class="btn variant-ghost-secondary mr-4 mt-1">Question</p>
-                    <p class="btn variant-ghost-secondary mr-4 mt-1">ConversationContext</p>
-                    <p class="btn variant-ghost-secondary mr-4 mt-1">QnADocumentText</p>
-                    <p class="btn variant-ghost-secondary mt-1">PersonalizationInfo</p>
+                    <div class="variables-container">
+                        <textarea
+                            name="variable"
+                            bind:value={variables}
+                            class="input"
+                            on:input={updateVariables}
+                        />
+                    </div>
                 </td>
             </tr>
 
@@ -185,13 +195,13 @@
                                 style="width: {temperature * 100}%"
                             />
                             <input
+                                name="temperature"
                                 type="range"
                                 min="0"
                                 max="1"
                                 step="0.01"
                                 class="w-[270px] appearance-none rounded-full h-2 transition-all duration-500 ease-in-out bg-gray-200"
                                 bind:value={temperature}
-                                on:input={temperatureValue}
                             />
                             <span class="absolute bottom-0 left-0 right-0 text-center mb-4">
                                 {temperature}
@@ -206,13 +216,13 @@
                                         style="width: {topP * 100}%"
                                     />
                                     <input
+                                        name="topP"
                                         type="range"
                                         min="0"
                                         max="1"
                                         step="0.01"
                                         class="w-[270px] appearance-none rounded-full h-2 transition-all duration-500 ease-in-out bg-gray-200"
                                         bind:value={topP}
-                                        on:input={topPValue}
                                     />
                                     <span class="absolute bottom-0 left-0 right-0 text-center mb-4">
                                         {topP}
@@ -233,13 +243,13 @@
                                 style="width: {frequency * 100}%"
                             />
                             <input
+                                name="frequencyPenalty"
                                 type="range"
                                 min="0"
                                 max="1"
                                 step="0.01"
                                 class="w-[270px] appearance-none rounded-full h-2 transition-all duration-500 ease-in-out bg-gray-200"
                                 bind:value={frequency}
-                                on:input={frequencyValue}
                             />
                             <span class="absolute bottom-0 left-0 right-0 text-center mb-4">
                                 {frequency}
@@ -253,13 +263,13 @@
                                     style="width: {presence * 100}%"
                                 />
                                 <input
+                                    name="presencePenalty"
                                     type="range"
                                     min="0"
                                     max="1"
                                     step="0.01"
                                     class="w-[270px] appearance-none rounded-full h-2 transition-all duration-500 ease-in-out bg-gray-200"
                                     bind:value={presence}
-                                    on:input={presenceValue}
                                 />
                                 <span class="absolute bottom-0 left-0 right-0 text-center mb-4">
                                     {presence}
@@ -272,18 +282,12 @@
         </tbody>
     </table>
     <div class="flex flex-wrap p-2 justify-end gap-2">
-        <button
-            type="submit"
-            class="btn variant-filled-secondary">Test</button
-        >
+        <button class="btn variant-filled-secondary">Test</button>
         <button
             type="submit"
             class="btn variant-filled-secondary">Save</button
         >
-        <button
-            type="submit"
-            class="btn variant-filled-secondary">Save as New Version</button
-        >
+        
         <button
             type="submit"
             class="btn variant-filled-secondary">Publish</button
